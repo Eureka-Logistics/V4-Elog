@@ -478,11 +478,7 @@ function Index() {
                             <Form.Item
                                 label="Jenis Kendaraan Pickup"
                                 name="destinasi"
-                                rules={[
-                                    {
-                                        message: 'Please input your password!',
-                                    },
-                                ]}
+                               
                             >
                                 <Select
                                 showSearch
