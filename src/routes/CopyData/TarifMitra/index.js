@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Space, Card, Input, Pagination, Modal } from "antd";
+import { Button, Space, Card, Input, Pagination, Modal,Select } from "antd";
 import { useHistory } from "react-router-dom";
 import { httpClient } from "../../../Api/Api";
 import { Row, Col } from "react-bootstrap";
@@ -9,7 +9,11 @@ import {
   EditOutlined,
   DeleteOutlined,
   EyeOutlined,
+  FormOutlined,
 } from "@ant-design/icons";
+import { async } from "q";
+import axios from "axios";
+import Baseurl from "../../../Api/BaseUrl";
 
 const SamplePage = () => {
   const router = useHistory();
@@ -32,12 +36,12 @@ const SamplePage = () => {
       width: "8%",
     },
     {
-      name: "Muat",
+      name: "Kota Muat",
       selector: (row) => row.kotaAsal,
       key: "kotaAsal",
     },
     {
-      name: "Bongkar",
+      name: "Kota Bongkar",
       selector: (row) => row.kotaTujuan,
       key: "kotaTujuan",
     },
@@ -57,23 +61,29 @@ const SamplePage = () => {
       name: "Keterangan",
       selector: "service_type",
       key: "service_type",
-      
     },
     {
       name: "Action",
       selector: (record) => (
         <>
-          <Button
+          {/* <Button
+            onClick={() => handleView(record.id_price_mitra)}
+            type="primary"
+          >
+            <EditOutlined />
+          </Button> */}
+          {/* <Button
             className="mt-2"
             type="primary"
             onClick={() => handleView(record.id_price_mitra)}
           >
-            
             <span style={{ display: "flex", alignItems: "center" }}>
-              <EyeOutlined />
+              <FormOutlined />
             </span>
-          </Button>
+          </Button> */}
+
           <Button
+            danger
             className="mt-2"
             onClick={() => handleDelete(record.id_price_mitra)}
             type="danger"
@@ -88,11 +98,16 @@ const SamplePage = () => {
     },
   ];
   const [listData, setListData] = useState([]);
+  const [muatKota, setMuatKota] = useState("");
+  const [muatKotaOptionSelect, setMuatKotaOptionsSelect] = useState("");
+
+  const IniRowClick = (record) => {
+   handleView(record.id_price_mitra)};
 
   const fetchData = async (pages = 1) => {
     try {
       const response = await httpClient.get(
-        `tarif/get-tarifMitra?limit=${limit}&page=${pages}&id_muat_kota=&id_tujuan_kota=&id_kendaraan_jenis=`
+        `tarif/get-tarifMitra?limit=${limit}&page=${pages}&id_muat_kota=${muatKota}&id_tujuan_kota=&id_kendaraan_jenis=`
       );
       const data = response.data;
       console.log(data);
@@ -107,9 +122,40 @@ const SamplePage = () => {
     }
   };
 
+  const getDataSelectt = async () => {
+    try {
+      const response = await axios.get(
+        `${Baseurl}tarif/get-select`, 
+        {
+          headers: { 
+            'Authorization': localStorage.getItem('token'),
+          }
+        },
+        
+      );
+      // setMuatKotaOptionsSelect (response.data);
+      console.log(response.data);
+      setMuatKotaOptionsSelect(response.data);
+      // Cek apakah permintaan berhasil (kode status 200-299)
+      if (response.status >= 200 && response.status < 300) {
+        // Mengembalikan data yang diterima dari permintaan
+        return response.data;
+      
+      } else {
+        // Menangani situasi ketika permintaan tidak berhasil (status error)
+        throw new Error('Permintaan tidak berhasil.');
+      }
+    } catch (error) {
+      // Menangani kesalahan jaringan atau kesalahan lain yang terjadi selama permintaan
+      console.error('Kesalahan saat mengambil data:', error.message);
+      throw error; // Lanjutkan penanganan kesalahan di tempat lain jika perlu
+    }
+  };
+
   useEffect(() => {
     fetchData();
-  }, []);
+    getDataSelectt();
+  }, [muatKota]);
 
   const ubahHalaman = (pages) => {
     fetchData(pages);
@@ -163,11 +209,28 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
-        <h4>
-          Data Tarif Mitra
-        </h4>
+        <h4>Data Tarif Mitra</h4>
         <div>
           <Row>
+            <Col sm={4}>
+            <Select
+              value={muatKota}
+              name="namaKota"
+              showSearch
+              optionFilterProp="children"
+              placeholder="Select Muat Kota"
+              style={{ width: "100%" }}
+              onChange={(e, options) => {console.log(options); setMuatKota(options.value)}}
+            
+            >
+              {muatKotaOptionSelect && muatKotaOptionSelect.muatKota.map((item, index) => (
+                <Select.Option value={item.idKota} >
+                  {item.namaKota}
+                </Select.Option>
+              ))}
+            </Select>
+            
+            </Col>
             <Col sm={12} className="d-flex justify-content-end ">
               <Button type="primary" onClick={handleAdd}>
                 New Tarif
@@ -178,7 +241,17 @@ const SamplePage = () => {
             </Col> */}
           </Row>
         </div>
-        <DataTable columns={columns} data={listData} />
+        <style>
+          {`
+          .rdt_TableBody .rdt_TableRow:hover {
+            cursor: pointer;
+            background-color: #C7E1FB;
+          }
+          
+        `}
+        </style>
+     
+        <DataTable onRowClicked={IniRowClick} columns={columns} data={listData} />
         <div className="mt-5 d-flex justify-content-end">
           <Pagination
             onChange={ubahHalaman}

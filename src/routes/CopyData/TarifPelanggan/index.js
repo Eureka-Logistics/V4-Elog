@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Table, Space, Button, Col, Input, Pagination, Card, Modal } from "antd";
+import {
+  Table,
+  Space,
+  Button,
+  Col,
+  Input,
+  Pagination,
+  Card,
+  Modal,
+  Tag,
+} from "antd";
 import { useHistory } from "react-router-dom";
 import { httpClient } from "../../../Api/Api";
 import {
@@ -7,6 +17,7 @@ import {
   EditOutlined,
   DeleteOutlined,
   EyeOutlined,
+  FormOutlined
 } from "@ant-design/icons";
 
 const SamplePage = () => {
@@ -42,7 +53,6 @@ const SamplePage = () => {
       });
   };
   const columns = [
-    
     // {
     //   title: "No ID",
     //   dataIndex: "id_customer",
@@ -52,7 +62,9 @@ const SamplePage = () => {
       title: "Kode Tarif",
       dataIndex: "kode_tarif",
       key: "kode_tarif",
-      
+      render: (text) => (
+        <Tag color="blue">{text}</Tag>
+      ),
     },
     {
       title: "Pelanggan",
@@ -105,16 +117,11 @@ const SamplePage = () => {
       render: (text, record) => (
         <Space size="middle">
           <Button onClick={() => handleView(record.id_price)} type="primary">
-          <span style={{ display: "flex", alignItems: "center" }}>
-          <EyeOutlined />
+            <span style={{ display: "flex", alignItems: "center" }}>
+            <FormOutlined />
             </span>
-           
           </Button>
-           <Button
-            
-            onClick={() => handleDelete(record.id_price)}
-            type="danger"
-          >
+          <Button danger onClick={() => handleDelete(record.id_price)} >
             <span style={{ display: "flex", alignItems: "center" }}>
               <DeleteOutlined />
             </span>
@@ -123,14 +130,17 @@ const SamplePage = () => {
         </Space>
       ),
     },
-   
+
     // {
     //   title: "Keterangan",
     //   dataIndex: "status",
     //   key: "status",
     // },
   ];
+  
   const [listData, setListData] = useState([]);
+   const IniRowClick = (record) => {
+   handleView(record.id_price_mitra)};
 
   useEffect(() => {
     const fetchData = async () => {
@@ -158,7 +168,7 @@ const SamplePage = () => {
     router.push(`/pelanggantarifcerate/`);
   };
 
-   const handleDelete = (id) => {
+  const handleDelete = (id) => {
     Modal.confirm({
       title: "Are you sure you want to delete this Tarif?",
       icon: <ExclamationCircleOutlined />,
@@ -171,12 +181,12 @@ const SamplePage = () => {
           .post(`tarif/delete-tarifCustomer`, datas)
           .then(({ data }) => {
             if (data.status.code === 200) {
-              const newOrder = listData.filter(
-                (item) => item.id_price !== id
-              );
+              const newOrder = listData.filter((item) => item.id_price !== id);
               setListData(newOrder);
               // Reload the data after successful deletion if necessary
               // fetchData();
+              window.location.reload();
+
             }
           })
           .catch(function (error) {
@@ -189,49 +199,56 @@ const SamplePage = () => {
 
   return (
     <div>
-     
-     <Card>
-     <h3>
-         Data Tarif Customer 
-        </h3>
-     <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "20px",
-        }}
-      >
-        <Col sm={24} className="d-flex justify-content-end">
-        <Button type="primary" onClick={handleAdd} >
-          Tambah Tarif Baru
-        </Button>
-        </Col>
-        <Col span={4}>
-          {/* <Search
+      <Card>
+        <h3>Data Tarif Customer</h3>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "20px",
+          }}
+        >
+          <Col sm={24} className="d-flex justify-content-end">
+            <Button type="primary" onClick={handleAdd}>
+              Tambah Tarif Baru
+            </Button>
+          </Col>
+          <Col span={4}>
+            {/* <Search
             placeholder="Cari Pelanggan"
             allowClear
             onSearch={onSearch}
             onChange={onSearch}
             loading={loadingState}
           /> */}
-        </Col>
-        {/* <Button type="default">Cari Daftar Harga</Button> */}
-      </div>
-      <Table
-        dataSource={listData}
-        columns={columns}
-        pagination={{
-          current: currentPage,
-          pageSize: limit,
-          total,
-          onChange: (page) => setCurrentPage(page)
-        }}
-        onChange={(pagination) => {
-          setCurrentPage(pagination.current);
-          setLimit(pagination.pageSize);
-        }}
-      />
-     </Card>
+          </Col>
+          {/* <Button type="default">Cari Daftar Harga</Button> */}
+        </div>
+        <style>
+          {`
+          .rdt_TableBody .rdt_TableRow:hover {
+            cursor: pointer;
+            background-color: 	#ADD8E6;
+          }
+          
+        `}
+        </style>
+        <Table
+        onRowClicked={IniRowClick} 
+          dataSource={listData}
+          columns={columns}
+          pagination={{
+            current: currentPage,
+            pageSize: limit,
+            total,
+            onChange: (page) => setCurrentPage(page),
+          }}
+          onChange={(pagination) => {
+            setCurrentPage(pagination.current);
+            setLimit(pagination.pageSize);
+          }}
+        />
+      </Card>
     </div>
   );
 };
