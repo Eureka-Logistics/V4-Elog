@@ -221,9 +221,9 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </SubMenu>
                   <SubMenu key="monitoring" title="Monitoring">
                     <Menu.Item key="Data Pesanan Customer">
-                      <Link to="/akunting/splistakuntingbaru">
+                      <Link to="/akunting/detaildatacustomer">
                         <i className="icon icon-widgets" />
-                        <span>Approve SP</span>
+                        <span>Data Customer</span>
                       </Link>
                     </Menu.Item>
                   </SubMenu>
