@@ -48,6 +48,11 @@ function Index() {
     if (!DataDetail) {
         return "Memuat data...";
     }
+
+
+    const handlePrint = () => {
+        const printWindow = window.open(`https://elogs.eurekalogistics.co.id/operasional/sm/printsm/${id}`, '_blank');
+      };
     return (
         <>
             <Card>
@@ -80,10 +85,10 @@ function Index() {
                                 <Button style={{ backgroundColor: "#00a65a", color: "white" }} htmlType="submit">
                                     Submit
                                 </Button>
-                                <Button type="primary" >
+                                <Button onClick={handlePrint} type="primary" >
                                     Print SM
                                 </Button>
-                                <Button style={{ backgroundColor: "#3c8dbc", color: "white" }} >
+                                <Button  style={{ backgroundColor: "#3c8dbc", color: "white" }} >
                                     Tambah SM
                                 </Button>
                                 <Button type="danger" >

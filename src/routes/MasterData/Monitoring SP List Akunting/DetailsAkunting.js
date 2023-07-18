@@ -232,9 +232,12 @@ function DetailsAkunting() {
   console.log(jobdesk);
 
   const handlePrint = () => {
-    window.print();
+    const printWindow = window.open(`https://elogs.eurekalogistics.co.id/operasional/sm/printsm/${idmp}`, '_blank');
+    printWindow.onload = function() {
+      printWindow.print();
+    };
   };
-
+  
   const pindahedit = () => {
     history.push(`/masterdata/edit-sp/${idmp}`);
   };
@@ -419,7 +422,7 @@ function DetailsAkunting() {
               )
             }
 
-            <div class="mx-2">
+            <div class="ms-3">
             <Button size="sm" onClick={() => handlePrint()} variant="primary">
               Print
             </Button>
