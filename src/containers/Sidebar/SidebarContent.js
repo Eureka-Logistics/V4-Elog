@@ -123,8 +123,9 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               ) : (
                 <></>
               )}
+              
               {jobdesk == "sales" && (
-                <SubMenu key="master" title="Marketing">
+               <MenuItemGroup key="main">
                   <Menu.Item key="SP List">
                     <Link to="/masterdata/marketing/splist">
                       <i className="icon icon-widgets" />
@@ -149,7 +150,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                </SubMenu>
+                  </MenuItemGroup>
               )}
               {jobdesk == "operasional" && (
                 <SubMenu key="master" title="Operasional">
@@ -270,7 +271,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </SubMenu>
-                 
+
                   <SubMenu key="Payment" title="Payment">
                     <Menu.Item key="Payment">
                       <Link to="/akunting/ar/reportpartners/reportpenerimaaninvoice">
