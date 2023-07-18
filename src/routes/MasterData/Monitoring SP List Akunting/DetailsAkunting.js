@@ -192,17 +192,18 @@ function DetailsAkunting() {
       );
     } catch (error) {
       // Munculkan SweetAlert jika terjadi error
-      if (error.response && error.response.status === 402) {
+      if (error.response && error.response.status === 403) {
         const isieror = error.response.data.status.message
         Swal.fire(
           'Gagal!',
           `${isieror}`, // Memasukkan response data ke dalam pesan error
           'error'
         );
-      } else {
+      } else if (error.response && error.response.status === 403) {
+        const isieror = error.response.data.status.message
         Swal.fire(
           'Gagal!',
-          'Terjadi kesalahan!',
+          `${isieror}`, // Pesan gagal ketika terjadi error response
           'error'
         );
       }
@@ -316,6 +317,7 @@ function DetailsAkunting() {
     <div>
       <Card>
         <Row>
+          <h5>Detail Sp</h5>
           {/* Modal Reject*/}
           <Modal
             title="Reject SP Sales"

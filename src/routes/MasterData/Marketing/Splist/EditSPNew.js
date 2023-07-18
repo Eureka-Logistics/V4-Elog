@@ -167,7 +167,7 @@ function EditSPNew() {
         <div>
             {/* <Card> */}
             <div className='d-flex justify-content-end'>
-                <Button type='primary' size='default' onClick={EditSp}>Save Edit SP</Button>
+                <Button style={{backgroundColor:"green" , color : "#ffffff"}} size='default' onClick={EditSp}>Save Edit SP</Button>
             </div>
             <Row>
                 <Col sm={6}>
@@ -327,37 +327,29 @@ function EditSPNew() {
                     </Form.Item>
                     <Row>
                         <Col sm={6}>
-                            <Form.Item
-                                label="PickUp Date"
+                        <Form.Item
                                 labelCol={{ span: 24 }}
                                 wrapperCol={{ span: 24 }} m
                                 style={{ marginBottom: 0 }}
-                                help={formik.touched.jenisBarang && formik.errors.jenisBarang}
+                                label="Bongkar Date"
+                                help={formik.touched.bongkar_date && formik.errors.bongkar_date}
                                 validateStatus={
-                                    formik.touched.jenisBarang && formik.errors.jenisBarang
+                                    formik.touched.bongkar_date && formik.errors.bongkar_date
                                         ? 'error'
                                         : 'success'
                                 }
                             >
-                                {/* <Input
-                                id="pickup_date"
-                                name="pickup_date"
-                                type="text"
-                                onChange={formik.handleChange}
-                                value={formik.values.pickup_date}
-                                onBlur={formik.handleBlur}
-                            /> */}
                                 <DatePicker
-                                    id="pickup_date"
-                                    name="pickup_date"
+                                    id="bongkar_date"
+                                    name="bongkar_date"
                                     format="DD-MM-YYYY HH:mm:ss"
                                     onChange={(date) => {
                                         formik.setFieldValue(
-                                            'pickup_date',
+                                            'bongkar_date',
                                             date ? date.format("DD-MM-YYYY HH:mm:ss") : ''
                                         );
                                     }}
-                                    value={formik.values.pickup_date ? moment(formik.values.pickup_date, "DD-MM-YYYY HH:mm:ss") : null}
+                                    value={formik.values.bongkar_date ? moment(formik.values.bongkar_date, "DD-MM-YYYY HH:mm:ss") : null}
                                 />
                             </Form.Item>
                         </Col>
@@ -388,40 +380,13 @@ function EditSPNew() {
                                     value={formik.values.order_date ? moment(formik.values.order_date, "DD-MM-YYYY HH:mm:ss") : null}
                                 />
                             </Form.Item>
+                            
                         </Col>
 
                     </Row>
                     <Row>
 
-                        <Col sm={6}>
-
-                            <Form.Item
-                                labelCol={{ span: 24 }}
-                                wrapperCol={{ span: 24 }} m
-                                style={{ marginBottom: 0 }}
-                                label="Bongkar Date"
-                                help={formik.touched.bongkar_date && formik.errors.bongkar_date}
-                                validateStatus={
-                                    formik.touched.bongkar_date && formik.errors.bongkar_date
-                                        ? 'error'
-                                        : 'success'
-                                }
-                            >
-                                <DatePicker
-                                    id="bongkar_date"
-                                    name="bongkar_date"
-                                    format="DD-MM-YYYY HH:mm:ss"
-                                    onChange={(date) => {
-                                        formik.setFieldValue(
-                                            'bongkar_date',
-                                            date ? date.format("DD-MM-YYYY HH:mm:ss") : ''
-                                        );
-                                    }}
-                                    value={formik.values.bongkar_date ? moment(formik.values.bongkar_date, "DD-MM-YYYY HH:mm:ss") : null}
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col sm={6}>
+                        <Col sm={12}>
 
                             <Form.Item
                                 labelCol={{ span: 24 }}
