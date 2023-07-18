@@ -419,10 +419,11 @@ function DetailsAkunting() {
               )
             }
 
-
+            <div class="mx-2">
             <Button size="sm" onClick={() => handlePrint()} variant="primary">
               Print
             </Button>
+            </div>
 
 
             {jobdesk === "sales" && actSalesStatus === "N" ? (
