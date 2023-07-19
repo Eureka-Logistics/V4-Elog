@@ -119,7 +119,7 @@ function Index() {
                         <Col sm={3}>
                             <Form.Control
                                 type="text"
-                                placeholder="No SP "
+                                placeholder="Cari No SP "
                                 value={search}
                                 onChange={(e) =>
                                     setSearch(e.target.value)

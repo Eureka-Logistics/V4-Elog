@@ -225,7 +225,7 @@ function SplistOperasional() {
                 <Col sm={3}>
                   <Form.Control
                     type="text"
-                    placeholder="No SP "
+                    placeholder="Cari No SP "
                     onChange={handleFilterChange}
                   />
                 </Col>
