@@ -231,27 +231,9 @@ const SamplePage = () => {
   return (
     <>
       <Card>
-        <h3>Tabel Alamat Customer</h3>
-      </Card>
-      <Card>
+      <h3>Tabel Alamat Customer</h3>
         <Row>
-          <Col span={6}>
-            <Select
-              value={customer}
-              name="customer"
-              showSearch
-              optionFilterProp="children"
-              placeholder="Select Customer"
-              style={{ width: "100%" }}
-              onChange={(e) => setCustomer(e)}
-            >
-              {customerOptionSelect.map((item, index) => (
-                <Select.Option key={item.id} value={item.id}>
-                  {item.customer}
-                </Select.Option>
-              ))}
-            </Select>
-          </Col>
+          
           <Col span={4}>
             <Button type="primary" onClick={handleAdd}>
               New Customer
@@ -270,22 +252,22 @@ const SamplePage = () => {
         <Table
           style={{ width: "100%", overflow: "auto" }}
           dataSource={customerAddresses}
-          expandable={{
-            expandedRowRender: (record) => (
-              <p
-                style={{
-                  margin: 0,
-                }}
-              >
-                {record.custAddress.map((item, index) => (
-                  <React.Fragment key={item.idAddress}>
-                    {item.address}
-                    {index !== record.custAddress.length - 1 && <br />}
-                  </React.Fragment>
-                ))}
-              </p>
-            ),
-          }}
+        //   expandable={{
+        //     expandedRowRender: (record) => (
+        //       <p
+        //         style={{
+        //           margin: 0,
+        //         }}
+        //       >
+        //         {record.custAddress.map((item, index) => (
+        //           <React.Fragment key={item.idAddress}>
+        //             {item.address}
+        //             {index !== record.custAddress.length - 1 && <br />}
+        //           </React.Fragment>
+        //         ))}
+        //       </p>
+        //     ),
+        //   }}
           columns={columns}
           pagination={{ total, current: page, pageSize: limit }}
           onChange={(pagination) => setPage(pagination.current)}

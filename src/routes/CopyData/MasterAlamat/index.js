@@ -64,8 +64,8 @@ const SamplePage = () => {
       .then(({ data }) => {
         if (data.status.code === 200) {
           setCustomerAddresses(data.data.order);
-          setDetailAddress(data.data.order[0].custAddress);
-          console.log("haiiii", data.data.order[0].custAddress);
+        //   setDetailAddress(data.data.order[0].custAddress);
+        //   console.log("haiiii", data.data.order[0].custAddress);
         }
       })
       .catch(function (error) {
@@ -140,11 +140,6 @@ const SamplePage = () => {
       dataIndex: "custName",
       key: "custName",
     },
-    {
-      title: "Telfon",
-      dataIndex: "custTelephone",
-      key: "custTelephone",
-    },
     // Table.EXPAND_COLUMN,
     // {
     //   title: "Address",
@@ -174,17 +169,13 @@ const SamplePage = () => {
       key: "no",
       render: (text, record) => (
         <Space size="middle">
-          {/* <Button onClick={() => handleEdit(record.custId)} type="primary">
-            Edit
-          </Button> */}
+          
           <Button onClick={() => handleDetail(record.custId)} type="primary">
             <span style={{ display: "flex", alignItems: "center" }}>
               <FormOutlined />
             </span>
           </Button>
-          {/* <Button onClick={() => handleDelete(record.custId)} type="danger">
-            Delete
-          </Button> */}
+         
           <Button danger onClick={() => handleDelete(record.custId)}>
             <span style={{ display: "flex", alignItems: "center" }}>
               <DeleteOutlined />
@@ -241,8 +232,8 @@ const SamplePage = () => {
     <>
       
       <Card>
-      <h3>Master Customer</h3>
-        <Row className="mt-4">
+      <h3>Data Customer</h3>
+        <Row className="mt-5">
           {/* <Col span={6}>
             <Select
               value={customer}
@@ -278,22 +269,7 @@ const SamplePage = () => {
         <Table
           style={{ width: "100%", overflow: "auto" }}
           dataSource={customerAddresses}
-          // expandable={{
-          //   expandedRowRender: (record) => (
-          //     <p
-          //       style={{
-          //         margin: 0,
-          //       }}
-          //     >
-          //       {record.custAddress.map((item, index) => (
-          //         <React.Fragment key={item.idAddress}>
-          //           {item.address}
-          //           {index !== record.custAddress.length - 1 && <br />}
-          //         </React.Fragment>
-          //       ))}
-          //     </p>
-          //   ),
-          // }}
+         
           columns={columns}
           pagination={{ total, current: page, pageSize: limit }}
           onChange={(pagination) => setPage(pagination.current)}

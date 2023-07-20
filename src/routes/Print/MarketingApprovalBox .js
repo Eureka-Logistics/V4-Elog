@@ -7,6 +7,7 @@ const MarketingApprovalBox = () => {
   };
 
   return (
+    
     <div className="col-md-2 text-center" style={{ textAlign: 'center', border: '2px dashed #000000', fontSize: '10pt', padding: '6px', fontWeight: 'bold' }}>
       <div className="form-group">
         <label>( <u>&nbsp;&nbsp; Marketing &nbsp;&nbsp;</u>)</label>

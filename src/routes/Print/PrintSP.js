@@ -1,17 +1,5 @@
 import React from "react";
-import {
-  Table,
-  Space,
-  Button,
-  Col,
-  Input,
-  Pagination,
-  Card,
-  Modal,
-  Tag,
-  Select,
-  Row,
-} from "antd";
+import { Card } from "antd";
 import OrderTable from "./OrderTable";
 import ApprovalTable from "./ApprovalTable";
 import CommentsTable from "./CommentsTable";
@@ -20,9 +8,9 @@ import Header from "./Header";
 
 function PrintSP() {
   return (
-    <div>
+    <div style={{overflow: "scroll", maxHeight: "100%"}}>
       <Card>
-        <Header/>
+        <Header />
         <OrderTable />
         <ApprovalTable />
         <CommentsTable />
