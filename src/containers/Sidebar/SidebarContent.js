@@ -13,7 +13,13 @@ import {
 import IntlMessages from "../../util/IntlMessages";
 import { useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
-import { CarTwoTone, SmileTwoTone, ScheduleTwoTone, ProfileTwoTone, CheckSquareTwoTone } from '@ant-design/icons';
+import {
+  CarTwoTone,
+  SmileTwoTone,
+  ScheduleTwoTone,
+  ProfileTwoTone,
+  CheckSquareTwoTone,
+} from "@ant-design/icons";
 const { SubMenu } = Menu;
 
 const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
@@ -68,7 +74,6 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
           >
             <MenuItemGroup key="main">
               {jobdesk === "sales" ? (
-
                 <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
                   <Button
                     size="lg"
@@ -88,6 +93,12 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
                     <Button
                       size="lg"
+                      style={{
+                        width: 180,
+                        backgroundColor: "#00a65a",
+                        color: "white",
+                        marginTop: "-35px",
+                      }}
                       style={{ width: 180, backgroundColor: "#00a65a", color: "white", marginTop: "-35px" }}
                       className="d-flex align-items-center justify-content-center"
                       onClick={() => createar()}
@@ -131,6 +142,26 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
+                  <Menu.Item key="Data Wilayah">
+                      <Link to="/masteralamat">
+                        <i className="icon icon-widgets" />
+                        <span>Customer</span>
+                      </Link>
+                    </Menu.Item>
+                  <Menu.Item key="Alamat Customer">
+                      <Link to="/alamatcustomer">
+                        <i className="icon icon-widgets" />
+                        <span>Alamat Customer</span>
+                        <span>Data Alamat All</span>
+                      </Link>
+                    </Menu.Item>
+                  <Menu.Item key="Tarif Customer">
+                      <Link to="/pelanggantarif">
+                        <i className="icon icon-widgets" />
+                        <span>Tarif Customer</span>
+                      </Link>
+                    </Menu.Item>
+                    
                   <Menu.Item key="monitoringVehicle">
                     <Link to="/masterdata/monitoring">
                       <i className="icon icon-widgets" />
@@ -268,19 +299,14 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         <span>Penerimaan INV</span>
                       </Link>
                     </Menu.Item>
-                  </SubMenu><SubMenu key="Masters" title="Masters">
-                    <Menu.Item key="Master Mitra">
-                      <Link to="/mastermitra">
-                        <i className="icon icon-widgets" />
-                        <span>Master Mitra</span>
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item key="Masters">
-                      <Link to="/masteralamat">
-                        <i className="icon icon-widgets" />
-                        <span>Data Customer</span>
-                      </Link>
-                    </Menu.Item>
+                  </SubMenu>
+                
+                  <SubMenu key="Masters" title="Masters">
+                  
+                  </SubMenu>
+
+                  <SubMenu key="Data Wilayah" title="Data Wilayah">
+                    
 
                     <Menu.Item key="Master Kecamatan">
                       <Link to="/masterkecamatan">
@@ -302,7 +328,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Menu.Item>
                   </SubMenu>
 
-                  <SubMenu key="AP List" title="AP List">
+                  {/* <SubMenu key="AP List" title="AP List">
                     <Menu.Item key="SP_AP_LIST">
                       <Link to="/akunting/ap/">
                         <i className="icon icon-widgets" />
@@ -311,36 +337,18 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Menu.Item>
 
 
-
-                    {/* <Menu.Item key="SP_AP_LIST">
-                    <Link to="/akunting/apaddon">
-                      <i className="icon icon-widgets" />
-                      <span>AP AddOn</span>
-                    </Link>
-                  </Menu.Item> */}
-                  </SubMenu>
+                  </SubMenu> */}
                   <SubMenu key="Tarif" title="Tarif">
-                    <Menu.Item key="Tarif Mitra">
-                      <Link to="/tarifmitra">
-                        <i className="icon icon-widgets" />
-                        <span>Tarif Mitra</span>
-                      </Link>
-                    </Menu.Item>
+                   
                     <Menu.Item key="Tarif Eureka">
                       <Link to="/tarif_eureka">
                         <i className="icon icon-widgets" />
                         <span>Tarif Eureka</span>
                       </Link>
                     </Menu.Item>
-                    <Menu.Item key="Tarif Customer">
-                      <Link to="/pelanggantarif">
-                        <i className="icon icon-widgets" />
-                        <span>Tarif Customer</span>
-                      </Link>
-                    </Menu.Item>
+                  
                   </SubMenu>
                 </>
-
               ) : null}
 
               {jobdesk === "purchasing" ? (
@@ -378,6 +386,18 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         <span>
                           <IntlMessages id="Master Driver" />
                         </span>
+                      </Link>
+                    </Menu.Item>
+                    <Menu.Item key="Master Mitra">
+                      <Link to="/mastermitra">
+                        <i className="icon icon-widgets" />
+                        <span>Master Mitra</span>
+                      </Link>
+                    </Menu.Item>
+                    <Menu.Item key="Tarif Mitra">
+                      <Link to="/tarifmitra">
+                        <i className="icon icon-widgets" />
+                        <span>Tarif Mitra</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="vehiclepurch">

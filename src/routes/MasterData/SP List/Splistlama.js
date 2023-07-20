@@ -315,6 +315,15 @@ function SPListlama() {
         <Row>
           <Col>
             {/* <h1>SP List</h1> */}
+            <div className="d-flex justify-content-end">
+              <Form.Group controlId="search">
+                <Form.Control
+                  type="text"
+                  placeholder="No SP "
+                  onChange={handleSearchChange}
+                />
+              </Form.Group>
+            </div>
             <Row>
               <Col sm={2}>
                 <Form.Group controlId="search">
