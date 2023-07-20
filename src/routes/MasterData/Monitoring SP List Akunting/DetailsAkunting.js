@@ -196,14 +196,14 @@ function DetailsAkunting() {
         const isieror = error.response.data.status.message
         Swal.fire(
           'Gagal!',
-          `${isieror}`, // Memasukkan response data ke dalam pesan error
+          `${isieror}`, 
           'error'
         );
       } else if (error.response && error.response.status === 403) {
         const isieror = error.response.data.status.message
         Swal.fire(
           'Gagal!',
-          `${isieror}`, // Pesan gagal ketika terjadi error response
+          `${isieror}`,
           'error'
         );
       }
