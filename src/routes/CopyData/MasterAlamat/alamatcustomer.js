@@ -35,7 +35,7 @@ const SamplePage = () => {
   const [limit, setLimit] = useState(10);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
-  const [keywordData, setKeywordData] = useState(1);
+  const [Pagginations, setPagginations] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,6 +64,7 @@ const SamplePage = () => {
       .then(({ data }) => {
         if (data.status.code === 200) {
           setCustomerAddresses(data.data.order);
+          setPagginations(data.data)
         //   setDetailAddress(data.data.order[0].custAddress);
         //   console.log("haiiii", data.data.order[0].custAddress);
         }
@@ -269,7 +270,7 @@ const SamplePage = () => {
         //     ),
         //   }}
           columns={columns}
-          pagination={{ total, current: page, pageSize: limit }}
+          pagination={{ total : Pagginations.totalData, current: page, pageSize: Pagginations.limit }}
           onChange={(pagination) => setPage(pagination.current)}
         />
       </Card>
