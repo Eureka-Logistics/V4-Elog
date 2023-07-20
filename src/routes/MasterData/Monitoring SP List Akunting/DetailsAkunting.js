@@ -1,806 +1,380 @@
-import { Alert, Card, Modal, Input, Select, message } from "antd";
-import { Col, Row, Form, Button, Table } from "react-bootstrap";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Card, Input, Select, Tag } from "antd";
+import { Col, Row, Form, Button } from "react-bootstrap";
 import DataTable from "react-data-table-component";
-import { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
-import mobil from "../../redux toolkit/store/ZustandStore";
 import Baseurl from "../../../Api/BaseUrl";
+import Token from "../../../Api/Token";
+import { useHistory } from "react-router-dom";
+import ElogLoadingGif from "../../.././assets/Loader_Elogs1.gif"
 import Swal from "sweetalert2";
-function DetailsAkunting() {
-  const history = useHistory();
-  const [detailData, setDetailData] = useState([]);
-  const [memo, setMemo] = useState([]);
-  const [jobdesk, setJobdesk] = useState(localStorage.getItem("jobdesk"));
-  const { isicombinedData, setisiCombinedData } = mobil((item) => ({
-    sp: item.sp,
-  }));
-  const { idmp } = useParams();
-  const [comment, setComment] = useState([]);
-  const [ApproveAkuntingStatus, setApproveAkuntingStatus] = useState("")
-  const [ApproveAkuntingTgl, setApproveAkuntingTgl] = useState("")
-  const [Kendaraan_operasional, setkendaraan_operasional] = useState("")
-  const [tgl_act_4, settgl_act_4] = useState("")
-  const [Kendaraan_purchasing, setKendaraan_purchasing] = useState("")
-  const [tgl_act_5, settgl_act_5] = useState("")
-  const [modal1Open, setModal1Open] = useState(false);
-  const [MessageRejectSP, setMessageRejectSP] = useState("")
-  const [IDMessageRejectSP, setIDMessageRejectSP] = useState("")
-  const [KeteranganRejectSP, setKeteranganRejectSP] = useState("")
+import { Pagination } from 'antd';
+import SpStore from "../../../zustand/Store/FilterSP";
+function SPListlama() {
+  const [isiData, setIsiData] = useState([]);
+  const [Loading, setLoading] = useState(false);
+  const [destinationData, setDestinationData] = useState([]);
+  const [search, setSearch] = useState([]);
+  const [CustumerValue, setCustumerValue] = useState("")
+  const [CariCabangValue, setCariCabangValue] = useState("")
+  const [CariSalesValue, setCariSalesValue] = useState("")
+  const [CariBu, setCariBu] = useState("")
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    limit: 10,
+  });
+  const { SPFilter, setSPFilter } = SpStore((items) => ({
+    SPFilter: items.SPFilter,
+    setSPFilter: items.setSPFilter
+  }))
 
-  // message reject
-  const MessageReject = async () => {
-    try {
-      const data = await axios.get(`${Baseurl}sp/get-do-massage?limit=10334&page=1`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      )
-      setMessageRejectSP(data.data.data.order)
-    } catch (error) {
-
-    }
-  }
-
-
-  useEffect(() => {
-    const getDetail = async () => {
-      try {
-        const response = await axios.get(
-          `${Baseurl}sp/get-SP-all-detail?keyword=&idmp=${idmp}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: localStorage.getItem("token"),
-            },
-          }
-        );
-        setDetailData(response.data);
-        const memos = response.data.memo;
-        setMemo(memos);
-      } catch (error) {
-        console.error("Failed to fetch detail data:", error);
-        // handle error appropriately
-      }
-    };
-    getDetail();
-    comments();
-    MessageReject()
-  }, [idmp, memo, Kendaraan_operasional, ApproveAkuntingStatus]);
-
-  const columns = [
-    {
-      name: "Title",
-      selector: (row) => row.title,
-    },
-    {
-      name: "Year",
-      selector: (row) => row.year,
-    },
+  let nomor = 1
+  const CariCustomerOptions = SPFilter && SPFilter.customer && [
+    { label: "-", value: "" },
+    ...SPFilter.customer.map((item) => ({
+      label: item.customer,
+      value: item.idcustomer
+    }))
   ];
 
-  const tombolApprove = async () => {
-    const body = {
-      id_mp: idmp,
-    };
+  const CariCabangOptions = SPFilter && SPFilter.cabang && [{ label: "-", value: "" },
+  ...SPFilter.cabang.map((item) => ({
+    label: item.cabang,
+    value: nomor++
+  }))]
+  const CariSalesOptions = SPFilter && SPFilter.sales && [{ label: "-", value: "" },
+  ...SPFilter.sales.map((item) => ({
+    label: item.sales,
+    value: item.idSales
+  }))]
+  const CariBUOptions = SPFilter && SPFilter.bu && [{ label: "-", value: "" }, ...SPFilter.bu.map((item) => ({
+    label: item.bu,
+    value: item.idbu
+  }))]
+  // const [Pagginations, setPagginations] = useState(1)
+  const history = useHistory();
 
-    Swal.fire({
-      title: 'Apakah yakin untuk approve?',
-      text: "jika belum, silahkan cek lagi",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, approve!'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          const data = await axios.post(`${Baseurl}sp/approve-SP-akunting`, body, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: localStorage.getItem("token"),
-            },
-          });
-
-          const approve = data.status;
-
-          Swal.fire({
-            icon: "success",
-            title: "Berhasil",
-            text: "Data telah disetujui.",
-          });
-          window.location.reload();
-
-        } catch (error) {
-          Swal.fire({
-            icon: "error",
-            title: "Gagal",
-            text: "Terjadi kesalahan dalam memproses data.",
-          });
-          console.error(error);
-        }
-      }
-    })
-  };
-
-
-  const rejectbutton = () => {
-    Swal.fire({
-      title: 'Apakah yakin untuk Reject?',
-      text: "jika belum, silahkan cek lagi",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, reject it!'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const body = {
-          id_mp: idmp,
-
-        };
-
-        try {
-          const data = await axios.post(`${Baseurl}sp/reject-SP-akunting`, body, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: localStorage.getItem("token"),
-            },
-          });
-
-          Swal.fire({
-            icon: "success",
-            title: "Berhasil",
-            text: "Telah di Reject",
-          });
-          // window.location.reload();
-        } catch (error) {
-          Swal.fire({
-            icon: "error",
-            title: "Gagal",
-            text: "Terjadi kesalahan dalam memproses data.",
-          });
-          console.error(error);
-        }
-      }
-    });
-  };
-
-  const RejectSP = async () => {
+  const dataapi = async (page = 1, pageSize = 10) => {
     try {
-      const data = await axios.post(`${Baseurl}sp/cancel-sp`,
-        {
-          id_mp: idmp,
-          id_massage_do: IDMessageRejectSP,
-          keterangan: KeteranganRejectSP
-        },
+      setLoading(true)
+      const isi = await axios.get(
+        `${Baseurl}sp/get-SP-all?limit=${pageSize}&page=${page}&keyword=${search}&statusSP=&customerId=${CustumerValue}&cabang=${CariCabangValue}&sales=${CariSalesValue}&buId=${CariBu}`,
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: localStorage.getItem("token"),
           },
-
-        })
-      Swal.fire(
-        'Berhasil!',
-        'Permintaan berhasil!',
-        'success'
+        }
       );
+
+      const isidata = isi.data.data.order;
+      setPagination({
+        currentPage: isi.data.data.currentPage,
+        totalPage: isi.data.data.totalPage,
+      });
+
+      setIsiData(isidata);
+      setLoading(false)
     } catch (error) {
-      // Munculkan SweetAlert jika terjadi error
-      if (error.response && error.response.status === 403) {
-        const isieror = error.response.data.status.message
-        Swal.fire(
-          'Gagal!',
-          `${isieror}`, 
-          'error'
-        );
-      } else if (error.response && error.response.status === 403) {
-        const isieror = error.response.data.status.message
-        Swal.fire(
-          'Gagal!',
-          `${isieror}`,
-          'error'
-        );
+      if (error.response && error.response.status === 401) {
+        localStorage.removeItem('token');
+        if (localStorage.getItem('token') === null) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error Login, Silahkan Login Kembali '
+          });
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000);
+          // history.push('/signin');
+        }
+      } else {
+        console.error(error);
       }
     }
-  }
-  const comments = async () => {
-    const api = await axios.get(`${Baseurl}sp/get-SP-massage?id_mp=${idmp}`, {
+  };
+  useEffect((page) => {
+    dataapi();
+    setSPFilter()
+  }, [search, CustumerValue, CariCabangValue, CariSalesValue, CariBu]);
+  console.log(`ini dari spstore`, SPFilter);
+
+  useEffect(() => {
+    if (isiData && isiData.length > 0) {
+      isiData.forEach((item) => {
+        getDestinationData(item.idmp);
+      });
+    }
+  }, [isiData, CustumerValue, CariSalesValue,CariBu]);
+
+  const getDestinationData = async (idmp) => {
+    const isi = await axios.get(`${Baseurl}sp/get-SP-detail?idmp=${idmp}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token"),
       },
     });
-    const comment = api.data.data;
-    setComment(comment);
+
+    const isis = isi.data.data.map((item) => ({
+      idmp: idmp,
+      kendaraan: item?.kendaraan,
+      pickupAddress: item?.pickupAddress,
+      perusahaan: item?.perusahaan,
+      destination: item?.destination,
+      via: item?.via,
+      item: item?.item,
+      qty: item?.qty,
+      service: item?.service,
+      pickupDate: item?.pickupDate,
+    }));
+
+    setDestinationData((prevData) => [...prevData, ...isis]);
   };
+
+  const [combinedData, setCombinedData] = useState([]);
 
   useEffect(() => {
-    const handleStorageChange = () => {
-      setJobdesk(localStorage.getItem("jobdesk"));
-    };
-    window.addEventListener("storage", handleStorageChange);
+    if (isiData.length > 0 && destinationData.length > 0) {
+      const combined = isiData.map((isiItem) => {
+        const destItem = destinationData.find(
+          (destinationItem) => destinationItem.idmp === isiItem.idmp
+        );
 
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
-  console.log(jobdesk);
-
-  const handlePrint = () => {
-    const printWindow = window.open(`https://elogs.eurekalogistics.co.id/operasional/sm/printsm/${idmp}`, '_blank');
-    printWindow.onload = function() {
-      printWindow.print();
-    };
-  };
-  
-  const pindahedit = () => {
-    history.push(`/masterdata/edit-sp/${idmp}`);
-  };
-
-  ///to IDR
-  const total = detailData?.Totalprice;
-  const rupiah = total?.toLocaleString("id-ID", {
-    style: "currency",
-    currency: "IDR",
-  });
-
-  // console.log(`TOTAL KESELURUHAN : ${rupiah}`);
-  const [actSalesStatus, setactSalesStatus] = useState("")
-  const StausApprove = async () => {
-    try {
-      const data = await axios.get(`${Baseurl}sp/get-status-approve?id_mp=${idmp}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      });
-      console.log(data.data.status.message);
-      setactSalesStatus(data.data.status.message.act_sales)
-      setApproveAkuntingStatus(data.data.status.message.act_akunting)
-      setApproveAkuntingTgl(data.data.status.message.tgl_act_3)
-      setkendaraan_operasional(data.data.status.message.kendaraan_operasional)
-      settgl_act_4(data.data.status.message.tgl_act_4)
-      setKendaraan_purchasing(data.data.status.message.kendaraan_purchasing)
-      settgl_act_5(data.data.status.message.tgl_act_5)
-    } catch (error) {
-
-    }
-  }
-
-
-  useEffect(() => {
-    StausApprove()
-  }, [])
-
-  console.log(`statusnya adalah`, actSalesStatus)
-
-  const [showCommentInput, setShowCommentInput] = useState(false);
-  const [commentReject, setCommentReject] = useState('')
-
-  const BuatMessage = async () => {
-    try {
-      const data = await axios.post(`${Baseurl}sp/create-massage-do`,
-        {
-          massage: commentReject
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token")
-          },
-
+        if (destItem) {
+          return {
+            ...isiItem,
+            destination: destItem.destination,
+            ...isiItem,
+            kendaraan: destItem.kendaraan,
+          };
         }
-      )
-      message.success(`${data.data.status.message}`);
-      MessageReject();
-      setCommentReject(''); // Mengatur ulang nilai commentReject menjadi string kosong
-      setIDMessageRejectSP(null); // Mengatur ulang nilai IDMessageRejectSP menjadi null
-      setKeteranganRejectSP(null); // Mengatur ulang nilai KeteranganRejectSP menjadi null
-      setShowCommentInput(false);
-    } catch (error) {
-      // Munculkan pesan error
-      if (error.response && error.response.status === 402) {
-        // Pesan khusus untuk error 402
-        message.error(`${error.response.data.status.message}`);
-      } else {
-        message.error('Terjadi kesalahan!');
-      }
+
+        return isiItem;
+      });
+
+      setCombinedData(combined);
     }
+  }, [isiData, destinationData]);
+  const columns = [
+    {
+      name: "No",
+      selector: (row) => row?.no,
+      width: "80px",
+      wrap: true,
+    },
+    {
+      name: "SP ID",
+      selector: (row) => row?.sp,
+      width: "150px",
+      wrap: true,
+    },
+    {
+      name: "Perusahaan",
+      selector: (row) => row?.perusahaan,
+      width: "150px",
+      wrap: true,
+    },
+    {
+      name: "Marketing",
+      selector: (row) => row?.salesName,
+      width: "100px",
+      wrap: true,
+    },
+    {
+      name: "Service",
+      selector: (row) => row?.service,
+      width: "100px",
+      wrap: true,
+    },
+    {
+      name: "Vehicle",
+      selector: (row) => row?.kendaraan,
+      width: "100px",
+      wrap: true,
+    },
+    {
+      name: "Pickup Date",
+      selector: (row) => {
+        let date = new Date(row?.pickupDate);
+        let year = date.getFullYear();
+        let month = (1 + date.getMonth()).toString().padStart(2, '0');
+        let day = date.getDate().toString().padStart(2, '0');
+
+        return (
+          <Tag color="green">{`${year}-${month}-${day}`}</Tag> // return dalam format yyyy-mm-dd
+        );
+      },
+      width: "120px",
+      wrap: true,
+    },
+
+    {
+      name: "Destination",
+      selector: (row) => row?.destination,
+      width: "150px",
+      wrap: true,
+    },
+
+    // {
+    //   name: "Tgl Approved/Decline",
+    //   selector: (row) => {
+    //     const dateApproveOps = row?.dateApproveOps;
+    //     const isValidDate = !isNaN(new Date(dateApproveOps));
+
+    //     const data = isValidDate ? dateApproveOps : "-";
+    //     return data
+    //   },
+    // },
+    {
+      name: "Akunting",
+      selector: (row) => {
+        const tanggal = row.dateApproveAct
+        return row?.approveAct === "Y" ? (
+          <Tag color="green">Approved <br /> {tanggal}</Tag>
+        ) : (row?.approveAct === "N" && tanggal === "Invalid date") ? (
+          <Tag color="yellow">Waiting <br /> {tanggal ? "-" : tanggal}</Tag>
+        ) : (row?.approveAct === "N" && tanggal !== "Invalid date") ?
+          (
+            <Tag color="red">Diverted <br /> {tanggal}</Tag>
+          ) : ""
+      },
+      width: "170px",
+    },
+    {
+      name: "Operasional",
+      selector: (row) => {
+        const dateApproveOps = row?.dateApproveOps;
+        const isValidDate = !isNaN(new Date(dateApproveOps));
+        const data = isValidDate ? dateApproveOps : "-";
+        if (row?.approveOps === "Y") {
+          return <Tag color="green">Approved <br /> {data}</Tag>;
+        } else if (!isValidDate) {
+          return <Tag color="yellow">Waiting <br /> {data}</Tag>;
+        } else {
+          return <Tag color="red">Diverted <br /> {data}</Tag>;
+        }
+      },
+      width: "170px",
+    },
+    {
+      name: "Purchasing",
+      selector: (row) => {
+        const date = row?.dateApprovePurch
+        return (
+          <>
+            {(row.approvePurch === "Y" && date != null) ? (
+              <Tag color="green">Approved <br /> {date}</Tag>
+            ) : (
+              (row.approvePurch === "N" && date === "Invalid date") ? (
+                <Tag color="yellow">Waiting <br /> {date ? "-" : date}</Tag>
+              ) : (
+                (row.approvePurch === "N" && date != "Invalid date") ? (
+                  <Tag color="red">Diverted <br /> {date}</Tag>
+                ) : (
+                  null
+                )
+              )
+            )}
+          </>
+        )
+      },
+      width: "180px",
+    },
+    // {
+    //   name: "Detail",
+    //   selector: (row) => <><Button size="sm" onClick={() => buttonarahin(row.idmp)}>Detail</Button></>,
+    //   width: "170px",
+    // },
+  ];
+
+  const RowClick = (row) => {
+    history.push(`/masterdata/splistdetailakunting/${row.idmp}`);
   }
+  const buttonarahin = (idmp) => {
+    // history.push(`/masterdata/detailsp/${idmp}`);
+    history.push(`/masterdata/splistdetailakunting/${idmp}`);
+  };
+
+  const handlePageChange = async (page, pageSize) => {
+    dataapi(page, pageSize)
+    // setPagginations(page)
+    // setPagination({ ...pagination, currentPage: page });
+    // await dataapi(page, search);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+
+
   return (
     <div>
       <Card>
         <Row>
-          <h5>Detail Sp</h5>
-          {/* Modal Reject*/}
-          <Modal
-            title="Reject SP Sales"
-            style={{
-              top: 180,
-            }}
-            open={modal1Open}
-            onOk={() => {
-              RejectSP();
-              setModal1Open(false);
-            }}
-            onCancel={() => setModal1Open(false)}
-          >
-            <Row>
-              <Col sm={12}>
-                <Select
-                  showSearch
-                  optionFilterProp="children"
-                  style={{ width: '100%', }}
-                  placeholder="Pilih Alasan Reject"
-                  onChange={(e, options) => {
-                    setIDMessageRejectSP(e);
-                    setKeteranganRejectSP(options.children);
-                    console.log(IDMessageRejectSP);
-                    console.log(options.children);
-                  }}
-                >
-                  {MessageRejectSP && MessageRejectSP.map((item) => (
-                    <Select.Option key={item.message} value={item.id} >{item.no + " - " + item.massage}</Select.Option>
-                  ))}
-                </Select>
-              </Col>
-              <div className="mt-3" onClick={() => setShowCommentInput(true)}>
-                <i>Tidak ada Comment?<span><a style={{ color: 'blue' }}>Klik di sini</a></span> untuk menambahkan</i>
-              </div>
-              {showCommentInput && (
-                <Col sm={12} className="mt-2">
-                  <Input
-                    size="large"
-                    value={commentReject}
-                    onChange={(e) => setCommentReject(e.target.value)}
-                    placeholder="Tambahkan komentar baru di sini"
-                  />
-                  <Button className="mt-2" size="sm" onClick={BuatMessage}>Tambahkan</Button>
-                </Col>
-              )}
-            </Row>
-          </Modal>
-
-
-
-          <div className="d-flex justify-content-end">
-            {
-              (jobdesk !== "operasional" && jobdesk !== "sales" && jobdesk !== "purchasing" && ApproveAkuntingStatus !== "Y") ? (
-                <>
-                  <Button size="sm" onClick={() => tombolApprove()}>
-                    Approve
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="danger"
-                    onClick={() => rejectbutton()}
-                  >
-                    Reject SP
-                  </Button>
-
-                </>
-              ) : (
-                <>
-                  {(ApproveAkuntingStatus === "Y" && ApproveAkuntingTgl !== null) ?
-                    <Alert type="success" message="Approve Akunting" banner /> :
-                    (ApproveAkuntingStatus === "N" && ApproveAkuntingTgl !== null) ?
-                      <Alert type="error" message="Diverted Akunting" banner /> :
-                      (ApproveAkuntingStatus === "N" && ApproveAkuntingTgl === null) ?
-                        <Alert type="info" message="Waiting Operasional" banner /> : null
-
-
-
-                  }
-
-                  {(Kendaraan_operasional === "Y" && tgl_act_4 != null) ?
-                    <Alert type="success" message="Approve Operasional" banner /> :
-                    (Kendaraan_operasional === "N" && tgl_act_4 != null) ?
-                      <Alert type="error" message="Diverted Operasional" banner /> :
-                      (Kendaraan_operasional === "N" && tgl_act_4 === null) ?
-                        <Alert type="info" message="Waiting Operasional" banner />
-                        : null
-                  }
-
-                  {(Kendaraan_purchasing === "Y" && tgl_act_5 !== null) ?
-                    <Alert type="success" message="Approve Purchasing" banner /> :
-                    (Kendaraan_purchasing === "N" && tgl_act_5 !== null) ?
-                      <Alert type="error" message="Diverted Purchasing" banner /> :
-                      (Kendaraan_purchasing === "N" && tgl_act_5 === null) ?
-                        <Alert type="info" message="Waiting Purchasing" banner /> :
-                        null
-
-                  }
-
-
-                </>
-
-
-              )
-            }
-
-            <div class="ms-3">
-            <Button size="sm" onClick={() => handlePrint()} variant="primary">
-              Print
-            </Button>
-            </div>
-
-
-            {jobdesk === "sales" && actSalesStatus === "N" ? (
-              <>
-                <Button size="sm" onClick={() => setModal1Open(true)} variant="danger">
-                  Reject SP Sales
-                </Button>
-                <Button size="sm" onClick={pindahedit} variant="primary">
-                  Edit SJ
-                </Button>
-              </>
-            ) : ""}
-            {/* ? jobdesk === "sales" && actSalesStatus === "Y" : <>
-              <Button size="sm" disabled onClick={() => setModal1Open(true)} variant="danger">
-                Reject SP Sales
-              </Button>
-              <Button size="sm" onClick={pindahedit} variant="primary">
-                Edit SJ
-              </Button>
-            </> : "" */}
-          </div>
-
-          {/* <Modal> */}
-          {/* <Modal.Header closeButton>
-              <Modal.Title>Approve Driver</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form.Label>Vehicle Type</Form.Label>
-              <Form.Select></Form.Select>
-
-              <Form.Label>Kode Kendaraan</Form.Label>
-              <Form.Select></Form.Select>
-
-              <Form.Label>Select Driver</Form.Label>
-              <Form.Select></Form.Select>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary">Close</Button>
-              <Button variant="primary">Save Changes</Button>
-            </Modal.Footer> */}
-          {/* </Modal> */}
-
-          <Col sm={6}>
-            <Form>
-              <Form.Group>
-                <Form.Label>No.SPK</Form.Label>
-                <Form.Control disabled value={detailData?.sp} />
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>Service</Form.Label>
-                <Form.Control disabled value={detailData?.service} />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Jenis Barang</Form.Label>
-                <Form.Control disabled value={detailData?.jenisBarang} />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Marketing</Form.Label>
-                <Form.Control disabled value={detailData?.marketing} />
-              </Form.Group>
-
-            </Form>
-          </Col>
-          <Col sm={6}>
-            <Form>
-              {/* <Form.Group>
-                <Form.Label>Via</Form.Label>
-                <Form.Control disabled value={detailData?.detail?.[0]?.via} />
-              </Form.Group> */}
-              <Form.Group>
-                <Form.Label>Customer</Form.Label>
-                <Form.Control disabled value={detailData?.customer} />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Tgl Pickup</Form.Label>
-                <Form.Control disabled value={detailData?.pickup_date} />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Tgl Bongkar</Form.Label>
-                <Form.Control disabled value={detailData?.bongkar_date} />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Asuransi</Form.Label>
-                <Form.Control
-                  disabled
-                  value={
-                    detailData?.asuransi === "Y"
-                      ? "Menggunakan Asuransi"
-                      : "Tidak Menggunakan Asuransi"
-                  }
-                />
-              </Form.Group>
-            </Form>
-          </Col>
-          {/* <Form.Group>
-            <Form.Label>Pickup Address</Form.Label>
-            <Form.Control
-              disabled
-              value={detailData?.detail?.[0]?.pickupAddress}
-            />
-          </Form.Group> */}
-        </Row>
-        <br />
-        <Row>
           <Col>
-            <Table responsive>
+            {/* <h1>SP List</h1> */}
+            <Row>
+              <Col sm={2}>
+                <Form.Group controlId="search">
+                  <Select options={CariCustomerOptions} showSearch optionFilterProp="label" onChange={(e) => setCustumerValue(e)} placeholder="Cari Customer" style={{ width: "100%" }} />
+                </Form.Group>
+              </Col>
+              <Col sm={2}>
+                <Form.Group controlId="cabang">
+                  <Select optionFilterProp="label" showSearch options={CariCabangOptions} onChange={(e) => setCariCabangValue(e)} placeholder="Cari Cabang" style={{ width: "100%" }} />
+                </Form.Group>
+              </Col>
+              <Col sm={2}>
+                <Form.Group controlId="sales">
+                  <Select optionFilterProp="label" options={CariSalesOptions} onChange={(e) => setCariSalesValue(e)} showSearch placeholder="Cari Sales" style={{ width: "100%" }} />
+                </Form.Group>
+              </Col>
+              <Col sm={2}>
+                <Form.Group controlId="bu">
+                  <Select options={CariBUOptions} optionFilterProp="label" onChange={(e) => setCariBu(e)} showSearch placeholder="Cari Bu" style={{ width: "100%" }} />
+                </Form.Group>
+              </Col>
+              <Col style={{ display: "flex", justifyContent: "flex-end" }} sm={2}>
+                <Form.Group controlId="search">
+                  <Input
+                    placeholder="Cari No SP"
+                    onChange={handleSearchChange}
+                  />
+                </Form.Group>
+              </Col>
 
-              <thead></thead>
-              <tbody>
-                {detailData &&
-                  detailData.detail &&
-                  detailData.detail.map((data, index) => (
-                    <>
-                      <tr style={{ fontWeight: "bold" }}>
-                        <td colSpan={10}>
-                          <hr />
-                          <br />{" "}
-                        </td>
-                      </tr>
+            </Row>
 
-                      <tr
+            <style>
+              {`
+          .rdt_TableBody .rdt_TableRow:hover {
+            cursor: pointer;
+            background-color: #C7E1FB;
+          }
+          
+        `}
+            </style>
 
-                        style={{
-                          fontWeight: "bold",
-                          backgroundColor: "#dff0d8",
-                        }}
-
-                      >
-
-                        <td>{index + 1}</td>
-                        <td colSpan={9}>Alamat Muat</td>
-                      </tr>
-                      <tr key={index}>
-                        <td>
-                          {/* {index + 1}
-                            <span>
-                              <Button
-                                size="md"
-                                variant="danger"
-                                onClick={() => deltebutton(data.idmpd)}
-                                className="mt-2"
-                              >
-                                X
-                              </Button>
-                            </span> */}
-                        </td>
-                        <td colSpan={9}>{data.pickup}</td>
-                      </tr>
-                      {detailData &&
-                        detailData.detail[index].tujuan &&
-                        detailData.detail[index].tujuan.map((data, index) => (
-                          <>
-                            <tr
-                              style={{
-                                fontWeight: "bold",
-                                backgroundColor: "#dff0d8",
-                              }}
-                            >
-                              <td> </td>
-                              <td>Alamat Bongkar</td>
-                              <td width="100px">SJ ID</td>
-                              <td>Kendaraan</td>
-                              <td>Via</td>
-                              <td>Item</td>
-                              <td>Berat</td>
-                              <td>Qty</td>
-                              {jobdesk !== "operasional" && (
-                                <>
-                                  <td width="150px">Biaya Kirim</td>
-                                  <td width="150px">Total</td>
-                                </>)}
-                            </tr>
-
-                            <tr key={index}>
-                              {/* <td>
-                                {index + 1}
-                                <span>
-                                  <Button
-                                    size="md"
-                                    variant="danger"
-                                    onClick={() => deltebutton(data.idmpd)}
-                                    className="mt-2"
-                                  >
-                                    X
-                                  </Button>
-                                </span>
-                              </td> */}
-                              <td></td>
-                              <td>{data.destination}</td>
-                              <td>{data.noSJ}</td>
-                              <td>{data.kendaraan}</td>
-                              <td>{data?.via}</td>
-                              <td>{data.item}</td>
-                              <td>{data.berat}</td>
-                              <td>{data.qty}</td>
-                              {jobdesk !== "operasional" && (
-                                <>
-                                  <td>{data.Price?.toLocaleString("id-ID", {
-                                    style: "currency",
-                                    currency: "IDR",
-                                  })}</td>
-                                  <td>{data.Price?.toLocaleString("id-ID", {
-                                    style: "currency",
-                                    currency: "IDR",
-                                  })}</td>
-                                </>)}
-                            </tr>
-                          </>
-                        ))}
-                    </>
-                  ))}
-              </tbody>
-
-              <tfoot>
-                <tr style={{ fontWeight: "bold" }}>
-                  {jobdesk !== "operasional" && (
-                    <>
-                      <td colSpan={9} width="150px" className="text-right">
-                        Sub Total
-                      </td>
-                    </>)}
-                  {jobdesk !== "operasional" && (
-                    <>
-
-                      <td width="150px">Rp {detailData?.subTotal?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })}</td>
-                    </>
-                  )}
-                </tr>
-              </tfoot>
-            </Table>
-            {jobdesk !== "operasional" && (
-              <>
-                <p
-                  className="d-flex justify-content-end"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Biaya Muat :{detailData?.totalMuat?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </p>
-                <p
-                  className="d-flex justify-content-end"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Biaya Bongkar :{detailData?.totalBongkar?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </p>
-                <p
-                  className="d-flex justify-content-end"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Biaya MultiDrop :{detailData?.biaya_multidrop?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </p>
-                <p
-                  className="d-flex justify-content-end"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Biaya Overtonase :{detailData?.biaya_overtonase?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </p>
-                <p
-                  className="d-flex justify-content-end"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Biaya Mel :{detailData?.Totalprice?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </p>
-                <p
-                  className="d-flex justify-content-end"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Biaya Inap :{detailData?.Totalprice?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </p>
-                <hr />
-                <p
-                  className="d-flex justify-content-end"
-                  style={{ fontWeight: "bold" }}
-                >
-                  TOTAL KESELURUHAN :{detailData?.Totalprice?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </p>
-              </>
-            )}
-            {/* <p
-              className="d-flex justify-content-end"
-              style={{ fontWeight: "bold" }}
-            >
-              Biaya Muat :{detailData?.biaya_muat?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
-            </p>
-            <p
-              className="d-flex justify-content-end"
-              style={{ fontWeight: "bold" }}
-            >
-              Biaya Bongkar :{detailData?.biaya_muat_bongkar?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
-            </p>
-            <p
-              className="d-flex justify-content-end"
-              style={{ fontWeight: "bold" }}
-            >
-              Biaya MultiDrop :{detailData?.biaya_multidrop?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
-            </p>
-            <p
-              className="d-flex justify-content-end"
-              style={{ fontWeight: "bold" }}
-            >
-              Biaya Overtonase :{detailData?.biaya_overtonase?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
-            </p>
-            <p
-              className="d-flex justify-content-end"
-              style={{ fontWeight: "bold" }}
-            >
-              Biaya Mel :{detailData?.Totalprice?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
-            </p>
-            <p
-              className="d-flex justify-content-end"
-              style={{ fontWeight: "bold" }}
-            >
-              Biaya Inap :{detailData?.Totalprice?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
-            </p>
-            <hr />
-            <p
-              className="d-flex justify-content-end"
-              style={{ fontWeight: "bold" }}
-            >
-             TOTAL KESELURUHAN : {detailData?.Totalprice?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
-            </p> */}
-            <Form.Group>
-              <Form.Label style={{ fontWeight: "bold" }}>Isi Memo</Form.Label>
-              <Form.Control disabled value={memo} />
-            </Form.Group>
-            <br />
-            <br />
-            <Table responsive>
-              <thead>
-                <tr style={{ fontWeight: "bold", backgroundColor: "#f4dddd" }}>
-                  <td>No</td>
-                  <td>Comment</td>
-                  <td>User</td>
-                  <td>Tgl Comment</td>
-                </tr>
-              </thead>
-              <tbody>
-                {comment &&
-                  comment.map((data, index) => (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{data?.chat}</td>
-                      <td>{data?.user}</td>
-                      <td >{data.tgl_chat.substring(0, 10)}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </Table>
+            {(Loading ? (<img src={ElogLoadingGif}></img>) : (
+              <DataTable
+                columns={columns}
+                title="SP List"
+                data={combinedData}
+                onRowClicked={RowClick}
+                className="myCustomTable"
+              />
+            ))}
+            <div className="mt-3 d-flex justify-content-end">
+              <Pagination
+                showSizeChanger
+                onShowSizeChange={handlePageChange}
+                onChange={handlePageChange}
+                defaultCurrent={1}
+                total={pagination.totalPage}
+              />
+            </div>
           </Col>
         </Row>
       </Card>
@@ -808,4 +382,4 @@ function DetailsAkunting() {
   );
 }
 
-export default DetailsAkunting;
+export default SPListlama;
