@@ -112,6 +112,8 @@ const SamplePage = () => {
         if (tarifData.status.code === 200) {
           const { order } = tarifData;
           setDataCustomer(order);
+          setCustomer(tarifData.order?.[0]?.customer)
+          console.log(tarifData.order?.[0]?.customer)
 
           setTimeout(() => {
             const selectedOption = kotaOptions.find(
@@ -293,9 +295,9 @@ const SamplePage = () => {
                     value={customer}
                     isSearchable
                     placeholder="Select Customer"
-                    name="id_customer"
+                    name="customer"
                     styles={customStylesReactSelect}
-                    onChange={onSelectChange}
+                    onChange={(e)=>{onSelectChange(e)}}
                   />
                 </InputGroup>
               </Form.Group>
