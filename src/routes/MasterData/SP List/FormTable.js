@@ -1537,7 +1537,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                     <br />
                     {bukaanother && (
                       <>
-                        <AntForm.Item
+                        {/* <AntForm.Item
                           style={{ marginBottom: 2 }}
                           label="Select Driver"
                           required
@@ -1562,8 +1562,8 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                             ))}
                           </SelectAntd>
 
-                        </AntForm.Item>
-                        <Form.Label>Select Driverssss</Form.Label>
+                        </AntForm.Item> */}
+                        <Form.Label>Select Driver</Form.Label>
                         <Form.Select onChange={(e) => setIdunit(e.target.value)}>
                           <option>Select Driver</option>
                           {driveranother &&
@@ -1653,7 +1653,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                     null}
 
               {(jobdesk === "operasional") &&
-                <Button size="sm" variant="danger" onClick={rejectsp}>Reject SP</Button>
+                <Button className="ms-3" size="sm" variant="danger" onClick={rejectsp}>Tolak. Unit Tidak Tersedia</Button>
               }
 
               {/* {(StatusPurchasing === 'Y') &&
@@ -2130,7 +2130,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
 
                             <td>Alamat Bongkar</td>
 
-                            <td width="100px">SJ ID</td>
+                            <td width="100px">NO SM</td>
                             <td>Kendaraan</td>
                             <td>Via</td>
                             <td>Item</td>

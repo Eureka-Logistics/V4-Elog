@@ -1,4 +1,4 @@
-import { Button, Card, Modal, Form, Input, Pagination, Upload, DatePicker, Select } from 'antd';
+import { Button, Card, Modal, Form, Input, Pagination, Upload, DatePicker, Select, Tag } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react'
@@ -71,8 +71,21 @@ function DriverTableBaru() {
             selector: row => row.vehicle,
         },
         {
-            name: 'Jenis Kepemilikan',
+            name: 'Kepemilikan',
             selector: row => row.jenisKepemilikan,
+            cell: row => (
+                <>
+                    {(row.jenisKepemilikan === "eureka" || row.jenisKepemilikan === "race") && (
+                        <Tag color='blue'>{row.jenisKepemilikan}</Tag>
+                    )}
+                    {(row.jenisKepemilikan === "eur_sewa" || row.jenisKepemilikan === "rcn_sewa") && (
+                        <Tag color='green'>{row.jenisKepemilikan}</Tag>
+                    )}
+                    {(row.jenisKepemilikan === "eur_oncall" || row.jenisKepemilikan === "rcn_oncall") && (
+                        <Tag color='yellow'>{row.jenisKepemilikan}</Tag>
+                    )}
+                </>
+            )
         },
         {
             name: 'Status',
@@ -88,7 +101,7 @@ function DriverTableBaru() {
 
                                 onClick={() => ModalOFFDriver(row.driverId)}
                             >
-                                Driver Ready
+                                Aktif
                             </Button>
                         </>
                     ) :
@@ -99,7 +112,7 @@ function DriverTableBaru() {
                                 className="mt-2"
                                 onClick={() => ModalONDriver(row.driverId)}
                             >
-                                Driver Tidak Ready
+                                Tidak Aktif
                             </Button>
 
                         </>}
@@ -451,15 +464,15 @@ function DriverTableBaru() {
         },
         validationSchema: Yup.object({
             nik: Yup.string()
-            .required('Nik harus diisi')
-            .max(6, "Tidak Boleh Melebihi 6 Karakter")
-            .matches(/^\S*$/, 'Nik tidak boleh mengandung spasi')
-            .transform(value => (value ? value.charAt(0).toUpperCase() + value.slice(1) : '')),
-         
+                .required('Nik harus diisi')
+                .max(6, "Tidak Boleh Melebihi 6 Karakter")
+                .matches(/^\S*$/, 'Nik tidak boleh mengandung spasi')
+                .transform(value => (value ? value.charAt(0).toUpperCase() + value.slice(1) : '')),
+
             noktp: Yup.number().required('No KTP harus diisi').integer('Nik harus berupa angka'),
             namadriver: Yup.string()
-            .matches(/^[A-Za-z ]*$/, 'Nama Driver tidak boleh mengandung angka')
-            .required('Nama Driver harus diisi'),
+                .matches(/^[A-Za-z ]*$/, 'Nama Driver tidak boleh mengandung angka')
+                .required('Nama Driver harus diisi'),
             email: Yup.string().email('Format email tidak valid').required('Email harus diisi'),
             divisi: Yup.string().required('Divisi Driver harus diisi'),
             nosim: Yup.number().required('No SIM harus diisi').integer('Nik harus berupa angka'),
@@ -520,24 +533,14 @@ function DriverTableBaru() {
         <div>
             <Card>
                 <Col>
-                    <h5>Halaman Add Driver</h5>
+                    <h5>Master Driver</h5>
                 </Col>
                 <Row>
 
-                    <Col sm={6}>
-                        <Button size='default'
-                            onClick={() => {
-                                setModalOpen(true); formik.resetForm(); setGambarDriver(null); setDetailId(null)
-                            }} type="primary">Add Driver</Button>
-                    </Col>
                     <Col sm={2}>
-                        <Input onChange={(e) => { setCariDriver(e.target.value) }} placeholder='Cari Driver'></Input>
-                    </Col>
-
-                    <Col>
                         <Select
                             showSearch
-                            placeholder="Jenis Kepemilikan"
+                            placeholder="Jenis"
                             optionFilterProp="children"
                             style={{ width: "150px" }}
                             // value={CariJenisKepemilikan}
@@ -553,7 +556,7 @@ function DriverTableBaru() {
                             ))}
                         </Select>
                     </Col>
-                    <Col sm={2}>
+                    <Col sm={6}>
                         <Select
                             showSearch
                             placeholder="Status"
@@ -570,6 +573,17 @@ function DriverTableBaru() {
                                 </Select.Option>
                             ))}
                         </Select>
+                    </Col>
+                    <Col sm={2}>
+                        <Input onChange={(e) => { setCariDriver(e.target.value) }} placeholder='Cari Driver'></Input>
+                    </Col>
+
+                    <Col>
+
+                        <Button size='default'
+                            onClick={() => {
+                                setModalOpen(true); formik.resetForm(); setGambarDriver(null); setDetailId(null)
+                            }} type="primary">Add Driver</Button>
                     </Col>
 
                     <Modal
@@ -1006,17 +1020,17 @@ function DriverTableBaru() {
           }
           
         `}
-                </style>
-                <div className='d-flex justify-content-end mt-3'>
-                    <Pagination
-                        showSizeChanger
-                        onChange={onShowSizeChange}
-                        defaultCurrent={1}
-                        total={TotalPages}
-                    />
-                </div>
-            </Row>
-        </Card>
+                    </style>
+                    <div className='d-flex justify-content-end mt-3'>
+                        <Pagination
+                            showSizeChanger
+                            onChange={onShowSizeChange}
+                            defaultCurrent={1}
+                            total={TotalPages}
+                        />
+                    </div>
+                </Row>
+            </Card>
         </div >
     )
 }

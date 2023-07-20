@@ -243,7 +243,7 @@ function DetailSP() {
               <thead>
                 <tr style={{ fontWeight: "bold", backgroundColor: "#dff0d8" }}>
                   <td>No</td>
-                  <td width="100px">SJ ID</td>
+                  <td width="100px">NO SM</td>
                   <td>Destination</td>
                   <td>Kendaraan</td>
                   <td>Via</td>

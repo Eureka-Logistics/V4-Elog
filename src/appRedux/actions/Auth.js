@@ -50,11 +50,15 @@ export const userSignIn = (user) => {
       axios.defaults.headers.common['Authorization'] = token;
 
     } catch (error) {
-      // handle error, misalnya dengan menampilkan pesan kesalahan
-      dispatch(showAuthMessage(error.toString()));
+      let messages;
+      if (error.response) {
+        if (error.response.status === 400) {
+          messages = error.response.data.errors[0].message;
+        }
+      }
+      dispatch(showAuthMessage(messages));
     }
-  };
-};
+  }}    
 
 export const userSignOut = () => {
   localStorage.removeItem('token');
