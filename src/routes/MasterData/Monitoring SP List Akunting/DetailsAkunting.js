@@ -590,7 +590,7 @@ function DetailsAkunting() {
                             >
                               <td> </td>
                               <td>Alamat Bongkar</td>
-                              <td width="100px">SJ ID</td>
+                              <td width="100px">NO SM</td>
                               <td>Kendaraan</td>
                               <td>Via</td>
                               <td>Item</td>

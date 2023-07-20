@@ -320,6 +320,7 @@ function SJ() {
       <Card>
         {/* <h3>SJ List</h3> */}
         <Row>
+          <h5>SJ List</h5>
           <Col sm={2}>
             <Form.Group>
               <Form.Label><strong>BU</strong></Form.Label>
@@ -408,7 +409,6 @@ function SJ() {
               <DataTable
                 columns={columns}
                 data={isiData}
-                title="SJ List"
                 onRowClicked={buttonarahin}
               />
             ))}

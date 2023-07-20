@@ -490,25 +490,9 @@ function VehicleBaru() {
 
                 <>
                     <Col>
-                        <h5>Halaman Add Vehicle</h5>
+                        <h5>Master Vehicle</h5>
                     </Col>
                     <Row>
-                        <Col sm={6}>
-                            <Button
-                                type="primary" onClick={() => {
-                                    showModal()
-                                    setIdDriver(null)
-                                    setFotoDriver(null)
-                                }} >
-                                Tambah Vehicle
-                            </Button>
-                        </Col>
-                        <Col sm={2}>
-                            <Input
-                                value={CariNoKendaraan}
-                                onChange={(e) => setCariNoKendaraan(e.target.value)}
-                                placeholder="Cari No Kendaraan" />
-                        </Col>
                         <Col sm={2}>
                             <Select
                                 showSearch
@@ -545,6 +529,22 @@ function VehicleBaru() {
                                 ))}
                             </Select>
                         </Col>
+                        <Col sm={2}>
+                            <Input
+                                value={CariNoKendaraan}
+                                onChange={(e) => setCariNoKendaraan(e.target.value)}
+                                placeholder="Cari No Kendaraan" />
+                        </Col>
+                        <Col className='d-flex justify-content-end' span={12}>
+                            <Button type="primary" onClick={() => {
+                                showModal()
+                                setIdDriver(null)
+                                setFotoDriver(null)
+                            }}>
+                                Tambah Vehicle
+                            </Button>
+                        </Col>
+
                     </Row>
 
                     <Modal
@@ -669,7 +669,7 @@ function VehicleBaru() {
                                 </Col>
                                 <Col sm={4}>
                                     <AntForm.Item
-                                        label="Jenis Kepemilikan"
+                                        label="Kepemilikan"
                                         required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}

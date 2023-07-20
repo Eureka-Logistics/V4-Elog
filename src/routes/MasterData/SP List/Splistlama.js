@@ -313,6 +313,7 @@ function SPListlama() {
     <div>
       <Card>
         <Row>
+          <h5>Sp List</h5>
           <Col>
             {/* <h1>SP List</h1> */}
             <Row>
@@ -360,7 +361,6 @@ function SPListlama() {
             {(Loading ? (<img src={ElogLoadingGif}></img>) : (
               <DataTable
                 columns={columns}
-                title="SP List"
                 data={combinedData}
                 onRowClicked={RowClick}
                 className="myCustomTable"
