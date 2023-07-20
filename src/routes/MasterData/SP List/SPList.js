@@ -231,7 +231,7 @@ function SPList() {
                   <Form.Control
                     type="text"
                     value={spId}
-                    placeholder="No SP "
+                    placeholder="Cari No SP "
                     onChange={(e) => setSpId(e.target.value)}
                   />
                 </Form.Group>

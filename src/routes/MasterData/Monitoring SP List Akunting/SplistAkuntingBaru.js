@@ -1,4 +1,4 @@
-import { Card, Tag } from "antd";
+import { Card, Input, Select, Tag } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Form } from "react-bootstrap";
@@ -6,6 +6,7 @@ import DataTable from "react-data-table-component";
 import Baseurl from "../../../Api/BaseUrl";
 import { useHistory } from "react-router-dom";
 import elogGif from "../../../assets/Loader_Elogs1.gif"
+import SpStore from "../../../zustand/Store/FilterSP";
 function SplistAkuntingBaru() {
   const [dataApi, setdataapi] = useState([]);
   const [combinedData, setCombinedData] = useState([]);
@@ -16,6 +17,38 @@ function SplistAkuntingBaru() {
   const [datamobil, setDatamobil] = useState([]);
   const [loading, setLoading] = useState(false);
   const [AapproveActValue, setAapproveActValue] = useState("");
+  const [CustumerValue, setCustumerValue] = useState("")
+  const [CariCabangValue, setCariCabangValue] = useState("")
+  const [CariSalesValue, setCariSalesValue] = useState("")
+  const [CariBu, setCariBu] = useState("")
+  const { SPFilter, setSPFilter } = SpStore((items) => ({
+    SPFilter: items.SPFilter,
+    setSPFilter: items.setSPFilter
+  }))
+
+  let nomor = 1
+  const CariCustomerOptions = SPFilter && SPFilter.customer && [
+    { label: "-", value: "" },
+    ...SPFilter.customer.map((item) => ({
+      label: item.customer,
+      value: item.idcustomer
+    }))
+  ];
+
+  const CariCabangOptions = SPFilter && SPFilter.cabang && [{ label: "-", value: "" },
+  ...SPFilter.cabang.map((item) => ({
+    label: item.cabang,
+    value: nomor++
+  }))]
+  const CariSalesOptions = SPFilter && SPFilter.sales && [{ label: "-", value: "" },
+  ...SPFilter.sales.map((item) => ({
+    label: item.sales,
+    value: item.idSales
+  }))]
+  const CariBUOptions = SPFilter && SPFilter.bu && [{ label: "-", value: "" }, ...SPFilter.bu.map((item) => ({
+    label: item.bu,
+    value: item.idbu
+  }))]
   const columns = [
     {
       name: "No",
@@ -160,7 +193,8 @@ function SplistAkuntingBaru() {
     const dataapi = async () => {
       setLoading(true)
       const data = await axios.get(
-        `${Baseurl}sp/get-SP-all?limit=11&page=${page}&keyword=${filter}`,
+        // `${Baseurl}sp/get-SP-all?limit=11&page=${page}&keyword=${filter}`,
+        `${Baseurl}sp/get-SP-all?limit=11&page=${page}&keyword=${filter}&statusSP=&customerId=${CustumerValue}&cabang=${CariCabangValue}&sales=${CariSalesValue}&buId=${CariBu}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -200,7 +234,8 @@ function SplistAkuntingBaru() {
       setLoading(false)
     };
     dataapi();
-  }, [filter, page]);
+    setSPFilter()
+  }, [filter, page,CustumerValue, CariCabangValue, CariSalesValue, CariBu]);
 
   console.log();
   const handleFilterChange = (e) => {
@@ -236,19 +271,39 @@ function SplistAkuntingBaru() {
       <Card>
         <Row>
           <Col>
-            <Row>
-
-              <div className="d-flex justify-content-end">
-                <Col sm={3}>
-                  <Form.Control
-                    type="text"
-                    placeholder="No SP "
+          <Row>
+            <h5>Sp List</h5>
+              <Col sm={2}>
+                <Form.Group controlId="search">
+                  <Select options={CariCustomerOptions} showSearch optionFilterProp="label" onChange={(e) => setCustumerValue(e)} placeholder="Cari Customer" style={{ width: "100%" }} />
+                </Form.Group>
+              </Col>
+              <Col sm={2}>
+                <Form.Group controlId="cabang">
+                  <Select optionFilterProp="label" showSearch options={CariCabangOptions} onChange={(e) => setCariCabangValue(e)} placeholder="Cari Cabang" style={{ width: "100%" }} />
+                </Form.Group>
+              </Col>
+              <Col sm={2}>
+                <Form.Group controlId="sales">
+                  <Select optionFilterProp="label" options={CariSalesOptions} onChange={(e) => setCariSalesValue(e)} showSearch placeholder="Cari Sales" style={{ width: "100%" }} />
+                </Form.Group>
+              </Col>
+              <Col sm={2}>
+                <Form.Group controlId="bu">
+                  <Select options={CariBUOptions} optionFilterProp="label" onChange={(e) => setCariBu(e)} showSearch placeholder="Cari Bu" style={{ width: "100%" }} />
+                </Form.Group>
+              </Col>
+              <Col style={{ display: "flex", justifyContent: "flex-end" }} sm={2}>
+                <Form.Group controlId="search">
+                  <Input
+                    placeholder="Cari No SP"
                     onChange={handleFilterChange}
-
                   />
-                </Col>
-              </div>
+                </Form.Group>
+              </Col>
+
             </Row>
+           
             <style>
               {`
           .rdt_TableBody .rdt_TableRow:hover {

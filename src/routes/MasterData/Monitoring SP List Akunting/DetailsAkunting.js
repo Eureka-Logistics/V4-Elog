@@ -198,6 +198,8 @@ function DetailsAkunting() {
       // Munculkan SweetAlert jika terjadi error
       if (error.response && error.response.status === 402) {
         const isieror = error.response.data.status.message;
+      if (error.response && error.response.status === 403) {
+        const isieror = error.response.data.status.message
         Swal.fire(
           "Gagal!",
           `${isieror}`, // Memasukkan response data ke dalam pesan error
@@ -205,6 +207,13 @@ function DetailsAkunting() {
         );
       } else {
         Swal.fire("Gagal!", "Terjadi kesalahan!", "error");
+      } else if (error.response && error.response.status === 403) {
+        const isieror = error.response.data.status.message
+        Swal.fire(
+          'Gagal!',
+          `${isieror}`, // Pesan gagal ketika terjadi error response
+          'error'
+        );
       }
     }
   };
@@ -233,8 +242,12 @@ function DetailsAkunting() {
 
   const handlePrint = () => {
     history.push(`/printSPKListNih/${idmp}`);
+    const printWindow = window.open(`https://elogs.eurekalogistics.co.id/operasional/sm/printsm/${idmp}`, '_blank');
+    printWindow.onload = function() {
+      printWindow.print();
+    };
   };
-
+  
   const pindahedit = () => {
     history.push(`/masterdata/edit-sp/${idmp}`);
   };
@@ -365,6 +378,7 @@ address: "Sydney No. 1 Lake Park",
     <div>
       <Card>
         <Row>
+          <h5>Detail Sp</h5>
           {/* Modal Reject*/}
           <Modal
             title="Reject SP Sales"
@@ -472,6 +486,65 @@ address: "Sydney No. 1 Lake Park",
                 ) : null}
               </>
             )}
+            {
+              (jobdesk !== "operasional" && jobdesk !== "sales" && jobdesk !== "purchasing" && ApproveAkuntingStatus !== "Y") ? (
+                <>
+                  <Button size="sm" onClick={() => tombolApprove()}>
+                    Approve
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="danger"
+                    onClick={() => rejectbutton()}
+                  >
+                    Reject SP
+                  </Button>
+
+                </>
+              ) : (
+                <>
+                  {(ApproveAkuntingStatus === "Y" && ApproveAkuntingTgl !== null) ?
+                    <Alert type="success" message="Approve Akunting" banner /> :
+                    (ApproveAkuntingStatus === "N" && ApproveAkuntingTgl !== null) ?
+                      <Alert type="error" message="Diverted Akunting" banner /> :
+                      (ApproveAkuntingStatus === "N" && ApproveAkuntingTgl === null) ?
+                        <Alert type="info" message="Waiting Operasional" banner /> : null
+
+
+
+                  }
+
+                  {(Kendaraan_operasional === "Y" && tgl_act_4 != null) ?
+                    <Alert type="success" message="Approve Operasional" banner /> :
+                    (Kendaraan_operasional === "N" && tgl_act_4 != null) ?
+                      <Alert type="error" message="Diverted Operasional" banner /> :
+                      (Kendaraan_operasional === "N" && tgl_act_4 === null) ?
+                        <Alert type="info" message="Waiting Operasional" banner />
+                        : null
+                  }
+
+                  {(Kendaraan_purchasing === "Y" && tgl_act_5 !== null) ?
+                    <Alert type="success" message="Approve Purchasing" banner /> :
+                    (Kendaraan_purchasing === "N" && tgl_act_5 !== null) ?
+                      <Alert type="error" message="Diverted Purchasing" banner /> :
+                      (Kendaraan_purchasing === "N" && tgl_act_5 === null) ?
+                        <Alert type="info" message="Waiting Purchasing" banner /> :
+                        null
+
+                  }
+
+
+                </>
+
+
+              )
+            }
+
+            <div class="ms-3">
+            <Button size="sm" onClick={() => handlePrint()} variant="primary">
+              Print
+            </Button>
+            </div>
 
             <div class="mx-2">
               <Button size="sm" onClick={() => handlePrint()} variant="primary">

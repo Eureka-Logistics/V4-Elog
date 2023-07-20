@@ -25,7 +25,7 @@ function Index() {
                 },
             });
             setDataAwal(response.data.data.order);
-            // setTotalRows(response.data.totalPage * 10); 
+            setTotalRows(response.data.totalData); 
             Isloading(false)
         } catch (error) {
             console.log(error);
@@ -114,11 +114,12 @@ function Index() {
         <div>
             <Card>
                 <Row>
+                    <h5>Waiting Approve Sp</h5>
                     <div className="d-flex justify-content-end">
                         <Col sm={3}>
                             <Form.Control
                                 type="text"
-                                placeholder="No SP "
+                                placeholder="Cari No SP "
                                 value={search}
                                 onChange={(e) =>
                                     setSearch(e.target.value)
@@ -153,7 +154,7 @@ function Index() {
                             // onShowSizeChange={onShowSizeChange}
                             onChange={handlePageChange}
                             defaultCurrent={1}
-                            total={500}
+                            total={totalRows}
                         />
                     </div>
                 </Col>

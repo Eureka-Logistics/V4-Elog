@@ -603,6 +603,7 @@ function EditSP({ alamatInvoice }) {
     <div>
       <Card>
         <Row>
+          <h5>Detail SP</h5>
           <EditSPNew />
           <div className="d-flex justify-content-end">
             {jobdesk != "sales" && jobdesk != "operasional" ? (
