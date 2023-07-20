@@ -28,9 +28,7 @@ const SamplePage = () => {
   const [limit, setLimit] = useState(10);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
-  const handleView = (id) => {
-    router.push(`/tarif_eureka_edit/${id}`);
-  };
+  
 
   let nomor = 1;
 
@@ -168,7 +166,10 @@ const SamplePage = () => {
     });
     return formatter.format(angka);
   };
-
+  const handleView = (id_price) => {
+    console.log(`ini idnya `, id_price);
+    router.push(`tarif_eureka_edit_detail/${id_price}`);
+  };
   const [listData, setListData] = useState([]);
   const [muatKota, setMuatKota] = useState("");
   const [kotaTujuan, setKotaTujuan] = useState("");

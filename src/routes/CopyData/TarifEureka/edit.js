@@ -14,7 +14,7 @@ const { RangePicker } = DatePicker;
 const onSearch = (value) => console.log(value);
 
 const SamplePage = () => {
-  const router = useHistory();
+  const router = useHistory();  
 
   const [data, setData] = useState([]);
   const [orderDataTable, setOrderDataTable] = useState([]);
@@ -134,6 +134,18 @@ const SamplePage = () => {
           const order = data;
           console.log(order);
           setDataCustomer(order);
+
+          formik.setValues({
+            id_price: order.id_price,
+            id_muat_kota: order.id_muat_kota,
+            id_tujuan_kota: order.id_tujuan_kota,
+            id_kendaraan_jenis: order.id_kendaraan_jenis,
+            service_type: order.service_type,
+            jenis_kiriman: order.jenis_kiriman,
+            tarif: order.tarif,
+            ritase: order.ritase,
+            uang_jalan: order.uang_jalan,
+          });
 
           const fetchOptions = async () => {
             try {
@@ -487,7 +499,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            {/* <Col span={8}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Ritase</Form.Label>
                 <InputGroup>
@@ -512,7 +524,7 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-            </Col>
+            </Col> */}
           </Row>
         </Form>
       </Card>

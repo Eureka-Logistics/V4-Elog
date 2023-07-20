@@ -8,6 +8,8 @@ import { httpClient } from "../../../Api/Api";
 import { InputGroup, Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import useMitraStore from "../../../zustand/Store/MitraStore";
+import axios from "axios";
+import Baseurl from "../../../Api/BaseUrl";
 
 const { RangePicker } = DatePicker;
 
@@ -37,14 +39,19 @@ const SamplePage = () => {
   const [jenisKiriman, setJenisKiriman] = useState("");
   const [jenisDiskon, setJenisDiskon] = useState("");
   const [dataCustomer, setDataCustomer] = useState("");
-  const {NamaMitra, fetchMitra} = useMitraStore((item)=>({
-    NamaMitra : item.NamaMitra,
-    fetchMitra: item.fetchMitra
-  }))
-  const optionMitra = NamaMitra && NamaMitra.map((item) => ({
-    label : item.NamaMitra,
-    value : item.mitraId
-  }))
+  const [DetailnyaTarif, setDetailnyaTarif] = useState(null);
+  const [namamintraaja, setNamaMitra] = useState(null);
+
+  const { NamaMitra, fetchMitra } = useMitraStore((item) => ({
+    NamaMitra: item.NamaMitra,
+    fetchMitra: item.fetchMitra,
+  }));
+  const optionMitra =
+    NamaMitra &&
+    NamaMitra.map((item) => ({
+      label: item.NamaMitra,
+      value: item.mitraId,
+    }));
   const optjenisLayanan = [
     {
       value: 1,
@@ -94,8 +101,7 @@ const SamplePage = () => {
     }),
     onSubmit: (values) => {
       httpClient
-        .post("tarif/update-tarifMitra",
-        {
+        .post("tarif/update-tarifMitra", {
           ...values,
           service_type: jenisLayanan.label,
         })
@@ -117,102 +123,119 @@ const SamplePage = () => {
   });
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const url = window.location.href;
-        const idMpFix = url.substring(url.lastIndexOf("/") + 1);
+  const fetchData = async () => {
+    try {
+      const url = window.location.href;
+      const idMpFix = url.substring(url.lastIndexOf("/") + 1);
 
-        const {
-          data: { status, order },
-        } = await httpClient.get(
-          `tarif/get-detail-tarifMitra?id_price=${idMpFix}`
-        );
+      const {
+        data: { status, order },
+      } = await httpClient.get(
+        `tarif/get-detail-tarifMitra?id_price=${idMpFix}`
+      );
 
-        if (status.code !== 200) {
-          return;
-        }
-        console.log(order, "ini");
-        setDataCustomer(order);
-        setKota("ini", order.id_muat_kota);
-
-        setTimeout(() => {
-          const selectedOption = kotaOptions.find(
-            (option) => option.value === order.id_muat_kota
-          );
-          setKota(selectedOption);
-
-          const selectedOptions = kotaOptions.find(
-            (option) => option.value === order.id_tujuan_kota
-          );
-          setKotaTujuan(selectedOptions);
-        }, 1000);
-
-        if (order.id_user) {
-          const selectedOptiona = customerOptions.find(
-            (option) => option.value === order.id_user
-          );
-          setCustomer(selectedOptiona);
-        }
-
-        const selectedOptiond = jenisKendaraanOptions.find(
-          (option) => option.value === order.id_kendaraan_jenis
-        );
-        setJenisKendaraan(selectedOptiond);
-
-        const selectedOptiong = optjenisLayanan.find(
-          (option) => option.value === order.service_type
-        );
-        setJenisLayanan(selectedOptiong);
-
-        const selectedOptionu = optjenisKiriman.find(
-          (option) => option.value === order.jenis_kiriman
-        );
-        setJenisKiriman(selectedOptionu);
-      } catch (error) {
-        console.log(error.message);
+      if (status.code !== 200) {
+        return;
       }
-    };
+      console.log(order, "ini");
+      setDataCustomer(order);
+      setKota("ini", order.id_price_mitra);
 
-    const fetchVehicleTypes = async () => {
-      try {
-        const {
-          data: { status, data },
-        } = await httpClient.get("vehicle/get-type?keyword=");
-        if (status.code === 200) {
-          setJenisKendaraanOptions(
-            data.order.map((x) => ({
-              label: x.type,
-              value: x.id,
-            }))
-          );
-        }
-      } catch (error) {
-        console.log(error.message);
+      setTimeout(() => {
+        const selectedOption = kotaOptions.find(
+          (option) => option.value === order.id_muat_kota
+        );
+        setKota(selectedOption);
+
+        const selectedOptions = kotaOptions.find(
+          (option) => option.value === order.id_tujuan_kota
+        );
+        setKotaTujuan(selectedOptions);
+      }, 1000);
+
+      if (order.id_user) {
+        const selectedOptiona = customerOptions.find(
+          (option) => option.value === order.id_user
+        );
+        setCustomer(selectedOptiona);
       }
-    };
 
-    const fetchKotaOptions = async () => {
-      try {
-        const {
-          data: { status, data },
-        } = await httpClient.get("wilayah/get-kota");
-        if (status.code === 200) {
-          setKotaOptions(
-            data.order.map((x) => ({
-              label: x.kotaName,
-              value: x.idKota,
-            }))
-          );
-        }
-      } catch (error) {
-        console.log(error.message);
+      const selectedOptiond = jenisKendaraanOptions.find(
+        (option) => option.value === order.id_kendaraan_jenis
+      );
+      setJenisKendaraan(selectedOptiond);
+
+      const selectedOptiong = optjenisLayanan.find(
+        (option) => option.value === order.service_type
+      );
+      setJenisLayanan(selectedOptiong);
+
+      const selectedOptionu = optjenisKiriman.find(
+        (option) => option.value === order.jenis_kiriman
+      );
+      setJenisKiriman(selectedOptionu);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  // const dataTarifDetail = async (id_price) => {
+  //   const data = await axios.get(
+  //     `${Baseurl}tarif/get-detail-tarifEureka?id_price=${id_price}`,
+
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: localStorage.getItem(`token`),
+  //       },
+  //     }
+  //   );
+  //   setDetailnyaTarif(data.data);
+  //   console.log(data.data, "ini data options");
+  // };
+
+  const fetchVehicleTypes = async () => {
+    try {
+      const {
+        data: { status, data },
+      } = await httpClient.get("vehicle/get-type?keyword=");
+      if (status.code === 200) {
+        setJenisKendaraanOptions(
+          data.order.map((x) => ({
+            label: x.type,
+            value: x.id,
+          }))
+        );
       }
-    };
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
+  const fetchKotaOptions = async () => {
+    try {
+      const {
+        data: { status, data },
+      } = await httpClient.get("wilayah/get-kota");
+      if (status.code === 200) {
+        setKotaOptions(
+          data.order.map((x) => ({
+            label: x.kotaName,
+            value: x.idKota,
+          }))
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+
+    // dataTarifDetail();
     fetchData();
     fetchVehicleTypes();
     fetchKotaOptions();
-    fetchMitra()
+    fetchMitra();
   }, []);
   // kotaOptions
 
@@ -287,8 +310,13 @@ const SamplePage = () => {
     } else if (e.name === "id_tujuan_kota") {
       setKotaTujuan(value);
       formik.setFieldValue("id_tujuan_kota", value.value);
+    } else if (e.name === "id_mitra") {
+      setNamaMitra(value);
+      formik.setFieldValue("id_mitra", value.value);
     }
   };
+
+ 
 
   return (
     <div>
@@ -312,7 +340,6 @@ const SamplePage = () => {
                   <Select
                     options={optionMitra}
                     value={customer}
-                    isSearchable
                     placeholder="Select Customer"
                     name="id_mitra"
                     styles={customStylesReactSelect}
@@ -377,8 +404,9 @@ const SamplePage = () => {
                     options={optjenisLayanan}
                     name="service_type"
                     value={jenisLayanan}
-                    onChange={(e) => {setJenisLayanan(e)
-                    console.log(`ini jenis`,e);
+                    onChange={(e) => {
+                      setJenisLayanan(e);
+                      console.log(`ini jenis`, e);
                     }}
                     isInvalid={!!formik.errors.service_type}
                     styles={customStylesReactSelect}
@@ -404,10 +432,8 @@ const SamplePage = () => {
           </Row>
           <br />
           <hr />
-          <h4>
-            Biaya Penanganan
-          </h4>
-          <Row style={{ marginBottom: "10px",marginTop: "20px" }}>
+          <h4>Biaya Penanganan</h4>
+          <Row style={{ marginBottom: "10px", marginTop: "20px" }}>
             <Col span={8}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Tarif</Form.Label>
@@ -422,7 +448,7 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
             <Col span={8}>
-            {/* <Form.Group style={{ marginBottom: "10px" }}>
+              {/* <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Ritase</Form.Label>
                 <InputGroup>
                   <Form.Control

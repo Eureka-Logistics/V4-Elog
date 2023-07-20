@@ -38,6 +38,7 @@ function DetailAPList() {
       setSJList(respons.data?.data?.sj);
     } catch (error) {}
   };
+  
   const handleAdd = (e) => {
     httpClient
       .get(`${Baseurl}ap/get-data-sm?idSm=${e}`)

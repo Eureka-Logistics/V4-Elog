@@ -385,7 +385,7 @@ const SamplePage = () => {
                   <Select
                     options={optjenisLayanan}
                     name="service_type"
-                    value={jenisLayanan}
+                    // value={jenisLayanan}
                     onChange={(e) => setJenisLayanan(e.label)}
                     isInvalid={!!formik.errors.service_type}
                     styles={customStylesReactSelect}

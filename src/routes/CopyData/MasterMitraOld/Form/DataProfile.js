@@ -9,6 +9,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import { number } from "prop-types";
 import CreateMitraModal from "../../../MasterData/Purchasing/MasterMitra/CreateMitraModal";
+import axios from "axios";
+import Baseurl from "../../../../Api/BaseUrl";
 
 const { RangePicker } = DatePicker;
 
@@ -28,7 +30,8 @@ const SamplePage = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [show, setShow] = useState(false);
-  const [isiValues , setIsiValues] = useState("")
+  const [datanyaPT, setDatanyaPT] = useState("");
+  const [isiValues, setIsiValues] = useState("");
 
   const formik = useFormik({
     initialValues: {
@@ -140,7 +143,7 @@ const SamplePage = () => {
     }),
     onSubmit: (values) => {
       console.log(`values dari sini`, values);
-      setIsiValues(values)
+      setIsiValues(values);
 
       httpClient
         .post("mitra/create-mitra", values)
@@ -160,148 +163,167 @@ const SamplePage = () => {
         });
     },
   });
+
+  const url = window.location.href;
+  const idMpFix = url.substring(url.lastIndexOf("/") + 1);
+  // httpClient
+  //   .get(`sp/get-SP-all-detail?idmp=${idMpFix}`)
+  //   .then(({ data }) => {
+  //     if (data.status.code === 200) {
+  //       setOrderDataTable(data.detail);
+  //       setOrder(data);
+  //       setTimeout(() => {
+  //         formik.setFieldValue("service", data.service);
+  //         formik.setFieldValue("order_date", data.order_date);
+  //         formik.setFieldValue("pickupDate", data.pickup_date);
+  //         formik.setFieldValue("kode_mitra", data.kode_mitra);
+  //         formik.setFieldValue("kode", data.kode);
+  //         formik.setFieldValue("qrcode", data.qrcode);
+  //         formik.setFieldValue("nama_mitra", data.nama_mitra);
+  //         formik.setFieldValue("title", data.title);
+  //         formik.setFieldValue("jenis", data.jenis);
+  //         formik.setFieldValue("jenis_usaha", data.jenis_usaha);
+  //         formik.setFieldValue("kepemilikan", data.kepemilikan);
+  //         formik.setFieldValue("jumlah_armada", data.jumlah_armada);
+  //         formik.setFieldValue("jumlah_sdm_operasional", data.jumlah_sdm_operasional);
+  //         formik.setFieldValue("cabang", data.cabang);
+  //         formik.setFieldValue("jenis_kiriman", data.jenis_kiriman);
+  //         formik.setFieldValue("wilayah", data.wilayah);
+  //         formik.setFieldValue("tujuan", data.tujuan);
+  //         formik.setFieldValue("tahun_awal_kontrak", data.tahun_awal_kontrak);
+  //         formik.setFieldValue("awal_kontrak", data.awal_kontrak);
+  //         formik.setFieldValue("akhir_kontrak", data.akhir_kontrak);
+  //         formik.setFieldValue("kontrak", data.kontrak);
+  //         formik.setFieldValue("direktur", data.direktur);
+  //         formik.setFieldValue("tahun_berdiri", data.tahun_berdiri);
+  //         formik.setFieldValue("npwp_id", data.npwp_id);
+  //         formik.setFieldValue("npwp_name", data.npwp_name);
+  //         formik.setFieldValue("npwp_address", data.npwp_address);
+  //         formik.setFieldValue("npwp_jalan", data.npwp_jalan);
+  //         formik.setFieldValue("npwp_blok", data.npwp_blok);
+  //         formik.setFieldValue("npwp_nomor", data.npwp_nomor);
+  //         formik.setFieldValue("npwp_rt", data.npwp_rt);
+  //         formik.setFieldValue("npwp_rw", data.npwp_rw);
+  //         formik.setFieldValue("npwp_kelurahan", data.npwp_kelurahan);
+  //         formik.setFieldValue("npwp_kecamatan", data.npwp_kecamatan);
+  //         formik.setFieldValue("npwp_kota", data.npwp_kota);
+  //         formik.setFieldValue("npwp_provisin", data.npwp_provisin);
+  //         formik.setFieldValue("npwp_kodepos", data.npwp_kodepos);
+  //         formik.setFieldValue("is_taxable", data.is_taxable);
+  //         formik.setFieldValue("telepon", data.telepon);
+  //         formik.setFieldValue("contact_person", data.contact_person);
+  //         formik.setFieldValue("telp", data.telp);
+  //         formik.setFieldValue("fax", data.fax);
+  //         formik.setFieldValue("email", data.email);
+  //         formik.setFieldValue("alamat", data.alamat);
+  //         formik.setFieldValue("homepage", data.homepage);
+  //         formik.setFieldValue("pembayaran", data.pembayaran);
+  //         formik.setFieldValue("nama_bank", data.nama_bank);
+  //         formik.setFieldValue("nama_akun", data.nama_akun);
+  //         formik.setFieldValue("no_rek", data.no_rek);
+  //         formik.setFieldValue("currency", data.currency);
+  //         formik.setFieldValue("po_legalitas", data.po_legalitas);
+  //         formik.setFieldValue("ktp_legalitas", data.ktp_legalitas);
+  //         formik.setFieldValue("akta_pendirian", data.akta_pendirian);
+  //         formik.setFieldValue("akta_perubahan_dasar", data.akta_perubahan_dasar);
+  //         formik.setFieldValue("akta_susunan_direksi", data.akta_susunan_direksi);
+  //         formik.setFieldValue("surat_domisili", data.surat_domisili);
+  //         formik.setFieldValue("npwp_legalitas", data.npwp_legalitas);
+  //         formik.setFieldValue("skt_legalitas", data.skt_legalitas);
+  //         formik.setFieldValue("nppkp_legalitas", data.nppkp_legalitas);
+  //         formik.setFieldValue("siup_legalitas", data.siup_legalitas);
+  //         formik.setFieldValue("ijin_pendirian", data.ijin_pendirian);
+  //         formik.setFieldValue("ppmd_legalitas", data.ppmd_legalitas);
+  //         formik.setFieldValue("ijin_usaha", data.ijin_usaha);
+  //         formik.setFieldValue("tdp_legalitas", data.tdp_legalitas);
+  //         formik.setFieldValue("surat_kuasa", data.surat_kuasa);
+  //         formik.setFieldValue("lama_bekerja", data.lama_bekerja);
+  //         formik.setFieldValue("jenis_kartu_kredit", data.jenis_kartu_kredit);
+  //         formik.setFieldValue("bank_penerbit", data.bank_penerbit);
+  //         formik.setFieldValue("laporan_keuangan", data.laporan_keuangan);
+  //         formik.setFieldValue("status_usaha", data.status_usaha);
+  //         formik.setFieldValue("lama_usaha", data.lama_usaha);
+  //         formik.setFieldValue("omset_bulanan", data.omset_bulanan);
+  //         formik.setFieldValue("asset_tanah", data.asset_tanah);
+  //         formik.setFieldValue("asset_bangunan", data.asset_bangunan);
+  //         formik.setFieldValue("asset_kendaraan", data.asset_kendaraan);
+  //         formik.setFieldValue("asset_mesin", data.asset_mesin);
+  //         formik.setFieldValue("affiliasi", data.affiliasi);
+  //         formik.setFieldValue("jumlah_unit", data.jumlah_unit);
+  //         formik.setFieldValue("periode_sewa", data.periode_sewa);
+  //         formik.setFieldValue("nilai_sewa", data.nilai_sewa);
+  //         formik.setFieldValue("nilai_ruu", data.nilai_ruu);
+  //         formik.setFieldValue("top", data.top);
+  //         formik.setFieldValue("metode_pembayaran", data.metode_pembayaran);
+  //         formik.setFieldValue("qty_motor", data.qty_motor);
+  //         formik.setFieldValue("rp_motor", data.rp_motor);
+  //         formik.setFieldValue("qty_grandmax", data.qty_grandmax);
+  //         formik.setFieldValue("rp_grandmax", data.rp_grandmax);
+  //         formik.setFieldValue("qty_l300", data.qty_l300);
+  //         formik.setFieldValue("rp_l300", data.rp_l300);
+  //         formik.setFieldValue("qty_traga", data.qty_traga);
+  //         formik.setFieldValue("rp_traga", data.rp_traga);
+  //         formik.setFieldValue("qty_cde", data.qty_cde);
+  //         formik.setFieldValue("rp_cde", data.rp_cde);
+  //         formik.setFieldValue("qty_cdd", data.qty_cdd);
+  //         formik.setFieldValue("rp_cdd", data.rp_cdd);
+  //         formik.setFieldValue("qty_fuso", data.qty_fuso);
+  //         formik.setFieldValue("rp_fuso", data.rp_fuso);
+  //         formik.setFieldValue("qty_wingbox", data.qty_wingbox);
+  //         formik.setFieldValue("rp_wingbox", data.rp_wingbox);
+  //         formik.setFieldValue("qty_trailer20", data.qty_trailer20);
+  //         formik.setFieldValue("rp_trailer20", data.rp_trailer20);
+  //         formik.setFieldValue("qty_trailer40", data.qty_trailer40);
+  //         formik.setFieldValue("rp_trailer40", data.rp_trailer40);
+  //         formik.setFieldValue("pic_id", data.pic_id);
+  //         formik.setFieldValue("type", data.type);
+  //         formik.setFieldValue("memo", data.memo);
+  //       }, 1000);
+  //     }
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error.message);
+  //   });
+  // httpClient
+  //   .get(`sp/get-SP-massage?id_mp=${idMpFix}`)
+  //   .then(({ data }) => {
+  //     if (data.status.code === 200) {
+  //       setData(data.data);
+  //     }
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error.message);
+  //   });
+
+  
+
+  const OptionsData = async () => {
+    const data = await axios.get(
+      `${Baseurl}mitra/get-select-mitraPic`,
+
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem(`token`),
+        },
+      }
+    );
+    console.log(data.data, "ini data options");
+  };
+
   useEffect(() => {
-    const url = window.location.href;
-    const idMpFix = url.substring(url.lastIndexOf("/") + 1);
-    // httpClient
-    //   .get(`sp/get-SP-all-detail?idmp=${idMpFix}`)
-    //   .then(({ data }) => {
-    //     if (data.status.code === 200) {
-    //       setOrderDataTable(data.detail);
-    //       setOrder(data);
-    //       setTimeout(() => {
-    //         formik.setFieldValue("service", data.service);
-    //         formik.setFieldValue("order_date", data.order_date);
-    //         formik.setFieldValue("pickupDate", data.pickup_date);
-    //         formik.setFieldValue("kode_mitra", data.kode_mitra);
-    //         formik.setFieldValue("kode", data.kode);
-    //         formik.setFieldValue("qrcode", data.qrcode);
-    //         formik.setFieldValue("nama_mitra", data.nama_mitra);
-    //         formik.setFieldValue("title", data.title);
-    //         formik.setFieldValue("jenis", data.jenis);
-    //         formik.setFieldValue("jenis_usaha", data.jenis_usaha);
-    //         formik.setFieldValue("kepemilikan", data.kepemilikan);
-    //         formik.setFieldValue("jumlah_armada", data.jumlah_armada);
-    //         formik.setFieldValue("jumlah_sdm_operasional", data.jumlah_sdm_operasional);
-    //         formik.setFieldValue("cabang", data.cabang);
-    //         formik.setFieldValue("jenis_kiriman", data.jenis_kiriman);
-    //         formik.setFieldValue("wilayah", data.wilayah);
-    //         formik.setFieldValue("tujuan", data.tujuan);
-    //         formik.setFieldValue("tahun_awal_kontrak", data.tahun_awal_kontrak);
-    //         formik.setFieldValue("awal_kontrak", data.awal_kontrak);
-    //         formik.setFieldValue("akhir_kontrak", data.akhir_kontrak);
-    //         formik.setFieldValue("kontrak", data.kontrak);
-    //         formik.setFieldValue("direktur", data.direktur);
-    //         formik.setFieldValue("tahun_berdiri", data.tahun_berdiri);
-    //         formik.setFieldValue("npwp_id", data.npwp_id);
-    //         formik.setFieldValue("npwp_name", data.npwp_name);
-    //         formik.setFieldValue("npwp_address", data.npwp_address);
-    //         formik.setFieldValue("npwp_jalan", data.npwp_jalan);
-    //         formik.setFieldValue("npwp_blok", data.npwp_blok);
-    //         formik.setFieldValue("npwp_nomor", data.npwp_nomor);
-    //         formik.setFieldValue("npwp_rt", data.npwp_rt);
-    //         formik.setFieldValue("npwp_rw", data.npwp_rw);
-    //         formik.setFieldValue("npwp_kelurahan", data.npwp_kelurahan);
-    //         formik.setFieldValue("npwp_kecamatan", data.npwp_kecamatan);
-    //         formik.setFieldValue("npwp_kota", data.npwp_kota);
-    //         formik.setFieldValue("npwp_provisin", data.npwp_provisin);
-    //         formik.setFieldValue("npwp_kodepos", data.npwp_kodepos);
-    //         formik.setFieldValue("is_taxable", data.is_taxable);
-    //         formik.setFieldValue("telepon", data.telepon);
-    //         formik.setFieldValue("contact_person", data.contact_person);
-    //         formik.setFieldValue("telp", data.telp);
-    //         formik.setFieldValue("fax", data.fax);
-    //         formik.setFieldValue("email", data.email);
-    //         formik.setFieldValue("alamat", data.alamat);
-    //         formik.setFieldValue("homepage", data.homepage);
-    //         formik.setFieldValue("pembayaran", data.pembayaran);
-    //         formik.setFieldValue("nama_bank", data.nama_bank);
-    //         formik.setFieldValue("nama_akun", data.nama_akun);
-    //         formik.setFieldValue("no_rek", data.no_rek);
-    //         formik.setFieldValue("currency", data.currency);
-    //         formik.setFieldValue("po_legalitas", data.po_legalitas);
-    //         formik.setFieldValue("ktp_legalitas", data.ktp_legalitas);
-    //         formik.setFieldValue("akta_pendirian", data.akta_pendirian);
-    //         formik.setFieldValue("akta_perubahan_dasar", data.akta_perubahan_dasar);
-    //         formik.setFieldValue("akta_susunan_direksi", data.akta_susunan_direksi);
-    //         formik.setFieldValue("surat_domisili", data.surat_domisili);
-    //         formik.setFieldValue("npwp_legalitas", data.npwp_legalitas);
-    //         formik.setFieldValue("skt_legalitas", data.skt_legalitas);
-    //         formik.setFieldValue("nppkp_legalitas", data.nppkp_legalitas);
-    //         formik.setFieldValue("siup_legalitas", data.siup_legalitas);
-    //         formik.setFieldValue("ijin_pendirian", data.ijin_pendirian);
-    //         formik.setFieldValue("ppmd_legalitas", data.ppmd_legalitas);
-    //         formik.setFieldValue("ijin_usaha", data.ijin_usaha);
-    //         formik.setFieldValue("tdp_legalitas", data.tdp_legalitas);
-    //         formik.setFieldValue("surat_kuasa", data.surat_kuasa);
-    //         formik.setFieldValue("lama_bekerja", data.lama_bekerja);
-    //         formik.setFieldValue("jenis_kartu_kredit", data.jenis_kartu_kredit);
-    //         formik.setFieldValue("bank_penerbit", data.bank_penerbit);
-    //         formik.setFieldValue("laporan_keuangan", data.laporan_keuangan);
-    //         formik.setFieldValue("status_usaha", data.status_usaha);
-    //         formik.setFieldValue("lama_usaha", data.lama_usaha);
-    //         formik.setFieldValue("omset_bulanan", data.omset_bulanan);
-    //         formik.setFieldValue("asset_tanah", data.asset_tanah);
-    //         formik.setFieldValue("asset_bangunan", data.asset_bangunan);
-    //         formik.setFieldValue("asset_kendaraan", data.asset_kendaraan);
-    //         formik.setFieldValue("asset_mesin", data.asset_mesin);
-    //         formik.setFieldValue("affiliasi", data.affiliasi);
-    //         formik.setFieldValue("jumlah_unit", data.jumlah_unit);
-    //         formik.setFieldValue("periode_sewa", data.periode_sewa);
-    //         formik.setFieldValue("nilai_sewa", data.nilai_sewa);
-    //         formik.setFieldValue("nilai_ruu", data.nilai_ruu);
-    //         formik.setFieldValue("top", data.top);
-    //         formik.setFieldValue("metode_pembayaran", data.metode_pembayaran);
-    //         formik.setFieldValue("qty_motor", data.qty_motor);
-    //         formik.setFieldValue("rp_motor", data.rp_motor);
-    //         formik.setFieldValue("qty_grandmax", data.qty_grandmax);
-    //         formik.setFieldValue("rp_grandmax", data.rp_grandmax);
-    //         formik.setFieldValue("qty_l300", data.qty_l300);
-    //         formik.setFieldValue("rp_l300", data.rp_l300);
-    //         formik.setFieldValue("qty_traga", data.qty_traga);
-    //         formik.setFieldValue("rp_traga", data.rp_traga);
-    //         formik.setFieldValue("qty_cde", data.qty_cde);
-    //         formik.setFieldValue("rp_cde", data.rp_cde);
-    //         formik.setFieldValue("qty_cdd", data.qty_cdd);
-    //         formik.setFieldValue("rp_cdd", data.rp_cdd);
-    //         formik.setFieldValue("qty_fuso", data.qty_fuso);
-    //         formik.setFieldValue("rp_fuso", data.rp_fuso);
-    //         formik.setFieldValue("qty_wingbox", data.qty_wingbox);
-    //         formik.setFieldValue("rp_wingbox", data.rp_wingbox);
-    //         formik.setFieldValue("qty_trailer20", data.qty_trailer20);
-    //         formik.setFieldValue("rp_trailer20", data.rp_trailer20);
-    //         formik.setFieldValue("qty_trailer40", data.qty_trailer40);
-    //         formik.setFieldValue("rp_trailer40", data.rp_trailer40);
-    //         formik.setFieldValue("pic_id", data.pic_id);
-    //         formik.setFieldValue("type", data.type);
-    //         formik.setFieldValue("memo", data.memo);
-    //       }, 1000);
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error.message);
-    //   });
-    // httpClient
-    //   .get(`sp/get-SP-massage?id_mp=${idMpFix}`)
-    //   .then(({ data }) => {
-    //     if (data.status.code === 200) {
-    //       setData(data.data);
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error.message);
-    //   });
+    OptionsData();
   }, []);
 
   return (
     <div>
       <Form onSubmit={formik.handleSubmit}>
-      <Col span={24} className="d-flex justify-content-end">
-            <Button type="submit">Save</Button>
-            {/* <Button variant="secondary" onClick={handleClose}>
+        <Col span={24} className="d-flex justify-content-end">
+          <Button type="submit">Save</Button>
+          {/* <Button variant="secondary" onClick={handleClose}>
             Close
           </Button> */}
-          </Col>
+        </Col>
         <Card>
           <h5>NAMA DAN ALAMAT PERUSAHAAN(Sold to Party )</h5>
           <hr />
@@ -1031,7 +1053,6 @@ const SamplePage = () => {
             </Col>
           </Row>
         </Card>
-     
 
         {/* <Row style={{ marginBottom: "10px" }}>
           <Col span={8}>
@@ -1581,8 +1602,7 @@ const SamplePage = () => {
             </Form.Group>
           </Col>
         </Row> */}
-          {/* <CreateMitraModal isiValues={isiValues}/> */}
-
+        {/* <CreateMitraModal isiValues={isiValues}/> */}
       </Form>
     </div>
   );

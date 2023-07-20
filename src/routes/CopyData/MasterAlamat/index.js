@@ -236,7 +236,7 @@ const SamplePage = () => {
       <Card>
       <h3>Data Customer</h3>
         <Row className="mt-5">
-          {/* <Col span={6}>
+          <Col span={6}>
             <Select
               value={customer}
               name="customer"
@@ -252,7 +252,7 @@ const SamplePage = () => {
                 </Select.Option>
               ))}
             </Select>
-          </Col> */}
+          </Col>
           <Col span={4}>
             <Button type="primary" onClick={handleAdd}>
               New Customer
