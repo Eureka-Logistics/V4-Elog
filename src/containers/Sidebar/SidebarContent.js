@@ -145,6 +145,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <Menu.Item key="Data Wilayah">
                       <Link to="/masteralamat">
                         <i className="icon icon-widgets" />
+                        <span>Customer</span>
+                      </Link>
+                    </Menu.Item>
+                  <Menu.Item key="Alamat Customer">
+                      <Link to="/alamatcustomer">
+                        <i className="icon icon-widgets" />
+                        <span>Alamat Customer</span>
                         <span>Data Alamat All</span>
                       </Link>
                     </Menu.Item>
@@ -293,6 +300,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </SubMenu>
+                
                   <SubMenu key="Masters" title="Masters">
                   
                   </SubMenu>
