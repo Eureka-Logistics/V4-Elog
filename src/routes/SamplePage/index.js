@@ -87,14 +87,14 @@ const SamplePage = () => {
           <Col sm={4}>
             <Card style={{ backgroundColor: "#dd4b39" }}>
               <h5 style={{ color: 'white' }}>Total Driver : {inform?.totalDriver}</h5>
-              <h5 style={{ color: 'white' }}>Driver Aktif : {inform?.activeDriver + " / " + inform.totalDriver}</h5>
+              <h5 style={{ color: 'white' }}>Driver Aktif : {inform?.activeDriver + " / " + inform?.totalDriver}</h5>
               <h5 style={{ color: 'white' }}>Driver Off : {inform?.offDriver}</h5>
             </Card>
           </Col>
           <Col sm={4}>
             <Card style={{ backgroundColor: "#00a65a" }}>
               <h5 style={{ color: 'white' }}>Total Mobil : {inform?.totalVeh}</h5>
-              <h5 style={{ color: 'white' }}>Mobil Aktif : {inform?.activeVeh + " / " + inform.totalVeh}</h5>
+              <h5 style={{ color: 'white' }}>Mobil Aktif : {inform?.activeVeh + " / " + inform?.totalVeh}</h5>
               <h5 style={{ color: 'white' }}>Mobil Off : {inform?.offVeh}</h5>
             </Card>
           </Col>
