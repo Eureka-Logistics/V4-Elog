@@ -386,10 +386,10 @@ const SamplePage = () => {
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Jenis Layanan</Form.Label>
                 <InputGroup>
-                  <Select
+                <Select
                     options={optjenisLayanan}
                     name="service_type"
-                    value={jenisLayanan}
+                    // value={jenisLayanan}
                     onChange={(e) => setJenisLayanan(e.label)}
                     isInvalid={!!formik.errors.service_type}
                     styles={customStylesReactSelect}
@@ -462,7 +462,9 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
             <Col span={24} className="d-flex justify-content-end">
-              <Button type="submit">Simpan Tarif</Button>
+              <Form.Group>
+                <Button type="submit">Simpan Tarif</Button>
+              </Form.Group>
             </Col>
           </Row>
         </Form>

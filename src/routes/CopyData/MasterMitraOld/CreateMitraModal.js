@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useHistory } from "react-router-dom";
 import DataProfile from "./Form/DataProfile";
 import {notification } from "antd";
 import { httpClient } from "../../../Api/Api";
+import axios from "axios";
+import Baseurl from "../../../Api/BaseUrl";
 function SamplePage({isiValues}) {
   const [show, setShow] = useState(false);
   const history = useHistory();
@@ -37,7 +39,25 @@ function SamplePage({isiValues}) {
 const datatest = () => {
   console.log(`ini values`,isiValues);
 
-}
+};
+
+const OptionsData = async () => {
+  const data = await axios.get(
+    `${Baseurl}mitra/get-select-mitraPic`,
+
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem(`token`),
+      },
+    }
+  );
+  console.log(data.data, "ini data options");
+};
+
+useEffect(() => {
+  OptionsData();
+}, []);
 
   return (
     <>

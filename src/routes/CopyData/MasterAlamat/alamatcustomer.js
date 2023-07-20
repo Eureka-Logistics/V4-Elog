@@ -35,7 +35,7 @@ const SamplePage = () => {
   const [limit, setLimit] = useState(10);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
-  const [Pagginations, setPagginations] = useState("");
+  const [Pagginatios , setPagginations] = useState("")
 
   useEffect(() => {
     const fetchData = async () => {
@@ -233,7 +233,7 @@ const SamplePage = () => {
     <>
       <Card>
       <h3>Tabel Alamat Customer</h3>
-        <Row>
+        <Row className="mt-5">
           
           <Col span={4}>
             <Button type="primary" onClick={handleAdd}>
@@ -269,9 +269,9 @@ const SamplePage = () => {
         //       </p>
         //     ),
         //   }}
-          columns={columns}
-          pagination={{ total : Pagginations.totalData, current: page, pageSize: Pagginations.limit }}
-          onChange={(pagination) => setPage(pagination.current)}
+        columns={columns}
+        pagination={{ total : Pagginatios?.totalPage, current: page, pageSize: limit }}
+        onChange={(pagination) => setPage(pagination.current)}
         />
       </Card>
     </>

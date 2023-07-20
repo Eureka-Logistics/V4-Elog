@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Input, Space, Table, Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
-import { httpClient } from "../../util/Api";
+import { httpClient } from "../../../Api/Api";
 
 const { confirm } = Modal;
 
@@ -13,7 +13,7 @@ const SamplePage = () => {
   const [page, setPage] = useState(1);
 
   const handleAdd = (id) => {
-    router.push(`/mastercustomer/add`);
+    router.push(`/mastercustomersssAdd/`);
   };
 
   const handleDetail = (id) => {
@@ -21,7 +21,8 @@ const SamplePage = () => {
   };
 
   const handleEdit = (id) => {
-    router.push(`/mastercustomer/edit/${id}`);
+    // router.push(`/mastercustomer/edit/${id}`);
+    router.push(`/mastercustomerssDetail/${id}`);
   };
 
   const [order, setOrder] = useState([]);
@@ -69,11 +70,11 @@ const SamplePage = () => {
       dataIndex: "custName",
       key: "custName",
     },
-    {
-      title: "Telephone",
-      dataIndex: "custTelephone",
-      key: "custTelephone",
-    },
+    // {
+    //   title: "Telephone",
+    //   dataIndex: "custTelephone",
+    //   key: "custTelephone",
+    // },
     // {
     //   title: "Address",
     //   dataIndex: "custAddress",

@@ -110,8 +110,27 @@ const SamplePage = () => {
       // id_kecamatan: "1101051",
       // id_kota: "1101",
     },
+
     validationSchema: Yup.object({
-      id_customer: Yup.string().max(30, "Must be 30 characters or less"),
+      // id_customer: Yup.string().max(30, "Must be 30 characters or less"),
+      nama_perusahaan: Yup.string().required("Masukkan Nama Perusahaan"),
+      // jenis_barang: Yup.string().required("Type Of Goods is required"),
+      // jenis_usaha: Yup.string().required("Type Of Business is required"),
+      // tahun_berdiri: Yup.number()
+      //   .typeError("Year of Establishment must be a number")
+      //   .integer("Year of Establishment must be an integer")
+      //   .required("Year of Establishment is required"),
+      npwp: Yup.string().required("NPWP is required"),
+      // alamat_npwp: Yup.string().required("NPWP Address is required"),
+      // alamat_kantor: Yup.string().required("Office Address is required"),
+      // telepon: Yup.string().required("Telephone is required"),
+      // hp: Yup.string().required("Mobile Number is required"),
+      // mata_uang: Yup.string().required("Currency is required"),
+      jenis_pembayaran: Yup.string().required("Type Of Payment is required"),
+      // ktp: Yup.string().required("KTP is required"),
+      // tdp: Yup.string().required("TDP is required"),
+      // siup: Yup.string().required("SIUP is required"),
+      // Add more validations for other fields as needed
     }),
     onSubmit: (values) => {
       httpClient
@@ -183,26 +202,25 @@ const SamplePage = () => {
   };
 
   const onSelectChange = (value, e) => {
-  
     if (e.name === "provinsi") {
       formik.setFieldValue("id_provinsi", value.value);
       setProvinsi(value.label);
       console.log(value.label);
       httpClient
-      .get(`wilayah/get-provinsi?keyword=${value.label}`)
-      .then(({ data }) => {
-        if (data.status.code === 200) {
-          setProvinsiOptions(
-            data.data.order.map((x) => ({
-              label: x.provinsi,
-              value: x.idProv,
-            }))
-          );
-        }
-      })
-      .catch(function (error) {
-        console.log(error.message);
-      });
+        .get(`wilayah/get-provinsi?keyword=${value.label}`)
+        .then(({ data }) => {
+          if (data.status.code === 200) {
+            setProvinsiOptions(
+              data.data.order.map((x) => ({
+                label: x.provinsi,
+                value: x.idProv,
+              }))
+            );
+          }
+        })
+        .catch(function (error) {
+          console.log(error.message);
+        });
       httpClient
         .get(`wilayah/get-kota?provinsi=${value.value}`)
         .then(({ data }) => {
@@ -223,7 +241,6 @@ const SamplePage = () => {
       setKota(value);
       httpClient
         .get(
-          
           `wilayah/get-kecamatan?limit=10&page=1&keyword=&provinsi=${provinsi?.value}&idkota=${value.value}`
         )
         .then(({ data }) => {
@@ -248,13 +265,9 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
-        <h4>
-          New Master Alamat
-        </h4>
+        <h4>New Master Alamat</h4>
         <Form onSubmit={formik.handleSubmit} className="mt-">
-        
-
-          <Row style={{ marginBottom: "10px" }}>
+          <Row className="mt-5 " style={{ marginBottom: "10px" }}>
             <Col span={8}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Customer Code</Form.Label>
@@ -264,7 +277,7 @@ const SamplePage = () => {
                     value={formik.values.kode_customer}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.kode_customer}
-                    disabled
+                    // disabled
                   />
                 </InputGroup>
               </Form.Group>
@@ -301,6 +314,11 @@ const SamplePage = () => {
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.nama_perusahaan}
                   />
+                  {formik.errors.nama_perusahaan && (
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.nama_perusahaan}
+                    </Form.Control.Feedback>
+                  )}
                 </InputGroup>
               </Form.Group>
               <Form.Group style={{ marginBottom: "10px" }}>
@@ -325,6 +343,11 @@ const SamplePage = () => {
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.jenis_barang}
                   />
+                  {formik.errors.jenis_barang && (
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.jenis_barang}
+                    </Form.Control.Feedback>
+                  )}
                 </InputGroup>
               </Form.Group>
             </Col>
@@ -338,6 +361,11 @@ const SamplePage = () => {
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.nama_perusahaan}
                   />
+                   {formik.errors.nama_perusahaan && (
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.nama_perusahaan}
+                    </Form.Control.Feedback>
+                  )}
                 </InputGroup>
               </Form.Group>
               <Form.Group style={{ marginBottom: "10px" }}>
@@ -455,6 +483,11 @@ const SamplePage = () => {
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.jenis_pembayaran}
                   />
+                  {formik.errors.jenis_pembayaran && (
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.jenis_pembayaran}
+                    </Form.Control.Feedback>
+                  )}
                 </InputGroup>
               </Form.Group>
             </Col>
@@ -524,6 +557,11 @@ const SamplePage = () => {
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.npwp}
                   />
+                   {formik.errors.npwp && (
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.npwp}
+                    </Form.Control.Feedback>
+                  )}
                 </InputGroup>
               </Form.Group>
             </Col>
@@ -541,7 +579,6 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
           </Row>
-
 
           {/* <Row style={{ marginBottom: "10px" }}>
             <Col span={8}>
@@ -810,16 +847,20 @@ const SamplePage = () => {
             </Col>
           </Row> */}
         </Form>
+
         <Row className="mt-5" style={{ marginBottom: "10px" }}>
-            <Col span={8}></Col>
-            <Col span={3}></Col>
-            <Col span={3}></Col>
-            <Col span={10} className="d-flex justify-content-end">
-              <Button onClick={formik.handleSubmit} style={{backgroundColor: "green", color: "white"}}>
-                Save
-              </Button>
-            </Col>
-          </Row>
+          <Col span={8}></Col>
+          <Col span={3}></Col>
+          <Col span={3}></Col>
+          <Col span={10} className="d-flex justify-content-end">
+            <Button
+              onClick={formik.handleSubmit}
+              style={{ backgroundColor: "green", color: "white" }}
+            >
+              Save
+            </Button>
+          </Col>
+        </Row>
       </Card>
     </div>
   );

@@ -61,11 +61,23 @@ const App = ({ match }) => {
         )}
       />
       <Route
-        path={`${match.url}masteralamat`}
-        component={asyncComponent(() =>
-          import("./CopyData/MasterAlamat/index")
-        )}
-      />
+          path={`${match.url}mastercustomersss`}
+          component={asyncComponent(() =>
+            import("./CopyData/MasterCustomer/index")
+          )}
+        />
+      <Route
+          path={`${match.url}mastercustomersssAdd`}
+          component={asyncComponent(() =>
+            import("./MasterData/Marketing/MasterCustomer/add")
+          )}
+        />
+      <Route
+          path={`${match.url}mastercustomerssDetail`}
+          component={asyncComponent(() =>
+            import("./MasterData/Marketing/MasterCustomer/detail")
+          )}
+        />
       <Route
         path={`${match.url}alamatcustomer`}
         component={asyncComponent(() =>
@@ -348,6 +360,15 @@ const App = ({ match }) => {
             import("./CopyData/TarifEureka/index")
           )}
         />
+        {/* <Route path="/tarif_eureka_edit_detail/:id_price"  component={asyncComponent(() =>
+            import("./CopyData/TarifEureka/EditDetail")
+          )} /> */}
+        <Route
+          path={`${match.url}tarif_eureka_edit_detail/:id_price`}
+          component={asyncComponent(() =>
+            import("./CopyData/TarifEureka/EditDetail")
+          )}
+        />
         <Route
           path={`${match.url}tarif_eureka_edit`}
           component={asyncComponent(() =>
@@ -415,6 +436,7 @@ const App = ({ match }) => {
             import("./MasterData/SP List/MonitoringDataCustomer/index")
           )}
         />
+        
         <Route
           path={`${match.url}akunting/splistwaitingakunting`}
           component={asyncComponent(() =>

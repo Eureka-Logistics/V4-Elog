@@ -18,6 +18,7 @@ function DataBaru({ mitraId, onSubmit }) {
   // const [datamiTraProfile, setDataMitraProfile] = useState([]);
   const [form] = Form.useForm();
   const router = useHistory();
+  const [datanyaPT, setDatanyaPT] = useState("");
 
   const onFinish = async (values) => {
     console.log("Success:", values);
@@ -172,7 +173,25 @@ function DataBaru({ mitraId, onSubmit }) {
   };
   useEffect(() => {
     DetailMitra();
+    OptionsData();
   }, []);
+
+
+  const OptionsData = async () => {
+    const data = await axios.get (
+      `${Baseurl}mitra/get-select-mitraPic`, 
+      
+      {
+        headers: { 
+          "Content-Type": "application/json",
+          'Authorization': localStorage.getItem(`token`),
+        },
+      
+      }
+     
+    )
+    console.log(data.data, 'ini data options');
+  }
 
   return (
     
@@ -212,6 +231,7 @@ function DataBaru({ mitraId, onSubmit }) {
               </Form.Item>
             </Col>
             <Col sm={2} style={{ padding: "0px" }}>
+              
               <Form.Item
                 label="Title :"
                 style={{ fontWeight: "bold" }}
@@ -220,7 +240,8 @@ function DataBaru({ mitraId, onSubmit }) {
                   { required: false, message: "Please input your jenis!" },
                 ]}
               >
-                <Select />
+                <Input
+                 />
               </Form.Item>
             </Col>
             <Col sm={4} style={{ padding: "0px" }}>
@@ -258,7 +279,7 @@ function DataBaru({ mitraId, onSubmit }) {
                   { required: false, message: "Please input your jenis!" },
                 ]}
               >
-                <Select />
+                <Input />
               </Form.Item>
             </Col>
             <Col sm={4} style={{ padding: "0px" }}>
@@ -270,7 +291,7 @@ function DataBaru({ mitraId, onSubmit }) {
                   { required: false, message: "Please input your jenis!" },
                 ]}
               >
-                <Select />
+                <Input />
               </Form.Item>
             </Col>
             <Col sm={4} style={{ padding: "0px" }}>
@@ -282,7 +303,7 @@ function DataBaru({ mitraId, onSubmit }) {
                   { required: false, message: "Please input your jenis!" },
                 ]}
               >
-                <Select />
+                <Input />
               </Form.Item>
             </Col>
           </Row>
@@ -308,7 +329,7 @@ function DataBaru({ mitraId, onSubmit }) {
                   { required: false, message: "Please input your alamat!" },
                 ]}
               >
-                <Select />
+                <Input />
               </Form.Item>
             </Col>
           </Row>
@@ -665,7 +686,7 @@ function DataBaru({ mitraId, onSubmit }) {
                 style={{ fontWeight: "bold" }}
                 name="nama_bank"
               >
-                <Select />
+                <Input />
               </Form.Item>
             </Col>
             <Col sm={4} style={{ padding: "0px" }}>
@@ -697,7 +718,7 @@ function DataBaru({ mitraId, onSubmit }) {
                 style={{ fontWeight: "bold" }}
                 name="currency"
               >
-                <Select />
+                <Input />
               </Form.Item>
             </Col>
             <Col sm={4} style={{ padding: "0px" }}>
@@ -715,7 +736,7 @@ function DataBaru({ mitraId, onSubmit }) {
                 style={{ fontWeight: "bold" }}
                 name="-"
               >
-                <Select />
+                <Input />
               </Form.Item>
             </Col>
           </Row>
@@ -726,7 +747,7 @@ function DataBaru({ mitraId, onSubmit }) {
                 style={{ fontWeight: "bold" }}
                 name="contact_person"
               >
-                <Select />
+                <Input />
               </Form.Item>
             </Col>
             <Col sm={4} style={{ padding: "0px" }}>
@@ -744,7 +765,7 @@ function DataBaru({ mitraId, onSubmit }) {
                 style={{ fontWeight: "bold" }}
                 name="telp"
               >
-                <Select />
+                <Input />
               </Form.Item>
             </Col>
           </Row>

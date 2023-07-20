@@ -16,6 +16,8 @@ import * as Yup from "yup";
 import { httpClient } from "../../../Api/Api";
 import { InputGroup, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+import Baseurl from "../../../Api/BaseUrl";
 
 const { confirm } = Modal;
 
@@ -39,7 +41,8 @@ const SamplePage = () => {
   const [limit, setLimit] = useState(10);
   const [detailSp, setDetailSp] = useState([]);
   const [TarifMitraaDetail, setTarifMitraaDetail] = useState(null);
-
+  const [DetailnyaTarif, setDetailnyaTarif] = useState(null);
+  
   const formik = useFormik({
     initialValues: {
       id_price_mitra: "",
@@ -60,8 +63,8 @@ const SamplePage = () => {
     }),
     onSubmit: (values) => {
       httpClient
-        .post("tarif/update-tarifMitra", values)
-        .then(({ data }) => {
+      .post("tarif/update-tarifMitra", values)
+      .then(({ data }) => {
           notification.success({
             message: "Success",
             description: data.message,
@@ -78,75 +81,95 @@ const SamplePage = () => {
     },
   });
 
-  useEffect(() => {
-    httpClient
-      .get(`tarif/get-detail-tarifMitra?id_price=${idMpFix}`)
-      .then(({ data }) => {
-        if (data.status.code === 200) {
-          setTarifMitraaDetail(data.data);
-          console.log('ini', data.order);
-          setOrder(data);
-          setTimeout(() => {
-            formik.setFieldValue("id_price_mitra", data.order.id_price_mitra);
-            formik.setFieldValue("id_muat_kota", data.order.id_muat_kota);
-            formik.setFieldValue("id_tujuan_kota", data.order.id_tujuan_kota);
-            formik.setFieldValue("id_mitra", data.order.id_mitra);
-            formik.setFieldValue("id_kendaraan_jenis", data.order.id_kendaraan_jenis);
-            formik.setFieldValue("service_type", data.order.service_type);
-            formik.setFieldValue("via", data.order.via);
-            formik.setFieldValue("jenis_kiriman", data.order.jenis_kiriman);
-            formik.setFieldValue("tarif", data.order.tarif);
-            formik.setFieldValue("status", data.order.status);
-            formik.setFieldValue("date_created", data.order.date_created);
-            formik.setFieldValue("id_user", data.order.id_user);
+  httpClient
+  .get(`tarif/get-detail-tarifMitra?id_price=${idMpFix}`)
+  .then(({ data }) => {
+      if (data.status.code === 200) {
+        setTarifMitraaDetail(data.data);
+        console.log("ini", data.order);
+        setOrder(data);
+        setTimeout(() => {
+          formik.setFieldValue("id_price_mitra", data.order.id_price_mitra);
+          formik.setFieldValue("id_muat_kota", data.order.id_muat_kota);
+          formik.setFieldValue("id_tujuan_kota", data.order.id_tujuan_kota);
+          formik.setFieldValue("id_mitra", data.order.id_mitra);
+          formik.setFieldValue(
+            "id_kendaraan_jenis",
+            data.order.id_kendaraan_jenis
+          );
+          formik.setFieldValue("service_type", data.order.service_type);
+          formik.setFieldValue("via", data.order.via);
+          formik.setFieldValue("jenis_kiriman", data.order.jenis_kiriman);
+          formik.setFieldValue("tarif", data.order.tarif);
+          formik.setFieldValue("status", data.order.status);
+          formik.setFieldValue("date_created", data.order.date_created);
+          formik.setFieldValue("id_user", data.order.id_user);
 
-            setDetailSp(data.detail_sp);
-          }, 1000);
-        }
-      })
-      .catch(function (error) {
-        notification.error({
-          message: "Error",
-          description: error.message,
-        });
-        console.log(error.message);
+          setDetailSp(data.detail_sp);
+        }, 1000);
+      }
+    })
+    .catch(function (error) {
+      notification.error({
+        message: "Error",
+        description: error.message,
       });
+      console.log(error.message);
+    });
 
-    // httpClient
-    //   .get(`customer/get-customer-address?id_customer=${idMpFix}`)
-    //   .then(({ data }) => {
-    //     if (data.status.code === 200) {
-    //       setData(data.data);
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error.message);
-    //   });
+  // httpClient
+  //   .get(`customer/get-customer-address?id_customer=${idMpFix}`)
+  //   .then(({ data }) => {
+  //     if (data.status.code === 200) {
+  //       setData(data.data);
+  //     }
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error.message);
+  //   });
+
+  useEffect(() => {
+    dataTarifDetail();
   }, []);
 
-//   const handleDelete = (custId) => {
-//     confirm({
-//       title: "Are you sure you want to delete this customer?",
-//       icon: <ExclamationCircleOutlined />,
-//       content: "This action cannot be undone.",
-//       onOk() {
-//         const datas = {
-//           id_customer: custId,
-//         };
-//         httpClient
-//           .post(`customer/del-customer`, datas)
-//           .then(({ data }) => {
-//             if (data.status.code === 200) {
-//               router.push("/masteralamat");
-//             }
-//           })
-//           .catch(function (error) {
-//             console.log(error.message);
-//           });
-//       },
-//       onCancel() {},
-//     });
-//   };
+  const dataTarifDetail = async () => {
+  const data = await axios.get(
+        `${Baseurl}tarif/get-detail-tarifEureka?id_price=${idMpFix}`,
+      
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem(`token`),
+        },
+      }
+    );
+    setDetailnyaTarif(data.data)
+    console.log(data.data, "ini data options");
+  };
+
+  //   const handleDelete = (custId) => {
+  //     confirm({
+  //       title: "Are you sure you want to delete this customer?",
+  //       icon: <ExclamationCircleOutlined />,
+  //       content: "This action cannot be undone.",
+  //       onOk() {
+  //         const datas = {
+  //           id_customer: custId,
+  //         };
+  //         httpClient
+  //           .post(`customer/del-customer`, datas)
+  //           .then(({ data }) => {
+  //             if (data.status.code === 200) {
+  //               router.push("/masteralamat");
+  //             }
+  //           })
+  //           .catch(function (error) {
+  //             console.log(error.message);
+  //           });
+  //       },
+  //       onCancel() {},
+  //     });
+  //   };
 
   return (
     <div>
@@ -209,7 +232,9 @@ const SamplePage = () => {
                 <InputGroup>
                   <Form.Control
                     name="status"
-                    value={formik.values.status === "Y" ? "Aktif" : "Tidak Aktif"}
+                    value={
+                      formik.values.status === "Y" ? "Aktif" : "Tidak Aktif"
+                    }
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.status}
                   />
@@ -240,9 +265,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>
-                  Service Type
-                </Form.Label>
+                <Form.Label>Service Type</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="service_type"
@@ -253,9 +276,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>
-                  Date Created
-                </Form.Label>
+                <Form.Label>Date Created</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="date_created"
@@ -292,12 +313,12 @@ const SamplePage = () => {
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Tarif</Form.Label>
                 <InputGroup>
+                value={formik.values.tarif}
                   <Form.Control
                     name="tarif"
-                    value={formik.values.tarif}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.tarif}
-                  />
+                    />
                 </InputGroup>
               </Form.Group>
               <Form.Group style={{ marginBottom: "10px" }}>
@@ -313,7 +334,6 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
           </Row>
-          
         </Form>
       </Card>
     </div>

@@ -143,7 +143,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Data Wilayah">
-                      <Link to="/masteralamat">
+                      <Link to="/mastercustomersss">
                         <i className="icon icon-widgets" />
                         <span>Customer</span>
                       </Link>
@@ -152,7 +152,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       <Link to="/alamatcustomer">
                         <i className="icon icon-widgets" />
                         <span>Alamat Customer</span>
-                        <span>Data Alamat All</span>
+                        {/* <span>Data Alamat All</span> */}
                       </Link>
                     </Menu.Item>
                   <Menu.Item key="Tarif Customer">
