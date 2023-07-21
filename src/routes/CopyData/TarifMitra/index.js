@@ -31,7 +31,7 @@ const SamplePage = () => {
   const [page, setPage] = useState(1);
   const [tarifMitraDelete, setTarifMitraDelete] = useState([]);
   const handleView = (id) => {
-    router.push(`/tarifmitraedit/${id}`);
+    router.push(`/tarifmitraeditdetail/${id}`);
   };
 
   const formatRupiah = (angka) => {
@@ -218,7 +218,7 @@ const SamplePage = () => {
   };
 
   const handleDetail = (id) => {
-    router.push(`/tarifmitradetail/${id}`);
+    router.push(`/tarifmitraeditdetail/${id}`);
   };
 
   const handleDelete = (id) => {
@@ -238,6 +238,7 @@ const SamplePage = () => {
                 (item) => item.id_price_mitra !== id
               );
               setListData(newOrder);
+              window.location.reload();
               // Reload the data after successful deletion if necessary
               // fetchData();
             }

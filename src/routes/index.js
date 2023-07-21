@@ -346,6 +346,12 @@ const App = ({ match }) => {
             import("./CopyData/TarifMitra/detail")
           )}
         />
+          <Route
+          path={`${match.url}tarifmitraeditdetail/:id_price`}
+          component={asyncComponent(() =>
+            import("./CopyData/TarifMitra/DetailTarifMitra")
+          )}
+        />
         <Route
           path={`${match.url}tarifmitracreate`}
           component={asyncComponent(() =>
@@ -399,9 +405,21 @@ const App = ({ match }) => {
           )}
         />
         <Route
+          path={`${match.url}detailTarifPelanggan/:id_price`}
+          component={asyncComponent(() =>
+            import("./CopyData/TarifPelanggan/DetailTarifPelanggan")
+          )}
+        />
+        <Route
           path={`${match.url}pelanggantarifcerate`}
           component={asyncComponent(() =>
             import("./CopyData/TarifPelanggan/create")
+          )}
+        />
+        <Route
+          path={`${match.url}dashboarddd`}
+          component={asyncComponent(() =>
+            import("./CopyData/Dashboard/index")
           )}
         />
         <Route
