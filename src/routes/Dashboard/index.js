@@ -32,14 +32,15 @@ const SamplePage = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${Baseurl}information/get-inform`, {
+      const response = await axios.get(`${Baseurl}information/get-inform-ops`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token"),
         },
       });
       if (response.status === 200) {
-        const data = response.data.data;
+        const data =response.data?.operasional?.[0];
+        console.log(response.data?.operasional?.[0]);
         setinform(data);
         console.log(response.status);
       } else if (response.status === 401) {
@@ -83,9 +84,11 @@ const SamplePage = () => {
     <div>
       <Card>
         <Row>
-          <h2>Halo {namaJobdesk}</h2>
+          <h5>Halaman Utama {namaJobdesk}</h5>
           <Col sm={4}>
             <Card style={{ backgroundColor: "#dd4b39" }}>
+              <h5 style={{ color: 'white' }}>Eureka Driver : {inform?.EurekaDriver}</h5>
+              <h5 style={{ color: 'white' }}>Sewa Driver : {inform?.SewaDriver}</h5>
               <h5 style={{ color: 'white' }}>Total Driver : {inform?.totalDriver}</h5>
               <h5 style={{ color: 'white' }}>Driver Aktif : {inform?.activeDriver + " / " + inform?.totalDriver}</h5>
               <h5 style={{ color: 'white' }}>Driver Off : {inform?.offDriver}</h5>
