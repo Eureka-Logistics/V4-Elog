@@ -132,6 +132,9 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
+        <h4 className="mb-4">
+          Master Customer
+        </h4>
         <Space style={{ marginBottom: 16 }}>
           <Button type="primary" onClick={handleAdd}>
             New Customer

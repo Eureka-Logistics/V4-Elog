@@ -34,7 +34,7 @@ const SamplePage = () => {
   const [loadingState, setLoadingState] = useState(false);
   const [limit, setLimit] = useState(10);
   const handleView = (id) => {
-    router.push(`/pelanggantarifedit/${id}`);
+    router.push(`/detailTarifPelanggan/${id}`);
   };
   const { Search } = Input;
   const onSearch = (value) => {
