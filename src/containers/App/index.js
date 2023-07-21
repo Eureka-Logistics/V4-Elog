@@ -120,7 +120,7 @@ const App = () => {
       if (authUser === null) {
         history.push('/signin');
       } else if (initURL === '' || initURL === '/' || initURL === '/signin') {
-        history.push('/sample');
+        history.push('/Dashboard');
       } else {
         history.push(initURL);
       }

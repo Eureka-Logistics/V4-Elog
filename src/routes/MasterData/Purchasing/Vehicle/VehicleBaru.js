@@ -11,6 +11,10 @@ import Swal from 'sweetalert2';
 import { Col, Row } from 'react-bootstrap';
 import useMitraStore from '../../../../zustand/Store/MitraStore';
 import ZustandStore from '../../../../zustand/Store/JenisKepemilikanOptions';
+import {
+    CheckSquareFilled,
+    CloseSquareFilled
+} from '@ant-design/icons';
 function VehicleBaru() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [IdDriver, setIdDriver] = useState("");
@@ -286,10 +290,10 @@ function VehicleBaru() {
                                 size="small"
                                 type="primary"
                                 className="mt-3"
-
+                                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                                 onClick={() => ModalOFFVehicle(row.vehicleId)}
                             >
-                                Driver Ready
+                                ON <CheckSquareFilled />
                             </Button>
                         </>
                     ) :
@@ -298,9 +302,10 @@ function VehicleBaru() {
                                 size="small"
                                 type="danger"
                                 className="mt-3"
+                                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                                 onClick={() => ModalONVehicle(row.vehicleId)}
                             >
-                                Driver Tidak Ready
+                                OFF <CloseSquareFilled />
                             </Button>
 
                         </>}
@@ -534,6 +539,12 @@ function VehicleBaru() {
                                 value={CariNoKendaraan}
                                 onChange={(e) => setCariNoKendaraan(e.target.value)}
                                 placeholder="Cari No Kendaraan" />
+                        </Col>
+                        <Col sm={2}>
+                            <Input
+                                value={CariNoKendaraan}
+                                onChange={(e) => setCariNoKendaraan(e.target.value)}
+                                placeholder="Expired STNK" />
                         </Col>
                         <Col className='d-flex justify-content-end' span={12}>
                             <Button type="primary" onClick={() => {

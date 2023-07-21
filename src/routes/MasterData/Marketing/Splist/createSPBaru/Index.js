@@ -241,7 +241,7 @@ function Index() {
             </Col> */}
           </Row>
           <Row className="mt-2">
-            <Col sm={4}>
+            <Col sm={3}>
               <FormGroup>
                 <Form.Label>Service</Form.Label>
                 <Form.Select onChange={(e) => setServiceSelectValue(e.target.value)} type="text">
@@ -251,7 +251,7 @@ function Index() {
                 </Form.Select>
               </FormGroup>
             </Col>
-            <Col sm={4}>
+            <Col sm={3}>
               <FormGroup>
                 <Form.Label>Insurance</Form.Label>
                 <Form.Select
@@ -266,7 +266,7 @@ function Index() {
                 </Form.Select>
               </FormGroup>
             </Col>
-            <Col sm={4}>
+            <Col sm={3}>
               <FormGroup>
                 <Form.Label>Packing Request</Form.Label>
                 <Form.Select
@@ -278,6 +278,19 @@ function Index() {
                     packingValue.map((item) => (
                       <option value={item.id}>{item.packing}</option>
                     ))}
+                </Form.Select>
+              </FormGroup>
+            </Col>
+            <Col sm={3}>
+              <FormGroup>
+                <Form.Label>Multi</Form.Label>
+                <Form.Select
+                  onChange={(e) => setpackingValues(e.target.value)}
+                  type="text"
+                >
+                  <option value="">-</option>
+                  <option value={1}>Multi</option>
+                  <option value={0}>Tidak Multi</option>
                 </Form.Select>
               </FormGroup>
             </Col>

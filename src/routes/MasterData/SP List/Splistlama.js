@@ -106,7 +106,7 @@ function SPListlama() {
         getDestinationData(item.idmp);
       });
     }
-  }, [isiData, CustumerValue, CariSalesValue,CariBu]);
+  }, [isiData, CustumerValue, CariSalesValue, CariBu]);
 
   const getDestinationData = async (idmp) => {
     const isi = await axios.get(`${Baseurl}sp/get-SP-detail?idmp=${idmp}`, {
@@ -237,7 +237,7 @@ function SPListlama() {
         ) : (row?.approveAct === "N" && tanggal !== "Invalid date") ?
           (
             <Tag color="red">Diverted <br /> {tanggal}</Tag>
-          ) : ""
+          ) : <Tag color="blue">Pass <br /> {tanggal}</Tag>
       },
       width: "170px",
     },
@@ -249,6 +249,8 @@ function SPListlama() {
         const data = isValidDate ? dateApproveOps : "-";
         if (row?.approveOps === "Y") {
           return <Tag color="green">Approved <br /> {data}</Tag>;
+        } else if (row?.approveOps === "P") {
+          return <Tag color="blue">Pass <br /> {data}</Tag>;
         } else if (!isValidDate) {
           return <Tag color="yellow">Waiting <br /> {data}</Tag>;
         } else {
@@ -257,6 +259,7 @@ function SPListlama() {
       },
       width: "170px",
     },
+
     {
       name: "Purchasing",
       selector: (row) => {
@@ -272,7 +275,7 @@ function SPListlama() {
                 (row.approvePurch === "N" && date != "Invalid date") ? (
                   <Tag color="red">Diverted <br /> {date}</Tag>
                 ) : (
-                  null
+                  <Tag color="blue">Pass <br /> {date}</Tag>
                 )
               )
             )}

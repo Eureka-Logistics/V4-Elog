@@ -37,9 +37,12 @@ function Index() {
             },
         }
         );
-        console.log(`data`, data.data.data);
+        console.log(`data`, data.data.data?.[0]);
         setDataDetail(data.data.data?.[0])
     }
+
+
+
 
     useEffect(() => {
         DataDetailSM()
@@ -101,7 +104,7 @@ function Index() {
 
                             <Form.Item
                                 label="No.SP"
-                                name="noSp"
+                                name="sp"
                                 rules={[
                                     {
                                         message: 'Please input your username!',
@@ -113,7 +116,7 @@ function Index() {
 
                             <Form.Item
                                 label="No. SM"
-                                name="noSm"
+                                name="sm"
                                 rules={[
                                     {
                                         message: 'Please input your password!',
@@ -191,7 +194,7 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="Destination Address"
-                                name="destinationAddress"
+                                name="destination"
                                 rules={[
                                     {
                                         required: false,
@@ -307,7 +310,7 @@ function Index() {
                         <Col style={{ width: "75%" }} sm={8}>
                             <Form.Item
                                 label="Destination Address"
-                                name="destinationAddress"
+                                name="destination"
                                 rules={[
                                     {
                                         message: 'Please input your password!',
@@ -335,7 +338,7 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="Jenis Kendaraan Mitra"
-                                name="destinasi"
+                                name="kendaraan"
                                 rules={[
                                     {
                                         message: 'Please input your password!',
@@ -409,7 +412,7 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="Jenis Kendaraan Mitra"
-                                name="destinasi"
+                                name="kendaraan"
                                 rules={[
                                     {
                                         message: 'Please input your password!',
@@ -482,7 +485,7 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="Jenis Kendaraan Mitra"
-                                name="destinasi"
+                                name="kendaraan"
                                
                             >
                                 <Select

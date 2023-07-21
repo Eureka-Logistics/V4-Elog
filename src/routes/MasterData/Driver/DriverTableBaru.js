@@ -11,6 +11,10 @@ import Baseurl from '../../../Api/BaseUrl';
 import Swal from 'sweetalert2';
 import ZustandStore from '../../../zustand/Store/JenisKepemilikanOptions';
 import useMitraStore from '../../../zustand/Store/MitraStore';
+import {
+    CheckSquareFilled,
+    CloseSquareFilled
+} from '@ant-design/icons';
 
 function DriverTableBaru() {
     const [modalOpen, setModalOpen] = useState(false);
@@ -88,7 +92,7 @@ function DriverTableBaru() {
             )
         },
         {
-            name: 'Status',
+            name: 'Aksi',
             selector: row => row.driverStatus === 1 ? "Tersedia" : "Tidak Tersedia",
             cell: row => (
                 <div>
@@ -98,10 +102,11 @@ function DriverTableBaru() {
                                 size="small"
                                 type="primary"
                                 className="mt-3"
-
+                                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                                 onClick={() => ModalOFFDriver(row.driverId)}
+
                             >
-                                Aktif
+                                ON <CheckSquareFilled />
                             </Button>
                         </>
                     ) :
@@ -110,9 +115,10 @@ function DriverTableBaru() {
                                 size="small"
                                 type="danger"
                                 className="mt-2"
+                                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                                 onClick={() => ModalONDriver(row.driverId)}
                             >
-                                Tidak Aktif
+                                OFF <CloseSquareFilled />
                             </Button>
 
                         </>}
@@ -556,7 +562,7 @@ function DriverTableBaru() {
                             ))}
                         </Select>
                     </Col>
-                    <Col sm={6}>
+                    <Col sm={2}>
                         <Select
                             showSearch
                             placeholder="Status"
@@ -578,7 +584,11 @@ function DriverTableBaru() {
                         <Input onChange={(e) => { setCariDriver(e.target.value) }} placeholder='Cari Driver'></Input>
                     </Col>
 
-                    <Col>
+                    <Col sm={2} >
+                        <Input onChange={(e) => { setCariDriver(e.target.value) }} placeholder='Cari Expired SIM'></Input>
+                    </Col>
+
+                    <Col span={4} className='justify-content-end d-flex'>
 
                         <Button size='default'
                             onClick={() => {

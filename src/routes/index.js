@@ -11,8 +11,12 @@ const App = ({ match }) => {
     <div className="gx-main-content-wrapper">
       <Switch>
         <Route
-          path={`${match.url}sample`}
-          component={asyncComponent(() => import("./SamplePage"))}
+          path={`${match.url}Dashboard`}
+          component={asyncComponent(() => import("./Dashboard"))}
+        />
+        <Route
+          path={`${match.url}Home`}
+          component={asyncComponent(() => import("./Dashboard/Home"))}
         />
         <Route
           path={`${match.url}masterdata/drivers`}

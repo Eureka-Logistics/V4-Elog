@@ -1519,14 +1519,14 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                     </Row>
                   </>)}
                   <>
-                    {jobdesk != "purchasing" ? (
+                    {/* {jobdesk != "purchasing" ? (
                       <Checkbox
                         className="justify-content-end d-flex"
                         onChange={handleCheckboxChange}
                       >
                         Multi
                       </Checkbox>
-                    ) : null}
+                    ) : null} */}
 
                     <br />
                     <hr />
