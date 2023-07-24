@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Card, DatePicker, Input, Row, Col, notification, Modal } from "antd";
+import { Card, DatePicker, Input, Row, Col, notification, Modal, Button } from "antd";
 import { useHistory } from "react-router-dom";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { httpClient } from "../../../../Api/Api";
-import { InputGroup, Form, Button } from "react-bootstrap";
+import { InputGroup, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const { confirm } = Modal;
@@ -33,6 +33,7 @@ const SamplePage = () => {
 
   const formik = useFormik({
     initialValues: {
+      id_customer: "",
       kode_customer: "",
       nama_perusahaan: "",
       jenis_barang: "",
@@ -59,13 +60,13 @@ const SamplePage = () => {
     }),
     onSubmit: (values) => {
       httpClient
-        .post("customer/create-customer", values)
+        .post("customer/edit-customer", values)
         .then(({ data }) => {
           notification.success({
             message: "Success",
             description: data.message,
           });
-          setTimeout(() => router.push("/mastercustomer"), 1000);
+          setTimeout(() => router.push("/mastercustomersss"), 1000);
         })
         .catch(function (error) {
           notification.error({
@@ -97,6 +98,32 @@ const SamplePage = () => {
             formik.setFieldValue("service", data.service);
             formik.setFieldValue("order_date", data.order_date);
             formik.setFieldValue("pickupDate", data.pickup_date);
+            formik.setFieldValue("hp", data.hp);
+            formik.setFieldValue("email", data.data.email);
+            formik.setFieldValue("telpon", data.data.telepon);
+            formik.setFieldValue("kota", data.data.alamat_kantor);
+            formik.setFieldValue("jenis_barang", data.data.jenis_barang);
+            formik.setFieldValue("kode_customer", data.data.kode_customer);
+            formik.setFieldValue("officer_number", data.data.officer_number);
+            formik.setFieldValue("nama_perusahaan", data.data.nama_perusahaan);
+            formik.setFieldValue("service", data.service);
+            formik.setFieldValue("paymentoftype", data.paymentoftype);
+            formik.setFieldValue("bankname", data.data.nama_bank);
+            formik.setFieldValue("accountname", data.data.nama_akun);
+            formik.setFieldValue("accountnumber", data.data.no_rek);
+            formik.setFieldValue("alamat_npwp", data.data.alamat_npwp);
+            formik.setFieldValue("mata_uang", data.data.mata_uang);
+            formik.setFieldValue("tahun_berdiri", data.data.tahun_berdiri);
+            formik.setFieldValue("tgl_berdiri", data.data.tgl_berdiri);
+            formik.setFieldValue("npwp", data.data.npwp);
+            formik.setFieldValue("alamat_kantor", data.data.alamat_kantor);
+            formik.setFieldValue("telepon", data.data.telepon);
+            formik.setFieldValue("hp", data.data.hp);
+            formik.setFieldValue("typeof", data.data.typeof);
+            formik.setFieldValue("fax", data.data.fax);
+            formik.setFieldValue("email", data.data.email);
+            formik.setFieldValue("jenis_usaha", data.data.jenis_usaha);
+            setDetailSp(data.detail_sp);
           }, 1000);
         }
       })
@@ -128,7 +155,7 @@ const SamplePage = () => {
           .post(`customer/del-customer`, datas)
           .then(({ data }) => {
             if (data.status.code === 200) {
-              router.push("/mastercustomer");
+              router.push("/mastercustomersss");
             }
           })
           .catch(function (error) {
@@ -142,26 +169,16 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
+        <h3>
+          Customer Data
+        </h3>
+        <hr />
         <Form onSubmit={formik.handleSubmit}>
-          <Row style={{ marginBottom: "10px" }}>
-            <Col span={8}></Col>
-            <Col span={3}></Col>
-            <Col span={3}>
-              <Button
-                style={{ backgroundColor: "red", color: "white" }}
-                onClick={() => handleDelete(idMpFix)}
-              >
-                Delete
-              </Button>
-            </Col>
-            <Col span={3}>
-              <Button type="submit">Save and load photo customer</Button>
-            </Col>
-          </Row>
+        
           <Row style={{ marginBottom: "10px" }}>
             <Col span={8}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Customer Code</Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Customer Code</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="kode_customer"
@@ -173,7 +190,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Office Number</Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Office Number</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="officer_number"
@@ -184,7 +201,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Type Of Business</Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Type Of Business</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="typeof"
@@ -197,7 +214,7 @@ const SamplePage = () => {
             </Col>
             <Col span={9}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Customer Name</Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Customer Name</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="nama_perusahaan"
@@ -208,7 +225,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Fax</Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Fax</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="fax"
@@ -219,7 +236,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>
                   Type Of Goods (Ex :Sepatu/Shoes, Kertas/Paper, etc)
                 </Form.Label>
                 <InputGroup>
@@ -234,7 +251,7 @@ const SamplePage = () => {
             </Col>
             <Col span={7}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Company Name</Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Company Name</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="nama_perusahaan"
@@ -245,7 +262,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Mobile Number</Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Mobile Number</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="hp"
@@ -256,7 +273,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Thn Berdiri</Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Thn Berdiri</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="tahun_berdiri"
@@ -271,7 +288,7 @@ const SamplePage = () => {
           <Row style={{ marginBottom: "10px" }}>
             <Col span={24}>
               <Form.Group>
-                <Form.Label>Alamat </Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Alamat </Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="alamat_npwp"
@@ -286,7 +303,7 @@ const SamplePage = () => {
           <Row style={{ marginBottom: "10px" }}>
             <Col span={12}>
               <Form.Group>
-                <Form.Label>Email </Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Email </Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="email"
@@ -299,7 +316,7 @@ const SamplePage = () => {
             </Col>
             <Col span={12}>
               <Form.Group>
-                <Form.Label>Type Of Payment</Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Type Of Payment</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="jenis_pembayaran"
@@ -314,7 +331,7 @@ const SamplePage = () => {
           <Row style={{ marginBottom: "10px" }}>
             <Col span={8}>
               <Form.Group>
-                <Form.Label>Bank Name</Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Bank Name</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="bankname"
@@ -327,7 +344,7 @@ const SamplePage = () => {
             </Col>
             <Col span={8}>
               <Form.Group>
-                <Form.Label>Account Name</Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Account Name</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="accountname"
@@ -340,7 +357,7 @@ const SamplePage = () => {
             </Col>
             <Col span={8}>
               <Form.Group>
-                <Form.Label>Account Number</Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Account Number</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="accountnumber"
@@ -355,7 +372,7 @@ const SamplePage = () => {
           <Row style={{ marginBottom: "10px" }}>
             <Col span={8}>
               <Form.Group>
-                <Form.Label>Currency </Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Currency </Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="mata_uang"
@@ -368,7 +385,7 @@ const SamplePage = () => {
             </Col>
             <Col span={8}>
               <Form.Group>
-                <Form.Label>NPWP </Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>NPWP </Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="npwp"
@@ -378,6 +395,17 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
+            </Col>
+          </Row>
+          <Row className="mt-4">
+          <Col span={24} className="d-flex justify-content-end">
+            <Button type="danger"
+                style={{ backgroundColor: "red", color: "white" }}
+                onClick={() => handleDelete(idMpFix)}
+              >
+                Delete
+              </Button>
+              <Button onClick={formik.handleSubmit} type="submit" style={{ backgroundColor: "#1E90FF", color: "white" }}>Save and load photo customer</Button>
             </Col>
           </Row>
         </Form>

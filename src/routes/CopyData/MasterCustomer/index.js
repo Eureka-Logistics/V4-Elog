@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Input, Space, Table, Modal } from "antd";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+import {
+  ExclamationCircleOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  EyeOutlined,
+  FormOutlined,
+} from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
 import { httpClient } from "../../../Api/Api";
 
@@ -22,37 +28,13 @@ const SamplePage = () => {
 
   const handleEdit = (id) => {
     // router.push(`/mastercustomer/edit/${id}`);
-    router.push(`/mastercustomerssDetail/${id}`);
+    // router.push(`/mastercustomerssDetail/${id}`);
+    router.push(`/MastersCustomersDetails/${id}`);
   };
 
   const [order, setOrder] = useState([]);
   const [loadingState, setLoadingState] = useState(false);
   const [nameFilter, setNameFilter] = useState(null);
-
-  const handleDelete = (custId) => {
-    confirm({
-      title: "Are you sure you want to delete this customer?",
-      icon: <ExclamationCircleOutlined />,
-      content: "This action cannot be undone.",
-      onOk() {
-        const datas = {
-          id_customer: custId,
-        };
-        httpClient
-          .post(`customer/del-customer`, datas)
-          .then(({ data }) => {
-            if (data.status.code === 200) {
-              const newOrder = order.filter((item) => item.custId !== custId);
-              setOrder(newOrder);
-            }
-          })
-          .catch(function (error) {
-            console.log(error.message);
-          });
-      },
-      onCancel() {},
-    });
-  };
 
   const columns = [
     {
@@ -70,6 +52,11 @@ const SamplePage = () => {
       dataIndex: "custName",
       key: "custName",
     },
+    // {
+    //   title: "Alamat Customer",
+    //   dataIndex: "custName",
+    //   key: "custName",
+    // },
     // {
     //   title: "Telephone",
     //   dataIndex: "custTelephone",
@@ -89,8 +76,22 @@ const SamplePage = () => {
             View
           </Button> */}
           <Button onClick={() => handleEdit(record.custId)} type="primary">
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <FormOutlined />
+            </span>
+          </Button>
+          <Button danger onClick={() => handleDelete(record.custId)}>
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <DeleteOutlined />
+            </span>
+            {/* <DeleteOutlined /> */}
+          </Button>
+          {/* <Button onClick={() => handleEdit(record.custId)} type="primary">
             Edit
           </Button>
+          <Button onClick={() => handleDelete(record.custId)} type="danger">
+            Delete
+          </Button> */}
         </Space>
       ),
     },
@@ -103,6 +104,7 @@ const SamplePage = () => {
         if (data.status.code === 200) {
           setOrder(data.data.order);
           setTotal(data.data.totalData);
+          console.log("haiiii", data.data.order[0].custAddress);
         }
       })
       .catch(function (error) {
@@ -121,6 +123,7 @@ const SamplePage = () => {
         if (data.status.code === 200) {
           setLoadingState(false);
           setOrder(data.data.order);
+          console.log("haiiii", data.data.order);
         }
       })
       .catch(function (error) {
@@ -129,12 +132,36 @@ const SamplePage = () => {
       });
   };
 
+  const handleDelete = (custId) => {
+    confirm({
+      title: "Are you sure you want to delete this customer?",
+      icon: <ExclamationCircleOutlined />,
+      content: "This action cannot be undone.",
+      onOk() {
+        const datas = {
+          id_customer: custId,
+        };
+        httpClient
+          .post(`customer/del-customer`, datas)
+          .then(({ data }) => {
+            if (data.status.code === 200) {
+              const newOrder = order.filter((item) => item.custId !== custId);
+              setOrder(newOrder);
+              window.location.reload();
+            }
+          })
+          .catch(function (error) {
+            console.log(error.message);
+          });
+      },
+      onCancel() {},
+    });
+  };
+
   return (
     <div>
       <Card>
-        <h4 className="mb-4">
-          Master Customer
-        </h4>
+        <h4></h4>
         <Space style={{ marginBottom: 16 }}>
           <Button type="primary" onClick={handleAdd}>
             New Customer

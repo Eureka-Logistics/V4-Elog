@@ -291,9 +291,7 @@ const SamplePage = () => {
             <Col span={8}></Col>
             <Col span={3}></Col>
             <Col span={3}></Col>
-            <Col span={3}>
-              <Button type="submit">Save and load photo customer</Button>
-            </Col>
+            
           </Row>
           <Row style={{ marginBottom: "10px" }}>
             <Col span={8}>
@@ -2111,7 +2109,13 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
           </Row>
+
         </Form>
+       <Row>
+       <Col span={24} className="d-flex justify-content-end">
+              <Button type="submit">Save and load photo customer</Button>
+            </Col>
+       </Row>
       </Card>
     </div>
   );
