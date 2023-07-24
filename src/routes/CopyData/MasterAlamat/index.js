@@ -66,8 +66,8 @@ const SamplePage = () => {
         if (data.status.code === 200) {
           setCustomerAddresses(data.data.order);
           setPagginations(data.data)
-        //   setDetailAddress(data.data.order[0].custAddress);
-          console.log("haiiii", data.data);
+          // setDetailAddress(data.data.order[0].custAddress);
+          console.log("haiiii", data.data.order[0].custAddress);
         }
       })
       .catch(function (error) {
@@ -139,6 +139,11 @@ const SamplePage = () => {
     },
     {
       title: "Name",
+      dataIndex: "custName",
+      key: "custName",
+    },
+    {
+      title: "Address",
       dataIndex: "custName",
       key: "custName",
     },

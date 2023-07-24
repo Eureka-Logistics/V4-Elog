@@ -80,6 +80,7 @@ const SamplePage = () => {
           <Button onClick={() => handleDetail(record.custId)} type="primary">
             View
           </Button>
+          
         </Space>
       ),
     },
