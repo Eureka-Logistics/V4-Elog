@@ -332,7 +332,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     wrapperCol={{ span: 24 }}
                 >
                     <Row>
-                        <Col sm={12}>
+                        <Col sm={8}>
                             <Form.Item
                                 required
                                 label="Alamat Muat"
@@ -367,7 +367,43 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     ))}
                                 </Select>
                             </Form.Item>
-
+                        </Col>
+                        <Col sm={4}>
+                            <Form.Item
+                                label="nama kota muat"
+                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
+                                validateStatus={
+                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                        ? 'error'
+                                        : 'success'
+                                }
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Select
+                                    disabled
+                                    showSearch
+                                    optionFilterProp="children"
+                                    id="alamatmuat"
+                                    name="alamatmuat"
+                                    type="text"
+                                    onChange={(value, option) => {
+                                        formik.setFieldValue("alamatmuat", option.children); // set alamatmuat state to option's children
+                                        formik.setFieldValue("IDalamatmuat", option.key); // set IDalamatmuat state to option's value
+                                        formik.setFieldValue("IdKotaMuat", value); // set IDalamatmuat state to option's value
+                                        console.log(`key`, option.key);
+                                    }}
+                                    value={formik.values.alamatmuat}
+                                    onBlur={formik.handleBlur}
+                                >
+                                    {AlamatInvoiceOptions && AlamatInvoiceOptions.map((item) => (
+                                        <Select.Option key={item.addressId} value={item.id_kota}>
+                                            {item.address}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                        <Col sm={8}>
                             <Form.Item
                                 required
                                 label="Alamat Bongkar"
@@ -401,11 +437,45 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     ))}
                                 </Select>
                             </Form.Item>
-
-                            <br />
-                            <hr />
+                        </Col>
+                        <Col sm={4}>
+                            <Form.Item
+                                label="nama kota bongkar"
+                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
+                                validateStatus={
+                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                        ? 'error'
+                                        : 'success'
+                                }
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Select
+                                    disabled
+                                    showSearch
+                                    optionFilterProp="children"
+                                    id="alamatmuat"
+                                    name="alamatmuat"
+                                    type="text"
+                                    onChange={(value, option) => {
+                                        formik.setFieldValue("alamatmuat", option.children); // set alamatmuat state to option's children
+                                        formik.setFieldValue("IDalamatmuat", option.key); // set IDalamatmuat state to option's value
+                                        formik.setFieldValue("IdKotaMuat", value); // set IDalamatmuat state to option's value
+                                        console.log(`key`, option.key);
+                                    }}
+                                    value={formik.values.alamatmuat}
+                                    onBlur={formik.handleBlur}
+                                >
+                                    {AlamatInvoiceOptions && AlamatInvoiceOptions.map((item) => (
+                                        <Select.Option key={item.addressId} value={item.id_kota}>
+                                            {item.address}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
                         </Col>
                     </Row>
+                    <br />
+                    <hr />
                     <Row>
                         <Col sm={4}>
                             <Form.Item

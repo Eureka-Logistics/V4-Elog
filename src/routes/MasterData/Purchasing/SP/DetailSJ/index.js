@@ -7,11 +7,29 @@ import gambarorang from "./employee (1).png"
 import axios from 'axios';
 import Baseurl from '../../../../../Api/BaseUrl';
 import ZustandStore from '../../../../../zustand/Store/JenisKepemilikanOptions';
+import useMitraStore from '../../../../../zustand/Store/MitraStore';
 
 function Index() {
     const { id } = useParams()
-    const onFinish = (values) => {
+    const [DataDetail, setDataDetail] = useState("")
+    const [kendaraan, setKendaraan] = useState(DataDetail.kendaraanPickup);
+    const [kendaraan2, setKendaraan2] = useState(DataDetail.kendaraanMitra1);
+    const [kendaraan3, setKendaraan3] = useState(DataDetail.kendaraanMitra2);
+    const [NoPol1, setNoPol1] = useState(DataDetail.unit1);
+    const [NoPol2, setNoPol2] = useState(DataDetail.unit2);
+    const [NoPol3, setNoPol3] = useState(DataDetail.unit3);
+    const [KendaraanMitra1, setKendaraanMitra1] = useState(DataDetail.mitraPickup)
+    const [KendaraanMitra2, setKendaraanMitra2] = useState(DataDetail.mitra1)
+    const [KendaraanMitra3, setKendaraanMitra3] = useState(DataDetail.mitra2)
+
+    const { NamaMitra, fetchMitra } = useMitraStore((item) => ({
+        NamaMitra: item.NamaMitra,
+        fetchMitra: item.fetchMitra
+    }))
+    const onFinish = async (values) => {
         console.log('Success:', values);
+        await EditSM()
+        await DataDetailSM()
         message.success(`berhasil`)
     };
     const onFinishFailed = (errorInfo) => {
@@ -23,12 +41,12 @@ function Index() {
         setDriverType: item.setDriverType
     }))
 
-    const DriverOptions = DriverType && DriverType.map((item)=>({
-        label : item.tipe,
-        value : item.id
+    const DriverOptions = DriverType && DriverType.map((item) => ({
+        label: item.tipe,
+        value: item.id
     }))
 
-    const [DataDetail, setDataDetail] = useState("")
+
     const DataDetailSM = async () => {
         const data = await axios.get(`${Baseurl}sm/get-sm-detail?id_msm=${id}`, {
             headers: {
@@ -37,7 +55,6 @@ function Index() {
             },
         }
         );
-        console.log(`data`, data.data.data?.[0]);
         setDataDetail(data.data.data?.[0])
     }
 
@@ -47,6 +64,7 @@ function Index() {
     useEffect(() => {
         DataDetailSM()
         setDriverType()
+        fetchMitra()
     }, [])
     if (!DataDetail) {
         return "Memuat data...";
@@ -55,7 +73,51 @@ function Index() {
 
     const handlePrint = () => {
         const printWindow = window.open(`https://elogs.eurekalogistics.co.id/operasional/sm/printsm/${id}`, '_blank');
-      };
+    };
+
+
+
+    const EditSM = async () => {
+        try {
+            const response = await axios.post(`${Baseurl}sm/edit-sm`, {
+                id_msm: parseInt(id),
+                berat: 0,
+                quality: 0,
+                koli: 0,
+                do: 0,
+                pickup_kendaraan: kendaraan,
+                kendaraan: kendaraan2,
+                kendaraan_2: kendaraan3,
+                pickup_kontainer: 0,
+                kontainer: 0,
+                kontainer_2: 0,
+                pickup_nopol: NoPol1,
+                nopol: NoPol2,
+                nopol_2: NoPol3,
+                pickup_supir: 0,
+                supir: 0,
+                supir_2: 0,
+                id_unit: 2,
+                id_unit_2: 3,
+                id_unit_3: 1,
+                id_driver: 22,
+                id_driver_2: 33,
+                id_driver_3: 1,
+                id_mitra_pickup: KendaraanMitra1,
+                id_mitra: KendaraanMitra2,
+                id_mitra_2: KendaraanMitra3
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.getItem("token"),
+                },
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
     return (
         <>
             <Card>
@@ -91,7 +153,7 @@ function Index() {
                                 <Button onClick={handlePrint} type="primary" >
                                     Print SM
                                 </Button>
-                                <Button  style={{ backgroundColor: "#3c8dbc", color: "white" }} >
+                                <Button style={{ backgroundColor: "#3c8dbc", color: "white" }} >
                                     Tambah SM
                                 </Button>
                                 <Button type="danger" >
@@ -192,7 +254,7 @@ function Index() {
                             >
                                 <Input disabled />
                             </Form.Item>
-                            <Form.Item
+                            {/* <Form.Item
                                 label="Destination Address"
                                 name="destination"
                                 rules={[
@@ -203,9 +265,9 @@ function Index() {
                                 ]}
                             >
                                 <Input disabled />
-                            </Form.Item>
+                            </Form.Item> */}
                             <Row>
-                                <Col sm={3}>
+                                <Col sm={6}>
                                     <Form.Item
                                         labelCol={{
                                             span: 24,
@@ -222,10 +284,11 @@ function Index() {
                                             },
                                         ]}
                                     >
-                                        <Input />
+                                        <Input
+                                        />
                                     </Form.Item>
                                 </Col>
-                                <Col sm={3}>
+                                <Col sm={6}>
                                     <Form.Item
                                         labelCol={{
                                             span: 24,
@@ -245,7 +308,10 @@ function Index() {
                                         <Input />
                                     </Form.Item>
                                 </Col>
-                                <Col sm={3}>
+                            </Row>
+                            <Row>
+
+                                <Col sm={6}>
                                     <Form.Item
                                         label="Exp/pcs"
                                         labelCol={{
@@ -265,7 +331,7 @@ function Index() {
                                         <Input />
                                     </Form.Item>
                                 </Col>
-                                <Col sm={3}>
+                                <Col sm={6}>
                                     <Form.Item
                                         label="Items"
                                         name="items"
@@ -317,7 +383,7 @@ function Index() {
                                     },
                                 ]}
                             >
-                                <Select />
+                                <Select disabled />
                             </Form.Item>
                         </Col>
                     </Row>
@@ -327,35 +393,39 @@ function Index() {
                         <Col sm={4}>
                             <Form.Item
                                 label="Kendaraan Mitra"
-                                name="destinasi"
-                                rules={[
-                                    {
-                                        message: 'Please input your password!',
-                                    },
-                                ]}
+                                name="mitraPickup"
+
                             >
-                                <Select />
+                                <Select optionFilterProp='children' showSearch
+                                    onChange={(e) => { setKendaraanMitra1(e); console.log(e) }}
+                                >
+                                    {NamaMitra && NamaMitra.map((item) => (
+
+                                        <option value={item.mitraId}>{item.NamaMitra}</option>
+                                    ))}
+                                </Select>
+
+
                             </Form.Item>
                             <Form.Item
                                 label="Jenis Kendaraan Mitra"
-                                name="kendaraan"
-                                rules={[
-                                    {
-                                        message: 'Please input your password!',
-                                    },
-                                ]}
-                                
+                                name="kendaraanPickup"
+                                initialValue="Default Value"
+
                             >
                                 <Select
-                                showSearch
-                                placeholder="Jenis Kendaraan Mitra"
-                                optionFilterProp='label'
-                                options={DriverOptions}
+                                    showSearch
+                                    placeholder="Jenis Kendaraan Mitra"
+                                    optionFilterProp='label'
+                                    options={DriverOptions}
+                                    onChange={(e, options) => { console.log(options); setKendaraan(options.label) }}
+                                    defaultValue={DataDetail.mitraPickup}
                                 />
+
                             </Form.Item>
                             <Form.Item
                                 label="Kode Kendaraan Mitra"
-                                name="destinasi"
+                                name="kodekendaraanmitra"
                                 rules={[
                                     {
                                         message: 'Please input your password!',
@@ -366,18 +436,20 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="Nopol Pickup"
-                                name="destinasi"
+                                name="unit1"
                                 rules={[
                                     {
                                         message: 'Please input your password!',
                                     },
                                 ]}
                             >
-                                <Input />
+                                <Input
+                                    onChange={(e) => setNoPol1(e.target.value)}
+                                />
                             </Form.Item>
                             <Form.Item
                                 label="Supir Pickup"
-                                name="destinasi"
+                                name="driver1"
                                 rules={[
                                     {
                                         message: 'Please input your password!',
@@ -401,29 +473,29 @@ function Index() {
                         <Col sm={4}>
                             <Form.Item
                                 label="Kendaraan Mitra"
-                                name="destinasi"
-                                rules={[
-                                    {
-                                        message: 'Please input your password!',
-                                    },
-                                ]}
+                                name="mitra1"
+
                             >
-                                <Select />
+                                <Select optionFilterProp='children' showSearch
+                                    onChange={(e) => { setKendaraanMitra2(e); }}
+                                >
+                                    {NamaMitra && NamaMitra.map((item) => (
+
+                                        <option value={item.mitraId}>{item.NamaMitra}</option>
+                                    ))}
+                                </Select>
                             </Form.Item>
                             <Form.Item
                                 label="Jenis Kendaraan Mitra"
-                                name="kendaraan"
-                                rules={[
-                                    {
-                                        message: 'Please input your password!',
-                                    },
-                                ]}
+                                name="kendaraanMitra1"
+
                             >
                                 <Select
-                                showSearch
-                                placeholder="Jenis Kendaraan Mitra"
-                                optionFilterProp='label'
-                                options={DriverOptions}
+                                    showSearch
+                                    placeholder="Jenis Kendaraan Mitra"
+                                    optionFilterProp='label'
+                                    options={DriverOptions}
+                                    onChange={(e, options) => { console.log(options.label); setKendaraan2(options.label) }}
                                 />
                             </Form.Item>
                             <Form.Item
@@ -439,18 +511,18 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="Nopol Pickup"
-                                name="destinasi"
+                                name="unit2"
                                 rules={[
                                     {
                                         message: 'Please input your password!',
                                     },
                                 ]}
                             >
-                                <Input />
+                                <Input onChange={(e) => setNoPol2(e.target.value)} />
                             </Form.Item>
                             <Form.Item
                                 label="Supir Pickup"
-                                name="destinasi"
+                                name="driver2"
                                 rules={[
                                     {
                                         message: 'Please input your password!',
@@ -474,27 +546,35 @@ function Index() {
                         <Col sm={4}>
                             <Form.Item
                                 label="Kendaraan Mitra"
-                                name="destinasi"
-                                rules={[
-                                    {
-                                        message: 'Please input your password!',
-                                    },
-                                ]}
+                                name="mitra2"
+
                             >
-                                <Select />
+                                <Select optionFilterProp='children' showSearch
+                                    onChange={(e) => { setKendaraanMitra3(e); console.log(e) }}
+                                >
+                                    {NamaMitra && NamaMitra.map((item) => (
+
+                                        <option value={item.mitraId}>{item.NamaMitra}</option>
+                                    ))}
+                                </Select>
                             </Form.Item>
                             <Form.Item
                                 label="Jenis Kendaraan Mitra"
-                                name="kendaraan"
-                               
+                                name="kendaraanMitra2"
+                                initialValue={DataDetail.kendaraanPickup}
                             >
                                 <Select
-                                showSearch
-                                placeholder="Jenis Kendaraan Mitra"
-                                optionFilterProp='label'
-                                options={DriverOptions}
+                                    showSearch
+                                    placeholder="Jenis Kendaraan Mitra"
+                                    optionFilterProp='label'
+                                    options={DriverOptions}
+                                    onChange={(e, options) => {
+                                        console.log(options);
+                                        setKendaraan3(options.label)
+                                    }}
                                 />
                             </Form.Item>
+
                             <Form.Item
                                 label="Kode Kendaraan Mitra"
                                 name="destinasi"
@@ -508,18 +588,18 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="Nopol Pickup"
-                                name="destinasi"
+                                name="unit3"
                                 rules={[
                                     {
                                         message: 'Please input your password!',
                                     },
                                 ]}
                             >
-                                <Input />
+                                <Input onChange={(e) => setNoPol3(e.target.value)} />
                             </Form.Item>
                             <Form.Item
                                 label="Supir Pickup"
-                                name="destinasi"
+                                name="driver3"
                                 rules={[
                                     {
                                         message: 'Please input your password!',

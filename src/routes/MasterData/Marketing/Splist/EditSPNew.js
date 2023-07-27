@@ -15,6 +15,7 @@ function EditSPNew() {
     const [NomorSP, setNoSP] = useState("")
     const [DetailSemua, setDetailSemua] = useState("")
     const [AlamatInvoiceOptions, setAlamatInvoiceOptions] = useState("")
+    const [AlamatInvoiceBaruOptions, setAlamatInvoiceBaruOptions] = useState("")
     const [AsuransiSelect, setAsuransiSelect] = useState('')
     const [JenisBarangSelection, setJenisBarangSelection] = useState("")
     const onFinish = (values) => {
@@ -23,9 +24,10 @@ function EditSPNew() {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-
+    const [Loading, setLoading] = useState(false)
     var counter = 1
     const DetailSP = async () => {
+        setLoading(true)
         try {
             const data = await axios.get(`${Baseurl}sp/get-SP-all-detail?keyword=&idmp=${idmp}`,
                 {
@@ -34,6 +36,7 @@ function EditSPNew() {
                         Authorization: localStorage.getItem("token"),
                     },
                 })
+            setLoading(false)
             setNoSP(data.data.sp)
             setDetailSemua(data.data)
             console.log(`idPerusahaan`, DetailSemua);
@@ -69,6 +72,10 @@ function EditSPNew() {
                     },
                 })
             setAlamatInvoiceOptions(data.data.data.address)
+            setAlamatInvoiceBaruOptions(data.data.data.invoiceAddress)
+            formik.setValues({
+                alamatInvoicebaru: AlamatInvoiceBaruOptions?.[0]?.invoiceAddress?.[0].adddress
+            })
             setAsuransiSelect(data.data.data.insurance)
             setJenisBarangSelection(data.data.data.service)
             console.log(`dari edit`, data.data.data)
@@ -113,7 +120,7 @@ function EditSPNew() {
             confirmButtonText: 'Ya, edit!',
             cancelButtonText: 'Tidak, batalkan!',
             customClass: {
-                actions: 'reverse-buttons' 
+                actions: 'reverse-buttons'
             },
             reverseButtons: true,
         }).then(async (result) => {
@@ -125,7 +132,7 @@ function EditSPNew() {
                         id_customer: DetailSemua.idcustomer,
                         jenis_barang: formik.values.jenisBarang,
                         packing: "",
-                        marketing : formik.values.marketing,
+                        marketing: formik.values.marketing,
                         asuransi: formik.values.asuransi,
                         tgl_pickup: formik.values.pickup_date,
                         tgl_bongkar: formik.values.bongkar_date,
@@ -167,8 +174,12 @@ function EditSPNew() {
         <div>
             {/* <Card> */}
             <div className='d-flex justify-content-end'>
-                <Button style={{backgroundColor:"green" , color : "#ffffff"}} size='default' onClick={EditSp}>Save Edit SP</Button>
+                <Button style={{ backgroundColor: "green", color: "#ffffff" }} size='default' onClick={EditSp}>Save Edit SP</Button>
             </div>
+           
+            {Loading ? <div> loading </div> : null}
+            
+
             <Row>
                 <Col sm={6}>
                     <Form
@@ -327,7 +338,7 @@ function EditSPNew() {
                     </Form.Item>
                     <Row>
                         <Col sm={6}>
-                        <Form.Item
+                            <Form.Item
                                 labelCol={{ span: 24 }}
                                 wrapperCol={{ span: 24 }} m
                                 style={{ marginBottom: 0 }}
@@ -380,7 +391,7 @@ function EditSPNew() {
                                     value={formik.values.order_date ? moment(formik.values.order_date, "DD-MM-YYYY HH:mm:ss") : null}
                                 />
                             </Form.Item>
-                            
+
                         </Col>
 
                     </Row>
@@ -425,6 +436,7 @@ function EditSPNew() {
 
                 </Col>
             </Row>
+                
             <Row>
                 <Col sm={12}>
                     <Form.Item
@@ -441,12 +453,14 @@ function EditSPNew() {
                             showSearch
                             value={formik.values.alamatInvoice}
                             onChange={(value) => formik.setFieldValue("alamatInvoice", value)}
+                            // placeholder={ AlamatInvoiceBaruOptions?.[0]?.invoiceAddress?.[0].adddress}
                             onBlur={formik.handleBlur}
                         >
-                            {AlamatInvoiceOptions &&
-                                AlamatInvoiceOptions.map((item) => (
-                                    <Select.Option key={item.address} value={item.address}>
-                                        {item.address}
+
+                            {AlamatInvoiceBaruOptions &&
+                                AlamatInvoiceBaruOptions?.[0]?.invoiceAddress?.map((item) => (
+                                    <Select.Option key={item.adddress} value={item.adddress}>
+                                        {item.adddress}
                                     </Select.Option>
                                 ))}
                         </Select>

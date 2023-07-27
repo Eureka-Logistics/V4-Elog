@@ -1,4 +1,4 @@
-import { Card } from "antd";
+import { Card , Select as SelectAntd} from "antd";
 import React, { useEffect, useState } from "react";
 import { Row, Form, FormGroup, Col, Button } from "react-bootstrap";
 import Baseurl from "../../../../../Api/BaseUrl";
@@ -27,6 +27,7 @@ function Index() {
   const [namaPerusahaan, setnamaPerusahaan] = useState("");
   const [CompanyID, setCompanyID] = useState("");
   const [alamatInvoice, setAlamatInvoice] = useState([]);
+  const [alamatInvoiceBaru, setAlamatInvoiceBaru] = useState("");
   const [AlamatInvoiceValue, setAlamatInvoiceValue] = useState([]);
   const [diskonselect, setDiskonSelect] = useState("");
   const [diskonselectValue, setDiskonSelectValue] = useState("");
@@ -41,6 +42,7 @@ function Index() {
   const [memoValue, setMemoValue] = useState("");
   const [JenisBarang, setJenisBarang] = useState("");
   const [TypeMobilSelect, setTypeMobilSelect] = useState("");
+  const [MultiChange, setMultiChange] = useState(0);
   const history = useHistory();
   const dapetinnosp = async () => {
     const data = await axios.get(
@@ -60,18 +62,17 @@ function Index() {
     setNamaMarketing(data.data.data.marketing);
     setnamaPerusahaan(data.data.data.company);
     setAlamatInvoice(data.data.data.address);
+    setAlamatInvoiceBaru(data.data.data.invoiceAddress?.[0]?.invoiceAddress);
     setDiskonSelect(data.data.data.discount);
     setServiceSelect(data.data.data.service);
     setInsuranceSelect(data.data.data.insurance);
     setTypeMobilSelect(data.data.data.type)
     setpackingValue(data.data.data.packing);
-    console.log(`jenis barang`, JenisBarang);
-    console.log(`dnoSP`, alamatInvoice);
+    
   };
   useEffect(() => {
     dapetinnosp();
   }, [CompanyID]);
-
   const createspAwal = async () => {
     try {
       setButtonDisable(true)
@@ -92,6 +93,8 @@ function Index() {
           diskon: diskonselectValue,
           asuransi_fee: 0,
           total_keseluruhan: 0,
+          is_multi:MultiChange,
+          is_tarif_multidrop:MultiChange
         },
         {
           headers: {
@@ -103,14 +106,11 @@ function Index() {
       setButtonDisable(false)
       if (response.data) {
         const idmp = response.data.idmp;
-
-        // Ant Design Notification Success
         notification.success({
           message: 'Success',
           description: 'SP berhasil dibuat',
           placement: 'topRight',
         });
-
         // history.push(`/masterdata/edit-spNew/${idmp}`);
         history.push(`/masterdata/edit-sp/${idmp}`);
       }
@@ -200,7 +200,7 @@ function Index() {
                 <Form.Label>Alamat Invoice</Form.Label>
                 <Select
                   placeholder="Alamat Invoice"
-                  options={Array.isArray(alamatInvoice) ? alamatInvoice.map(item => ({ label: item.address, value: item.address })) : []}
+                  options={Array.isArray(alamatInvoiceBaru) ? alamatInvoiceBaru.map(item => ({ label: item.adddress, value: item.adddress })) : []}
                   onChange={selectedOption => setAlamatInvoiceValue(selectedOption.value)}
                 />
               </FormGroup>
@@ -269,7 +269,19 @@ function Index() {
             <Col sm={3}>
               <FormGroup>
                 <Form.Label>Packing Request</Form.Label>
-                <Form.Select
+                <SelectAntd 
+                optionFilterProp="children"
+                showSearch
+                style={{width : "100%"}}
+                placeholder="Pilih Packing"
+                onChange={(e)=>{console.log(e);setpackingValues(e)}}
+                >
+                  {packingValue &&
+                    packingValue.map((item) => (
+                      <option value={item.id}>{item.packing}</option>
+                    ))}
+                </SelectAntd>
+                {/* <Form.Select
                   onChange={(e) => setpackingValues(e.target.value)}
                   type="text"
                 >
@@ -278,19 +290,18 @@ function Index() {
                     packingValue.map((item) => (
                       <option value={item.id}>{item.packing}</option>
                     ))}
-                </Form.Select>
+                </Form.Select> */}
               </FormGroup>
             </Col>
             <Col sm={3}>
               <FormGroup>
-                <Form.Label>Multi</Form.Label>
+                <Form.Label>Multi Drop</Form.Label>
                 <Form.Select
-                  onChange={(e) => setpackingValues(e.target.value)}
+                  onChange={(e) => {setMultiChange(e.target.value);console.log(e.target.value)}}
                   type="text"
                 >
-                  <option value="">-</option>
-                  <option value={1}>Multi</option>
                   <option value={0}>Tidak Multi</option>
+                  <option value={1}>Multi</option>
                 </Form.Select>
               </FormGroup>
             </Col>
