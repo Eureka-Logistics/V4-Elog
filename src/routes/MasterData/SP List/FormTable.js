@@ -19,7 +19,7 @@ import { useFormik } from 'formik'
 import useMitraStore from "../../../zustand/Store/MitraStore";
 
 
-function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,JenisBarang}) {
+function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua, NamaMarketing, JenisBarang }) {
 
   const [modal1Open, setModal1Open] = useState(false);
   const [jobdesk, setJobdesk] = useState(localStorage.getItem("jobdesk"));
@@ -239,18 +239,27 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
     try {
       setLoadingMuterMuter(true)
       const body = {
-        id_mpd: IDMPD,
-        id_mp: idmp,
-        id_supir: selectnomor,
-        // id_unit: selectnomor,
-        id_unit: selectDriver[0]?.idUnit ? selectDriver[0]?.idUnit : idUnit,
-        nama_supir: selectDriver[0]?.name ? selectDriver[0]?.name : idUnit,
-        id_mitra: 1,
-        id_mitra_pickup: 1,
-        id_mitra_2: 1,
+        // id_mpd: IDMPD,
+        // id_mp: idmp,
+        // id_supir: selectnomor,
+        // // id_unit: selectnomor,
+        // id_unit: selectDriver[0]?.idUnit ? selectDriver[0]?.idUnit : idUnit,
+        // nama_supir: selectDriver[0]?.name ? selectDriver[0]?.name : idUnit,
+        // id_mitra: 1,
+        // id_mitra_pickup: 1,
+        // id_mitra_2: 1,
         plat_nomor: selectnopol,
         merk: types[0],
-        is_multi: checkboxValue,
+        // is_multi: checkboxValue,
+
+        id_mp: idmp,
+        id_mpd: IDMPD,
+        id_unit: selectDriver[0]?.idUnit ? selectDriver[0]?.idUnit : idUnit,
+        id_supir: selectDriver[0]?.idUnit,
+        id_mitra_pickup: 1,
+        pickup_kendaraan: types[0],
+        pickup_nopol: selectnopol,
+        pickup_supir: selectDriver[0]?.name ? selectDriver[0]?.name : idUnit
       };
 
       axios
@@ -272,7 +281,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
             text: "The approval process has been completed successfully.",
           });
           setLoadingMuterMuter(false)
-          window.location.reload()
+          // window.location.reload()
           handleClose();
         })
         .catch((error) => console.error(`Error: ${error}`));
@@ -1747,15 +1756,14 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                     <Col sm={3}>
                       {jobdesk === "purchasing" && (
                         <>
-                          <Form.Label>Select Mitra 1</Form.Label>
+                          <Form.Label>Select Mitra 1ss</Form.Label>
                           <Form.Select
                             disabled
-                            value={Mitra1Multi?.driverName || ''}
-                            onChange={() => { }}
+                            value={Mitra1Multi?.mitra}
                           >
                             {Mitra1Multi && (
-                              <option value={Mitra1Multi.driverName}>
-                                {Mitra1Multi.driverName}
+                              <option value={Mitra1Multi.mitra}>
+                                {Mitra1Multi.mitra}
                               </option>
                             )}
                           </Form.Select>

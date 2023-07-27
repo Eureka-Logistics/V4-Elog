@@ -8,6 +8,7 @@ import Baseurl from "../../Api/BaseUrl";
 import Swal from "sweetalert2";
 import Card from "antd/lib/card/Card";
 import { Row, Col } from "react-bootstrap";
+import DashboardOperasional from "./DashboardOperasional/index"
 const SamplePage = () => {
 
 
@@ -39,7 +40,7 @@ const SamplePage = () => {
         },
       });
       if (response.status === 200) {
-        const data =response.data?.operasional?.[0];
+        const data = response.data?.operasional?.[0];
         console.log(response.data?.operasional?.[0]);
         setinform(data);
         console.log(response.status);
@@ -82,33 +83,34 @@ const SamplePage = () => {
 
   return (
     <div>
-      <Card>
         <Row>
-          <h5>Halaman Utama {namaJobdesk}</h5>
-          <Col sm={4}>
-            <Card style={{ backgroundColor: "#dd4b39" }}>
-              <h5 style={{ color: 'white' }}>Eureka Driver : {inform?.EurekaDriver}</h5>
-              <h5 style={{ color: 'white' }}>Sewa Driver : {inform?.SewaDriver}</h5>
-              <h5 style={{ color: 'white' }}>Total Driver : {inform?.totalDriver}</h5>
-              <h5 style={{ color: 'white' }}>Driver Aktif : {inform?.activeDriver + " / " + inform?.totalDriver}</h5>
-              <h5 style={{ color: 'white' }}>Driver Off : {inform?.offDriver}</h5>
-            </Card>
-          </Col>
-          <Col sm={4}>
-            <Card style={{ backgroundColor: "#00a65a" }}>
-              <h5 style={{ color: 'white' }}>Total Mobil : {inform?.totalVeh}</h5>
-              <h5 style={{ color: 'white' }}>Mobil Aktif : {inform?.activeVeh + " / " + inform?.totalVeh}</h5>
-              <h5 style={{ color: 'white' }}>Mobil Off : {inform?.offVeh}</h5>
-            </Card>
-          </Col>
+          {jobdesk === "operasional" &&
+            (
+              <>
+                <DashboardOperasional />
+              </>
+            )}
+          {jobdesk === "purchasing" &&
+            (
+              <>
+                <h5>ini dashboard {jobdesk}</h5>
+              </>
+            )}
+          {jobdesk === "sales" &&
+            (
+              <>
+                <h5>ini dashboard {jobdesk}</h5>
+              </>
+            )}
+          {jobdesk === "akunting" &&
+            (
+              <>
+                <h5>ini dashboard {jobdesk}</h5>
+              </>
+            )}
+
         </Row>
-      </Card>
 
-
-
-      <div className="gx-d-flex justify-content-center">
-        {/* <h4>Start building your app. Happy Coding!</h4> */}
-      </div>
     </div>
   );
 };

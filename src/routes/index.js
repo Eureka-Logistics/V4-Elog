@@ -15,6 +15,10 @@ const App = ({ match }) => {
           component={asyncComponent(() => import("./Dashboard"))}
         />
         <Route
+          path={`${match.url}dashboardop`}
+          component={asyncComponent(() => import("./Dashboard/DashboardOperasional/index"))}
+        />
+        <Route
           path={`${match.url}Home`}
           component={asyncComponent(() => import("./Dashboard/Home"))}
         />
