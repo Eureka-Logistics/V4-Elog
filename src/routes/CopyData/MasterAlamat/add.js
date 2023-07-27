@@ -30,85 +30,21 @@ const SamplePage = () => {
 
   const formik = useFormik({
     initialValues: {
-      nama_perusahaan: "",
-      jenis_barang: "",
-      jenis_usaha: "",
-      tgl_berdiri: "",
-      tahun_berdiri: "",
-      npwp: "",
-      alamat_npwp: "",
-      alamat_kantor: "",
-      telepon: "",
-      hp: "",
-      mata_uang: "",
-      jenis_pembayaran: "",
-      ktp: "",
-      tdp: "",
-      siup: "",
-      pkp: "",
-      tax_pic: "",
-      tax_position: "",
-      tax_email: "",
-      tax_phone_office: "",
-      tax_mobile: "",
-      invoice_pic: "",
-      invoice_address: "",
-      invoice_position: "",
-      invoice_phone_office: "",
-      invoice_mobile: "",
-      invoice_email: "",
-      pic_office: "",
-      pic_position: "",
-      pic_phone: "",
-      pic_number: "",
-      pic_fax: "",
-      pic_email: "",
-      pic_birth: "",
-      fax: "",
+      id_customer: "",
+      pic: "",
+      jabatan: "",
       email: "",
-      bank_pic: "",
-      bank_position: "",
-      bank_phone_office: "",
-      bank_mobile: "",
-      bank_email: "",
-      nama_bank: "",
-      nama_akun: "",
-      no_rek: "",
-      top: "",
-      jenis_angkutan: "",
-      kemasan: "",
-      unique_cus: "",
-      foto_kantor: "",
-      foto_pic: "",
-      foto_ktp: "",
-      foto_npwp: "",
-      manager: "",
-      manager_memo: "",
-      manager_date: "",
-      akunting: "",
-      akunting_memo: "",
-      akunting_date: "",
-      direktur: "",
-      direktur_memo: "",
-      direktur_date: "",
-      mou_file: "",
-      tgl_bergabung: "",
-      // nama_perusahaan: "",
-      // id_customer: "",
-      // pic: "",
-      // jabatan: "",
-      // email: "",
-      // alamat: "",
-      // kecamatan: "",
-      // kota: "",
-      // kode_wilayah: "",
-      // ritase: "",
-      // hp: "",
-      // lat: "",
-      // lon: "",
-      // id_provinsi: "11",
-      // id_kecamatan: "1101051",
-      // id_kota: "1101",
+      alamat: "",
+      kecamatan: "",
+      kota: "",
+      kode_wilayah: "",
+      ritase: "",
+      hp: "",
+      lat: "",
+      lon: "",
+      id_provinsi: "",
+      id_kecamatan: "",
+      id_kota: "",
     },
 
     validationSchema: Yup.object({
@@ -120,13 +56,13 @@ const SamplePage = () => {
       //   .typeError("Year of Establishment must be a number")
       //   .integer("Year of Establishment must be an integer")
       //   .required("Year of Establishment is required"),
-      npwp: Yup.string().required("NPWP is required"),
+      // npwp: Yup.string().required("NPWP is required"),
       // alamat_npwp: Yup.string().required("NPWP Address is required"),
       // alamat_kantor: Yup.string().required("Office Address is required"),
       // telepon: Yup.string().required("Telephone is required"),
       // hp: Yup.string().required("Mobile Number is required"),
       // mata_uang: Yup.string().required("Currency is required"),
-      jenis_pembayaran: Yup.string().required("Type Of Payment is required"),
+      // jenis_pembayaran: Yup.string().required("Type Of Payment is required"),
       // ktp: Yup.string().required("KTP is required"),
       // tdp: Yup.string().required("TDP is required"),
       // siup: Yup.string().required("SIUP is required"),
@@ -134,13 +70,13 @@ const SamplePage = () => {
     }),
     onSubmit: (values) => {
       httpClient
-        .post("customer/create-customer", values)
+        .post("customer/create-customer-address", values)
         .then(({ data }) => {
           notification.success({
             message: "Success",
             description: data.message,
           });
-          setTimeout(() => router.push("/masteralamat"), 1000);
+          // setTimeout(() => router.push("/masteralamat"), 1000);
         })
         .catch(function (error) {
           notification.error({
@@ -267,320 +203,8 @@ const SamplePage = () => {
       <Card>
         <h4>New Master Alamat</h4>
         <Form onSubmit={formik.handleSubmit} className="mt-">
-          <Row className="mt-5 " style={{ marginBottom: "10px" }}>
-            <Col span={8}>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Customer Code</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="kode_customer"
-                    value={formik.values.kode_customer}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.kode_customer}
-                    // disabled
-                  />
-                </InputGroup>
-              </Form.Group>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Office Number</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="officer_number"
-                    value={formik.values.officer_number}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.officer_number}
-                  />
-                </InputGroup>
-              </Form.Group>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Type Of Business</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="jenis_usaha"
-                    value={formik.values.jenis_usaha}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.jenis_usaha}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={9}>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Customer Name</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="nama_perusahaan"
-                    value={formik.values.nama_perusahaan}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.nama_perusahaan}
-                  />
-                  {formik.errors.nama_perusahaan && (
-                    <Form.Control.Feedback type="invalid">
-                      {formik.errors.nama_perusahaan}
-                    </Form.Control.Feedback>
-                  )}
-                </InputGroup>
-              </Form.Group>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Fax</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="fax"
-                    value={formik.values.fax}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.fax}
-                  />
-                </InputGroup>
-              </Form.Group>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>
-                  Type Of Goods (Ex :Sepatu/Shoes, Kertas/Paper, etc)
-                </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="jenis_barang"
-                    value={formik.values.jenis_barang}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.jenis_barang}
-                  />
-                  {formik.errors.jenis_barang && (
-                    <Form.Control.Feedback type="invalid">
-                      {formik.errors.jenis_barang}
-                    </Form.Control.Feedback>
-                  )}
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={7}>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Company Name</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="nama_perusahaan"
-                    value={formik.values.nama_perusahaan}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.nama_perusahaan}
-                  />
-                   {formik.errors.nama_perusahaan && (
-                    <Form.Control.Feedback type="invalid">
-                      {formik.errors.nama_perusahaan}
-                    </Form.Control.Feedback>
-                  )}
-                </InputGroup>
-              </Form.Group>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Mobile Number</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="hp"
-                    value={formik.values.hp}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.hp}
-                  />
-                </InputGroup>
-              </Form.Group>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Thn Berdiri</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="tahun_berdiri"
-                    value={formik.values.tahun_berdiri}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.tahun_berdiri}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-          </Row>
+      
           <Row style={{ marginBottom: "10px" }}>
-            <Col span={24}>
-              <Form.Group>
-                <Form.Label>Alamat </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="alamat_kantor"
-                    value={formik.values.alamat_kantor}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.alamat_kantor}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={8} className="mt-2">
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Kode Wilayah</Form.Label>
-                <InputGroup>
-                  <Select
-                    style={{ width: 200, marginRight: 8 }}
-                    options={provinsiOptions}
-                    value={provinsi}
-                    isSearchable
-                    placeholder="Select Provinsi"
-                    name="provinsi"
-                    styles={customStylesReactSelect}
-                    onChange={onSelectChange}
-                    autoFocus
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={8} className="mt-2">
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Kota</Form.Label>
-                <InputGroup>
-                  <Select
-                    style={{ width: 200 }}
-                    options={kotaOptions}
-                    value={kota}
-                    isSearchable
-                    placeholder="Select Kota"
-                    name="kota"
-                    styles={customStylesReactSelect}
-                    onChange={onSelectChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={8} className="mt-2">
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Kecamatan</Form.Label>
-                <InputGroup>
-                  <Select
-                    style={{ width: 200 }}
-                    options={wilayahOptions}
-                    value={wilayah}
-                    isSearchable
-                    placeholder="Select Kecamatan"
-                    name="kecamatan"
-                    styles={customStylesReactSelect}
-                    onChange={onSelectChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: "10px" }}>
-            <Col span={12}>
-              <Form.Group>
-                <Form.Label>Email </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="email"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.email}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={12}>
-              <Form.Group>
-                <Form.Label>Type Of Payment</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="jenis_pembayaran"
-                    value={formik.values.jenis_pembayaran}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.jenis_pembayaran}
-                  />
-                  {formik.errors.jenis_pembayaran && (
-                    <Form.Control.Feedback type="invalid">
-                      {formik.errors.jenis_pembayaran}
-                    </Form.Control.Feedback>
-                  )}
-                </InputGroup>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: "10px" }}>
-            <Col span={8}>
-              <Form.Group>
-                <Form.Label>Bank Name</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="nama_bank"
-                    value={formik.values.nama_bank}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.nama_bank}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={8}>
-              <Form.Group>
-                <Form.Label>Account Name</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="nama_akun"
-                    value={formik.values.nama_akun}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.nama_akun}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={8}>
-              <Form.Group>
-                <Form.Label>Account Number</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="no_rek"
-                    value={formik.values.no_rek}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.no_rek}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: "10px" }}>
-            <Col span={8}>
-              <Form.Group>
-                <Form.Label>Currency </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="mata_uang"
-                    value={formik.values.mata_uang}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.mata_uang}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={8}>
-              <Form.Group>
-                <Form.Label>NPWP </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="npwp"
-                    value={formik.values.npwp}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.npwp}
-                  />
-                   {formik.errors.npwp && (
-                    <Form.Control.Feedback type="invalid">
-                      {formik.errors.npwp}
-                    </Form.Control.Feedback>
-                  )}
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={8}>
-              <Form.Group>
-                <Form.Label>FAX </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="fax"
-                    value={formik.values.fax}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.fax}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-          </Row>
-
-          {/* <Row style={{ marginBottom: "10px" }}>
             <Col span={8}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Nama Perusahaan</Form.Label>
@@ -803,7 +427,7 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
           </Row>
-          <Row style={{ marginBottom: "10px" }}>
+          {/* <Row style={{ marginBottom: "10px" }}>
             <Col span={8}>
               <Form.Group>
                 <Form.Label>KTP</Form.Label>
@@ -817,7 +441,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-          </Row>
+          </Row> */}
           <Row style={{ marginBottom: "10px" }}>
             <Col span={12}>
               <Form.Group>
@@ -845,7 +469,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-          </Row> */}
+          </Row>
         </Form>
 
         <Row className="mt-5" style={{ marginBottom: "10px" }}>

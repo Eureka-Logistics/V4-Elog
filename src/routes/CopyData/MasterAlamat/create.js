@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Form, Input, Table } from "antd";
-import { httpClient } from "../../util/Api";
+import { httpClient } from "../../../Api/Api";
+import axios from "axios";
 
 const SamplePage = () => {
   const [customerAddresses, setCustomerAddresses] = useState([]);
@@ -12,7 +13,7 @@ const SamplePage = () => {
 
   const fetchData = async () => {
     try {
-      const response = await httpClient.get("customer/get-customer-address");
+      const response = await axios.get("customer/get-customer-address");
       const data = response.data;
 
       if (data.status.code === 200) {

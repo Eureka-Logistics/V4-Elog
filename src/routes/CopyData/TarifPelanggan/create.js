@@ -39,7 +39,7 @@ const SamplePage = () => {
   const [customerOptions, setCustomerOptions] = useState([]);
   const [diskon, setDiskon] = useState([]);
   const [diskonType, setDiskonType] = useState([]);
-  const [biayaJalan, setBiayaJalan] = useState(10000);
+  const [biayaJalan, setBiayaJalan] = useState(0);
   const [biayaMuat, setBiayaMuat] = useState([]);
   const [biayaBongkar, setBiayaBongkar] = useState([]);
   const [biayaOvertonase, setBiayaTonase] = useState([]);
@@ -47,7 +47,7 @@ const SamplePage = () => {
   const [biayaMultidrop, setBiayaMultidrop] = useState([]);
   const [biayaTambahan, setBiayaTambahan] = useState([]);
   const [biayaMel, setBiayaMel] = useState([]);
-  const [biayaLain, setBiayaLain] = useState([]);
+  const [biayaLain, setBiayaLain] = useState(0);
   const [Tarif, setTarif] = useState("");
   const [Ritase, setRitase] = useState("");
   const [UangJalan, setUangJalan] = useState("");

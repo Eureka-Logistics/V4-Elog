@@ -7,11 +7,14 @@ import Swal from "sweetalert2";
 import * as Yup from "yup";
 import { async } from "q";
 
+const { Option } = Select;
+
 function DetailMasterCustomer() {
   const { id_customer } = useParams();
   const [NamaPerusahaan, setDataNamaPerusahaan] = useState("");
   const [DetailDataMasterCustomer, setDataDetailDataMasterCustomer] =
     useState("");
+  const [toPValue, setToPValue] = useState("");
   const [JenisUsahaan, setDataJenisUsahaan] = useState(null);
   const [AlamatCustomer, setDataAlamatCustomer] = useState("");
   const [CompanyAnniversaryy, setDataCompanyAnniversaryy] = useState("");
@@ -67,42 +70,43 @@ function DetailMasterCustomer() {
       setDataNamaPerusahaan(respons.data.data?.nama_perusahaan || "");
       setDataJenisUsahaan(respons.data.data?.jenis_usaha || "");
       setDataAlamatCustomer(respons.data.data?.alamat_kantor || "");
-      setDataCompanyAnniversaryy(respons.data.data?.tgl_berdiri || "")
+      setDataCompanyAnniversaryy(respons.data.data?.tgl_berdiri || "");
       setDataJenisBarangPerusahaan(respons.data.data?.jenis_barang || "");
-      setDataTeleponKantor(respons.data.data?.telepon ||"");
-      setDataFaxPerusahaan(respons.data.data?.fax ||"");
-      setDataPicOffice(respons.data.data?.pic_office ||"");
-      setDataPicPositions(respons.data.data?.pic_positions ||"");
-      setDataPicEmail(respons.data.data?.pic_email ||"");
-      setDataPicPhone(respons.data.data?.pic_phone ||"");
-      setDataPicBirth(respons.data.data?.pic_birth ||"");
-      setDataPicFax (respons.data.data?.pic_fax ||"");
-      setDataNomorNPWP(respons.data.data?.npwp ||"");
-      setDataAlamatNPWP(respons.data.data?.alamat_npwp ||"");
-      setDataNomorKTP(respons.data.data?.ktp ||"");
-      setDataNomorTDP(respons.data.data?.tdp ||"");
-      setDataNomorPKP(respons.data.data?.ptp ||"");
-      setDataNomorTaxPIC(respons.data.data?.tax_pic ||"");
-      setDataNomorTaxPosition(respons.data.data?.tax_position ||"");
-      setDataTaxEmail(respons.data.data?.tax_email ||"");
-      setDataTaxPhoneOffice(respons.data.data?.tax_phone_office ||"");
-      setDataTaxMobile(respons.data.data?.tax_mobile ||"");
-      setDataNamaBank(respons.data.data?.nama_bank ||"");
-      setDataNamaAkunBank(respons.data.data?.nama_akun ||"");
-      setDataNoRek(respons.data.data?.no_rek ||"");
-      setDataToPTimeToOptiion(respons.data.data?.top ||"");
-      setDataJenisPembayaran(respons.data.data?.jenis_pembayaran ||"");
+      setDataTeleponKantor(respons.data.data?.telepon || "");
+      setDataFaxPerusahaan(respons.data.data?.fax || "");
+      setDataPicOffice(respons.data.data?.pic_office || "");
+      setDataPicPositions(respons.data.data?.pic_positions || "");
+      setDataPicEmail(respons.data.data?.pic_email || "");
+      setDataPicPhone(respons.data.data?.pic_phone || "");
+      setDataPicBirth(respons.data.data?.pic_birth || "");
+      setDataPicFax(respons.data.data?.pic_fax || "");
+      setDataNomorNPWP(respons.data.data?.npwp || "");
+      setDataAlamatNPWP(respons.data.data?.alamat_npwp || "");
+      setDataNomorKTP(respons.data.data?.ktp || "");
+      setDataNomorTDP(respons.data.data?.tdp || "");
+      setDataNomorPKP(respons.data.data?.ptp || "");
+      setDataNomorTaxPIC(respons.data.data?.tax_pic || "");
+      setDataNomorTaxPosition(respons.data.data?.tax_position || "");
+      setDataTaxEmail(respons.data.data?.tax_email || "");
+      setDataTaxPhoneOffice(respons.data.data?.tax_phone_office || "");
+      setDataTaxMobile(respons.data.data?.tax_mobile || "");
+      setDataNamaBank(respons.data.data?.nama_bank || "");
+      setDataNamaAkunBank(respons.data.data?.nama_akun || "");
+      setDataNoRek(respons.data.data?.no_rek || "");
+      setDataToPTimeToOptiion(respons.data.data?.top || "");
+      setDataJenisPembayaran(respons.data.data?.jenis_pembayaran || "");
       setDataBankUntukPIC(respons.data.data?.bank_untuk_pic || "");
-      setDataBankPositions(respons.data.data?.bank_positions ||"");
-      setDataBankEmail(respons.data.data?.bank_email ||"");
-      setDataBankPhoneOffice(respons.data.data?.bank_phone_office ||"");
+      setDataBankPositions(respons.data.data?.bank_positions || "");
+      setDataBankEmail(respons.data.data?.bank_email || "");
+      setDataBankPhoneOffice(respons.data.data?.bank_phone_office || "");
       setDataBankMobilee(respons.data.data?.bank_mobile || "");
       setDataInvoiceUntukPIC(respons.data.data?.invoice_pic || "");
       setDataInvoicePositions(respons.data.data?.invoice_position || "");
-      setDataInvoiceEmail(respons.data.data?.invoice_email ||"");
-      setDataInvoiceMobile(respons.data.data?.invoice_mobile ||"");
-      setDataInvoicePhoneOffice(respons.data.data?.invoice_phone_office ||"");
-      setDataKodeCustomer(respons.data.data?.kode_customer ||"");
+      setDataInvoiceEmail(respons.data.data?.invoice_email || "");
+      setDataInvoiceMobile(respons.data.data?.invoice_mobile || "");
+      setDataInvoicePhoneOffice(respons.data.data?.invoice_phone_office || "");
+      setDataKodeCustomer(respons.data.data?.kode_customer || "");
+      setToPValue(respons.data.data?.top || "");
 
       //   console.log("responssssscarismid", respons.data.data);
 
@@ -143,7 +147,7 @@ function DetailMasterCustomer() {
         nama_akun: NamaAkunBank,
         no_rek: NoRek,
         jenis_pembayaran: JenisPembayaran,
-        top: ToPTimeToOptiion,
+        top: toPValue,
         bank_pic: BankUntukPIC,
         bank_position: BankPositions,
         bank_email: BankEmail,
@@ -180,9 +184,9 @@ function DetailMasterCustomer() {
           // footer: '<a href="">Why do I have this issue?</a>'
         });
 
-        setTimeout(() => {
-          window.location.href = "/mastercustomersss"; // Replace with the actual path to the "tarif_eureka" page
-        }, 1000); // 1000 milliseconds (1 seconds) delay
+        // setTimeout(() => {
+        //   window.location.href = "/mastercustomersss"; // Replace with the actual path to the "tarif_eureka" page
+        // }, 1000); // 1000 milliseconds (1 seconds) delay
       } else if (response.status === 500) {
         // Swal.fire({
         //     icon: 'error',
@@ -208,6 +212,10 @@ function DetailMasterCustomer() {
     DetailMasterCustomers(id_customer);
   }, []);
 
+  const handleToPChange = (options) => {
+    setToPValue(options.children);
+  };
+
   return (
     <div>
       <Card>
@@ -216,14 +224,14 @@ function DetailMasterCustomer() {
         <Row>
           {/* <Col span={12} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Customer ID :</label> */}
-            {/* Menghubungkan input tarif dengan state tarif */}
-            {/* <Input
+          {/* Menghubungkan input tarif dengan state tarif */}
+          {/* <Input
               className="mt-2"
               placeholder={DetailDataMasterCustomer.id_customer}
             /> */}
           {/* </Col> */}
           <Col span={12} className="mt-3">
-            <label style={{ fontWeight: "bold" }}>Code Customer  :</label>
+            <label style={{ fontWeight: "bold" }}>Code Customer :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
               className="mt-2"
@@ -620,33 +628,35 @@ function DetailMasterCustomer() {
           </Col>
         </Row>
         <Row className="mt-3">
-          <Col span={8}>
+          <Col className="mt-2" span={8}>
             <label style={{ fontWeight: "bold" }}>Type Of Payment : </label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <Input
+            <Select
               className="mt-2"
               placeholder={DetailDataMasterCustomer.jenis_pembayaran}
-              value={JenisPembayaran}
-              onChange={(e) => {
-                console.log(e.target.value);
-                setDataJenisPembayaran(e.target.value);
-              }}
-            />
+              style={{ width: "90%" }}
+              onChange={(e) => setDataJenisPembayaran(e)}
+            >
+              <Option value="Cash">Cash</Option>
+              <Option value="Credit">Credit</Option>
+            </Select>
           </Col>
+          
           <Col span={8}>
-            <label style={{ fontWeight: "bold" }}> ToP : </label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <Input
+            <label style={{ fontWeight: "bold" }}>ToP:</label>
+            <Select
               className="mt-2"
-              placeholder={DetailDataMasterCustomer.top}
-              value={ToPTimeToOptiion}
-              onChange={(e) => {
-                console.log(e.target.value);
-                setDataToPTimeToOptiion(e.target.value);
-              }}
-            />
+              placeholder={DetailDataMasterCustomer.top} // Make sure this contains a valid value
+              style={{ width: "90%" }}
+              onChange={(e,options)=>{console.log(options.children);handleToPChange(options)}}
+              value={toPValue} // Bind the state value to the Select component
+            >
+              <Option value="0">---</Option>
+              <Option value="1">7 Hari</Option>
+              <Option value="2">14 Hari</Option>
+              <Option value="3">30 Hari</Option>
+              <Option value="4">60 Hari</Option>
+            </Select>
           </Col>
-
           <Col span={8}>
             <label style={{ fontWeight: "bold" }}> BANK PIC : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
