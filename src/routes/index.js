@@ -72,6 +72,7 @@ const App = ({ match }) => {
             import("./MasterData/Marketing/MasterCustomer/DetailMasterCustomer")
           )}
         />
+     
       <Route
           path={`${match.url}mastercustomersssAdd`}
           component={asyncComponent(() =>
@@ -87,7 +88,13 @@ const App = ({ match }) => {
       <Route
         path={`${match.url}alamatcustomer`}
         component={asyncComponent(() =>
-          import("./CopyData/MasterAlamat/alamatcustomer")
+          import("./CopyData/MasterAlamat/index")
+        )}
+      />
+      <Route
+        path={`${match.url}newalamat`}
+        component={asyncComponent(() =>
+          import("./CopyData/MasterAlamat/create")
         )}
       />
       <Route
@@ -97,9 +104,27 @@ const App = ({ match }) => {
         )}
       />
       <Route
-        path={`${match.url}detailcustomer`}
+        path={`${match.url}NewMasterAlamatCustomers`}
         component={asyncComponent(() =>
-          import("./CopyData/MasterAlamat/detail")
+          import("./CopyData/MasterAlamat/add")
+        )}
+      />
+      <Route
+        path={`${match.url}dataDetailMasterAlamatCustomers/:id`}
+        component={asyncComponent(() =>
+          import("./CopyData/MasterAlamat/DataNewCustomerAddress")
+        )}
+      />
+      <Route
+        path={`${match.url}detailcustomerAdress/:customerAddressId`}
+        component={asyncComponent(() =>
+          import("./CopyData/MasterAlamat/GetCustomerAddress")
+        )}
+      />
+      <Route
+        path={`${match.url}editdetailmastercustomeralamat/:customerAddressId`}
+        component={asyncComponent(() =>
+          import("./CopyData/MasterAlamat/EditDetailAlamat")
         )}
       />
       <Route

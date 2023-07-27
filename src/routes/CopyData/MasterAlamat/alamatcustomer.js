@@ -141,19 +141,19 @@ const SamplePage = () => {
       dataIndex: "custName",
       key: "custName",
     },
-    Table.EXPAND_COLUMN,
-    {
-      title: "Address",
-      dataIndex: "custAddress",
-      key: "custAddress",
-
-      render: (custAddress) => custAddress[0]?.address,
-    },
+    // Table.EXPAND_COLUMN,
     // {
-    //   title: "Alamat",
-    //   dataIndex: "address",
-    //   key: "address",
+    //   title: "Address",
+    //   dataIndex: "custAddress",
+    //   key: "custAddress",
+
+    //   render: (custAddress) => custAddress[0]?.address,
     // },
+    {
+      title: "Alamat",
+      dataIndex: "alamat",
+      key: "alamat",
+    },
     // {
     //   title: "Kode Wilayah",
     //   dataIndex: "kode_wilayah",
@@ -237,7 +237,7 @@ const SamplePage = () => {
           
           <Col span={4}>
             <Button type="primary" onClick={handleAdd}>
-              New Customer
+              New Customer 
             </Button>
           </Col>
         </Row>

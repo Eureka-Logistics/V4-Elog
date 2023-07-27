@@ -10,6 +10,7 @@ import {
   Col,
   Tag,
   Select,
+  Alert,
   Pagination,
 } from "antd";
 import {
@@ -17,34 +18,47 @@ import {
   EditOutlined,
   DeleteOutlined,
   FormOutlined,
+  EyeFilled,
 } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
 import { httpClient } from "../../../Api/Api";
 import DataTable from "react-data-table-component";
+import GetCustomerAddress from "./GetCustomerAddress";
 
 const { confirm } = Modal;
 
 const SamplePage = () => {
-  let nomor = 1;
   const router = useHistory();
   const [customerAddresses, setCustomerAddresses] = useState([]);
   const [DetailAddress, setDetailAddress] = useState([]);
-  const [customer, setCustomer] = useState("");
+  const [customer, setCustomer] = useState("Pilih Customer");
   const [customerOptions, setCustomerOptions] = useState([]);
   const [customerOptionSelect, setCustomerOptionsSelect] = useState([]);
   const [limit, setLimit] = useState(10);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [keywordData, setKeywordData] = useState(1);
-  const [Pagginatios , setPagginations] = useState("")
+  const [Pagginatios, setPagginations] = useState("");
+  const [dataasw, setdataasw] = useState("");
+
+  
+
+  const alertStyle = {
+    fontFamily: "Arial, sans-serif", // Replace this with your desired font-family
+    fontSize: "16px", // Replace this with your desired font size
+    fontWeight: "bold", // Replace this with your desired font weight
+    color: "black", // Replace this with your desired text color
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await httpClient.get(
-          "customer/get-customer-address?id_customer="
+          `customer/get-customer-address?id_customer=${customer}`
         );
-        const data = response.data;
+        const data = response.data.data;
+        setdataasw(response?.data?.data);
+        console.log(`wiusadasd`, response.data.data);
         // setCustomerOptionsSelect (response.data)
 
         if (data.status.code === 200) {
@@ -56,8 +70,6 @@ const SamplePage = () => {
       }
     };
 
-    fetchData();
-
     httpClient
       .get(
         `customer/get-customer?limit=${limit}&page=${page}&keyword=${customer}`
@@ -65,7 +77,7 @@ const SamplePage = () => {
       .then(({ data }) => {
         if (data.status.code === 200) {
           setCustomerAddresses(data.data.order);
-          setPagginations(data.data)
+          setPagginations(data.data);
           // setDetailAddress(data.data.order[0].custAddress);
           console.log("haiiii", data.data.order[0].custAddress);
         }
@@ -84,18 +96,24 @@ const SamplePage = () => {
           console.log("Error: ", data.status.message);
         }
       });
+    fetchData();
   }, [limit, page, customer]);
 
   const handleEdit = (custId) => {
     router.push(`/editcustomer/${custId}`);
   };
 
-  const handleDetail = (custId) => {
-    router.push(`/detailcustomer/${custId}`);
+  const handleDetail = (customerAddressId) => {
+    console.log(customerAddressId);
+    router.push(`/editdetailmastercustomeralamat/${customerAddressId}`);
+  };
+  const handleView = (customerAddressId, customerId) => {
+    router.push(`/detailcustomerAdress/${customerAddressId}`);
   };
 
   const handleAdd = (id) => {
-    router.push(`/masteralamatadd`);
+    // router.push(`/masteralamatadd`);
+    router.push(`/NewMasterAlamatCustomers`);
   };
 
   const handleDelete = (custId) => {
@@ -126,63 +144,66 @@ const SamplePage = () => {
     });
   };
 
+  let nomor = 1;
+
   const columns = [
     {
-      title: "No.",
-      dataIndex: "no",
-      width: "70px",
+      title: "No",
+      dataIndex: "index",
+      key: "index",
+      render: (text, record, index) => index + 1,
     },
     {
-      title: "Code",
-      dataIndex: "custCode",
-      key: "custCode",
+      title: "PIC Name",
+      dataIndex: "pic",
+      key: "pic",
     },
     {
-      title: "Name",
-      dataIndex: "custName",
-      key: "custName",
+      title: "Phone Number",
+      dataIndex: "hp",
+      key: "hp",
     },
     {
-      title: "Address",
-      dataIndex: "custName",
-      key: "custName",
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
     },
-    // Table.EXPAND_COLUMN,
-    // {
-    //   title: "Address",
-    //   dataIndex: "custAddress",
-    //   key: "custAddress",
-
-    //   render: (custAddress) => custAddress[0]?.address,
-    // },
-    // {
-    //   title: "Alamat",
-    //   dataIndex: "address",
-    //   key: "address",
-    // },
-    // {
-    //   title: "Kode Wilayah",
-    //   dataIndex: "kode_wilayah",
-    //   key: "kode_wilayah",
-    // },
-    // {
-    //   title: "Kode Provinsi",
-    //   dataIndex: "kode_provinsi",
-    //   key: "kode_provinsi",
-    // },
-
+    {
+      title: "Customer Name",
+      dataIndex: "customer",
+      key: "customer",
+    },
+    {
+      title: "Alamat",
+      dataIndex: "alamat",
+      key: "alamat",
+    },
+    {
+      title: "City",
+      dataIndex: "kota",
+      key: "kota",
+    },
     {
       title: "Action",
       key: "no",
       render: (text, record) => (
         <Space size="middle">
-          
-          <Button onClick={() => handleDetail(record.custId)} type="primary">
+          {/* <Button onClick={() => handleDetail(record.custId)} type="secondary">
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <EyeFilled />
+            </span>
+          </Button> */}
+          <Button
+            onClick={() =>
+              handleDetail(record.customerAddressId, record.customerId)
+            }
+            type="primary"
+          >
             <span style={{ display: "flex", alignItems: "center" }}>
               <FormOutlined />
             </span>
           </Button>
-         
+
           <Button danger onClick={() => handleDelete(record.custId)}>
             <span style={{ display: "flex", alignItems: "center" }}>
               <DeleteOutlined />
@@ -237,11 +258,12 @@ const SamplePage = () => {
 
   return (
     <>
-      
+      {/* <GetCustomerAddress customerId={customerId}/> */}
       <Card>
-      <h3>Data Customer</h3>
-        <Row className="mt-5">
-          <Col span={6}>
+        <h3>Data Master Alamat</h3>
+        {/* <h5 className="mt-5">Pilih Filter Customer Terlebih Dahulu</h5> */}
+        <Row className="mt-3 mb-3">
+          <Col span={12}>
             <Select
               value={customer}
               name="customer"
@@ -259,9 +281,9 @@ const SamplePage = () => {
             </Select>
           </Col>
           <Col span={4}>
-            <Button type="primary" onClick={handleAdd}>
-              New Customer
-            </Button>
+            {/* <Button type="primary" onClick={handleAdd}>
+              New Master Alamat
+            </Button> */}
           </Col>
         </Row>
         <style>
@@ -273,14 +295,30 @@ const SamplePage = () => {
           
         `}
         </style>
-        <Table
-          style={{ width: "100%", overflow: "auto" }}
-          dataSource={customerAddresses}
-         
-          columns={columns}
-          pagination={{ total : Pagginatios?.totalPage, current: page, pageSize: limit }}
-          onChange={(pagination) => setPage(pagination.current)}
-        />
+
+        <hr />
+
+        {dataasw && dataasw.length > 0 ? (
+          <Table
+            style={{ width: "100%", overflow: "auto" }}
+            dataSource={dataasw}
+            columns={columns}
+            pagination={{
+              total: Pagginatios?.totalPage,
+              current: page,
+              pageSize: limit,
+            }}
+            onChange={(pagination) => setPage(pagination.current)}
+          />
+        ) : (
+          <div style={alertStyle}>
+            <Alert
+              message="Pilih terlebih dahulu filter customer-nya !"
+              type="info"
+              showIcon
+            />
+          </div>
+        )}
       </Card>
     </>
   );

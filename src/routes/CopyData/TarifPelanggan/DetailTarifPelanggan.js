@@ -149,7 +149,9 @@ function DetailTarifPelanggan() {
         <Row>
           <Col className="mt-2" span={8}>
             <label>Customer :</label>
+          
             <Select
+            
               className="mt-2"
               showSearch
               placeholder={DetailDataTarif.customer}
@@ -159,6 +161,7 @@ function DetailTarifPelanggan() {
                 console.log(options.key);
                 setCustomers(options.key);
               }}
+              
             >
               {DataTambah &&
                 DataTambah.customer.map((CustomerItem) => (
@@ -252,8 +255,8 @@ function DetailTarifPelanggan() {
               style={{ width: "90%" }}
               onChange={(e) => setJenisKiriman(e)}
             >
-              <Option value="Retail">Retail</Option>
-              <Option value="Charter">Charter</Option>
+              <Option value="Reguler">Reguler</Option>
+              <Option value="Express">Express</Option>
             </Select>
           </Col>
           <Col className="mt-2" span={8}>
@@ -264,8 +267,8 @@ function DetailTarifPelanggan() {
               style={{ width: "90%" }}
               onChange={(e) => setServiceType(e)}
             >
-              <Option value="Expres">Expres</Option>
-              <Option value="Reguler">Reguler</Option>
+              <Option value="Charter">Charter</Option>
+              <Option value="Retail">Retail</Option>
             </Select>
           </Col>
         </Row>

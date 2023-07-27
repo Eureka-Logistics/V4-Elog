@@ -28,7 +28,7 @@ const SamplePage = () => {
       content: "This action cannot be undone.",
       onOk() {
         const datas = {
-          id_customer: custId,
+          customerId: custId,
         };
         httpClient
           .post(`customer/del-customer`, datas)
@@ -121,6 +121,7 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
+       
         <Space style={{ marginBottom: 16 }}>
           <Button type="primary" onClick={handleAdd}>
             New Customer

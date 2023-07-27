@@ -35,6 +35,7 @@ const SamplePage = () => {
   const [order, setOrder] = useState([]);
   const [loadingState, setLoadingState] = useState(false);
   const [nameFilter, setNameFilter] = useState(null);
+  
 
   const columns = [
     {
@@ -52,21 +53,6 @@ const SamplePage = () => {
       dataIndex: "custName",
       key: "custName",
     },
-    // {
-    //   title: "Alamat Customer",
-    //   dataIndex: "custName",
-    //   key: "custName",
-    // },
-    // {
-    //   title: "Telephone",
-    //   dataIndex: "custTelephone",
-    //   key: "custTelephone",
-    // },
-    // {
-    //   title: "Address",
-    //   dataIndex: "custAddress",
-    //   key: "custAddress",
-    // },
     {
       title: "Action",
       key: "no",
@@ -147,7 +133,7 @@ const SamplePage = () => {
             if (data.status.code === 200) {
               const newOrder = order.filter((item) => item.custId !== custId);
               setOrder(newOrder);
-              window.location.reload();
+             
             }
           })
           .catch(function (error) {
@@ -161,7 +147,10 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
-        <h4></h4>
+      <h4 className="mb-3">
+          Data Master Customer
+        </h4>
+        <hr />
         <Space style={{ marginBottom: 16 }}>
           <Button type="primary" onClick={handleAdd}>
             New Customer
