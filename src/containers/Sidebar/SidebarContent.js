@@ -155,6 +155,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         {/* <span>Data Alamat All</span> */}
                       </Link>
                     </Menu.Item>
+                  <Menu.Item key="Invoice Customer">
+                      <Link to="/invoicecustomer">
+                        <i className="icon icon-widgets" />
+                        <span>Invoice Customer</span>
+                        {/* <span>Data Alamat All</span> */}
+                      </Link>
+                    </Menu.Item>
                   <Menu.Item key="Tarif Customer">
                       <Link to="/pelanggantarif">
                         <i className="icon icon-widgets" />

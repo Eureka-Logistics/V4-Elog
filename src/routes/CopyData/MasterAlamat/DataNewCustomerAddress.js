@@ -8,7 +8,6 @@ import { useHistory } from "react-router-dom";
 import { FormOutlined } from "@ant-design/icons";
 
 function DataNewCustomerAddress() {
-  let nomor = 1;
   const { id } = useParams();
   const [DataDetailAddress, setDataDetailAddress] = useState();
   const router = useHistory();

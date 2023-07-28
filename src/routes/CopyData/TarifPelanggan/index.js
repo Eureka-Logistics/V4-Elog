@@ -243,6 +243,8 @@ const SamplePage = () => {
     });
   };
 
+  
+
   return (
     <div>
       <Card>
@@ -337,7 +339,8 @@ const SamplePage = () => {
             </Button>
           </Col>
         </Row>
-        <Table
+       <div style={{ overflowX: 'auto' }}>
+       <Table
           className="mt-5"
           onRowClicked={IniRowClick}
           dataSource={listData}
@@ -353,6 +356,7 @@ const SamplePage = () => {
             setLimit(pagination.pageSize);
           }}
         />
+       </div>
       </Card>
     </div>
   );

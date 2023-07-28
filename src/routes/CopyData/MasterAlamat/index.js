@@ -8,7 +8,6 @@ import {
   Modal,
   Row,
   Col,
-  Tag,
   Select,
   Alert,
   Pagination,
@@ -24,6 +23,7 @@ import { useHistory } from "react-router-dom";
 import { httpClient } from "../../../Api/Api";
 import DataTable from "react-data-table-component";
 import GetCustomerAddress from "./GetCustomerAddress";
+import NewMasterAlamatNew from "./NewMasterAlamatNew";
 
 const { confirm } = Modal;
 
@@ -40,8 +40,17 @@ const SamplePage = () => {
   const [keywordData, setKeywordData] = useState(1);
   const [Pagginatios, setPagginations] = useState("");
   const [dataasw, setdataasw] = useState("");
-
-  
+  const [open, setOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const alertStyle = {
     fontFamily: "Arial, sans-serif", // Replace this with your desired font-family
@@ -111,9 +120,9 @@ const SamplePage = () => {
     router.push(`/detailcustomerAdress/${customerAddressId}`);
   };
 
-  const handleAdd = (id) => {
+  const handleAdd = () => {
     // router.push(`/masteralamatadd`);
-    router.push(`/NewMasterAlamatCustomers`);
+    router.push(`/CreatedMasterAlamat`);
   };
 
   const handleDelete = (custId) => {
@@ -193,6 +202,7 @@ const SamplePage = () => {
               <EyeFilled />
             </span>
           </Button> */}
+
           <Button
             onClick={() =>
               handleDetail(record.customerAddressId, record.customerId)
@@ -281,6 +291,19 @@ const SamplePage = () => {
             </Select>
           </Col>
           <Col span={4}>
+            <Button type="primary" onClick={showModal}>
+             New Master Alamat
+            </Button>
+            <Modal
+              title="Add New Master Alamat"
+              open={isModalOpen}
+              onOk={handleOk}
+              onCancel={handleCancel}
+              width={800}
+              footer={null} // Hide OK and Cancel buttons
+            >
+              <NewMasterAlamatNew />
+            </Modal>
             {/* <Button type="primary" onClick={handleAdd}>
               New Master Alamat
             </Button> */}
@@ -304,9 +327,10 @@ const SamplePage = () => {
             dataSource={dataasw}
             columns={columns}
             pagination={{
-              total: Pagginatios?.totalPage,
+              total: Pagginatios?.dataasw,
               current: page,
               pageSize: limit,
+              
             }}
             onChange={(pagination) => setPage(pagination.current)}
           />
