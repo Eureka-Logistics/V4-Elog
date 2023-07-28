@@ -86,6 +86,25 @@ const App = ({ match }) => {
           )}
         />
       <Route
+        path={`${match.url}invoicecustomer`}
+        component={asyncComponent(() =>
+          import("./MasterData/MasterInvoice/index")
+        )}
+      />
+       <Route
+        path={`${match.url}invoicecustomerdetail/:invoiceAddressId`}
+        component={asyncComponent(() =>
+          import("./MasterData/MasterInvoice/detail")
+        )}
+      />
+       <Route
+        path={`${match.url}invoicecustomercreate`}
+        component={asyncComponent(() =>
+          import("./MasterData/MasterInvoice/CreateMasterInvoice")
+        )}
+      />
+     
+      <Route
         path={`${match.url}alamatcustomer`}
         component={asyncComponent(() =>
           import("./CopyData/MasterAlamat/index")
@@ -288,6 +307,12 @@ const App = ({ match }) => {
           path={`${match.url}masteralamat`}
           component={asyncComponent(() =>
             import("./CopyData/MasterAlamat/index")
+          )}
+        />
+        <Route
+          path={`${match.url}CreatedMasterAlamat`}
+          component={asyncComponent(() =>
+            import("./CopyData/MasterAlamat/NewMasterAlamatNew")
           )}
         />
         <Route

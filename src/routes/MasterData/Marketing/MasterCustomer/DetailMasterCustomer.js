@@ -642,11 +642,11 @@ function DetailMasterCustomer() {
           </Col>
           
           <Col span={8}>
-            <label style={{ fontWeight: "bold" }}>ToP:</label>
+            <label style={{ fontWeight: "bold" }}>ToP : </label>
             <Select
               className="mt-2"
               placeholder={DetailDataMasterCustomer.top} // Make sure this contains a valid value
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               onChange={(e,options)=>{console.log(options.children);handleToPChange(options)}}
               value={toPValue} // Bind the state value to the Select component
             >

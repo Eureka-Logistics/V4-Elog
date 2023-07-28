@@ -39,7 +39,7 @@ const SamplePage = () => {
   const [customerOptions, setCustomerOptions] = useState([]);
   const [diskon, setDiskon] = useState([]);
   const [diskonType, setDiskonType] = useState([]);
-  const [biayaJalan, setBiayaJalan] = useState(0);
+  const [biayaJalan, setBiayaJalan] = useState("");
   const [biayaMuat, setBiayaMuat] = useState([]);
   const [biayaBongkar, setBiayaBongkar] = useState([]);
   const [biayaOvertonase, setBiayaTonase] = useState([]);
@@ -47,7 +47,7 @@ const SamplePage = () => {
   const [biayaMultidrop, setBiayaMultidrop] = useState([]);
   const [biayaTambahan, setBiayaTambahan] = useState([]);
   const [biayaMel, setBiayaMel] = useState([]);
-  const [biayaLain, setBiayaLain] = useState(0);
+  const [biayaLain, setBiayaLain] = useState("");
   const [Tarif, setTarif] = useState("");
   const [Ritase, setRitase] = useState("");
   const [UangJalan, setUangJalan] = useState("");
@@ -120,7 +120,6 @@ const SamplePage = () => {
           // ritase: Ritase,
           // uang_jalan: UangJalan,
           service_type: serviceType?.value,
-          
         })
         .then(({ data }) => {
           notification.success({
@@ -306,18 +305,15 @@ const SamplePage = () => {
       <Card>
         <Form onSubmit={formik.handleSubmit}>
           <Row style={{ marginBottom: "10px" }}>
-            <Col span={8} >
+            <Col span={8}>
               <h4>Buat Tarif Customer Baru</h4>
             </Col>
             <Col span={3}></Col>
             <Col span={3}></Col>
-           
           </Row>
           <Row style={{ marginBottom: "10px" }}>
-
             <Col span={6}>
-              
-            <Form.Group style={{ marginBottom: "10px" }}>
+              <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Customer</Form.Label>
                 <InputGroup>
                   <Select
@@ -331,7 +327,7 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-              
+
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Jenis kendaraan </Form.Label>
                 <InputGroup>
@@ -346,24 +342,23 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-              
+
               <Form.Group style={{ marginBottom: "10px" }}>
-                  <Form.Label>Jenis Diskon</Form.Label>
-                  <InputGroup>
-                    <Select
-                      options={optjenisDiskon}
-                      name="jenis_diskon"
-                      value={jenisDiskon}
-                      onChange={(e) => setJenisDiskon(e)}
-                      isInvalid={!!formik.errors.service_type}
-                      styles={customStylesReactSelect}
-                    />
-                  </InputGroup>
-                </Form.Group>
+                <Form.Label>Jenis Diskon</Form.Label>
+                <InputGroup>
+                  <Select
+                    options={optjenisDiskon}
+                    name="jenis_diskon"
+                    value={jenisDiskon}
+                    onChange={(e) => setJenisDiskon(e)}
+                    isInvalid={!!formik.errors.service_type}
+                    styles={customStylesReactSelect}
+                  />
+                </InputGroup>
+              </Form.Group>
             </Col>
             <Col span={6}>
-              
-            <Form.Group style={{ marginBottom: "10px" }}>
+              <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Kota Muat</Form.Label>
                 <InputGroup>
                   <Select
@@ -400,20 +395,19 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-                <Form.Group style={{ marginBottom: "10px" }}>
-                  <Form.Label>Diskon</Form.Label>
-                  <InputGroup>
-                    <Form.Control
-                      name="diskon"
-                      value={formik.values.diskon}
-                      onChange={formik.handleChange}
-                      isInvalid={!!formik.errors.diskon}
-                    />
-                  </InputGroup>
-                </Form.Group>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label>Diskon</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="diskon"
+                    value={formik.values.diskon}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.diskon}
+                  />
+                </InputGroup>
+              </Form.Group>
             </Col>
             <Col span={6}>
-
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Kota Tujuan</Form.Label>
                 <InputGroup>
@@ -428,7 +422,7 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-              
+
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Jenis Kiriman</Form.Label>
                 <InputGroup>
@@ -442,9 +436,8 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-              </Col>
-              <Col span={6}>
-                
+            </Col>
+            <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Via</Form.Label>
                 <InputGroup>
@@ -459,43 +452,43 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-                <Form.Group style={{ marginBottom: "10px" }}>
-                  <Form.Label>Tarif Katalog</Form.Label>
-                  <InputGroup>
-                    <Form.Control
-                      name="biayajalan"
-                      value={formik.values.biaya_jalan}
-                      onChange={formik.handleChange}
-                      isInvalid={!!formik.errors.biaya_jalan}
-                    />
-                  </InputGroup>
-                </Form.Group>
-                <Form.Group style={{ marginBottom: "10px" }}>
-                  <Form.Label>Tarif Customer</Form.Label>
-                  <InputGroup>
-                    <Form.Control
-                      name="biayajalan"
-                      value={formik.values.biaya_jalan}
-                      onChange={formik.handleChange}
-                      isInvalid={!!formik.errors.biaya_jalan}
-                    />
-                  </InputGroup>
-                </Form.Group>
-
-              </Col>
-            </Row>
-            <br />
-            <hr />
-            <br />
-          <Row >
+              {/* <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label>Tarif Katalog</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="biayajalan"
+                    value={formik.values.biaya_jalan}
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      setBiayaJalan(e.target.value);
+                      // setCustomer(options.key);
+                    }}
+                  />
+                </InputGroup>
+              </Form.Group> */}
+              <Form.Group>
+                <Form.Label>Tarif Katalog</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="biaya_jalan"
+                    value={formik.values.biaya_jalan}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.biaya_jalan}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          <br />
+          <hr />
+          <br />
+          <Row>
             <Col span={8} className="mt-2">
               <h5>Biaya Tambahan</h5>
             </Col>
           </Row>
 
-
-          <Row style={{ marginBottom: "10px",   borderColor:'#000' }}>
-            
+          <Row style={{ marginBottom: "10px", borderColor: "#000" }}>
             <Col span={6}>
               <Form.Group>
                 <Form.Label>Biaya Muat</Form.Label>
@@ -603,10 +596,10 @@ const SamplePage = () => {
           </Row>
         </Form>
         <Col span={24} className="d-flex justify-content-end mt-4">
-              <Button onClick={formik.handleSubmit} type="submit">
-                Simpan Tarif
-              </Button>
-            </Col>
+          <Button onClick={formik.handleSubmit} type="submit">
+            Simpan Tarif
+          </Button>
+        </Col>
       </Card>
     </div>
   );
