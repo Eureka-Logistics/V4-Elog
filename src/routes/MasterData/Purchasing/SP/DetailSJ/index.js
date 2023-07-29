@@ -13,15 +13,19 @@ function Index() {
     const { id } = useParams()
     const [DataDetail, setDataDetail] = useState("")
     const [kendaraan, setKendaraan] = useState(DataDetail.kendaraanPickup);
+    const [NamaDriver1, setNamaDriver1] = useState(DataDetail.unit1);
+    const [IDkendaraan1, setIDKendaraan1] = useState(DataDetail.kendaraanPickup);
+    const [kendaraanOptions1, setkendaraanOptions1] = useState("")
+    const [DriverOptions1, setDriverOptions1] = useState("")
     const [kendaraan2, setKendaraan2] = useState(DataDetail.kendaraanMitra1);
     const [kendaraan3, setKendaraan3] = useState(DataDetail.kendaraanMitra2);
     const [NoPol1, setNoPol1] = useState(DataDetail.unit1);
     const [NoPol2, setNoPol2] = useState(DataDetail.unit2);
     const [NoPol3, setNoPol3] = useState(DataDetail.unit3);
-    const [KendaraanMitra1, setKendaraanMitra1] = useState(DataDetail.mitraPickup)
+    const [KendaraanMitra1, setKendaraanMitra1] = useState("")
     const [KendaraanMitra2, setKendaraanMitra2] = useState(DataDetail.mitra1)
     const [KendaraanMitra3, setKendaraanMitra3] = useState(DataDetail.mitra2)
-
+    let nambahangka = 1
     const { NamaMitra, fetchMitra } = useMitraStore((item) => ({
         NamaMitra: item.NamaMitra,
         fetchMitra: item.fetchMitra
@@ -56,19 +60,13 @@ function Index() {
         }
         );
         setDataDetail(data.data.data?.[0])
+        setNamaDriver1(data.data.data?.[0].driver1)
     }
 
 
 
+console.log(`ini KendaraanMitra1`,KendaraanMitra1);
 
-    useEffect(() => {
-        DataDetailSM()
-        setDriverType()
-        fetchMitra()
-    }, [])
-    if (!DataDetail) {
-        return "Memuat data...";
-    }
 
 
     const handlePrint = () => {
@@ -117,6 +115,42 @@ function Index() {
         }
     }
 
+
+
+    //// select mitra , tipe , kendaraan , driver 
+    const select = async () => {
+        try {
+
+            const data = await axios.get(`${Baseurl}sm/get-select-upd-sm?idMitra=${IDkendaraan1}&id_driver=${NoPol1}`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: localStorage.getItem("token"),
+                    },
+                }
+            )
+            setkendaraanOptions1(data.data.kendaraan)
+            setDriverOptions1(data.data.driver)
+            setKendaraanMitra1(data.data.kendaraan.kodeKendaraan)
+        } catch (error) {
+
+        }
+    }
+
+
+    useEffect(() => {
+        DataDetailSM()
+        setDriverType()
+        fetchMitra()
+        select()
+        setKendaraan()
+    }, [kendaraan ,NoPol1])
+    if (!DataDetail) {
+        return "Memuat data...";
+    }
+    // if (!KendaraanMitra1){
+    //     return "memuat data...";
+    // }
 
     return (
         <>
@@ -418,7 +452,7 @@ function Index() {
                                     placeholder="Jenis Kendaraan Mitra"
                                     optionFilterProp='label'
                                     options={DriverOptions}
-                                    onChange={(e, options) => { console.log(options); setKendaraan(options.label) }}
+                                    onChange={(e, options) => { console.log(`ini options`, options); setIDKendaraan1(options.value); setKendaraan(options.label) }}
                                     defaultValue={DataDetail.mitraPickup}
                                 />
 
@@ -426,26 +460,34 @@ function Index() {
                             <Form.Item
                                 label="Kode Kendaraan Mitra"
                                 name="kodekendaraanmitra"
-                                rules={[
-                                    {
-                                        message: 'Please input your password!',
-                                    },
-                                ]}
                             >
-                                <Input />
+                                <Input placeholder={KendaraanMitra1}/>
                             </Form.Item>
                             <Form.Item
                                 label="Nopol Pickup"
                                 name="unit1"
-                                rules={[
-                                    {
-                                        message: 'Please input your password!',
-                                    },
-                                ]}
+                                // rules={[
+                                //     {
+                                //         message: 'Please input your password!',
+                                //     },
+                                // ]}
                             >
-                                <Input
+                                {/* <Input
+                                value={NoPol1}
                                     onChange={(e) => setNoPol1(e.target.value)}
-                                />
+                                /> */}
+                                <Select
+                                    optionFilterProp='children'
+                                    showSearch
+                                    onChange={(e,options) => {console.log(options);setNoPol1(options.children) 
+                                        setKendaraanMitra1(options.tambah)
+                                    }}
+                                >
+
+                                    {kendaraanOptions1 && kendaraanOptions1.map((i) => (
+                                        <option key={nambahangka++} tambah={i.kodeKendaraan} value={i.DriverId}>{i.nopol}</option>
+                                    ))}
+                                </Select>
                             </Form.Item>
                             <Form.Item
                                 label="Supir Pickup"
@@ -456,7 +498,13 @@ function Index() {
                                     },
                                 ]}
                             >
-                                <Input />
+                                {/* <Input value={NamaDriver1} /> */}
+                                <Select value={NamaDriver1}>
+                                    
+                                    {DriverOptions1 && DriverOptions1.map((i) => (
+                                        <option>{i.nama}</option>
+                                    ))}
+                                </Select>
                             </Form.Item>
                             <Form.Item
                                 label="Hp Supir Pickup"

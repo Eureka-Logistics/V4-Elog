@@ -1351,6 +1351,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua, NamaMarketing, J
                             {selectDriver[0] && selectDriver[0]?.name != "" ? selectDriver[0] && selectDriver[0]?.name : "tidak tersedia"}
                           </option>
                         </Form.Select>
+                        
                       </Col>
                     </Row>
                   </>)}
@@ -1528,14 +1529,14 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua, NamaMarketing, J
                     </Row>
                   </>)}
                   <>
-                    {/* {jobdesk != "purchasing" ? (
+                    {jobdesk === "operasional" ? (
                       <Checkbox
                         className="justify-content-end d-flex"
                         onChange={handleCheckboxChange}
                       >
-                        Multi
+                        Transit
                       </Checkbox>
-                    ) : null} */}
+                    ) : null}
 
                     <br />
                     <hr />
