@@ -21,8 +21,9 @@ function Detail() {
   const [DataAddressOffice, setDataAddressOffice] = useState("");
   const [DataAddressGoogle, setDataAddressGoogle] = useState("");
   const [DataEditInvoice, setDataEditInvoice] = useState("");
+  const [CustomerID, setCustomerID] = useState("");
 
-  console.log(invoiceAddressId);
+  console.log(Customer);
 
   const fetchData = async () => {
     try {
@@ -38,6 +39,7 @@ function Detail() {
       console.log("response", respons?.data?.data[0]);
       setDataInvoice(respons?.data?.data[0]);
       setCustomer(respons?.data?.data[0].customer || "");
+      setCustomerID(respons?.data?.data[0].customer_id);
       setDataPIC(respons?.data?.data[0].picName || "");
       setDataPositions(respons?.data?.data[0].picPosition || "");
       setDataPhone(respons?.data?.data[0].picPhone || "");
@@ -55,8 +57,8 @@ function Detail() {
   const EditData = async () => {
     try {
       const data = {
-        invoice_address_id: parseInt(invoiceAddressId),
-        customer_id: Customer,
+        invoice_address_id: invoiceAddressId,
+        customer_id: 1,
         pic_name: DataPIC,
         pic_position: DataPositions,
         pic_phone: DataPhone,
@@ -80,24 +82,25 @@ function Detail() {
           },
         }
       );
-
-      setDataInvoice(response.data); // Assuming the response contains the updated data
-
+  
       if (response.status === 200) {
+        const updatedData = response.data; // Assuming the response contains the updated data
+        setDataInvoice(updatedData);
         Swal.fire({
           icon: "success",
           title: "Success",
           text: "Edit Address has been saved",
         });
-      } else if (response.status === 500) {
-        console.log(`error`);
+      } else {
+        // Handle other status codes here if needed
+        console.log(`Server returned status code: ${response.status}`);
       }
     } catch (error) {
-      console.log(`ini error`);
-      console.error(`ini errorr`, error);
+      console.error("Error occurred during API call", error);
       Swal.fire({
         icon: "error",
-        title: "Isi Semua Data Terlebih dahulu",
+        title: "Error",
+        text: "An error occurred while saving the data. Please try again later.",
       });
     }
   };
