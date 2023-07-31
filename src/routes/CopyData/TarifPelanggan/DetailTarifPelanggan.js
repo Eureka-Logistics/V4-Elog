@@ -63,6 +63,7 @@ function DetailTarifPelanggan() {
       );
       console.log("response", respons.data.order[0]);
       setDetailDataTarif(respons.data.order[0]);
+      setBiayaLainnya(respons.data.order[0].biaya_lainnya || "");
       setDataVia(respons.data);
       //   console.log("responssssscarismid", respons.data.data);
 
@@ -255,8 +256,9 @@ function DetailTarifPelanggan() {
               style={{ width: "90%" }}
               onChange={(e) => setJenisKiriman(e)}
             >
-              <Option value="Reguler">Reguler</Option>
-              <Option value="Express">Express</Option>
+              <Option value="Charter">Charter</Option>
+              <Option value="Retail">Retail</Option>
+            
             </Select>
           </Col>
           <Col className="mt-2" span={8}>
@@ -267,8 +269,8 @@ function DetailTarifPelanggan() {
               style={{ width: "90%" }}
               onChange={(e) => setServiceType(e)}
             >
-              <Option value="Charter">Charter</Option>
-              <Option value="Retail">Retail</Option>
+                <Option value="Reguler">Reguler</Option>
+              <Option value="Express">Express</Option>
             </Select>
           </Col>
         </Row>
@@ -281,8 +283,8 @@ function DetailTarifPelanggan() {
               style={{ width: "90%" }}
               onChange={(e) => setTipeDiskon(e)}
             >
-              <Option value="amount">amount</Option>
-              <Option value="diskon">diskon</Option>
+              <Option value="amount">Amount</Option>
+              <Option value="diskon">Diskon</Option>
             </Select>
           </Col>
           <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
@@ -326,7 +328,7 @@ function DetailTarifPelanggan() {
             <div style={{ paddingRight: "30px" }}>
               <Input
                 className="mt-2"
-                placeholder={DetailDataTarif.biaya_lain}
+                placeholder={DetailDataTarif?.biaya_lain}
                 value={BiayaLainnya}
                 onChange={(e) => {
                   console.log(e.target.value);

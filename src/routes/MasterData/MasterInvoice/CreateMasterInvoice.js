@@ -63,46 +63,50 @@ function CreateMasterInvoice() {
         }))
       : [];
 
-  const TambahData = async () => {
-    try {
-      const respons = await axios.post(
-        `${Baseurl}customer/create-customer-invoice`,
-        {
-          customer_id: parseInt(Customer),
-          pic_name: DataPIC,
-          pic_position: DataPositions,
-          pic_phone: DataPhone,
-          pic_number: DataNumber,
-          pic_email: DataEmail,
-          pic_fax: DataFax,
-          pic_phone: DataPhone,
-          npwp: DataNPWP,
-          address_npwp: DataAddressNPWP,
-          format_npwp: DataFormatNPWP,
-          address_office: DataAddressOffice,
-          address_google: DataAddressGoogle,  
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-          },
+      const TambahData = async () => {
+        try {
+          const respons = await axios.post(
+            `${Baseurl}customer/create-customer-invoice`,
+            {
+              customer_id: parseInt(Customer),
+              pic_name: DataPIC,
+              pic_position: DataPositions,
+              pic_phone: DataPhone,
+              pic_number: DataNumber,
+              pic_email: DataEmail,
+              pic_fax: DataFax,
+              pic_phone: DataPhone,
+              npwp: DataNPWP,
+              address_npwp: DataAddressNPWP,
+              format_npwp: DataFormatNPWP,
+              address_office: DataAddressOffice,
+              address_google: DataAddressGoogle,  
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: localStorage.getItem("token"),
+              },
+            }
+          );
+      
+          console.log("response", respons.data);
+          setDataTambah(respons.data);
+      
+          // Show SweetAlert2 success message
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "Data has been added successfully!",
+          }).then(() => {
+            // Reload the window after showing the success message
+            window.location.reload();
+          });
+        } catch (error) {
+          // Handle error if needed
         }
-      );
-
-      console.log("response", respons.data);
-      setDataTambah(respons.data);
-
-      // Show SweetAlert2 success message
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "Data has been added successfully!",
-      });
-    } catch (error) {
-      // Handle error if needed
-    }
-  };
+      };
+      
 
   return (
     <div>
