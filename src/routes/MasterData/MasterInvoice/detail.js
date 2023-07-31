@@ -39,7 +39,7 @@ function Detail() {
       console.log("response", respons?.data?.data[0]);
       setDataInvoice(respons?.data?.data[0]);
       setCustomer(respons?.data?.data[0].customer || "");
-      setCustomerID(respons?.data?.data[0].customer_id);
+      setCustomerID(respons?.data?.data[0].customerId);
       setDataPIC(respons?.data?.data[0].picName || "");
       setDataPositions(respons?.data?.data[0].picPosition || "");
       setDataPhone(respons?.data?.data[0].picPhone || "");
@@ -58,7 +58,7 @@ function Detail() {
     try {
       const data = {
         invoice_address_id: invoiceAddressId,
-        customer_id: 1,
+        customer_id: CustomerID,
         pic_name: DataPIC,
         pic_position: DataPositions,
         pic_phone: DataPhone,
@@ -131,6 +131,19 @@ function Detail() {
               }}
             />
           </Col>
+          {/* <Col span={24}>
+            <label style={{ fontWeight: "bold" }}>Customer ID :</label>
+            <Input
+              className="mt-2 mb-2"
+              placeholder={DataInvoice?.customerId}
+              value={CustomerID}
+              disabled
+              onChange={(e) => {
+                console.log(e.target.value);
+                setCustomerID(e.target.value);
+              }}
+            />
+          </Col> */}
         </Row>
         <Row>
           <Col span={24}>
