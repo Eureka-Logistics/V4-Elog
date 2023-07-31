@@ -14,6 +14,7 @@ function EditDetailAlamat() {
   const [DataEmail, setDataEmail] = useState("");
   const [DataAlamat, setDataAlamat] = useState("");
   const [DataAlamatDetail, setDataAlamatDetail] = useState("");
+  const [IDDataKodeWilayah, setIDDataKodeWilayah] = useState("");
   const [DataKodeWilayah, setDataKodeWilayah] = useState("");
   const [DataKota, setDataKota] = useState("");
   const [DataKecamatan, setDataKecamatan] = useState("");
@@ -52,7 +53,7 @@ function EditDetailAlamat() {
   const GetSelectData = async () => {
     try {
       const respons = await axios.get(
-        `${Baseurl}customer/get-select-create-address?idProv=${DataKodeWilayah.key}&idKota=${DataKota.value}`,
+        `${Baseurl}customer/get-select-create-address?idProv=${IDDataKodeWilayah}&idKota=${DataKota.value}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -60,7 +61,6 @@ function EditDetailAlamat() {
           },
         }
       );
-      console.log("response", respons.data);
       setDataTambah(respons.data);
     } catch (error) {}
   };
@@ -133,7 +133,7 @@ function EditDetailAlamat() {
   useEffect(() => {
     fetchData();
     GetSelectData();
-  }, [customerAddressId, DataKodeWilayah, DataKecamatan, DataKota]);
+  }, [customerAddressId, DataKodeWilayah, DataKecamatan, DataKota,IDDataKodeWilayah]);
 
   const KotaOptions =
     DataTambah?.kota && Array.isArray(DataTambah?.kota)
@@ -260,7 +260,8 @@ function EditDetailAlamat() {
               style={{ width: "90%" }}
               onChange={(e, options) => {
                 console.log(options.key);
-                setDataKodeWilayah(options);
+                setDataKodeWilayah(options.key);
+                setIDDataKodeWilayah(options.key);
               }}
             >
               {DataTambah &&

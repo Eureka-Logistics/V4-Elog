@@ -27,13 +27,17 @@ function DetailTarifPelanggan() {
   const [ServiceType, setServiceType] = useState([]);
   const [tarif, setTarif] = useState(null); // State untuk menyimpan nilai tarif yang akan diubah
   const [ritase, setRitase] = useState(null); // State untuk menyimpan nilai ritase yang akan diubah
-  const [uangJalan, setUangJalan] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
+  const [uangJalan, setUangJalan] = useState("");
+  const [DetailSemua, setDetailSemua] = useState("")
   const [customers, setCustomers] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
   const [discount, setDiskon] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
   const [TipeDiskon, setTipeDiskon] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
   const [BiayaJalan, setBiayaJalan] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
   const [BiayaLainnya, setBiayaLainnya] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
-
+  const [IDcustomers, setIDcustomers] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
+  const [IDKendaraanJenis, setIDKendaraanJenis] = useState("");
+  const [IDKotaMuat, setIDKotaMuat] = useState("");
+  const [IDTujuanKota, setIDTujuanKota] = useState("");
   const fetchData = async () => {
     try {
       const respons = await axios.get(`${Baseurl}tarif/get-select`, {
@@ -42,15 +46,15 @@ function DetailTarifPelanggan() {
           Authorization: localStorage.getItem("token"),
         },
       });
-      console.log("response", respons.data);
       //   console.log("responssssscarismid", respons.data.data);
 
       setDataTambah(respons.data);
       //   setSJList(respons.data?.data?.sj);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const DetailTarifPelanggan = async (id_price) => {
+   
     try {
       const respons = await axios.get(
         `${Baseurl}tarif/get-detail-tarifCustomer?id_price=${id_price}`,
@@ -61,27 +65,47 @@ function DetailTarifPelanggan() {
           },
         }
       );
-      console.log("response", respons.data.order[0]);
+      setDetailSemua(respons.data.order[0]);
+      setIDcustomers(respons.data.order[0].id_customer);
+      setIDKendaraanJenis(respons.data.order[0].id_kendaraan_jenis);
+      setIDKotaMuat(respons.data.order[0].id_muat_kota);
       setDetailDataTarif(respons.data.order[0]);
       setBiayaLainnya(respons.data.order[0].biaya_lainnya || "");
       setDataVia(respons.data);
+      setCustomers(respons.data.order[0]?.customer);
+      setmitraId(respons.data.order[0]?.kotaAsal);
+      setKotaYangDiTuju(respons.data.order[0]?.kotaTujuan);
+      setJenisKendaraan(respons.data.order[0]?.kendaraanJenis);
+      setJenisKiriman(respons.data.order[0]?.service_type);
+      setServiceType(respons.data.order[0]?.via);
+      setTipeDiskon(respons.data.order[0]?.diskon);
+      setDiskon(respons.data.order[0]?.diskon);
+      setBiayaJalan(respons.data.order[0]?.biaya_jalan);
+      setBiayaLainnya(respons.data.order[0]?.biaya_lain);
+      setIDTujuanKota(respons.data.order[0]?.id_tujuan_kota);
+
+    
       //   console.log("responssssscarismid", respons.data.data);
 
       //   setDataTambah(respons.data);
       //   setSJList(respons.data?.data?.sj);
-    } catch (error) {}
+    } catch (error) { }
   };
+  console.log(`customers`, DetailSemua);
+  console.log(`IDcustomers`, IDcustomers);
+
+ 
 
   const EditTarif = async () => {
     try {
       const data = {
         id_price: id_price,
-        id_muat_kota: parseInt(mitraId),
-        id_tujuan_kota: parseInt(KotaYangDiTuju),
-        id_kendaraan_jenis: parseInt(jenisKendaraan),
+        id_muat_kota: parseInt(IDKotaMuat),
+        id_tujuan_kota: parseInt(IDTujuanKota),
+        id_kendaraan_jenis: parseInt(IDKendaraanJenis),
         service_type: ServiceType,
         jenis_kiriman: Kiriman,
-        id_customer: parseInt(customers),
+        id_customer: parseInt (IDcustomers),
         // via: viaData,
         diskon: parseInt(discount),
         diskon_type: TipeDiskon,
@@ -136,13 +160,13 @@ function DetailTarifPelanggan() {
   useEffect(() => {
     fetchData();
     DetailTarifPelanggan(id_price);
-  }, [ ritase]);
+  }, [ritase]);
 
   const handleChange = (value) => {
     console.log(`Selected option: ${value}`);
     setViaData(value);
   };
-
+ 
   return (
     <div>
       <Card>
@@ -150,19 +174,20 @@ function DetailTarifPelanggan() {
         <Row>
           <Col className="mt-2" span={8}>
             <label>Customer :</label>
-          
+
             <Select
-            
+
               className="mt-2"
               showSearch
-              placeholder={DetailDataTarif.customer}
+              value={customers}
               optionFilterProp="value"
               style={{ width: "90%" }}
               onChange={(e, options) => {
-                console.log(options.key);
-                setCustomers(options.key);
+                console.log(options);
+                setCustomers(options);
+                setIDcustomers(options.key)
               }}
-              
+
             >
               {DataTambah &&
                 DataTambah.customer.map((CustomerItem) => (
@@ -181,12 +206,13 @@ function DetailTarifPelanggan() {
             <Select
               className="mt-2"
               showSearch
-              placeholder={DetailDataTarif.kotaAsal}
+              value={mitraId}
               optionFilterProp="value"
               style={{ width: "90%" }}
               onChange={(e, options) => {
                 console.log(options.key);
-                setmitraId(options.key);
+                setmitraId(options);
+                setIDKotaMuat(options.key)
               }}
             >
               {DataTambah &&
@@ -205,12 +231,13 @@ function DetailTarifPelanggan() {
             <Select
               className="mt-2"
               showSearch
-              placeholder={DetailDataTarif.kotaTujuan}
+              value={KotaYangDiTuju}
               optionFilterProp="value"
               style={{ width: "90%" }}
               onChange={(e, options) => {
                 console.log(options.key);
-                setKotaYangDiTuju(options.key);
+                setIDTujuanKota(options.key)
+                setKotaYangDiTuju(options);
               }}
             >
               {DataTambah &&
@@ -231,10 +258,12 @@ function DetailTarifPelanggan() {
             <Select
               className="mt-2"
               showSearch
-              placeholder={DetailDataTarif.kendaraanJenis}
+              value={jenisKendaraan}
               optionFilterProp="value"
               style={{ width: "90%" }}
-              onChange={(e, options) => setJenisKendaraan(options.key)}
+              onChange={(e, options) => {
+                setIDKendaraanJenis(options.key);
+                setJenisKendaraan(options)}}
             >
               {DataTambah &&
                 DataTambah.jenisKendaraan.map((KendaraanItem) => (
@@ -252,24 +281,24 @@ function DetailTarifPelanggan() {
             <label>Jenis Layanan :</label>
             <Select
               className="mt-2"
-              placeholder={DetailDataTarif.service_type}
+              value={Kiriman}
               style={{ width: "90%" }}
               onChange={(e) => setJenisKiriman(e)}
             >
               <Option value="Charter">Charter</Option>
               <Option value="Retail">Retail</Option>
-            
+
             </Select>
           </Col>
           <Col className="mt-2" span={8}>
             <label>Jenis Kiriman :</label>
             <Select
               className="mt-2"
-              placeholder={DetailDataTarif.jenisKiriman}
+              value={ServiceType}
               style={{ width: "90%" }}
               onChange={(e) => setServiceType(e)}
             >
-                <Option value="Reguler">Reguler</Option>
+              <Option value="Reguler">Reguler</Option>
               <Option value="Express">Express</Option>
             </Select>
           </Col>
@@ -279,7 +308,7 @@ function DetailTarifPelanggan() {
             <label>Discount Type :</label>
             <Select
               className="mt-2"
-              placeholder={DetailDataTarif.diskon_type}
+              placeholder={TipeDiskon}
               style={{ width: "90%" }}
               onChange={(e) => setTipeDiskon(e)}
             >
@@ -293,7 +322,6 @@ function DetailTarifPelanggan() {
             <div style={{ paddingRight: "30px" }}>
               <Input
                 className="mt-2"
-                placeholder={DetailDataTarif.diskon}
                 value={discount}
                 onChange={(e) => {
                   console.log(e.target.value);
@@ -308,7 +336,6 @@ function DetailTarifPelanggan() {
             <div style={{ paddingRight: "30px" }}>
               <Input
                 className="mt-2"
-                placeholder={DetailDataTarif.biaya_jalan}
                 value={BiayaJalan}
                 onChange={(e) => {
                   console.log(e.target.value);
@@ -328,7 +355,6 @@ function DetailTarifPelanggan() {
             <div style={{ paddingRight: "30px" }}>
               <Input
                 className="mt-2"
-                placeholder={DetailDataTarif?.biaya_lain}
                 value={BiayaLainnya}
                 onChange={(e) => {
                   console.log(e.target.value);

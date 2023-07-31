@@ -51,10 +51,12 @@ function DetailMasterCustomer() {
   const [InvoicePositions, setDataInvoicePositions] = useState("");
   const [InvoiceEmail, setDataInvoiceEmail] = useState("");
   const [InvoiceMobile, setDataInvoiceMobile] = useState("");
-  const [InvoicePhoneOffice, setDataInvoicePhoneOffice] = useState("");
+  const [InvoicePhoneOffice, setDataInvoicePhoneOffice] = useState(DetailDataMasterCustomer?.invoice_phone_office);
   const [CodeCustomer, setDataKodeCustomer] = useState("");
+  const [Loading , setLoading ]= useState(false)
 
   const DetailMasterCustomers = async (id_customer) => {
+    setLoading(true)
     try {
       const respons = await axios.get(
         `${Baseurl}customer/get-detail-customer?id_customer=${id_customer}`,
@@ -65,17 +67,18 @@ function DetailMasterCustomer() {
           },
         }
       );
+
       console.log("response", respons.data.data);
       setDataDetailDataMasterCustomer(respons.data.data);
       setDataNamaPerusahaan(respons.data.data?.nama_perusahaan || "");
       setDataJenisUsahaan(respons.data.data?.jenis_usaha || "");
       setDataAlamatCustomer(respons.data.data?.alamat_kantor || "");
-      setDataCompanyAnniversaryy(respons.data.data?.tgl_berdiri || "");
+      setDataCompanyAnniversaryy(respons.data.data?.tahun_berdiri || "");
       setDataJenisBarangPerusahaan(respons.data.data?.jenis_barang || "");
       setDataTeleponKantor(respons.data.data?.telepon || "");
       setDataFaxPerusahaan(respons.data.data?.fax || "");
       setDataPicOffice(respons.data.data?.pic_office || "");
-      setDataPicPositions(respons.data.data?.pic_positions || "");
+      setDataPicPositions(respons.data.data?.pic_position || "");
       setDataPicEmail(respons.data.data?.pic_email || "");
       setDataPicPhone(respons.data.data?.pic_phone || "");
       setDataPicBirth(respons.data.data?.pic_birth || "");
@@ -112,6 +115,7 @@ function DetailMasterCustomer() {
 
       //   setDataTambah(respons.data);
       //   setSJList(respons.data?.data?.sj);
+      setLoading(false)
     } catch (error) {}
   };
 
@@ -216,8 +220,11 @@ function DetailMasterCustomer() {
     setToPValue(options.children);
   };
 
+
+  
   return (
     <div>
+     
       <Card>
         <h4 style={{ fontWeight: "bold" }}>CUSTOMER DATA</h4>
         <hr />
@@ -559,7 +566,7 @@ function DetailMasterCustomer() {
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
               className="mt-2"
-              placeholder={DetailDataMasterCustomer.tax_phone_office}
+              // placeholder={DetailDataMasterCustomer.tax_phone_office}
               value={TaxPhoneOffice}
               onChange={(e) => {
                 console.log(e.target.value);
@@ -781,11 +788,11 @@ function DetailMasterCustomer() {
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
               className="mt-2"
-              placeholder={DetailDataMasterCustomer.invoice_phone_office}
-              value={InvoicePhoneOffice}
+              // placeholder={DetailDataMasterCustomer.invoice_phone_office}
+              value={TaxPhoneOffice}
               onChange={(e) => {
                 console.log(e.target.value);
-                setDataInvoicePhoneOffice(e.target.value);
+                setDataTaxPhoneOffice(e.target.value);
               }}
             />
           </Col>
