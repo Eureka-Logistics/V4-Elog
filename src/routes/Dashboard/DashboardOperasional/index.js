@@ -3,7 +3,14 @@ import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import Swal from "sweetalert2";
 import Baseurl from '../../../Api/BaseUrl';
-import axios from 'axios';
+import axios from 'axios'
+import {
+    CheckCircleOutlined,
+    TeamOutlined,
+    CloseOutlined,
+    CheckOutlined,
+    PieChartOutlined
+} from '@ant-design/icons';
 import { Col, Row } from 'react-bootstrap';
 import { format } from 'date-fns';
 import ElogGif from "../../../assets/Loader_Elogs1.gif"
@@ -127,22 +134,145 @@ function Index() {
         <div>
             <h5>Dashboard {jobdesk}</h5>
             <Row>
-                <Col sm={4}>
-                    <Card style={{ backgroundColor: "#dd4b39" }}>
-                        <h5 style={{ color: 'white' }}>Eureka Driver : {inform?.EurekaDriver}</h5>
-                        <h5 style={{ color: 'white' }}>Sewa Driver : {inform?.SewaDriver}</h5>
-                        <h5 style={{ color: 'white' }}>Total Driver : {inform?.totalDriver}</h5>
-                        <h5 style={{ color: 'white' }}>Driver Aktif : {inform?.activeDriver + " / " + inform?.totalDriver}</h5>
-                        <h5 style={{ color: 'white' }}>Driver Off : {inform?.offDriver}</h5>
+                <Col sm={3}>
+                    <Card style={{ backgroundColor: "white", textAlign: 'center' }}>
+                        <Row>
+                           
+                            <Col span={2}>
+                                <div style={{ color: "grey"}}>
+                                    Eureka Driver
+                                </div>
+                                <h5>
+                                    {inform?.EurekaDriver}
+                                </h5>
+                            </Col>
+                            <Col span={2}>
+                                <div style={{ fontSize: "30px", backgroundColor: '#00BFFF', borderRadius: "50%", width: "60px", height: "60px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <TeamOutlined  style={{color: "white"}}>
+                                        </TeamOutlined>
+                                </div>
+                                </Col>
+
+                        </Row>
+                        {/* <h5 style={{ color: 'white' }}>Eureka Driver  <br />{inform?.EurekaDriver}</h5> */}
+
                     </Card>
                 </Col>
-                <Col sm={4}>
+                <Col sm={3}>
+                    <Card style={{ backgroundColor: "white", textAlign: 'center' }}>
+                        <Row>
+                            <Col>
+                                <div style={{ color: "grey"}}>
+                                    Sewa Driver
+                                </div>
+                                <h5>
+                                {inform?.SewaDriver}
+                                </h5>
+                            </Col>
+                            <Col span={2}>
+                                <div style={{ fontSize: "30px", backgroundColor: '#6495ED', borderRadius: "50%", width: "60px", height: "60px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <TeamOutlined  style={{color: "white"}}>
+                                        </TeamOutlined>
+                                </div>
+                                </Col>
+                        </Row>
+                        {/* <h5 style={{ color: 'white' }}>Eureka Driver  <br />{inform?.EurekaDriver}</h5> */}
+
+                    </Card>
+                </Col>
+                <Col sm={3}>
+                    <Card style={{ backgroundColor: "white", textAlign: 'center' }}>
+                        <Row>
+                            <Col>
+                                <div style={{ color: "grey"}}>
+                                    Total Driver
+                                </div>
+                                <h5>
+                                {inform?.totalDriver}
+                                </h5>
+                            </Col>
+                            <Col span={2}>
+                                <div style={{ fontSize: "30px", backgroundColor: '#FFB6C1', borderRadius: "50%", width: "60px", height: "60px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                <PieChartOutlined  style={{color: "white"}}>
+                                        </PieChartOutlined>
+                                </div>
+                                </Col>
+                        </Row>
+                        {/* <h5 style={{ color: 'white' }}>Eureka Driver  <br />{inform?.EurekaDriver}</h5> */}
+
+                    </Card>
+                </Col>
+                <Col sm={3}>
+                    <Card style={{ backgroundColor: "white", textAlign: 'center' }}>
+                        <Row>
+                            <Col>
+                                <div style={{ color: "grey"}}>
+                                    Aktif Driver
+                                </div>
+                                <h5>
+                                {inform?.activeDriver + " / " + inform?.totalDriver}
+                                </h5>
+                            </Col>
+                            <Col span={2}>
+                                <div style={{ fontSize: "30px", backgroundColor: '#98FB98', borderRadius: "50%", width: "60px", height: "60px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <CheckOutlined  style={{color: "white"}}>
+                                        </CheckOutlined>
+                                </div>
+                                </Col>
+                        </Row>
+                        {/* <h5 style={{ color: 'white' }}>Eureka Driver  <br />{inform?.EurekaDriver}</h5> */}
+
+                    </Card>
+                </Col>
+                <Col sm={3}>
+                    <Card style={{ backgroundColor: "white", textAlign: 'center' }}>
+                        <Row>
+                            <Col>
+                                <div style={{ color: "grey"}}>
+                                    Off Driver
+                                </div>
+                                <h5>
+                                {inform?.offDriver}
+                                </h5>
+                            </Col>
+                            <Col span={2}>
+                                <div style={{ fontSize: "30px", backgroundColor: '#FF4500', borderRadius: "50%", width: "60px", height: "60px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <CloseOutlined  style={{color: "white"}}>
+                                        </CloseOutlined>
+                                </div>
+                                </Col>
+                        </Row>
+                        {/* <h5 style={{ color: 'white' }}>Eureka Driver  <br />{inform?.EurekaDriver}</h5> */}
+
+                    </Card>
+                </Col>
+                {/* <Col sm={4}>
                     <Card style={{ backgroundColor: "#00a65a" }}>
                         <h5 style={{ color: 'white' }}>Total Mobil : {inform?.totalVeh}</h5>
                         <h5 style={{ color: 'white' }}>Mobil Aktif : {inform?.activeVeh + " / " + inform?.totalVeh}</h5>
                         <h5 style={{ color: 'white' }}>Mobil Off : {inform?.offVeh}</h5>
                     </Card>
+                </Col> */}
+                {/* <Col>
+                    <Card style={{ backgroundColor: "#dd4b39", textAlign: 'center' }}>
+                        <h5 style={{ color: 'white' }}>Sewa Driver  <br />{inform?.SewaDriver}</h5>
+                    </Card>
                 </Col>
+                <Col>
+                    <Card style={{ backgroundColor: "#dd4b39", textAlign: 'center' }}>
+                        <h5 style={{ color: 'white' }}>Total Driver <br /> {inform?.totalDriver}</h5>
+                    </Card>
+                </Col>
+                <Col>
+                    <Card style={{ backgroundColor: "#dd4b39", textAlign: 'center' }}>
+                        <h5 style={{ color: 'white' }}>Driver Aktif  <br />{inform?.activeDriver + " / " + inform?.totalDriver}</h5>
+                    </Card>
+                </Col>
+                <Col>
+                    <Card style={{ backgroundColor: "#dd4b39", textAlign: 'center' }}>
+                        <h5 style={{ color: 'white' }}>Driver Off :<br /> {inform?.offDriver}</h5>
+                    </Card>
+                </Col> */}
             </Row>
             <Card>
                 <DataTable

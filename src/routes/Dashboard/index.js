@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import Card from "antd/lib/card/Card";
 import { Row, Col } from "react-bootstrap";
 import DashboardOperasional from "./DashboardOperasional/index"
+import DashboardPurchasing from "./DashboardPurchasing/index"
 const SamplePage = () => {
 
 
@@ -93,7 +94,7 @@ const SamplePage = () => {
           {jobdesk === "purchasing" &&
             (
               <>
-                <h5>ini dashboard {jobdesk}</h5>
+               <DashboardPurchasing/>
               </>
             )}
           {jobdesk === "sales" &&
