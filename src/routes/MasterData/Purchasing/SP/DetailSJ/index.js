@@ -65,7 +65,7 @@ function Index() {
 
 
 
-console.log(`ini KendaraanMitra1`,KendaraanMitra1);
+    // console.log(`ini KendaraanMitra1`, KendaraanMitra1);
 
 
 
@@ -144,7 +144,7 @@ console.log(`ini KendaraanMitra1`,KendaraanMitra1);
         fetchMitra()
         select()
         setKendaraan()
-    }, [kendaraan ,NoPol1])
+    }, [kendaraan, NoPol1])
     if (!DataDetail) {
         return "Memuat data...";
     }
@@ -431,7 +431,7 @@ console.log(`ini KendaraanMitra1`,KendaraanMitra1);
 
                             >
                                 <Select optionFilterProp='children' showSearch
-                                    onChange={(e) => { setKendaraanMitra1(e); console.log(e) }}
+                                    onChange={(e) => { setKendaraanMitra1(e);  }}
                                 >
                                     {NamaMitra && NamaMitra.map((item) => (
 
@@ -461,16 +461,16 @@ console.log(`ini KendaraanMitra1`,KendaraanMitra1);
                                 label="Kode Kendaraan Mitra"
                                 name="kodekendaraanmitra"
                             >
-                                <Input placeholder={KendaraanMitra1}/>
+                                <Input placeholder={KendaraanMitra1} />
                             </Form.Item>
                             <Form.Item
                                 label="Nopol Pickup"
                                 name="unit1"
-                                // rules={[
-                                //     {
-                                //         message: 'Please input your password!',
-                                //     },
-                                // ]}
+                            // rules={[
+                            //     {
+                            //         message: 'Please input your password!',
+                            //     },
+                            // ]}
                             >
                                 {/* <Input
                                 value={NoPol1}
@@ -479,7 +479,8 @@ console.log(`ini KendaraanMitra1`,KendaraanMitra1);
                                 <Select
                                     optionFilterProp='children'
                                     showSearch
-                                    onChange={(e,options) => {console.log(options);setNoPol1(options.children) 
+                                    onChange={(e, options) => {
+                                        console.log(options); setNoPol1(options.children)
                                         setKendaraanMitra1(options.tambah)
                                     }}
                                 >
@@ -500,7 +501,7 @@ console.log(`ini KendaraanMitra1`,KendaraanMitra1);
                             >
                                 {/* <Input value={NamaDriver1} /> */}
                                 <Select value={NamaDriver1}>
-                                    
+
                                     {DriverOptions1 && DriverOptions1.map((i) => (
                                         <option>{i.nama}</option>
                                     ))}

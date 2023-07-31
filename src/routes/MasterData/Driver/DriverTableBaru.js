@@ -470,11 +470,11 @@ function DriverTableBaru() {
         },
         validationSchema: Yup.object({
             nik: Yup.string()
-                .required('Nik harus diisi')
-                .max(6, "Tidak Boleh Melebihi 6 Karakter")
-                .matches(/^\S*$/, 'Nik tidak boleh mengandung spasi')
-                .transform(value => (value ? value.charAt(0).toUpperCase() + value.slice(1) : '')),
-
+            .required('Nik harus diisi')
+            .max(6, "Tidak Boleh Melebihi 6 Karakter")
+            .matches(/^[a-zA-Z0-9]+$/, 'Nik hanya boleh berisi huruf, angka dan tidak boleh ada spasi')
+            .transform(value => (value ? value.charAt(0).toUpperCase() + value.slice(1) : '')),
+        
             noktp: Yup.number().required('No KTP harus diisi').integer('Nik harus berupa angka'),
             namadriver: Yup.string()
                 .matches(/^[A-Za-z ]*$/, 'Nama Driver tidak boleh mengandung angka')
