@@ -1,4 +1,4 @@
-import { Card, Input, Select, Tag } from "antd";
+import { Card, Input, Pagination, Select, Tag } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Form } from "react-bootstrap";
@@ -53,7 +53,7 @@ function SplistAkuntingBaru() {
     {
       name: "No",
       selector: (row) => row?.no,
-      width: "50px",
+      width: "70px",
     },
     {
       name: "No SP",
@@ -188,13 +188,11 @@ function SplistAkuntingBaru() {
 
 
 
-  useEffect(() => {
-    setLoading(true)
-    const dataapi = async () => {
+    const dataapi = async (page = 1) => {
       setLoading(true)
       const data = await axios.get(
         // `${Baseurl}sp/get-SP-all?limit=11&page=${page}&keyword=${filter}`,
-        `${Baseurl}sp/get-SP-all?limit=11&page=${page}&keyword=${filter}&statusSP=&customerId=${CustumerValue}&cabang=${CariCabangValue}&sales=${CariSalesValue}&buId=${CariBu}`,
+        `${Baseurl}sp/get-SP-all?limit=10&page=${page}&keyword=${filter}&statusSP=&customerId=${CustumerValue}&cabang=${CariCabangValue}&sales=${CariSalesValue}&buId=${CariBu}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -202,77 +200,37 @@ function SplistAkuntingBaru() {
           },
         }
       );
-      const isi = data.data.data.order.map((item) => ({
-        no: item?.no,
-        idmp: item?.idmp,
-        sp: item?.sp,
-        salesName: item?.salesName,
-        perusahaan: item?.perusahaan,
-        service: item?.service,
-        pickupDate: item?.pickupDate,
-        approveAct: item?.approveAct,
-        dateApproveAct: item?.dateApproveAct,
-        approveOps: item?.approveOps,
-        idops: item?.idops,
-        operationalName: item?.operationalName,
-        dateApproveOps: item?.dateApproveOps,
-        approvePurch: item?.approvePurch,
-        dateApprovePurch: item?.dateApprovePurch,
-      }));
+      setdataapi(data.data.data.order)
 
-      console.log(`ini`, data.data.data.order.approveAct);
-      const detailPromises = isi.map(item => detailSP(item.idmp));
-      const details = await Promise.all(detailPromises);
-
-      const combinedData = isi.map((item, index) => ({
-        ...item,
-        vehicles: details[index]
-      }));
-
-      setTotalRows(data.data.data.total);
+      setTotalRows(data.data.data.totalPage);
       setCombinedData(combinedData);
       setLoading(false)
     };
+  useEffect(() => {
     dataapi();
     setSPFilter()
-  }, [filter, page,CustumerValue, CariCabangValue, CariSalesValue, CariBu]);
+  }, [filter, page, CustumerValue, CariCabangValue, CariSalesValue, CariBu]);
 
   console.log();
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
   };
 
-  const detailSP = async (idmp) => {
-    try {
-      const response = await axios.get(
-        `${Baseurl}sp/get-SP-all-detail?idmp=${idmp}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      );
-      return response.data.detail.map((item) => ({
-        kendaraan: item?.kendaraan,
-        destination: item?.destination
-      }));
-    } catch (error) {
-      console.error(error);
-      return [];
-    }
-  };
+  
 
   useEffect(() => {
   }, [datamobil]);
 
+  const onShowSizeChange = (page, pageSize) => {
+    dataapi(page)
+  };
   return (
     <div>
       <Card>
         <Row>
           <Col>
-          <Row>
-            <h5>Sp List</h5>
+            <Row>
+              <h5>Sp List</h5>
               <Col sm={2}>
                 <Form.Group controlId="search">
                   <Select options={CariCustomerOptions} showSearch optionFilterProp="label" onChange={(e) => setCustumerValue(e)} placeholder="Cari Customer" style={{ width: "100%" }} />
@@ -303,7 +261,7 @@ function SplistAkuntingBaru() {
               </Col>
 
             </Row>
-           
+
             <style>
               {`
           .rdt_TableBody .rdt_TableRow:hover {
@@ -316,17 +274,24 @@ function SplistAkuntingBaru() {
             {loading ? (
               <img className="d-flex justify-content-center" src={elogGif} width="800px" />
             ) : (
+              <>
+                <DataTable
+                  columns={columns}
+                  data={dataApi}
+                  paginationTotalRows={totalRows}
+                  onChangePage={setPage}
+                  onRowClicked={buttonarahin}
+                />
+              </>
 
-              <DataTable
-                columns={columns}
-                data={combinedData}
-                pagination
-                paginationServer
-                paginationTotalRows={totalRows}
-                onChangePage={setPage}
-                onRowClicked={buttonarahin}
-              />
             )}
+            <Pagination
+              showSizeChanger
+              onShowSizeChange={onShowSizeChange}
+              onChange={onShowSizeChange}
+              defaultCurrent={1}
+              total={totalRows}
+            />
           </Col>
         </Row>
       </Card>

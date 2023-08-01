@@ -64,29 +64,29 @@ function VehicleBaru() {
     const validationSchema = Yup.object().shape({
         kode_kendaraan: Yup.string()
             .required('Kode Kendaraan wajib diisi')
-            .max(6, 'Kode Kendaraan tidak boleh lebih dari 10 karakter'),
+            .max(7, 'Kode Kendaraan tidak boleh lebih dari 7 karakter'),
         no_polisi: Yup.string().required('No Polisi wajib diisi')
-            .max(10, 'No Polisi tidak boleh lebih dari 10 karakter'),
+            .max(11, 'No Polisi tidak boleh lebih dari 11 karakter'),
         // tgl_stnk: Yup.date().required('Tanggal STNK wajib diisi'),
-        // jenis_kepemilikan: Yup.string().required('Jenis Kepemilikan wajib diisi'),
-        // jenis_kendaraan: Yup.string().required('Jenis Kendaraan wajib diisi'),
-        // vendor: Yup.string().required('Vendor Kendaraan wajib diisi'),
-        // nama_driver: Yup.string().required('Nama Driver wajib diisi'),
+        jenis_kepemilikan: Yup.string().required('Jenis Kepemilikan wajib diisi'),
+        jenis_kendaraan: Yup.string().required('Jenis Kendaraan wajib diisi'),
+        vendor: Yup.string().required('Vendor Kendaraan wajib diisi'),
+        nama_driver: Yup.string().required('Nama Driver wajib diisi'),
         // jenis_SIM: Yup.string().required('Jenis SIM wajib diisi'),
         // warna_plat: Yup.string().required('Warna Plat wajib diisi'),
-        merk_mobil: Yup.string().required('Merk Mobil wajib diisi')
-            .transform(value => (value ? value.toUpperCase() : '')),
-        tahun_mobil: Yup.string()
-            .required('Tahun Mobil wajib diisi')
-            .max(4, 'Tahun Mobil Tidak Boleh Lebih dari 4 Digit'),
+        // merk_mobil: Yup.string().required('Merk Mobil wajib diisi')
+        //     .transform(value => (value ? value.toUpperCase() : '')),
+        // tahun_mobil: Yup.string()
+        //     .required('Tahun Mobil wajib diisi')
+        //     .max(4, 'Tahun Mobil Tidak Boleh Lebih dari 4 Digit'),
         kendaraan: Yup.string()
             .required('Foto Kendaraan wajib diisi'),
         // panjang: Yup.number().required('Panjang Kendaraan wajib diisi').integer('Panjang Kendaraan harus berupa angka'),
         // lebar: Yup.number().required('Lebar Kendaraan wajib diisi').integer('Lebar Kendaraan harus berupa angka'),
         // tinggi: Yup.number().required('Tinggi Kendaraan wajib diisi').integer('Tinggi Kendaraan harus berupa angka'),
         // no_bpkb: Yup.string().required('No BPKB wajib diisi'),
-        stnk: Yup.string().required('STNK wajib diisi')
-            .max(10, "No STNK Tidak Boleh Lebih dari 10 Karakter"),
+        // stnk: Yup.string().required('STNK wajib diisi')
+        //     .max(8, "No STNK Tidak Boleh Lebih dari 8 Karakter"),
         // tgl_kir: Yup.date().required('Tanggal KIR wajib diisi'),
         // tgl_beli: Yup.date().required('Tanggal Pembelian wajib diisi'),
         // kapasitas: Yup.number().required('Kapasitas wajib diisi').integer('Kapasitas harus berupa angka'),
