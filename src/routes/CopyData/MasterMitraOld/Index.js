@@ -78,34 +78,34 @@ const SamplePage = () => {
       selector: (row) => row.akhirKontrak,
       width: "120px",
     },
-    {
-      name: "Kontrak",
-      selector: (row) => row.kontrak,
-      width: "100px",
-    },
-    {
-      name: " Berlaku Perpanjangan Otomatis",
-      // selector: (row) => row.perpanjangOtomatis
-      width: "250px",
-      selector: (row) =>
-      row.perpanjangOtomatis === "iya" ? (
-        <Tag color="green">Iya</Tag>
-      ) : row.perpanjangOtomatis === "tidak" ? (
-        <Tag color="red">Tidak</Tag>
-      )  : (
-        ""
-      ),
-    },
+    // {
+    //   name: "Kontrak",
+    //   selector: (row) => row.kontrak,
+    //   width: "100px",
+    // },
+    // {
+    //   name: " Berlaku Perpanjangan Otomatis",
+    //   // selector: (row) => row.perpanjangOtomatis
+    //   width: "250px",
+    //   selector: (row) =>
+    //   row.perpanjangOtomatis === "iya" ? (
+    //     <Tag color="green">Iya</Tag>
+    //   ) : row.perpanjangOtomatis === "tidak" ? (
+    //     <Tag color="red">Tidak</Tag>
+    //   )  : (
+    //     ""
+    //   ),
+    // },
     {
       name: "Pic",
       selector: (row) => row.pic,
       width: "150px",
     },
-    {
-      name: "Telepon",
-      selector: (row) => row.mitraTelephone,
-      width: "151px",
-    },
+    // {
+    //   name: "Telepon",
+    //   selector: (row) => row.mitraTelephone,
+    //   width: "151px",
+    // },
     // {
     //   name: " Memo",
     //   selector: (row) => `-`,

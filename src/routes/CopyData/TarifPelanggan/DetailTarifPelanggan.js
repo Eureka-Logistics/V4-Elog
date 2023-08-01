@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import * as Yup from "yup"; // Import Yup library
 import { parseDateTimeSkeleton } from "@formatjs/icu-skeleton-parser";
 import { right } from "@popperjs/core";
+import userEvent from "@testing-library/user-event";
 
 const { Option } = Select;
 
@@ -17,22 +18,30 @@ function DetailTarifPelanggan() {
   const [jenisKendaraan, setJenisKendaraan] = useState("");
   const [ViaData, setDataVia] = useState("");
   const [mitraId, setmitraId] = useState("");
-  const [keywordSj, setKeywordSj] = useState("");
-  const [SJList, setSJList] = useState([]);
-  const [formData, setFormData] = useState(null);
   const { id_price } = useParams();
-  const [Kiriman, setJenisKiriman] = useState([]);
+  const [Kiriman, setJenisKiriman] = useState("");
   const [viaData, setViaData] = useState("");
-  //   const [ViaNih, setViaNih] = useState([]);
   const [ServiceType, setServiceType] = useState([]);
   const [tarif, setTarif] = useState(null); // State untuk menyimpan nilai tarif yang akan diubah
   const [ritase, setRitase] = useState(null); // State untuk menyimpan nilai ritase yang akan diubah
-  const [uangJalan, setUangJalan] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
+  const [DetailSemua, setDetailSemua] = useState("");
   const [customers, setCustomers] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
   const [discount, setDiskon] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
   const [TipeDiskon, setTipeDiskon] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
-  const [BiayaJalan, setBiayaJalan] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
-  const [BiayaLainnya, setBiayaLainnya] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
+  const [IDcustomers, setIDcustomers] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
+  const [IDKendaraanJenis, setIDKendaraanJenis] = useState("");
+  const [IDKotaMuat, setIDKotaMuat] = useState("");
+  const [IDTujuanKota, setIDTujuanKota] = useState("");
+  const [IDBiayaJalan, setIDBiayaJalan] = useState("");
+  const [IDBiayaLain, setIDBiayaLain] = useState("");
+  const [JenisVia, setJenisVia] = useState("");
+  const [IDBiayaMuat, setIDBiayaMuat] = useState("");
+  const [IDBiayaBongkar, setIDBiayaBongkar] = useState("");
+  const [IDBiayaOvertonase, setIDBiayaOvertonase] = useState("");
+  const [IDBiayaMultiMuat, setIDBiayaMultiMuat] = useState("");
+  const [IDBiayaMultiDrop, setIDBiayaMultiDrop] = useState("");
+  const [IDBiayaTambahan, setIDBiayaTambahan] = useState("");
+  const [IDBiayaMel, setIDBiayaMel] = useState("");
 
   const fetchData = async () => {
     try {
@@ -42,7 +51,6 @@ function DetailTarifPelanggan() {
           Authorization: localStorage.getItem("token"),
         },
       });
-      console.log("response", respons.data);
       //   console.log("responssssscarismid", respons.data.data);
 
       setDataTambah(respons.data);
@@ -61,40 +69,64 @@ function DetailTarifPelanggan() {
           },
         }
       );
-      console.log("response", respons.data.order[0]);
+      setDetailSemua(respons.data.order[0]);
+      setIDcustomers(respons.data.order[0].id_customer);
+      setIDKendaraanJenis(respons.data.order[0].id_kendaraan_jenis);
+      setIDKotaMuat(respons.data.order[0].id_muat_kota);
       setDetailDataTarif(respons.data.order[0]);
-      setBiayaLainnya(respons.data.order[0].biaya_lainnya || "");
+      setJenisKiriman(respons.data.order[0].jenisKiriman);
       setDataVia(respons.data);
-      //   console.log("responssssscarismid", respons.data.data);
+      setCustomers(respons.data.order[0]?.customer);
+      setmitraId(respons.data.order[0]?.kotaAsal);
+      setKotaYangDiTuju(respons.data.order[0]?.kotaTujuan);
+      setJenisKendaraan(respons.data.order[0]?.kendaraanJenis);
+      setServiceType(respons.data.order[0]?.service_type);
+      setTipeDiskon(respons.data.order[0]?.diskon_type);
+      setDiskon(respons.data.order[0]?.diskon);
+      setIDTujuanKota(respons.data.order[0]?.id_tujuan_kota);
+      setIDBiayaJalan(respons.data.order[0]?.biaya_jalan);
+      setIDBiayaLain(respons.data.order[0]?.biaya_lain);
+      setJenisVia(respons.data.order[0]?.via);
 
-      //   setDataTambah(respons.data);
-      //   setSJList(respons.data?.data?.sj);
+
     } catch (error) {}
   };
+  console.log(`customers`, DetailSemua);
+  console.log(`IDcustomers`, IDcustomers);
 
   const EditTarif = async () => {
     try {
       const data = {
         id_price: id_price,
-        id_muat_kota: parseInt(mitraId),
-        id_tujuan_kota: parseInt(KotaYangDiTuju),
-        id_kendaraan_jenis: parseInt(jenisKendaraan),
+        id_muat_kota: parseInt(IDKotaMuat),
+        id_tujuan_kota: parseInt(IDTujuanKota),
+        id_kendaraan_jenis: parseInt(IDKendaraanJenis),
         service_type: ServiceType,
         jenis_kiriman: Kiriman,
-        id_customer: parseInt(customers),
-        // via: viaData,
+        id_customer: parseInt(IDcustomers),
+        via: JenisVia,
         diskon: parseInt(discount),
         diskon_type: TipeDiskon,
-        biaya_jalan: parseInt(BiayaJalan),
-        biaya_lainnya: parseInt(BiayaLainnya),
+        biaya_jalan: parseInt(IDBiayaJalan),
+        biaya_lain: parseInt(IDBiayaLain),
+        biaya_muat: "",
+        biaya_bongkar: "",
+        biaya_overtonase: "",
+        biaya_multimuat: "",
+        biaya_multidrop: "",
+        biaya_tambahan: "",
       };
 
-      const response = await axios.post(`${Baseurl}tarif/edit-tarifCustomer`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      });
+      const response = await axios.post(
+        `${Baseurl}tarif/edit-tarifCustomer`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
 
       // If you want to update the state with the edited data, you can do so here.
       // For example:
@@ -108,10 +140,6 @@ function DetailTarifPelanggan() {
           text: "Tarif has been saved",
           // footer: '<a href="">Why do I have this issue?</a>'
         });
-
-        setTimeout(() => {
-          window.location.href = "/pelanggantarif"; // Replace with the actual path to the "tarif_eureka" page
-        }, 1000); // 1000 milliseconds (1 seconds) delay
       } else if (response.status === 500) {
         // Swal.fire({
         //     icon: 'error',
@@ -136,7 +164,7 @@ function DetailTarifPelanggan() {
   useEffect(() => {
     fetchData();
     DetailTarifPelanggan(id_price);
-  }, [ ritase]);
+  }, [ritase]);
 
   const handleChange = (value) => {
     console.log(`Selected option: ${value}`);
@@ -150,19 +178,18 @@ function DetailTarifPelanggan() {
         <Row>
           <Col className="mt-2" span={8}>
             <label>Customer :</label>
-          
+
             <Select
-            
               className="mt-2"
               showSearch
-              placeholder={DetailDataTarif.customer}
+              value={customers}
               optionFilterProp="value"
               style={{ width: "90%" }}
               onChange={(e, options) => {
-                console.log(options.key);
-                setCustomers(options.key);
+                console.log(options);
+                setCustomers(options);
+                setIDcustomers(options.key);
               }}
-              
             >
               {DataTambah &&
                 DataTambah.customer.map((CustomerItem) => (
@@ -181,12 +208,13 @@ function DetailTarifPelanggan() {
             <Select
               className="mt-2"
               showSearch
-              placeholder={DetailDataTarif.kotaAsal}
+              value={mitraId}
               optionFilterProp="value"
               style={{ width: "90%" }}
               onChange={(e, options) => {
                 console.log(options.key);
-                setmitraId(options.key);
+                setmitraId(options);
+                setIDKotaMuat(options.key);
               }}
             >
               {DataTambah &&
@@ -205,12 +233,13 @@ function DetailTarifPelanggan() {
             <Select
               className="mt-2"
               showSearch
-              placeholder={DetailDataTarif.kotaTujuan}
+              value={KotaYangDiTuju}
               optionFilterProp="value"
               style={{ width: "90%" }}
               onChange={(e, options) => {
                 console.log(options.key);
-                setKotaYangDiTuju(options.key);
+                setIDTujuanKota(options.key);
+                setKotaYangDiTuju(options);
               }}
             >
               {DataTambah &&
@@ -231,10 +260,13 @@ function DetailTarifPelanggan() {
             <Select
               className="mt-2"
               showSearch
-              placeholder={DetailDataTarif.kendaraanJenis}
+              value={jenisKendaraan}
               optionFilterProp="value"
               style={{ width: "90%" }}
-              onChange={(e, options) => setJenisKendaraan(options.key)}
+              onChange={(e, options) => {
+                setIDKendaraanJenis(options.key);
+                setJenisKendaraan(options);
+              }}
             >
               {DataTambah &&
                 DataTambah.jenisKendaraan.map((KendaraanItem) => (
@@ -249,28 +281,28 @@ function DetailTarifPelanggan() {
           </Col>
 
           <Col className="mt-2" span={8}>
-            <label>Jenis Layanan :</label>
+            <label>Service Type :</label>
             <Select
               className="mt-2"
-              placeholder={DetailDataTarif.service_type}
+              // placeholder={DetailDataTarif.service_type}
+              value={ServiceType}
               style={{ width: "90%" }}
-              onChange={(e) => setJenisKiriman(e)}
+              onChange={(e) => setServiceType(e)}
             >
-              <Option value="Charter">Charter</Option>
-              <Option value="Retail">Retail</Option>
-            
+              <Option value="Reguler">Reguler</Option>
+              <Option value="Express">Express</Option>
             </Select>
           </Col>
           <Col className="mt-2" span={8}>
             <label>Jenis Kiriman :</label>
             <Select
               className="mt-2"
-              placeholder={DetailDataTarif.jenisKiriman}
+              value={Kiriman}
               style={{ width: "90%" }}
-              onChange={(e) => setServiceType(e)}
+              onChange={(e) => setJenisKiriman(e)}
             >
-                <Option value="Reguler">Reguler</Option>
-              <Option value="Express">Express</Option>
+              <Option value="Retail">Retail</Option>
+              <Option value="Charter">Charter</Option>
             </Select>
           </Col>
         </Row>
@@ -279,7 +311,8 @@ function DetailTarifPelanggan() {
             <label>Discount Type :</label>
             <Select
               className="mt-2"
-              placeholder={DetailDataTarif.diskon_type}
+              // placeholder={TipeDiskon}
+              value={TipeDiskon}
               style={{ width: "90%" }}
               onChange={(e) => setTipeDiskon(e)}
             >
@@ -293,7 +326,6 @@ function DetailTarifPelanggan() {
             <div style={{ paddingRight: "30px" }}>
               <Input
                 className="mt-2"
-                placeholder={DetailDataTarif.diskon}
                 value={discount}
                 onChange={(e) => {
                   console.log(e.target.value);
@@ -303,19 +335,17 @@ function DetailTarifPelanggan() {
             </div>
           </Col>
           <Col className="mt-2" span={8}>
-            <label>Biaya Jalan :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
-              <Input
-                className="mt-2"
-                placeholder={DetailDataTarif.biaya_jalan}
-                value={BiayaJalan}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setBiayaJalan(e.target.value);
-                }}
-              />
-            </div>
+          <label>Via :</label>
+            <Select
+              className="mt-2"
+              value={JenisVia}
+              style={{ width: "92%" }}
+              onChange={(e) => setJenisVia(e)}
+            >
+              <Option value="Darat">Darat</Option>
+              <Option value="Laut">Laut</Option>
+              <Option value="Udara">Udara</Option>
+            </Select>
           </Col>
         </Row>
         <br />
@@ -323,16 +353,29 @@ function DetailTarifPelanggan() {
         <h4>Biaya Tambahan</h4>
         <Row>
           <Col className="mt-2" span={8}>
-            <label>Biaya Lainnya :</label>
+          <label>Biaya Muat :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input
                 className="mt-2"
-                placeholder={DetailDataTarif?.biaya_lain}
-                value={BiayaLainnya}
+                value={IDBiayaJalan}
                 onChange={(e) => {
                   console.log(e.target.value);
-                  setBiayaLainnya(e.target.value);
+                  setIDBiayaJalan(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+          <Col className="mt-2" span={8}>
+          <label>Tarif Katalog :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={IDBiayaJalan}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setIDBiayaJalan(e.target.value);
                 }}
               />
             </div>

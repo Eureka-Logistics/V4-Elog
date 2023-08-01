@@ -52,11 +52,11 @@ const SamplePage = () => {
       selector: (row) => row.no,
       width: "8%",
     },
-    {
-      name: "Kode Mitra",
-      selector: (row) => row.id_mitra,
-      width: "10%",
-    },
+    // {
+    //   name: "Kode Mitra",
+    //   selector: (row) => row.id_mitra,
+    //   width: "10%",
+    // },
     {
       name: "Nama Mitra",
       selector: (row) => row.mitra,
@@ -146,6 +146,8 @@ const SamplePage = () => {
   const [kotaTujuannOptionSelect, setKotaTujuanOpionSelect] = useState("");
   const [muatKotaOptionSelect, setMuatKotaOptionsSelect] = useState("");
   const [namaMitranyaoptionSelect, setnamaMitranyaoptionSelect] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   const IniRowClick = (record) => {
     handleView(record.id_price_mitra);
@@ -154,7 +156,7 @@ const SamplePage = () => {
   const fetchData = async (pages = 1) => {
     try {
       const response = await httpClient.get(
-        `tarif/get-tarifMitra?limit=${limit}&page=${pages}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_mitra=${NamaMitranya}&id_price_mitra=`
+        `tarif/get-tarifMitra?limit=${limit}&page=${pages}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_mitra=${NamaMitranya}&id_price_mitra=&keyword=`
       );
       const data = response.data;
       console.log(data);
@@ -257,6 +259,7 @@ const SamplePage = () => {
         <h4>Data Tarif Mitra</h4>
         <div>
           <Row className="mt-4 mb-2">
+            
             <Col sm={3}>
               <label className="mb-2" htmlFor="muatKotaSelect">
                 Search Kota Muat:
@@ -313,7 +316,7 @@ const SamplePage = () => {
               </label>
               <Select
                 value={NamaMitranya}
-                name="customer"
+                name="mitra"
                 showSearch
                 optionFilterProp="children"
                 placeholder="Select Nama Mitra"

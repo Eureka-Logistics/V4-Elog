@@ -214,11 +214,11 @@ const SamplePage = () => {
             </span>
           </Button>
 
-          <Button danger onClick={() => handleDelete(record.custId)}>
+          {/* <Button danger onClick={() => handleDelete(record.custId)}>
             <span style={{ display: "flex", alignItems: "center" }}>
               <DeleteOutlined />
             </span>
-          </Button>
+          </Button> */}
         </Space>
       ),
     },

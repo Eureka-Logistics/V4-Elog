@@ -69,6 +69,7 @@ function DataBaru({ mitraId, onSubmit }) {
       jenis: data.data.data?.jenis,
       kode_mitra: data.data.data?.kode_mitra,
       nama_mitra: data.data.data?.nama_mitra,
+      kode: data.data.data?.kode,
       kode_mitra: data.data.data?.kode_mitra,
       kode: data.data.data?.kode,
       qrcode: data.data.data?.qrcode,
@@ -260,7 +261,7 @@ function DataBaru({ mitraId, onSubmit }) {
               <Form.Item
                 label="Kode Perusahaan (Singkatan Mitra Name)"
                 style={{ fontWeight: "bold" }}
-                name="nama_mitra"
+                name="kode"
                 rules={[
                   { required: false, message: "Please input your jenis!" },
                 ]}

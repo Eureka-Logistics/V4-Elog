@@ -98,6 +98,9 @@ function NewMasterAlamatNew() {
             icon: 'success',
             title: 'Success',
             text: 'Data has been added successfully!',
+          }).then(() => {
+            // Reload the window after the success message is closed
+            window.location.reload();
           });
       
         } catch (error) {
