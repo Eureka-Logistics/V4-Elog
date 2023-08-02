@@ -180,7 +180,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </MenuItemGroup>
               )}
               {jobdesk == "operasional" && (
-                <SubMenu key="master" title="Operasional">
+                <Menu.ItemGroup key="master" title="Master">
+                  <SubMenu key="master" title="Operasional">
                   <Menu.Item key="driver">
                     <Link to="/masterdata/purchasing/driver">
                       {/* <i className="icon icon-widgets" /> */}
@@ -212,7 +213,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       <IntlMessages id="SP List" />
                     </Link>
                   </Menu.Item>
-                </SubMenu>
+                  </SubMenu>
+                </Menu.ItemGroup>
               )}
               {jobdesk == "operasional" && (
                 <SubMenu key="monitorings" title="Monitoring">

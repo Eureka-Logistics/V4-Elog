@@ -11,7 +11,7 @@ import AppNotification from "../../components/AppNotification";
 import MailNotification from "../../components/MailNotification";
 import Auxiliary from "util/Auxiliary";
 import elogpng from "../Sidebar/elog logo.png"
-
+import './style.css';
 import {NAV_STYLE_DRAWER, NAV_STYLE_FIXED, NAV_STYLE_MINI_SIDEBAR, TAB_SIZE} from "../../constants/ThemeSetting";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -42,7 +42,9 @@ const Topbar = () => {
   const updateSearchChatUser = (evt) => {
     setSearchText(evt.target.value);
   };
-
+const namaRole = localStorage.getItem(`jobdesk`)
+const cabang = localStorage.getItem(`cabang`)
+const fullname = localStorage.getItem(`fullname`)
   return (
     <Header>
       {navStyle === NAV_STYLE_DRAWER || ((navStyle === NAV_STYLE_FIXED || navStyle === NAV_STYLE_MINI_SIDEBAR) && width < TAB_SIZE) ?
@@ -55,11 +57,7 @@ const Topbar = () => {
         </div> : null}
       <Link to="/" className="gx-d-block gx-d-lg-none gx-pointer">
         <img alt="" width="80px" src={elogpng}/></Link>
-
-      <SearchBox styleName="gx-d-none gx-d-lg-block gx-lt-icon-search-bar-lg"
-                 placeholder="Search in app..."
-                 onChange={updateSearchChatUser}
-                 value={searchText}/>
+        <div className="gx-d-none gx-d-lg-block d-flex justify-content-end gx-lt-icon-search-bar-lg gx-move-right-to-left">Halo👋 {fullname} || {namaRole} || cabang {cabang}</div>
       <ul className="gx-header-notifications gx-ml-auto">
         <li className="gx-notify gx-notify-search gx-d-inline-block gx-d-lg-none">
           <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight" content={

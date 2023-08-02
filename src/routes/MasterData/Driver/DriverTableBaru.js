@@ -1,4 +1,4 @@
-import { Button, Card, Modal, Form, Input, Pagination, Upload, DatePicker, Select, Tag } from 'antd';
+import { Button, Card, Modal, Form, Input, Pagination, Upload, DatePicker, Select , Tag} from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react'
@@ -15,7 +15,6 @@ import {
     CheckSquareFilled,
     CloseSquareFilled
 } from '@ant-design/icons';
-
 function DriverTableBaru() {
     const [modalOpen, setModalOpen] = useState(false);
     const [DataAwal, setDataAwal] = useState("");
@@ -127,7 +126,6 @@ function DriverTableBaru() {
         },
 
     ];
-
 
     const ModalONDriver = async (driverId) => {
         try {
@@ -470,31 +468,32 @@ function DriverTableBaru() {
         },
         validationSchema: Yup.object({
             nik: Yup.string()
-            .required('Nik harus diisi')
-            .max(6, "Tidak Boleh Melebihi 6 Karakter")
-            .matches(/^[a-zA-Z0-9]+$/, 'Nik hanya boleh berisi huruf, angka dan tidak boleh ada spasi')
-            .transform(value => (value ? value.charAt(0).toUpperCase() + value.slice(1) : '')),
-        
-            noktp: Yup.number().required('No KTP harus diisi').integer('Nik harus berupa angka'),
+                .required('Nik harus diisi')
+                .max(6, "Tidak Boleh Melebihi 6 Karakter")
+                .matches(/^[A-Za-z0-9]*$/, 'Nik hanya boleh berupa angka/huruf, symbol dan tidak boleh mengandung spasi')
+                .transform(value => (value ? value.charAt(0).toUpperCase() + value.slice(1) : '')),
+
+            // noktp: Yup.number().max(16,"Tidak Boleh Melebihi 16 angka").required('No KTP harus diisi').integer('Nik harus berupa angka'),
             namadriver: Yup.string()
                 .matches(/^[A-Za-z ]*$/, 'Nama Driver tidak boleh mengandung angka')
                 .required('Nama Driver harus diisi'),
-            email: Yup.string().email('Format email tidak valid').required('Email harus diisi'),
+            email: Yup.string().email('Format email tidak valid'),
+            // .required('Email harus diisi'),
             divisi: Yup.string().required('Divisi Driver harus diisi'),
-            nosim: Yup.number().required('No SIM harus diisi').integer('Nik harus berupa angka'),
-            jenissim: Yup.string().required('Jenis SIM harus diisi'),
-            alamat: Yup.string().required('Alamat harus diisi'),
-            tgllahir: Yup.date().required('Tanggal Lahir harus diisi'),
-            agama: Yup.string().required('Agama harus diisi'),
+            // nosim: Yup.number().required('No SIM harus diisi').integer('Nik harus berupa angka'),
+            // jenissim: Yup.string().required('Jenis SIM harus diisi'),
+            // alamat: Yup.string().required('Alamat harus diisi'),
+            // tgllahir: Yup.date().required('Tanggal Lahir harus diisi'),
+            // agama: Yup.string().required('Agama harus diisi'),
             notelp1: Yup.number().required('No Telp 1 harus diisi'),
-            cover: Yup.string().required('gambar harus diisi'),
-            tglmasuk: Yup.date().nullable().required('Tanggal Masuk harus diisi'),
-            tglsim: Yup.date().nullable().required('Tanggal SIM harus diisi'),
+            // cover: Yup.string().required('gambar harus diisi'),
+            // tglmasuk: Yup.date().nullable().required('Tanggal Masuk harus diisi'),
+            // tglsim: Yup.date().nullable().required('Tanggal SIM harus diisi'),
             vehicletype: Yup.string().required('Vehicle Type harus diisi'),
             jeniskepemilikan: Yup.string().required('Jenis Kepemilikan harus diisi'),
-            ukseragam: Yup.string().required('Ukuran Seragam harus diisi'),
-            rekeningbank: Yup.string().required('Rekening Bank harus diisi'),
-            norekening: Yup.string().required('Nomor Rekening harus diisi'),
+            // ukseragam: Yup.string().required('Ukuran Seragam harus diisi'),
+            // rekeningbank: Yup.string().required('Rekening Bank harus diisi'),
+            // norekening: Yup.string().required('Nomor Rekening harus diisi'),
         }),
         onSubmit: values => {
             console.log(values);
@@ -544,9 +543,14 @@ function DriverTableBaru() {
                 <Row>
 
                     <Col sm={2}>
+                       
+                        <Input onChange={(e) => { setCariDriver(e.target.value) }} placeholder='Cari Driver'></Input>
+                    </Col>
+
+                    <Col>
                         <Select
                             showSearch
-                            placeholder="Jenis"
+                            placeholder="Jenis Kepemilikan"
                             optionFilterProp="children"
                             style={{ width: "150px" }}
                             // value={CariJenisKepemilikan}
@@ -562,7 +566,7 @@ function DriverTableBaru() {
                             ))}
                         </Select>
                     </Col>
-                    <Col sm={2}>
+                    <Col sm={6}>
                         <Select
                             showSearch
                             placeholder="Status"
@@ -581,16 +585,7 @@ function DriverTableBaru() {
                         </Select>
                     </Col>
                     <Col sm={2}>
-                        <Input onChange={(e) => { setCariDriver(e.target.value) }} placeholder='Cari Driver'></Input>
-                    </Col>
-
-                    <Col sm={2} >
-                        <Input onChange={(e) => { setCariDriver(e.target.value) }} placeholder='Cari Expired SIM'></Input>
-                    </Col>
-
-                    <Col span={4} className='justify-content-end d-flex'>
-
-                        <Button size='default'
+                    <Button size='default'
                             onClick={() => {
                                 setModalOpen(true); formik.resetForm(); setGambarDriver(null); setDetailId(null)
                             }} type="primary">Add Driver</Button>

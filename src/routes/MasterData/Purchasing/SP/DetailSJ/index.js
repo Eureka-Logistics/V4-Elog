@@ -508,7 +508,7 @@ function Index() {
                                 </Select>
                             </Form.Item>
                             <Form.Item
-                                label="Hp Supir Pickup"
+                                label="No HP Supir"
                                 name="destinasi"
                                 rules={[
                                     {
@@ -581,7 +581,7 @@ function Index() {
                                 <Input />
                             </Form.Item>
                             <Form.Item
-                                label="Hp Supir Pickup"
+                                label="No HP Supir"
                                 name="destinasi"
                                 rules={[
                                     {
@@ -658,7 +658,7 @@ function Index() {
                                 <Input />
                             </Form.Item>
                             <Form.Item
-                                label="Hp Supir Pickup"
+                                label="No HP Supir"
                                 name="destinasi"
                                 rules={[
                                     {
