@@ -201,6 +201,12 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       <IntlMessages id="Monitoring Vehicle" />
                     </Link>
                   </Menu.Item>
+                  <Menu.Item key="waiting SP List">
+                    <Link to="/masterdata/newsplist">
+                      <ProfileTwoTone />
+                      <IntlMessages id="Waiting SP" />
+                    </Link>
+                  </Menu.Item>
                   <Menu.Item key="New SP">
                     <Link to="/masterdata/newsplist">
                       <CheckSquareTwoTone />
@@ -213,6 +219,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       <IntlMessages id="SP List" />
                     </Link>
                   </Menu.Item>
+                  
                   </SubMenu>
                 </Menu.ItemGroup>
               )}
