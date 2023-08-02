@@ -62,6 +62,7 @@ const SignIn = () => {
               onFinishFailed={onFinishFailed}
               className="gx-signin-form gx-form-row0"
             >
+              <label>username</label>
               <Form.Item
                 initialValue=""
                 rules={[
@@ -71,6 +72,7 @@ const SignIn = () => {
               >
                 <Input type="text" placeholder="Masukkan UserName" />
               </Form.Item>
+              <label>password</label>
               <Form.Item
                 initialValue=""
                 placeholder="password"

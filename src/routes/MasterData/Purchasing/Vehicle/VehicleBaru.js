@@ -64,23 +64,29 @@ function VehicleBaru() {
     const validationSchema = Yup.object().shape({
         kode_kendaraan: Yup.string()
             .required('Kode Kendaraan wajib diisi')
-            .max(7, 'Kode Kendaraan tidak boleh lebih dari 7 karakter'),
-        no_polisi: Yup.string().required('No Polisi wajib diisi')
+            .max(7, 'Kode Kendaraan tidak boleh lebih dari 7 karakter')
+            .uppercase('Kode Kendaraan harus dalam huruf besar')
+            .matches(/^[^\s]*$/, 'Kode Kendaraan tidak boleh mengandung spasi'),
+        no_polisi: Yup.string()
+        .required('No Polisi wajib diisi')
             .max(11, 'No Polisi tidak boleh lebih dari 11 karakter'),
         // tgl_stnk: Yup.date().required('Tanggal STNK wajib diisi'),
-        jenis_kepemilikan: Yup.string().required('Jenis Kepemilikan wajib diisi'),
-        jenis_kendaraan: Yup.string().required('Jenis Kendaraan wajib diisi'),
-        vendor: Yup.string().required('Vendor Kendaraan wajib diisi'),
-        nama_driver: Yup.string().required('Nama Driver wajib diisi'),
+        jenis_kepemilikan: Yup.string()
+        .required('Jenis Kepemilikan wajib diisi'),
+        jenis_kendaraan: Yup.string()
+        .required('Jenis Kendaraan wajib diisi'),
+        vendor: Yup.string()
+        .required('Vendor Kendaraan wajib diisi'),
+        // nama_driver: Yup.string().required('Nama Driver wajib diisi'),
         // jenis_SIM: Yup.string().required('Jenis SIM wajib diisi'),
         // warna_plat: Yup.string().required('Warna Plat wajib diisi'),
         // merk_mobil: Yup.string().required('Merk Mobil wajib diisi')
         //     .transform(value => (value ? value.toUpperCase() : '')),
         // tahun_mobil: Yup.string()
-        //     .required('Tahun Mobil wajib diisi')
-        //     .max(4, 'Tahun Mobil Tidak Boleh Lebih dari 4 Digit'),
-        kendaraan: Yup.string()
-            .required('Foto Kendaraan wajib diisi'),
+            // .required('Tahun Mobil wajib diisi')
+            // .max(4, 'Tahun Mobil Tidak Boleh Lebih dari 4 Digit'),
+        // kendaraan: Yup.string()
+        //     .required('Foto Kendaraan wajib diisi'),
         // panjang: Yup.number().required('Panjang Kendaraan wajib diisi').integer('Panjang Kendaraan harus berupa angka'),
         // lebar: Yup.number().required('Lebar Kendaraan wajib diisi').integer('Lebar Kendaraan harus berupa angka'),
         // tinggi: Yup.number().required('Tinggi Kendaraan wajib diisi').integer('Tinggi Kendaraan harus berupa angka'),
@@ -116,6 +122,7 @@ function VehicleBaru() {
             warna_plat: '',
             merk_mobil: '',
             tahun_mobil: '',
+            kendaraan:'',
             warna_plat: '',
             panjang: '',
             lebar: '',
@@ -498,6 +505,22 @@ function VehicleBaru() {
                         <h5>Master Vehicle</h5>
                     </Col>
                     <Row>
+                        <Col sm={6}>
+                            <Button
+                                type="primary" onClick={() => {
+                                    showModal()
+                                    setIdDriver(null)
+                                    setFotoDriver(null)
+                                }} >
+                                Tambah Vehicle
+                            </Button>
+                        </Col>
+                        <Col sm={2}>
+                            <Input
+                                value={CariNoKendaraan}
+                                onChange={(e) => setCariNoKendaraan(e.target.value)}
+                                placeholder="Cari No Kendaraan" />
+                        </Col>
                         <Col sm={2}>
                             <Select
                                 showSearch
@@ -534,28 +557,6 @@ function VehicleBaru() {
                                 ))}
                             </Select>
                         </Col>
-                        <Col sm={2}>
-                            <Input
-                                value={CariNoKendaraan}
-                                onChange={(e) => setCariNoKendaraan(e.target.value)}
-                                placeholder="Cari No Kendaraan" />
-                        </Col>
-                        <Col sm={2}>
-                            <Input
-                                value={CariNoKendaraan}
-                                onChange={(e) => setCariNoKendaraan(e.target.value)}
-                                placeholder="Expired STNK" />
-                        </Col>
-                        <Col className='d-flex justify-content-end' span={12}>
-                            <Button type="primary" onClick={() => {
-                                showModal()
-                                setIdDriver(null)
-                                setFotoDriver(null)
-                            }}>
-                                Tambah Vehicle
-                            </Button>
-                        </Col>
-
                     </Row>
 
                     <Modal
@@ -576,8 +577,8 @@ function VehicleBaru() {
                                         name="kendaraan"
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
-                                        help={formik.touched.tgl_stnk && formik.errors.tgl_stnk}
-                                        validateStatus={formik.touched.tgl_stnk && formik.errors.tgl_stnk ? 'error' : 'success'}
+                                        help={formik.touched.kendaraan && formik.errors.kendaraan}
+                                        validateStatus={formik.touched.kendaraan && formik.errors.kendaraan ? 'error' : 'success'}
                                         style={{ marginBottom: 2 }}
                                     >
                                         <Upload
@@ -624,8 +625,8 @@ function VehicleBaru() {
                                         required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
-                                        help={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan}
-                                        validateStatus={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan ? 'error' : 'success'}
+                                        // help={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan}
+                                        // validateStatus={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan ? 'error' : 'success'}
                                         style={{ marginBottom: 2 }}
                                     >
                                         <DatePicker
@@ -663,8 +664,8 @@ function VehicleBaru() {
                                         required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
-                                        help={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan}
-                                        validateStatus={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan ? 'error' : 'success'}
+                                        // help={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan}
+                                        // validateStatus={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan ? 'error' : 'success'}
                                         style={{ marginBottom: 2 }}
                                     >
                                         <DatePicker
@@ -680,7 +681,7 @@ function VehicleBaru() {
                                 </Col>
                                 <Col sm={4}>
                                     <AntForm.Item
-                                        label="Kepemilikan"
+                                        label="Jenis Kepemilikan"
                                         required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
@@ -717,11 +718,15 @@ function VehicleBaru() {
                                             id="kode_kendaraan"
                                             name="kode_kendaraan"
                                             type="text"
-                                            onChange={formik.handleChange}
+                                            onChange={(e) => {
+                                                // Mengubah input menjadi huruf kapital
+                                                formik.setFieldValue('kode_kendaraan', e.target.value.toUpperCase());
+                                            }}
                                             value={formik.values.kode_kendaraan}
                                             onBlur={formik.handleBlur}
                                         />
                                     </AntForm.Item>
+
 
                                     <AntForm.Item
                                         style={{ marginBottom: 2 }}
@@ -736,11 +741,15 @@ function VehicleBaru() {
                                             id="no_polisi"
                                             name="no_polisi"
                                             type="text"
-                                            onChange={formik.handleChange}
+                                            onChange={(e) => {
+                                                // Mengubah input menjadi huruf kapital
+                                                formik.setFieldValue('no_polisi', e.target.value.toUpperCase());
+                                            }}
                                             value={formik.values.no_polisi}
                                             onBlur={formik.handleBlur}
                                         />
                                     </AntForm.Item>
+
                                     <AntForm.Item
                                         style={{ marginBottom: 2 }}
                                         label="Mitra"

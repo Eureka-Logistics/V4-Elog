@@ -140,7 +140,7 @@ function Index() {
                            
                             <Col span={2}>
                                 <div style={{ color: "grey"}}>
-                                    Eureka Driver
+                                Driver Eureka
                                 </div>
                                 <h5>
                                     {inform?.EurekaDriver}
@@ -163,7 +163,7 @@ function Index() {
                         <Row>
                             <Col>
                                 <div style={{ color: "grey"}}>
-                                    Sewa Driver
+                                Driver Sewa
                                 </div>
                                 <h5>
                                 {inform?.SewaDriver}
@@ -207,7 +207,7 @@ function Index() {
                         <Row>
                             <Col>
                                 <div style={{ color: "grey"}}>
-                                    Aktif Driver
+                                Driver aktif
                                 </div>
                                 <h5>
                                 {inform?.activeDriver + " / " + inform?.totalDriver}
@@ -229,7 +229,7 @@ function Index() {
                         <Row>
                             <Col>
                                 <div style={{ color: "grey"}}>
-                                    Off Driver
+                                Driver tidak tersedia
                                 </div>
                                 <h5>
                                 {inform?.offDriver}

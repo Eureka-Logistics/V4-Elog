@@ -39,26 +39,24 @@ export const userSignIn = (user) => {
       const response = await axios.post(`${Baseurl}auth/login`, user);
       
       // asumsikan response.data.data berisi token dan jobdesk
-      const { token, jobdesk } = response.data.data;
+      const { token, jobdesk ,cabang,fullname} = response.data.data;
 
       // simpan token ke dalam local storage
       localStorage.setItem('token', token);
       localStorage.setItem('jobdesk', jobdesk);
+      localStorage.setItem('cabang', cabang);
+      localStorage.setItem('fullname', fullname);
       dispatch(userSignInSuccess({ token, jobdesk }));
       
       // set token to axios header
       axios.defaults.headers.common['Authorization'] = token;
 
     } catch (error) {
-      let messages;
-      if (error.response) {
-        if (error.response.status === 400) {
-          messages = error.response.data.errors[0].message;
-        }
-      }
-      dispatch(showAuthMessage(messages));
+      // handle error, misalnya dengan menampilkan pesan kesalahan
+      dispatch(showAuthMessage(error.toString()));
     }
-  }}    
+  };
+};
 
 export const userSignOut = () => {
   localStorage.removeItem('token');

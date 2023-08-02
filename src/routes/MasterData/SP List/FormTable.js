@@ -19,7 +19,7 @@ import { useFormik } from 'formik'
 import useMitraStore from "../../../zustand/Store/MitraStore";
 
 
-function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua, NamaMarketing, JenisBarang }) {
+function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,JenisBarang}) {
 
   const [modal1Open, setModal1Open] = useState(false);
   const [jobdesk, setJobdesk] = useState(localStorage.getItem("jobdesk"));
@@ -239,27 +239,22 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua, NamaMarketing, J
     try {
       setLoadingMuterMuter(true)
       const body = {
-        // id_mpd: IDMPD,
-        // id_mp: idmp,
-        // id_supir: selectnomor,
-        // // id_unit: selectnomor,
-        // id_unit: selectDriver[0]?.idUnit ? selectDriver[0]?.idUnit : idUnit,
-        // nama_supir: selectDriver[0]?.name ? selectDriver[0]?.name : idUnit,
-        // id_mitra: 1,
-        // id_mitra_pickup: 1,
-        // id_mitra_2: 1,
+        id_mpd: IDMPD,
+        id_mp: idmp,
+        id_supir: selectnomor,
+        // id_unit: selectnomor,
+        id_unit: selectDriver[0]?.idUnit ? selectDriver[0]?.idUnit : idUnit,
+        nama_supir: selectDriver[0]?.name ? selectDriver[0]?.name : idUnit,
+        id_mitra: 1,
+        id_mitra_pickup: 1,
+        id_mitra_2: 1,
         plat_nomor: selectnopol,
         merk: types[0],
-        // is_multi: checkboxValue,
+        is_multi: checkboxValue,
 
-        id_mp: idmp,
-        id_mpd: IDMPD,
-        id_unit: selectDriver[0]?.idUnit ? selectDriver[0]?.idUnit : idUnit,
-        id_supir: selectDriver[0]?.idUnit,
-        id_mitra_pickup: 1,
-        pickup_kendaraan: types[0],
-        pickup_nopol: selectnopol,
-        pickup_supir: selectDriver[0]?.name ? selectDriver[0]?.name : idUnit
+        pickup_kendaraan:types[0] || "",
+        pickup_nopol:selectnopol,
+        pickup_supir:selectDriver[0]?.name ? selectDriver[0]?.name : idUnit
       };
 
       axios
@@ -281,7 +276,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua, NamaMarketing, J
             text: "The approval process has been completed successfully.",
           });
           setLoadingMuterMuter(false)
-          // window.location.reload()
+          window.location.reload()
           handleClose();
         })
         .catch((error) => console.error(`Error: ${error}`));
@@ -457,7 +452,6 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua, NamaMarketing, J
     kd_kendaraan: item.kd_kendaraan
   })) : [];
 
-  console.log(`anotneroptionsdriver`, anotneroptionsdriver);
   // const nomorpolisiOptions = nomorpolisi.filter(item => item.mitra === mitra1).map(item => ({
   //   value: item.driverId,
   //   label: item.no_polisi,
@@ -1351,7 +1345,6 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua, NamaMarketing, J
                             {selectDriver[0] && selectDriver[0]?.name != "" ? selectDriver[0] && selectDriver[0]?.name : "tidak tersedia"}
                           </option>
                         </Form.Select>
-                        
                       </Col>
                     </Row>
                   </>)}
@@ -1529,12 +1522,12 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua, NamaMarketing, J
                     </Row>
                   </>)}
                   <>
-                    {jobdesk === "operasional" ? (
+                    {jobdesk != "purchasing" ? (
                       <Checkbox
                         className="justify-content-end d-flex"
                         onChange={handleCheckboxChange}
                       >
-                        Transit
+                        Multi
                       </Checkbox>
                     ) : null}
 
@@ -1570,9 +1563,9 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua, NamaMarketing, J
                                 {option.name}
                               </SelectAntd.Option>
                             ))}
-                          </SelectAntd>
+                          </SelectAntd> */}
 
-                        </AntForm.Item> */}
+                        {/* </AntForm.Item> */}
                         <Form.Label>Select Driver</Form.Label>
                         <Form.Select onChange={(e) => setIdunit(e.target.value)}>
                           <option>Select Driver</option>
@@ -1663,7 +1656,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua, NamaMarketing, J
                     null}
 
               {(jobdesk === "operasional") &&
-                <Button className="ms-3" size="sm" variant="danger" onClick={rejectsp}>Tolak. Unit Tidak Tersedia</Button>
+                <Button size="sm" variant="danger" onClick={rejectsp}>Reject SP</Button>
               }
 
               {/* {(StatusPurchasing === 'Y') &&
@@ -1757,14 +1750,15 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua, NamaMarketing, J
                     <Col sm={3}>
                       {jobdesk === "purchasing" && (
                         <>
-                          <Form.Label>Select Mitra 1ss</Form.Label>
+                          <Form.Label>Select Mitra 1</Form.Label>
                           <Form.Select
                             disabled
-                            value={Mitra1Multi?.mitra}
+                            value={Mitra1Multi?.driverName || ''}
+                            onChange={() => { }}
                           >
                             {Mitra1Multi && (
-                              <option value={Mitra1Multi.mitra}>
-                                {Mitra1Multi.mitra}
+                              <option value={Mitra1Multi.driverName}>
+                                {Mitra1Multi.driverName}
                               </option>
                             )}
                           </Form.Select>
@@ -2139,7 +2133,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua, NamaMarketing, J
 
                             <td>Alamat Bongkar</td>
 
-                            <td width="100px">NO SM</td>
+                            <td width="100px">SJ ID</td>
                             <td>Kendaraan</td>
                             <td>Via</td>
                             <td>Item</td>

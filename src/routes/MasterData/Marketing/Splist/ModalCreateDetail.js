@@ -6,7 +6,7 @@ import { Col, Row, Table } from 'react-bootstrap';
 import Baseurl from '../../../../Api/BaseUrl';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-
+import NumberFormat from 'react-number-format';
 function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik }) {
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
@@ -141,7 +141,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
             // setKendaraanModal(response.data.data.type);
             // setShipmentModal(response?.data?.data?.shipment);
             // setMarketing(response.data.data.marketing)
-            console.log(`ini dari modal SelectShipment`, SelectShipment);
+            // console.log(`ini dari modal SelectShipment`, SelectShipment);
             setSelectVia(response.data.data.via)
             setSelectTypeMobil(response.data.data.type)
             setSelectShipment(response.data.data.shipment)
@@ -196,7 +196,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
             setShipmentOptions([]);
         }
     }, [formik.values.via, SelectShipment]);
-    console.log(`ini modal dari SelectShipment`, SelectShipment);
+    // console.log(`ini modal dari SelectShipment`, SelectShipment);
 
 
     // const onFinish = (values) => {
@@ -208,7 +208,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         console.log('Failed:', errorInfo);
     };
 
-    console.log(`modal DetailSemua`, DetailSemua);
+    // console.log(`modal DetailSemua`, DetailSemua);
 
     // Edit sj
     const EditSJ = async () => {
@@ -386,18 +386,12 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     id="alamatmuat"
                                     name="alamatmuat"
                                     type="text"
-                                    onChange={(value, option) => {
-                                        formik.setFieldValue("alamatmuat", option.children); // set alamatmuat state to option's children
-                                        formik.setFieldValue("IDalamatmuat", option.key); // set IDalamatmuat state to option's value
-                                        formik.setFieldValue("IdKotaMuat", value); // set IDalamatmuat state to option's value
-                                        console.log(`key`, option.key);
-                                    }}
-                                    value={formik.values.alamatmuat}
+                                    value={AlamatInvoiceOptions?.nama_kota}
                                     onBlur={formik.handleBlur}
                                 >
                                     {AlamatInvoiceOptions && AlamatInvoiceOptions.map((item) => (
                                         <Select.Option key={item.addressId} value={item.id_kota}>
-                                            {item.address}
+                                            {item.nama_kota}
                                         </Select.Option>
                                     ))}
                                 </Select>
@@ -749,7 +743,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             </Form.Item>
                         </Col>
                         <Col sm={4}>
-                            <Form.Item
+                            {/* <Form.Item
                                 label="Bongkar"
                                 help={formik.touched.tarif && formik.errors.tarif}
                                 validateStatus={
@@ -767,10 +761,33 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     value={formik.values.bongkar === undefined ? '0' : formik.values.bongkar}
                                     onBlur={formik.handleBlur}
                                 />
+                            </Form.Item> */}
+                            <Form.Item
+                                label="Bongkar"
+                                help={formik.touched.bongkar && formik.errors.bongkar}
+                                validateStatus={
+                                    formik.touched.bongkar && formik.errors.bongkar
+                                        ? 'error'
+                                        : 'success'
+                                }
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Input
+                                    id="bongkar"
+                                    name="bongkar"
+                                    type="text"
+                                    onChange={e => {
+                                        // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
+                                        formik.setFieldValue("bongkar", Number(e.target.value.replace(/\D/g, '')))
+                                    }}
+                                    value={formik.values.bongkar === undefined ? '0' : formik.values.bongkar.toLocaleString('id-ID')}
+                                    onBlur={formik.handleBlur}
+                                />
                             </Form.Item>
+
                         </Col>
                         <Col sm={4}>
-                            <Form.Item
+                            {/* <Form.Item
                                 label="Biaya Muat"
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
                                 validateStatus={
@@ -788,16 +805,39 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     value={formik.values.biayamuat}
                                     onBlur={formik.handleBlur}
                                 />
+                            </Form.Item> */}
+                            <Form.Item
+                                label="Biaya Muat"
+                                help={formik.touched.biayamuat && formik.errors.biayamuat}
+                                validateStatus={
+                                    formik.touched.biayamuat && formik.errors.biayamuat
+                                        ? 'error'
+                                        : 'success'
+                                }
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Input
+                                    id="biayamuat"
+                                    name="biayamuat"
+                                    type="text"
+                                    onChange={e => {
+                                        // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
+                                        formik.setFieldValue("biayamuat", Number(e.target.value.replace(/\D/g, '')))
+                                    }}
+                                    value={formik.values.biayamuat === undefined ? '0' : formik.values.biayamuat.toLocaleString('id-ID')}
+                                    onBlur={formik.handleBlur}
+                                />
                             </Form.Item>
+
                         </Col>
                     </Row>
                     <Row>
                         <Col sm={4}>
                             <Form.Item
                                 label="Biaya Multimuat"
-                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
+                                help={formik.touched.biayamultimuat && formik.errors.biayamultimuat}
                                 validateStatus={
-                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                    formik.touched.biayamultimuat && formik.errors.biayamultimuat
                                         ? 'error'
                                         : 'success'
                                 }
@@ -806,15 +846,19 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 <Input
                                     id="biayamultimuat"
                                     name="biayamultimuat"
-                                    type="number"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.biayamultimuat === undefined ? 0 : formik.values.biayamultimuat}
+                                    type="text"
+                                    onChange={e => {
+                                        // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
+                                        formik.setFieldValue("biayamultimuat", Number(e.target.value.replace(/\D/g, '')))
+                                    }}
+                                    value={formik.values.biayamultimuat === undefined ? 0 : formik.values.biayamultimuat.toLocaleString('id-ID')}
                                     onBlur={formik.handleBlur}
                                 />
                             </Form.Item>
+
                         </Col>
                         <Col sm={4}>
-                            <Form.Item
+                            {/* <Form.Item
                                 label="Biaya Multidrop"
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
                                 validateStatus={
@@ -832,10 +876,33 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     value={formik.values.biayamultidrop === undefined ? 0 : formik.values.biayamultidrop}
                                     onBlur={formik.handleBlur}
                                 />
+                            </Form.Item> */}
+                            <Form.Item
+                                label="Biaya Multidrop"
+                                help={formik.touched.biayamultidrop && formik.errors.biayamultidrop}
+                                validateStatus={
+                                    formik.touched.biayamultidrop && formik.errors.biayamultidrop
+                                        ? 'error'
+                                        : 'success'
+                                }
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Input
+                                    id="biayamultidrop"
+                                    name="biayamultidrop"
+                                    type="text"
+                                    onChange={e => {
+                                        // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
+                                        formik.setFieldValue("biayamultidrop", Number(e.target.value.replace(/\D/g, '')))
+                                    }}
+                                    value={formik.values.biayamultidrop === undefined ? 0 : formik.values.biayamultidrop.toLocaleString('id-ID')}
+                                    onBlur={formik.handleBlur}
+                                />
                             </Form.Item>
+
                         </Col>
                         <Col sm={4}>
-                            <Form.Item
+                            {/* <Form.Item
                                 label="Biaya Mel"
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
                                 validateStatus={
@@ -853,7 +920,30 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     value={formik.values.biayamel === undefined ? 0 : formik.values.biayamel}
                                     onBlur={formik.handleBlur}
                                 />
+                            </Form.Item> */}
+                            <Form.Item
+                                label="Biaya Mel"
+                                help={formik.touched.biayamel && formik.errors.biayamel}
+                                validateStatus={
+                                    formik.touched.biayamel && formik.errors.biayamel
+                                        ? 'error'
+                                        : 'success'
+                                }
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Input
+                                    id="biayamel"
+                                    name="biayamel"
+                                    type="text"
+                                    onChange={e => {
+                                        // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
+                                        formik.setFieldValue("biayamel", Number(e.target.value.replace(/\D/g, '')))
+                                    }}
+                                    value={formik.values.biayamel === undefined ? 0 : formik.values.biayamel.toLocaleString('id-ID')}
+                                    onBlur={formik.handleBlur}
+                                />
                             </Form.Item>
+
                         </Col>
                         <Col>
                             <Form.Item
