@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Modal, Form, Input, Select, message, Alert } from 'antd'
+import { Button, Modal, Form, Input, Select, message, Alert, Tag } from 'antd'
 import { useFormik } from 'formik'
 import * as Yup from 'yup';
 import { Col, Row, Table } from 'react-bootstrap';
@@ -7,7 +7,7 @@ import Baseurl from '../../../../Api/BaseUrl';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import NumberFormat from 'react-number-format';
-function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik }) {
+function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik,detailData }) {
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
     const [selectVia, setSelectVia] = useState("");
@@ -17,13 +17,14 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     const [Loding, setLoding] = useState(false)
     const [DetailSemuaTemp, setDetailSemuaTemp] = useState("")
     const [DetaillSJall, setDetaillSJall] = useState("")
-    console.log(`JenisBarangFormik`, JenisBarangFormik);
+    const [GetTarifOptions , setGetTarifOptions]= useState([])
     const formik = useFormik({
         initialValues: {
             alamatmuat: '',
             alamatbongkar: "",
             kendaraan: "",
             via: "",
+            alamatrute:'',
 
         },
         validationSchema: Yup.object({
@@ -85,6 +86,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
 
     // cek tarif
     const [HasilTarif, setasilTarif] = useState("")
+    
     const tarifalamat = async () => {
         try {
             const data = await axios.post(`${Baseurl}sp/get-tarif-alamat`,
@@ -154,8 +156,9 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     useEffect(() => {
 
         getDetailModal();
+        
         // DetailSP()
-    }, [DetailSemua]);
+    }, [DetailSemua,detailData]);
     useEffect(() => (
         formik.setValues({
             via: DetailSemuaTemp?.via,
@@ -183,8 +186,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     ), [DetailSemuaTemp])
 
 
-    console.log(`DetailSemuaTemp DetailSemuaTemp`, DetailSemuaTemp);
     useEffect(() => {
+        
         if (formik.values.via) {
             const filteredShipments = SelectShipment.filter(
                 (item) => item?.via === formik.values.via
@@ -194,7 +197,10 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         }
         else {
             setShipmentOptions([]);
+            // getTarifRute()
         }
+        getDetail()
+
     }, [formik.values.via, SelectShipment]);
     // console.log(`ini modal dari SelectShipment`, SelectShipment);
 
@@ -298,15 +304,50 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
 
         return total;
     }
+    
 
 
+    const getDetail = async () => {
+        try {
+          const response = await axios.get(
+            `${Baseurl}sp/get-SP-all-detail?keyword=&idmp=${idmp}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: localStorage.getItem("token"),
+              },
+            }
+          );
+          console.log(response.data.idcustomer);
+          localStorage.setItem("idcustomer", response.data.idcustomer)
+        } catch (error) {
+          console.error("Failed to fetch detail data:", error);
+        }
+      };
+    const getTarifRute = async()=>{
+        const data = await axios.get(`${Baseurl}tarif/get-tarifCustomer?limit=99&page=1&id_muat_kota=&id_tujuan_kota=&id_kendaraan_jenis=&id_price=&id_customer=${localStorage.getItem("idcustomer")}`,
+        {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: localStorage.getItem("token"),
+            },
+        })
+        console.log(`ini get tarif`,data.data.data.order);
+        setGetTarifOptions(data.data.data.order)
+    }
+
+
+   
+
+    console.log(`idmp`,idmp)
 
     return (
         <div className='mt-3'>
             <div className='d-flex justify-content-end'>
                 <Button type='primary' onClick={() => {
-                    setModal1Open(true);
                     formik.resetForm();
+                    setModal1Open(true);
+                    getTarifRute()
                 }}>Create Detail SP</Button>
             </div>
 
@@ -332,6 +373,44 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     wrapperCol={{ span: 24 }}
                 >
                     <Row>
+                    <Col sm={12}>
+                            <Form.Item
+                                required
+                                label="Pilih Rute"
+                                help={formik.touched.alamatbongkar && formik.errors.alamatbongkar}
+                                validateStatus={
+                                    formik.touched.alamatbongkar && formik.errors.alamatbongkar
+                                        ? 'error'
+                                        : 'success'
+                                }
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Select
+                                    required
+                                    showSearch
+                                    optionFilterProp="key"
+                                    id="pilihrute"
+                                    name="pilihrute"
+                                    type="text"
+                                    onChange={(value, option) => {
+                                        formik.setFieldValue("alamatrute", option); 
+                                        formik.setFieldValue("kendaraan", option.children[6].props.children); 
+                                        formik.setFieldValue("via",  option.children[8].props.children); 
+                                        formik.setFieldValue("shipment",  option.children[10].props.children); 
+                                        setasilTarif(option.children[12].props.children)
+                                        console.log(option);
+                                    }}
+                                    value={formik.values.alamatrute}
+                                    onBlur={formik.handleBlur}
+                                >
+                                    {GetTarifOptions && GetTarifOptions.map((item) => (
+                                        <Select.Option key={item.kotaTujuan} value={item.id_price}>
+                                     {item.no}. <Tag color='red'> {item.kotaAsal}</Tag>Ke:<Tag color='yellow'>{item.kotaTujuan}</Tag>Kendaraan:<Tag color='blue'>{item.kendaraanJenis}</Tag>via:<Tag color='gold'>{item.via}</Tag>Shipment:<Tag color='cyan'>{item.service_type}</Tag>Tarif:<Tag color='green'>{item.biaya_jalan}</Tag>
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                        </Col>
                         <Col sm={8}>
                             <Form.Item
                                 required
@@ -467,6 +546,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 </Select>
                             </Form.Item>
                         </Col>
+                        
                     </Row>
                     <br />
                     <hr />
@@ -717,6 +797,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             </Form.Item>
                         </Col>
                     </Row>
+                    <hr/>
                     <Row>
                         <Col sm={4}>
                             <Form.Item
@@ -731,6 +812,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 style={{ marginBottom: 2 }}
                             >
                                 <Input
+                                disabled
                                     id="tarif"
                                     name="tarif"
                                     type="number"
@@ -739,7 +821,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     value={HasilTarif}
                                     onBlur={formik.handleBlur}
                                 />
-                                <Button onClick={tarifalamat} className='mt-2' type='primary'>Cek Tarif</Button>
+                                {/* <Button onClick={tarifalamat} className='mt-2' type='primary'>Cek Tarif</Button> */}
                             </Form.Item>
                         </Col>
                         <Col sm={4}>
@@ -763,7 +845,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 />
                             </Form.Item> */}
                             <Form.Item
-                                label="Bongkar"
+                                label="Biaya Bongkar"
                                 help={formik.touched.bongkar && formik.errors.bongkar}
                                 validateStatus={
                                     formik.touched.bongkar && formik.errors.bongkar

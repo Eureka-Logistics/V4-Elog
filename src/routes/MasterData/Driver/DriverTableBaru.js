@@ -95,32 +95,15 @@ function DriverTableBaru() {
             selector: row => row.driverStatus === 1 ? "Tersedia" : "Tidak Tersedia",
             cell: row => (
                 <div>
-                    {row.driverStatus === 1 ? (
-                        <>
-                            <Button
-                                size="small"
-                                type="primary"
-                                className="mt-3"
-                                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                                onClick={() => ModalOFFDriver(row.driverId)}
-
-                            >
-                                ON <CheckSquareFilled />
-                            </Button>
-                        </>
-                    ) :
-                        <>
-                            <Button
-                                size="small"
-                                type="danger"
-                                className="mt-2"
-                                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                                onClick={() => ModalONDriver(row.driverId)}
-                            >
-                                OFF <CloseSquareFilled />
-                            </Button>
-
-                        </>}
+                    <Select
+                        size="small"
+                        value={row.driverStatus === 1 ? "on" : "off"}
+                        style={{ width: 120 }}
+                        onChange={(value) => value === "on" ?   ModalONDriver(row.driverId) : ModalOFFDriver(row.driverId)}
+                    >
+                        <option value="on">ON</option>
+                        <option value="off">OFF</option>
+                    </Select>
                 </div>
             )
         },

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import Baseurl from '../../../../Api/BaseUrl';
 import axios from 'axios';
-import { Button, Modal, Input, Form as AntForm, DatePicker, Card, Select, Upload, Pagination, Tag } from 'antd';
+import { Button, Modal, Input, Form as AntForm, DatePicker, Card, Select, Upload, Pagination, Switch, Tag } from 'antd';
 import moment from 'moment';
 import { UploadOutlined } from '@ant-design/icons';
 import * as Yup from 'yup';
@@ -68,23 +68,23 @@ function VehicleBaru() {
             .uppercase('Kode Kendaraan harus dalam huruf besar')
             .matches(/^[^\s]*$/, 'Kode Kendaraan tidak boleh mengandung spasi'),
         no_polisi: Yup.string()
-        .required('No Polisi wajib diisi')
+            .required('No Polisi wajib diisi')
             .max(11, 'No Polisi tidak boleh lebih dari 11 karakter'),
         // tgl_stnk: Yup.date().required('Tanggal STNK wajib diisi'),
         jenis_kepemilikan: Yup.string()
-        .required('Jenis Kepemilikan wajib diisi'),
+            .required('Jenis Kepemilikan wajib diisi'),
         jenis_kendaraan: Yup.string()
-        .required('Jenis Kendaraan wajib diisi'),
+            .required('Jenis Kendaraan wajib diisi'),
         vendor: Yup.string()
-        .required('Vendor Kendaraan wajib diisi'),
+            .required('Vendor Kendaraan wajib diisi'),
         // nama_driver: Yup.string().required('Nama Driver wajib diisi'),
         // jenis_SIM: Yup.string().required('Jenis SIM wajib diisi'),
         // warna_plat: Yup.string().required('Warna Plat wajib diisi'),
         // merk_mobil: Yup.string().required('Merk Mobil wajib diisi')
         //     .transform(value => (value ? value.toUpperCase() : '')),
         // tahun_mobil: Yup.string()
-            // .required('Tahun Mobil wajib diisi')
-            // .max(4, 'Tahun Mobil Tidak Boleh Lebih dari 4 Digit'),
+        // .required('Tahun Mobil wajib diisi')
+        // .max(4, 'Tahun Mobil Tidak Boleh Lebih dari 4 Digit'),
         // kendaraan: Yup.string()
         //     .required('Foto Kendaraan wajib diisi'),
         // panjang: Yup.number().required('Panjang Kendaraan wajib diisi').integer('Panjang Kendaraan harus berupa angka'),
@@ -122,7 +122,7 @@ function VehicleBaru() {
             warna_plat: '',
             merk_mobil: '',
             tahun_mobil: '',
-            kendaraan:'',
+            kendaraan: '',
             warna_plat: '',
             panjang: '',
             lebar: '',
@@ -291,31 +291,12 @@ function VehicleBaru() {
             selector: row => row.status === "1" ? "Aktif" : "Tidak Aktif",
             cell: row => (
                 <div>
-                    {row.status === "1" ? (
-                        <>
-                            <Button
-                                size="small"
-                                type="primary"
-                                className="mt-3"
-                                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                                onClick={() => ModalOFFVehicle(row.vehicleId)}
-                            >
-                                ON <CheckSquareFilled />
-                            </Button>
-                        </>
-                    ) :
-                        <>
-                            <Button
-                                size="small"
-                                type="danger"
-                                className="mt-3"
-                                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                                onClick={() => ModalONVehicle(row.vehicleId)}
-                            >
-                                OFF <CloseSquareFilled />
-                            </Button>
-
-                        </>}
+                    <Switch
+                        checked={row.status === "1" ? true : false}
+                        checkedChildren="ON"
+                        unCheckedChildren="OFF"
+                        onChange={(checked) => checked ? ModalONVehicle(row.vehicleId) : ModalOFFVehicle(row.vehicleId)}
+                    />
                 </div>
             )
         },
@@ -505,16 +486,7 @@ function VehicleBaru() {
                         <h5>Master Vehicle</h5>
                     </Col>
                     <Row>
-                        <Col sm={6}>
-                            <Button
-                                type="primary" onClick={() => {
-                                    showModal()
-                                    setIdDriver(null)
-                                    setFotoDriver(null)
-                                }} >
-                                Tambah Vehicle
-                            </Button>
-                        </Col>
+                        
                         <Col sm={2}>
                             <Input
                                 value={CariNoKendaraan}
@@ -539,7 +511,7 @@ function VehicleBaru() {
                                 ))}
                             </Select>
                         </Col>
-                        <Col sm={2}>
+                        <Col sm={6}>
                             <Select
                                 showSearch
                                 placeholder="Status"
@@ -556,6 +528,16 @@ function VehicleBaru() {
                                     </Select.Option>
                                 ))}
                             </Select>
+                        </Col>
+                        <Col sm={2}>
+                            <Button
+                                type="primary" onClick={() => {
+                                    showModal()
+                                    setIdDriver(null)
+                                    setFotoDriver(null)
+                                }} >
+                                Tambah Vehicle
+                            </Button>
                         </Col>
                     </Row>
 
