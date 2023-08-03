@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Card, DatePicker, Input, Row, Col, notification, Button } from "antd";
+import {
+  Card,
+  DatePicker,
+  Input,
+  Row,
+  Col,
+  notification,
+  Button,
+  Select,
+} from "antd";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { httpClient } from "../../../../Api/Api";
 import { InputGroup, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Label } from "recharts";
 
 const { RangePicker } = DatePicker;
 
@@ -23,6 +33,40 @@ const SamplePage = () => {
   const [limit, setLimit] = useState(10);
   const [detailSp, setDetailSp] = useState([]);
   const [isiValues, setIsiValues] = useState("");
+  const [jenisPembayaran, setJenisPembayaran] = useState("");
+
+  const optjenisPembayaran = [
+    {
+      value: "1",
+      label: "Cash",
+    },
+    {
+      Value: "2",
+      label: "Credit",
+    },
+  ];
+  const optionToP = [
+    {
+      value: "1",
+      label: "7 Hari",
+    },
+    {
+      Value: "2",
+      label: "14 Hari",
+    },
+    {
+      Value: "2",
+      label: "20 Hari",
+    },
+    {
+      Value: "2",
+      label: "30 Hari",
+    },
+    {
+      Value: "2",
+      label: "60 Hari",
+    },
+  ];
 
   const formik = useFormik({
     initialValues: {
@@ -165,10 +209,27 @@ const SamplePage = () => {
     //   });
   }, []);
 
+  const customStylesReactSelect = {
+    container: (provided) => ({
+      ...provided,
+      width: "100%",
+    }),
+    menuPortal: (base) => ({
+      ...base,
+      zIndex: 9999,
+    }),
+    menu: (provided) => ({
+      ...provided,
+      zIndex: 9999,
+      width: "100%",
+      minWidth: "100%",
+    }),
+  };
+
   return (
     <div>
       <Card>
-        <h4>New Master Customer</h4>
+        <h5>New Master Customer</h5>
         <Form onSubmit={formik.handleSubmit}>
           <Row style={{ marginBottom: "10px" }}>
             <Col span={8}></Col>
@@ -178,11 +239,17 @@ const SamplePage = () => {
               <Button type="submit">Save and load photo customer</Button>
             </Col> */}
           </Row>
+          <br />
           <hr />
-          <Row style={{ marginBottom: "10px" }} className="mt-5">
-            <Col span={8}>
+          <h5>Customer Data</h5>
+          <hr/>
+          <br />
+          <Row style={{ marginBottom: "10px" }} >
+            <Col span={12}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: 'bold'}}>Customer Code :</Form.Label>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Customer Code :
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="kode_customer"
@@ -194,34 +261,30 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
+            </Col>
+            <Col span={12}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: 'bold'}}>Office Number :</Form.Label>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Date Register :
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
-                    name="officer_number"
-                    placeholder="Officer Number"
-                    value={formik.values.officer_number}
+                    name="tgl_bergabung"
+                    placeholder="Tanggal Bergabung"
+                    value={formik.values.tgl_bergabung}
                     onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.officer_number}
-                  />
-                </InputGroup>
-              </Form.Group>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: 'bold'}}>Type Of Business :</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="typeof"
-                    placeholder="Type Of Business"
-                    value={formik.values.typeof}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.typeof}
+                    isInvalid={!!formik.errors.tgl_bergabung}
                   />
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={9}>
+          </Row>
+          <Row>
+            <Col span={12}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: 'bold'}}>Customer Name :</Form.Label>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Customer Name :
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="nama_perusahaan"
@@ -232,61 +295,46 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
+            </Col>
+            <Col span={12}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: 'bold'}}>Fax :</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="fax"
-                    placeholder="Fax"
-                    value={formik.values.fax}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.fax}
-                    
-                  />
-                </InputGroup>
-              </Form.Group>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: 'bold'}}>
-                  Type Of Goods (Ex :Sepatu/Shoes, Kertas/Paper, etc)
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Business :
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                    name="jenis_barang"
-                    placeholder="Type Of Goods"
-                    value={formik.values.jenis_barang}
+                    name="jenis_usaha"
+                    placeholder="Jenis Usaha"
+                    value={formik.values.jenis_usaha}
                     onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.jenis_barang}
+                    isInvalid={!!formik.errors.jenis_usaha}
                   />
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={7}>
+          </Row>
+          <Row>
+            <Col span={12}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: 'bold'}}>Company Name :</Form.Label>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Customer Address :
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
-                    name="nama_perusahaan"
-                    placeholder="Company Name"
-                    value={formik.values.nama_perusahaan}
+                    name="alamat_kantor"
+                    placeholder="Alamat Kantor"
+                    value={formik.values.alamat_kantor}
                     onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.nama_perusahaan}
+                    isInvalid={!!formik.errors.alamat_kantor}
                   />
                 </InputGroup>
               </Form.Group>
+            </Col>
+            <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: 'bold'}}>Mobile Number :</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="hp"
-                    placeholder="Mobile Number"
-                    value={formik.values.hp}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.hp}
-                  />
-                </InputGroup>
-              </Form.Group>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: 'bold'}}>Thn Berdiri :</Form.Label>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Company Anniversary :
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="tahun_berdiri"
@@ -298,15 +346,194 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
+            <Col span={6}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label style={{ fontWeight: "bold" }}>Item :</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="jenis_barang"
+                    placeholder="Jenis Barang"
+                    value={formik.values.jenis_barang}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.jenis_barang}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
           </Row>
-          <Row style={{ marginBottom: "10px" }}>
-            <Col span={24}>
+          <Row>
+            <Col span={12}>
               <Form.Group>
-                <Form.Label style={{fontWeight: 'bold'}}>Alamat :</Form.Label>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Telp Office :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="telepon"
+                    placeholder="Telepon Office"
+                    value={formik.values.telepon}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.telepon}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={12}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Fax Office :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="fax"
+                    placeholder="Fax Office"
+                    value={formik.values.fax}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.fax}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          <br />
+          <hr />
+          <h5 style={{ fontWeight: "bold" }}>Contact Person</h5>
+          <hr />
+          <br />
+          <Row>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  PIC Office :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="pic_office"
+                    placeholder="PIC Office"
+                    value={formik.values.pic_office}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.pic_office}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  PIC Position :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="pic_position"
+                    placeholder="PIC Position"
+                    value={formik.values.pic_position}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.pic_position}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  PIC Email :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="pic_email"
+                    placeholder="PIC Email"
+                    value={formik.values.pic_email}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.pic_email}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="mt-2">
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  PIC Phone :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                   type="number"
+                    name="pic_phone"
+                    placeholder="PIC Phone"
+                    value={formik.values.pic_phone}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.pic_phone}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  PIC Birth :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="pic_birth"
+                    placeholder="PIC Birth"
+                    value={formik.values.pic_birth}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.pic_birth}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  PIC Fax :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="pic_fax"
+                    placeholder="PIC Fax"
+                    value={formik.values.pic_fax}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.pic_fax}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          <br />
+          <hr />
+          <h5 style={{ fontWeight: "bold" }}>TAX</h5>
+          <hr />
+          <br />
+          <Row>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  NPWP Number :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                   type="number"
+                    name="npwp"
+                    placeholder="Nomor NPWP"
+                    value={formik.values.npwp}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.npwp}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={16}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  NPWP Address :
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="alamat_npwp"
-                    placeholder="Alamat"
+                    placeholder="Alamat NPWP"
                     value={formik.values.alamat_npwp}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.alamat_npwp}
@@ -315,112 +542,407 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
           </Row>
-          <Row style={{ marginBottom: "10px" }}>
-            <Col span={12}>
+          <Row className="mt-4">
+            <Col span={8}>
               <Form.Group>
-                <Form.Label style={{fontWeight: 'bold'}}>Email :</Form.Label>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  KTP Number :
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
-                    name="email"
-                    placeholder="Email"
-                    value={formik.values.email}
+                   type="number"
+                    name="ktp"
+                    placeholder="Nomor KTP"
+                    value={formik.values.ktp}
                     onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.email}
+                    isInvalid={!!formik.errors.ktp}
                   />
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={12}>
+            <Col span={16}>
               <Form.Group>
-                <Form.Label style={{fontWeight: 'bold'}}>Type Of Payment :</Form.Label>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  TDP Address :
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    name="tdp"
+                    placeholder="TDP Address"
+                    value={formik.values.tdp}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.tdp}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="mt-4">
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  TAX PIC :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="tax_pic"
+                    placeholder="TAX PIC"
+                    value={formik.values.tax_pic}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.tax_pic}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  TAX Position :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="tax_position"
+                    placeholder="TAX Position"
+                    value={formik.values.tax_position}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.tax_position}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  TAX Email :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="tax_email"
+                    placeholder="TAX Email"
+                    value={formik.values.tax_email}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.tax_email}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="mt-4">
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  TAX Phone Office :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                   type="number"
+                    name="tax_phone_office"
+                    placeholder="TAX Phone Office"
+                    value={formik.values.tax_phone_office}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.tax_phone_office}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  TAX Mobile :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                   type="number"
+                    name="tax_mobile"
+                    placeholder="TAX Mobile"
+                    value={formik.values.tax_mobile}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.tax_mobile}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          <br />
+          <hr />
+          <h5> TERM OF PAYMENT </h5>
+          <hr />
+          <br />
+          <Row>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Bank Name :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="nama_bank"
+                    placeholder="Nama Bank"
+                    value={formik.values.nama_bank}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.nama_bank}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Account Name :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="nama_akun"
+                    placeholder="Nama Akun"
+                    value={formik.values.nama_akun}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.nama_akun}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Account Number :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                   type="number"
+                    name="no_rek"
+                    placeholder="Nomor Rekening"
+                    value={formik.values.no_rek}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.no_rek}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="mt-3">
+            <Col span={8}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <label style={{ fontWeight: "bold", marginBottom: "10px" }}>
+                  Type Of Payment:{" "}
+                </label>
+                <InputGroup>
+                  <Select
+                    style={{ width: "100%" }}
+                    options={optjenisPembayaran}
                     name="jenis_pembayaran"
-                    placeholder="Jenis Pembayaran"
-                    value={formik.values.jenis_pembayaran}
-                    onChange={formik.handleChange}
+                    value={jenisPembayaran}
+                    onChange={(e) => setJenisPembayaran(e)}
                     isInvalid={!!formik.errors.jenis_pembayaran}
+                    // styles={customStylesReactSelect}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>ToP :</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="top"
+                    placeholder="ToP"
+                    value={formik.values.top}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.top}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  BANK PIC :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="bank_pic"
+                    placeholder="Bank PIC"
+                    value={formik.values.bank_pic}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.bank_pic}
                   />
                 </InputGroup>
               </Form.Group>
             </Col>
           </Row>
-          <Row style={{ marginBottom: "10px" }}>
+          <Row>
             <Col span={8}>
               <Form.Group>
-                <Form.Label style={{fontWeight: 'bold'}}>Bank Name :</Form.Label>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  BANK Position :
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
-                    name="bankname"
-                    placeholder="Bank Name"
-                    value={formik.values.bankname}
+                    name="bank_position"
+                    placeholder="Bank Position"
+                    value={formik.values.bank_position}
                     onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.bankname}
+                    isInvalid={!!formik.errors.bank_position}
                   />
                 </InputGroup>
               </Form.Group>
             </Col>
             <Col span={8}>
               <Form.Group>
-                <Form.Label style={{fontWeight: 'bold'}}>Account Name :</Form.Label>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  BANK Email :
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
-                    name="accountname"
-                    placeholder="Account Name"
-                    value={formik.values.accountname}
+                    name="bank_email"
+                    placeholder="Bank Email"
+                    value={formik.values.bank_email}
                     onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.accountname}
+                    isInvalid={!!formik.errors.bank_email}
                   />
                 </InputGroup>
               </Form.Group>
             </Col>
             <Col span={8}>
               <Form.Group>
-                <Form.Label style={{fontWeight: 'bold'}}>Account Number :</Form.Label>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  BANK Office Phone :
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
-                    name="accountnumber"
-                    placeholder="Account Number"
-                    value={formik.values.accountnumber}
+                   type="number"
+                    name="bank_phone_office"
+                    placeholder="Bank Office Phone"
+                    value={formik.values.bank_phone_office}
                     onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.accountnumber}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: "10px" }}>
-            <Col span={8}>
-              <Form.Group>
-                <Form.Label style={{fontWeight: 'bold'}}>Currency :</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="mata_uang"
-                    placeholder="Rupiah (Rp.)"
-                    value={formik.values.mata_uang}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.mata_uang}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={8}>
-              <Form.Group>
-                <Form.Label style={{fontWeight: 'bold'}}>NPWP :</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="npwp"
-                    placeholder="NPWP"
-                    value={formik.values.npwp}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.npwp}
+                    isInvalid={!!formik.errors.bank_phone_office}
                   />
                 </InputGroup>
               </Form.Group>
             </Col>
           </Row>
-          <Col span={24} className="d-flex justify-content-end">
-            <Button onClick={formik.handleSubmit} style={{backgroundColor: "#00a65a", color: "white", borderColor: "#008d4c"}}>Save and load photo customer</Button>
+          <Row className="mt-2">
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  BANK Mobile :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                   type="number"
+                    name="bank_mobile"
+                    placeholder="Bank Mobile"
+                    value={formik.values.bank_mobile}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.bank_mobile}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          <br />
+          <hr />
+          <h5> INVOICE </h5>
+          <hr />
+          <br />
+          <Row>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Inv PIC :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="invoice_pic"
+                    placeholder="Invoice PIC"
+                    value={formik.values.invoice_pic}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.invoice_pic}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Inv Position :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="invoice_position"
+                    placeholder="Invoice Position"
+                    value={formik.values.invoice_position}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.invoice_position}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Inv Email :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="invoice_email"
+                    placeholder="Invoice Email"
+                    value={formik.values.invoice_email}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.invoice_email}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="mt-2">
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Inv Office Phone :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                   type="number"
+                    name="invoice_phone_office"
+                    placeholder=" Inv Office Phone"
+                    value={formik.values.invoice_phone_office}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.invoice_phone_office}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Inv Mobile :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                   type="number"
+                    name="invoice_mobile"
+                    placeholder="Invoice Mobile"
+                    value={formik.values.invoice_mobile}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.invoice_mobile}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+           
+          </Row>
+
+          <Col span={24} className="d-flex justify-content-end mt-5">
+            <Button
+              onClick={formik.handleSubmit}
+              style={{
+                backgroundColor: "#00a65a",
+                color: "white",
+                borderColor: "#008d4c",
+              }}
+            >
+              Save and load photo customer
+            </Button>
           </Col>
         </Form>
       </Card>

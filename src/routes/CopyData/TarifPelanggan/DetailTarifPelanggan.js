@@ -176,7 +176,18 @@ function DetailTarifPelanggan() {
       <Card>
         <h4>Edit dan Detail Tarif Customer</h4>
         <Row>
-          <Col className="mt-2" span={8}>
+        <Col className="mt-2" span={6}>
+          <label>Code Tarif :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={DetailDataTarif.kode_tarif}
+                disabled
+              />
+            </div>
+          </Col>
+          <Col className="mt-2" span={6}>
             <label>Customer :</label>
 
             <Select
@@ -203,7 +214,7 @@ function DetailTarifPelanggan() {
             </Select>
           </Col>
 
-          <Col className="mt-2" span={8}>
+          <Col className="mt-2" span={6}>
             <label>Kota Muat :</label>
             <Select
               className="mt-2"
@@ -228,7 +239,7 @@ function DetailTarifPelanggan() {
                 ))}
             </Select>
           </Col>
-          <Col className="mt-2" span={8}>
+          <Col className="mt-2" span={6}>
             <label>Kota Tujuan :</label>
             <Select
               className="mt-2"
@@ -255,7 +266,7 @@ function DetailTarifPelanggan() {
           </Col>
         </Row>
         <Row>
-          <Col className="mt-2" span={8}>
+          <Col className="mt-2" span={6}>
             <label>Jenis Kendaraan :</label>
             <Select
               className="mt-2"
@@ -280,7 +291,7 @@ function DetailTarifPelanggan() {
             </Select>
           </Col>
 
-          <Col className="mt-2" span={8}>
+          <Col className="mt-2" span={6}>
             <label>Service Type :</label>
             <Select
               className="mt-2"
@@ -293,7 +304,7 @@ function DetailTarifPelanggan() {
               <Option value="Express">Express</Option>
             </Select>
           </Col>
-          <Col className="mt-2" span={8}>
+          <Col className="mt-2" span={6}>
             <label>Jenis Kiriman :</label>
             <Select
               className="mt-2"
@@ -305,36 +316,7 @@ function DetailTarifPelanggan() {
               <Option value="Charter">Charter</Option>
             </Select>
           </Col>
-        </Row>
-        <Row>
-          <Col className="mt-2" span={8}>
-            <label>Discount Type :</label>
-            <Select
-              className="mt-2"
-              // placeholder={TipeDiskon}
-              value={TipeDiskon}
-              style={{ width: "90%" }}
-              onChange={(e) => setTipeDiskon(e)}
-            >
-              <Option value="amount">Amount</Option>
-              <Option value="diskon">Diskon</Option>
-            </Select>
-          </Col>
-          <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
-            <label>Discount :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
-              <Input
-                className="mt-2"
-                value={discount}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setDiskon(e.target.value);
-                }}
-              />
-            </div>
-          </Col>
-          <Col className="mt-2" span={8}>
+          <Col className="mt-2" span={6}>
           <label>Via :</label>
             <Select
               className="mt-2"
@@ -348,25 +330,28 @@ function DetailTarifPelanggan() {
             </Select>
           </Col>
         </Row>
+        <Row>
+          {/* <Col className="mt-2" span={8}>
+            <label>Discount Type :</label>
+            <Select
+              className="mt-2"
+              placeholder={TipeDiskon}
+              value={TipeDiskon}
+              style={{ width: "90%" }}
+              onChange={(e) => setTipeDiskon(e)}
+            >
+              <Option value="amount">Amount</Option>
+              <Option value="diskon">Diskon</Option>
+            </Select>
+          </Col> */}
+         
+         
+        </Row>
         <br />
         <hr />
-        <h4>Biaya Tambahan</h4>
+        <h4>Tarif</h4>
         <Row>
-          <Col className="mt-2" span={8}>
-          <label>Biaya Muat :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
-              <Input
-                className="mt-2"
-                value={IDBiayaJalan}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setIDBiayaJalan(e.target.value);
-                }}
-              />
-            </div>
-          </Col>
-          <Col className="mt-2" span={8}>
+        <Col className="mt-2" span={6}>
           <label>Tarif Katalog :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
@@ -380,6 +365,36 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
+        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+            <label>Discount :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={discount}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setDiskon(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+          <Col className="mt-2" span={6}>
+          <label>Tanggal Pembuatan :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={DetailDataTarif.date_created}
+                disabled
+                // onChange={(e) => {
+                //   console.log(e.target.value);
+                //   setIDBiayaJalan(e.target.value);
+                // }}
+              />
+            </div>
+          </Col>
+          
         </Row>
         <br />
         <Row>

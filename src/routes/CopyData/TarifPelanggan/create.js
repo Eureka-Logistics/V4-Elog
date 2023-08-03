@@ -83,6 +83,8 @@ const SamplePage = () => {
     },
   ];
 
+  
+
   const formik = useFormik({
     initialValues: {
       id_muat_kota: kota?.value,
@@ -306,15 +308,16 @@ const SamplePage = () => {
         <Form onSubmit={formik.handleSubmit}>
           <Row style={{ marginBottom: "10px" }}>
             <Col span={8}>
-              <h4>Buat Tarif Customer Baru</h4>
+              <h5>Buat Tarif Customer Baru</h5>
             </Col>
             <Col span={3}></Col>
             <Col span={3}></Col>
           </Row>
-          <Row style={{ marginBottom: "10px" }}>
+          {/* Pemilihan Customer */}
+          <Row>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Customer</Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Customer</Form.Label>
                 <InputGroup>
                   <Select
                     options={customerOptions}
@@ -327,39 +330,10 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Jenis kendaraan </Form.Label>
-                <InputGroup>
-                  <Select
-                    options={jenisKendaraanOptions}
-                    value={jenisKendaraan}
-                    isSearchable
-                    placeholder="Select Jenis Kendaraan"
-                    name="id_kendaraan_jenis"
-                    styles={customStylesReactSelect}
-                    onChange={onSelectChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Jenis Diskon</Form.Label>
-                <InputGroup>
-                  <Select
-                    options={optjenisDiskon}
-                    name="jenis_diskon"
-                    value={jenisDiskon}
-                    onChange={(e) => setJenisDiskon(e)}
-                    isInvalid={!!formik.errors.service_type}
-                    styles={customStylesReactSelect}
-                  />
-                </InputGroup>
-              </Form.Group>
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Kota Muat</Form.Label>
+                <Form.Label style={{fontWeight: "bold"}}>Kota Muat</Form.Label>
                 <InputGroup>
                   <Select
                     options={kotaOptions}
@@ -369,40 +343,6 @@ const SamplePage = () => {
                     name="id_muat_kota"
                     styles={customStylesReactSelect}
                     onChange={onSelectChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Jenis Layanan</Form.Label>
-                <InputGroup>
-                  {/* <Select
-                    options={optjenisLayanan}
-                    name="service_type"
-                    value={jenisLayanan}
-                    onChange={(e) => setJenisLayanan(e.label)}
-                    isInvalid={!!formik.errors.service_type}
-                    styles={customStylesReactSelect}
-                  /> */}
-
-                  <Select
-                    options={serviceTypeOptions}
-                    value={serviceType}
-                    isSearchable
-                    placeholder="Select Service Type"
-                    name="service_type"
-                    styles={customStylesReactSelect}
-                    onChange={(value) => setServiceType(value)}
-                  />
-                </InputGroup>
-              </Form.Group>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Diskon</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="diskon"
-                    value={formik.values.diskon}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.diskon}
                   />
                 </InputGroup>
               </Form.Group>
@@ -422,7 +362,43 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-
+            </Col>
+            <Col span={6}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label>Jenis kendaraan </Form.Label>
+                <InputGroup>
+                  <Select
+                    options={jenisKendaraanOptions}
+                    value={jenisKendaraan}
+                    isSearchable
+                    placeholder="Select Jenis Kendaraan"
+                    name="id_kendaraan_jenis"
+                    styles={customStylesReactSelect}
+                    onChange={onSelectChange}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          {/* Pelayanan */}
+          <Row>
+            <Col span={6}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label>Jenis Layanan</Form.Label>
+                <InputGroup>
+                  <Select
+                    options={serviceTypeOptions}
+                    value={serviceType}
+                    isSearchable
+                    placeholder="Select Service Type"
+                    name="service_type"
+                    styles={customStylesReactSelect}
+                    onChange={(value) => setServiceType(value)}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Jenis Kiriman</Form.Label>
                 <InputGroup>
@@ -452,6 +428,70 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
+            </Col>
+          </Row>
+       
+          <br />
+          <hr />
+          <br />
+          <h5>
+            Tarif Customer
+          </h5>
+          <Row style={{ marginBottom: "10px" }} className="mt-4">
+            <Col span={6}>
+              <Form.Group>
+                <Form.Label>Tarif Katalog</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="biaya_jalan"
+                    value={formik.values.biaya_jalan}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.biaya_jalan}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={6}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label>Jenis Diskon</Form.Label>
+                <InputGroup>
+                  <Select
+                    options={optjenisDiskon}
+                    name="jenis_diskon"
+                    value={jenisDiskon}
+                    onChange={(e) => setJenisDiskon(e)}
+                    isInvalid={!!formik.errors.service_type}
+                    styles={customStylesReactSelect}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={6}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label>Diskon</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="diskon"
+                    value={formik.values.diskon}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.diskon}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={6}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label>Total Biaya</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="diskon"
+                    value={formik.values.diskon}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.diskon}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
               {/* <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Tarif Katalog</Form.Label>
                 <InputGroup>
@@ -466,18 +506,7 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group> */}
-              <Form.Group>
-                <Form.Label>Tarif Katalog</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="biaya_jalan"
-                    value={formik.values.biaya_jalan}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.biaya_jalan}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
+          
           </Row>
           <br />
           <hr />

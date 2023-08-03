@@ -185,6 +185,7 @@ const SamplePage = () => {
       const data = response.data;
 
       if (data.status.code === 200) {
+        console.log(response.data.data.order, "respons");
         setListData(data.data.order);
         setTotal(data.data.totalData);
       } else {
@@ -351,7 +352,7 @@ const SamplePage = () => {
           pagination={{
             showSizeChanger: true,
             onChange: onShowSizeChange,
-            defaultCurrent: 3,
+            defaultCurrent: 1,
             total: 500,
           }}
         />

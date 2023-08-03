@@ -44,11 +44,13 @@ const SamplePage = () => {
     setLoadingState(true);
     httpClient
       .get(
-        `tarif/get-tarifMitra?limit=${limit}&page=${currentPage}&id_muat_kota=&id_tujuan_kota=&id_kendaraan_jenis=${value.target.value}`
+        `tarif/get-tarifCustomer?limit=${limit}&page=${currentPage}&id_muat_kota=&id_tujuan_kota=&id_kendaraan_jenis=${value.target.value}&id_price=&id_customer=`
+        // `tarif/get-tarifMitra?limit=${limit}&page=${currentPage}&id_muat_kota=&id_tujuan_kota=&id_kendaraan_jenis=${value.target.value}`
       )
       .then(({ data }) => {
         if (data.status.code === 200) {
           setLoadingState(false);
+          console.log("respons", data.data);
           setOrder(data.data.order);
           setTotal(data.data.totalData);
         }
@@ -118,12 +120,12 @@ const SamplePage = () => {
     //   dataIndex: "biaya_bongkar",
     //   key: "biaya_bongkar",
     // },
-    {
-      title: "Biaya Lain",
-      dataIndex: "biaya_lain",
-      key: "biaya_lain",
-      render: (biaya_lain) => formatRupiah(biaya_lain),
-    },
+    // {
+    //   title: "Biaya Lain",
+    //   dataIndex: "biaya_lain",
+    //   key: "biaya_lain",
+    //   render: (biaya_lain) => formatRupiah(biaya_lain),
+    // },
 
     {
       title: "Aksi",
@@ -212,7 +214,8 @@ const SamplePage = () => {
   }, [currentPage, limit, muatKota, kotaTujuan]);
 
   const handleAdd = (id) => {
-    router.push(`/pelanggantarifcerate/`);
+    router.push(`/NewTarifCustomer/`);
+    // router.push(`/pelanggantarifcerate/`);
   };
 
   const handleDelete = (id) => {

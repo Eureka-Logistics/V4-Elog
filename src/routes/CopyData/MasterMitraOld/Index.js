@@ -40,6 +40,11 @@ const SamplePage = () => {
       width: "80px",
     },
     {
+      name: "Mitra Code",
+      selector: (row) => row.mitraCode,
+      width: "120px",
+    },
+    {
       name: "Status",
       selector: (row) =>
         row.status === "habis kontrak" ? (

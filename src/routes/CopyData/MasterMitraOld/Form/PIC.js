@@ -4,7 +4,7 @@ import DataTable from "react-data-table-component";
 import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import Baseurl from "../../../../Api/BaseUrl";
-import { Pagination } from "antd";
+import { Col, Pagination } from "antd";
 
 function PIC({ mitraId }) {
   const [showModal, setShowModal] = useState(false);
@@ -15,6 +15,7 @@ function PIC({ mitraId }) {
     setShowModal(true);
   };
 
+  
   const initialValues = {
     nama: "",
     email: "",
@@ -52,7 +53,7 @@ function PIC({ mitraId }) {
       console.error(error);
     }
   };
- 
+
   useEffect(() => {
     fetchDataDetail();
   }, []);
@@ -84,32 +85,36 @@ function PIC({ mitraId }) {
       name: "Jabatan",
       selector: (row) => row.jabatan,
     },
-    // {
-    //   name: "Aksi",
-    //   cell: (row) => (
-    //     <>
-    //       <Button size="sm" variant="primary" onClick={handleShowModal}>
-    //         Detail
-    //       </Button>
-    //       <Button size="sm" variant="danger">
-    //         Hapus
-    //       </Button>
-    //     </>
-    //   ),
-    // },
+    {
+      name: "Aksi",
+      cell: (row) => (
+        <>
+          <Button size="sm" variant="primary" onClick={handleShowModal}>
+            Detail
+          </Button>
+          <Button size="sm" variant="danger">
+            Hapus
+          </Button>
+        </>
+      ),
+    },
   ];
 
   return (
     <div>
       <Row>
-        <b>DATA PENANGGUNG JAWAB (Person In Charge)</b>
-        <DataTable columns={columns} data={dataList} />
-        <div className="mt-5 d-flex justify-content-end">
-          <Pagination 
-           defaultCurrent={100}
-           total={dataPagination} />
-        </div>
+        <Col span={8}>
+          <h5>DATA PENANGGUNG JAWAB (Person In Charge)</h5>
+        </Col>
+        <Col span={16} className="d-flex justify-content-end">
+          <Button>Tambah Data PIC</Button>
+        </Col>
       </Row>
+      <hr />
+      <DataTable columns={columns} data={dataList} />
+      <div className="mt-5 d-flex justify-content-end">
+        <Pagination defaultCurrent={100} total={dataPagination} />
+      </div>
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Modal Title</Modal.Title>
@@ -172,7 +177,7 @@ function PIC({ mitraId }) {
                   name="ktp"
                 />
               </div>
-              <button type="submit" className="btn btn-primary">
+              <button onClick={handleSubmit} className="btn btn-primary">
                 Submit
               </button>
             </Form>
