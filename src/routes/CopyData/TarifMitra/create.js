@@ -461,7 +461,7 @@ const SamplePage = () => {
           </Row>
         </Form>
         <Col span={24} className="d-flex justify-content-end">
-              <Button type="submit">Simpan Tarif</Button>
+              <Button onClick={formik.handleSubmit} >Simpan Tarif</Button>
             </Col>
       </Card>
     </div>

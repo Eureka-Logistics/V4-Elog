@@ -304,22 +304,6 @@ const SamplePage = () => {
           <Row style={{ marginBottom: "10px" }}>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Nama Mitra</Form.Label>
-                <InputGroup>
-                  <Select
-                    options={customerOptions}
-                    value={IdMitra}
-                    isSearchable
-                    placeholder="Select Mitra"
-                    name="id_mitra"
-                    styles={customStylesReactSelect}
-                    onChange={onSelectChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={6}>
-              <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Kota Muat</Form.Label>
                 <InputGroup>
                   <Select
@@ -350,22 +334,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Via</Form.Label>
-                <InputGroup>
-                  <Select
-                    options={viaOptions}
-                    value={via}
-                    isSearchable
-                    placeholder="Select Via"
-                    name="via"
-                    styles={customStylesReactSelect}
-                    onChange={onSelectChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
+           
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Jenis kendaraan </Form.Label>
@@ -378,6 +347,26 @@ const SamplePage = () => {
                     name="id_kendaraan_jenis"
                     styles={customStylesReactSelect}
                     onChange={onSelectChange}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+           
+           
+          </Row>
+          <Row>
+          
+            <Col span={6}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label>Jenis Kiriman</Form.Label>
+                <InputGroup>
+                  <Select
+                    options={optjenisKiriman}
+                    name="jenis_kiriman"
+                    value={jenisKiriman}
+                    onChange={(e) => setJenisKiriman(e)}
+                    isInvalid={!!formik.errors.jenis_kiriman}
+                    styles={customStylesReactSelect}
                   />
                 </InputGroup>
               </Form.Group>
@@ -399,15 +388,16 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Jenis Kiriman</Form.Label>
+                <Form.Label>Via</Form.Label>
                 <InputGroup>
                   <Select
-                    options={optjenisKiriman}
-                    name="jenis_kiriman"
-                    value={jenisKiriman}
-                    onChange={(e) => setJenisKiriman(e)}
-                    isInvalid={!!formik.errors.jenis_kiriman}
+                    options={viaOptions}
+                    value={via}
+                    isSearchable
+                    placeholder="Select Via"
+                    name="via"
                     styles={customStylesReactSelect}
+                    onChange={onSelectChange}
                   />
                 </InputGroup>
               </Form.Group>

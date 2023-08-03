@@ -53,28 +53,28 @@ const SamplePage = () => {
     //   dataIndex: "id_kendaraan_jenis",
     //   key: "id_kendaraan_jenis",
     // },
-    // {
-    //   title: "No.",
-    //   dataIndex: nomor,
-    //   key: nomor,
-    // },
-
     {
-      title: "Jenis Pelayanan",
-      dataIndex: "service_type",
-      key: "service_type",
-      render: (text) => {
-        let tagColor = "";
-        if (text === "Retail") {
-          tagColor = "lime";
-        } else if (text === "Charter") {
-          tagColor = "orange";
-        } else if (text === "reguler") {
-          tagColor = "blue";
-        }
-        return <Tag color={tagColor}>{text}</Tag>;
-      },
+      title: "No.",
+      dataIndex: "no",
+      key: "no",
     },
+
+    // {
+    //   title: "Jenis Pelayanan",
+    //   dataIndex: "service_type",
+    //   key: "service_type",
+    //   render: (text) => {
+    //     let tagColor = "";
+    //     if (text === "Retail") {
+    //       tagColor = "lime";
+    //     } else if (text === "Charter") {
+    //       tagColor = "orange";
+    //     } else if (text === "reguler") {
+    //       tagColor = "blue";
+    //     }
+    //     return <Tag color={tagColor}>{text}</Tag>;
+    //   },
+    // },
     {
       title: "Jenis Kiriman",
       dataIndex: "jenis_kiriman",
@@ -91,33 +91,33 @@ const SamplePage = () => {
         return <Tag color={tagColor}>{jenis_kiriman}</Tag>;
       },
     },
-    {
-      title: "Tarif",
-      dataIndex: "tarif",
-      key: "tarif",
-      render: (tarif) => formatRupiah(tarif), // Menggunakan fungsi formatRupiah untuk mengubah angka menjadi format Rupiah
-    },
-    {
-      title: "Ritase",
-      dataIndex: "ritase",
-      key: "ritase",
-    },
-    {
-      title: "Uang Jalan",
-      dataIndex: "uang_jalan",
-      key: "uang_jalan",
-      render: (uang_jalan) => formatRupiah(uang_jalan),
-    },
+    // {
+    //   title: "Tarif",
+    //   dataIndex: "tarif",
+    //   key: "tarif",
+    //   render: (tarif) => formatRupiah(tarif), // Menggunakan fungsi formatRupiah untuk mengubah angka menjadi format Rupiah
+    // },
+    // {
+    //   title: "Ritase",
+    //   dataIndex: "ritase",
+    //   key: "ritase",
+    // },
+    // {
+    //   title: "Uang Jalan",
+    //   dataIndex: "uang_jalan",
+    //   key: "uang_jalan",
+    //   render: (uang_jalan) => formatRupiah(uang_jalan),
+    // },
     // {
     //   title: "Status",
     //   dataIndex: "status",
     //   key: "status",
     // },
-    {
-      title: "Tanggal Pembuatan",
-      dataIndex: "date_created",
-      key: "date_created",
-    },
+    // {
+    //   title: "Tanggal Pembuatan",
+    //   dataIndex: "date_created",
+    //   key: "date_created",
+    // },
     // {
     //   title: "id_user",
     //   dataIndex: "id_user",
@@ -127,6 +127,7 @@ const SamplePage = () => {
       title: "Muat",
       dataIndex: "kotaAsal",
       key: "kotaAsal",
+      width: "20%"
     },
     {
       title: "Tujuan",
@@ -184,6 +185,7 @@ const SamplePage = () => {
       const data = response.data;
 
       if (data.status.code === 200) {
+        console.log(response.data.data.order, "respons");
         setListData(data.data.order);
         setTotal(data.data.totalData);
       } else {
@@ -350,7 +352,7 @@ const SamplePage = () => {
           pagination={{
             showSizeChanger: true,
             onChange: onShowSizeChange,
-            defaultCurrent: 3,
+            defaultCurrent: 1,
             total: 500,
           }}
         />

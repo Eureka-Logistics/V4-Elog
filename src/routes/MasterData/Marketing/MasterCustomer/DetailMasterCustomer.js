@@ -14,7 +14,7 @@ function DetailMasterCustomer() {
   const [NamaPerusahaan, setDataNamaPerusahaan] = useState("");
   const [DetailDataMasterCustomer, setDataDetailDataMasterCustomer] =
     useState("");
-  const [toPValue, setToPValue] = useState("");
+  // const [toPValue, setToPValue] = useState("");
   const [JenisUsahaan, setDataJenisUsahaan] = useState(null);
   const [AlamatCustomer, setDataAlamatCustomer] = useState("");
   const [CompanyAnniversaryy, setDataCompanyAnniversaryy] = useState("");
@@ -40,7 +40,7 @@ function DetailMasterCustomer() {
   const [NamaBank, setDataNamaBank] = useState("");
   const [NamaAkunBank, setDataNamaAkunBank] = useState("");
   const [NoRek, setDataNoRek] = useState("");
-  const [ToPTimeToOptiion, setDataToPTimeToOptiion] = useState("");
+  // const [ToPTimeToOptiion, setDataToPTimeToOptiion] = useState("");
   const [JenisPembayaran, setDataJenisPembayaran] = useState("");
   const [BankUntukPIC, setDataBankUntukPIC] = useState("");
   const [BankPositions, setDataBankPositions] = useState("");
@@ -53,6 +53,7 @@ function DetailMasterCustomer() {
   const [InvoiceMobile, setDataInvoiceMobile] = useState("");
   const [InvoicePhoneOffice, setDataInvoicePhoneOffice] = useState(DetailDataMasterCustomer?.invoice_phone_office);
   const [CodeCustomer, setDataKodeCustomer] = useState("");
+  const [DataTOP, setDataTOP] = useState("");
   const [Loading , setLoading ]= useState(false)
 
   const DetailMasterCustomers = async (id_customer) => {
@@ -70,6 +71,7 @@ function DetailMasterCustomer() {
 
       console.log("response", respons.data.data);
       setDataDetailDataMasterCustomer(respons.data.data);
+      setDataTOP(respons.data.data.top || "");
       setDataNamaPerusahaan(respons.data.data?.nama_perusahaan || "");
       setDataJenisUsahaan(respons.data.data?.jenis_usaha || "");
       setDataAlamatCustomer(respons.data.data?.alamat_kantor || "");
@@ -96,10 +98,10 @@ function DetailMasterCustomer() {
       setDataNamaBank(respons.data.data?.nama_bank || "");
       setDataNamaAkunBank(respons.data.data?.nama_akun || "");
       setDataNoRek(respons.data.data?.no_rek || "");
-      setDataToPTimeToOptiion(respons.data.data?.top || "");
+      // setDataToPTimeToOptiion(respons.data.data?.top || "");
       setDataJenisPembayaran(respons.data.data?.jenis_pembayaran || "");
-      setDataBankUntukPIC(respons.data.data?.bank_untuk_pic || "");
-      setDataBankPositions(respons.data.data?.bank_positions || "");
+      setDataBankUntukPIC(respons.data.data?.bank_pic || "");
+      setDataBankPositions(respons.data.data?.bank_position || "");
       setDataBankEmail(respons.data.data?.bank_email || "");
       setDataBankPhoneOffice(respons.data.data?.bank_phone_office || "");
       setDataBankMobilee(respons.data.data?.bank_mobile || "");
@@ -109,7 +111,7 @@ function DetailMasterCustomer() {
       setDataInvoiceMobile(respons.data.data?.invoice_mobile || "");
       setDataInvoicePhoneOffice(respons.data.data?.invoice_phone_office || "");
       setDataKodeCustomer(respons.data.data?.kode_customer || "");
-      setToPValue(respons.data.data?.top || "");
+      // setToPValue(respons.data.data?.top || "");
 
       //   console.log("responssssscarismid", respons.data.data);
 
@@ -151,7 +153,7 @@ function DetailMasterCustomer() {
         nama_akun: NamaAkunBank,
         no_rek: NoRek,
         jenis_pembayaran: JenisPembayaran,
-        top: toPValue,
+        top: DataTOP,
         bank_pic: BankUntukPIC,
         bank_position: BankPositions,
         bank_email: BankEmail,
@@ -216,9 +218,9 @@ function DetailMasterCustomer() {
     DetailMasterCustomers(id_customer);
   }, []);
 
-  const handleToPChange = (options) => {
-    setToPValue(options.children);
-  };
+  // const handleToPChange = (options) => {
+  //   setToPValue(options.children);
+  // };
 
 
   
@@ -492,7 +494,7 @@ function DetailMasterCustomer() {
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col span={16}>
             <label style={{ fontWeight: "bold" }}> TDP Number : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -505,9 +507,8 @@ function DetailMasterCustomer() {
               }}
             />
           </Col>
-          <Col span={8}>
+          {/* <Col span={8}>
             <label style={{ fontWeight: "bold" }}> NIB Number : </label>
-            {/* Menghubungkan input tarif dengan state tarif */}
             <Input
               className="mt-2"
               placeholder={DetailDataMasterCustomer.pkp}
@@ -517,7 +518,7 @@ function DetailMasterCustomer() {
                 setDataNomorPKP(e.target.value);
               }}
             />
-          </Col>
+          </Col> */}
         </Row>
         <Row className="mt-3">
           <Col span={8}>
@@ -639,7 +640,8 @@ function DetailMasterCustomer() {
             <label style={{ fontWeight: "bold" }}>Type Of Payment : </label>
             <Select
               className="mt-2"
-              placeholder={DetailDataMasterCustomer.jenis_pembayaran}
+              // placeholder={DetailDataMasterCustomer.jenis_pembayaran}  
+              value={JenisPembayaran}
               style={{ width: "90%" }}
               onChange={(e) => setDataJenisPembayaran(e)}
             >
@@ -649,20 +651,17 @@ function DetailMasterCustomer() {
           </Col>
           
           <Col span={8}>
-            <label style={{ fontWeight: "bold" }}>ToP : </label>
-            <Select
+            <label style={{ fontWeight: "bold" }}> ToP : </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
               className="mt-2"
-              placeholder={DetailDataMasterCustomer.top} // Make sure this contains a valid value
-              style={{ width: "100%" }}
-              onChange={(e,options)=>{console.log(options.children);handleToPChange(options)}}
-              value={toPValue} // Bind the state value to the Select component
-            >
-              <Option value="0">---</Option>
-              <Option value="1">7 Hari</Option>
-              <Option value="2">14 Hari</Option>
-              <Option value="3">30 Hari</Option>
-              <Option value="4">60 Hari</Option>
-            </Select>
+              placeholder={DetailDataMasterCustomer.top}
+              value={DataTOP}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDataTOP(e.target.value);
+              }}
+            />
           </Col>
           <Col span={8}>
             <label style={{ fontWeight: "bold" }}> BANK PIC : </label>

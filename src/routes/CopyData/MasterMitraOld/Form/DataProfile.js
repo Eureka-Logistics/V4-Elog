@@ -32,6 +32,7 @@ const SamplePage = () => {
   const [show, setShow] = useState(false);
   const [datanyaPT, setDatanyaPT] = useState("");
   const [isiValues, setIsiValues] = useState("");
+  const [DataOptions, setDataOptions] = useState("");
 
   const formik = useFormik({
     initialValues: {
@@ -309,6 +310,7 @@ const SamplePage = () => {
       }
     );
     console.log(data.data, "ini data options");
+    setDataOptions(data.data)
   };
 
   useEffect(() => {
@@ -605,11 +607,11 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
           </Row>
-          <Row>
-            <Col span={8}>
+          <Row className="mt-2">
+            <Col span={8} >
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
-                  Wilayah :
+                  Wilayah (Operasional):
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
@@ -724,6 +726,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                  type="number"
                     name="npwp_id"
                     value={formik.values.npwp_id}
                     onChange={formik.handleChange}
@@ -801,6 +804,7 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>Nomor :</Form.Label>
                 <InputGroup>
                   <Form.Control
+                  type="number"
                     name="npwp_nomor"
                     value={formik.values.npwp_nomor}
                     onChange={formik.handleChange}
@@ -814,6 +818,7 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>RT : </Form.Label>
                 <InputGroup>
                   <Form.Control
+                  type="number"
                     name="npwp_rt"
                     value={formik.values.npwp_rt}
                     onChange={formik.handleChange}
@@ -827,6 +832,7 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>RW : </Form.Label>
                 <InputGroup>
                   <Form.Control
+                  type="number"
                     name="npwp_rw"
                     value={formik.values.npwp_rw}
                     onChange={formik.handleChange}
@@ -902,6 +908,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                  type="number"
                     name="npwp_kodepos"
                     value={formik.values.npwp_kodepos}
                     onChange={formik.handleChange}
@@ -951,6 +958,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                  type="number"
                     name="no_rek"
                     value={formik.values.no_rek}
                     onChange={formik.handleChange}

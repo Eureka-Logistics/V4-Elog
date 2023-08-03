@@ -52,6 +52,17 @@ const SamplePage = () => {
       title: "Perusahaan",
       dataIndex: "custName",
       key: "custName",
+      
+    },
+    {
+      title: "Barang",
+      dataIndex: "custStuff",
+      key: "custStuff",
+    },
+    {
+      title: "Nomor Telepon",
+      dataIndex: "custTelephone",
+      key: "custTelephone",
     },
     {
       title: "Action",

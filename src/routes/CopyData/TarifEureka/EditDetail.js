@@ -37,6 +37,10 @@ function EditDetail() {
   const [tarif, setTarif] = useState(null); // State untuk menyimpan nilai tarif yang akan diubah
   const [ritase, setRitase] = useState(null); // State untuk menyimpan nilai ritase yang akan diubah
   const [uangJalan, setUangJalan] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
+  const [IDMuat, setIDMuat] =  useState("");
+  const [IDTujuan, setIDTujuan] = useState("");
+  const [IDJenisKendaraan, setIDJenisKendaraan] = useState("");
+
 
   const fetchData = async () => {
     try {
@@ -67,11 +71,19 @@ function EditDetail() {
       );
       console.log("response", respons.data.data[0]);
       setDetailDataTarif(respons.data.data[0]);
-      setDataVia(respons.data);
-      //   console.log("responssssscarismid", respons.data.data);
+      setmitraId(respons.data.data[0].kotaAsal);
+      setKotaYangDiTuju(respons.data.data[0].kotaTujuan);
+      setJenisKendaraan(respons.data.data[0].kendaraanJenis);
+      setIDMuat(respons.data.data[0].id_muat_kota);
+      setIDTujuan(respons.data.data[0].id_tujuan_kota);
+      setIDJenisKendaraan(respons.data.data[0].id_kendaraan_jenis);
+      setServiceType(respons.data.data[0].service_type);
+      setJenisKiriman(respons.data.data[0].jenis_kiriman);
+      setRitase(respons.data.data[0].ritase);
+      setTarif(respons.data.data[0].tarif);
+      setUangJalan(respons.data.data[0].uang_jalan);
 
-      //   setDataTambah(respons.data);
-      //   setSJList(respons.data?.data?.sj);
+      setDataVia(respons.data);
     } catch (error) {}
   };
 
@@ -79,9 +91,9 @@ function EditDetail() {
     try {
       const data = {
         id_price: id_price,
-        id_muat_kota: parseInt(mitraId),
-        id_tujuan_kota: parseInt(KotaYangDiTuju),
-        id_kendaraan_jenis: parseInt(jenisKendaraan),
+        id_muat_kota: parseInt(IDMuat),
+        id_tujuan_kota: parseInt(IDTujuan),
+        id_kendaraan_jenis: parseInt(IDJenisKendaraan),
         service_type: ServiceType,
         jenis_kiriman: Kiriman,
         tarif: parseInt(tarif),
@@ -158,12 +170,14 @@ function EditDetail() {
             <label>Kota Muat :</label>
             <Select
               showSearch
-              placeholder={DetailDataTarif.kotaAsal}
+              // placeholder={DetailDataTarif.kotaAsal}
+              value={mitraId}
               optionFilterProp="value"
               style={{ width: "90%" }}
               onChange={(e, options) => {
                 console.log(options.key);
-                setmitraId(options.key);
+                setmitraId(options);
+                setIDMuat(options.key);
               }}
             >
               {DataTambah &&
@@ -181,12 +195,14 @@ function EditDetail() {
             <label>Kota Tujuan :</label>
             <Select
               showSearch
-              placeholder={DetailDataTarif.kotaTujuan}
+              // placeholder={DetailDataTarif.kotaTujuan}
+              value={KotaYangDiTuju}
               optionFilterProp="value"
               style={{ width: "90%" }}
               onChange={(e, options) => {
                 console.log(options.key);
-                setKotaYangDiTuju(options.key);
+                setKotaYangDiTuju(options);
+                setIDTujuan(options.key);
               }}
             >
               {DataTambah &&
@@ -204,10 +220,15 @@ function EditDetail() {
             <label>Jenis Kendaraan :</label>
             <Select
               showSearch
-              placeholder={DetailDataTarif.kendaraanJenis}
+              // placeholder={DetailDataTarif.kendaraanJenis}
+              value={jenisKendaraan}
               optionFilterProp="value"
               style={{ width: "90%" }}
-              onChange={(e, options) => setJenisKendaraan(options.key)}
+              onChange={(e, options) => {
+                console.log(options.key);
+                setJenisKendaraan(options);
+                setIDJenisKendaraan(options.key);
+              }}
             >
               {DataTambah &&
                 DataTambah.jenisKendaraan.map((KendaraanItem) => (
@@ -226,7 +247,8 @@ function EditDetail() {
             <label>Service Type :</label>
             <Select
               className="mt-2"
-              placeholder={DetailDataTarif.service_type}
+              // placeholder={DetailDataTarif.service_type}
+              value={ServiceType}
               style={{ width: "90%" }}
               onChange={(e) => setServiceType(e)}
             >
@@ -238,7 +260,8 @@ function EditDetail() {
             <label>Jenis Kiriman :</label>
             <Select
               className="mt-2"
-              placeholder={DetailDataTarif.jenis_kiriman}
+              // placeholder={DetailDataTarif.jenis_kiriman}
+              value={Kiriman}
               style={{ width: "90%" }}
               onChange={(e) => setJenisKiriman(e)}
             >
@@ -280,7 +303,7 @@ function EditDetail() {
             <label>Tarif :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
-              placeholder={DetailDataTarif.tarif}
+              // placeholder={DetailDataTarif.tarif}
               value={tarif}
               onChange={(e) => {
                 console.log(e.target.value);
@@ -292,7 +315,7 @@ function EditDetail() {
             <label>Ritase :</label>
             {/* Menghubungkan input ritase dengan state ritase */}
             <Input
-              placeholder={DetailDataTarif.ritase}
+              // placeholder={DetailDataTarif.ritase}
               value={ritase}
               onChange={(e) => {
                 console.log(e.target.value);
@@ -304,7 +327,7 @@ function EditDetail() {
             <label>Uang Jalan :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
-              placeholder={DetailDataTarif.uang_jalan}
+              // placeholder={DetailDataTarif.uang_jalan}
               value={uangJalan}
               onChange={(e) => setUangJalan(e.target.value)}
             />
