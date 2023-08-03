@@ -11,7 +11,7 @@ function Index() {
     const [Loading, Isloading] = useState(false)
     const [search, setSearch] = useState("")
     // const [page, setPage] = useState(1);
-    const [totalRows, setTotalRows] = useState(20);
+    const [totalRows, setTotalRows] = useState("");
 
 
     const history = useHistory()
@@ -114,7 +114,7 @@ function Index() {
         <div>
             <Card>
                 <Row>
-                    <h5>Waiting Approve Sp</h5>
+                    <h5>Waiting Approve Sp </h5>
                     <div className="d-flex justify-content-end">
                         <Col sm={3}>
                             <Form.Control

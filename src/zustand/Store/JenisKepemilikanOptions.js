@@ -19,7 +19,6 @@ const ZustandStore = create((set) => ({
           }
       });
       set({ DriverType: data.data.data.driverType });
-      console.log(`ini`,data.data.data.driverType);
     } catch (error) {
       console.error(error);
     }

@@ -1,4 +1,4 @@
-import { Card, Input, Select, Tag } from "antd";
+import { Card, Pagination, Tag } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Form } from "react-bootstrap";
@@ -6,7 +6,6 @@ import DataTable from "react-data-table-component";
 import Baseurl from "../../../Api/BaseUrl";
 import { useHistory } from "react-router-dom";
 import elogGif from "../../../assets/Loader_Elogs1.gif"
-import SpStore from "../../../zustand/Store/FilterSP";
 function SplistAkuntingBaru() {
   const [dataApi, setdataapi] = useState([]);
   const [combinedData, setCombinedData] = useState([]);
@@ -17,43 +16,11 @@ function SplistAkuntingBaru() {
   const [datamobil, setDatamobil] = useState([]);
   const [loading, setLoading] = useState(false);
   const [AapproveActValue, setAapproveActValue] = useState("");
-  const [CustumerValue, setCustumerValue] = useState("")
-  const [CariCabangValue, setCariCabangValue] = useState("")
-  const [CariSalesValue, setCariSalesValue] = useState("")
-  const [CariBu, setCariBu] = useState("")
-  const { SPFilter, setSPFilter } = SpStore((items) => ({
-    SPFilter: items.SPFilter,
-    setSPFilter: items.setSPFilter
-  }))
-
-  let nomor = 1
-  const CariCustomerOptions = SPFilter && SPFilter.customer && [
-    { label: "-", value: "" },
-    ...SPFilter.customer.map((item) => ({
-      label: item.customer,
-      value: item.idcustomer
-    }))
-  ];
-
-  const CariCabangOptions = SPFilter && SPFilter.cabang && [{ label: "-", value: "" },
-  ...SPFilter.cabang.map((item) => ({
-    label: item.cabang,
-    value: nomor++
-  }))]
-  const CariSalesOptions = SPFilter && SPFilter.sales && [{ label: "-", value: "" },
-  ...SPFilter.sales.map((item) => ({
-    label: item.sales,
-    value: item.idSales
-  }))]
-  const CariBUOptions = SPFilter && SPFilter.bu && [{ label: "-", value: "" }, ...SPFilter.bu.map((item) => ({
-    label: item.bu,
-    value: item.idbu
-  }))]
   const columns = [
     {
       name: "No",
       selector: (row) => row?.no,
-      width: "50px",
+      width: "70px",
     },
     {
       name: "No SP",
@@ -188,13 +155,10 @@ function SplistAkuntingBaru() {
 
 
 
-  useEffect(() => {
-    setLoading(true)
-    const dataapi = async () => {
+    const dataapi = async (page = 1) => {
       setLoading(true)
       const data = await axios.get(
-        // `${Baseurl}sp/get-SP-all?limit=11&page=${page}&keyword=${filter}`,
-        `${Baseurl}sp/get-SP-all?limit=11&page=${page}&keyword=${filter}&statusSP=&customerId=${CustumerValue}&cabang=${CariCabangValue}&sales=${CariSalesValue}&buId=${CariBu}`,
+        `${Baseurl}sp/get-SP-all?limit=10&page=${page}&keyword=${filter}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -220,90 +184,74 @@ function SplistAkuntingBaru() {
         dateApprovePurch: item?.dateApprovePurch,
       }));
 
-      console.log(`ini`, data.data.data.order.approveAct);
-      const detailPromises = isi.map(item => detailSP(item.idmp));
-      const details = await Promise.all(detailPromises);
+      // console.log(`ini`, data.data.data.order.approveAct);
+      // const detailPromises = isi.map(item => detailSP(item.idmp));
+      // const details = await Promise.all(detailPromises);
 
-      const combinedData = isi.map((item, index) => ({
-        ...item,
-        vehicles: details[index]
-      }));
-
-      setTotalRows(data.data.data.total);
+      // const combinedData = isi.map((item, index) => ({
+      //   ...item,
+      //   vehicles: details[index]
+      // }));
+      setdataapi(data.data.data.order)
+      setTotalRows(data.data.data.totalPage);
       setCombinedData(combinedData);
       setLoading(false)
     };
-    dataapi();
-    setSPFilter()
-  }, [filter, page,CustumerValue, CariCabangValue, CariSalesValue, CariBu]);
+  useEffect(() => {
 
-  console.log();
+    dataapi();
+  }, [filter, page]);
+
+  // console.log();
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
   };
 
-  const detailSP = async (idmp) => {
-    try {
-      const response = await axios.get(
-        `${Baseurl}sp/get-SP-all-detail?idmp=${idmp}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      );
-      return response.data.detail.map((item) => ({
-        kendaraan: item?.kendaraan,
-        destination: item?.destination
-      }));
-    } catch (error) {
-      console.error(error);
-      return [];
-    }
+  // const detailSP = async (idmp) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${Baseurl}sp/get-SP-all-detail?idmp=${idmp}`,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: localStorage.getItem("token"),
+  //         },
+  //       }
+  //     );
+  //     return response.data.detail.map((item) => ({
+  //       kendaraan: item?.kendaraan,
+  //       destination: item?.destination
+  //     }));
+  //   } catch (error) {
+  //     console.error(error);
+  //     return [];
+  //   }
+  // };
+
+  // useEffect(() => {
+  // }, [datamobil]);
+  const onShowSizeChange = (page, pageSize) => {
+    // console.log(current, pageSize);
+    dataapi(page)
   };
-
-  useEffect(() => {
-  }, [datamobil]);
-
   return (
     <div>
       <Card>
         <Row>
           <Col>
-          <Row>
-            <h5>Sp List</h5>
-              <Col sm={2}>
-                <Form.Group controlId="search">
-                  <Select options={CariCustomerOptions} showSearch optionFilterProp="label" onChange={(e) => setCustumerValue(e)} placeholder="Cari Customer" style={{ width: "100%" }} />
-                </Form.Group>
-              </Col>
-              <Col sm={2}>
-                <Form.Group controlId="cabang">
-                  <Select optionFilterProp="label" showSearch options={CariCabangOptions} onChange={(e) => setCariCabangValue(e)} placeholder="Cari Cabang" style={{ width: "100%" }} />
-                </Form.Group>
-              </Col>
-              <Col sm={2}>
-                <Form.Group controlId="sales">
-                  <Select optionFilterProp="label" options={CariSalesOptions} onChange={(e) => setCariSalesValue(e)} showSearch placeholder="Cari Sales" style={{ width: "100%" }} />
-                </Form.Group>
-              </Col>
-              <Col sm={2}>
-                <Form.Group controlId="bu">
-                  <Select options={CariBUOptions} optionFilterProp="label" onChange={(e) => setCariBu(e)} showSearch placeholder="Cari Bu" style={{ width: "100%" }} />
-                </Form.Group>
-              </Col>
-              <Col style={{ display: "flex", justifyContent: "flex-end" }} sm={2}>
-                <Form.Group controlId="search">
-                  <Input
-                    placeholder="Cari No SP"
-                    onChange={handleFilterChange}
-                  />
-                </Form.Group>
-              </Col>
+            <Row>
 
+              <div className="d-flex justify-content-end">
+                <Col sm={3}>
+                  <Form.Control
+                    type="text"
+                    placeholder="No SP "
+                    onChange={handleFilterChange}
+
+                  />
+                </Col>
+              </div>
             </Row>
-           
             <style>
               {`
           .rdt_TableBody .rdt_TableRow:hover {
@@ -319,14 +267,20 @@ function SplistAkuntingBaru() {
 
               <DataTable
                 columns={columns}
-                data={combinedData}
-                pagination
-                paginationServer
+                data={dataApi}
                 paginationTotalRows={totalRows}
-                onChangePage={setPage}
                 onRowClicked={buttonarahin}
               />
             )}
+            <div className="mt-3 justify-content-end d-flex">
+            <Pagination
+              showSizeChanger
+              onShowSizeChange={onShowSizeChange}
+              onChange={onShowSizeChange}
+              defaultCurrent={1}
+              total={totalRows}
+            />
+            </div>
           </Col>
         </Row>
       </Card>

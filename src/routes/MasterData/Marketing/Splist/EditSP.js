@@ -13,6 +13,7 @@ import { Col, Row, Form, Modal, Button, Table } from "react-bootstrap";
 
 import * as Yup from 'yup';
 import EditSPNew from "./EditSPNew";
+import ModalCreateDetail from "./ModalCreateDetail";
 
 
 function EditSP({ alamatInvoice }) {
@@ -605,6 +606,7 @@ function EditSP({ alamatInvoice }) {
         <Row>
           <h5>Detail SP</h5>
           <EditSPNew />
+          <ModalCreateDetail idmp={idmp} detailData={detailData}/>
           <div className="d-flex justify-content-end">
             {jobdesk != "sales" && jobdesk != "operasional" ? (
               <>
@@ -1255,7 +1257,7 @@ function EditSP({ alamatInvoice }) {
                             >
                               <td>No {counter++}</td>
                               <td>Alamat Bongkar</td>
-                              <td width="100px">SJ ID</td>
+                              <td width="100px">NO SM</td>
                               <td>Kendaraan</td>
                               <td>Via</td>
                               <td>Item</td>
