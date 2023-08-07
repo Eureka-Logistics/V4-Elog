@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Tag } from "antd";
+import { Card, Tag, message } from "antd";
 import { Col, Row, Form, Button, ButtonGroup } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import axios from "axios";
@@ -31,16 +31,20 @@ function SJ() {
     NamaMitraGlobalZustand: state.NamaMitraGlobalZustand,
     setNamaMitraGlobalZustand: state.setNamaMitraGlobalZustand
   }))
-
-  const [KodeCabangValue, setKodeCabangValue] = useState([])
-  const [selectedMitra, setSelectedMitra] = useState([])
+  const [Mitra1, setMitra1] = useState("")
+  const [Mitra2, setMitra2] = useState("")
+  const [Mitra3, setMitra3] = useState("")
+  const [KodeCabangValue, setKodeCabangValue] = useState("")
+  const [selectedMitra, setSelectedMitra] = useState("")
   const [BusetApi, setBusetApi] = useState("")
   const [bubrenchApi, setbubrenchApi] = useState("")
-  const dataapi = async (page = 1, size = 10, value = "") => {
+  const dataapi = async (page = 1, size = 10,) => {
     try {
       setLoading(true)
       const isi = await axios.get(
-        `${Baseurl}sm/get-sm?limit=${size}&page=${page}&keyword=${search}&kodeCabang=${KodeCabangValue}&mitra1=${selectedMitra[0]}&mitra2=${selectedMitra[1]}&mitra3=${selectedMitra[2]}&id_bu=${BusetApi}&id_bu_brench=${bubrenchApi}`,
+        `${Baseurl}sm/get-sm?limit=${size}&page=${page}&keyword=${search}&kodeCabang=${KodeCabangValue}&mitra1=${Mitra1}&mitra2=${Mitra2}&mitra3=${Mitra3}&id_bu=${BusetApi}&id_bu_brench=${bubrenchApi}`,
+        // `${Baseurl}sm/get-sm?limit=10&page=1&keyword=`,
+
         {
           headers: {
             "Content-Type": "application/json",
@@ -83,7 +87,7 @@ function SJ() {
     dataapi()
     // dataapi(pagination.currentPage);
     SMFilter()
-  }, [search, KodeCabangValue, BusetApi, bubrenchApi, selectedMitra]);
+  }, [search, KodeCabangValue, BusetApi, bubrenchApi, selectedMitra, Mitra1, Mitra2, Mitra3]);
 
   const columns = [
     {
@@ -231,10 +235,10 @@ function SJ() {
     history.push(`/masterdata/detailsjlist/${row.id}`);
   };
 
-  const handlePageChange = async (page) => {
-    setPagination({ ...pagination, currentPage: page });
-    await dataapi(page, search);
-  };
+  // const handlePageChange = async (page) => {
+  //   setPagination({ ...pagination, currentPage: page });
+  //   await dataapi(page, search);
+  // };
 
   const onShowSizeChange = (page, size) => {
     console.log(page, size);
@@ -307,10 +311,14 @@ function SJ() {
 
 
   const handleMitraChanges = (value, option) => {
-    if (value.length <= 3) {
+    if (value.length >= 4) {
       setSelectedMitra(value);
-
-
+      console.log(`ini`, value);
+      console.log(`ini`, value);
+      setMitra1(value[0])
+      setMitra2(value[1])
+      setMitra3(value[2])
+      message.error(`Maximal Memilih Mitra Hanya 3`)
     }
   };
 
@@ -320,6 +328,7 @@ function SJ() {
       <Card>
         {/* <h3>SJ List</h3> */}
         <Row>
+          <h5>SJ List</h5>
           <Col sm={2}>
             <Form.Group>
               <Form.Label><strong>BU</strong></Form.Label>
@@ -369,7 +378,7 @@ function SJ() {
                 mode="multiple"
                 style={{ width: '100%' }}
                 placeholder="Pilih mitra"
-                value={selectedMitra}
+                // value={selectedMitra}
                 onChange={handleMitraChanges}
                 options={NamaMitraOptions}
               />
@@ -408,7 +417,6 @@ function SJ() {
               <DataTable
                 columns={columns}
                 data={isiData}
-                title="SJ List"
                 onRowClicked={buttonarahin}
               />
             ))}

@@ -210,7 +210,6 @@ const [JenisBarang , setJenisBarang]=useState("")
   return (
     <div>
       <Card>
-        
         <FormTable NamaMarketing={NamaMarketing} JenisBarang={JenisBarang} IsiDataSPSemua={IsiDataSPSemua} isidata={isidata} idmp={idmp}></FormTable>
         <Form>
           <Form.Group controlId="inputText">
@@ -240,8 +239,6 @@ const [JenisBarang , setJenisBarang]=useState("")
               </tr>
             ))}
           </tbody>
-
-
         </Table>
       </Card>
     </div>

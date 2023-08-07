@@ -43,6 +43,9 @@ const SamplePage = () => {
       name: "Mitra Code",
       selector: (row) => row.mitraCode,
       width: "120px",
+      cell: (row) => (
+        <span style={{ color: 'blue' }}>{row.mitraCode}</span>
+      ),
     },
     {
       name: "Status",

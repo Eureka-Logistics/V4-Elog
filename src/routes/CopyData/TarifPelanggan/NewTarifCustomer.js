@@ -30,6 +30,7 @@ function NewTarifCustomer() {
   const [DataBiayaMel, setDataBiayaMel] = useState("");
   const [DataBiayaLain, setDataBiayaLain] = useState("");
   const [TotalBiaya, setTotalBiaya] = useState("");
+  const [KodeID, setKodeID] = useState("");
 
   const GetSelectData = async () => {
     try {
@@ -42,7 +43,8 @@ function NewTarifCustomer() {
           },
         }
       );
-      console.log("response", respons.data);
+      console.log("response", respons.data.kodeTarif);
+      setKodeID(respons.data.kodeTarif);
       setIDTambahData(respons.data);
       setDataTarifKatalog(respons.data.getPrice);
       console.log(respons.data.getPrice);
@@ -84,17 +86,36 @@ function NewTarifCustomer() {
       console.log("response", respons.data);
       setIDTambahData(respons.data);
 
-      // Show SweetAlert2 success message
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "Data has been added successfully!",
-      }).then(() => {
-        // Reload the window after the success message is closed
-        // window.location.reload();
-      });
+      if (respons.data && respons.data.exists) {
+        // Show SweetAlert2 warning message
+        Swal.fire({
+          icon: "warning",
+          title: "Data Exists",
+          text: "The data already exists!",
+        });
+      } else {
+        // Data does not exist, proceed with setting IDTambahData and showing success message
+        setIDTambahData(respons.data);
+  
+        // Show SweetAlert2 success message
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Data Berhasil di Tambahkan!",
+        }).then(() => {
+          // Reload the window after the success message is closed
+          // window.location.reload();
+        });
+      }
     } catch (error) {
       // Handle error if needed
+      console.error("Error:", error);
+      // Show SweetAlert2 error message
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Data Sudah Ada !",
+      });
     }
   };
 
@@ -121,20 +142,46 @@ function NewTarifCustomer() {
     IDBongkarKota,
   ]);
 
-  const formatRupiah = (value) => {
-    const formatter = new Intl.NumberFormat("id-ID", {
+  function formatRupiah(number) {
+    // Jika number bukan tipe number, ubah ke tipe number
+    if (typeof number !== "number") {
+      number = 0;
+    }
+
+    return new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
-    });
-    return formatter.format(value);
+    }).format(number);
+  }
+
+  const formatRupiahs = (value) => {
+    // Convert the input value to a number and add 'rp' symbol
+    const formattedValue = `${parseInt(value).toLocaleString("id-ID")}`;
+    return formattedValue;
   };
-  
+
+  const handleChangse = (e) => {
+    const value = e.target.value;
+    setDataBiayaBongkar(value);
+    console.log(formatRupiahs(value)); // Log the formatted value with 'rp' symbol
+    console.log(`asdsa`, formatRupiahs(DataBiayaBongkar)); // Log the formatted value with 'rp' symbol
+  };
   return (
     <Card>
       <h5 style={{ fontWeight: "bold" }}>New Tarif Customer</h5>
       <hr />
       <br />
       <Row>
+      <Col span={6}>
+          <label style={{ fontWeight: "bold" }}>Kode Tarif Customer:</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            className="mt-2 mb-2"
+            name="getPrice"
+            value={KodeID.kodeTarifCustomer}
+            disabled
+          />
+        </Col>
         <Col span={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold" }}>Customer :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
@@ -214,7 +261,10 @@ function NewTarifCustomer() {
               ))}
           </Select>
         </Col>
-        <Col span={6} style={{ width: "100%" }}>
+        
+      </Row>
+      <Row>
+      <Col span={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold" }}>Jenis Kendaraan :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -240,8 +290,6 @@ function NewTarifCustomer() {
               ))}
           </Select>
         </Col>
-      </Row>
-      <Row>
         <Col span={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold" }}>Jenis Layanan :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
@@ -319,7 +367,7 @@ function NewTarifCustomer() {
           <Input
             className="mt-2 mb-2"
             name="getPrice"
-            value={DataTarifKatalog}
+            value={formatRupiah(DataTarifKatalog)}
             disabled
             onChange={(e) => {
               console.log(e.target.value);
@@ -370,11 +418,10 @@ function NewTarifCustomer() {
           <label style={{ fontWeight: "bold" }}>Total Biaya :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
-            type="number"
             className="mt-2 mb-2"
             name="biaya_jalan"
             placeholder="Total Biaya"
-            value={TotalBiaya} // Display the calculated total biaya
+            value={formatRupiah(TotalBiaya)} // Display the calculated total biaya
             disabled // Disable the input because it is calculated automatically
             onChange={(e) => {
               console.log(e.target.value);
@@ -416,14 +463,16 @@ function NewTarifCustomer() {
           <label style={{ fontWeight: "bold" }}>Biaya Bongkar :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
-            type="number"
+            type="text"
             className="mt-2 mb-2"
             name="biaya_bongkar"
             placeholder="-"
-            onChange={(e) => {
-              console.log(e.target.value);
-              setDataBiayaBongkar(e.target.value);
-            }}
+            // onChange={(e) => {
+            //   console.log(e.target.value);
+            //   setDataBiayaBongkar(e.target.value);
+            // }}
+            onChange={handleChangse}
+            value={DataBiayaBongkar}
           />
         </Col>
         <Col span={6}>

@@ -229,7 +229,7 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
-        <h5>New Master Customer</h5>
+        <h5>New Master Customer test</h5>
         <Form onSubmit={formik.handleSubmit}>
           <Row style={{ marginBottom: "10px" }}>
             <Col span={8}></Col>

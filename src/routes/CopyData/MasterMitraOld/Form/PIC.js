@@ -4,9 +4,17 @@ import DataTable from "react-data-table-component";
 import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import Baseurl from "../../../../Api/BaseUrl";
-import { Col, Pagination } from "antd";
+import { Col, Pagination, Space } from "antd";
+import { useHistory } from "react-router-dom";
+import CreatedPIC from "./CreatedPIC";
+import { DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 
-function PIC({ mitraId }) {
+const { confirm } = Modal;
+
+function PIC({ mitraId}) {
+
+  const [order, setOrder] = useState([]);
+  const router = useHistory();
   const [showModal, setShowModal] = useState(false);
   const [dataList, setDataList] = useState([]);
   const [dataPagination, setDataPagination] = useState(0);
@@ -85,20 +93,30 @@ function PIC({ mitraId }) {
       name: "Jabatan",
       selector: (row) => row.jabatan,
     },
-    {
-      name: "Aksi",
-      cell: (row) => (
-        <>
-          <Button size="sm" variant="primary" onClick={handleShowModal}>
-            Detail
-          </Button>
-          <Button size="sm" variant="danger">
-            Hapus
-          </Button>
-        </>
-      ),
-    },
+    // {
+    //   name: "Aksi",
+    //   cell: (row) => (
+    //     <>
+    //       <Button size="sm" variant="primary" onClick={handleShowModal}>
+    //         Detail
+    //       </Button> 
+    //       <Button onClick={handleDelete} size="sm" variant="danger">
+    //         Hapus
+    //       </Button>
+    //     </>
+    //   ),
+    // },
   ];
+
+  // console.log(`ini`,mitraId);
+  const handleAdd = () => {
+    router.push(`/mastermitraPIC/${mitraId}`);
+    // router.push(`/pelanggantarifcerate/`);
+  };
+
+  console.log();
+
+ 
 
   return (
     <div>
@@ -106,8 +124,8 @@ function PIC({ mitraId }) {
         <Col span={8}>
           <h5>DATA PENANGGUNG JAWAB (Person In Charge)</h5>
         </Col>
-        <Col span={16} className="d-flex justify-content-end">
-          <Button>Tambah Data PIC</Button>
+        <Col span={16}  className="d-flex justify-content-end">
+          <Button onClick={handleAdd}>Tambah Data PIC</Button>
         </Col>
       </Row>
       <hr />

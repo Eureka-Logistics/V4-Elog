@@ -251,6 +251,10 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
         plat_nomor: selectnopol,
         merk: types[0],
         is_multi: checkboxValue,
+
+        pickup_kendaraan:types[0] || "",
+        pickup_nopol:selectnopol,
+        pickup_supir:selectDriver[0]?.name ? selectDriver[0]?.name : idUnit
       };
 
       axios
@@ -448,7 +452,6 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
     kd_kendaraan: item.kd_kendaraan
   })) : [];
 
-  console.log(`anotneroptionsdriver`, anotneroptionsdriver);
   // const nomorpolisiOptions = nomorpolisi.filter(item => item.mitra === mitra1).map(item => ({
   //   value: item.driverId,
   //   label: item.no_polisi,
@@ -1537,7 +1540,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                     <br />
                     {bukaanother && (
                       <>
-                        <AntForm.Item
+                        {/* <AntForm.Item
                           style={{ marginBottom: 2 }}
                           label="Select Driver"
                           required
@@ -1560,10 +1563,10 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                                 {option.name}
                               </SelectAntd.Option>
                             ))}
-                          </SelectAntd>
+                          </SelectAntd> */}
 
-                        </AntForm.Item>
-                        <Form.Label>Select Driverssss</Form.Label>
+                        {/* </AntForm.Item> */}
+                        <Form.Label>Select Driver</Form.Label>
                         <Form.Select onChange={(e) => setIdunit(e.target.value)}>
                           <option>Select Driver</option>
                           {driveranother &&

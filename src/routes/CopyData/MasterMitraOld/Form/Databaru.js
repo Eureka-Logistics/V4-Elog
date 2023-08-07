@@ -13,13 +13,16 @@ import axios from "axios";
 import Baseurl from "../../../../Api/BaseUrl";
 import { Col, Row } from "react-bootstrap";
 import { useHistory } from "react-router";
+import CreatedPIC from "./CreatedPIC";
+import PIC from "./PIC";
 
-function DataBaru({ mitraId, onSubmit }) {
+function DataBaru({ mitraId }) {
   // const [datamiTraProfile, setDataMitraProfile] = useState([]);
   const [form] = Form.useForm();
   const router = useHistory();
   const [datanyaPT, setDatanyaPT] = useState("");
-
+  const [namaMitra , setnamaMitra] = useState("")
+console.log(`nama mitara`,namaMitra);
   const onFinish = async (values) => {
     console.log("Success:", values);
 
@@ -64,6 +67,7 @@ function DataBaru({ mitraId, onSubmit }) {
         },
       }
     );
+    setnamaMitra(data.data.data?.nama_mitra)
     console.log(data.data.data.jenis);
     form.setFieldsValue({
       jenis: data.data.data?.jenis,
@@ -783,6 +787,7 @@ function DataBaru({ mitraId, onSubmit }) {
           </Form.Item>
         </Form>
       </Card>
+      {/* <PIC namaMitra={namaMitra}/> */}
     </>
   );
 }

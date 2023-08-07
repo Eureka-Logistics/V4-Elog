@@ -174,26 +174,26 @@ function SPList() {
       wrap: true,
     },
 
-    {
-      name: "OPS",
-      selector: (row) => {
-        return row.approveOps === "Y" ? (
-          <Tag color="green">
-            Approved <br />
-            {row.dateApproveOps}
-          </Tag>
-        ) : row.dateApproveOps === "Invalid date" ? (
-          <Tag color="orange">
-            Waiting <br /> {row.dateApproveOps}
-          </Tag>
-        ) : (
-          <Tag color="red">
-            Reject <br /> {row.dateApproveOps}
-          </Tag>
-        );
-      },
-      width: "150px",
-    },
+    // {
+    //   name: "OPS",
+    //   selector: (row) => {
+    //     return row.approveOps === "Y" ? (
+    //       <Tag color="green">
+    //         Approved <br />
+    //         {row.dateApproveOps}
+    //       </Tag>
+    //     ) : row.dateApproveOps === "Invalid date" ? (
+    //       <Tag color="orange">
+    //         Waiting <br /> {row.dateApproveOps}
+    //       </Tag>
+    //     ) : (
+    //       <Tag color="red">
+    //         Reject <br /> {row.dateApproveOps}
+    //       </Tag>
+    //     );
+    //   },
+    //   width: "150px",
+    // },
 
     // {
     //   name: "Opsi",
@@ -224,7 +224,7 @@ function SPList() {
       <Card>
         <Row>
           <Col>
-            <h1>Approve Sp</h1>
+            <h5>Approve Sp</h5>
             <div className="d-flex justify-content-end">
               <Col sm={3}>
                 <Form.Group controlId="spId">

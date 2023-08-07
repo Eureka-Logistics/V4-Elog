@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import Baseurl from '../../../../Api/BaseUrl';
 import axios from 'axios';
-import { Button, Modal, Input, Form as AntForm, DatePicker, Card, Select, Upload, Pagination, Tag } from 'antd';
+import { Button, Modal, Input, Form as AntForm, DatePicker, Card, Select, Upload, Pagination, Switch, Tag } from 'antd';
 import moment from 'moment';
 import { UploadOutlined } from '@ant-design/icons';
 import * as Yup from 'yup';
@@ -11,6 +11,10 @@ import Swal from 'sweetalert2';
 import { Col, Row } from 'react-bootstrap';
 import useMitraStore from '../../../../zustand/Store/MitraStore';
 import ZustandStore from '../../../../zustand/Store/JenisKepemilikanOptions';
+import {
+    CheckSquareFilled,
+    CloseSquareFilled
+} from '@ant-design/icons';
 function VehicleBaru() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [IdDriver, setIdDriver] = useState("");
@@ -60,29 +64,35 @@ function VehicleBaru() {
     const validationSchema = Yup.object().shape({
         kode_kendaraan: Yup.string()
             .required('Kode Kendaraan wajib diisi')
-            .max(6, 'Kode Kendaraan tidak boleh lebih dari 10 karakter'),
-        no_polisi: Yup.string().required('No Polisi wajib diisi')
-            .max(10, 'No Polisi tidak boleh lebih dari 10 karakter'),
+            .max(7, 'Kode Kendaraan tidak boleh lebih dari 7 karakter')
+            .uppercase('Kode Kendaraan harus dalam huruf besar')
+            .matches(/^[^\s]*$/, 'Kode Kendaraan tidak boleh mengandung spasi'),
+        no_polisi: Yup.string()
+            .required('No Polisi wajib diisi')
+            .max(11, 'No Polisi tidak boleh lebih dari 11 karakter'),
         // tgl_stnk: Yup.date().required('Tanggal STNK wajib diisi'),
-        // jenis_kepemilikan: Yup.string().required('Jenis Kepemilikan wajib diisi'),
-        // jenis_kendaraan: Yup.string().required('Jenis Kendaraan wajib diisi'),
-        // vendor: Yup.string().required('Vendor Kendaraan wajib diisi'),
+        jenis_kepemilikan: Yup.string()
+            .required('Jenis Kepemilikan wajib diisi'),
+        jenis_kendaraan: Yup.string()
+            .required('Jenis Kendaraan wajib diisi'),
+        vendor: Yup.string()
+            .required('Vendor Kendaraan wajib diisi'),
         // nama_driver: Yup.string().required('Nama Driver wajib diisi'),
         // jenis_SIM: Yup.string().required('Jenis SIM wajib diisi'),
         // warna_plat: Yup.string().required('Warna Plat wajib diisi'),
-        merk_mobil: Yup.string().required('Merk Mobil wajib diisi')
-            .transform(value => (value ? value.toUpperCase() : '')),
-        tahun_mobil: Yup.string()
-            .required('Tahun Mobil wajib diisi')
-            .max(4, 'Tahun Mobil Tidak Boleh Lebih dari 4 Digit'),
-        kendaraan: Yup.string()
-            .required('Foto Kendaraan wajib diisi'),
+        // merk_mobil: Yup.string().required('Merk Mobil wajib diisi')
+        //     .transform(value => (value ? value.toUpperCase() : '')),
+        // tahun_mobil: Yup.string()
+        // .required('Tahun Mobil wajib diisi')
+        // .max(4, 'Tahun Mobil Tidak Boleh Lebih dari 4 Digit'),
+        // kendaraan: Yup.string()
+        //     .required('Foto Kendaraan wajib diisi'),
         // panjang: Yup.number().required('Panjang Kendaraan wajib diisi').integer('Panjang Kendaraan harus berupa angka'),
         // lebar: Yup.number().required('Lebar Kendaraan wajib diisi').integer('Lebar Kendaraan harus berupa angka'),
         // tinggi: Yup.number().required('Tinggi Kendaraan wajib diisi').integer('Tinggi Kendaraan harus berupa angka'),
         // no_bpkb: Yup.string().required('No BPKB wajib diisi'),
-        stnk: Yup.string().required('STNK wajib diisi')
-            .max(10, "No STNK Tidak Boleh Lebih dari 10 Karakter"),
+        // stnk: Yup.string().required('STNK wajib diisi')
+        //     .max(8, "No STNK Tidak Boleh Lebih dari 8 Karakter"),
         // tgl_kir: Yup.date().required('Tanggal KIR wajib diisi'),
         // tgl_beli: Yup.date().required('Tanggal Pembelian wajib diisi'),
         // kapasitas: Yup.number().required('Kapasitas wajib diisi').integer('Kapasitas harus berupa angka'),
@@ -112,6 +122,7 @@ function VehicleBaru() {
             warna_plat: '',
             merk_mobil: '',
             tahun_mobil: '',
+            kendaraan: '',
             warna_plat: '',
             panjang: '',
             lebar: '',
@@ -280,30 +291,12 @@ function VehicleBaru() {
             selector: row => row.status === "1" ? "Aktif" : "Tidak Aktif",
             cell: row => (
                 <div>
-                    {row.status === "1" ? (
-                        <>
-                            <Button
-                                size="small"
-                                type="primary"
-                                className="mt-3"
-
-                                onClick={() => ModalOFFVehicle(row.vehicleId)}
-                            >
-                                Driver Ready
-                            </Button>
-                        </>
-                    ) :
-                        <>
-                            <Button
-                                size="small"
-                                type="danger"
-                                className="mt-3"
-                                onClick={() => ModalONVehicle(row.vehicleId)}
-                            >
-                                Driver Tidak Ready
-                            </Button>
-
-                        </>}
+                    <Switch
+                        checked={row.status === "1" ? true : false}
+                        checkedChildren="ON"
+                        unCheckedChildren="OFF"
+                        onChange={(checked) => checked ? ModalONVehicle(row.vehicleId) : ModalOFFVehicle(row.vehicleId)}
+                    />
                 </div>
             )
         },
@@ -490,19 +483,10 @@ function VehicleBaru() {
 
                 <>
                     <Col>
-                        <h5>Halaman Add Vehicle</h5>
+                        <h5>Master Vehicle</h5>
                     </Col>
                     <Row>
-                        <Col sm={6}>
-                            <Button
-                                type="primary" onClick={() => {
-                                    showModal()
-                                    setIdDriver(null)
-                                    setFotoDriver(null)
-                                }} >
-                                Tambah Vehicle
-                            </Button>
-                        </Col>
+                        
                         <Col sm={2}>
                             <Input
                                 value={CariNoKendaraan}
@@ -527,7 +511,7 @@ function VehicleBaru() {
                                 ))}
                             </Select>
                         </Col>
-                        <Col sm={2}>
+                        <Col sm={6}>
                             <Select
                                 showSearch
                                 placeholder="Status"
@@ -544,6 +528,16 @@ function VehicleBaru() {
                                     </Select.Option>
                                 ))}
                             </Select>
+                        </Col>
+                        <Col sm={2}>
+                            <Button
+                                type="primary" onClick={() => {
+                                    showModal()
+                                    setIdDriver(null)
+                                    setFotoDriver(null)
+                                }} >
+                                Tambah Vehicle
+                            </Button>
                         </Col>
                     </Row>
 
@@ -565,8 +559,8 @@ function VehicleBaru() {
                                         name="kendaraan"
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
-                                        help={formik.touched.tgl_stnk && formik.errors.tgl_stnk}
-                                        validateStatus={formik.touched.tgl_stnk && formik.errors.tgl_stnk ? 'error' : 'success'}
+                                        help={formik.touched.kendaraan && formik.errors.kendaraan}
+                                        validateStatus={formik.touched.kendaraan && formik.errors.kendaraan ? 'error' : 'success'}
                                         style={{ marginBottom: 2 }}
                                     >
                                         <Upload
@@ -613,8 +607,8 @@ function VehicleBaru() {
                                         required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
-                                        help={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan}
-                                        validateStatus={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan ? 'error' : 'success'}
+                                        // help={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan}
+                                        // validateStatus={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan ? 'error' : 'success'}
                                         style={{ marginBottom: 2 }}
                                     >
                                         <DatePicker
@@ -652,8 +646,8 @@ function VehicleBaru() {
                                         required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
-                                        help={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan}
-                                        validateStatus={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan ? 'error' : 'success'}
+                                        // help={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan}
+                                        // validateStatus={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan ? 'error' : 'success'}
                                         style={{ marginBottom: 2 }}
                                     >
                                         <DatePicker
@@ -706,11 +700,15 @@ function VehicleBaru() {
                                             id="kode_kendaraan"
                                             name="kode_kendaraan"
                                             type="text"
-                                            onChange={formik.handleChange}
+                                            onChange={(e) => {
+                                                // Mengubah input menjadi huruf kapital
+                                                formik.setFieldValue('kode_kendaraan', e.target.value.toUpperCase());
+                                            }}
                                             value={formik.values.kode_kendaraan}
                                             onBlur={formik.handleBlur}
                                         />
                                     </AntForm.Item>
+
 
                                     <AntForm.Item
                                         style={{ marginBottom: 2 }}
@@ -725,11 +723,15 @@ function VehicleBaru() {
                                             id="no_polisi"
                                             name="no_polisi"
                                             type="text"
-                                            onChange={formik.handleChange}
+                                            onChange={(e) => {
+                                                // Mengubah input menjadi huruf kapital
+                                                formik.setFieldValue('no_polisi', e.target.value.toUpperCase());
+                                            }}
                                             value={formik.values.no_polisi}
                                             onBlur={formik.handleBlur}
                                         />
                                     </AntForm.Item>
+
                                     <AntForm.Item
                                         style={{ marginBottom: 2 }}
                                         label="Mitra"

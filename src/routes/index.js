@@ -7,8 +7,16 @@ const App = ({ match }) => {
     <div className="gx-main-content-wrapper">
       <Switch>
         <Route
-          path={`${match.url}sample`}
-          component={asyncComponent(() => import("./SamplePage"))}
+          path={`${match.url}Dashboard`}
+          component={asyncComponent(() => import("./Dashboard"))}
+        />
+        <Route
+          path={`${match.url}dashboardop`}
+          component={asyncComponent(() => import("./Dashboard/DashboardOperasional/index"))}
+        />
+        <Route
+          path={`${match.url}Home`}
+          component={asyncComponent(() => import("./Dashboard/Home"))}
         />
         <Route
           path={`${match.url}masterdata/drivers`}
@@ -193,7 +201,7 @@ const App = ({ match }) => {
           )}
         />
         <Route
-          path={`${match.url}mastermitraPIC`}
+          path={`${match.url}mastermitraPIC/:mitraId`}
           component={asyncComponent(() =>
             import("./CopyData/MasterMitraOld/Form/CreatedPIC")
           )}

@@ -1,4 +1,4 @@
-import { Button, Card, Modal, Form, Input, Pagination, Upload, DatePicker, Select } from 'antd';
+import { Button, Card, Modal, Form, Input, Pagination, Upload, DatePicker, Select , Tag} from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react'
@@ -11,7 +11,10 @@ import Baseurl from '../../../Api/BaseUrl';
 import Swal from 'sweetalert2';
 import ZustandStore from '../../../zustand/Store/JenisKepemilikanOptions';
 import useMitraStore from '../../../zustand/Store/MitraStore';
-
+import {
+    CheckSquareFilled,
+    CloseSquareFilled
+} from '@ant-design/icons';
 function DriverTableBaru() {
     const [modalOpen, setModalOpen] = useState(false);
     const [DataAwal, setDataAwal] = useState("");
@@ -71,44 +74,41 @@ function DriverTableBaru() {
             selector: row => row.vehicle,
         },
         {
-            name: 'Jenis Kepemilikan',
+            name: 'Kepemilikan',
             selector: row => row.jenisKepemilikan,
+            cell: row => (
+                <>
+                    {(row.jenisKepemilikan === "eureka" || row.jenisKepemilikan === "race") && (
+                        <Tag color='blue'>{row.jenisKepemilikan}</Tag>
+                    )}
+                    {(row.jenisKepemilikan === "eur_sewa" || row.jenisKepemilikan === "rcn_sewa") && (
+                        <Tag color='green'>{row.jenisKepemilikan}</Tag>
+                    )}
+                    {(row.jenisKepemilikan === "eur_oncall" || row.jenisKepemilikan === "rcn_oncall") && (
+                        <Tag color='yellow'>{row.jenisKepemilikan}</Tag>
+                    )}
+                </>
+            )
         },
         {
-            name: 'Status',
+            name: 'Aksi',
             selector: row => row.driverStatus === 1 ? "Tersedia" : "Tidak Tersedia",
             cell: row => (
                 <div>
-                    {row.driverStatus === 1 ? (
-                        <>
-                            <Button
-                                size="small"
-                                type="primary"
-                                className="mt-3"
-
-                                onClick={() => ModalOFFDriver(row.driverId)}
-                            >
-                                Driver Ready
-                            </Button>
-                        </>
-                    ) :
-                        <>
-                            <Button
-                                size="small"
-                                type="danger"
-                                className="mt-2"
-                                onClick={() => ModalONDriver(row.driverId)}
-                            >
-                                Driver Tidak Ready
-                            </Button>
-
-                        </>}
+                    <Select
+                        size="small"
+                        value={row.driverStatus === 1 ? "on" : "off"}
+                        style={{ width: 120 }}
+                        onChange={(value) => value === "on" ?   ModalONDriver(row.driverId) : ModalOFFDriver(row.driverId)}
+                    >
+                        <option value="on">ON</option>
+                        <option value="off">OFF</option>
+                    </Select>
                 </div>
             )
         },
 
     ];
-
 
     const ModalONDriver = async (driverId) => {
         try {
@@ -451,31 +451,32 @@ function DriverTableBaru() {
         },
         validationSchema: Yup.object({
             nik: Yup.string()
-            .required('Nik harus diisi')
-            .max(6, "Tidak Boleh Melebihi 6 Karakter")
-            .matches(/^\S*$/, 'Nik tidak boleh mengandung spasi')
-            .transform(value => (value ? value.charAt(0).toUpperCase() + value.slice(1) : '')),
-         
-            noktp: Yup.number().required('No KTP harus diisi').integer('Nik harus berupa angka'),
+                .required('Nik harus diisi')
+                .max(6, "Tidak Boleh Melebihi 6 Karakter")
+                .matches(/^[A-Za-z0-9]*$/, 'Nik hanya boleh berupa angka/huruf, symbol dan tidak boleh mengandung spasi')
+                .transform(value => (value ? value.charAt(0).toUpperCase() + value.slice(1) : '')),
+
+            // noktp: Yup.number().max(16,"Tidak Boleh Melebihi 16 angka").required('No KTP harus diisi').integer('Nik harus berupa angka'),
             namadriver: Yup.string()
-            .matches(/^[A-Za-z ]*$/, 'Nama Driver tidak boleh mengandung angka')
-            .required('Nama Driver harus diisi'),
-            email: Yup.string().email('Format email tidak valid').required('Email harus diisi'),
+                .matches(/^[A-Za-z ]*$/, 'Nama Driver tidak boleh mengandung angka')
+                .required('Nama Driver harus diisi'),
+            email: Yup.string().email('Format email tidak valid'),
+            // .required('Email harus diisi'),
             divisi: Yup.string().required('Divisi Driver harus diisi'),
-            nosim: Yup.number().required('No SIM harus diisi').integer('Nik harus berupa angka'),
-            jenissim: Yup.string().required('Jenis SIM harus diisi'),
-            alamat: Yup.string().required('Alamat harus diisi'),
-            tgllahir: Yup.date().required('Tanggal Lahir harus diisi'),
-            agama: Yup.string().required('Agama harus diisi'),
+            // nosim: Yup.number().required('No SIM harus diisi').integer('Nik harus berupa angka'),
+            // jenissim: Yup.string().required('Jenis SIM harus diisi'),
+            // alamat: Yup.string().required('Alamat harus diisi'),
+            // tgllahir: Yup.date().required('Tanggal Lahir harus diisi'),
+            // agama: Yup.string().required('Agama harus diisi'),
             notelp1: Yup.number().required('No Telp 1 harus diisi'),
-            cover: Yup.string().required('gambar harus diisi'),
-            tglmasuk: Yup.date().nullable().required('Tanggal Masuk harus diisi'),
-            tglsim: Yup.date().nullable().required('Tanggal SIM harus diisi'),
+            // cover: Yup.string().required('gambar harus diisi'),
+            // tglmasuk: Yup.date().nullable().required('Tanggal Masuk harus diisi'),
+            // tglsim: Yup.date().nullable().required('Tanggal SIM harus diisi'),
             vehicletype: Yup.string().required('Vehicle Type harus diisi'),
             jeniskepemilikan: Yup.string().required('Jenis Kepemilikan harus diisi'),
-            ukseragam: Yup.string().required('Ukuran Seragam harus diisi'),
-            rekeningbank: Yup.string().required('Rekening Bank harus diisi'),
-            norekening: Yup.string().required('Nomor Rekening harus diisi'),
+            // ukseragam: Yup.string().required('Ukuran Seragam harus diisi'),
+            // rekeningbank: Yup.string().required('Rekening Bank harus diisi'),
+            // norekening: Yup.string().required('Nomor Rekening harus diisi'),
         }),
         onSubmit: values => {
             console.log(values);
@@ -520,17 +521,12 @@ function DriverTableBaru() {
         <div>
             <Card>
                 <Col>
-                    <h5>Halaman Add Driver</h5>
+                    <h5>Master Driver</h5>
                 </Col>
                 <Row>
 
-                    <Col sm={6}>
-                        <Button size='default'
-                            onClick={() => {
-                                setModalOpen(true); formik.resetForm(); setGambarDriver(null); setDetailId(null)
-                            }} type="primary">Add Driver</Button>
-                    </Col>
                     <Col sm={2}>
+                       
                         <Input onChange={(e) => { setCariDriver(e.target.value) }} placeholder='Cari Driver'></Input>
                     </Col>
 
@@ -553,7 +549,7 @@ function DriverTableBaru() {
                             ))}
                         </Select>
                     </Col>
-                    <Col sm={2}>
+                    <Col sm={6}>
                         <Select
                             showSearch
                             placeholder="Status"
@@ -570,6 +566,12 @@ function DriverTableBaru() {
                                 </Select.Option>
                             ))}
                         </Select>
+                    </Col>
+                    <Col sm={2}>
+                    <Button size='default'
+                            onClick={() => {
+                                setModalOpen(true); formik.resetForm(); setGambarDriver(null); setDetailId(null)
+                            }} type="primary">Add Driver</Button>
                     </Col>
 
                     <Modal
@@ -1006,17 +1008,17 @@ function DriverTableBaru() {
           }
           
         `}
-                </style>
-                <div className='d-flex justify-content-end mt-3'>
-                    <Pagination
-                        showSizeChanger
-                        onChange={onShowSizeChange}
-                        defaultCurrent={1}
-                        total={TotalPages}
-                    />
-                </div>
-            </Row>
-        </Card>
+                    </style>
+                    <div className='d-flex justify-content-end mt-3'>
+                        <Pagination
+                            showSizeChanger
+                            onChange={onShowSizeChange}
+                            defaultCurrent={1}
+                            total={TotalPages}
+                        />
+                    </div>
+                </Row>
+            </Card>
         </div >
     )
 }

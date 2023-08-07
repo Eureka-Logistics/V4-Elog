@@ -42,6 +42,7 @@ const SamplePage = () => {
   const [UangJalan, setUangJalan] = useState("");
   const [viaOptions, setViaOptions] = useState([]);
   const [jenisDiskon, setJenisDiskon] = useState("");
+  const [KodeID, setKodeID] = useState("");
   const optjenisLayanan = [
     {
       value: 1,
@@ -162,19 +163,22 @@ const SamplePage = () => {
       });
 
     httpClient
-      .get("customer/get-customer?limit=10&page=1&keyword=")
+      .get("tarif/get-select?idMuat=&idBogkar=&idJenisKendaraan=&service_type=Reguler")
       .then(({ data }) => {
         if (data.status.code === 200) {
+          console.log('customer', data.kodeTarif);
+          setKodeID(data.kodeTarif);
           setCustomerOptions(
-            data.data.order.map((x) => ({
-              label: x.custName,
-              value: x.custId,
+            data.customer.map((x) => ({
+              label: x.Customer,
+              value: x.idCustomer,
             }))
           );
         }
       })
       .catch(function (error) {
         console.log(error.message);
+      
       });
 
     httpClient
@@ -283,7 +287,7 @@ const SamplePage = () => {
     }
   };
 
-  console.log("ini dia muat kota", jenisLayanan.label);
+  console.log("ini dia muat kota", jenisLayanan);
 
   return (
     <div>
@@ -298,6 +302,18 @@ const SamplePage = () => {
             
           </Row>
           <Row style={{ marginBottom: "10px" }}>
+            <Col span={6}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label>Code Mitra</Form.Label>
+                <InputGroup>
+                  <Input
+                    // options={customerOptions}
+                    value={KodeID.kodeTarifMitra}
+                    disabled
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Nama Mitra</Form.Label>

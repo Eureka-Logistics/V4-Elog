@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Input, Space, Table, Modal } from "antd";
+import { Button, Card, Input, Space, Table, Modal, Tag } from "antd";
 import {
   ExclamationCircleOutlined,
   EditOutlined,
@@ -47,6 +47,7 @@ const SamplePage = () => {
       title: "Kode",
       dataIndex: "custCode",
       key: "custCode",
+      render: (text) => <Tag color="blue">{text}</Tag>,
     },
     {
       title: "Perusahaan",
