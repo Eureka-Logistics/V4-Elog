@@ -1,5 +1,14 @@
+.text-dashboard {
+    font-size: 30px;
+    font-weight: bold;
+}
+
 .text-data {
     font-size: 25px;
+}
+
+.text-dashboard-card {
+    font-size: 15px;
 }
 
 @media screen and (max-width: 768px) {
@@ -11,6 +20,32 @@
   /* Gaya teks ketika ukuran layar kecil */
   @media screen and (max-width: 480px) {
     .text-data {
+      font-size: 10px;
+    }
+  }
+
+@media screen and (max-width: 768px) {
+    .text-dashboard {
+      font-size: 20px;
+    }
+  }
+  
+  /* Gaya teks ketika ukuran layar kecil */
+  @media screen and (max-width: 480px) {
+    .text-dashboard {
+      font-size: 10px;
+    }
+  }
+
+@media screen and (max-width: 768px) {
+    .text-dashboard-card {
+      font-size: 15px;
+    }
+  }
+  
+  /* Gaya teks ketika ukuran layar kecil */
+  @media screen and (max-width: 480px) {
+    .text-dashboard-card {
       font-size: 10px;
     }
   }

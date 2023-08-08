@@ -4,6 +4,8 @@ import DataTable from "react-data-table-component";
 import Swal from "sweetalert2";
 import Baseurl from "../../../Api/BaseUrl";
 import axios from "axios";
+import "../../../assets/style.css";
+
 import {
   CheckCircleOutlined,
   TeamOutlined,
@@ -12,14 +14,19 @@ import {
   PieChartOutlined,
   UserOutlined,
   UserAddOutlined,
+  UserSwitchOutlined,
 } from "@ant-design/icons";
 // import { Col, Row } from 'react-bootstrap';
 import { format } from "date-fns";
 import ElogGif from "../../../assets/Loader_Elogs1.gif";
+import { Table } from "react-bootstrap";
+
+const itemsPerPage = 5;
+
 function Index() {
   const [inform, setinform] = useState("");
   const [Data, setData] = useState("");
-  const [STNK, setStnk] = useState("");
+  const [STNK, setStnk] = useState([]);
   const jobdesk = localStorage.getItem("jobdesk");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
@@ -27,6 +34,7 @@ function Index() {
   const [pageSizeSTNK, setPageSizeSTNK] = useState(5);
   const [JumlahExpSIM, setJumlahExpSIM] = useState("");
   const [JumlahExpSTNK, setJumlahExpSTNK] = useState("");
+  const [driversDataa, setDriversDataa] = useState([]);
 
   const paginatedData = Data.slice(
     (currentPage - 1) * pageSize,
@@ -42,7 +50,6 @@ function Index() {
       name: "No",
       width: "10%",
       selector: (row, index) => (currentPage - 1) * pageSize + index + 1,
-      
     },
     {
       name: "Nama Driver",
@@ -56,9 +63,7 @@ function Index() {
         const formattedDate = format(date, "dd-MM-yyyy");
         return <Tag color="#DB260E">{formattedDate}</Tag>;
       },
-      
     },
-    
   ];
   const STNKTable = [
     {
@@ -66,7 +71,6 @@ function Index() {
       width: "10%",
       selector: (row, index) =>
         (currentPageSTNK - 1) * pageSizeSTNK + index + 1,
-        
     },
     {
       name: "Kode Kendaraan",
@@ -100,6 +104,7 @@ function Index() {
         setStnk(response.data.operasional?.[0]?.stnk?.noplat);
         setJumlahExpSIM(response.data?.operasional?.[0]?.sim?.SimExpired);
         setJumlahExpSTNK(response.data?.operasional?.[0]?.stnk?.ExpireStnk);
+        setDriversDataa(response.data?.operasional?.[0].sim.driver);
         console.log(response.data.operasional?.[0]?.stnk.driver);
       } else if (response.status === 401) {
         localStorage.removeItem("token");
@@ -141,10 +146,23 @@ function Index() {
     return <img src={ElogGif} width="100%"></img>;
   }
 
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = driversDataa.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <div>
+      {/* <Row>
+        <Col span={24}>
+          <div className="text-dashboard mb-4 d-flex justify-content-center">
+            Dashboard {jobdesk}
+          </div>
+        </Col>
+      </Row> */}
       {/* <h5>Dashboard {jobdesk}</h5> */}
       <Row>
         <Col span={6}>
@@ -167,7 +185,10 @@ function Index() {
                 </div>
               </Col>
               <Col span={24} className="d-flex justify-content-center mt-2">
-                <h6 style={{ color: "black", fontWeight: "bold" }}>
+                <h6
+                  className="text-dashboard-card"
+                  style={{ color: "black", fontWeight: "bold" }}
+                >
                   Driver Eureka
                 </h6>
               </Col>
@@ -199,7 +220,10 @@ function Index() {
                 </div>
               </Col>
               <Col span={24} className="d-flex justify-content-center mt-2">
-                <h6 style={{ color: "black", fontWeight: "bold" }}>
+                <h6
+                  className="text-dashboard-card"
+                  style={{ color: "black", fontWeight: "bold" }}
+                >
                   Driver Sewa
                 </h6>
               </Col>
@@ -231,7 +255,10 @@ function Index() {
                 </div>
               </Col>
               <Col span={24} className="d-flex justify-content-center mt-2">
-                <h6 style={{ color: "black", fontWeight: "bold" }}>
+                <h6
+                  className="text-dashboard-card"
+                  style={{ color: "black", fontWeight: "bold" }}
+                >
                   Total Driver
                 </h6>
               </Col>
@@ -259,11 +286,14 @@ function Index() {
                     alignItems: "center",
                   }}
                 >
-                  <TeamOutlined style={{ color: "white" }}></TeamOutlined>
+                  <UserSwitchOutlined style={{ color: "white" }}></UserSwitchOutlined>
                 </div>
               </Col>
               <Col span={24} className="d-flex justify-content-center mt-2">
-                <h6 style={{ color: "black", fontWeight: "bold" }}>
+                <h6
+                  className="text-dashboard-card"
+                  style={{ color: "black", fontWeight: "bold" }}
+                >
                   Driver aktif
                 </h6>
               </Col>
@@ -293,7 +323,8 @@ function Index() {
         </Col>
       </Row>
 
-      <Card>
+      {/* Data Sebelumnya */}
+      {/* <Card>
         <Button
           style={{
             backgroundColor: "#FFBEB5",
@@ -303,10 +334,7 @@ function Index() {
         >
           Jumlah SIM EXPIRED : {JumlahExpSIM}
         </Button>
-        <DataTable
-          columns={columns}
-          data={paginatedData}
-        />
+        <DataTable columns={columns} data={paginatedData} />
         <div className="d-flex mt-3 justify-content-end">
           <Pagination
             current={currentPage}
@@ -318,9 +346,9 @@ function Index() {
             }}
           />
         </div>
-      </Card>
-      <Card>
-      <Button
+      </Card> */}
+      {/* <Card>
+        <Button
           style={{
             backgroundColor: "#FFBEB5",
             color: "#9B0101",
@@ -333,9 +361,9 @@ function Index() {
           <DataTable
             columns={STNKTable}
             data={paginatedDataSTNK}
-            // title={
-            //   <Tag color="#f50">Jumlah STNK EXPIRED : {JumlahExpSTNK}</Tag>
-            // }
+            title={
+              <Tag color="#f50">Jumlah STNK EXPIRED : {JumlahExpSTNK}</Tag>
+            }
           />
         </div>
         <div className="d-flex mt-3 justify-content-end">
@@ -349,7 +377,100 @@ function Index() {
             }}
           />
         </div>
+      </Card> */}
+
+      {/* Data yang di bawah */}
+      <Card>
+        <Button
+          style={{
+            backgroundColor: "#FFBEB5",
+            color: "#9B0101",
+            fontWeight: "bold",
+          }}
+          disabled={true}
+        >
+          Jumlah SIM EXPIRED : {JumlahExpSIM}
+        </Button>
+        <Table responsive>
+          <thead style={{ backgroundColor: "#1A5CBF", color: "white" }}>
+            <tr>
+              <th style={{ width: "8%" }}>No.</th>
+              <th>Nama Driver</th>
+              <th style={{textAlign: 'center'}}>Tanggal Expired SIM</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentItems.map((driver, index) => (
+              <tr key={index}>
+                <td>{indexOfFirstItem + index + 1}</td>
+                <td>{driver.driverName}</td>
+                <td style={{textAlign: 'center'}}> <Tag color="#DB260E"> {driver.simDate}</Tag>
+                 </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        <div className="d-flex mt-3 justify-content-end">
+          <Pagination
+            current={currentPage}
+            pageSize={pageSize}
+            total={Data.length}
+            onChange={(page, pageSize) => {
+              setCurrentPage(page);
+              setPageSize(pageSize);
+            }}
+          />
+        </div>
       </Card>
+      <Card>
+        <Button
+          style={{
+            backgroundColor: "#FFBEB5",
+            color: "#9B0101",
+            fontWeight: "bold",
+          }}
+          disabled={true}
+        >
+          Jumlah STNK EXPIRED: {JumlahExpSTNK}
+        </Button>
+
+        <Table responsive>
+          <thead style={{ backgroundColor: "#1A5CBF", color: "white" }}>
+            <tr>
+              <th style={{ width: "8%" }}>No.</th>
+              <th>Kode Kendaraan</th>
+              <th>No. Polisi</th>
+              <th style={{textAlign: 'center'}}>Tanggal Expired STNK</th>
+            </tr>
+          </thead>
+          <tbody>
+            {STNK.slice(
+              (currentPageSTNK - 1) * pageSizeSTNK,
+              currentPageSTNK * pageSizeSTNK
+            ).map((driver, index) => (
+              <tr key={index}>
+                <td>{(currentPageSTNK - 1) * pageSizeSTNK + index + 1}</td>
+                <td>{driver.kendaraanKode}</td>
+                <td>{driver.nopol}</td>
+                <td style={{textAlign: 'center'}}>
+                  <Tag color="#DB260E">{driver.tglStnk}</Tag>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Card>
+      <div className="d-flex mt-3 justify-content-end">
+        <Pagination
+          current={currentPageSTNK}
+          pageSize={pageSizeSTNK}
+          total={STNK.length}
+          onChange={(page, pageSizeSTNK) => {
+            setCurrentPageSTNK(page);
+            setPageSizeSTNK(pageSizeSTNK);
+          }}
+        />
+      </div>
     </div>
   );
 }

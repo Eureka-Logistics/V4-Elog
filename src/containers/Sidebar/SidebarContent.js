@@ -62,8 +62,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
         <div
           className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
         >
-          <UserProfile />
-          <AppsNavigation />
+          {/* <UserProfile /> */}
+          {/* <AppsNavigation /> */}
         </div>
         <CustomScrollbars className="gx-layout-sider-scrollbar">
           <Menu
