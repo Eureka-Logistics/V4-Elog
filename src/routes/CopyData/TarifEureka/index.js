@@ -28,7 +28,6 @@ const SamplePage = () => {
   const [limit, setLimit] = useState(10);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
-  
 
   let nomor = 1;
 
@@ -127,7 +126,7 @@ const SamplePage = () => {
       title: "Muat",
       dataIndex: "kotaAsal",
       key: "kotaAsal",
-      width: "20%"
+      width: "20%",
     },
     {
       title: "Tujuan",
@@ -266,7 +265,7 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
-        <h3>Data Tarif Eureka</h3>
+        <h3 style={{color: '#1A5CBF'}}>Data Tarif Eureka</h3>
         <div
           style={{
             display: "flex",
@@ -291,7 +290,13 @@ const SamplePage = () => {
               showSearch
               optionFilterProp="children"
               placeholder="Select Muat Kota"
-              style={{ width: "100%" }}
+              style={{
+                width: "100%",
+
+                border: "1px solid #1A5CBF",
+                borderRadius: "5px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+              }}
               onChange={(e, options) => {
                 console.log(options);
                 setMuatKota(options.value);
@@ -320,7 +325,13 @@ const SamplePage = () => {
               showSearch
               optionFilterProp="children"
               placeholder="Select Muat Kota"
-              style={{ width: "100%" }}
+              style={{
+                width: "100%",
+
+                border: "1px solid #1A5CBF",
+                borderRadius: "5px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+              }}
               onChange={(e, options) => {
                 console.log(options);
                 setKotaTujuan(options.value);
@@ -337,7 +348,7 @@ const SamplePage = () => {
           </Col>
 
           <Col sm={12} className="d-flex justify-content-end mt-4">
-            <Button type="primary" onClick={handleAdd}>
+            <Button style={{backgroundColor: '#1A5CBF', color: 'white'}} onClick={handleAdd}>
               New Tarif
             </Button>
           </Col>
