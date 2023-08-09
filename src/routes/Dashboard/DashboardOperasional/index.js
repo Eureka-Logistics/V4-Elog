@@ -15,6 +15,7 @@ import {
   UserOutlined,
   UserAddOutlined,
   UserSwitchOutlined,
+  CarOutlined,
 } from "@ant-design/icons";
 // import { Col, Row } from 'react-bootstrap';
 import { format } from "date-fns";
@@ -216,7 +217,7 @@ function Index() {
                     alignItems: "center",
                   }}
                 >
-                  <UserAddOutlined style={{ color: "white" }}></UserAddOutlined>
+                  <CarOutlined style={{ color: "white" }}></CarOutlined>
                 </div>
               </Col>
               <Col span={24} className="d-flex justify-content-center mt-2">
@@ -389,7 +390,7 @@ function Index() {
           }}
           disabled={true}
         >
-          Jumlah SIM EXPIRED : {JumlahExpSIM}
+          Jumlah SIM Expired : {JumlahExpSIM}
         </Button>
         <Table responsive>
           <thead style={{ backgroundColor: "#1A5CBF", color: "white" }}>
@@ -431,7 +432,7 @@ function Index() {
           }}
           disabled={true}
         >
-          Jumlah STNK EXPIRED: {JumlahExpSTNK}
+          Jumlah STNK Expired: {JumlahExpSTNK}
         </Button>
 
         <Table responsive>

@@ -65,6 +65,16 @@ const SamplePage = () => {
       key: "custTelephone",
     },
     {
+      title: "Barang",
+      dataIndex: "custStuff",
+      key: "custStuff",
+    },
+    {
+      title: "Nomor Telepon",
+      dataIndex: "custTelephone",
+      key: "custTelephone",
+    },
+    {
       title: "Action",
       key: "no",
       render: (text, record) => (
