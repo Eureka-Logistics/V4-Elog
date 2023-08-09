@@ -201,7 +201,7 @@ const App = ({ match }) => {
           )}
         />
         <Route
-          path={`${match.url}mastermitraPIC`}
+          path={`${match.url}mastermitraPIC/:mitraId`}
           component={asyncComponent(() =>
             import("./CopyData/MasterMitraOld/Form/CreatedPIC")
           )}

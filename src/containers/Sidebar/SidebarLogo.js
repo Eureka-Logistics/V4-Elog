@@ -19,7 +19,7 @@ const SidebarLogo = ({sidebarCollapsed, setSidebarCollapsed}) => {
     navStyle = NAV_STYLE_DRAWER;
   }
 
-  return (
+  return (  
     <div className="gx-layout-sider-header">
       {(navStyle === NAV_STYLE_FIXED || navStyle === NAV_STYLE_MINI_SIDEBAR) ? <div className="gx-linebar">
         <i

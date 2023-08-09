@@ -21,15 +21,17 @@ function NewTarifCustomer() {
   const [DataDiskon, setDataDiskon] = useState("");
   const [DataDiskonType, setDataDiskonType] = useState("");
   const [DataBiayaJalan, setDataBiayaJalan] = useState("");
-  const [DataBiayaMuat, setDataBiayaMuat] = useState("");
-  const [DataBiayaBongkar, setDataBiayaBongkar] = useState("");
-  const [DataBiayaOvertonase, setDataBiayaOvertonase] = useState("");
-  const [DataBiayaMultimuat, setDataBiayaMultimuat] = useState("");
-  const [DataBiayaMultiDrop, setDataBiayaMultiDrop] = useState("");
-  const [DataBiayaTambahan, setDataBiayaTambahan] = useState("");
-  const [DataBiayaMel, setDataBiayaMel] = useState("");
-  const [DataBiayaLain, setDataBiayaLain] = useState("");
+  const [DataBiayaMuat, setDataBiayaMuat] = useState(0);
+  const [DataBiayaBongkar, setDataBiayaBongkar] = useState(0);
+  const [DataBiayaOvertonase, setDataBiayaOvertonase] = useState(0);
+  const [DataBiayaMultimuat, setDataBiayaMultimuat] = useState(0);
+  const [DataBiayaMultiDrop, setDataBiayaMultiDrop] = useState(0);
+  const [DataBiayaTambahan, setDataBiayaTambahan] = useState(0);
+  const [DataBiayaMel, setDataBiayaMel] = useState(0);
+  const [DataBiayaLain, setDataBiayaLain] = useState(0);
   const [TotalBiaya, setTotalBiaya] = useState("");
+  const [KodeID, setKodeID] = useState("");
+  const [id_price_eureka, setid_price_eureka] = useState("");
 
   const GetSelectData = async () => {
     try {
@@ -42,10 +44,12 @@ function NewTarifCustomer() {
           },
         }
       );
-      console.log("response", respons.data);
+      console.log("response", respons.data.kodeTarif);
+      setKodeID(respons.data.kodeTarif);
       setIDTambahData(respons.data);
       setDataTarifKatalog(respons.data.getPrice);
       console.log(respons.data.getPrice);
+      setid_price_eureka(respons.data.IdPriceEureka);
     } catch (error) {}
   };
 
@@ -54,6 +58,7 @@ function NewTarifCustomer() {
       const respons = await axios.post(
         `${Baseurl}tarif/create-tarifCustomer`,
         {
+          id_price_eureka: id_price_eureka,
           id_muat_kota: parseInt(IDMuatKota),
           id_tujuan_kota: parseInt(IDBongkarKota),
           id_customer: parseInt(IDCustomer),
@@ -84,17 +89,36 @@ function NewTarifCustomer() {
       console.log("response", respons.data);
       setIDTambahData(respons.data);
 
-      // Show SweetAlert2 success message
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "Data has been added successfully!",
-      }).then(() => {
-        // Reload the window after the success message is closed
-        // window.location.reload();
-      });
+      if (respons.data && respons.data.exists) {
+        // Show SweetAlert2 warning message
+        Swal.fire({
+          icon: "warning",
+          title: "Data Exists",
+          text: "The data already exists!",
+        });
+      } else {
+        // Data does not exist, proceed with setting IDTambahData and showing success message
+        setIDTambahData(respons.data);
+
+        // Show SweetAlert2 success message
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Data Berhasil di Tambahkan!",
+        }).then(() => {
+          // Reload the window after the success message is closed
+          // window.location.reload();
+        });
+      }
     } catch (error) {
       // Handle error if needed
+      console.error("Error:", error);
+      // Show SweetAlert2 error message
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Data Sudah Ada !",
+      });
     }
   };
 
@@ -102,7 +126,7 @@ function NewTarifCustomer() {
     // fetchData();
     GetSelectData();
     if (!isNaN(DataTarifKatalog) && !isNaN(DataDiskon)) {
-      if (DataDiskonType === "Persen") {
+      if (DataDiskonType === "Presentase") {
         const diskonPercentage = DataDiskon / 100;
         const totalBiayaAfterDiskon =
           DataTarifKatalog - DataTarifKatalog * diskonPercentage;
@@ -121,20 +145,48 @@ function NewTarifCustomer() {
     IDBongkarKota,
   ]);
 
-  const formatRupiah = (value) => {
-    const formatter = new Intl.NumberFormat("id-ID", {
+  function formatRupiah(number) {
+    // Jika number bukan tipe number, ubah ke tipe number
+    if (typeof number !== "number") {
+      number = 0;
+    }
+
+    return new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
-    });
-    return formatter.format(value);
+    }).format(number);
+  }
+
+  const formatRupiahs = (value) => {
+    // Convert the input value to a number and add 'rp' symbol
+    const formattedValue = `${parseInt(value).toLocaleString("id-ID")}`;
+    return formattedValue;
   };
-  
+
+  const handleChangse = (e) => {
+    const value = e.target.value;
+    setDataBiayaBongkar(value);
+    console.log(formatRupiahs(value)); // Log the formatted value with 'rp' symbol
+    console.log(`asdsa`, formatRupiahs(DataBiayaBongkar)); // Log the formatted value with 'rp' symbol
+  };
   return (
     <Card>
-      <h5 style={{ fontWeight: "bold" }}>New Tarif Customer</h5>
+      <h5 style={{ fontWeight: "bold", color: "#1A5CBF" }}>
+        New Tarif Customer
+      </h5>
       <hr />
       <br />
       <Row>
+        <Col span={6}>
+          <label style={{ fontWeight: "bold" }}>Kode Tarif Customer:</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            className="mt-2 mb-2"
+            name="getPrice"
+            value={KodeID.kodeTarifCustomer}
+            disabled
+          />
+        </Col>
         <Col span={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold" }}>Customer :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
@@ -214,6 +266,8 @@ function NewTarifCustomer() {
               ))}
           </Select>
         </Col>
+      </Row>
+      <Row>
         <Col span={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold" }}>Jenis Kendaraan :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
@@ -240,8 +294,6 @@ function NewTarifCustomer() {
               ))}
           </Select>
         </Col>
-      </Row>
-      <Row>
         <Col span={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold" }}>Jenis Layanan :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
@@ -310,7 +362,7 @@ function NewTarifCustomer() {
       </Row>
       <br />
       <hr />
-      <h5>Tarif Customer</h5>
+      <h5 style={{ fontWeight: "bold", color: "#1A5CBF" }}>Tarif Customer</h5>
       <br />
       <Row>
         <Col span={6}>
@@ -319,7 +371,7 @@ function NewTarifCustomer() {
           <Input
             className="mt-2 mb-2"
             name="getPrice"
-            value={DataTarifKatalog}
+            value={formatRupiah(DataTarifKatalog)}
             disabled
             onChange={(e) => {
               console.log(e.target.value);
@@ -347,7 +399,7 @@ function NewTarifCustomer() {
           >
             {/* Add the options here */}
             <Select.Option value="Amount">Amount</Select.Option>
-            <Select.Option value="Persen">Persen</Select.Option>
+            <Select.Option value="Presentase">Presentase</Select.Option>
           </Select>
         </Col>
         <Col span={6}>
@@ -370,11 +422,10 @@ function NewTarifCustomer() {
           <label style={{ fontWeight: "bold" }}>Total Biaya :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
-            type="number"
             className="mt-2 mb-2"
             name="biaya_jalan"
             placeholder="Total Biaya"
-            value={TotalBiaya} // Display the calculated total biaya
+            value={formatRupiah(TotalBiaya)} // Display the calculated total biaya
             disabled // Disable the input because it is calculated automatically
             onChange={(e) => {
               console.log(e.target.value);
@@ -395,7 +446,7 @@ function NewTarifCustomer() {
       </Row>
       <br />
       <hr />
-      <h5>Biaya Tambahan</h5>
+      <h5 style={{ fontWeight: "bold", color: "#1A5CBF" }}>Biaya Tambahan</h5>
       <br />
       <Row>
         <Col span={6}>
@@ -405,7 +456,8 @@ function NewTarifCustomer() {
             type="number"
             className="mt-2 mb-2"
             name="biaya_muat"
-            placeholder="-"
+            // placeholder="-"
+            value={DataBiayaMuat}
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaMuat(e.target.value);
@@ -416,14 +468,16 @@ function NewTarifCustomer() {
           <label style={{ fontWeight: "bold" }}>Biaya Bongkar :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
-            type="number"
+            type="text"
             className="mt-2 mb-2"
             name="biaya_bongkar"
             placeholder="-"
-            onChange={(e) => {
-              console.log(e.target.value);
-              setDataBiayaBongkar(e.target.value);
-            }}
+            // onChange={(e) => {
+            //   console.log(e.target.value);
+            //   setDataBiayaBongkar(e.target.value);
+            // }}
+            onChange={handleChangse}
+            value={DataBiayaBongkar}
           />
         </Col>
         <Col span={6}>
@@ -433,7 +487,8 @@ function NewTarifCustomer() {
             type="number"
             className="mt-2 mb-2"
             name="biaya_overtonase"
-            placeholder="-"
+            // placeholder="-"
+            value={DataBiayaBongkar}
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaOvertonase(e.target.value);
@@ -447,7 +502,8 @@ function NewTarifCustomer() {
             type="number"
             className="mt-2 mb-2"
             name="biaya_muat"
-            placeholder="-"
+            // placeholder="-"
+            value={DataBiayaMultiDrop}
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaMultiDrop(e.target.value);
@@ -463,7 +519,8 @@ function NewTarifCustomer() {
             type="number"
             className="mt-2 mb-2"
             name="biaya_overtonase"
-            placeholder="-"
+            // placeholder="-"
+            value={DataBiayaOvertonase}
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaOvertonase(e.target.value);
@@ -477,7 +534,8 @@ function NewTarifCustomer() {
             type="number"
             className="mt-2 mb-2"
             name="biaya_tambahan"
-            placeholder="-"
+            // placeholder="-"
+            value={DataBiayaTambahan}
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaTambahan(e.target.value);
@@ -491,7 +549,7 @@ function NewTarifCustomer() {
             type="number"
             className="mt-2 mb-2"
             name="biaya_mel"
-            placeholder="-"
+            value={DataBiayaMel}
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaMel(e.target.value);
@@ -505,10 +563,25 @@ function NewTarifCustomer() {
             type="number"
             className="mt-2 mb-2"
             name="biaya_lain"
-            placeholder="-"
+            value={DataBiayaLain}
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaLain(e.target.value);
+            }}
+          />
+        </Col>
+        <Col span={6}>
+          <label style={{ fontWeight: "bold" }}>Biaya Multimuat :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            type="number"
+            className="mt-2 mb-2"
+            name="biaya_multimuat
+            "
+            value={DataBiayaMultimuat}
+            onChange={(e) => {
+              console.log(e.target.value);
+              setDataBiayaMultimuat(e.target.value);
             }}
           />
         </Col>

@@ -41,6 +41,8 @@ const SamplePage = () => {
   const [UangJalan, setUangJalan] = useState(10000);
   const [viaOptions, setViaOptions] = useState([]);
   const [jenisDiskon, setJenisDiskon] = useState("");
+  const [KodeID, setKodeID] = useState("");
+
   const optjenisLayanan = [
     {
       value: 1,
@@ -167,13 +169,17 @@ const SamplePage = () => {
       });
 
     httpClient
-      .get("customer/get-customer?limit=10&page=1&keyword=")
+      .get(
+        "tarif/get-select?idMuat=&idBogkar=&idJenisKendaraan=&service_type=Reguler"
+      )
       .then(({ data }) => {
         if (data.status.code === 200) {
+          console.log("customer", data.kodeTarif);
+          setKodeID(data.kodeTarif);
           setCustomerOptions(
-            data.data.order.map((x) => ({
-              label: x.custName,
-              value: x.custId,
+            data.customer.map((x) => ({
+              label: x.Customer,
+              value: x.idCustomer,
             }))
           );
         }
@@ -302,6 +308,14 @@ const SamplePage = () => {
             <Col span={3}></Col>
           </Row>
           <Row style={{ marginBottom: "10px" }}>
+            <Col span={4}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label>Kode Tarif Eureka</Form.Label>
+                <InputGroup>
+                  <Input value={KodeID.kodeTarifEureka} disabled />
+                </InputGroup>
+              </Form.Group>
+            </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Kota Muat</Form.Label>
@@ -334,7 +348,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-           
+
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Jenis kendaraan </Form.Label>
@@ -351,11 +365,24 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-           
-           
           </Row>
           <Row>
-          
+          <Col span={4}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label>Via</Form.Label>
+                <InputGroup>
+                  <Select
+                    options={viaOptions}
+                    value={via}
+                    isSearchable
+                    placeholder="Select Via"
+                    name="via"
+                    styles={customStylesReactSelect}
+                    onChange={onSelectChange}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Jenis Kiriman</Form.Label>
@@ -375,7 +402,7 @@ const SamplePage = () => {
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label>Jenis Layanan</Form.Label>
                 <InputGroup>
-                <Select
+                  <Select
                     options={optjenisLayanan}
                     name="service_type"
                     // value={jenisLayanan}
@@ -386,22 +413,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label>Via</Form.Label>
-                <InputGroup>
-                  <Select
-                    options={viaOptions}
-                    value={via}
-                    isSearchable
-                    placeholder="Select Via"
-                    name="via"
-                    styles={customStylesReactSelect}
-                    onChange={onSelectChange}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
+           
           </Row>
           <br />
           <hr />
