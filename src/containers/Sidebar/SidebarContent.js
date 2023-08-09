@@ -19,6 +19,15 @@ import {
   ScheduleTwoTone,
   ProfileTwoTone,
   CheckSquareTwoTone,
+  PieChartOutlined,
+  UserOutlined,
+  ExceptionOutlined,
+  FileExcelOutlined,
+  FileTextOutlined,
+  ProfileOutlined,
+  FileProtectOutlined,
+  DollarOutlined,
+  VideoCameraOutlined,
 } from "@ant-design/icons";
 const { SubMenu } = Menu;
 
@@ -26,6 +35,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
   const { navStyle, themeType } = useSelector(({ settings }) => settings);
   const pathname = useSelector(({ common }) => common.pathname);
   const history = useHistory();
+  
   const getNoHeaderClass = (navStyle) => {
     if (
       navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR ||
@@ -60,17 +70,18 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
       />
       <div className="gx-sidebar-content">
         <div
-          className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
+          // className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
         >
-          <UserProfile />
-          <AppsNavigation />
+          {/* <UserProfile /> */}
+          {/* <AppsNavigation /> */}
         </div>
         <CustomScrollbars className="gx-layout-sider-scrollbar">
           <Menu
             defaultOpenKeys={[defaultOpenKeys]}
             selectedKeys={[selectedKeys]}
-            theme={themeType === THEME_TYPE_LITE ? "lite" : "dark"}
-            mode="inline"
+            style={{backgroundColor: '#BAD6FF' }}
+            // theme={themeType === THEME_TYPE_LITE ? "lite" : "light"}
+            // mode="inline"
           >
             <MenuItemGroup key="main">
               {jobdesk === "sales" ? (
@@ -93,13 +104,17 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
                     <Button
                       size="lg"
+                      // style={{
+                      //   width: 180,
+                      //   backgroundColor: "#00a65a",
+                      //   color: "white",
+
+                      // }}
                       style={{
                         width: 180,
                         backgroundColor: "#00a65a",
                         color: "white",
-                        marginTop: "-35px",
                       }}
-                      style={{ width: 180, backgroundColor: "#00a65a", color: "white", marginTop: "-35px" }}
                       className="d-flex align-items-center justify-content-center"
                       onClick={() => createar()}
                       variant="#00a65a"
@@ -116,19 +131,18 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       variant="warning"
                     >
                       ADD AP
-
                     </Button>
                   </div>
                 </>
               ) : (
                 <></>
               )}
-              
+
               {jobdesk == "sales" && (
-               <MenuItemGroup key="main">
+                <MenuItemGroup key="main">
                   <Menu.Item key="SP List">
                     <Link to="/masterdata/marketing/splist">
-                      <i className="icon icon-widgets" />
+                      <FileTextOutlined style={{ fontSize: "20px" }} />
                       <span>
                         <IntlMessages id="SP List" />
                       </span>
@@ -136,52 +150,52 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <Menu.Item key="Cancel SP List">
                     <Link to="/masterdata/marketing/cancelsplist">
-                      <i className="icon icon-widgets" />
+                      <FileExcelOutlined style={{ fontSize: "20px" }} />
                       <span>
                         <IntlMessages id="Cancel SP List" />
                       </span>
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Data Wilayah">
-                      <Link to="/mastercustomersss">
-                        <i className="icon icon-widgets" />
-                        <span>Customer</span>
-                      </Link>
-                    </Menu.Item>
+                    <Link to="/mastercustomersss">
+                      <UserOutlined style={{ fontSize: "20px" }} />
+                      <span>Customer</span>
+                    </Link>
+                  </Menu.Item>
                   <Menu.Item key="Alamat Customer">
-                      <Link to="/alamatcustomer">
-                        <i className="icon icon-widgets" />
-                        <span>Alamat Customer</span>
-                        {/* <span>Data Alamat All</span> */}
-                      </Link>
-                    </Menu.Item>
+                    <Link to="/alamatcustomer">
+                      <ProfileOutlined style={{ fontSize: "20px" }} />
+                      {/* <i className="icon icon-widgets" /> */}
+                      <span>Alamat Customer</span>
+                      {/* <span>Data Alamat All</span> */}
+                    </Link>
+                  </Menu.Item>
                   <Menu.Item key="Invoice Customer">
-                      <Link to="/invoicecustomer">
-                        <i className="icon icon-widgets" />
-                        <span>Invoice Customer</span>
-                        {/* <span>Data Alamat All</span> */}
-                      </Link>
-                    </Menu.Item>
+                    <Link to="/invoicecustomer">
+                      <FileProtectOutlined style={{ fontSize: "20px" }} />
+                      <span>Invoice Customer</span>
+                      {/* <span>Data Alamat All</span> */}
+                    </Link>
+                  </Menu.Item>
                   <Menu.Item key="Tarif Customer">
-                      <Link to="/pelanggantarif">
-                        <i className="icon icon-widgets" />
-                        <span>Tarif Customer</span>
-                      </Link>
-                    </Menu.Item>
-                    
+                    <Link to="/pelanggantarif">
+                      <DollarOutlined style={{ fontSize: "20px" }} />
+                      <span>Tarif Customer</span>
+                    </Link>
+                  </Menu.Item>
+
                   <Menu.Item key="monitoringVehicle">
                     <Link to="/masterdata/monitoring">
-                      <i className="icon icon-widgets" />
+                      <VideoCameraOutlined style={{ fontSize: "20px" }} />
                       <span>
                         <IntlMessages id="Monitoring Vehicle" />
                       </span>
                     </Link>
                   </Menu.Item>
-                  </MenuItemGroup>
+                </MenuItemGroup>
               )}
               {jobdesk == "operasional" && (
-                <Menu.ItemGroup key="master" title="Master">
-                  <SubMenu key="master" title="Operasional">
+                <Menu.ItemGroup key="master">
                   <Menu.Item key="driver">
                     <Link to="/masterdata/purchasing/driver">
                       {/* <i className="icon icon-widgets" /> */}
@@ -219,13 +233,35 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       <IntlMessages id="SP List" />
                     </Link>
                   </Menu.Item>
-                  
-                  </SubMenu>
+                  <Menu.Item key="VehicleMap" >
+                    <Link to="/masterdata/monitoring">
+                      <i className="icon icon-widgets" />
+                      <span>
+                        <IntlMessages id="Vehicle Map" />
+                      </span>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="DriverMap">
+                    <Link to="/masterdata/monitoring">
+                      <i className="icon icon-widgets" />
+                      <span>
+                        <IntlMessages id="Driver Map" />
+                      </span>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="DriverEmc">
+                    <Link to="/masterdata/monitoring">
+                      <i className="icon icon-widgets" />
+                      <span>
+                        <IntlMessages id="Driver Emc" />
+                      </span>
+                    </Link>
+                  </Menu.Item>
                 </Menu.ItemGroup>
               )}
-              {jobdesk == "operasional" && (
-                <SubMenu key="monitorings" title="Monitoring">
-                  <Menu.Item key="monitoringVehicle">
+              {/* {jobdesk == "operasional" && (
+                <Menu.ItemGroup key="monitorings">
+                  <Menu.Item key="monitoringVehicle" >
                     <Link to="/masterdata/monitoring">
                       <i className="icon icon-widgets" />
                       <span>
@@ -249,8 +285,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                </SubMenu>
-              )}
+                </Menu.ItemGroup>
+              )} */}
               {jobdesk.toLowerCase() === "akunting" ? (
                 <>
                   <SubMenu key="akuntingg" title="Akunting">
@@ -316,14 +352,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </SubMenu>
-                
-                  <SubMenu key="Masters" title="Masters">
-                  
-                  </SubMenu>
 
                   <SubMenu key="Data Wilayah" title="Data Wilayah">
-                    
-
                     <Menu.Item key="Master Kecamatan">
                       <Link to="/masterkecamatan">
                         <i className="icon icon-widgets" />
@@ -345,24 +375,22 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </SubMenu>
 
                   {/* <SubMenu key="AP List" title="AP List">
-                    <Menu.Item key="SP_AP_LIST">
-                      <Link to="/akunting/ap/">
-                        <i className="icon icon-widgets" />
-                        <span>AP List ALL</span>
-                      </Link>
-                    </Menu.Item>
+                      <Menu.Item key="SP_AP_LIST">
+                        <Link to="/akunting/ap/">
+                          <i className="icon icon-widgets" />
+                          <span>AP List ALL</span>
+                        </Link>
+                      </Menu.Item>
 
 
-                  </SubMenu> */}
+                    </SubMenu> */}
                   <SubMenu key="Tarif" title="Tarif">
-                   
                     <Menu.Item key="Tarif Eureka">
                       <Link to="/tarif_eureka">
                         <i className="icon icon-widgets" />
                         <span>Tarif Eureka</span>
                       </Link>
                     </Menu.Item>
-                  
                   </SubMenu>
                 </>
               ) : null}
