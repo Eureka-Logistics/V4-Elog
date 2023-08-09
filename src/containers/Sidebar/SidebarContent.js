@@ -83,8 +83,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
             defaultOpenKeys={[defaultOpenKeys]}
             selectedKeys={[selectedKeys]}
             style={{ backgroundColor: "#BAD6FF" }}
-            // theme={themeType === THEME_TYPE_LITE ? "lite" : "light"}
-            // mode="inline"
+            theme={themeType === THEME_TYPE_LITE ? "lite" : "dark"}
+            mode="inline"
           >
             <MenuItemGroup key="main">
               {jobdesk === "sales" ? (
@@ -310,8 +310,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               )} */}
               {jobdesk.toLowerCase() === "akunting" ? (
                 <>
-                <Menu.ItemGroup key="akuntingg">
-                <Menu.Item key="SP Lists All">
+                  <SubMenu key="akuntingg" title="Akunting">
+                    <Menu.Item key="SP Lists All">
                       <Link to="/akunting/splistakuntingbaru" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>Approve SP</span>
@@ -323,12 +323,16 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         <span>Waiting SP Akunting</span>
                       </Link>
                     </Menu.Item>
+                  </SubMenu>
+                  <SubMenu key="monitoring" title="Monitoring">
                     <Menu.Item key="Data Pesanan Customer">
                       <Link to="/akunting/detaildatacustomer" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>Data Customer</span>
                       </Link>
                     </Menu.Item>
+                  </SubMenu>
+                  <SubMenu key="ArList" title="AR List">
                     <Menu.Item key="SP Lists All">
                       <Link to="/akunting/ar/ar" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
@@ -356,15 +360,21 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Menu.Item key="SP Lists All">
                       <Link to="/akunting/ar/ar" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>Report Pembayaran Cust</span>
+                        <span>Report Pembayaran Customer</span>
                       </Link>
                     </Menu.Item>
+                  </SubMenu>
+
+                  <SubMenu key="Payment" title="Payment">
                     <Menu.Item key="Payment">
                       <Link to="/akunting/ar/reportpartners/reportpenerimaaninvoice" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>Penerimaan INV</span>
                       </Link>
                     </Menu.Item>
+                  </SubMenu>
+
+                  <SubMenu key="Data Wilayah" title="Data Wilayah">
                     <Menu.Item key="Master Kecamatan">
                       <Link to="/masterkecamatan"style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
@@ -383,30 +393,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         <span>Data Provinsi</span>
                       </Link>
                     </Menu.Item>
-                    <Menu.Item key="Tarif Eureka">
-                      <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
-                        <i className="icon icon-widgets" />
-                        <span>Tarif Eureka</span>
-                      </Link>
-                    </Menu.Item>
-                </Menu.ItemGroup>
-                  {/* <SubMenu key="akuntingg" title="Akunting">
-                    
                   </SubMenu>
-                  <SubMenu key="monitoring" title="Monitoring">
-                   
-                  </SubMenu>
-                  <SubMenu key="ArList" title="AR List">
-                    
-                  </SubMenu>
-
-                  <SubMenu key="Payment" title="Payment">
-                  
-                  </SubMenu>
-
-                  <SubMenu key="Data Wilayah" title="Data Wilayah">
-                   
-                  </SubMenu> */}
 
                   {/* <SubMenu key="AP List" title="AP List">
                       <Menu.Item key="SP_AP_LIST">
@@ -418,9 +405,14 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
 
 
                     </SubMenu> */}
-                  {/* <SubMenu key="Tarif" title="Tarif">
-                    
-                  </SubMenu> */}
+                  <SubMenu key="Tarif" title="Tarif">
+                    <Menu.Item key="Tarif Eureka">
+                      <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
+                        <i className="icon icon-widgets" />
+                        <span>Tarif Eureka</span>
+                      </Link>
+                    </Menu.Item>
+                  </SubMenu>
                 </>
               ) : null}
 
