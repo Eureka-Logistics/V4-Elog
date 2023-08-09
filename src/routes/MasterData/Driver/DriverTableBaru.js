@@ -1,4 +1,4 @@
-import { Button, Card, Modal, Form, Input, Pagination, Upload, DatePicker, Select , Tag} from 'antd';
+import { Button, Card, Modal, Form, Input, Pagination, Upload, DatePicker, Select, Switch, Tag } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react'
@@ -23,6 +23,13 @@ function DriverTableBaru() {
     const [CariDriver, setCariDriver] = useState("")
     const [TotalPages, setTotalPages] = useState("")
     const [CariDriverAktif, setCariDriverAktif] = useState("")
+    const { SelectOptionsDriver, setSelectOptionsDriver } = ZustandStore((state) => ({
+        SelectOptionsDriver: state.SelectOptionsDriver,
+        setSelectOptionsDriver: state.setSelectOptionsDriver
+    }))
+    const [DriverCode, setDriverCode] = useState(SelectOptionsDriver)
+    console.log(`DriverCode `, SelectOptionsDriver?.DriverCode);
+    
     const { jenisKepemilikan, setjenisKepemilikan } = ZustandStore((state) => ({
         jenisKepemilikan: state.jenisKepemilikan,
         setjenisKepemilikan: state.setjenisKepemilikan
@@ -90,20 +97,35 @@ function DriverTableBaru() {
                 </>
             )
         },
+        // {
+        //     name: 'Aksi',
+        //     selector: row => row.driverStatus === 1 ? "Tersedia" : "Tidak Tersedia",
+        //     cell: row => (
+        //         <div>
+        //             <Select
+        //                 size="small"
+        //                 value={row.driverStatus === 1 ? "on" : "off"}
+        //                 style={{ width: 120 }}
+        //                 onChange={(value) => value === "on" ?   ModalONDriver(row.driverId) : ModalOFFDriver(row.driverId)}
+        //             >
+        //                 <option value="on">ON</option>
+        //                 <option value="off">OFF</option>
+        //             </Select>
+        //         </div>
+        //     )
+        // },
         {
             name: 'Aksi',
-            selector: row => row.driverStatus === 1 ? "Tersedia" : "Tidak Tersedia",
+            selector: row => row.driverStatus === 1 ? "Aktif" : "Tidak Aktif",
             cell: row => (
                 <div>
-                    <Select
-                        size="small"
-                        value={row.driverStatus === 1 ? "on" : "off"}
-                        style={{ width: 120 }}
-                        onChange={(value) => value === "on" ?   ModalONDriver(row.driverId) : ModalOFFDriver(row.driverId)}
-                    >
-                        <option value="on">ON</option>
-                        <option value="off">OFF</option>
-                    </Select>
+                    <Switch
+                        checked={row.driverStatus === 1 ? true : false}
+                        checkedChildren="ON"
+                        unCheckedChildren="OFF"
+                        // onChange={(value) => value === "on" ?   ModalONDriver(row.driverId) : ModalOFFDriver(row.driverId)}
+                        onChange={(checked) => checked ? ModalONDriver(row.driverId) : ModalOFFDriver(row.driverId)}
+                    />
                 </div>
             )
         },
@@ -191,7 +213,6 @@ function DriverTableBaru() {
         }
     }
 
-    console.log(`inijenis jenisKepemilikan`, jenisKepemilikan);
 
     useEffect(() => {
         ApiAwal()
@@ -201,7 +222,10 @@ function DriverTableBaru() {
         setDriverType()
         setStatusDriverAktif()
         fetchMitra()
+        setSelectOptionsDriver()
+
     }, [CariDriver, CariJenisKepemilikan, CariDriverAktif])
+
 
     const onShowSizeChange = async (page) => {
         ApiAwal(page)
@@ -228,6 +252,9 @@ function DriverTableBaru() {
             })
             setGambarDriver(data.data.data[0]?.driverImage)
             console.log(data.data.data[0]);
+            // formik.setValues({
+            //     DriverCode: SelectOptionsDriver?.DriverCode
+            // })
             formik.setValues({
                 nik: data.data.data[0]?.nik,
                 namadriver: data.data.data[0]?.driverName,
@@ -250,7 +277,8 @@ function DriverTableBaru() {
                 norekening: data.data.data[0]?.Norek,
                 mitra: data.data.data[0]?.mitra,
                 mitraId: data.data.data[0]?.mitraId,
-                cover: data.data.data[0]?.driverImage
+                cover: data.data.data[0]?.driverImage,
+                DriverCode : data.data.data[0]?.driverCode
 
             })
         } catch (error) {
@@ -526,7 +554,7 @@ function DriverTableBaru() {
                 <Row>
 
                     <Col sm={2}>
-                       
+
                         <Input onChange={(e) => { setCariDriver(e.target.value) }} placeholder='Cari Driver'></Input>
                     </Col>
 
@@ -568,7 +596,7 @@ function DriverTableBaru() {
                         </Select>
                     </Col>
                     <Col sm={2}>
-                    <Button size='default'
+                        <Button size='default'
                             onClick={() => {
                                 setModalOpen(true); formik.resetForm(); setGambarDriver(null); setDetailId(null)
                             }} type="primary">Add Driver</Button>
@@ -653,6 +681,23 @@ function DriverTableBaru() {
                                     </Form.Item>
                                 </Col>
                                 <Col sm={4}>
+                                    <Form.Item
+                                        label="Driver Code"
+                                    // help={formik.touched.nik && formik.errors.nik ? formik.errors.nik : null}
+                                    // validateStatus={formik.touched.nik && formik.errors.nik ? 'error' : undefined}
+                                    >
+                                        <Input
+                                            placeholder={SelectOptionsDriver?.DriverCode}
+                                            name="DriverCode"
+                                            disabled
+                                            // onChange={e => {
+                                            //     const val = e.target.value;
+                                            //     formik.setFieldValue('nik', val ? val.charAt(0).toUpperCase() + val.slice(1) : '');
+                                            // }}
+                                            onBlur={formik.handleBlur}
+                                            value={formik.values.DriverCode}
+                                        />
+                                    </Form.Item>
                                     <Form.Item
                                         label="NIK"
                                         help={formik.touched.nik && formik.errors.nik ? formik.errors.nik : null}

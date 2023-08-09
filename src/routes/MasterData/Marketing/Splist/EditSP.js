@@ -606,7 +606,7 @@ function EditSP({ alamatInvoice }) {
         <Row>
           <h5>Detail SP</h5>
           <EditSPNew />
-          <ModalCreateDetail idmp={idmp} detailData={detailData}/>
+          {/* <ModalCreateDetail idmp={idmp} detailData={detailData}/> */}
           <div className="d-flex justify-content-end">
             {jobdesk != "sales" && jobdesk != "operasional" ? (
               <>
