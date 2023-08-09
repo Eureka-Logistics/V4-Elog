@@ -146,7 +146,7 @@ const SamplePage = () => {
   const [kotaTujuannOptionSelect, setKotaTujuanOpionSelect] = useState("");
   const [muatKotaOptionSelect, setMuatKotaOptionsSelect] = useState("");
   const [namaMitranyaoptionSelect, setnamaMitranyaoptionSelect] = useState("");
-  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchKeyword, setSearchKeyword] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   const IniRowClick = (record) => {
@@ -256,10 +256,11 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
-        <h4>Data Tarif Mitra</h4>
+        <h5 style={{ color: "#1A5CBF", fontWeight: "bold" }}>
+          Data Tarif Mitra
+        </h5>
         <div>
           <Row className="mt-4 mb-2">
-            
             <Col sm={3}>
               <label className="mb-2" htmlFor="muatKotaSelect">
                 Search Kota Muat:
@@ -270,7 +271,12 @@ const SamplePage = () => {
                 showSearch
                 optionFilterProp="children"
                 placeholder="Select Muat Kota"
-                style={{ width: "100%" }}
+                style={{
+                  width: "100%",
+                  border: "1px solid #1A5CBF",
+                  borderRadius: "5px",
+                  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                }}
                 onChange={(e, options) => {
                   console.log(options);
                   setMuatKota(options.value);
@@ -295,7 +301,12 @@ const SamplePage = () => {
                 showSearch
                 optionFilterProp="children"
                 placeholder="Select Muat Kota"
-                style={{ width: "100%" }}
+                style={{
+                  width: "100%",
+                  border: "1px solid #1A5CBF",
+                  borderRadius: "5px",
+                  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                }}
                 onChange={(e, options) => {
                   console.log(options);
                   setKotaTujuan(options.value);
@@ -320,7 +331,12 @@ const SamplePage = () => {
                 showSearch
                 optionFilterProp="children"
                 placeholder="Select Nama Mitra"
-                style={{ width: "100%" }}
+                style={{
+                  width: "100%",
+                  border: "1px solid #1A5CBF",
+                  borderRadius: "5px",
+                  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                }}
                 onChange={(e, options) => {
                   console.log(options);
                   setNamaMitranya(options.value);
@@ -336,7 +352,16 @@ const SamplePage = () => {
               </Select>
             </Col>
             <Col sm={3} className="d-flex justify-content-end mt-4">
-              <Button type="primary" onClick={handleAdd}>
+              <Button
+                style={{
+                  backgroundColor: "#1A5CBF",
+                  color: "#FFFFFF",
+                  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                  borderColor: "#1A5CBF",
+                }}
+                // type="primary"
+                onClick={handleAdd}
+              >
                 New Tarif
               </Button>
             </Col>

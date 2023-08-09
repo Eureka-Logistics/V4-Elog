@@ -85,7 +85,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
             style={{ backgroundColor: "#BAD6FF" }}
             theme={themeType === THEME_TYPE_LITE ? "lite" : "dark"}
             mode="inline"
-          >
+          > 
             <MenuItemGroup key="main">
               {jobdesk === "sales" ? (
                 <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
@@ -146,7 +146,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <Menu.Item key="SP List">
                     <Link to="/masterdata/marketing/splist"  style={{ textDecoration: "none" }}>
                       <FileTextOutlined style={{ fontSize: "20px" }} />
-                      <span>
+                      <span style={{ fontWeight: "bold" }}>
                         <IntlMessages id="SP List" />
                       </span>
                     </Link>
@@ -154,7 +154,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <Menu.Item key="Cancel SP List">
                     <Link to="/masterdata/marketing/cancelsplist"  style={{ textDecoration: "none" }}>
                       <FileExcelOutlined style={{ fontSize: "20px" }} />
-                      <span>
+                      <span style={{ fontWeight: "bold" }}>
                         <IntlMessages id="Cancel SP List" />
                       </span>
                     </Link>
@@ -162,35 +162,35 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <Menu.Item key="Data Wilayah">
                     <Link to="/mastercustomersss"  style={{ textDecoration: "none" }}>
                       <UserOutlined style={{ fontSize: "20px" }} />
-                      <span>Customer</span>
+                      <span style={{ fontWeight: "bold" }}>Customer</span>
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Alamat Customer">
                     <Link to="/alamatcustomer"  style={{ textDecoration: "none" }}>
                       <ProfileOutlined style={{ fontSize: "20px" }} />
                       {/* <i className="icon icon-widgets" /> */}
-                      <span>Alamat Customer</span>
-                      {/* <span>Data Alamat All</span> */}
+                      <span style={{ fontWeight: "bold" }}>Alamat Customer</span>
+                      {/* <span style={{ fontWeight: "bold" }}>Data Alamat All</span> */}
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Invoice Customer">
                     <Link to="/invoicecustomer" style={{ textDecoration: "none" }}>
                       <FileProtectOutlined style={{ fontSize: "20px" }} />
-                      <span>Invoice Customer</span>
-                      {/* <span>Data Alamat All</span> */}
+                      <span style={{ fontWeight: "bold" }}>Invoice Customer</span>
+                      {/* <span style={{ fontWeight: "bold" }}>Data Alamat All</span> */}
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Tarif Customer">
                     <Link to="/pelanggantarif" style={{ textDecoration: "none" }}>
                       <DollarOutlined style={{ fontSize: "20px" }} />
-                      <span>Tarif Customer</span>
+                      <span style={{ fontWeight: "bold" }}>Tarif Customer</span>
                     </Link>
                   </Menu.Item>
 
                   <Menu.Item key="monitoringVehicle">
                     <Link to="/masterdata/monitoring" style={{ textDecoration: "none" }}>
                       <VideoCameraOutlined style={{ fontSize: "20px" }} />
-                      <span>
+                      <span style={{ fontWeight: "bold" }}>
                         <IntlMessages id="Monitoring Vehicle" />
                       </span>
                     </Link>
@@ -285,7 +285,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <Menu.Item key="monitoringVehicle" >
                     <Link to="/masterdata/monitoring">
                       <i className="icon icon-widgets" />
-                      <span>
+                      <span style={{ fontWeight: "bold" }}>
                         <IntlMessages id="Vehicle Map" />
                       </span>
                     </Link>
@@ -293,7 +293,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <Menu.Item key="monitoringDriver">
                     <Link to="/masterdata/monitoring">
                       <i className="icon icon-widgets" />
-                      <span>
+                      <span style={{ fontWeight: "bold" }}>
                         <IntlMessages id="Driver Map" />
                       </span>
                     </Link>
@@ -301,7 +301,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <Menu.Item key="DriverEmc">
                     <Link to="/masterdata/monitoring">
                       <i className="icon icon-widgets" />
-                      <span>
+                      <span style={{ fontWeight: "bold" }}>
                         <IntlMessages id="Driver Emc" />
                       </span>
                     </Link>
@@ -314,53 +314,53 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Menu.Item key="SP Lists All">
                       <Link to="/akunting/splistakuntingbaru" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>Approve SP</span>
+                        <span style={{ fontWeight: "bold" }}>Approve SP</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="SP Lists">
                       <Link to="/akunting/splistwaitingakunting" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>Waiting SP Akunting</span>
+                        <span style={{ fontWeight: "bold" }}>Waiting SP Akunting</span>
                       </Link>
                     </Menu.Item>
                   </SubMenu>
-                  <SubMenu key="monitoring" title="Monitoring">
+                  {/* <SubMenu key="monitoring" title="Monitoring">
                     <Menu.Item key="Data Pesanan Customer">
                       <Link to="/akunting/detaildatacustomer" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>Data Customer</span>
+                        <span style={{ fontWeight: "bold" }}>Data Customer</span>
                       </Link>
                     </Menu.Item>
-                  </SubMenu>
+                  </SubMenu> */}
                   <SubMenu key="ArList" title="AR List">
                     <Menu.Item key="SP Lists All">
                       <Link to="/akunting/ar/ar" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>AR List ALL</span>
+                        <span style={{ fontWeight: "bold" }}>AR List ALL</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="SP Lists All">
                       <Link to="/akunting/ar/ar" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>List Invoice AR</span>
+                        <span style={{ fontWeight: "bold" }}>List Invoice AR</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="SP Lists All">
                       <Link to="/akunting/ar/ar" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>SJ no AR</span>
+                        <span style={{ fontWeight: "bold" }}>SJ no AR</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="SP Lists All">
                       <Link to="/akunting/ar/ar" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>Penerimaan SJ</span>
+                        <span style={{ fontWeight: "bold" }}>Penerimaan SJ</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="SP Lists All">
                       <Link to="/akunting/ar/ar" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>Report Pembayaran Customer</span>
+                        <span style={{ fontWeight: "bold" }}>Report Pembayaran Customer</span>
                       </Link>
                     </Menu.Item>
                   </SubMenu>
@@ -369,7 +369,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Menu.Item key="Payment">
                       <Link to="/akunting/ar/reportpartners/reportpenerimaaninvoice" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>Penerimaan INV</span>
+                        <span style={{ fontWeight: "bold" }}>Penerimaan INV</span>
                       </Link>
                     </Menu.Item>
                   </SubMenu>
@@ -378,19 +378,19 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Menu.Item key="Master Kecamatan">
                       <Link to="/masterkecamatan"style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>Data Kecamatan</span>
+                        <span style={{ fontWeight: "bold" }}>Data Kecamatan</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="Master Kota">
                       <Link to="/masterkota" style={{ textDecoration: "none" }}> 
                         <i className="icon icon-widgets" />
-                        <span>Data Kota</span>
+                        <span style={{ fontWeight: "bold" }}>Data Kota</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="Master Provinsi">
                       <Link to="/masterprovinsi" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>Data Provinsi</span>
+                        <span style={{ fontWeight: "bold" }}>Data Provinsi</span>
                       </Link>
                     </Menu.Item>
                   </SubMenu>
@@ -399,7 +399,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       <Menu.Item key="SP_AP_LIST">
                         <Link to="/akunting/ap/">
                           <i className="icon icon-widgets" />
-                          <span>AP List ALL</span>
+                          <span style={{ fontWeight: "bold" }}>AP List ALL</span>
                         </Link>
                       </Menu.Item>
 
@@ -409,7 +409,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Menu.Item key="Tarif Eureka">
                       <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>Tarif Eureka</span>
+                        <span style={{ fontWeight: "bold" }}>Tarif Eureka</span>
                       </Link>
                     </Menu.Item>
                   </SubMenu>
@@ -421,7 +421,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Menu.Item key="New SP">
                       <Link to="/purchasing/newsplist" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>
+                        <span style={{ fontWeight: "bold" }}>
                           <IntlMessages id="Approve SP" />
                         </span>
                       </Link>
@@ -429,7 +429,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Menu.Item key="SP List">
                       <Link to="/masterdata/splist" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>
+                        <span style={{ fontWeight: "bold" }}>
                           <IntlMessages id="SP List" />
                         </span>
                       </Link>
@@ -437,7 +437,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Menu.Item key="SJ List">
                       <Link to="/masterdata/sjlist" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>
+                        <span style={{ fontWeight: "bold" }}>
                           <IntlMessages id="SJ List" />
                         </span>
                       </Link>
@@ -445,7 +445,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Menu.Item key="driverpurch">
                       <Link to="/masterdata/purchasing/driver" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>
+                        <span style={{ fontWeight: "bold" }}>
                           <IntlMessages id="Master Driver" />
                         </span>
                       </Link>
@@ -453,19 +453,19 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Menu.Item key="Master Mitra">
                       <Link to="/mastermitra" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>Master Mitra</span>
+                        <span style={{ fontWeight: "bold" }}>Master Mitra</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="Tarif Mitra">
                       <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>Tarif Mitra</span>
+                        <span style={{ fontWeight: "bold" }}>Tarif Mitra</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="vehiclepurch">
                       <Link to="/masterdata/purchasing/vehicle" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>
+                        <span style={{ fontWeight: "bold" }}>
                           <IntlMessages id="Master Vehicle" />
                         </span>
                       </Link>
