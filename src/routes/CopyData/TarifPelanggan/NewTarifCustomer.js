@@ -21,8 +21,8 @@ function NewTarifCustomer() {
   const [DataDiskon, setDataDiskon] = useState("");
   const [DataDiskonType, setDataDiskonType] = useState("");
   const [DataBiayaJalan, setDataBiayaJalan] = useState("");
-  const [DataBiayaMuat, setDataBiayaMuat] = useState("");
-  const [DataBiayaBongkar, setDataBiayaBongkar] = useState("");
+  const [DataBiayaMuat, setDataBiayaMuat] = useState(0);
+  const [DataBiayaBongkar, setDataBiayaBongkar] = useState(0);
   const [DataBiayaOvertonase, setDataBiayaOvertonase] = useState("");
   const [DataBiayaMultimuat, setDataBiayaMultimuat] = useState("");
   const [DataBiayaMultiDrop, setDataBiayaMultiDrop] = useState("");
@@ -126,7 +126,7 @@ function NewTarifCustomer() {
     // fetchData();
     GetSelectData();
     if (!isNaN(DataTarifKatalog) && !isNaN(DataDiskon)) {
-      if (DataDiskonType === "Persentase") {
+      if (DataDiskonType === "Presentase") {
         const diskonPercentage = DataDiskon / 100;
         const totalBiayaAfterDiskon =
           DataTarifKatalog - DataTarifKatalog * diskonPercentage;
@@ -399,7 +399,7 @@ function NewTarifCustomer() {
           >
             {/* Add the options here */}
             <Select.Option value="Amount">Amount</Select.Option>
-            <Select.Option value="Persentase">Persentase</Select.Option>
+            <Select.Option value="Presentase">Presentase</Select.Option>
           </Select>
         </Col>
         <Col span={6}>
@@ -456,7 +456,8 @@ function NewTarifCustomer() {
             type="number"
             className="mt-2 mb-2"
             name="biaya_muat"
-            placeholder="-"
+            // placeholder="-"
+            value={DataBiayaMuat}
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaMuat(e.target.value);
