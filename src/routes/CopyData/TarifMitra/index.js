@@ -60,7 +60,7 @@ const SamplePage = () => {
     {
       name: "Nama Mitra",
       selector: (row) => row.mitra,
-      width: "10%",
+      width: "20%",
     },
     {
       name: "Muat",
@@ -72,12 +72,12 @@ const SamplePage = () => {
       selector: (row) => row.kotaTujuan,
       key: "kotaTujuan",
     },
-    {
-      name: "Jenis Kendaraan",
-      selector: "kendaraanJenis",
-      key: "kendaraanJenis",
-      width: "150px",
-    },
+    // {
+    //   name: "Jenis Kendaraan",
+    //   selector: "kendaraanJenis",
+    //   key: "kendaraanJenis",
+    //   width: "150px",
+    // },
     {
       name: "Biaya Kirim",
       selector: "tarif",
