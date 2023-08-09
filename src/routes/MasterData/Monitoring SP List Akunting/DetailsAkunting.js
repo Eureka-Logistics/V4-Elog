@@ -317,7 +317,7 @@ function DetailsAkunting() {
     <div>
       <Card>
         <Row>
-          <h5>Detail Sp</h5>
+          <h5 >Detail Sp</h5>
           {/* Modal Reject*/}
           <Modal
             title="Reject SP Sales"
