@@ -7,7 +7,8 @@ import Baseurl from '../../../../Api/BaseUrl';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import NumberFormat from 'react-number-format';
-function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik,detailData }) {
+import ZustandStore from '../../../../zustand/Store/GetSelectKota';
+function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik, detailData }) {
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
     const [selectVia, setSelectVia] = useState("");
@@ -16,15 +17,22 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     const [shipmentOptions, setShipmentOptions] = useState([]);
     const [Loding, setLoding] = useState(false)
     const [DetailSemuaTemp, setDetailSemuaTemp] = useState("")
+    const [IDMuatKota ,setIDMuatKota ] = useState("")
+    const [IDKotaBongkar ,setIDKotaBongkar ] = useState("")
     const [DetaillSJall, setDetaillSJall] = useState("")
-    const [GetTarifOptions , setGetTarifOptions]= useState([])
+    const {NamaKotaGlobal,setNamaKotaGlobal} = ZustandStore ((i)=>({
+        NamaKotaGlobal : i.NamaKotaGlobal,
+        setNamaKotaGlobal : i.setNamaKotaGlobal
+    }))
+    const [id_price_customer , setid_price_customer] = useState("")
+    const [GetTarifOptions, setGetTarifOptions] = useState([])
     const formik = useFormik({
         initialValues: {
             alamatmuat: '',
             alamatbongkar: "",
             kendaraan: "",
             via: "",
-            alamatrute:'',
+            alamatrute: '',
 
         },
         validationSchema: Yup.object({
@@ -55,7 +63,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     idcustomer: DetailSemua?.idcustomer,
                     ph: DetailSemua?.sp,
                     via: formik.values.via,
-                    shipment: formik.values.shipment,
+                    shipment: formik.values.shipmentID,
                     kendaraan: formik.values.kendaraan,
                     id_almuat: formik.values.IDalamatmuat,
                     id_albongkar: formik.values.IDalamatbongkar,
@@ -64,6 +72,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     berat: formik.values.berat,
                     qty: formik.values.qyt,
                     koli: formik.values.koli,
+                    id_price_customer : id_price_customer,
                     harga: HasilTarif + Hitung()
                 },
                 {
@@ -83,10 +92,11 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     }
 
 
+    // console.log(`NamaKotaGlobal`,NamaKotaGlobal);
 
     // cek tarif
     const [HasilTarif, setasilTarif] = useState("")
-    
+
     const tarifalamat = async () => {
         try {
             const data = await axios.post(`${Baseurl}sp/get-tarif-alamat`,
@@ -156,9 +166,9 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     useEffect(() => {
 
         getDetailModal();
-        
+        setNamaKotaGlobal()
         // DetailSP()
-    }, [DetailSemua,detailData]);
+    }, [DetailSemua, detailData]);
     useEffect(() => (
         formik.setValues({
             via: DetailSemuaTemp?.via,
@@ -187,7 +197,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
 
 
     useEffect(() => {
-        
+
         if (formik.values.via) {
             const filteredShipments = SelectShipment.filter(
                 (item) => item?.via === formik.values.via
@@ -197,11 +207,11 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         }
         else {
             setShipmentOptions([]);
-            // getTarifRute()
+            getTarifRute()
         }
         getDetail()
 
-    }, [formik.values.via, SelectShipment]);
+    }, [formik.values.via, SelectShipment,IDMuatKota,IDKotaBongkar]);
     // console.log(`ini modal dari SelectShipment`, SelectShipment);
 
 
@@ -304,42 +314,45 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
 
         return total;
     }
-    
+
+
+
 
 
     const getDetail = async () => {
         try {
-          const response = await axios.get(
-            `${Baseurl}sp/get-SP-all-detail?keyword=&idmp=${idmp}`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: localStorage.getItem("token"),
-              },
-            }
-          );
-          console.log(response.data.idcustomer);
-          localStorage.setItem("idcustomer", response.data.idcustomer)
+            const response = await axios.get(
+                `${Baseurl}sp/get-SP-all-detail?keyword=&idmp=${idmp}`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: localStorage.getItem("token"),
+                    },
+                }
+            );
+            console.log(response.data.idcustomer);
+            localStorage.setItem("idcustomer", response.data.idcustomer)
         } catch (error) {
-          console.error("Failed to fetch detail data:", error);
+            console.error("Failed to fetch detail data:", error);
         }
-      };
-    const getTarifRute = async()=>{
-        const data = await axios.get(`${Baseurl}tarif/get-tarifCustomer?limit=99&page=1&id_muat_kota=&id_tujuan_kota=&id_kendaraan_jenis=&id_price=&id_customer=${localStorage.getItem("idcustomer")}`,
-        {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: localStorage.getItem("token"),
-            },
-        })
-        console.log(`ini get tarif`,data.data.data.order);
+    };
+
+  
+    const getTarifRute = async () => {
+        const data = await axios.get(`${Baseurl}tarif/get-tarifCustomer?limit=&page=&id_muat_kota=${IDMuatKota}&id_tujuan_kota=${IDKotaBongkar}&id_kendaraan_jenis=&id_price=&id_customer=${localStorage.getItem("idcustomer")}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.getItem("token"),
+                },
+            })
+        console.log(`ini get tarif`, data.data.data.order);
         setGetTarifOptions(data.data.data.order)
     }
 
 
-   
 
-    console.log(`idmp`,idmp)
+    console.log(`GetTarifOptions`, GetTarifOptions)
 
     return (
         <div className='mt-3'>
@@ -373,7 +386,91 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     wrapperCol={{ span: 24 }}
                 >
                     <Row>
-                    <Col sm={12}>
+                        <Col sm={6}>
+                            <Form.Item
+                                label="nama kota muat"
+                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
+                                validateStatus={
+                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                        ? 'error'
+                                        : 'success'
+                                }
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Select
+                                    showSearch
+                                    optionFilterProp="children"
+                                    id="IDNamaKotaMuat"
+                                    NamaKotaMuat                                    type="text"
+                                    value={AlamatInvoiceOptions?.nama_kota}
+                                    onChange={(value, option) => {
+                                        formik.setFieldValue("IDNamaKotaMuat", option.key);
+                                        setIDMuatKota(option.key) // set alamatmuat state to option's children
+                                        // formik.setFieldValue("IDalamatmuat", option.key); // set IDalamatmuat state to option's value
+                                        // formik.setFieldValue("IdKotaMuat", value); // set IDalamatmuat state to option's value
+                                        console.log(`IDNamaKotaMuat`, option.key);
+                                    }}
+                                    onBlur={formik.handleBlur}
+                                >
+                                    {NamaKotaGlobal && NamaKotaGlobal?.muatKota?.map((item) => (
+                                        <Select.Option key={item.idKota} value={item.idKota}>
+                                            {item.namaKota}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                        {/* <Col sm={4}>
+                        <Form.Item
+                                // label="nama kota muat"
+                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
+                                validateStatus={
+                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                        ? 'error'
+                                        : 'success'
+                                }
+                                style={{ marginBottom: 2 }}
+                            >
+                               <Input/>
+                            </Form.Item>
+                        </Col> */}
+                        <Col sm={6}>
+                            <Form.Item
+                                label="nama kota bongkar"
+                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
+                                validateStatus={
+                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                        ? 'error'
+                                        : 'success'
+                                }
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Select
+                                    // disabled
+                                    showSearch
+                                    optionFilterProp="children"
+                                    id="IDNamaKotaBongkar"
+                                    name="IDNamaKotaBongkar"
+                                    type="text"
+                                    onChange={(value, option) => {
+                                        formik.setFieldValue("IDNamaKotaBongkar", option.key); 
+                                        setIDKotaBongkar(option.key)// set alamatmuat state to option's children
+                                        // formik.setFieldValue("IDalamatmuat", option.key); // set IDalamatmuat state to option's value
+                                        // formik.setFieldValue("IdKotaMuat", value); // set IDalamatmuat state to option's value
+                                        console.log(`IDNamaKotaBongkar`, option.key);
+                                    }}
+                                    value={AlamatInvoiceOptions?.tujuanKota}
+                                    onBlur={formik.handleBlur}
+                                >
+                                    {NamaKotaGlobal && NamaKotaGlobal?.tujuanKota?.map((item) => (
+                                        <Select.Option key={item.idKota} value={item.idKota}>
+                                            {item.namaKota}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                        <Col sm={12}>
                             <Form.Item
                                 required
                                 label="Pilih Rute"
@@ -393,19 +490,20 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     name="pilihrute"
                                     type="text"
                                     onChange={(value, option) => {
-                                        formik.setFieldValue("alamatrute", option); 
-                                        formik.setFieldValue("kendaraan", option.children[6].props.children); 
-                                        formik.setFieldValue("via",  option.children[8].props.children); 
-                                        formik.setFieldValue("shipment",  option.children[10].props.children); 
-                                        setasilTarif(option.children[12].props.children)
-                                        console.log(option);
+                                        formik.setFieldValue("alamatrute", option);
+                                        formik.setFieldValue("kendaraan", option.children[1].props.children);
+                                        formik.setFieldValue("via", option.children[3].props.children);
+                                        formik.setFieldValue("shipment", option.children[5].props.children);
+                                        setasilTarif(option.children[7].props.children)
+                                        setid_price_customer(value)
+                                        console.log(`id_price`,value);
                                     }}
-                                    value={formik.values.alamatrute}
+                                    value={formik.values.alamatrute }
                                     onBlur={formik.handleBlur}
                                 >
                                     {GetTarifOptions && GetTarifOptions.map((item) => (
-                                        <Select.Option key={item.kotaTujuan} value={item.id_price}>
-                                     {item.no}. <Tag color='red'> {item.kotaAsal}</Tag>Ke:<Tag color='yellow'>{item.kotaTujuan}</Tag>Kendaraan:<Tag color='blue'>{item.kendaraanJenis}</Tag>via:<Tag color='gold'>{item.via}</Tag>Shipment:<Tag color='cyan'>{item.service_type}</Tag>Tarif:<Tag color='green'>{item.biaya_jalan}</Tag>
+                                        <Select.Option key={item.kotaTujuan}  value={item.id_price}>
+                                            Kendaraan:<Tag color='blue'>{item.kendaraanJenis}</Tag>via:<Tag color='gold'>{item.via}</Tag>Shipment:<Tag color='cyan'>{item.service_type}</Tag>Tarif:<Tag color='green'>{item.biaya_jalan}</Tag>
                                         </Select.Option>
                                     ))}
                                 </Select>
@@ -447,7 +545,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col sm={4}>
+                        {/* <Col sm={4}>
                             <Form.Item
                                 label="nama kota muat"
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
@@ -475,7 +573,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     ))}
                                 </Select>
                             </Form.Item>
-                        </Col>
+                        </Col> */}
                         <Col sm={8}>
                             <Form.Item
                                 required
@@ -511,7 +609,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col sm={4}>
+                        {/* <Col sm={4}>
                             <Form.Item
                                 label="nama kota bongkar"
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
@@ -535,7 +633,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         formik.setFieldValue("IdKotaMuat", value); // set IDalamatmuat state to option's value
                                         console.log(`key`, option.key);
                                     }}
-                                    value={formik.values.alamatmuat}
+                                    value={AlamatInvoiceOptions?.nama_kota}
                                     onBlur={formik.handleBlur}
                                 >
                                     {AlamatInvoiceOptions && AlamatInvoiceOptions.map((item) => (
@@ -545,8 +643,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     ))}
                                 </Select>
                             </Form.Item>
-                        </Col>
-                        
+                        </Col> */}
+
                     </Row>
                     <br />
                     <hr />
@@ -634,6 +732,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     onChange={(e) => {
                                         formik.setFieldValue("shipment", e)
                                         formik.setFieldValue("shipmentID", e)
+                                        console.log(e);
                                     }}
                                     value={formik.values.shipment}
                                     onBlur={formik.handleBlur}
@@ -797,7 +896,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             </Form.Item>
                         </Col>
                     </Row>
-                    <hr/>
+                    <hr />
                     <Row>
                         <Col sm={4}>
                             <Form.Item
@@ -812,7 +911,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 style={{ marginBottom: 2 }}
                             >
                                 <Input
-                                disabled
+                                    disabled
                                     id="tarif"
                                     name="tarif"
                                     type="number"
@@ -1044,7 +1143,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     name="total"
                                     type="number"
                                     onChange={formik.handleChange}
-                                    value={HasilTarif + Hitung()}
+                                    value={HasilTarif + Hitung() === "" ? formik.values.total : HasilTarif + Hitung()}
                                     onBlur={formik.handleBlur}
                                 />
                             </Form.Item>
