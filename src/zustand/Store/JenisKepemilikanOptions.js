@@ -9,6 +9,7 @@ const ZustandStore = create((set) => ({
   JenisSim : [],
   DriverType :[],
   WarnaPlat:[],
+  SelectOptionsDriver:[],
   
   setDriverType: async () => {
     try {
@@ -47,6 +48,19 @@ const ZustandStore = create((set) => ({
       });
       set({ UkuranSeragam: data.data.ukuranSeragam });
       console.log(`ini`,data.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  setSelectOptionsDriver: async () => {
+    try {
+      const data = await axios.get(`${Baseurl}driver/get-select`, {
+          headers: {
+              "Content-Type": "application/json",
+              Authorization: localStorage.getItem("token"),
+          }
+      });
+      set({ SelectOptionsDriver: data.data });
     } catch (error) {
       console.error(error);
     }
@@ -108,6 +122,9 @@ const ZustandStore = create((set) => ({
       console.error(error);
     }
   },
+
+
+  
 }));
 
 export default ZustandStore;

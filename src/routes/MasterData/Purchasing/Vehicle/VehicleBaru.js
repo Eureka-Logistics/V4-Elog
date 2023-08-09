@@ -59,7 +59,7 @@ function VehicleBaru() {
     const jenisKepemilikanOptions = jenisKepemilikan.map((item) => ({
         label: item.jenis,
     }))
-    console.log(`StatusDriverAktif`, StatusDriverAktif);
+    const [CodeVehicle,setCodeVehicle]= useState("")
 
     const validationSchema = Yup.object().shape({
         kode_kendaraan: Yup.string()
@@ -287,7 +287,7 @@ function VehicleBaru() {
             selector: row => row.driverName,
         },
         {
-            name: 'Status',
+            name: 'Aksi',
             selector: row => row.status === "1" ? "Aktif" : "Tidak Aktif",
             cell: row => (
                 <div>
@@ -326,6 +326,7 @@ function VehicleBaru() {
         setDriverType()
         setWarnaPlat()
         setStatusDriverAktif()
+        DriverName()
     }, [CariNoKendaraan, CariJenisKepemilikan, CariDriverAktif])
 
     const EditVehicle = async (values) => {
@@ -384,6 +385,7 @@ function VehicleBaru() {
             })
             console.log(`ini baru`, data.data.data[0]);
             setFotoDriver(data.data.data[0].vehicleImage)
+            setCodeVehicle(data.data.data[0])
             formik.setValues({
                 kode_kendaraan: data.data.data[0].vehicleCode,
                 no_polisi: data.data.data[0].policeNumber,
@@ -460,13 +462,12 @@ function VehicleBaru() {
                 }
             )
             setNamaSupir(data.data.data.driverName)
-            console.log(`nama supir`, data.data.data.driverName);
+            setCodeVehicle(data.data.data.code)
         } catch (error) {
 
         }
     }
 
-    console.log(`ini DriverType`, DriverType);
 
     const title = () => {
         if (formik.values.jenis_kepemilikan === "") {
@@ -662,6 +663,26 @@ function VehicleBaru() {
                                     </AntForm.Item>
                                 </Col>
                                 <Col sm={4}>
+                                    <AntForm.Item
+                                        label="Vehicle Code"
+                                        required
+                                        labelCol={{ span: 24 }}
+                                        wrapperCol={{ span: 24 }}
+                                        style={{ marginBottom: 2 }}
+                                    >
+                                        <Input
+                                        disabled
+                                            showSearch
+                                            optionFilterProp="children"
+                                            id="jenis_kepemilikan"
+                                            name="jenis_kepemilikan"
+                                            onChange={(value) => formik.setFieldValue('jenis_kepemilikan', value)}
+                                            value={CodeVehicle}
+                                            // onBlur={formik.handleBlur}
+                                        >
+                                           
+                                        </Input>
+                                    </AntForm.Item>
                                     <AntForm.Item
                                         label="Jenis Kepemilikan"
                                         required
