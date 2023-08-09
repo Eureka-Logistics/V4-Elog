@@ -597,7 +597,7 @@ function NewTarifCustomer() {
             }}
             onClick={TambahData}
           >
-            Submit
+            Submitt
           </Button>
         </Col>
       </Row>
