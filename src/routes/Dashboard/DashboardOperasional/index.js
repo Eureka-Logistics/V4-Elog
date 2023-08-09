@@ -15,6 +15,7 @@ import {
   UserOutlined,
   UserAddOutlined,
   UserSwitchOutlined,
+  CarOutlined,
 } from "@ant-design/icons";
 // import { Col, Row } from 'react-bootstrap';
 import { format } from "date-fns";
@@ -216,7 +217,7 @@ function Index() {
                     alignItems: "center",
                   }}
                 >
-                  <UserAddOutlined style={{ color: "white" }}></UserAddOutlined>
+                  <CarOutlined style={{ color: "white" }}></CarOutlined>
                 </div>
               </Col>
               <Col span={24} className="d-flex justify-content-center mt-2">

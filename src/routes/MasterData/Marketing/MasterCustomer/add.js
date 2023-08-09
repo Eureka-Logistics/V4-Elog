@@ -37,11 +37,11 @@ const SamplePage = () => {
 
   const optjenisPembayaran = [
     {
-      value: "1",
+      value: 1,
       label: "Cash",
     },
     {
-      Value: "2",
+      value: 2,
       label: "Credit",
     },
   ];
@@ -476,6 +476,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                  type="number"
                     name="pic_birth"
                     placeholder="PIC Birth"
                     value={formik.values.pic_birth}
@@ -731,7 +732,10 @@ const SamplePage = () => {
                     options={optjenisPembayaran}
                     name="jenis_pembayaran"
                     value={jenisPembayaran}
-                    onChange={(e) => setJenisPembayaran(e)}
+                    placeholder="Type Of Payment"
+                    onChange={(label,value) => {setJenisPembayaran(value.label)
+                      formik.setFieldValue(`jenis_pembayaran`,value.label)
+                    console.log(value.label);}}
                     isInvalid={!!formik.errors.jenis_pembayaran}
                     // styles={customStylesReactSelect}
                   />

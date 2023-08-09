@@ -53,7 +53,6 @@ const SamplePage = () => {
       title: "Perusahaan",
       dataIndex: "custName",
       key: "custName",
-      
     },
     {
       title: "Barang",
