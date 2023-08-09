@@ -502,7 +502,8 @@ function NewTarifCustomer() {
             type="number"
             className="mt-2 mb-2"
             name="biaya_muat"
-            placeholder="-"
+            // placeholder="-"
+            value={DataBiayaMultiDrop}
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaMultiDrop(e.target.value);
@@ -518,7 +519,8 @@ function NewTarifCustomer() {
             type="number"
             className="mt-2 mb-2"
             name="biaya_overtonase"
-            placeholder="-"
+            // placeholder="-"
+            value={DataBiayaOvertonase}
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaOvertonase(e.target.value);
@@ -532,7 +534,8 @@ function NewTarifCustomer() {
             type="number"
             className="mt-2 mb-2"
             name="biaya_tambahan"
-            placeholder="-"
+            // placeholder="-"
+            value={DataBiayaTambahan}
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaTambahan(e.target.value);
@@ -546,7 +549,7 @@ function NewTarifCustomer() {
             type="number"
             className="mt-2 mb-2"
             name="biaya_mel"
-            placeholder="-"
+            value={DataBiayaMel}
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaMel(e.target.value);
@@ -560,7 +563,7 @@ function NewTarifCustomer() {
             type="number"
             className="mt-2 mb-2"
             name="biaya_lain"
-            placeholder="-"
+            value={DataBiayaLain}
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaLain(e.target.value);
@@ -575,7 +578,7 @@ function NewTarifCustomer() {
             className="mt-2 mb-2"
             name="biaya_multimuat
             "
-            placeholder="-"
+            value={DataBiayaMultimuat}
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaMultimuat(e.target.value);
