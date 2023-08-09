@@ -9,6 +9,7 @@ import {
   DatePicker,
   Select,
   Tag,
+  Switch
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import moment from "moment";
@@ -103,28 +104,42 @@ function DriverTableBaru() {
         </>
       ),
     },
+    // {
+    //   name: "Aksi",
+    //   selector: (row) =>
+    //     row.driverStatus === 1 ? "Tersedia" : "Tidak Tersedia",
+    //   cell: (row) => (
+    //     <div>
+    //       <Select
+    //         size="small"
+    //         value={row.driverStatus === 1 ? "on" : "off"}
+    //         style={{ width: 120 }}
+    //         onChange={(value) =>
+    //           value === "on"
+    //             ? ModalONDriver(row.driverId)
+    //             : ModalOFFDriver(row.driverId)
+    //         }
+    //       >
+    //         <option value="on">ON</option>
+    //         <option value="off">OFF</option>
+    //       </Select>
+    //     </div>
+    //   ),
+    // },
     {
-      name: "Aksi",
-      selector: (row) =>
-        row.driverStatus === 1 ? "Tersedia" : "Tidak Tersedia",
-      cell: (row) => (
-        <div>
-          <Select
-            size="small"
-            value={row.driverStatus === 1 ? "on" : "off"}
-            style={{ width: 120 }}
-            onChange={(value) =>
-              value === "on"
-                ? ModalONDriver(row.driverId)
-                : ModalOFFDriver(row.driverId)
-            }
-          >
-            <option value="on">ON</option>
-            <option value="off">OFF</option>
-          </Select>
-        </div>
-      ),
-    },
+      name: 'Aksi',
+      selector: row => row.status === 1 ? "Aktif" : "Tidak Aktif",
+      cell: row => (
+          <div>
+              <Switch
+                  checked={row.driverStatus === 1 ? true : false}
+                  checkedChildren="ON"
+                  unCheckedChildren="OFF"
+                  onChange={(checked) => checked ? ModalONDriver(row.driverId) : ModalOFFDriver(row.driverId)}
+              />
+          </div>
+      )
+  },
   ];
 
   const ModalONDriver = async (driverId) => {
