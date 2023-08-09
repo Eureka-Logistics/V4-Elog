@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Input, Space, Table, Modal, Tag } from "antd";
+import { Button, Card, Input, Space, Modal, Tag , Table} from "antd";
 import {
   ExclamationCircleOutlined,
   EditOutlined,
@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
 import { httpClient } from "../../../Api/Api";
+// import { Table } from "react-bootstrap";
 
 const { confirm } = Modal;
 
@@ -35,7 +36,6 @@ const SamplePage = () => {
   const [order, setOrder] = useState([]);
   const [loadingState, setLoadingState] = useState(false);
   const [nameFilter, setNameFilter] = useState(null);
-  
 
   const columns = [
     {
@@ -53,7 +53,6 @@ const SamplePage = () => {
       title: "Perusahaan",
       dataIndex: "custName",
       key: "custName",
-      
     },
     {
       title: "Barang",
@@ -145,7 +144,6 @@ const SamplePage = () => {
             if (data.status.code === 200) {
               const newOrder = order.filter((item) => item.custId !== custId);
               setOrder(newOrder);
-             
             }
           })
           .catch(function (error) {
@@ -156,12 +154,24 @@ const SamplePage = () => {
     });
   };
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10; // Number of records per page
+
+  const handleChangePage = (page) => {
+    setCurrentPage(page);
+  };
+
+  // Assuming your 'order' data is an array of records
+
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const recordsToShow = order.slice(startIndex, endIndex);
+
+
   return (
     <div>
       <Card>
-      <h4 className="mb-3">
-          Data Master Customer
-        </h4>
+        <h4 className="mb-3">Data Master Customer</h4>
         <hr />
         <Space style={{ marginBottom: 16 }}>
           <Button type="primary" onClick={handleAdd}>
@@ -179,7 +189,49 @@ const SamplePage = () => {
           dataSource={order}
           pagination={{ total, current: page, pageSize: limit }}
           onChange={(pagination) => setPage(pagination.current)}
+          
         />
+
+        {/* <Table responsive>
+          <thead style={{ backgroundColor: "#1A5CBF", color: "white" }}>
+            <tr>
+              <th>No.</th>
+              <th>Kode Customer</th>
+              <th>Nama Perusahaan</th>
+              <th>Customer Stuff</th>
+              <th>Nomor Telepon</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {order.map((record, index) => (
+              <tr key={record.id}>
+                <td>{index + 1}</td>
+                <td>
+                <Tag color="blue">{record.custCode}</Tag></td>
+                <td>{record.custName}</td>
+                <td>{record.custStuff}</td>
+                <td>{record.custTelephone}</td>
+                <td>
+                  <Button
+                    onClick={() => handleEdit(record.custId)}
+                    type="primary"
+                  >
+                    <span style={{ display: "flex", alignItems: "center" }}>
+                      <FormOutlined />
+                    </span>
+                  </Button>
+                  <Button danger onClick={() => handleDelete(record.custId)}>
+                    <span style={{ display: "flex", alignItems: "center" }}>
+                      <DeleteOutlined />
+                    </span>
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+         */}
       </Card>
     </div>
   );

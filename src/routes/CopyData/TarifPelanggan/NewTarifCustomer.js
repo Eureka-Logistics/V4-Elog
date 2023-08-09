@@ -31,6 +31,7 @@ function NewTarifCustomer() {
   const [DataBiayaLain, setDataBiayaLain] = useState("");
   const [TotalBiaya, setTotalBiaya] = useState("");
   const [KodeID, setKodeID] = useState("");
+  const [id_price_eureka, setid_price_eureka] = useState("");
 
   const GetSelectData = async () => {
     try {
@@ -48,6 +49,7 @@ function NewTarifCustomer() {
       setIDTambahData(respons.data);
       setDataTarifKatalog(respons.data.getPrice);
       console.log(respons.data.getPrice);
+      setid_price_eureka(respons.data.IdPriceEureka);
     } catch (error) {}
   };
 
@@ -56,6 +58,7 @@ function NewTarifCustomer() {
       const respons = await axios.post(
         `${Baseurl}tarif/create-tarifCustomer`,
         {
+          id_price_eureka: id_price_eureka,
           id_muat_kota: parseInt(IDMuatKota),
           id_tujuan_kota: parseInt(IDBongkarKota),
           id_customer: parseInt(IDCustomer),
@@ -96,7 +99,7 @@ function NewTarifCustomer() {
       } else {
         // Data does not exist, proceed with setting IDTambahData and showing success message
         setIDTambahData(respons.data);
-  
+
         // Show SweetAlert2 success message
         Swal.fire({
           icon: "success",
@@ -123,7 +126,7 @@ function NewTarifCustomer() {
     // fetchData();
     GetSelectData();
     if (!isNaN(DataTarifKatalog) && !isNaN(DataDiskon)) {
-      if (DataDiskonType === "Persen") {
+      if (DataDiskonType === "Persentase") {
         const diskonPercentage = DataDiskon / 100;
         const totalBiayaAfterDiskon =
           DataTarifKatalog - DataTarifKatalog * diskonPercentage;
@@ -168,11 +171,13 @@ function NewTarifCustomer() {
   };
   return (
     <Card>
-      <h5 style={{ fontWeight: "bold" }}>New Tarif Customer</h5>
+      <h5 style={{ fontWeight: "bold", color: "#1A5CBF" }}>
+        New Tarif Customer
+      </h5>
       <hr />
       <br />
       <Row>
-      <Col span={6}>
+        <Col span={6}>
           <label style={{ fontWeight: "bold" }}>Kode Tarif Customer:</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -261,10 +266,9 @@ function NewTarifCustomer() {
               ))}
           </Select>
         </Col>
-        
       </Row>
       <Row>
-      <Col span={6} style={{ width: "100%" }}>
+        <Col span={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold" }}>Jenis Kendaraan :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -358,7 +362,7 @@ function NewTarifCustomer() {
       </Row>
       <br />
       <hr />
-      <h5>Tarif Customer</h5>
+      <h5 style={{ fontWeight: "bold", color: "#1A5CBF" }}>Tarif Customer</h5>
       <br />
       <Row>
         <Col span={6}>
@@ -395,7 +399,7 @@ function NewTarifCustomer() {
           >
             {/* Add the options here */}
             <Select.Option value="Amount">Amount</Select.Option>
-            <Select.Option value="Persen">Persen</Select.Option>
+            <Select.Option value="Persentase">Persentase</Select.Option>
           </Select>
         </Col>
         <Col span={6}>
@@ -442,7 +446,7 @@ function NewTarifCustomer() {
       </Row>
       <br />
       <hr />
-      <h5>Biaya Tambahan</h5>
+      <h5 style={{ fontWeight: "bold", color: "#1A5CBF" }}>Biaya Tambahan</h5>
       <br />
       <Row>
         <Col span={6}>
@@ -558,6 +562,21 @@ function NewTarifCustomer() {
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaLain(e.target.value);
+            }}
+          />
+        </Col>
+        <Col span={6}>
+          <label style={{ fontWeight: "bold" }}>Biaya Multimuat :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            type="number"
+            className="mt-2 mb-2"
+            name="biaya_multimuat
+            "
+            placeholder="-"
+            onChange={(e) => {
+              console.log(e.target.value);
+              setDataBiayaMultimuat(e.target.value);
             }}
           />
         </Col>

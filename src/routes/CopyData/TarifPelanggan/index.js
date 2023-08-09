@@ -251,7 +251,7 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
-        <h3>Data Tarif Customer</h3>
+        <h3 style={{color: '#1A5CBF'}}>Data Tarif Customer</h3>
         <div
           style={{
             display: "flex",
@@ -294,7 +294,12 @@ const SamplePage = () => {
               showSearch
               optionFilterProp="children"
               placeholder="Select Muat Kota"
-              style={{ width: "100%" }}
+              style={{
+                width: "100%",
+                border: "1px solid #1A5CBF",
+                borderRadius: "5px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+              }}
               onChange={(e, options) => {
                 console.log(options);
                 setMuatKota(options.value);
@@ -322,7 +327,12 @@ const SamplePage = () => {
               showSearch
               optionFilterProp="children"
               placeholder="Select Muat Kota"
-              style={{ width: "100%" }}
+              style={{
+                width: "100%",
+                border: "1px solid #1A5CBF",
+                borderRadius: "5px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+              }}
               onChange={(e, options) => {
                 console.log(options);
                 setKotaTujuan(options.value);
@@ -336,8 +346,8 @@ const SamplePage = () => {
                 ))}
             </Select>
           </Col>
-          <Col sm={12} className="d-flex justify-content-end mt-2">
-            <Button type="primary" onClick={handleAdd}>
+          <Col sm={12} className="d-flex justify-content-end mt-3">
+            <Button style={{backgroundColor: '#1A5CBF', color: 'white'}} onClick={handleAdd}>
               Tambah Tarif Baru
             </Button>
           </Col>

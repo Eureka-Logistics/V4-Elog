@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-  Table,
+  // Table,
   Button,
   Space,
   Card,
@@ -22,6 +22,7 @@ import {
 } from "@ant-design/icons";
 import Baseurl from "../../../Api/BaseUrl";
 import axios from "axios";
+import { Table } from "react-bootstrap";
 
 const SamplePage = () => {
   const router = useHistory();
@@ -265,7 +266,7 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
-        <h3 style={{color: '#1A5CBF'}}>Data Tarif Eureka</h3>
+        <h3 style={{ color: "#1A5CBF" }}>Data Tarif Eureka</h3>
         <div
           style={{
             display: "flex",
@@ -348,7 +349,10 @@ const SamplePage = () => {
           </Col>
 
           <Col sm={12} className="d-flex justify-content-end mt-4">
-            <Button style={{backgroundColor: '#1A5CBF', color: 'white'}} onClick={handleAdd}>
+            <Button
+              style={{ backgroundColor: "#1A5CBF", color: "white" }}
+              onClick={handleAdd}
+            >
               New Tarif
             </Button>
           </Col>
@@ -374,6 +378,64 @@ const SamplePage = () => {
       defaultCurrent={3}
       total={500}
     /> */}
+        <Table responsive>
+          <thead style={{ backgroundColor: "#1A5CBF", color: "white" }}>
+            <tr>
+              <th>No.</th>
+              <th>Jenis Kiriman</th>
+              <th>Muat</th>
+              <th>Tujuan</th>
+              <th>Jenis Kendaraan</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {listData.map((record, index) => (
+              <tr key={record.id}>
+                <td>{index + 1}</td>
+
+                <td>
+                  <Tag
+                    color={
+                      record.jenis_kiriman === "Reguler"
+                        ? "magenta"
+                        : record.jenis_kiriman === "Retail"
+                        ? "yellow"
+                        : "green"
+                    }
+                  >
+                    {record.jenis_kiriman}
+                  </Tag>
+                </td>
+                <td>{record.kotaAsal}</td>
+                <td>{record.kotaTujuan}</td>
+                <td>{record.kendaraanJenis}</td>
+                <td>
+                  <Button
+                    onClick={() => handleView(record.id_price)}
+                    type="primary"
+                  >
+                    <span style={{ display: "flex", alignItems: "center" }}>
+                      <FormOutlined />
+                    </span>
+                  </Button>
+                  <Button danger onClick={() => handleDelete(record.id_price)}>
+                    <span style={{ display: "flex", alignItems: "center" }}>
+                      <DeleteOutlined />
+                    </span>
+                    {/* <DeleteOutlined /> */}
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        <Pagination
+          showSizeChanger
+          onChange={onShowSizeChange}
+          defaultCurrent={1}
+          total={total} // Menggunakan total yang ada pada state
+        />
       </Card>
     </div>
   );
