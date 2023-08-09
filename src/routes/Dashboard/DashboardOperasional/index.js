@@ -389,7 +389,7 @@ function Index() {
           }}
           disabled={true}
         >
-          Jumlah SIM EXPIRED : {JumlahExpSIM}
+          Jumlah SIM Expired : {JumlahExpSIM}
         </Button>
         <Table responsive>
           <thead style={{ backgroundColor: "#1A5CBF", color: "white" }}>
@@ -431,7 +431,7 @@ function Index() {
           }}
           disabled={true}
         >
-          Jumlah STNK EXPIRED: {JumlahExpSTNK}
+          Jumlah STNK Expired: {JumlahExpSTNK}
         </Button>
 
         <Table responsive>
