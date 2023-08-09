@@ -61,7 +61,7 @@ const Sidebar = () => {
       {
         navStyle === NAV_STYLE_DRAWER || width < TAB_SIZE ?
           <Drawer
-            className={`gx-drawer-sidebar ${themeType !== THEME_TYPE_LITE ? 'gx-drawer-sidebar-dark' : null}`}
+            className={`gx-drawer-sidebar ${themeType !== THEME_TYPE_LITE ? 'gx-drawer-sidebar-ligth' : null}`}
             placement="left"
             closable={false}
             onClose={onToggleCollapsedNav}

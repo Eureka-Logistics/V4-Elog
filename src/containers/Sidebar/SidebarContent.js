@@ -310,90 +310,103 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               )} */}
               {jobdesk.toLowerCase() === "akunting" ? (
                 <>
-                  <SubMenu key="akuntingg" title="Akunting">
-                    <Menu.Item key="SP Lists All">
-                      <Link to="/akunting/splistakuntingbaru">
+                <Menu.ItemGroup key="akuntingg">
+                <Menu.Item key="SP Lists All">
+                      <Link to="/akunting/splistakuntingbaru" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>Approve SP</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="SP Lists">
-                      <Link to="/akunting/splistwaitingakunting">
+                      <Link to="/akunting/splistwaitingakunting" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>Waiting SP Akunting</span>
                       </Link>
                     </Menu.Item>
-                  </SubMenu>
-                  <SubMenu key="monitoring" title="Monitoring">
                     <Menu.Item key="Data Pesanan Customer">
-                      <Link to="/akunting/detaildatacustomer">
+                      <Link to="/akunting/detaildatacustomer" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>Data Customer</span>
                       </Link>
                     </Menu.Item>
-                  </SubMenu>
-                  <SubMenu key="ArList" title="AR List">
                     <Menu.Item key="SP Lists All">
-                      <Link to="/akunting/ar/ar">
+                      <Link to="/akunting/ar/ar" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>AR List ALL</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="SP Lists All">
-                      <Link to="/akunting/ar/ar">
+                      <Link to="/akunting/ar/ar" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>List Invoice AR</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="SP Lists All">
-                      <Link to="/akunting/ar/ar">
+                      <Link to="/akunting/ar/ar" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>SJ no AR</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="SP Lists All">
-                      <Link to="/akunting/ar/ar">
+                      <Link to="/akunting/ar/ar" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>Penerimaan SJ</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="SP Lists All">
-                      <Link to="/akunting/ar/ar">
+                      <Link to="/akunting/ar/ar" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span>Report Pembayaran Customer</span>
+                        <span>Report Pembayaran Cust</span>
                       </Link>
                     </Menu.Item>
-                  </SubMenu>
-
-                  <SubMenu key="Payment" title="Payment">
                     <Menu.Item key="Payment">
-                      <Link to="/akunting/ar/reportpartners/reportpenerimaaninvoice">
+                      <Link to="/akunting/ar/reportpartners/reportpenerimaaninvoice" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>Penerimaan INV</span>
                       </Link>
                     </Menu.Item>
-                  </SubMenu>
-
-                  <SubMenu key="Data Wilayah" title="Data Wilayah">
                     <Menu.Item key="Master Kecamatan">
-                      <Link to="/masterkecamatan">
+                      <Link to="/masterkecamatan"style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>Data Kecamatan</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="Master Kota">
-                      <Link to="/masterkota">
+                      <Link to="/masterkota" style={{ textDecoration: "none" }}> 
                         <i className="icon icon-widgets" />
                         <span>Data Kota</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="Master Provinsi">
-                      <Link to="/masterprovinsi">
+                      <Link to="/masterprovinsi" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>Data Provinsi</span>
                       </Link>
                     </Menu.Item>
+                    <Menu.Item key="Tarif Eureka">
+                      <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
+                        <i className="icon icon-widgets" />
+                        <span>Tarif Eureka</span>
+                      </Link>
+                    </Menu.Item>
+                </Menu.ItemGroup>
+                  {/* <SubMenu key="akuntingg" title="Akunting">
+                    
                   </SubMenu>
+                  <SubMenu key="monitoring" title="Monitoring">
+                   
+                  </SubMenu>
+                  <SubMenu key="ArList" title="AR List">
+                    
+                  </SubMenu>
+
+                  <SubMenu key="Payment" title="Payment">
+                  
+                  </SubMenu>
+
+                  <SubMenu key="Data Wilayah" title="Data Wilayah">
+                   
+                  </SubMenu> */}
 
                   {/* <SubMenu key="AP List" title="AP List">
                       <Menu.Item key="SP_AP_LIST">
@@ -405,22 +418,16 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
 
 
                     </SubMenu> */}
-                  <SubMenu key="Tarif" title="Tarif">
-                    <Menu.Item key="Tarif Eureka">
-                      <Link to="/tarif_eureka">
-                        <i className="icon icon-widgets" />
-                        <span>Tarif Eureka</span>
-                      </Link>
-                    </Menu.Item>
-                  </SubMenu>
+                  {/* <SubMenu key="Tarif" title="Tarif">
+                    
+                  </SubMenu> */}
                 </>
               ) : null}
 
               {jobdesk === "purchasing" ? (
-                <SubMenu key="monitorings" title="Purchasing">
-                  <SubMenu key="data" title="Data">
+                 <Menu.ItemGroup key="monitorings">
                     <Menu.Item key="New SP">
-                      <Link to="/purchasing/newsplist">
+                      <Link to="/purchasing/newsplist" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>
                           <IntlMessages id="Approve SP" />
@@ -428,7 +435,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="SP List">
-                      <Link to="/masterdata/splist">
+                      <Link to="/masterdata/splist" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>
                           <IntlMessages id="SP List" />
@@ -436,17 +443,15 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="SJ List">
-                      <Link to="/masterdata/sjlist">
+                      <Link to="/masterdata/sjlist" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>
                           <IntlMessages id="SJ List" />
                         </span>
                       </Link>
                     </Menu.Item>
-                  </SubMenu>
-                  <SubMenu key="master" title="Master Data">
                     <Menu.Item key="driverpurch">
-                      <Link to="/masterdata/purchasing/driver">
+                      <Link to="/masterdata/purchasing/driver" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>
                           <IntlMessages id="Master Driver" />
@@ -454,27 +459,27 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="Master Mitra">
-                      <Link to="/mastermitra">
+                      <Link to="/mastermitra" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>Master Mitra</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="Tarif Mitra">
-                      <Link to="/tarifmitra">
+                      <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>Tarif Mitra</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="vehiclepurch">
-                      <Link to="/masterdata/purchasing/vehicle">
+                      <Link to="/masterdata/purchasing/vehicle" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
                         <span>
                           <IntlMessages id="Master Vehicle" />
                         </span>
                       </Link>
                     </Menu.Item>
-                  </SubMenu>
-                </SubMenu>
+                 </Menu.ItemGroup>
+              
               ) : null}
             </MenuItemGroup>
           </Menu>
