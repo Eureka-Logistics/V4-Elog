@@ -28,6 +28,9 @@ import {
   FileProtectOutlined,
   DollarOutlined,
   VideoCameraOutlined,
+  GlobalOutlined,
+  CarOutlined,
+  EnvironmentTwoTone,
 } from "@ant-design/icons";
 const { SubMenu } = Menu;
 
@@ -35,7 +38,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
   const { navStyle, themeType } = useSelector(({ settings }) => settings);
   const pathname = useSelector(({ common }) => common.pathname);
   const history = useHistory();
-  
+
   const getNoHeaderClass = (navStyle) => {
     if (
       navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR ||
@@ -70,7 +73,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
       />
       <div className="gx-sidebar-content">
         <div
-          // className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
+        // className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
         >
           {/* <UserProfile /> */}
           {/* <AppsNavigation /> */}
@@ -79,7 +82,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
           <Menu
             defaultOpenKeys={[defaultOpenKeys]}
             selectedKeys={[selectedKeys]}
-            style={{backgroundColor: '#BAD6FF' }}
+            style={{ backgroundColor: "#BAD6FF" }}
             // theme={themeType === THEME_TYPE_LITE ? "lite" : "light"}
             // mode="inline"
           >
@@ -141,7 +144,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               {jobdesk == "sales" && (
                 <MenuItemGroup key="main">
                   <Menu.Item key="SP List">
-                    <Link to="/masterdata/marketing/splist">
+                    <Link to="/masterdata/marketing/splist"  style={{ textDecoration: "none" }}>
                       <FileTextOutlined style={{ fontSize: "20px" }} />
                       <span>
                         <IntlMessages id="SP List" />
@@ -149,7 +152,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Cancel SP List">
-                    <Link to="/masterdata/marketing/cancelsplist">
+                    <Link to="/masterdata/marketing/cancelsplist"  style={{ textDecoration: "none" }}>
                       <FileExcelOutlined style={{ fontSize: "20px" }} />
                       <span>
                         <IntlMessages id="Cancel SP List" />
@@ -157,13 +160,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Data Wilayah">
-                    <Link to="/mastercustomersss">
+                    <Link to="/mastercustomersss"  style={{ textDecoration: "none" }}>
                       <UserOutlined style={{ fontSize: "20px" }} />
                       <span>Customer</span>
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Alamat Customer">
-                    <Link to="/alamatcustomer">
+                    <Link to="/alamatcustomer"  style={{ textDecoration: "none" }}>
                       <ProfileOutlined style={{ fontSize: "20px" }} />
                       {/* <i className="icon icon-widgets" /> */}
                       <span>Alamat Customer</span>
@@ -171,21 +174,21 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Invoice Customer">
-                    <Link to="/invoicecustomer">
+                    <Link to="/invoicecustomer" style={{ textDecoration: "none" }}>
                       <FileProtectOutlined style={{ fontSize: "20px" }} />
                       <span>Invoice Customer</span>
                       {/* <span>Data Alamat All</span> */}
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Tarif Customer">
-                    <Link to="/pelanggantarif">
+                    <Link to="/pelanggantarif" style={{ textDecoration: "none" }}>
                       <DollarOutlined style={{ fontSize: "20px" }} />
                       <span>Tarif Customer</span>
                     </Link>
                   </Menu.Item>
 
                   <Menu.Item key="monitoringVehicle">
-                    <Link to="/masterdata/monitoring">
+                    <Link to="/masterdata/monitoring" style={{ textDecoration: "none" }}>
                       <VideoCameraOutlined style={{ fontSize: "20px" }} />
                       <span>
                         <IntlMessages id="Monitoring Vehicle" />
@@ -196,63 +199,81 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               )}
               {jobdesk == "operasional" && (
                 <Menu.ItemGroup key="master">
-                  <Menu.Item key="driver">
-                    <Link to="/masterdata/purchasing/driver">
+                  <Menu.Item key="driver"> 
+                    <Link to="/masterdata/purchasing/driver" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" /> */}
-                      <SmileTwoTone />
+                      <SmileTwoTone style={{ fontSize: "20px" }} />
+                      <span style={{ fontWeight: "bold" }}>
                       <IntlMessages id="sidebar.driver" />
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="vehicle">
-                    <Link to="/masterdata/vehicle">
-                      <CarTwoTone />
-                      <IntlMessages id="sidebar.vehicle" />
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="monitoringVehicle">
-                    <Link to="/masterdata/monitoring">
-                      <ScheduleTwoTone />
-                      <IntlMessages id="Monitoring Vehicle" />
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="waiting SP List">
-                    <Link to="/masterdata/newsplist">
-                      <ProfileTwoTone />
-                      <IntlMessages id="Waiting SP" />
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="New SP">
-                    <Link to="/masterdata/newsplist">
-                      <CheckSquareTwoTone />
-                      <IntlMessages id="Approve SP" />
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="SP List">
-                    <Link to="/masterdata/splist">
-                      <ProfileTwoTone />
-                      <IntlMessages id="SP List" />
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="VehicleMap" >
-                    <Link to="/masterdata/monitoring">
-                      <i className="icon icon-widgets" />
-                      <span>
-                        <IntlMessages id="Vehicle Map" />
                       </span>
                     </Link>
                   </Menu.Item>
+                  <Menu.Item key="vehicle">
+                    <Link to="/masterdata/vehicle" style={{ textDecoration: "none" }}>
+                      <CarTwoTone style={{ fontSize: "20px" }} />
+                      <span style={{ fontWeight: "bold" }}>
+                      <IntlMessages id="sidebar.vehicle" />
+                      </span>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="monitoringVehicle">
+                    <Link to="/masterdata/monitoring" style={{ textDecoration: "none" }}>
+                      <ScheduleTwoTone style={{ fontSize: "20px" }} />
+                      <span style={{ fontWeight: "bold" }}>
+                      <IntlMessages id="Monitoring Vehicle" />
+                      </span>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="waiting SP List">
+                    <Link to="/masterdata/newsplist" style={{ textDecoration: "none" }}>
+                      <ProfileTwoTone style={{ fontSize: "20px" }} />
+                      <span style={{ fontWeight: "bold" }}>
+                      <IntlMessages id="Waiting SP" />
+                      </span>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="New SP">
+                    <Link to="/masterdata/newsplist" style={{ textDecoration: "none" }}>
+                      <CheckSquareTwoTone style={{ fontSize: "20px" }} />
+                      <span style={{ fontWeight: "bold" }}>
+                      <IntlMessages id="Approve SP" />
+                      </span>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="SP List">
+                    <Link to="/masterdata/splist" style={{ textDecoration: "none" }}>
+                      <ProfileTwoTone style={{ fontSize: "20px" }} />
+                      <span style={{ fontWeight: "bold" }}>
+                      <IntlMessages id="SP List" />
+                      </span>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="VehicleMap">
+                    <Link to="/masterdata/monitoring" style={{ textDecoration: "none" }}>
+                      {/* <i className="icon icon-widgets" /> */}
+                      <EnvironmentTwoTone style={{ fontSize: "20px" }} />
+                      <span style={{ fontWeight: "bold" }}>
+                      <IntlMessages id="Vehicle Map" />
+                      </span>
+                      
+                    </Link>
+                  </Menu.Item>
                   <Menu.Item key="DriverMap">
-                    <Link to="/masterdata/monitoring">
-                      <i className="icon icon-widgets" />
-                      <span>
+                    <Link to="/masterdata/monitoring" style={{ textDecoration: "none" }}>
+                      <CarTwoTone style={{ fontSize: "20px" }} />
+                      <span style={{ fontWeight: "bold" }}>
                         <IntlMessages id="Driver Map" />
                       </span>
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="DriverEmc">
-                    <Link to="/masterdata/monitoring">
-                      <i className="icon icon-widgets" />
-                      <span>
+                    <Link
+                      to="/masterdata/monitoring"
+                      style={{ textDecoration: "none" }}
+                    >
+                      {/* <i className="icon icon-widgets" /> */}
+                      <CarTwoTone style={{ fontSize: "20px" }} />
+                      <span style={{ fontWeight: "bold" }}>
                         <IntlMessages id="Driver Emc" />
                       </span>
                     </Link>

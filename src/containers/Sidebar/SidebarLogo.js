@@ -35,7 +35,7 @@ const SidebarLogo = ({sidebarCollapsed, setSidebarCollapsed}) => {
           <img alt="lo" src={(`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`)}/> :
           themeType === THEME_TYPE_LITE ?
             <img alt="logo1" src={ElogLogo}/> :
-            <img alt="logo2" width="150px" src={ElogLogo}/>}
+            <img alt="logo2" width="150px" src={ElogLogo} />}
       </Link>
     </div>
   );
