@@ -23,12 +23,12 @@ function NewTarifCustomer() {
   const [DataBiayaJalan, setDataBiayaJalan] = useState("");
   const [DataBiayaMuat, setDataBiayaMuat] = useState(0);
   const [DataBiayaBongkar, setDataBiayaBongkar] = useState(0);
-  const [DataBiayaOvertonase, setDataBiayaOvertonase] = useState("");
-  const [DataBiayaMultimuat, setDataBiayaMultimuat] = useState("");
-  const [DataBiayaMultiDrop, setDataBiayaMultiDrop] = useState("");
-  const [DataBiayaTambahan, setDataBiayaTambahan] = useState("");
-  const [DataBiayaMel, setDataBiayaMel] = useState("");
-  const [DataBiayaLain, setDataBiayaLain] = useState("");
+  const [DataBiayaOvertonase, setDataBiayaOvertonase] = useState(0);
+  const [DataBiayaMultimuat, setDataBiayaMultimuat] = useState(0);
+  const [DataBiayaMultiDrop, setDataBiayaMultiDrop] = useState(0);
+  const [DataBiayaTambahan, setDataBiayaTambahan] = useState(0);
+  const [DataBiayaMel, setDataBiayaMel] = useState(0);
+  const [DataBiayaLain, setDataBiayaLain] = useState(0);
   const [TotalBiaya, setTotalBiaya] = useState("");
   const [KodeID, setKodeID] = useState("");
   const [id_price_eureka, setid_price_eureka] = useState("");
@@ -487,7 +487,8 @@ function NewTarifCustomer() {
             type="number"
             className="mt-2 mb-2"
             name="biaya_overtonase"
-            placeholder="-"
+            // placeholder="-"
+            value={DataBiayaBongkar}
             onChange={(e) => {
               console.log(e.target.value);
               setDataBiayaOvertonase(e.target.value);
