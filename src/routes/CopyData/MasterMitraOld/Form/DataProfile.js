@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, DatePicker, Input, Row, Col, notification } from "antd";
+import { Card, DatePicker, Input, Row, Col, notification, Select } from "antd";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -11,6 +11,8 @@ import { number } from "prop-types";
 import CreateMitraModal from "../../../MasterData/Purchasing/MasterMitra/CreateMitraModal";
 import axios from "axios";
 import Baseurl from "../../../../Api/BaseUrl";
+import moment from "moment";
+import DataBaru from "./Databaru";
 
 const { RangePicker } = DatePicker;
 
@@ -296,7 +298,6 @@ const SamplePage = () => {
   //     console.log(error.message);
   //   });
 
-  
 
   const OptionsData = async () => {
     const data = await axios.get(
@@ -327,7 +328,7 @@ const SamplePage = () => {
           </Button> */}
         </Col>
         <Card>
-          <h5 style={{color: '#1A5CBF'}}>NAMA DAN ALAMAT PERUSAHAAN(Sold to Party )</h5>
+          <h5 style={{ color: '#1A5CBF' }}>NAMA DAN ALAMAT PERUSAHAAN(Sold to Party )</h5>
           <hr />
           <Row>
             <Col span={4}>
@@ -346,17 +347,29 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
             <Col span={4}>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{ fontWeight: "bold" }}>Title :</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="title"
-                    value={formik.values.title}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.title}
-                  />
-                </InputGroup>
-              </Form.Group>
+              <div style={{ marginBottom: "10px" }}>
+                <label style={{ fontWeight: "bold", display: "block" }}>Title:</label>
+                <Select
+                  name="title"
+                  style={{ width: "100%", marginTop: "10px" }}
+                  // value={formik.values.title} // Uncomment if you're using this
+                  onChange={(value) => {
+                    formik.setFieldValue('title', value);
+                  }}
+                >
+                  {DataOptions && DataOptions.jabatan.map((i) => (
+                    <option key={i.jabatan} value={i.jabatan}>
+                      {i.jabatan}
+                    </option>
+                  ))}
+                </Select>
+                {/* Display Formik error */}
+                {formik.errors.title &&
+                  <div style={{ color: 'red', marginTop: '5px' }}>
+                    {formik.errors.title}
+                  </div>
+                }
+              </div>
             </Col>
             <Col span={8}>
               <Form.Group style={{ marginBottom: "10px" }}>
@@ -658,14 +671,22 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Awal Kontrak :
                 </Form.Label>
-                <InputGroup>
+                {/* <InputGroup>
                   <Form.Control
                     name="awal_kontrak"
                     value={formik.values.awal_kontrak}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.awal_kontrak}
                   />
-                </InputGroup>
+                </InputGroup> */}
+                <DatePicker
+                  style={{ width: '100%' }}
+                  value={formik.values.awal_kontrak ? moment(formik.values.awal_kontrak) : null}
+                  onChange={(date, dateString) => {
+                    formik.setFieldValue('awal_kontrak', dateString);
+                  }}
+                />
+
               </Form.Group>
             </Col>
             <Col span={8}>
@@ -673,14 +694,21 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Akhir Kontrak :
                 </Form.Label>
-                <InputGroup>
+                {/* <InputGroup>
                   <Form.Control
                     name="akhir_kontrak"
                     value={formik.values.akhir_kontrak}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.akhir_kontrak}
                   />
-                </InputGroup>
+                </InputGroup> */}
+                <DatePicker
+                  style={{ width: '100%' }}
+                  value={formik.values.akhir_kontrak ? moment(formik.values.akhir_kontrak) : null}
+                  onChange={(date, dateString) => {
+                    formik.setFieldValue('akhir_kontrak', dateString);
+                  }}
+                />
               </Form.Group>
             </Col>
             <Col span={8}>
@@ -690,6 +718,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    type="number"
                     name="tahun_awal_kontrak"
                     value={formik.values.tahun_awal_kontrak}
                     onChange={formik.handleChange}
@@ -716,7 +745,7 @@ const SamplePage = () => {
           </Row>
           <br />
           <hr />
-          <h5 style={{color: '#1A5CBF'}}>Data Perpajakan (Tax Information)</h5>
+          <h5 style={{ color: '#1A5CBF' }}>Data Perpajakan (Tax Information)</h5>
           <hr />
           <Row>
             <Col span={12}>
@@ -726,7 +755,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                  type="number"
+                    type="number"
                     name="npwp_id"
                     value={formik.values.npwp_id}
                     onChange={formik.handleChange}
@@ -804,7 +833,7 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>Nomor :</Form.Label>
                 <InputGroup>
                   <Form.Control
-                  type="number"
+                    type="number"
                     name="npwp_nomor"
                     value={formik.values.npwp_nomor}
                     onChange={formik.handleChange}
@@ -818,7 +847,7 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>RT : </Form.Label>
                 <InputGroup>
                   <Form.Control
-                  type="number"
+                    type="number"
                     name="npwp_rt"
                     value={formik.values.npwp_rt}
                     onChange={formik.handleChange}
@@ -832,7 +861,7 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>RW : </Form.Label>
                 <InputGroup>
                   <Form.Control
-                  type="number"
+                    type="number"
                     name="npwp_rw"
                     value={formik.values.npwp_rw}
                     onChange={formik.handleChange}
@@ -908,7 +937,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                  type="number"
+                    type="number"
                     name="npwp_kodepos"
                     value={formik.values.npwp_kodepos}
                     onChange={formik.handleChange}
@@ -920,7 +949,7 @@ const SamplePage = () => {
           </Row>
           <br />
           <hr />
-          <h5 style={{color: '#1A5CBF'}}>DATA ACCOUNTING (Accounting Information)</h5>
+          <h5 style={{ color: '#1A5CBF' }}>DATA ACCOUNTING (Accounting Information)</h5>
           <br />
           <Row>
             <Col span={8}>
@@ -958,7 +987,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                  type="number"
+                    type="number"
                     name="no_rek"
                     value={formik.values.no_rek}
                     onChange={formik.handleChange}
@@ -991,14 +1020,25 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Type Of Payment :{" "}
                 </Form.Label>
-                <InputGroup>
+                {/* <InputGroup>
                   <Form.Control
                     name="pembayaran"
                     value={formik.values.pembayaran}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.pembayaran}
                   />
-                </InputGroup>
+                </InputGroup> */}
+                <Select
+                  value={formik.values.pembayaran}
+                  style={{ width: "100%" }}
+                  onChange={(e) => {
+                    console.log(e);
+                    formik.setFieldValue('pembayaran', e);
+                  }}>
+
+                  <option value={'Cash'}>Cash</option>
+                  <option value={'Credit'}>Credit</option>
+                </Select>
               </Form.Group>
             </Col>
             <Col span={8}>
@@ -1006,14 +1046,14 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Status :{" "}
                 </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="-"
-                    value={formik.values.pembayaran}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.pembayaran}
-                  />
-                </InputGroup>
+                <Select
+                  style={{ width: "100%" }}
+                  onChange={(label) => {
+                    formik.setFieldValue('status', label);
+                  }}>
+                  <option value={'Aktif'}>Aktif</option>
+                  <option value={'Tidak Aktif'}>Tidak Aktif</option>
+                </Select>
               </Form.Group>
             </Col>
           </Row>
