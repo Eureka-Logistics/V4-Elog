@@ -76,8 +76,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
         setSidebarCollapsed={setSidebarCollapsed}
       />
       <div className="gx-sidebar-content">
-        <div
-        // className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
+        <div 
+        className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
         >
           {/* <UserProfile /> */}
           {/* <AppsNavigation /> */}
@@ -86,8 +86,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
           <Menu
             defaultOpenKeys={[defaultOpenKeys]}
             selectedKeys={[selectedKeys]}
-            style={{ backgroundColor: "#BAD6FF" }}
-            theme={themeType === LIGHT_PURPLE ? "lite" : "dark"}
+            style={{ backgroundColor: "#BAD6FF" , height: 'auto' }}
+            theme={themeType === LIGHT_PURPLE ? "lite" : "dark"} 
             mode="inline"
           >
             <MenuItemGroup key="main">
