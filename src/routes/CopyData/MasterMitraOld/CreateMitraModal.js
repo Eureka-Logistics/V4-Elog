@@ -3,11 +3,11 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useHistory } from "react-router-dom";
 import DataProfile from "./Form/DataProfile";
-import {notification } from "antd";
+import { notification } from "antd";
 import { httpClient } from "../../../Api/Api";
 import axios from "axios";
 import Baseurl from "../../../Api/BaseUrl";
-function SamplePage({isiValues}) {
+function SamplePage({ isiValues }) {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const handleClose = () => setShow(false);
@@ -36,50 +36,58 @@ function SamplePage({isiValues}) {
   const halamantambahmitra = () => {
     history.push(`/mastermitraold/tambahmitra/`);
   };
-const datatest = () => {
-  console.log(`ini values`,isiValues);
+  const datatest = () => {
+    console.log(`ini values`, isiValues);
+  };
 
-};
+  const OptionsData = async () => {
+    const data = await axios.get(
+      `${Baseurl}mitra/get-select-mitraPic`,
 
-const OptionsData = async () => {
-  const data = await axios.get(
-    `${Baseurl}mitra/get-select-mitraPic`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem(`token`),
+        },
+      }
+    );
+    console.log(data.data, "ini data options");
+  };
 
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem(`token`),
-      },
-    }
-  );
-  console.log(data.data, "ini data options");
-};
-
-useEffect(() => {
-  OptionsData();
-}, []);
+  useEffect(() => {
+    OptionsData();
+  }, []);
 
   return (
     <>
-      <Button variant="primary" size="sm" onClick={handleShow}>
+      <Button
+        style={{
+          backgroundColor: "#1A5CBF",
+          color: "#FFFFFF",
+          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+          borderColor: "#1A5CBF",
+        }}
+        size="sm"
+        onClick={handleShow}
+      >
         Tambah Mitra
       </Button>
 
       <Modal show={show} onHide={handleClose} className="modal-xl">
         <Modal.Header closeButton>
-          <Modal.Title>New Master Mitra</Modal.Title>
+          <Modal.Title style={{color: '#1A5CBF'}}>New Master Mitra</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <DataProfile onSubmit={handleSubmit} />
         </Modal.Body>
-       <Modal.Footer>
+        <Modal.Footer>
           {/* <Button type="submit" onClick={datatest}>
             Save
           </Button> */}
-          <Button style={{backgroundColor: "grey"}} onClick={handleClose}>
+          <Button style={{ backgroundColor: "grey" }} onClick={handleClose}>
             Close
           </Button>
-        </Modal.Footer> 
+        </Modal.Footer>
       </Modal>
     </>
   );

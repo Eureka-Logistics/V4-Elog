@@ -41,11 +41,10 @@ const SamplePage = () => {
     },
     {
       name: "Mitra Code",
-      selector: (row) => row.mitraCode,
+      selector: (row) =>
+      <Tag color="blue">{ row.mitraCode}</Tag>,
       width: "120px",
-      cell: (row) => (
-        <span style={{ color: 'blue' }}>{row.mitraCode}</span>
-      ),
+     
     },
     {
       name: "Status",
@@ -226,7 +225,7 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
-        <h4>Data Master Mitra</h4>
+        <h5 style={{color: '#113D7F', fontWeight: 'bold'}}>Data Master Mitra</h5>
         <Row>
           <Col>
             {/* <Row className="d-flex justify-content-end">

@@ -206,7 +206,6 @@ console.log(`nama mitara`,namaMitra);
            Detail Master Mitra
         </h3>
     </Card>
-    
       <Card>
      
         <Form

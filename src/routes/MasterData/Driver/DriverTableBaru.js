@@ -653,12 +653,12 @@ function DriverTableBaru() {
                           objectFit: "contain",
                           width: "100%",
                           height: "100%",
-                          
                         }}
                       />
                     </div>
                   </Card>
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     name="uploadgambar"
                     label="Upload Gambar"
                     help={
@@ -673,7 +673,6 @@ function DriverTableBaru() {
                     }
                   >
                     <Upload
-                    
                       name="cover"
                       beforeUpload={(file) => {
                         formik.setFieldValue("cover", file);
@@ -694,7 +693,8 @@ function DriverTableBaru() {
                       </Button>
                     </Upload>
                   </Form.Item>
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="Tanggal Masuk"
                     help={
                       formik.touched.tglmasuk && formik.errors.tglmasuk
@@ -708,7 +708,7 @@ function DriverTableBaru() {
                     }
                   >
                     <DatePicker
-                     style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -725,8 +725,8 @@ function DriverTableBaru() {
                       placeholder="Pilih tanggal masuk"
                     />
                   </Form.Item>
-                  <Form.Item style={{fontWeight: "bold"}}
-                  
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="Tanggal SIM"
                     help={
                       formik.touched.tglsim && formik.errors.tglsim
@@ -740,7 +740,7 @@ function DriverTableBaru() {
                     }
                   >
                     <DatePicker
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -758,7 +758,8 @@ function DriverTableBaru() {
                       }
                     />
                   </Form.Item>
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="Tanggal Lahir"
                     help={
                       formik.touched.tgllahir && formik.errors.tgllahir
@@ -772,7 +773,7 @@ function DriverTableBaru() {
                     }
                   >
                     <DatePicker
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -791,7 +792,8 @@ function DriverTableBaru() {
                   </Form.Item>
                 </Col>
                 <Col sm={4}>
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="NIK"
                     help={
                       formik.touched.nik && formik.errors.nik
@@ -805,7 +807,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Input
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -823,7 +825,8 @@ function DriverTableBaru() {
                     />
                   </Form.Item>
 
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="Nama Driver"
                     help={
                       formik.touched.namadriver && formik.errors.namadriver
@@ -837,7 +840,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Input
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -848,7 +851,8 @@ function DriverTableBaru() {
                       value={formik.values.namadriver}
                     />
                   </Form.Item>
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="Divisi"
                     help={
                       formik.touched.divisi && formik.errors.divisi
@@ -862,7 +866,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Input
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -874,7 +878,8 @@ function DriverTableBaru() {
                     />
                   </Form.Item>
 
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="Perusahaan"
                     help={
                       formik.touched.jeniskepemilikan &&
@@ -890,7 +895,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Select
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -924,7 +929,8 @@ function DriverTableBaru() {
                                             value={formik.values.jeniskepemilikan}
                                         /> */}
                   </Form.Item>
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="Jenis Driver"
                     help={
                       formik.touched.jeniskepemilikan &&
@@ -940,7 +946,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Select
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -967,7 +973,8 @@ function DriverTableBaru() {
                                             value={formik.values.jeniskepemilikan}
                                         /> */}
                   </Form.Item>
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="No KTP"
                     help={
                       formik.touched.noktp && formik.errors.noktp
@@ -981,7 +988,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Input
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -994,7 +1001,8 @@ function DriverTableBaru() {
                     />
                   </Form.Item>
 
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="No SIM"
                     help={
                       formik.touched.nosim && formik.errors.nosim
@@ -1008,7 +1016,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Input
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -1020,7 +1028,8 @@ function DriverTableBaru() {
                       value={formik.values.nosim}
                     />
                   </Form.Item>
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="Jenis SIM"
                     help={
                       formik.touched.jenissim && formik.errors.jenissim
@@ -1034,7 +1043,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Select
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -1066,7 +1075,8 @@ function DriverTableBaru() {
                                         /> */}
                   </Form.Item>
 
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="Agama"
                     help={
                       formik.touched.agama && formik.errors.agama
@@ -1080,7 +1090,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Select
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -1105,7 +1115,8 @@ function DriverTableBaru() {
                   </Form.Item>
                 </Col>
                 <Col sm={4}>
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="No Telp"
                     help={
                       formik.touched.notelp1 && formik.errors.notelp1
@@ -1119,7 +1130,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Input
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -1131,7 +1142,8 @@ function DriverTableBaru() {
                       value={formik.values.notelp1}
                     />
                   </Form.Item>
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="No Telp 2"
                     help={
                       formik.touched.notelp2 && formik.errors.notelp2
@@ -1145,7 +1157,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Input
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -1161,7 +1173,8 @@ function DriverTableBaru() {
                       }
                     />
                   </Form.Item>
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="Email"
                     help={
                       formik.touched.email && formik.errors.email
@@ -1175,7 +1188,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Input
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -1187,7 +1200,8 @@ function DriverTableBaru() {
                     />
                   </Form.Item>
 
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="Vehicle Type"
                     help={
                       formik.touched.vehicletype && formik.errors.vehicletype
@@ -1201,7 +1215,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Select
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -1229,7 +1243,8 @@ function DriverTableBaru() {
                                         /> */}
                   </Form.Item>
 
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="Ukuran Seragam"
                     help={
                       formik.touched.ukseragam && formik.errors.ukseragam
@@ -1243,7 +1258,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Select
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -1270,7 +1285,8 @@ function DriverTableBaru() {
                                             value={formik.values.ukseragam}
                                         /> */}
                   </Form.Item>
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="Rekening Bank"
                     help={
                       formik.touched.rekeningbank && formik.errors.rekeningbank
@@ -1284,7 +1300,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Input
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -1295,7 +1311,8 @@ function DriverTableBaru() {
                       value={formik.values.rekeningbank}
                     />
                   </Form.Item>
-                  <Form.Item style={{fontWeight: "bold"}}
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="Nomor Rekening"
                     help={
                       formik.touched.norekening && formik.errors.norekening
@@ -1309,7 +1326,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Input
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -1321,8 +1338,8 @@ function DriverTableBaru() {
                       value={formik.values.norekening}
                     />
                   </Form.Item>
-                  <Form.Item style={{fontWeight: "bold"}}
-                 
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
                     label="Alamat :"
                     help={
                       formik.touched.alamat && formik.errors.alamat
@@ -1336,7 +1353,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Input
-                    style={{
+                      style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
@@ -1351,8 +1368,6 @@ function DriverTableBaru() {
               </Row>
             </Form>
           </Modal>
-
-
 
           <DataTable
             columns={columns}
