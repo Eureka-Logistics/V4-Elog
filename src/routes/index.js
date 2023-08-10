@@ -43,6 +43,12 @@ const App = ({ match }) => {
           )}
         />
         <Route
+          path={`${match.url}approvesplistall`}
+          component={asyncComponent(() =>
+            import("./MasterData/SP List/SP List Approve All/index")
+          )}
+        />
+        <Route
           path={`${match.url}akunting/splistakunting`}
           component={asyncComponent(() =>
             import("./MasterData/Monitoring SP List Akunting/SPListAkunting")
