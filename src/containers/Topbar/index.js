@@ -61,7 +61,7 @@ const Topbar = () => {
         width < TAB_SIZE) ? (
         <div className="gx-linebar gx-mr-3">
           <i
-            className="gx-icon-btn icon icon-menu"
+            className="gx-icon-btn icon icon-menu "
             onClick={() => {
               dispatch(toggleCollapsedSideNav(!navCollapsed));
             }}

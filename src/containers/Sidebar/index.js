@@ -55,13 +55,13 @@ const Sidebar = () => {
       className={`gx-app-sidebar ${drawerStyle} `}
       trigger={null}
       collapsed={(width < TAB_SIZE ? false : sidebarCollapsed || navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR)}
-      theme={themeType === THEME_TYPE_LITE ? "lite" : "dark"}
+      // theme={themeType === THEME_TYPE_LITE ? "lite" : "dark"}
       style={{backgroundColor: '#BAD6FF' }}
       collapsible>
       {
         navStyle === NAV_STYLE_DRAWER || width < TAB_SIZE ?
           <Drawer
-            className={`gx-drawer-sidebar ${themeType !== THEME_TYPE_LITE ? 'gx-drawer-sidebar-ligth' : null}`}
+            className={`gx-drawer-sidebar ${themeType !== THEME_TYPE_LITE ? 'gx-drawer-sidebar-light' : null}`}
             placement="left"
             closable={false}
             onClose={onToggleCollapsedNav}
