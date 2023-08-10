@@ -327,7 +327,7 @@ const SamplePage = () => {
           </Button> */}
         </Col>
         <Card>
-          <h5>NAMA DAN ALAMAT PERUSAHAAN(Sold to Party )</h5>
+          <h5 style={{color: '#1A5CBF'}}>NAMA DAN ALAMAT PERUSAHAAN(Sold to Party )</h5>
           <hr />
           <Row>
             <Col span={4}>
@@ -716,7 +716,7 @@ const SamplePage = () => {
           </Row>
           <br />
           <hr />
-          <h4>Data Perpajakan (Tax Information)</h4>
+          <h5 style={{color: '#1A5CBF'}}>Data Perpajakan (Tax Information)</h5>
           <hr />
           <Row>
             <Col span={12}>
@@ -920,7 +920,7 @@ const SamplePage = () => {
           </Row>
           <br />
           <hr />
-          <h5>DATA ACCOUNTING (Accounting Information)</h5>
+          <h5 style={{color: '#1A5CBF'}}>DATA ACCOUNTING (Accounting Information)</h5>
           <br />
           <Row>
             <Col span={8}>
