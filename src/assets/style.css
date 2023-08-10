@@ -7,9 +7,7 @@
     cursor: pointer;
   }
   
-  .active {
-    background-color: #007bff; /* Warna biru saat aktif */
-  }
+  
   
   .custom-button a {
     color: inherit;
