@@ -2,6 +2,7 @@ import React from "react";
 import { Menu } from "antd";
 import { Link, useHistory } from "react-router-dom";
 import CustomScrollbars from "util/CustomScrollbars";
+import './SidebarStyles.css';
 import SidebarLogo from "./SidebarLogo";
 import UserProfile from "./UserProfile";
 import AppsNavigation from "./AppsNavigation";
