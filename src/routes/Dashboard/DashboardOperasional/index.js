@@ -392,7 +392,7 @@ function Index() {
         >
           Jumlah SIM Expired : {JumlahExpSIM}
         </Button>
-        <Table responsive>
+        <Table hover responsive>
           <thead style={{ backgroundColor: "#1A5CBF", color: "white" }}>
             <tr>
               <th style={{ width: "8%" }}>No.</th>
@@ -435,7 +435,7 @@ function Index() {
           Jumlah STNK Expired: {JumlahExpSTNK}
         </Button>
 
-        <Table responsive>
+        <Table hover responsive>
           <thead style={{ backgroundColor: "#1A5CBF", color: "white" }}>
             <tr>
               <th style={{ width: "8%" }}>No.</th>
