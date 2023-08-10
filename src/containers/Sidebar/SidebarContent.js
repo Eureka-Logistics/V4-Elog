@@ -36,6 +36,7 @@ import {
   FolderOpenOutlined,
   ShopOutlined,
   FundViewOutlined,
+  AppstoreOutlined,
 } from "@ant-design/icons";
 const { SubMenu } = Menu;
 
@@ -78,8 +79,24 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
       />
       <div className="gx-sidebar-content">
         <div
-        // className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
+        className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
         >
+           {/* {jobdesk === "sales" ? (
+                <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
+                  <Button
+                    size="lg"
+                    style={{ width: 180 }}
+                    className="d-flex align-items-center justify-content-center"
+                    onClick={() => createsp()}
+                    variant="warning"
+                  >
+                    ADD SP
+                  </Button>
+                </div>
+              ) : (
+                <>
+                <hr/></>
+              )} */}
           {/* <UserProfile /> */}
           {/* <AppsNavigation /> */}
         </div>
@@ -91,6 +108,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
             theme={themeType === LIGHT_PURPLE ? "lite" : "dark"}
             mode="inline"
           >
+            
             <MenuItemGroup key="main">
               {jobdesk === "sales" ? (
                 <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
@@ -105,7 +123,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Button>
                 </div>
               ) : (
-                <></>
+                <>
+                <hr/></>
               )}
               {jobdesk === "akunting" ? (
                 <>
@@ -147,7 +166,9 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               )}
 
               {jobdesk == "sales" && (
+                
                 <MenuItemGroup key="main">
+            
                   <Menu.Item key="Dashboard">
                     <Link
                       to="/dashboard"
@@ -155,7 +176,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     >
                       {/* <i className="icon icon-widgets" />
                        */}
-                      <FileProtectOutlined style={{ fontSize: '20px' }} />
+                      <AppstoreOutlined style={{ fontSize: '20px' }} />
                       <span style={{ fontWeight: "bold" }}>
                         <IntlMessages id="Dashboard" />
                       </span>
@@ -384,7 +405,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     >
                       {/* <i className="icon icon-widgets" />
                    */}
-                      <FileProtectOutlined style={{ fontSize: '20px' }} />
+                      <AppstoreOutlined style={{ fontSize: '20px' }} />
                       <span style={{ fontWeight: "bold" }}>
                         <IntlMessages id="Dashboard" />
                       </span>
@@ -563,7 +584,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     >
                       {/* <i className="icon icon-widgets" />
                        */}
-                      <FileProtectOutlined style={{ fontSize: '20px' }} />
+                      <AppstoreOutlined style={{ fontSize: '20px' }} />
                       <span style={{ fontWeight: "bold" }}>
                         <IntlMessages id="Dashboard" />
                       </span>
