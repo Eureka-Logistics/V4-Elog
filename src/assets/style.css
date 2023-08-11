@@ -1,3 +1,88 @@
+.h5, h5 {
+  font-size: 1.25rem;
+  color: #1A5CBF;
+  font-weight: bold;
+}
+
+.ant-menu ul, .ant-menu ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    height: 100%;
+}
+
+.ant-layout-sider .ant-menu-item-group-title {
+  padding-top: 10px;
+}
+
+.ant-menu-item-group-title {
+  color: #545454;
+  font-size: 11px;
+  line-height: 1.3;
+  padding: 0px;
+}
+
+.gx-layout-sider-header {
+  padding: 10px 30px 10px 70px;
+  height: 72px;
+  box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 1;
+  display: -ms-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  -ms-align-items: center;
+  align-items: center;
+  background-color: white;
+}
+
+
+.iTbKAT {
+  display: inline-flex;
+  align-items: center;
+  justify-content: inherit;
+  height: 100%;
+  width: 100%;
+  outline: none;
+  user-select: none;
+  overflow: hidden;
+  background-color: #1A5CBF;
+  color: white;
+}
+
+.khKJpi {
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  line-height: normal;
+  padding-left: 16px;
+  padding-right: 10px;
+  background-color:#1A5CBF;
+  color: white;
+}
+
+.table-head th {
+  background-color: lightblue;
+  /* Tambahkan gaya lain sesuai kebutuhan Anda */
+}
+
+.ant-table-thead > tr > th {
+    position: relative;
+    color: white;
+    font-weight: 500;
+    text-align: left;
+    background: #1A5CBF;
+    border-bottom: 1px solid #e8e8e8;
+    /* transition: background 0.3s ease; */
+}
+
+/* Contoh gaya khusus untuk kolom "Kode Tarif" */
+.table-head .kode_tarif {
+  background-color: lightgreen;
+}
+
 .custom-button {
     width: 180px;
     color: white;
@@ -68,3 +153,10 @@
       font-size: 10px;
     }
   }
+
+  @media screen and (max-width: 991px){
+    .gx-layout-sider-scrollbar {
+    height: calc(100vh - 72px) !important;
+    background-color: #BAD6FF;}
+
+}

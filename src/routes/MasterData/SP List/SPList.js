@@ -224,7 +224,7 @@ function SPList() {
       <Card>
         <Row>
           <Col>
-            <h5>Approve Sp</h5>
+            <h5 style={{color: `#1A5CBF`, fontWeight: 'bold'}}>Approve Sp</h5>
             <div className="d-flex justify-content-end">
               <Col sm={3}>
                 <Form.Group controlId="spId">

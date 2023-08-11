@@ -26,6 +26,7 @@ function SplistAkuntingBaru() {
       name: "No SP",
       selector: (row) => row?.sp,
       width: "150px"
+   
     },
     {
       name: " Perusahaan",
@@ -237,10 +238,11 @@ function SplistAkuntingBaru() {
   return (
     <div>
       <Card>
+        <h5>Data SP List</h5>
         <Row>
           <Col>
             <Row>
-
+              
               <div className="d-flex justify-content-end">
                 <Col sm={3}>
                   <Form.Control

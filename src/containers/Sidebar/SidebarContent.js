@@ -79,7 +79,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
       />
       <div className="gx-sidebar-content">
         <div
-        className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
+        // className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
         >
            {/* {jobdesk === "sales" ? (
                 <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
@@ -453,7 +453,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Menu.Item>
                   </SubMenu> */}
                   <Menu.ItemGroup key="ArList" title="Menu AR">
-                    <Menu.Item key="SP Lists All">
+                    <Menu.Item key="AR List ALL">
                       <Link
                         to="/akunting/ar/ar"
                         style={{ textDecoration: "none" }}
@@ -462,7 +462,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         <span style={{ fontWeight: "bold" }}>AR List ALL</span>
                       </Link>
                     </Menu.Item>
-                    <Menu.Item key="SP Lists All">
+                    <Menu.Item key="List Invoice AR">
                       <Link
                         to="/akunting/ar/ar"
                         style={{ textDecoration: "none" }}
@@ -473,7 +473,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         </span>
                       </Link>
                     </Menu.Item>
-                    <Menu.Item key="SP Lists All">
+                    <Menu.Item key="SJ no AR">
                       <Link
                         to="/akunting/ar/ar"
                         style={{ textDecoration: "none" }}
@@ -482,7 +482,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         <span style={{ fontWeight: "bold" }}>SJ no AR</span>
                       </Link>
                     </Menu.Item>
-                    <Menu.Item key="SP Lists All">
+                    <Menu.Item key="Penerimaan SJ">
                       <Link
                         to="/akunting/ar/ar"
                         style={{ textDecoration: "none" }}
@@ -493,7 +493,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         </span>
                       </Link>
                     </Menu.Item>
-                    <Menu.Item key="SP Lists All">
+                    <Menu.Item key="Report Pembayaran Customer">
                       <Link
                         to="/akunting/ar/ar"
                         style={{ textDecoration: "none" }}
@@ -507,7 +507,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.ItemGroup>
 
                   <Menu.ItemGroup key="Payment" title="Menu Payment">
-                    <Menu.Item key="Payment">
+                    <Menu.Item key="Penerimaan INV">
                       <Link
                         to="/akunting/ar/reportpartners/reportpenerimaaninvoice"
                         style={{ textDecoration: "none" }}

@@ -8,6 +8,7 @@ import {
   Modal,
   Select,
   Tag,
+  Table,
 } from "antd";
 import { useHistory } from "react-router-dom";
 import { httpClient } from "../../../Api/Api";
@@ -23,6 +24,7 @@ import {
 import { async } from "q";
 import axios from "axios";
 import Baseurl from "../../../Api/BaseUrl";
+import '../../../assets/style.css';
 
 const SamplePage = () => {
   const router = useHistory();
@@ -41,6 +43,72 @@ const SamplePage = () => {
     });
     return formatter.format(angka);
   };
+  const columnss = [
+    {
+      title: "No.",
+      dataIndex: "no",
+      key: "no",
+    },
+    {
+      title: "Nama Mitra",
+      dataIndex: "mitra",
+      key: "mitra",
+     
+    },
+    {
+      title: "Muat",
+      dataIndex: "kotaAsal",
+      key: "kotaAsal",
+    },
+    {
+      title: "Bongkar",
+      dataIndex: "kotaTujuan",
+      key: "kotaTujuan",
+    },
+    {
+      title: "Biaya Kirim",
+      dataIndex: "tarif",
+      key: "tarif",
+      render: (tarif) => formatRupiah(tarif),
+    },
+
+    {
+      title: "Keterangan",
+      dataIndex: "service_type",
+      key: "service_type",
+      render: (text) => (
+        <Tag color={text === "Charter" ? "green" : text === "Retail" ? "blue" : "default"}>
+          {text}
+        </Tag>
+      ),
+    },
+
+    {
+      title: "Aksi",
+      key: "no",
+      render: (text, record) => (
+        <Space size="middle">
+          <Button onClick={() => handleView(record.id_price_mitra)} type="primary">
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <FormOutlined />
+            </span>
+          </Button>
+          <Button danger  onClick={() => handleDelete(record.id_price_mitra)}>
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <DeleteOutlined />
+            </span>
+            {/* <DeleteOutlined /> */}
+          </Button>
+        </Space>
+      ),
+    },
+
+    // {
+    //   title: "Keterangan",
+    //   dataIndex: "status",
+    //   key: "status",
+    // },
+  ];
   const columns = [
     // {
     //   name: "No ID",
@@ -379,13 +447,14 @@ const SamplePage = () => {
           
         `}
         </style>
-
-        <DataTable
+        <Table
+          className="mt-5"
           onRowClicked={IniRowClick}
-          columns={columns}
-          data={listData}
-        />
-        <div className="mt-5 d-flex justify-content-end">
+          dataSource={listData}
+          columns={columnss}
+          pagination={false} 
+          />
+         <div className="mt-3 d-flex justify-content-end">
           <Pagination
             onChange={ubahHalaman}
             showSizeChanger
@@ -394,6 +463,20 @@ const SamplePage = () => {
             total={total}
           />
         </div>
+        {/* <DataTable
+          onRowClicked={IniRowClick}
+          columns={columns}
+          data={listData}
+        />
+        <div className="mt-5 d-flex justify-content-end">
+          <Pagination
+            onChange={ubahHalaman}
+            showSizeChanger
+            onShowSizeChange={ubahPerHalaman}
+            defaultCurrent={100}
+            total={total}
+          />
+        </div> */}
         {/* <>
           <DataTable data={listData}  columns={columns} />
         </>
