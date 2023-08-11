@@ -79,9 +79,7 @@
 }
 
 /* Contoh gaya khusus untuk kolom "Kode Tarif" */
-.table-head .kode_tarif {
-  background-color: lightgreen;
-}
+
 
 .custom-button {
     width: 180px;
