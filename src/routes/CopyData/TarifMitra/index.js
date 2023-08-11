@@ -23,6 +23,7 @@ import {
 import { async } from "q";
 import axios from "axios";
 import Baseurl from "../../../Api/BaseUrl";
+import ZustandStore from "../../../zustand/Store/NamaMitraStore";
 
 const SamplePage = () => {
   const router = useHistory();
@@ -30,6 +31,17 @@ const SamplePage = () => {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [tarifMitraDelete, setTarifMitraDelete] = useState([]);
+  const [listData, setListData] = useState([]);
+  const [muatKota, setMuatKota] = useState("");
+  const [NamaMitranya, setNamaMitranya] = useState("");
+  const [kotaTujuan, setKotaTujuan] = useState("");
+  const [kotaTujuannOptionSelect, setKotaTujuanOpionSelect] = useState("");
+  const [muatKotaOptionSelect, setMuatKotaOptionsSelect] = useState("");
+  const [namaMitranyaoptionSelect, setnamaMitranyaoptionSelect] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [NamaMitraOptions , setNamaMitraOptions] = useState("")
+   
   const handleView = (id) => {
     router.push(`/tarifmitraeditdetail/${id}`);
   };
@@ -139,15 +151,8 @@ const SamplePage = () => {
       ),
     },
   ];
-  const [listData, setListData] = useState([]);
-  const [muatKota, setMuatKota] = useState("");
-  const [NamaMitranya, setNamaMitranya] = useState("");
-  const [kotaTujuan, setKotaTujuan] = useState("");
-  const [kotaTujuannOptionSelect, setKotaTujuanOpionSelect] = useState("");
-  const [muatKotaOptionSelect, setMuatKotaOptionsSelect] = useState("");
-  const [namaMitranyaoptionSelect, setnamaMitranyaoptionSelect] = useState("");
-  const [searchKeyword, setSearchKeyword] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+
+ 
 
   const IniRowClick = (record) => {
     handleView(record.id_price_mitra);
@@ -201,7 +206,24 @@ const SamplePage = () => {
   useEffect(() => {
     fetchData();
     getDataSelectt();
+    NamaMitraOptionsAPI()
   }, [muatKota, kotaTujuan, NamaMitranya]);
+
+  const NamaMitraOptionsAPI =async ()=>{
+    try {
+      const data = await axios.get(`${Baseurl}mitra/get-select-mitraPic`, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+        }
+      });
+      console.log(`asu`,data.data.mitra);
+      setNamaMitraOptions(data.data?.mitra)
+      
+    } catch (error) {
+      
+    }
+  }
 
   const ubahHalaman = (pages) => {
     fetchData(pages);
@@ -252,6 +274,7 @@ const SamplePage = () => {
       onCancel() {},
     });
   };
+
 
   return (
     <div>
@@ -343,10 +366,10 @@ const SamplePage = () => {
                 }}
               >
                 <Select.Option value="">-</Select.Option>
-                {namaMitranyaoptionSelect &&
-                  namaMitranyaoptionSelect.customer.map((item, index) => (
-                    <Select.Option value={item.idCustomer}>
-                      {item.Customer}
+                {NamaMitraOptions &&
+                  NamaMitraOptions.map((item, index) => (
+                    <Select.Option value={item.idMitra}>
+                      {item.mitra}
                     </Select.Option>
                   ))}
               </Select>
