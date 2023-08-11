@@ -16,13 +16,17 @@ import { useHistory } from "react-router";
 import CreatedPIC from "./CreatedPIC";
 import PIC from "./PIC";
 
-function DataBaru({ mitraId ,DataOptions}) {
+function DataBaru({ mitraId, DataOptions }) {
   // const [datamiTraProfile, setDataMitraProfile] = useState([]);
   const [form] = Form.useForm();
   const router = useHistory();
   const [datanyaPT, setDatanyaPT] = useState("");
-  const [namaMitra , setnamaMitra] = useState("")
-console.log(`nama mitara`,namaMitra);
+  const [namaMitra, setnamaMitra] = useState("")
+  const [TypeOfPayment, setTypeOfPayment] = useState("")
+  const [Status, setStatus] = useState("")
+  const [Title, setTitle] = useState("")
+  const [TitleSelect, setTitleSelect] = useState("")
+  console.log(`nama mitara`, namaMitra);
   const onFinish = async (values) => {
     console.log("Success:", values);
 
@@ -33,6 +37,9 @@ console.log(`nama mitara`,namaMitra);
           ...values,
           id_mitra_pic: 1,
           id_mitra: mitraId,
+          pembayaran: TypeOfPayment,
+          status: Status,
+          title: Title
         },
         {
           headers: {
@@ -67,8 +74,11 @@ console.log(`nama mitara`,namaMitra);
         },
       }
     );
-    setnamaMitra(data.data.data?.nama_mitra)
+    await setnamaMitra(data.data.data?.nama_mitra)
     console.log(data.data.data.jenis);
+    setTypeOfPayment(data.data.data?.pembayaran)
+    setStatus(data.data.data?.status)
+    setTitle(data.data.data?.title)
     form.setFieldsValue({
       jenis: data.data.data?.jenis,
       kode_mitra: data.data.data?.kode_mitra,
@@ -183,31 +193,32 @@ console.log(`nama mitara`,namaMitra);
 
 
   const OptionsData = async () => {
-    const data = await axios.get (
-      `${Baseurl}mitra/get-select-mitraPic`, 
-      
+    const data = await axios.get(
+      `${Baseurl}mitra/get-select-mitraPic`,
+
       {
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
           'Authorization': localStorage.getItem(`token`),
         },
-      
+
       }
-     
+
     )
     console.log(data.data, 'ini data options');
+    setTitleSelect(data.data.jabatan);
   }
 
   return (
-    
+
     <>
-    <Card>
-    <h3 style={{color: '#113D7F'}}>
-           Detail Master Mitra
-        </h3>
-    </Card>
       <Card>
-     
+        <h3 style={{ color: '#113D7F' }}>
+          Detail Master Mitra
+        </h3>
+      </Card>
+      <Card>
+
         <Form
           form={form}
           name="basic"
@@ -220,7 +231,7 @@ console.log(`nama mitara`,namaMitra);
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <h5 style={{color: '#113D7F'}}>NAMA DAN ALAMAT PERUSAHAAN(Sold to Party )</h5>
+          <h5 style={{ color: '#113D7F' }}>NAMA DAN ALAMAT PERUSAHAAN(Sold to Party )</h5>
           <Row className="mt-4">
             <Col sm={2} style={{ padding: "0px" }}>
               <Form.Item
@@ -231,12 +242,12 @@ console.log(`nama mitara`,namaMitra);
                   { required: false, message: "Please input your password!" },
                 ]}
               >
-                
+
                 <Input disabled />
               </Form.Item>
             </Col>
             <Col sm={2} style={{ padding: "0px" }}>
-              
+
               <Form.Item
                 label="Title :"
                 style={{ fontWeight: "bold" }}
@@ -245,8 +256,15 @@ console.log(`nama mitara`,namaMitra);
                   { required: false, message: "Please input your jenis!" },
                 ]}
               >
-                <Input
-                 />
+                <Select
+                  value={Title}
+                  onChange={(e) => { console.log(e); setTitle(e) }}
+                >
+                  {TitleSelect && TitleSelect.map((i) => (
+                    <option value={i.jabatan}>{i.jabatan}</option>
+                  ))}
+
+                </Select>
               </Form.Item>
             </Col>
             <Col sm={4} style={{ padding: "0px" }}>
@@ -499,8 +517,8 @@ console.log(`nama mitara`,namaMitra);
               >
                 <Input.Group compact>
                   <DatePicker
-                  name="awal_kontrak"
-                  style={{ width: "100%" }} />
+                    name="awal_kontrak"
+                    style={{ width: "100%" }} />
                 </Input.Group>
               </Form.Item>
             </Col>
@@ -548,7 +566,7 @@ console.log(`nama mitara`,namaMitra);
           <br />
           <br />
           <hr></hr>
-          <h5 style={{color: '#113D7F'}}>DATA PERPAJAKAN (Tax Information)</h5>
+          <h5 style={{ color: '#113D7F' }}>DATA PERPAJAKAN (Tax Information)</h5>
           <Row className="mt-5">
             <Col sm={6} style={{ padding: "0px" }}>
               <Form.Item
@@ -685,7 +703,7 @@ console.log(`nama mitara`,namaMitra);
           <br />
           <hr />
           <br />
-          <h5 style={{color: '#113D7F'}}>DATA ACCOUNTING (Accounting Information)</h5>
+          <h5 style={{ color: '#113D7F' }}>DATA ACCOUNTING (Accounting Information)</h5>
           <Row className="mt-4">
             <Col sm={4} style={{ padding: "0px" }}>
               <Form.Item
@@ -732,18 +750,31 @@ console.log(`nama mitara`,namaMitra);
               <Form.Item
                 label="Type Of Payment :"
                 style={{ fontWeight: "bold" }}
-                name="pembayaran"
+              // name="pembayaran"
               >
-                <Input />
+                {/* <Input /> */}
+                <Select
+                  value={TypeOfPayment}
+                  onChange={(e) => { console.log(e); setTypeOfPayment(e) }}
+                >
+                  <option value={"Cash"}>Cash</option>
+                  <option value={"Credit"}>Credit</option>
+                </Select>
               </Form.Item>
             </Col>
             <Col sm={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Status :"
                 style={{ fontWeight: "bold" }}
-                name="-"
+              // name="-"
               >
-                <Input />
+                <Select
+                  value={Status}
+                  onChange={(e) => { console.log(e); setStatus(e) }}
+                >
+                  <option value={"Aktif"}>Aktif</option>
+                  <option value={"Tidak Aktif"}>Tidak Aktif</option>
+                </Select>
               </Form.Item>
             </Col>
           </Row>
@@ -779,13 +810,13 @@ console.log(`nama mitara`,namaMitra);
           <br />
           <hr />
           <Form.Item wrapperCol={{ offset: 8, span: 24 }}>
-           <Row>
-            <Col sm={24}  className="d-flex justify-content-end">
-            <Button type="primary" htmlType="submit" >
-              Submit
-            </Button>
-            </Col>
-           </Row>
+            <Row>
+              <Col sm={24} className="d-flex justify-content-end">
+                <Button type="primary" htmlType="submit" >
+                  Submit
+                </Button>
+              </Col>
+            </Row>
           </Form.Item>
         </Form>
       </Card>
