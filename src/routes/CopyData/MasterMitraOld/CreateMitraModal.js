@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import { useHistory } from "react-router-dom";
 import DataProfile from "./Form/DataProfile";
-import { notification } from "antd";
+import { notification,Modal } from "antd";
 import { httpClient } from "../../../Api/Api";
 import axios from "axios";
 import Baseurl from "../../../Api/BaseUrl";
@@ -73,22 +72,25 @@ function SamplePage({ isiValues }) {
         Tambah Mitra
       </Button>
 
-      <Modal show={show} onHide={handleClose} className="modal-xl">
-        <Modal.Header closeButton>
-          <Modal.Title style={{color: '#1A5CBF'}}>New Master Mitra</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <DataProfile onSubmit={handleSubmit} />
-        </Modal.Body>
-        <Modal.Footer>
-          {/* <Button type="submit" onClick={datatest}>
-            Save
-          </Button> */}
-          <Button style={{ backgroundColor: "grey" }} onClick={handleClose}>
+      <Modal
+    title="New Master Mitra"
+    visible={show}
+    width={1000}
+    onCancel={handleClose}
+    footer={[
+        // Uncomment this if you want the Save button
+        // <Button key="submit" type="primary" onClick={datatest}>
+        //     Save
+        // </Button>,
+        <Button key="back" onClick={handleClose}>
             Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        </Button>
+    ]}
+    className="modal-xl"
+    style={{color: '#1A5CBF'}}
+>
+    <DataProfile onSubmit={handleSubmit} />
+</Modal>
     </>
   );
 }

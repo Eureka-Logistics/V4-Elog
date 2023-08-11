@@ -16,7 +16,7 @@ import { useHistory } from "react-router";
 import CreatedPIC from "./CreatedPIC";
 import PIC from "./PIC";
 
-function DataBaru({ mitraId }) {
+function DataBaru({ mitraId ,DataOptions}) {
   // const [datamiTraProfile, setDataMitraProfile] = useState([]);
   const [form] = Form.useForm();
   const router = useHistory();
@@ -498,7 +498,9 @@ console.log(`nama mitara`,namaMitra);
                 name="awal_kontrak"
               >
                 <Input.Group compact>
-                  <DatePicker style={{ width: "100%" }} />
+                  <DatePicker
+                  name="awal_kontrak"
+                  style={{ width: "100%" }} />
                 </Input.Group>
               </Form.Item>
             </Col>
