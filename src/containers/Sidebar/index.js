@@ -56,12 +56,12 @@ const Sidebar = () => {
       trigger={null}
       collapsed={(width < TAB_SIZE ? false : sidebarCollapsed || navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR)}
       // theme={themeType === THEME_TYPE_LITE ? "lite" : "dark"}
-      style={{backgroundColor: '#BAD6FF' }} 
+      style={{backgroundColor: '#1a5cbf' }} 
       collapsible>
       {
         navStyle === NAV_STYLE_DRAWER || width < TAB_SIZE ?
           <Drawer
-            className={`gx-drawer-sidebar ${themeType !== THEME_TYPE_LITE ? '#BAD6FF' : null}`}
+            className={`gx-drawer-sidebar ${themeType !== THEME_TYPE_LITE ? '#1a5cbf' : null}`}
             
             placement="left"
             closable={false}

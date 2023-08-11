@@ -157,6 +157,6 @@
   @media screen and (max-width: 991px){
     .gx-layout-sider-scrollbar {
     height: calc(100vh - 72px) !important;
-    background-color: #BAD6FF;}
+    background-color: #1a5cbf;}
 
 }
