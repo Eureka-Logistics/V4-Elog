@@ -124,7 +124,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 </div>
               ) : (
                 <>
-                <hr/></>
+                </>
               )}
               {jobdesk === "akunting" ? (
                 <>
