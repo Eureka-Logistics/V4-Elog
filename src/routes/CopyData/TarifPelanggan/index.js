@@ -25,6 +25,7 @@ import {
 import axios from "axios";
 import Baseurl from "../../../Api/BaseUrl";
 import { Row } from "react-bootstrap";
+import "../../../assets/style.css";
 
 const SamplePage = () => {
   const router = useHistory();
@@ -368,6 +369,7 @@ const SamplePage = () => {
             setCurrentPage(pagination.current);
             setLimit(pagination.pageSize);
           }}
+          
         />
        </div>
       </Card>

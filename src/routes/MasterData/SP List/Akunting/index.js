@@ -47,6 +47,11 @@ function Index() {
             selector: (row) => row.sp,
             width: "200px",
             wrap: true,
+            cell: (row) => (
+                <Tag color='blue'>
+                  {row.sp}
+                </Tag>
+              ),
         },
         {
             name: "Perusahaan",
@@ -59,6 +64,11 @@ function Index() {
             selector: (row) => row.service,
             width: "150px",
             wrap: true,
+            cell: (row) => (
+                <Tag color={row.service === "Charter" ? "blue" : row.service === "Retailer" ? "green" : "default"}>
+                  {row.service}
+                </Tag>
+              ),
         },
         {
             name: "sales Name",
@@ -94,7 +104,7 @@ function Index() {
 
                 return <>{displayText}</>;
             },
-            width: "250px",
+            width: "200px",
         },
 
     ];
@@ -114,7 +124,7 @@ function Index() {
         <div>
             <Card>
                 <Row>
-                    <h5>Waiting Approve Sp </h5>
+                    <h5 style={{color: '#1A5CBF', fontWeight: 'bold'}}>Waiting Approve Sp </h5>
                     <div className="d-flex justify-content-end">
                         <Col sm={3}>
                             <Form.Control
@@ -128,7 +138,7 @@ function Index() {
                         </Col>
                     </div>
                 </Row>
-                <Col>
+                <Col className='mt-2'>
                     {Loading ? "loading gan" : (
                         <DataTable
                             columns={columns}

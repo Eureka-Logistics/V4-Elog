@@ -454,6 +454,7 @@ function Index() {
                 <td>{driver.kendaraanKode}</td>
                 <td>{driver.nopol}</td>
                 <td style={{textAlign: 'center'}}>
+                  
                   <Tag color="#DB260E">{driver.tglStnk}</Tag>
                 </td>
               </tr>

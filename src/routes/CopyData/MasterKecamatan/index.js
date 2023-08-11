@@ -191,7 +191,7 @@ const SamplePage = () => {
   return (
     <div>
          <Card>
-        <h3>Tabel Data Kecamatan</h3>
+        <h5>Tabel Data Kecamatan</h5>
       </Card>
 
       
