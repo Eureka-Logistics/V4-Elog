@@ -202,7 +202,7 @@ console.log(`nama mitara`,namaMitra);
     
     <>
     <Card>
-    <h3>
+    <h3 style={{color: '#113D7F'}}>
            Detail Master Mitra
         </h3>
     </Card>
@@ -220,7 +220,7 @@ console.log(`nama mitara`,namaMitra);
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <h5>NAMA DAN ALAMAT PERUSAHAAN(Sold to Party )</h5>
+          <h5 style={{color: '#113D7F'}}>NAMA DAN ALAMAT PERUSAHAAN(Sold to Party )</h5>
           <Row className="mt-4">
             <Col sm={2} style={{ padding: "0px" }}>
               <Form.Item
@@ -231,6 +231,7 @@ console.log(`nama mitara`,namaMitra);
                   { required: false, message: "Please input your password!" },
                 ]}
               >
+                
                 <Input disabled />
               </Form.Item>
             </Col>
@@ -547,7 +548,7 @@ console.log(`nama mitara`,namaMitra);
           <br />
           <br />
           <hr></hr>
-          <h5>DATA PERPAJAKAN (Tax Information)</h5>
+          <h5 style={{color: '#113D7F'}}>DATA PERPAJAKAN (Tax Information)</h5>
           <Row className="mt-5">
             <Col sm={6} style={{ padding: "0px" }}>
               <Form.Item
@@ -684,7 +685,7 @@ console.log(`nama mitara`,namaMitra);
           <br />
           <hr />
           <br />
-          <h6>DATA ACCOUNTING (Accounting Information)</h6>
+          <h5 style={{color: '#113D7F'}}>DATA ACCOUNTING (Accounting Information)</h5>
           <Row className="mt-4">
             <Col sm={4} style={{ padding: "0px" }}>
               <Form.Item

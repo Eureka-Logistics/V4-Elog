@@ -311,9 +311,7 @@ const SamplePage = () => {
             <Col span={4}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{fontWeight: `bold`}}>Kode Tarif Eureka</Form.Label>
-                <InputGroup>
-                  <Input value={KodeID.kodeTarifEureka} disabled />
-                </InputGroup>
+                <Form.Control disabled value={KodeID.kodeTarifEureka} />
               </Form.Group>
             </Col>
             <Col span={6}>

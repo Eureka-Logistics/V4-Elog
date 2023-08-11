@@ -1,7 +1,18 @@
 // FormTable.js
 import React from "react";
 import { Col, Row, Form, Button, Table, Modal } from "react-bootstrap";
-import { Card, Checkbox, Select as SelectAntd, Tag, Spin, Input, Modal as ModalAntd, Form as AntForm, DatePicker, Upload } from "antd";
+import {
+  Card,
+  Checkbox,
+  Select as SelectAntd,
+  Tag,
+  Spin,
+  Input,
+  Modal as ModalAntd,
+  Form as AntForm,
+  DatePicker,
+  Upload,
+} from "antd";
 import { useState, useEffect } from "react";
 import Baseurl from "../../../Api/BaseUrl";
 import Swal from "sweetalert2";
@@ -9,26 +20,31 @@ import Select from "react-select";
 import axios from "axios";
 import Token from "../../../Api/Token";
 import mobil from "../../redux toolkit/store/ZustandStore";
-import { Alert, Space } from 'antd';
+import { Alert, Space } from "antd";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import ZustandStore from "../../../zustand/Store/JenisKepemilikanOptions";
-import moment from 'moment';
-import { UploadOutlined } from '@ant-design/icons';
-import * as Yup from 'yup';
-import { useFormik } from 'formik'
+import moment from "moment";
+import { UploadOutlined } from "@ant-design/icons";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 import useMitraStore from "../../../zustand/Store/MitraStore";
 
-
-function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,JenisBarang}) {
-
+function FormTable({
+  isidata,
+  totalPrice,
+  idmp,
+  IsiDataSPSemua,
+  NamaMarketing,
+  JenisBarang,
+}) {
   const [modal1Open, setModal1Open] = useState(false);
   const [jobdesk, setJobdesk] = useState(localStorage.getItem("jobdesk"));
   const [mitraVehicle, setMitraVehicle] = useState([]);
   const [types, setType] = useState([]);
   const [nomorpolisi, setNomorPolisi] = useState([]);
-  const [NamaSupir, setNamaSupir] = useState("")
-  const [NomorPolisi2, setNomorPolisi2] = useState([])
-  const [isidaSementara, setIsidaSementara] = useState([])
+  const [NamaSupir, setNamaSupir] = useState("");
+  const [NomorPolisi2, setNomorPolisi2] = useState([]);
+  const [isidaSementara, setIsidaSementara] = useState([]);
   const [selectnomor, setSelectnomor] = useState([]);
   const [selectnomor2, setSelectnomor2] = useState([]);
   const [selectnopol, setSelectNopol] = useState([]);
@@ -42,29 +58,29 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
   const [idUnit2, setIdunit2] = useState([]);
   const [idUnit3, setIdunit3] = useState([]);
   const [bukaanother, setBukaanother] = useState(false);
-  const [LoadingMuterMuter, setLoadingMuterMuter] = useState(false)
+  const [LoadingMuterMuter, setLoadingMuterMuter] = useState(false);
   const [driveranother, setDriveranother] = useState([]);
   const [selectanotherrvalue, setSelectanotherrvalue] = useState([]);
   const { NamaMitra, fetchMitra } = useMitraStore((item) => ({
     NamaMitra: item.NamaMitra,
-    fetchMitra: item.fetchMitra
-  }))
+    fetchMitra: item.fetchMitra,
+  }));
   const NamaMitraOptions = NamaMitra.map((item) => ({
     label: item.NamaMitra,
-    value: item.mitraId
-  }))
+    value: item.mitraId,
+  }));
   const { DriverType, setDriverType } = ZustandStore((item) => ({
     DriverType: item.DriverType,
-    setDriverType: item.setDriverType
-  }))
+    setDriverType: item.setDriverType,
+  }));
   const { jenisKepemilikan, setjenisKepemilikan } = ZustandStore((item) => ({
     jenisKepemilikan: item.jenisKepemilikan,
-    setjenisKepemilikan: item.setjenisKepemilikan
-  }))
+    setjenisKepemilikan: item.setjenisKepemilikan,
+  }));
   const { WarnaPlat, setWarnaPlat } = ZustandStore((item) => ({
     WarnaPlat: item.WarnaPlat,
-    setWarnaPlat: item.setWarnaPlat
-  }))
+    setWarnaPlat: item.setWarnaPlat,
+  }));
   const { isidetail, setSpDetail } = mobil((state) => ({
     isidetail: state.isidetail,
     setSpDetail: state.setSpDetail,
@@ -87,8 +103,8 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
   }));
   const { IsiKomenRejectSP, setIsiKomenRejectSP } = mobil((state) => ({
     IsiKomenRejectSP: state.IsiKomenRejectSP,
-    setIsiKomenRejectSP: state.setIsiKomenRejectSP
-  }))
+    setIsiKomenRejectSP: state.setIsiKomenRejectSP,
+  }));
   const { orderdate, setOrderdate, asuransi, setAsuransi } = mobil();
   useEffect(() => {
     setType(isidetail.map((item) => item?.kendaraan));
@@ -106,16 +122,16 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
   const { mitra2, setmitra2 } = mobil((state) => ({
     mitra2: state.mitra2,
     setmitra2: state.setmitra2,
-  }))
-  const [idmitraini, setidmitraini] = useState([])
-  const [idmitraini2, setidmitraini2] = useState([])
+  }));
+  const [idmitraini, setidmitraini] = useState([]);
+  const [idmitraini2, setidmitraini2] = useState([]);
   //////////////////
-  const [mitraFix, setMitraFix] = useState([])
-  const [NomorFix, setNomorFix] = useState([])
-  const [NomorFix2, setNomorFix2] = useState([])
-  const [NamaDriverFix, setNamaDriverFix] = useState([])
-  const [NamaDriverFix2, setNamaDriverFix2] = useState([])
-  const [KodeKendaraanOps, setKodeKendaraanOps] = useState([])
+  const [mitraFix, setMitraFix] = useState([]);
+  const [NomorFix, setNomorFix] = useState([]);
+  const [NomorFix2, setNomorFix2] = useState([]);
+  const [NamaDriverFix, setNamaDriverFix] = useState([]);
+  const [NamaDriverFix2, setNamaDriverFix2] = useState([]);
+  const [KodeKendaraanOps, setKodeKendaraanOps] = useState([]);
   const { SJKosongModal, setSJKosongModal } = mobil((state) => ({
     SJKosongModal: state.SJKosongModal,
     setSJKosongModal: state.setSJKosongModal,
@@ -124,24 +140,25 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
     TipeKendaraan: state.TipeKendaraan,
     FetchTipeKendaraan: state.FetchTipeKendaraan,
   }));
-  const [FotoDriver, setFotoDriver] = useState("")
-  const [Mitra1Multi, setMitra1Multi] = useState([])
-  const [StatusApproveAct, setStatusApproveAct] = useState("")
-  const [TanggalACT3, setTanggalACT3] = useState("")
-  const [TanggalACT4, setTanggalACT4] = useState("")
-  const [TanggalACT5, setTanggalACT5] = useState("")
-  const [StatusApproveOpt, setStatusApproveActOpt] = useState("")
-  const [Kendaraan_operasionalStatus, setKendaraanOperasionalStatus] = useState({})
-  const [StatusPurchasing, setStatusPurchasing] = useState("")
-  const history = useHistory()
-  const [selectTypeMobil, setselectTypeMobil] = useState("")
-  const [selectTypeMobil2, setselectTypeMobil2] = useState("")
+  const [FotoDriver, setFotoDriver] = useState("");
+  const [Mitra1Multi, setMitra1Multi] = useState([]);
+  const [StatusApproveAct, setStatusApproveAct] = useState("");
+  const [TanggalACT3, setTanggalACT3] = useState("");
+  const [TanggalACT4, setTanggalACT4] = useState("");
+  const [TanggalACT5, setTanggalACT5] = useState("");
+  const [StatusApproveOpt, setStatusApproveActOpt] = useState("");
+  const [Kendaraan_operasionalStatus, setKendaraanOperasionalStatus] = useState(
+    {}
+  );
+  const [StatusPurchasing, setStatusPurchasing] = useState("");
+  const history = useHistory();
+  const [selectTypeMobil, setselectTypeMobil] = useState("");
+  const [selectTypeMobil2, setselectTypeMobil2] = useState("");
 
   ////checkbox multi
   const handleCheckboxChange = (event) => {
     setCheckboxValue(event.target.checked ? 1 : 0);
   };
-
 
   ///select driver
 
@@ -156,9 +173,9 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
     });
     const nomorpolisis = sleet.data.data.vehicle;
     const drivernya = sleet.data.data.Driver;
-    setMitraFix(sleet.data.data.mitra)
-    setNomorFix(sleet.data.data.vehicle)
-    setNamaDriverFix(sleet.data.data.Driver)
+    setMitraFix(sleet.data.data.mitra);
+    setNomorFix(sleet.data.data.vehicle);
+    setNamaDriverFix(sleet.data.data.Driver);
     // console.log(`ini driver`, sleet.data.data);
     setselectDriver(drivernya);
     setNomorPolisi(nomorpolisis);
@@ -167,8 +184,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
     if (types.length > 0) {
       vehicle();
     }
-
-  }, [types, selectnomor, mitra1, selectnomor2, selectTypeMobil]);  // pastikan Anda memasukkan semua variabel yang Anda gunakan sebagai dependensi useEffect
+  }, [types, selectnomor, mitra1, selectnomor2, selectTypeMobil]); // pastikan Anda memasukkan semua variabel yang Anda gunakan sebagai dependensi useEffect
 
   useEffect(() => {
     const vehicle = async () => {
@@ -180,8 +196,8 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
           Authorization: localStorage.getItem("token"),
         },
       });
-      setNomorFix2(sleet.data.data.vehicle)
-      setNamaDriverFix2(sleet.data.data.Driver)
+      setNomorFix2(sleet.data.data.vehicle);
+      setNamaDriverFix2(sleet.data.data.Driver);
       // const nomorpolisis = sleet.data.data.vehicle;
       // const drivernya = sleet.data.data.Driver;
     };
@@ -189,8 +205,8 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
     if (types.length > 0) {
       vehicle();
     }
-    FetchTipeKendaraan()
-  }, [types, selectnomor, mitra2, selectnomor2, selectTypeMobil2]);  // pastikan Anda memasukkan semua variabel yang Anda gunakan sebagai dependensi useEffect
+    FetchTipeKendaraan();
+  }, [types, selectnomor, mitra2, selectnomor2, selectTypeMobil2]); // pastikan Anda memasukkan semua variabel yang Anda gunakan sebagai dependensi useEffect
 
   // console.log(`ini NamaDriverFix2`, NamaDriverFix2);
   ///// approve op operasional
@@ -205,15 +221,13 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
         },
       });
       console.log(`ini op driver `, sleet.data?.data.vehicle);
-      setKodeKendaraanOps(sleet.data?.data.vehicle)
+      setKodeKendaraanOps(sleet.data?.data.vehicle);
     };
 
     if (types.length > 0) {
       vehicle();
     }
   }, [types, selectnomor, mitra1, selectnomor2, selectTypeMobil2]);
-
-
 
   const anotherdriver = async () => {
     const another = await axios.get(`${Baseurl}sp/another-driver`, {
@@ -224,20 +238,20 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
     });
     const driveranotders = another.data.data;
     setDriveranother(driveranotders);
-    setIsiKomenRejectSP()
+    setIsiKomenRejectSP();
   };
   useEffect(() => {
     anotherdriver();
   }, []);
 
   const PindahVehicle = () => {
-    history.push(`/masterdata/purchasing/vehicle`)
-  }
+    history.push(`/masterdata/purchasing/vehicle`);
+  };
 
   ///tombol approve
   const HandleApproveOPS = (idmpd) => {
     try {
-      setLoadingMuterMuter(true)
+      setLoadingMuterMuter(true);
       const body = {
         id_mpd: IDMPD,
         id_mp: idmp,
@@ -252,9 +266,9 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
         merk: types[0],
         is_multi: checkboxValue,
 
-        pickup_kendaraan:types[0] || "",
-        pickup_nopol:selectnopol,
-        pickup_supir:selectDriver[0]?.name ? selectDriver[0]?.name : idUnit
+        pickup_kendaraan: types[0] || "",
+        pickup_nopol: selectnopol,
+        pickup_supir: selectDriver[0]?.name ? selectDriver[0]?.name : idUnit,
       };
 
       axios
@@ -275,15 +289,12 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
             title: "Approval Successful",
             text: "The approval process has been completed successfully.",
           });
-          setLoadingMuterMuter(false)
-          window.location.reload()
+          setLoadingMuterMuter(false);
+          window.location.reload();
           handleClose();
         })
         .catch((error) => console.error(`Error: ${error}`));
-    } catch (error) {
-
-    }
-
+    } catch (error) {}
   };
 
   ///tombol approve
@@ -331,7 +342,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
           text: "The approval process has been completed successfully.",
         });
         handleClose();
-        window.location.reload()
+        window.location.reload();
       })
       .catch((error) => console.error(`Error: ${error}`));
   };
@@ -343,14 +354,14 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
   ///sp reject operasional
   const rejectsp = async () => {
     Swal.fire({
-      title: 'Apakah Anda yakin?',
+      title: "Apakah Anda yakin?",
       text: "Anda tidak akan dapat mengembalikan ini!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya',
-      cancelButtonText: 'Batal'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+      cancelButtonText: "Batal",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -368,7 +379,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
             title: "Berhasil",
             text: "Data telah di reject",
           });
-          window.location.reload()
+          window.location.reload();
         } catch (error) {
           // Menampilkan SweetAlert gagal
           Swal.fire({
@@ -379,38 +390,42 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
           console.error(error);
         }
       }
-    })
+    });
   };
 
   //// reject sp akunting
   const rejectspAkunting = async () => {
     Swal.fire({
-      title: 'Apakah Anda yakin?',
+      title: "Apakah Anda yakin?",
       text: "Anda tidak akan dapat mengembalikan ini!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya',
-      cancelButtonText: 'Batal'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+      cancelButtonText: "Batal",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
           const body = {
             id_mp: idmp,
           };
-          const data = await axios.post(`${Baseurl}sp/reject-SP-akunting`, body, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: localStorage.getItem("token"),
-            },
-          });
+          const data = await axios.post(
+            `${Baseurl}sp/reject-SP-akunting`,
+            body,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: localStorage.getItem("token"),
+              },
+            }
+          );
           Swal.fire({
             icon: "success",
             title: "Berhasil",
             text: "Data telah di reject",
           });
-          window.location.reload()
+          window.location.reload();
         } catch (error) {
           // Menampilkan SweetAlert gagal
           Swal.fire({
@@ -421,36 +436,44 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
           console.error(error);
         }
       }
-    })
+    });
   };
-  const [vehicletype, setvehicletype] = useState("")
+  const [vehicletype, setvehicletype] = useState("");
 
   const mitraOptions = mitraFix.map((item) => ({
     value: item.id,
     label: item.mitra,
     mitraId: item.mitraId,
   }));
-  const kodeKendaraanOptions = Array.isArray(NomorFix) ? NomorFix.map((item) => ({
-    value: item.id,
-    label: item.no_polisi,
-    kd_kendaraan: item.kd_kendaraan
-  })) : [];
-  const kodeKendaraanOptions2 = Array.isArray(NomorFix2) ? NomorFix2.map((item) => ({
-    value: item.id,
-    label: item.no_polisi,
-    kd_kendaraan: item.kd_kendaraan
-  })) : [];
-  const nomorpolisiOptions = Array.isArray(KodeKendaraanOps) ? KodeKendaraanOps.map((item) => ({
-    value: item.driverId,
-    label: item.kd_kendaraan + " - " + item.no_polisi + " - " + item.mitra,
-    kd_kendaraan: item.kd_kendaraan
-  })) : [];
+  const kodeKendaraanOptions = Array.isArray(NomorFix)
+    ? NomorFix.map((item) => ({
+        value: item.id,
+        label: item.no_polisi,
+        kd_kendaraan: item.kd_kendaraan,
+      }))
+    : [];
+  const kodeKendaraanOptions2 = Array.isArray(NomorFix2)
+    ? NomorFix2.map((item) => ({
+        value: item.id,
+        label: item.no_polisi,
+        kd_kendaraan: item.kd_kendaraan,
+      }))
+    : [];
+  const nomorpolisiOptions = Array.isArray(KodeKendaraanOps)
+    ? KodeKendaraanOps.map((item) => ({
+        value: item.driverId,
+        label: item.kd_kendaraan + " - " + item.no_polisi + " - " + item.mitra,
+        kd_kendaraan: item.kd_kendaraan,
+      }))
+    : [];
 
-  const anotneroptionsdriver = Array.isArray(driveranother) ? driveranother.map((item) => ({
-    value: item.id,
-    label: item.name + " || " + item?.mitra,
-    kd_kendaraan: item.kd_kendaraan
-  })) : [];
+  const anotneroptionsdriver = Array.isArray(driveranother)
+    ? driveranother.map((item) => ({
+        value: item.id,
+        label: item.name + " || " + item?.mitra,
+        kd_kendaraan: item.kd_kendaraan,
+      }))
+    : [];
 
   // const nomorpolisiOptions = nomorpolisi.filter(item => item.mitra === mitra1).map(item => ({
   //   value: item.driverId,
@@ -473,60 +496,51 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
   }, []);
 
   const approvebaru = (idMpd) => {
-    setIDMPD(idMpd)
-    handleShow()
+    setIDMPD(idMpd);
+    handleShow();
     // HandleApproveOPS(idMpd)
     // HandleApprovePURCH(idMpd)
-  }
-
+  };
 
   ////ini approve akunting
   const akuntingAprpove = async () => {
     Swal.fire({
-      title: 'Apakah Anda yakin?',
+      title: "Apakah Anda yakin?",
       text: "Anda ingin menyetujui?",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya, setujui!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, setujui!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.post(`${Baseurl}sp/approve-SP-akunting`,
-          {
-            id_mp: idmp
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: localStorage.getItem("token"),
+        axios
+          .post(
+            `${Baseurl}sp/approve-SP-akunting`,
+            {
+              id_mp: idmp,
             },
-          }
-        )
-          .then(response => {
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: localStorage.getItem("token"),
+              },
+            }
+          )
+          .then((response) => {
             const data = response.data;
-            Swal.fire(
-              'Sukses!',
-              'Berhasil disetujui.',
-              'success'
-            );
-          })
+            Swal.fire("Sukses!", "Berhasil disetujui.", "success");
+          });
 
         setTimeout(() => {
-          window.location.reload()
-        }, 1500)
-          .catch(error => {
-            Swal.fire(
-              'Gagal!',
-              'Terjadi kesalahan saat menyetujui.',
-              'error'
-            );
-          });
+          window.location.reload();
+        }, 1500).catch((error) => {
+          Swal.fire("Gagal!", "Terjadi kesalahan saat menyetujui.", "error");
+        });
       }
-    })
-  }
-  let counter = 1
-
+    });
+  };
+  let counter = 1;
 
   ////select nomor polisi sama nama driver
   // const options = nomorpolisi.map(vehicle => ({
@@ -538,29 +552,28 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
   //   label: vehicle.no_polisi + "-" + vehicle.kd_kendaraan
   // }));
 
-  const handleSelectChange = selectedOption => {
+  const handleSelectChange = (selectedOption) => {
     if (selectedOption) {
       setSelectnomor(selectedOption.value);
 
-      const selectedVehicle = nomorpolisi.find((vehicle) => vehicle.id === selectedOption.value);
+      const selectedVehicle = nomorpolisi.find(
+        (vehicle) => vehicle.id === selectedOption.value
+      );
       if (selectedVehicle) {
         setSelectNopol(selectedVehicle.no_polisi);
       }
     }
   };
 
-
   ////// approve sp purchasing 3
 
-
-
-  localStorage.setItem(`mitra1`, mitra1)
-  localStorage.setItem(`kendaraan`, types[0])
-  localStorage.setItem(`idkodekendaraan1`, selectnomor)
-  localStorage.setItem(`IdDriver`, idUnit)
-  localStorage.setItem(`mitra2`, mitra2)
-  localStorage.setItem(`idkodekendaraan2`, selectnomor2)
-  localStorage.setItem(`IdDriver2`, idUnit2)
+  localStorage.setItem(`mitra1`, mitra1);
+  localStorage.setItem(`kendaraan`, types[0]);
+  localStorage.setItem(`idkodekendaraan1`, selectnomor);
+  localStorage.setItem(`IdDriver`, idUnit);
+  localStorage.setItem(`mitra2`, mitra2);
+  localStorage.setItem(`idkodekendaraan2`, selectnomor2);
+  localStorage.setItem(`IdDriver2`, idUnit2);
 
   // console.log(`isi Mitra1Multi?.driverName `, Mitra1Multi?.driverName);
   // const [isisp , setisisp]= useState("")
@@ -577,66 +590,65 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
   //   }
   // })
 
-
-  //// ngambil mitra 1 kalau multi 
+  //// ngambil mitra 1 kalau multi
 
   const MitraMulti = async () => {
     try {
-      const data = await axios.get(`${Baseurl}sp/get-SP-detail-purch?id_mp=${idmp}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      }
+      const data = await axios.get(
+        `${Baseurl}sp/get-SP-detail-purch?id_mp=${idmp}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        }
       );
       // console.log(`ini mitra 1`, data.data.data[0]);
-      setMitra1Multi(data.data.data[0])
-
-    } catch (error) {
-
-    }
+      setMitra1Multi(data.data.data[0]);
+    } catch (error) {}
   };
   useEffect(() => {
-    MitraMulti()
-    AmbilStatusApprove()
-    setDriverType()
-    fetchMitra()
-    setWarnaPlat()
-    setjenisKepemilikan()
-  }, [StatusApproveAct, StatusPurchasing, Kendaraan_operasionalStatus])
+    MitraMulti();
+    AmbilStatusApprove();
+    setDriverType();
+    fetchMitra();
+    setWarnaPlat();
+    setjenisKepemilikan();
+  }, [StatusApproveAct, StatusPurchasing, Kendaraan_operasionalStatus]);
 
-  let angkamanual = 1
+  let angkamanual = 1;
 
   ////ambil status approve
   const AmbilStatusApprove = async () => {
     try {
-      const data = await axios.get(`${Baseurl}sp/get-status-approve?id_mp=${idmp}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
+      const data = await axios.get(
+        `${Baseurl}sp/get-status-approve?id_mp=${idmp}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
         }
-      }
-      )
-      setStatusApproveAct(data.data.status.message.act_akunting)
-      setStatusApproveActOpt(data.data.status.message.kendaraan_operasional)
-      setTanggalACT3(data.data.status.message.tgl_act_3)
-      setTanggalACT4(data.data.status.message.tgl_act_4)
-      setTanggalACT5(data.data.status.message.tgl_act_5)
-      setKendaraanOperasionalStatus(data.data.status.message.kendaraan_operasional)
-      setStatusPurchasing(data.data.status.message.kendaraan_purchasing)
-
-    } catch (error) {
-
-    }
+      );
+      setStatusApproveAct(data.data.status.message.act_akunting);
+      setStatusApproveActOpt(data.data.status.message.kendaraan_operasional);
+      setTanggalACT3(data.data.status.message.tgl_act_3);
+      setTanggalACT4(data.data.status.message.tgl_act_4);
+      setTanggalACT5(data.data.status.message.tgl_act_5);
+      setKendaraanOperasionalStatus(
+        data.data.status.message.kendaraan_operasional
+      );
+      setStatusPurchasing(data.data.status.message.kendaraan_purchasing);
+    } catch (error) {}
   };
 
   const validationSchema = Yup.object().shape({
-    kode_kendaraan: Yup.string().required('Kode Kendaraan wajib diisi'),
-    no_polisi: Yup.string().required('No Polisi wajib diisi'),
-    tgl_stnk: Yup.date().required('Tanggal STNK wajib diisi'),
-    jenis_kepemilikan: Yup.string().required('Jenis Kepemilikan wajib diisi'),
-    jenis_kendaraan: Yup.string().required('Jenis Kendaraan wajib diisi'),
-    vendor: Yup.string().required('Vendor Kendaraan wajib diisi'),
+    kode_kendaraan: Yup.string().required("Kode Kendaraan wajib diisi"),
+    no_polisi: Yup.string().required("No Polisi wajib diisi"),
+    tgl_stnk: Yup.date().required("Tanggal STNK wajib diisi"),
+    jenis_kepemilikan: Yup.string().required("Jenis Kepemilikan wajib diisi"),
+    jenis_kendaraan: Yup.string().required("Jenis Kendaraan wajib diisi"),
+    vendor: Yup.string().required("Vendor Kendaraan wajib diisi"),
     // nama_driver: Yup.string().required('Nama Driver wajib diisi'),
     // tgl_plat_nomor: Yup.string().required('tgl plat nomor wajib diisi'),
     // warna_plat: Yup.string().required('Warna Plat wajib diisi'),
@@ -661,90 +673,87 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
     initialValues: {
       tgl_stnk: "",
       fotoVehicle: "",
-      kode_kendaraan: '',
-      no_polisi: '',
-      jenis_kepemilikan: '',
-      jenis_kendaraan: '',
-      vendor: '',
-      nama_driver: '',
-      jenis_SIM: '',
-      warna_plat: '',
-      merk_mobil: '',
-      tahun_mobil: '',
-      warna_plat: '',
-      panjang: '',
-      lebar: '',
-      tinggi: '',
+      kode_kendaraan: "",
+      no_polisi: "",
+      jenis_kepemilikan: "",
+      jenis_kendaraan: "",
+      vendor: "",
+      nama_driver: "",
+      jenis_SIM: "",
+      warna_plat: "",
+      merk_mobil: "",
+      tahun_mobil: "",
+      warna_plat: "",
+      panjang: "",
+      lebar: "",
+      tinggi: "",
       tgl_plat_nomor: "",
-      no_bpkb: '',
-      stnk: '',
-      tgl_kir: '',
-      tgl_beli: '',
-      kapasitas: '',
-      kapasitas_maks: '',
-      kubikasi: '',
-      location: '',
-      id_driver: '',
-      id_kendaraan_jenis: ''
+      no_bpkb: "",
+      stnk: "",
+      tgl_kir: "",
+      tgl_beli: "",
+      kapasitas: "",
+      kapasitas_maks: "",
+      kubikasi: "",
+      location: "",
+      id_driver: "",
+      id_kendaraan_jenis: "",
     },
     validationSchema: validationSchema,
-    onSubmit: values => {
-      BuatVehicle(values)
-      setModal1Open(false)
+    onSubmit: (values) => {
+      BuatVehicle(values);
+      setModal1Open(false);
       handleShow();
-      console.log(formik.errors)
+      console.log(formik.errors);
       console.log(values);
     },
   });
 
   const DriverName = async (value) => {
     try {
-      const data = await axios.get(`${Baseurl}vehicle/get-select?vehicleType=${value}`,
+      const data = await axios.get(
+        `${Baseurl}vehicle/get-select?vehicleType=${value}`,
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: localStorage.getItem("token"),
-
-          }
+          },
         }
-      )
-      setNamaSupir(data.data.data.driverName)
-    } catch (error) {
-
-    }
-  }
+      );
+      setNamaSupir(data.data.data.driverName);
+    } catch (error) {}
+  };
 
   const BuatVehicle = async (values, newFileList) => {
     try {
       const formData = new FormData();
-      Object.keys(values).forEach(key => formData.append(key, values[key]));
+      Object.keys(values).forEach((key) => formData.append(key, values[key]));
       formData.append("cover", FotoDriver);
 
-      const data = await axios.post(`${Baseurl}vehicle/create-vehicle`, formData,
+      const data = await axios.post(
+        `${Baseurl}vehicle/create-vehicle`,
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: localStorage.getItem("token"),
-          }
-        });
+          },
+        }
+      );
       Swal.fire({
-        icon: 'success',
-        title: 'Berhasil',
-        text: 'Data kendaraan berhasil ditambahkan',
+        icon: "success",
+        title: "Berhasil",
+        text: "Data kendaraan berhasil ditambahkan",
       });
-
     } catch (error) {
       console.log(error);
       Swal.fire({
-        icon: 'error',
-        title: 'Gagal',
-        text: 'Terjadi kesalahan saat menambahkan data kendaraan',
+        icon: "error",
+        title: "Gagal",
+        text: "Terjadi kesalahan saat menambahkan data kendaraan",
       });
     }
-  }
-
-
-
+  };
 
   return (
     <>
@@ -754,7 +763,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
           style={{
             width: 800,
             top: 20,
-            zIndex: 99999999
+            zIndex: 99999999,
           }}
           width={800}
           open={modal1Open}
@@ -766,11 +775,10 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
               <Col sm={4}>
                 <Card>
                   <img src={FotoDriver}></img>
-
                 </Card>
                 <Upload
                   name="fotoVehicle"
-                  beforeUpload={file => {
+                  beforeUpload={(file) => {
                     // Mencegah upload default
                     return false;
                   }}
@@ -792,16 +800,27 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
                   help={formik.touched.tgl_stnk && formik.errors.tgl_stnk}
-                  validateStatus={formik.touched.tgl_stnk && formik.errors.tgl_stnk ? 'error' : 'success'}
+                  validateStatus={
+                    formik.touched.tgl_stnk && formik.errors.tgl_stnk
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2, width: "100%" }}
                 >
                   <DatePicker
                     id="tgl_stnk"
                     name="tgl_stnk"
                     onChange={(date) => {
-                      formik.setFieldValue("tgl_stnk", date ? date.format("YYYY-MM-DD") : "");
+                      formik.setFieldValue(
+                        "tgl_stnk",
+                        date ? date.format("YYYY-MM-DD") : ""
+                      );
                     }}
-                    value={formik.values.tgl_stnk ? moment(formik.values.tgl_stnk) : null}
+                    value={
+                      formik.values.tgl_stnk
+                        ? moment(formik.values.tgl_stnk)
+                        : null
+                    }
                     onBlur={formik.handleBlur}
                   />
                 </AntForm.Item>
@@ -810,17 +829,32 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   required
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
-                  help={formik.touched.tgl_plat_nomor && formik.errors.tgl_plat_nomor}
-                  validateStatus={formik.touched.tgl_plat_nomor && formik.errors.tgl_plat_nomor ? 'error' : 'success'}
+                  help={
+                    formik.touched.tgl_plat_nomor &&
+                    formik.errors.tgl_plat_nomor
+                  }
+                  validateStatus={
+                    formik.touched.tgl_plat_nomor &&
+                    formik.errors.tgl_plat_nomor
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <DatePicker
                     id="tgl_plat_nomor"
                     name="tgl_plat_nomor"
                     onChange={(date) => {
-                      formik.setFieldValue("tgl_plat_nomor", date ? date.format("YYYY-MM-DD") : "");
+                      formik.setFieldValue(
+                        "tgl_plat_nomor",
+                        date ? date.format("YYYY-MM-DD") : ""
+                      );
                     }}
-                    value={formik.values.tgl_plat_nomor ? moment(formik.values.tgl_plat_nomor) : null}
+                    value={
+                      formik.values.tgl_plat_nomor
+                        ? moment(formik.values.tgl_plat_nomor)
+                        : null
+                    }
                     onBlur={formik.handleBlur}
                   />
                 </AntForm.Item>
@@ -830,16 +864,27 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
                   help={formik.touched.tgl_kir && formik.errors.tgl_kir}
-                  validateStatus={formik.touched.tgl_kir && formik.errors.tgl_kir ? 'error' : 'success'}
+                  validateStatus={
+                    formik.touched.tgl_kir && formik.errors.tgl_kir
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <DatePicker
                     id="tgl_kir"
                     name="tgl_kir"
                     onChange={(date) => {
-                      formik.setFieldValue("tgl_kir", date ? date.format("YYYY-MM-DD") : "");
+                      formik.setFieldValue(
+                        "tgl_kir",
+                        date ? date.format("YYYY-MM-DD") : ""
+                      );
                     }}
-                    value={formik.values.tgl_kir ? moment(formik.values.tgl_kir) : null}
+                    value={
+                      formik.values.tgl_kir
+                        ? moment(formik.values.tgl_kir)
+                        : null
+                    }
                     onBlur={formik.handleBlur}
                   />
                 </AntForm.Item>
@@ -850,16 +895,27 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
                   help={formik.touched.tgl_beli && formik.errors.tgl_beli}
-                  validateStatus={formik.touched.tgl_beli && formik.errors.tgl_beli ? 'error' : 'success'}
+                  validateStatus={
+                    formik.touched.tgl_beli && formik.errors.tgl_beli
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <DatePicker
                     id="tgl_beli"
                     name="tgl_beli"
                     onChange={(date) => {
-                      formik.setFieldValue("tgl_beli", date ? date.format("YYYY-MM-DD") : "");
+                      formik.setFieldValue(
+                        "tgl_beli",
+                        date ? date.format("YYYY-MM-DD") : ""
+                      );
                     }}
-                    value={formik.values.tgl_beli ? moment(formik.values.tgl_beli) : null}
+                    value={
+                      formik.values.tgl_beli
+                        ? moment(formik.values.tgl_beli)
+                        : null
+                    }
                     onBlur={formik.handleBlur}
                   />
                 </AntForm.Item>
@@ -870,8 +926,16 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   required
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
-                  help={formik.touched.jenis_kepemilikan && formik.errors.jenis_kepemilikan}
-                  validateStatus={formik.touched.jenis_kepemilikan && formik.errors.jenis_kepemilikan ? 'error' : 'success'}
+                  help={
+                    formik.touched.jenis_kepemilikan &&
+                    formik.errors.jenis_kepemilikan
+                  }
+                  validateStatus={
+                    formik.touched.jenis_kepemilikan &&
+                    formik.errors.jenis_kepemilikan
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <SelectAntd
@@ -879,12 +943,17 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                     optionFilterProp="children"
                     id="jenis_kepemilikan"
                     name="jenis_kepemilikan"
-                    onChange={(value) => formik.setFieldValue('jenis_kepemilikan', value)}
+                    onChange={(value) =>
+                      formik.setFieldValue("jenis_kepemilikan", value)
+                    }
                     value={formik.values.jenis_kepemilikan || ""}
                     onBlur={formik.handleBlur}
                   >
                     {jenisKepemilikan.map((option) => (
-                      <SelectAntd.Option key={option.label} value={option.jenis}>
+                      <SelectAntd.Option
+                        key={option.label}
+                        value={option.jenis}
+                      >
                         {option.jenis}
                       </SelectAntd.Option>
                     ))}
@@ -895,8 +964,16 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   required
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
-                  help={formik.touched.kode_kendaraan && formik.errors.kode_kendaraan}
-                  validateStatus={formik.touched.kode_kendaraan && formik.errors.kode_kendaraan ? 'error' : 'success'}
+                  help={
+                    formik.touched.kode_kendaraan &&
+                    formik.errors.kode_kendaraan
+                  }
+                  validateStatus={
+                    formik.touched.kode_kendaraan &&
+                    formik.errors.kode_kendaraan
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <Input
@@ -916,7 +993,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
                   help={formik.touched.no_polisi && formik.errors.no_polisi}
-                  validateStatus={formik.touched.no_polisi && formik.errors.no_polisi ? 'error' : 'success'}
+                  validateStatus={
+                    formik.touched.no_polisi && formik.errors.no_polisi
+                      ? "error"
+                      : "success"
+                  }
                 >
                   <Input
                     id="no_polisi"
@@ -934,7 +1015,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
                   help={formik.touched.vendor && formik.errors.vendor}
-                  validateStatus={formik.touched.vendor && formik.errors.vendor ? 'error' : 'success'}
+                  validateStatus={
+                    formik.touched.vendor && formik.errors.vendor
+                      ? "error"
+                      : "success"
+                  }
                 >
                   <SelectAntd
                     showSearch
@@ -942,19 +1027,22 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                     id="vendor"
                     name="vendor"
                     onChange={(value, option) => {
-                      formik.setFieldValue('vendor', option.children); // ini akan mengambil label (children dari option)
-                      formik.setFieldValue('id_vendor', value); // ini akan mengambil value dari option yang dipilih
+                      formik.setFieldValue("vendor", option.children); // ini akan mengambil label (children dari option)
+                      formik.setFieldValue("id_vendor", value); // ini akan mengambil value dari option yang dipilih
                     }}
                     onBlur={formik.handleBlur}
-                    value={formik.values.vendor || ''}
+                    value={formik.values.vendor || ""}
                   >
-                    {NamaMitraOptions && NamaMitraOptions.map((option) => (
-                      <SelectAntd.Option key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectAntd.Option>
-                    ))}
+                    {NamaMitraOptions &&
+                      NamaMitraOptions.map((option) => (
+                        <SelectAntd.Option
+                          key={option.value}
+                          value={option.value}
+                        >
+                          {option.label}
+                        </SelectAntd.Option>
+                      ))}
                   </SelectAntd>
-
                 </AntForm.Item>
 
                 <AntForm.Item
@@ -962,8 +1050,16 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   required
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
-                  help={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan}
-                  validateStatus={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan ? 'error' : 'success'}
+                  help={
+                    formik.touched.jenis_kendaraan &&
+                    formik.errors.jenis_kendaraan
+                  }
+                  validateStatus={
+                    formik.touched.jenis_kendaraan &&
+                    formik.errors.jenis_kendaraan
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <SelectAntd
@@ -973,8 +1069,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                     name="jenis_kendaraan"
                     type="text"
                     onChange={(value, option) => {
-                      formik.setFieldValue('jenis_kendaraan', value);
-                      formik.setFieldValue('id_kendaraan_jenis', parseInt(option.key));
+                      formik.setFieldValue("jenis_kendaraan", value);
+                      formik.setFieldValue(
+                        "id_kendaraan_jenis",
+                        parseInt(option.key)
+                      );
                       DriverName(value);
                     }}
                     value={formik.values.jenis_kendaraan}
@@ -993,7 +1092,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
                   help={formik.touched.id_driver && formik.errors.id_driver}
-                  validateStatus={formik.touched.id_driver && formik.errors.id_driver ? 'error' : 'success'}
+                  validateStatus={
+                    formik.touched.id_driver && formik.errors.id_driver
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <SelectAntd
@@ -1003,19 +1106,29 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                     name="id_driver"
                     type="text"
                     onChange={(value) => {
-                      formik.setFieldValue('id_driver', value);
+                      formik.setFieldValue("id_driver", value);
                     }}
                     placeholder="pilih driver"
                     value={formik.values.id_driver}
                     onBlur={formik.handleBlur}
                   >
-                    {NamaSupir && NamaSupir.map((item) => (
-                      <SelectAntd.Option key={item.tipe} value={item.driverId}>
-                        {item.driverName}
-                      </SelectAntd.Option>
-                    ))}
+                    {NamaSupir &&
+                      NamaSupir.map((item) => (
+                        <SelectAntd.Option
+                          key={item.tipe}
+                          value={item.driverId}
+                        >
+                          {item.driverName}
+                        </SelectAntd.Option>
+                      ))}
                   </SelectAntd>
-                  <a href="/masterdata/purchasing/driver" target="_blank" style={{ color: "blue" }}>Tambah Driver</a>
+                  <a
+                    href="/masterdata/purchasing/driver"
+                    target="_blank"
+                    style={{ color: "blue" }}
+                  >
+                    Tambah Driver
+                  </a>
                 </AntForm.Item>
 
                 <AntForm.Item
@@ -1025,7 +1138,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
                   help={formik.touched.warna_plat && formik.errors.warna_plat}
-                  validateStatus={formik.touched.warna_plat && formik.errors.warna_plat ? 'error' : 'success'}
+                  validateStatus={
+                    formik.touched.warna_plat && formik.errors.warna_plat
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <SelectAntd
@@ -1033,15 +1150,18 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                     name="warna_plat"
                     type="text"
                     placeholder="test"
-                    onChange={(value) => formik.setFieldValue('warna_plat', value)}
+                    onChange={(value) =>
+                      formik.setFieldValue("warna_plat", value)
+                    }
                     value={formik.values.warna_plat}
                     onBlur={formik.handleBlur}
                   >
-                    {WarnaPlat && WarnaPlat.map((item) => (
-                      <SelectAntd.Option key={item.warna} value={item.warna}>
-                        {item.warna}
-                      </SelectAntd.Option>
-                    ))}
+                    {WarnaPlat &&
+                      WarnaPlat.map((item) => (
+                        <SelectAntd.Option key={item.warna} value={item.warna}>
+                          {item.warna}
+                        </SelectAntd.Option>
+                      ))}
                   </SelectAntd>
                 </AntForm.Item>
                 <AntForm.Item
@@ -1050,7 +1170,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
                   help={formik.touched.merk_mobil && formik.errors.merk_mobil}
-                  validateStatus={formik.touched.merk_mobil && formik.errors.merk_mobil ? 'error' : 'success'}
+                  validateStatus={
+                    formik.touched.merk_mobil && formik.errors.merk_mobil
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <Input
@@ -1062,8 +1186,6 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                     onBlur={formik.handleBlur}
                   />
                 </AntForm.Item>
-
-
               </Col>
               <Col sm={4}>
                 <AntForm.Item
@@ -1072,7 +1194,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
                   help={formik.touched.tahun_mobil && formik.errors.tahun_mobil}
-                  validateStatus={formik.touched.tahun_mobil && formik.errors.tahun_mobil ? 'error' : 'success'}
+                  validateStatus={
+                    formik.touched.tahun_mobil && formik.errors.tahun_mobil
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <Input
@@ -1110,7 +1236,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                       labelCol={{ span: 24 }}
                       wrapperCol={{ span: 24 }}
                       help={formik.touched.panjang && formik.errors.panjang}
-                      validateStatus={formik.touched.panjang && formik.errors.panjang ? 'error' : 'success'}
+                      validateStatus={
+                        formik.touched.panjang && formik.errors.panjang
+                          ? "error"
+                          : "success"
+                      }
                       style={{ marginBottom: 2 }}
                     >
                       <Input
@@ -1130,7 +1260,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                       labelCol={{ span: 24 }}
                       wrapperCol={{ span: 24 }}
                       help={formik.touched.lebar && formik.errors.lebar}
-                      validateStatus={formik.touched.lebar && formik.errors.lebar ? 'error' : 'success'}
+                      validateStatus={
+                        formik.touched.lebar && formik.errors.lebar
+                          ? "error"
+                          : "success"
+                      }
                       style={{ marginBottom: 2 }}
                     >
                       <Input
@@ -1150,7 +1284,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                       labelCol={{ span: 24 }}
                       wrapperCol={{ span: 24 }}
                       help={formik.touched.tinggi && formik.errors.tinggi}
-                      validateStatus={formik.touched.tinggi && formik.errors.tinggi ? 'error' : 'success'}
+                      validateStatus={
+                        formik.touched.tinggi && formik.errors.tinggi
+                          ? "error"
+                          : "success"
+                      }
                       style={{ marginBottom: 2 }}
                     >
                       <Input
@@ -1170,7 +1308,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
                   help={formik.touched.no_bpkb && formik.errors.no_bpkb}
-                  validateStatus={formik.touched.no_bpkb && formik.errors.no_bpkb ? 'error' : 'success'}
+                  validateStatus={
+                    formik.touched.no_bpkb && formik.errors.no_bpkb
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <Input
@@ -1188,7 +1330,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
                   help={formik.touched.stnk && formik.errors.stnk}
-                  validateStatus={formik.touched.stnk && formik.errors.stnk ? 'error' : 'success'}
+                  validateStatus={
+                    formik.touched.stnk && formik.errors.stnk
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <Input
@@ -1207,7 +1353,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
                   help={formik.touched.tinggi && formik.errors.tinggi}
-                  validateStatus={formik.touched.tinggi && formik.errors.tinggi ? 'error' : 'success'}
+                  validateStatus={
+                    formik.touched.tinggi && formik.errors.tinggi
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <Input
@@ -1224,8 +1374,16 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   required
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
-                  help={formik.touched.kapasitas_maks && formik.errors.kapasitas_maks}
-                  validateStatus={formik.touched.kapasitas_maks && formik.errors.kapasitas_maks ? 'error' : 'success'}
+                  help={
+                    formik.touched.kapasitas_maks &&
+                    formik.errors.kapasitas_maks
+                  }
+                  validateStatus={
+                    formik.touched.kapasitas_maks &&
+                    formik.errors.kapasitas_maks
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <Input
@@ -1243,7 +1401,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
                   help={formik.touched.tinggi && formik.errors.tinggi}
-                  validateStatus={formik.touched.tinggi && formik.errors.tinggi ? 'error' : 'success'}
+                  validateStatus={
+                    formik.touched.tinggi && formik.errors.tinggi
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <Input
@@ -1261,7 +1423,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   labelCol={{ span: 24 }}
                   wrapperCol={{ span: 24 }}
                   help={formik.touched.tinggi && formik.errors.tinggi}
-                  validateStatus={formik.touched.tinggi && formik.errors.tinggi ? 'error' : 'success'}
+                  validateStatus={
+                    formik.touched.tinggi && formik.errors.tinggi
+                      ? "error"
+                      : "success"
+                  }
                   style={{ marginBottom: 2 }}
                 >
                   <Input
@@ -1272,255 +1438,269 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                     value={formik.values.location}
                     onBlur={formik.handleBlur}
                   />
-
                 </AntForm.Item>
               </Col>
             </Row>
           </AntForm>
         </ModalAntd>
         <div className="d-flex justify-content-end">
-          {(jobdesk == "operasional") && (
+          {jobdesk == "operasional" && (
             <>
-              {(jobdesk != "purchasing" && jobdesk != "operasional") && (
+              {jobdesk != "purchasing" && jobdesk != "operasional" && (
                 <>
-                  <Button size="sm" onClick={() => jobdesk === "akunting" ? akuntingAprpove() : handleShow()}>
+                  <Button
+                    size="sm"
+                    onClick={() =>
+                      jobdesk === "akunting" ? akuntingAprpove() : handleShow()
+                    }
+                  >
                     Approve
                   </Button>
                 </>
               )}
-              <Modal show={show} onHide={handleClose} size="md" >
+              <Modal show={show} onHide={handleClose} size="md">
                 <Modal.Header closeButton>
                   <Modal.Title>Approve {jobdesk}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  {jobdesk == "operasional" && (<>
-                    <Row>
-                      <Col sm={12}>
-                        <Form.Label>Vehicle Type</Form.Label>
-                        <Form.Select
-                          type="text"
-                          disabled
-                          value={types[0] || ""}
-                          onChange={(e) => {
-                          }}
-                        >
-                          {types.map((type, index) => (
-                            <option key={index} value={type}>
-                              {type}
-                            </option>
-                          ))}
-                        </Form.Select>
-                      </Col>
-                    </Row>
-                    <Row>
-
-                      <Col sm={12}>
-                        <Form.Label>Kode Kendaraan</Form.Label>
-                        {/* <Select
+                  {jobdesk == "operasional" && (
+                    <>
+                      <Row>
+                        <Col sm={12}>
+                          <Form.Label>Vehicle Type</Form.Label>
+                          <Form.Select
+                            type="text"
+                            disabled
+                            value={types[0] || ""}
+                            onChange={(e) => {}}
+                          >
+                            {types.map((type, index) => (
+                              <option key={index} value={type}>
+                                {type}
+                              </option>
+                            ))}
+                          </Form.Select>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col sm={12}>
+                          <Form.Label>Kode Kendaraan</Form.Label>
+                          {/* <Select
                           // options={options}
                           onChange={handleSelectChange}
                         /> */}
-                        <Select
-                          options={nomorpolisiOptions}
-                          onChange={(selectedOption) => {
-                            setSelectnomor(selectedOption.value);
-                            setSelectNopol(selectedOption.label);
-                          }}
-                        />
-                        <a onClick={() => { setModal1Open(true); setShow(false) }} style={{ color: "blue" }}>Tambah Kendaraan</a>
-                      </Col>
-                    </Row>
-                    <Row>
-
-                      <Col sm={12}>
-                        <Form.Label>Select Driver</Form.Label>
-                        <Form.Select
-
-                          value={selectDriver[0]?.idUnit}
-                          onChange={(e) => {
-                            setIdunit(e.target.value);
-                          }}
-                        >
-                          <option value={selectDriver[0]?.idUnit}>
-                            {selectDriver[0] && selectDriver[0]?.name != "" ? selectDriver[0] && selectDriver[0]?.name : "tidak tersedia"}
-                          </option>
-                        </Form.Select>
-                      </Col>
-                    </Row>
-                  </>)}
+                          <Select
+                            options={nomorpolisiOptions}
+                            onChange={(selectedOption) => {
+                              setSelectnomor(selectedOption.value);
+                              setSelectNopol(selectedOption.label);
+                            }}
+                          />
+                          <a
+                            onClick={() => {
+                              setModal1Open(true);
+                              setShow(false);
+                            }}
+                            style={{ color: "blue" }}
+                          >
+                            Tambah Kendaraan
+                          </a>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col sm={12}>
+                          <Form.Label>Select Driver</Form.Label>
+                          <Form.Select
+                            value={selectDriver[0]?.idUnit}
+                            onChange={(e) => {
+                              setIdunit(e.target.value);
+                            }}
+                          >
+                            <option value={selectDriver[0]?.idUnit}>
+                              {selectDriver[0] && selectDriver[0]?.name != ""
+                                ? selectDriver[0] && selectDriver[0]?.name
+                                : "tidak tersedia"}
+                            </option>
+                          </Form.Select>
+                        </Col>
+                      </Row>
+                    </>
+                  )}
 
                   {/* Bukan operasional */}
-                  {jobdesk != "operasional" && (<>
-                    <Row>
-                      <Col sm={3}>
-                        {jobdesk == "purchasing" ? (
-                          <>
-                            <Form.Label>Select Mitra 1</Form.Label>
-                            <Select
-                              options={mitraOptions}
-                              onChange={(mitraOptions) => {
-                                setSelectMitra(mitraOptions.value);
-                              }}
-                            />
-                          </>
-                        ) : null}
-                      </Col>
+                  {jobdesk != "operasional" && (
+                    <>
+                      <Row>
+                        <Col sm={3}>
+                          {jobdesk == "purchasing" ? (
+                            <>
+                              <Form.Label>Select Mitra 1</Form.Label>
+                              <Select
+                                options={mitraOptions}
+                                onChange={(mitraOptions) => {
+                                  setSelectMitra(mitraOptions.value);
+                                }}
+                              />
+                            </>
+                          ) : null}
+                        </Col>
 
-                      <Col sm={3}>
-
-                        <Form.Label>Vehicle Type</Form.Label>
-                        <Form.Select
-                          type="text"
-                          disabled
-                          value={types[0] || ""}
-                          onChange={(e) => {
-                          }}
-                        >
-                          {types.map((type, index) => (
-                            <option key={index} value={type}>
-                              {type}
+                        <Col sm={3}>
+                          <Form.Label>Vehicle Type</Form.Label>
+                          <Form.Select
+                            type="text"
+                            disabled
+                            value={types[0] || ""}
+                            onChange={(e) => {}}
+                          >
+                            {types.map((type, index) => (
+                              <option key={index} value={type}>
+                                {type}
+                              </option>
+                            ))}
+                          </Form.Select>
+                        </Col>
+                        <Col sm={3}>
+                          <Form.Label>Kode Kendaraan</Form.Label>
+                          <Select
+                            // options={nomorpolisiOptions}
+                            onChange={(selectedOption) => {
+                              setSelectnomor(selectedOption.value);
+                              setSelectNopol(selectedOption.label);
+                            }}
+                          />
+                        </Col>
+                        <Col sm={3}>
+                          <Form.Label>Select Driver</Form.Label>
+                          <Form.Select
+                            value={selectDriver[0]?.id}
+                            onChange={(e) => {
+                              setIdunit(e.target.value);
+                            }}
+                          >
+                            <option value={selectDriver[0]?.id}>
+                              {selectDriver[0] && selectDriver[0]?.name != ""
+                                ? selectDriver[0] && selectDriver[0]?.name
+                                : "tidak tersedia"}
                             </option>
-                          ))}
-                        </Form.Select>
-                      </Col>
-                      <Col sm={3}>
-                        <Form.Label>Kode Kendaraan</Form.Label>
-                        <Select
-                          // options={nomorpolisiOptions}
-                          onChange={(selectedOption) => {
-                            setSelectnomor(selectedOption.value);
-                            setSelectNopol(selectedOption.label);
-                          }}
-                        />
-                      </Col>
-                      <Col sm={3}>
-                        <Form.Label>Select Driver</Form.Label>
-                        <Form.Select
+                          </Form.Select>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col sm={3}>
+                          {jobdesk == "purchasing" ? (
+                            <>
+                              <Form.Label>Select Mitra 2</Form.Label>
+                              <Select
+                                options={mitraOptions}
+                                onChange={(mitraOptions) => {
+                                  setSelectMitra(mitraOptions.value);
+                                }}
+                              />
+                            </>
+                          ) : null}
+                        </Col>
 
-                          value={selectDriver[0]?.id}
-                          onChange={(e) => {
-                            setIdunit(e.target.value);
-                          }}
-                        >
-                          <option value={selectDriver[0]?.id}>
-                            {selectDriver[0] && selectDriver[0]?.name != "" ? selectDriver[0] && selectDriver[0]?.name : "tidak tersedia"}
-                          </option>
-                        </Form.Select>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col sm={3}>
-                        {jobdesk == "purchasing" ? (
-                          <>
-                            <Form.Label>Select Mitra 2</Form.Label>
-                            <Select
-                              options={mitraOptions}
-                              onChange={(mitraOptions) => {
-                                setSelectMitra(mitraOptions.value);
-                              }}
-                            />
-                          </>
-                        ) : null}
-                      </Col>
-
-                      <Col sm={3}>
-                        <Form.Label>Vehicle Type</Form.Label>
-                        <Form.Select
-                          type="text"
-                          disabled
-                          value={types[0] || ""}
-                          onChange={(e) => {
-                          }}
-                        >
-                          {types.map((type, index) => (
-                            <option key={index} value={type}>
-                              {type}
+                        <Col sm={3}>
+                          <Form.Label>Vehicle Type</Form.Label>
+                          <Form.Select
+                            type="text"
+                            disabled
+                            value={types[0] || ""}
+                            onChange={(e) => {}}
+                          >
+                            {types.map((type, index) => (
+                              <option key={index} value={type}>
+                                {type}
+                              </option>
+                            ))}
+                          </Form.Select>
+                        </Col>
+                        <Col sm={3}>
+                          <Form.Label>Kode Kendaraan</Form.Label>
+                          <Select
+                            // options={nomorpolisiOptions}
+                            onChange={(selectedOption) => {
+                              setSelectnomor(selectedOption.value);
+                              setSelectNopol(selectedOption.label);
+                            }}
+                          />
+                        </Col>
+                        <Col sm={3}>
+                          <Form.Label>Select Driver</Form.Label>
+                          <Form.Select
+                            value={selectDriver[0]?.id}
+                            onChange={(e) => {
+                              setIdunit2(e.target.value);
+                            }}
+                          >
+                            <option value={selectDriver[0]?.id}>
+                              {selectDriver[0] && selectDriver[0]?.name != ""
+                                ? selectDriver[0] && selectDriver[0]?.name
+                                : "tidak tersedia"}
                             </option>
-                          ))}
-                        </Form.Select>
-                      </Col>
-                      <Col sm={3}>
-                        <Form.Label>Kode Kendaraan</Form.Label>
-                        <Select
-                          // options={nomorpolisiOptions}
-                          onChange={(selectedOption) => {
-                            setSelectnomor(selectedOption.value);
-                            setSelectNopol(selectedOption.label);
-                          }}
-                        />
-                      </Col>
-                      <Col sm={3}>
-                        <Form.Label>Select Driver</Form.Label>
-                        <Form.Select
-                          value={selectDriver[0]?.id}
-                          onChange={(e) => {
-                            setIdunit2(e.target.value);
-                          }}
-                        >
-                          <option value={selectDriver[0]?.id}>
-                            {selectDriver[0] && selectDriver[0]?.name != "" ? selectDriver[0] && selectDriver[0]?.name : "tidak tersedia"}
-                          </option>
-                        </Form.Select>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col sm={3}>
-                        {jobdesk == "purchasing" ? (
-                          <>
-                            <Form.Label>Select Mitra 3</Form.Label>
-                            <Select
-                              options={mitraOptions}
-                              onChange={(mitraOptions) => {
-                                setSelectMitra(mitraOptions.value);
-                              }}
-                            />
-                          </>
-                        ) : null}
-                      </Col>
+                          </Form.Select>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col sm={3}>
+                          {jobdesk == "purchasing" ? (
+                            <>
+                              <Form.Label>Select Mitra 3</Form.Label>
+                              <Select
+                                options={mitraOptions}
+                                onChange={(mitraOptions) => {
+                                  setSelectMitra(mitraOptions.value);
+                                }}
+                              />
+                            </>
+                          ) : null}
+                        </Col>
 
-                      <Col sm={3}>
-                        <Form.Label>Vehicle Type</Form.Label>
-                        <Form.Select
-                          type="text"
-                          disabled
-                          value={types[0] || ""}
-                          onChange={(e) => {
-                          }}
-                        >
-                          {types.map((type, index) => (
-                            <option key={index} value={type}>
-                              {type}
+                        <Col sm={3}>
+                          <Form.Label>Vehicle Type</Form.Label>
+                          <Form.Select
+                            type="text"
+                            disabled
+                            value={types[0] || ""}
+                            onChange={(e) => {}}
+                          >
+                            {types.map((type, index) => (
+                              <option key={index} value={type}>
+                                {type}
+                              </option>
+                            ))}
+                          </Form.Select>
+                        </Col>
+                        <Col sm={3}>
+                          <Form.Label>Kode Kendaraan</Form.Label>
+                          <Select
+                            // options={nomorpolisiOptions}
+                            onChange={(selectedOption) => {
+                              setSelectnomor(selectedOption.value);
+                              setSelectNopol(selectedOption.label);
+                            }}
+                          />
+                        </Col>
+                        <Col sm={3}>
+                          <Form.Label>Select Driver</Form.Label>
+                          <Form.Select
+                            // placeholder={selectDriver[0]?.id}
+                            value={selectDriver[0]?.id}
+                            onChange={(e) => {
+                              setIdunit(e.target.value);
+                            }}
+                          >
+                            <option value={selectDriver[0]?.id}>
+                              {selectDriver[0] && selectDriver[0]?.name != ""
+                                ? selectDriver[0] && selectDriver[0]?.name
+                                : "tidak tersedia"}
                             </option>
-                          ))}
-                        </Form.Select>
-                      </Col>
-                      <Col sm={3}>
-                        <Form.Label>Kode Kendaraan</Form.Label>
-                        <Select
-                          // options={nomorpolisiOptions}
-                          onChange={(selectedOption) => {
-                            setSelectnomor(selectedOption.value);
-                            setSelectNopol(selectedOption.label);
-                          }}
-                        />
-                      </Col>
-                      <Col sm={3}>
-                        <Form.Label>Select Driver</Form.Label>
-                        <Form.Select
-
-                          // placeholder={selectDriver[0]?.id}
-                          value={selectDriver[0]?.id}
-                          onChange={(e) => {
-                            setIdunit(e.target.value);
-                          }}
-                        >
-                          <option value={selectDriver[0]?.id}>
-                            {selectDriver[0] && selectDriver[0]?.name != "" ? selectDriver[0] && selectDriver[0]?.name : "tidak tersedia"}
-                          </option>
-                        </Form.Select>
-                      </Col>
-                    </Row>
-                  </>)}
+                          </Form.Select>
+                        </Col>
+                      </Row>
+                    </>
+                  )}
                   <>
                     {jobdesk != "purchasing" ? (
                       <Checkbox
@@ -1534,7 +1714,10 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                     <br />
                     <hr />
 
-                    <Button size="sm" onClick={() => handleAnotherDriverClick()}>
+                    <Button
+                      size="sm"
+                      onClick={() => handleAnotherDriverClick()}
+                    >
                       another driver
                     </Button>
                     <br />
@@ -1567,7 +1750,9 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
 
                         {/* </AntForm.Item> */}
                         <Form.Label>Select Driver</Form.Label>
-                        <Form.Select onChange={(e) => setIdunit(e.target.value)}>
+                        <Form.Select
+                          onChange={(e) => setIdunit(e.target.value)}
+                        >
                           <option>Select Driver</option>
                           {driveranother &&
                             driveranother.map((item, index) => (
@@ -1581,7 +1766,6 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   </>
                 </Modal.Body>
                 <Modal.Footer>
-
                   <Button variant="secondary" onClick={handleClose}>
                     Close
                   </Button>
@@ -1597,25 +1781,37 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                     {LoadingMuterMuter ? "Loading..." : "Save Changes"}
                   </Button>
                 </Modal.Footer>
-
               </Modal>
-
             </>
           )}
           {IsiKomenRejectSP === "Tidak Menggunakan unit" ? (
             <Alert type="error" message="SP Sudah Di Reject" banner />
           ) : (
             <>
-              {(jobdesk !== "purchasing" && jobdesk !== "operasional" && StatusApproveAct !== 'Y' && TanggalACT3 == null) && (
-                <Button size="sm" onClick={() => jobdesk === "akunting" ? akuntingAprpove() : handleShow()}>
-                  Approve
-                </Button>
-              )}
-              {(StatusApproveAct !== 'Y' && TanggalACT3 === null) &&
-                <Button size="sm" variant="danger" onClick={() => jobdesk === "akunting" ? rejectspAkunting() : rejectsp()}>
+              {jobdesk !== "purchasing" &&
+                jobdesk !== "operasional" &&
+                StatusApproveAct !== "Y" &&
+                TanggalACT3 == null && (
+                  <Button
+                    size="sm"
+                    onClick={() =>
+                      jobdesk === "akunting" ? akuntingAprpove() : handleShow()
+                    }
+                  >
+                    Approve
+                  </Button>
+                )}
+              {StatusApproveAct !== "Y" && TanggalACT3 === null && (
+                <Button
+                  size="sm"
+                  variant="danger"
+                  onClick={() =>
+                    jobdesk === "akunting" ? rejectspAkunting() : rejectsp()
+                  }
+                >
                   Reject SP
                 </Button>
-              }
+              )}
               {/* {(StatusApproveAct === 'N') &&
                 <Button size="sm" variant="danger" onClick={() => jobdesk === "akunting" ? rejectspAkunting() : rejectsp()}>
                   Reject SP
@@ -1630,34 +1826,35 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
               {/* {(StatusApproveAct === 'Y' || Kendaraan_operasionalStatus === "Y" && StatusPurchasing === "Y") &&
                 <Alert type="success" message="SP Telah di Approve" banner />
               } */}
-              {(StatusApproveAct === 'Y' && TanggalACT3 != null) ?
+              {StatusApproveAct === "Y" && TanggalACT3 != null ? (
                 <Alert type="success" message="Approve Akunting" banner />
-                : (StatusApproveAct === 'N' && TanggalACT3 === null) ?
-                  <Alert type="info" message="Waiting Akunting" banner /> :
-                  (StatusApproveAct === 'N' && TanggalACT3 !== null) ?
-                    <Alert type="error" message="Reject Akunting" banner /> :
-                    null
-              }
+              ) : StatusApproveAct === "N" && TanggalACT3 === null ? (
+                <Alert type="info" message="Waiting Akunting" banner />
+              ) : StatusApproveAct === "N" && TanggalACT3 !== null ? (
+                <Alert type="error" message="Reject Akunting" banner />
+              ) : null}
 
-              {(Kendaraan_operasionalStatus === 'Y' && TanggalACT4 != null) ?
+              {Kendaraan_operasionalStatus === "Y" && TanggalACT4 != null ? (
                 <Alert type="success" message="Approve Operasional" banner />
-                : (StatusApproveOpt === 'N' && TanggalACT4 === null) ?
-                  <Alert type="info" message="Waiting Operasional" banner /> :
-                  (StatusApproveOpt === 'N' && TanggalACT4 !== null) ?
-                    <Alert type="error" message="Reject Operasional" banner /> :
-                    null}
+              ) : StatusApproveOpt === "N" && TanggalACT4 === null ? (
+                <Alert type="info" message="Waiting Operasional" banner />
+              ) : StatusApproveOpt === "N" && TanggalACT4 !== null ? (
+                <Alert type="error" message="Reject Operasional" banner />
+              ) : null}
 
-              {(StatusPurchasing === 'Y' && TanggalACT5 != null) ?
+              {StatusPurchasing === "Y" && TanggalACT5 != null ? (
                 <Alert type="success" message="Approve Purchasing" banner />
-                : (StatusPurchasing === 'N' && TanggalACT5 === null) ?
-                  <Alert type="info" message="Waiting Purchasing" banner /> :
-                  (StatusPurchasing === 'N' && TanggalACT5 === null) ?
-                    <Alert type="error" message="Reject Purchasing" banner /> :
-                    null}
+              ) : StatusPurchasing === "N" && TanggalACT5 === null ? (
+                <Alert type="info" message="Waiting Purchasing" banner />
+              ) : StatusPurchasing === "N" && TanggalACT5 === null ? (
+                <Alert type="error" message="Reject Purchasing" banner />
+              ) : null}
 
-              {(jobdesk === "operasional") &&
-                <Button size="sm" variant="danger" onClick={rejectsp}>Reject SP</Button>
-              }
+              {jobdesk === "operasional" && (
+                <Button size="sm" variant="danger" onClick={rejectsp}>
+                  Reject SP
+                </Button>
+              )}
 
               {/* {(StatusPurchasing === 'Y') &&
                 <Alert type="success" message="Approve Purchasing" banner /> */}
@@ -1671,205 +1868,194 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                 ) : null
               } */}
 
-
               {/* // {(StatusPurchasing === "Y") && */}
               {/* //   <Alert type="success" message="SP Telah di Approve" banner />
               // } */}
-              {(StatusApproveAct === 'N' && TanggalACT3 !== null) &&
+              {StatusApproveAct === "N" && TanggalACT3 !== null && (
                 <Alert type="error" message="SP Sudah Di Reject" banner />
-              }
+              )}
             </>
           )}
-
-
-
         </div>
-        {(jobdesk != "operasional" && (
+        {jobdesk != "operasional" && (
           <>
-
-            <Modal show={show} onHide={handleClose} size="lg" >
+            <Modal show={show} onHide={handleClose} size="lg">
               <Modal.Header closeButton>
                 <Modal.Title>Approve {jobdesk}</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                {jobdesk == "operasional" && (<>
-                  <Row>
-                    <Col sm={12}>
-                      <Form.Label>Vehicle Type</Form.Label>
-                      <Form.Select
-                        type="text"
-                        disabled
-                        value={types[0] || ""}
-                        onChange={(e) => {
-                        }}
-                      >
-                        {types.map((type, index) => (
-                          <option key={index} value={type}>
-                            {type}
+                {jobdesk == "operasional" && (
+                  <>
+                    <Row>
+                      <Col sm={12}>
+                        <Form.Label>Vehicle Type</Form.Label>
+                        <Form.Select
+                          type="text"
+                          disabled
+                          value={types[0] || ""}
+                          onChange={(e) => {}}
+                        >
+                          {types.map((type, index) => (
+                            <option key={index} value={type}>
+                              {type}
+                            </option>
+                          ))}
+                        </Form.Select>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col sm={12}>
+                        <Form.Label>Kode Kendaraan</Form.Label>
+                        <Select
+                          // options={nomorpolisiOptions}
+                          onChange={(selectedOption) => {
+                            setSelectnomor(selectedOption.value);
+                            setSelectNopol(selectedOption.label);
+                          }}
+                        />
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col sm={12}>
+                        <Form.Label>Select Driver</Form.Label>
+                        <Form.Select
+                          value={selectDriver[0]?.id}
+                          onChange={(e) => {
+                            setIdunit(e.target.value);
+                          }}
+                        >
+                          <option value={selectDriver[0]?.id}>
+                            {selectDriver[0] && selectDriver[0]?.name != ""
+                              ? selectDriver[0] && selectDriver[0]?.name
+                              : "tidak tersedia"}
                           </option>
-                        ))}
-                      </Form.Select>
-                    </Col>
-                  </Row>
-                  <Row>
-
-                    <Col sm={12}>
-                      <Form.Label>Kode Kendaraan</Form.Label>
-                      <Select
-                        // options={nomorpolisiOptions}
-                        onChange={(selectedOption) => {
-                          setSelectnomor(selectedOption.value);
-                          setSelectNopol(selectedOption.label);
-                        }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row>
-
-                    <Col sm={12}>
-                      <Form.Label>Select Driver</Form.Label>
-                      <Form.Select
-
-                        value={selectDriver[0]?.id}
-                        onChange={(e) => {
-                          setIdunit(e.target.value);
-                        }}
-                      >
-                        <option value={selectDriver[0]?.id}>
-                          {selectDriver[0] && selectDriver[0]?.name != "" ? selectDriver[0] && selectDriver[0]?.name : "tidak tersedia"}
-                        </option>
-                      </Form.Select>
-                    </Col>
-                  </Row>
-                </>)}
+                        </Form.Select>
+                      </Col>
+                    </Row>
+                  </>
+                )}
 
                 {/* purchasing */}
 
-                {jobdesk != "operasional" && (<>
-                  <Row>
-                    <Col sm={3}>
-                      {jobdesk === "purchasing" && (
-                        <>
-                          <Form.Label>Select Mitra 1</Form.Label>
-                          <Form.Select
-                            disabled
-                            value={Mitra1Multi?.driverName || ''}
-                            onChange={() => { }}
-                          >
-                            {Mitra1Multi && (
-                              <option value={Mitra1Multi.driverName}>
-                                {Mitra1Multi.driverName}
-                              </option>
-                            )}
-                          </Form.Select>
-                        </>
-                      )}
-                    </Col>
-
-
-                    <Col sm={3}>
-                      <Form.Label>Vehicle Type</Form.Label>
-                      <Form.Select
-                        type="text"
-                        disabled
-                        value={Mitra1Multi?.tipeKendaraan}
-                        onChange={(e) => {
-                        }}
-                      >
-                        {types.map((type, index) => (
-                          <option key={index} value={type}>
-                            {type}
-                          </option>
-                        ))}
-                      </Form.Select>
-                    </Col>
-                    <Col sm={3}>
-                      <Form.Label>Kode Kendaraan</Form.Label>
-                      <Form.Select
-                        disabled
-                        value={Mitra1Multi?.unit}
-                      >
-                        Mitra1Multi && (
-                        <option value={Mitra1Multi?.unit}>
-                          {Mitra1Multi?.unit}
-                        </option>
-                        )
-                      </Form.Select>
-                    </Col>
-                    <Col sm={3}>
-                      <Form.Label>Select Driver</Form.Label>
-                      <Form.Select
-                        disabled
-                        value={Mitra1Multi?.driverName || ''}
-                        onChange={(e) => {
-                          setIdunit3(e.target.value);
-                        }}
-                      >
-                        {Mitra1Multi && (
-                          <option value={Mitra1Multi.driverName}>
-                            {Mitra1Multi.driverName}
-                          </option>
+                {jobdesk != "operasional" && (
+                  <>
+                    <Row>
+                      <Col sm={3}>
+                        {jobdesk === "purchasing" && (
+                          <>
+                            <Form.Label>Select Mitra 1</Form.Label>
+                            <Form.Select
+                              disabled
+                              value={Mitra1Multi?.driverName || ""}
+                              onChange={() => {}}
+                            >
+                              {Mitra1Multi && (
+                                <option value={Mitra1Multi.driverName}>
+                                  {Mitra1Multi.driverName}
+                                </option>
+                              )}
+                            </Form.Select>
+                          </>
                         )}
-                      </Form.Select>
-                    </Col>
-                    <Col sm={3}>
-                      {jobdesk == "purchasing" ? (
-                        <>
-                          <Form.Label>Select Mitra 2</Form.Label>
-                          <Select
-                            options={mitraOptions}
-                            onChange={(mitraOptions) => {
-                              setmitra1(mitraOptions.value);
-                              setidmitraini(mitraOptions.mitraId)
-                            }}
-                          />
-                        </>
-                      ) : null}
-                    </Col>
+                      </Col>
 
-                    <Col sm={3}>
-
-                      <Form.Label>Vehicle Type</Form.Label>
-                      <Form.Select
-                        type="text"
-
-                        value={selectTypeMobil}
-                        onChange={(e) => {
-                          vehicle();
-                          setselectTypeMobil(e.target.value);
-                        }}
-                      >
-
-                        <option>Select Type</option>
-                        {TipeKendaraan && TipeKendaraan.map((type, index) => (
-                          <option key={index} value={type.id}>
-                            {type.tipe}
+                      <Col sm={3}>
+                        <Form.Label>Vehicle Type</Form.Label>
+                        <Form.Select
+                          type="text"
+                          disabled
+                          value={Mitra1Multi?.tipeKendaraan}
+                          onChange={(e) => {}}
+                        >
+                          {types.map((type, index) => (
+                            <option key={index} value={type}>
+                              {type}
+                            </option>
+                          ))}
+                        </Form.Select>
+                      </Col>
+                      <Col sm={3}>
+                        <Form.Label>Kode Kendaraan</Form.Label>
+                        <Form.Select disabled value={Mitra1Multi?.unit}>
+                          Mitra1Multi && (
+                          <option value={Mitra1Multi?.unit}>
+                            {Mitra1Multi?.unit}
                           </option>
-                        ))}
-                      </Form.Select>
-                    </Col>
-                    <Col sm={3}>
-                      <Form.Label>Kode Kendaraan</Form.Label>
-                      <Select
-                        options={kodeKendaraanOptions}
-                        onChange={(selectedOption) => {
-                          anotherdriver()
-                          setSelectnomor(selectedOption.value);
-                          setSelectNopol(selectedOption.label);
-                        }}
-                      />
-                    </Col>
-                    <Col sm={3}>
-                      <Form.Label>Select Driver</Form.Label>
-                      <Select
-                        options={anotneroptionsdriver}
-                        onChange={(selectedOption) => {
-                          anotherdriver()
-                          setIdunit(selectedOption.value);
-                          setSelectNopol(selectedOption.label);
-                        }}
-                      />
-                      {/* <Form.Select
+                          )
+                        </Form.Select>
+                      </Col>
+                      <Col sm={3}>
+                        <Form.Label>Select Driver</Form.Label>
+                        <Form.Select
+                          disabled
+                          value={Mitra1Multi?.driverName || ""}
+                          onChange={(e) => {
+                            setIdunit3(e.target.value);
+                          }}
+                        >
+                          {Mitra1Multi && (
+                            <option value={Mitra1Multi.driverName}>
+                              {Mitra1Multi.driverName}
+                            </option>
+                          )}
+                        </Form.Select>
+                      </Col>
+                      <Col sm={3}>
+                        {jobdesk == "purchasing" ? (
+                          <>
+                            <Form.Label>Select Mitra 2</Form.Label>
+                            <Select
+                              options={mitraOptions}
+                              onChange={(mitraOptions) => {
+                                setmitra1(mitraOptions.value);
+                                setidmitraini(mitraOptions.mitraId);
+                              }}
+                            />
+                          </>
+                        ) : null}
+                      </Col>
+
+                      <Col sm={3}>
+                        <Form.Label>Vehicle Type</Form.Label>
+                        <Form.Select
+                          type="text"
+                          value={selectTypeMobil}
+                          onChange={(e) => {
+                            vehicle();
+                            setselectTypeMobil(e.target.value);
+                          }}
+                        >
+                          <option>Select Type</option>
+                          {TipeKendaraan &&
+                            TipeKendaraan.map((type, index) => (
+                              <option key={index} value={type.id}>
+                                {type.tipe}
+                              </option>
+                            ))}
+                        </Form.Select>
+                      </Col>
+                      <Col sm={3}>
+                        <Form.Label>Kode Kendaraan</Form.Label>
+                        <Select
+                          options={kodeKendaraanOptions}
+                          onChange={(selectedOption) => {
+                            anotherdriver();
+                            setSelectnomor(selectedOption.value);
+                            setSelectNopol(selectedOption.label);
+                          }}
+                        />
+                      </Col>
+                      <Col sm={3}>
+                        <Form.Label>Select Driver</Form.Label>
+                        <Select
+                          options={anotneroptionsdriver}
+                          onChange={(selectedOption) => {
+                            anotherdriver();
+                            setIdunit(selectedOption.value);
+                            setSelectNopol(selectedOption.label);
+                          }}
+                        />
+                        {/* <Form.Select
 
                         value={selectDriver[0]?.idUnit}
                         onChange={(e) => {
@@ -1881,70 +2067,69 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                           {selectDriver[0] && selectDriver[0]?.name != "" ? selectDriver[0] && selectDriver[0]?.name : "tidak tersedia"}
                         </option>
                       </Form.Select> */}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col sm={3}>
-                      {jobdesk == "purchasing" ? (
-                        <>
-                          <Form.Label>Select Mitra 3</Form.Label>
-                          <Select
-                            options={mitraOptions}
-                            onChange={(mitraOptions) => {
-                              setmitra2(mitraOptions.value);
-                              setidmitraini2(mitraOptions.mitraId)
-                            }}
-                          />
-                        </>
-                      ) : null}
-                    </Col>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col sm={3}>
+                        {jobdesk == "purchasing" ? (
+                          <>
+                            <Form.Label>Select Mitra 3</Form.Label>
+                            <Select
+                              options={mitraOptions}
+                              onChange={(mitraOptions) => {
+                                setmitra2(mitraOptions.value);
+                                setidmitraini2(mitraOptions.mitraId);
+                              }}
+                            />
+                          </>
+                        ) : null}
+                      </Col>
 
-                    <Col sm={3}>
-                      <Form.Label>Vehicle Type</Form.Label>
-                      <Form.Select
-                        type="text"
-                        value={selectTypeMobil2}
-                        onChange={(e) => {
-                          vehicle();
-                          setselectTypeMobil2(e.target.value);
-                        }}
-                      >
-                        <option>Select Type</option>
-                        {TipeKendaraan && TipeKendaraan.map((type, index) => (
-                          <option key={index} value={type.id}>
-                            {type.tipe}
-                          </option>
-                        ))}
-                      </Form.Select>
-                    </Col>
-                    <Col sm={3}>
-                      <Form.Label>Kode Kendaraan</Form.Label>
-                      <Select
-                        options={kodeKendaraanOptions2}
-                        onChange={(selectedOption) => {
-                          anotherdriver()
-                          setSelectnomor2(selectedOption.value);
-                          setSelectNopol(selectedOption.label);
-                        }}
-                      />
-
-                    </Col>
-                    <Col sm={3}>
-                      <Form.Label>Select Driver</Form.Label>
-                      <Select
-                        options={anotneroptionsdriver}
-                        onChange={(selectedOption) => {
-                          anotherdriver()
-                          setIdunit2(selectedOption.value);
-                          setSelectNopol(selectedOption.label);
-                        }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row>
-
-                  </Row>
-                </>)}
+                      <Col sm={3}>
+                        <Form.Label>Vehicle Type</Form.Label>
+                        <Form.Select
+                          type="text"
+                          value={selectTypeMobil2}
+                          onChange={(e) => {
+                            vehicle();
+                            setselectTypeMobil2(e.target.value);
+                          }}
+                        >
+                          <option>Select Type</option>
+                          {TipeKendaraan &&
+                            TipeKendaraan.map((type, index) => (
+                              <option key={index} value={type.id}>
+                                {type.tipe}
+                              </option>
+                            ))}
+                        </Form.Select>
+                      </Col>
+                      <Col sm={3}>
+                        <Form.Label>Kode Kendaraan</Form.Label>
+                        <Select
+                          options={kodeKendaraanOptions2}
+                          onChange={(selectedOption) => {
+                            anotherdriver();
+                            setSelectnomor2(selectedOption.value);
+                            setSelectNopol(selectedOption.label);
+                          }}
+                        />
+                      </Col>
+                      <Col sm={3}>
+                        <Form.Label>Select Driver</Form.Label>
+                        <Select
+                          options={anotneroptionsdriver}
+                          onChange={(selectedOption) => {
+                            anotherdriver();
+                            setIdunit2(selectedOption.value);
+                            setSelectNopol(selectedOption.label);
+                          }}
+                        />
+                      </Col>
+                    </Row>
+                    <Row></Row>
+                  </>
+                )}
                 <>
                   {jobdesk != "purchasing" ? (
                     <Checkbox className="justify-content-end d-flex">
@@ -1957,7 +2142,9 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                   {bukaanother && (
                     <>
                       <Form.Label>Select Driver</Form.Label>
-                      <Form.Select onChange={(e) => setIdunit(driveranother.name)}>
+                      <Form.Select
+                        onChange={(e) => setIdunit(driveranother.name)}
+                      >
                         <option>Select Driver</option>
                         {driveranother &&
                           driveranother.map((item, index) => (
@@ -1971,7 +2158,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                 </>
               </Modal.Body>
               <Modal.Footer>
-                <a variant="warning" target="_blank" href="/masterdata/purchasing/vehicle" >
+                <a
+                  variant="warning"
+                  target="_blank"
+                  href="/masterdata/purchasing/vehicle"
+                >
                   Tambah Vehicle
                 </a>
                 <Button variant="secondary" onClick={handleClose}>
@@ -1990,7 +2181,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
               </Modal.Footer>
             </Modal>
           </>
-        ))}
+        )}
         <Col sm={6}>
           <Form>
             <Form.Group>
@@ -2000,7 +2191,6 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                 disabled
                 value={isidata[0] ? isidata[0].sp : SJKosongModal}
               />
-
 
               <Form.Text className="text-muted"></Form.Text>
             </Form.Group>
@@ -2015,7 +2205,11 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
             </Form.Group>
             <Form.Group>
               <Form.Label>Jenis Barang</Form.Label>
-              <Form.Control type="text" disabled value={jenisBarang ? jenisBarang : SJKosongModal} />
+              <Form.Control
+                type="text"
+                disabled
+                value={jenisBarang ? jenisBarang : SJKosongModal}
+              />
             </Form.Group>
             <Form.Group>
               <Form.Label>Customer</Form.Label>
@@ -2043,7 +2237,13 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
               <Form.Control
                 type="text"
                 disabled
-                value={isidata[0] ? (isidata[0].pickupDate === "Invalid date" ? "-" : isidata[0].pickupDate) : SJKosongModal}
+                value={
+                  isidata[0]
+                    ? isidata[0].pickupDate === "Invalid date"
+                      ? "-"
+                      : isidata[0].pickupDate
+                    : SJKosongModal
+                }
               />
             </Form.Group>
 
@@ -2065,13 +2265,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
             </Form.Group>
             <Form.Group>
               <Form.Label>Jenis Barang</Form.Label>
-              <Form.Control
-                type="text"
-                disabled
-                value={
-                  JenisBarang
-                }
-              />
+              <Form.Control type="text" disabled value={JenisBarang} />
             </Form.Group>
           </Form>
         </Col>
@@ -2089,7 +2283,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
       <br />
       <Row>
         <Col>
-          <Table responsive >
+          <Table responsive>
             <thead></thead>
             <tbody>
               {IsiDataSPSemua &&
@@ -2126,10 +2320,7 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                               backgroundColor: "#dff0d8",
                             }}
                           >
-
                             <td>No </td>
-
-
 
                             <td>Alamat Bongkar</td>
 
@@ -2141,50 +2332,52 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                             <td>Qty</td>
                             <td width="150px">Biaya Kirim</td>
                             <td width="150px">Total</td>
-                            {(jobdesk != "akunting") ? <td colSpan={2}>Aksi</td> : ""}
-
+                            {jobdesk != "akunting" ? (
+                              <td colSpan={2}>Aksi</td>
+                            ) : (
+                              ""
+                            )}
                           </tr>
-
 
                           <tr key={index}>
                             <td>
-                              {(jobdesk !== "purchasing" && (
-
+                              {jobdesk !== "purchasing" && (
                                 <>
                                   <p className="text-center">{counter++}</p>
                                 </>
-                              ))}
-                              <span >
+                              )}
+                              <span>
+                                {jobdesk != "purchasing" ||
+                                  (jobdesk == "akunting" && (
+                                    <>
+                                      <Button
+                                        size="md"
+                                        variant="danger"
+                                        // onClick={() => deltebutton(data.idmpd)}
+                                        className="mt-2"
+                                      >
+                                        X
+                                      </Button>
+                                    </>
+                                  ))}
 
-                                {jobdesk != "purchasing" || jobdesk == "akunting" && (
-                                  <>
-
-                                    <Button
-                                      size="md"
-                                      variant="danger"
-                                      // onClick={() => deltebutton(data.idmpd)}
-                                      className="mt-2"
-                                    >
-                                      X
-                                    </Button>
-                                  </>)}
-
-                                {jobdesk != "purchasing" || jobdesk == "akunting" && (
-                                  <>
-                                    <Button
-                                      size="md"
-                                      variant="primary"
-                                      onClick={() => {
-                                        // setIdmpdPerstate(data.idmpd);
-                                        // handleShowSP(data.idmpd, data.noSJ);
-                                        // setIsiDataSPSemuaTemp(data)
-                                      }}
-                                      className="mt-2"
-                                    >
-                                      Edit
-                                    </Button>
-                                  </>
-                                )}
+                                {jobdesk != "purchasing" ||
+                                  (jobdesk == "akunting" && (
+                                    <>
+                                      <Button
+                                        size="md"
+                                        variant="primary"
+                                        onClick={() => {
+                                          // setIdmpdPerstate(data.idmpd);
+                                          // handleShowSP(data.idmpd, data.noSJ);
+                                          // setIsiDataSPSemuaTemp(data)
+                                        }}
+                                        className="mt-2"
+                                      >
+                                        Edit
+                                      </Button>
+                                    </>
+                                  ))}
 
                                 {/* {(StatusPurchasing === "Y") && (
                                   <>
@@ -2230,10 +2423,6 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                                     </Button>
                                   </>
                                 )} */}
-
-
-
-
                               </span>
                               {angkamanual++}
                             </td>
@@ -2245,17 +2434,23 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                             <td>{data.item}</td>
                             <td>{data.berat}</td>
                             <td>{data.qty}</td>
-                            <td>{data.Price?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td>
-                            <td>{data.Price?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td>
-                            <td>{(jobdesk == "operasional" && Kendaraan_operasionalStatus === "Y") && (
-                              <>
-                                {/* <Button
+                            <td>
+                              {data.Price?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}
+                            </td>
+                            <td>
+                              {data.Price?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}
+                            </td>
+                            <td>
+                              {jobdesk == "operasional" &&
+                                Kendaraan_operasionalStatus === "Y" && (
+                                  <>
+                                    {/* <Button
                                       disabled
                                       size="sm"
                                       variant="primary"
@@ -2267,12 +2462,19 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                                     >
                                       Approved
                                     </Button> */}
-                              </>
-                            )}</td>
+                                  </>
+                                )}
+                            </td>
 
                             {IsiKomenRejectSP === "Tidak Menggunakan unit" ? (
-                              <Alert type="error" message="SP Sudah Di Reject" banner />
-                            ) : (jobdesk === "operasional" && data.supirId === 0 && data.unitId === 0) ? (
+                              <Alert
+                                type="error"
+                                message="SP Sudah Di Reject"
+                                banner
+                              />
+                            ) : jobdesk === "operasional" &&
+                              data.supirId === 0 &&
+                              data.unitId === 0 ? (
                               <Button
                                 size="sm"
                                 variant="primary"
@@ -2285,7 +2487,9 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                               >
                                 Approve
                               </Button>
-                            ) : (jobdesk === "operasional" && data.supirId !== 0 && data.unitId !== 0) ? (
+                            ) : jobdesk === "operasional" &&
+                              data.supirId !== 0 &&
+                              data.unitId !== 0 ? (
                               <Button
                                 disabled
                                 size="sm"
@@ -2298,17 +2502,13 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                               >
                                 Approved
                               </Button>
-                            ) : null
-                            }
-
-
+                            ) : null}
 
                             {/* 
                             {(jobdesk == "operasional" && data.supirId === 0 && data.unitId === 0
                               ? <p>belum di approve</p> : (jobdesk === "operasional" && StatusApproveOpt === "N" && ("Reject")) )
                             } */}
                             {/* {StatusApproveOpt === "N" && <p>approve</p>} */}
-
 
                             {/* {(jobdesk == "operasional" && Kendaraan_operasionalStatus === "N") && (
                                   <>
@@ -2339,22 +2539,23 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                             ) : null} */}
 
                             {/* Approve Purchasing */}
-                            {(jobdesk == "purchasing" && jobdesk != "akunting" && jobdesk != "operasional") && (
-                              <>
-                                <Button
-                                  size="sm"
-                                  variant="primary"
-                                  onClick={() => {
-                                    handleShow(data.idmpd);
-                                    approvebaru(data.idmpd);
-                                  }}
-                                  className="mt-2"
-                                >
-                                  Approve
-                                </Button>
-
-                              </>)
-                            }
+                            {jobdesk == "purchasing" &&
+                              jobdesk != "akunting" &&
+                              jobdesk != "operasional" && (
+                                <>
+                                  <Button
+                                    size="sm"
+                                    variant="primary"
+                                    onClick={() => {
+                                      handleShow(data.idmpd);
+                                      approvebaru(data.idmpd);
+                                    }}
+                                    className="mt-2"
+                                  >
+                                    Approve
+                                  </Button>
+                                </>
+                              )}
                           </tr>
                           {/* <tr>
                             <td>No</td>
@@ -2377,78 +2578,222 @@ function FormTable({ isidata, totalPrice, idmp, IsiDataSPSemua,NamaMarketing ,Je
                 <td colSpan={9} width="150px" className="text-right">
                   Sub Total
                 </td>
-                <td width="150px"> {IsiDataSPSemua?.subTotal?.toLocaleString("id-ID", {
-                  style: "currency",
-                  currency: "IDR",
-                })}</td>
+                <td width="160px">
+                  {" "}
+                  {IsiDataSPSemua?.subTotal?.toLocaleString("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  })}
+                </td>
               </tr>
             </tfoot>
           </Table>
           {/* {(jobdesk === "purchasing") && ( */}
           <Table>
-            <tr>
+            <Row>
+          
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}>Biaya Muat</td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="150px" style={{ paddingLeft: "10px" }}>
+                      {IsiDataSPSemua?.totalMuat?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+          
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}> Biaya Bongkar </td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="150px" style={{ paddingLeft: "10px" }}>
+                    {IsiDataSPSemua?.totalBongkar?.toLocaleString("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+          
+          <Col
+            span={12}
+            style={{ marginLeft: "10px" }}
+            className="d-flex justify-content-end"
+          >
+            <div>
+              <tr style={{ fontWeight: "bold" }}>
+                <td style={{ paddingRight: "20px" }}>Biaya Mel</td>
+                <td style={{ paddingRight: "10px" }}>:</td>
+                <td width="150px" style={{ paddingLeft: "10px" }}>
+                {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+              })}
+                </td>
+              </tr>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+      
+          <Col
+            span={12}
+            style={{ marginLeft: "10px" }}
+            className="d-flex justify-content-end"
+          >
+            <div>
+              <tr style={{ fontWeight: "bold" }}>
+                <td style={{ paddingRight: "20px" }}> Biaya Inap</td>
+                <td style={{ paddingRight: "10px" }}>:</td>
+                <td width="150px" style={{ paddingLeft: "10px" }}>
+                {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+              })}
+                </td>
+              </tr>
+            </div>
+          </Col>
+        </Row>
+            <Row>
+          
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}> Biaya MultiDrop</td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="150px" style={{ paddingLeft: "10px" }}>
+                    Rp 0,00 {IsiDataSPSemua?.biaya_multidrop?.toLocaleString("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+          
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}>Biaya Overtonase</td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="150px" style={{ paddingLeft: "10px" }}>
+                    Rp 0,00  {IsiDataSPSemua?.biaya_overtonase?.toLocaleString("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
+           
+            <hr />
+            <Row>
+          
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}>TOTAL KESELURUHAN</td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="150px" style={{ paddingLeft: "10px" }}>
+                    {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
+            {/* <tr>
               <>
-                <p
-                  style={{ fontWeight: "bold" }}
-                >
-                  Biaya Muat :{IsiDataSPSemua?.totalMuat?.toLocaleString("id-ID", {
+                <p style={{ fontWeight: "bold" }}>
+                  Biaya Muat :
+                  {IsiDataSPSemua?.totalMuat?.toLocaleString("id-ID", {
                     style: "currency",
                     currency: "IDR",
                   })}
                 </p>
-                <p
-                  style={{ fontWeight: "bold" }}
-                >
-                  Biaya Bongkar :{IsiDataSPSemua?.totalBongkar?.toLocaleString("id-ID", {
+                <p style={{ fontWeight: "bold" }}>
+                  Biaya Bongkar :
+                  {IsiDataSPSemua?.totalBongkar?.toLocaleString("id-ID", {
                     style: "currency",
                     currency: "IDR",
                   })}
                 </p>
-                <p
-                  style={{ fontWeight: "bold" }}
-                >
-                  Biaya MultiDrop :{IsiDataSPSemua?.biaya_multidrop?.toLocaleString("id-ID", {
+                <p style={{ fontWeight: "bold" }}>
+                  Biaya MultiDrop :
+                  {IsiDataSPSemua?.biaya_multidrop?.toLocaleString("id-ID", {
                     style: "currency",
                     currency: "IDR",
                   })}
                 </p>
-                <p
-                  style={{ fontWeight: "bold" }}
-                >
-                  Biaya Overtonase :{IsiDataSPSemua?.biaya_overtonase?.toLocaleString("id-ID", {
+                <p style={{ fontWeight: "bold" }}>
+                  Biaya Overtonase :
+                  {IsiDataSPSemua?.biaya_overtonase?.toLocaleString("id-ID", {
                     style: "currency",
                     currency: "IDR",
                   })}
                 </p>
-                <p
-                  style={{ fontWeight: "bold" }}
-                >
-                  Biaya Mel :{IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
+                <p style={{ fontWeight: "bold" }}>
+                  Biaya Mel :
+                  {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
                     style: "currency",
                     currency: "IDR",
                   })}
                 </p>
-                <p
-                  style={{ fontWeight: "bold" }}
-                >
-                  Biaya Inap :{IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
+                <p style={{ fontWeight: "bold" }}>
+                  Biaya Inap :
+                  {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
                     style: "currency",
                     currency: "IDR",
                   })}
                 </p>
                 <hr />
-                <p
-                  style={{ fontWeight: "bold" }}
-                >
-                  TOTAL KESELURUHAN :{IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
+                <p style={{ fontWeight: "bold" }}>
+                  TOTAL KESELURUHAN :
+                  {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
                     style: "currency",
                     currency: "IDR",
                   })}
                 </p>
               </>
-            </tr>
+            </tr> */}
           </Table>
-
         </Col>
       </Row>
     </>
