@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Baseurl from "../../../Api/BaseUrl";
 import axios from "axios";
 import { Button, Card, Col, Input, Row, Select } from "antd";
+import { InputGroup, Form } from "react-bootstrap";
 import Swal from "sweetalert2";
 
 function NewTarifCustomer() {
@@ -178,14 +179,25 @@ function NewTarifCustomer() {
       <br />
       <Row>
         <Col span={6}>
-          <label style={{ fontWeight: "bold" }}>Kode Tarif Customer:</label>
+          {/* <label style={{ fontWeight: "bold" }}>Kode Tarif Customer:</label> */}
+          <Form.Group style={{ marginBottom: "10px" }}>
+            <Form.Label style={{ fontWeight: `bold` }}>
+              Kode Tarif Customer:
+            </Form.Label>
+            <Form.Control
+              disabled
+              value={KodeID.kodeTarifCustomer}
+              name="getPrice"
+            />
+          </Form.Group>
           {/* Menghubungkan input tarif dengan state tarif */}
-          <Input
+
+          {/* <Input
             className="mt-2 mb-2"
             name="getPrice"
             value={KodeID.kodeTarifCustomer}
             disabled
-          />
+          /> */}
         </Col>
         <Col span={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold" }}>Customer :</label>
@@ -368,7 +380,21 @@ function NewTarifCustomer() {
         <Col span={6}>
           <label style={{ fontWeight: "bold" }}>Tarif Katalog :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
-          <Input
+          <Form.Control
+            className="mt-2"
+            disabled
+            value={formatRupiah(DataTarifKatalog)}
+            onChange={(e) => {
+              console.log(e.target.value);
+              setIDTambahData(e.target.value);
+              setDataBiayaJalan(parseFloat(e.target.value));
+              setDataTarifKatalog(parseFloat(e.target.value));
+              // name = "getPrice";
+              // setCustomer(options.key);
+            }}
+          />
+
+          {/* <Input
             className="mt-2 mb-2"
             name="getPrice"
             value={formatRupiah(DataTarifKatalog)}
@@ -378,10 +404,9 @@ function NewTarifCustomer() {
               setIDTambahData(e.target.value);
               setDataBiayaJalan(parseFloat(e.target.value));
               setDataTarifKatalog(parseFloat(e.target.value));
-              // setCustomer(options.key);
+              setCustomer(options.key);
             }}
-            //   onChange={formik.handleChange}
-          />
+          /> */}
         </Col>
         <Col span={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold" }}>Jenis Diskon :</label>
@@ -421,16 +446,28 @@ function NewTarifCustomer() {
         <Col span={6}>
           <label style={{ fontWeight: "bold" }}>Total Biaya :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
-          <Input
-            className="mt-2 mb-2"
-            name="biaya_jalan"
+          <Form.Control
+            className="mt-2"
+            disabled
             placeholder="Total Biaya"
             value={formatRupiah(TotalBiaya)} // Display the calculated total biaya
-            disabled // Disable the input because it is calculated automatically
+            // Disable the input because it is calculated automatically
             onChange={(e) => {
               console.log(e.target.value);
               setTotalBiaya(e.target.value);
+              // name = "getPrice";
+              // setCustomer(options.key);
             }}
+            // <Input
+            //   className="mt-2 mb-2"
+            //   name="biaya_jalan"
+            //   placeholder="Total Biaya"
+            //   value={formatRupiah(TotalBiaya)}
+            //   disabled
+            //   onChange={(e) => {
+            //     console.log(e.target.value);
+            //     setTotalBiaya(e.target.value);
+            //   }}
           />
           {/* <Input
             type="number"

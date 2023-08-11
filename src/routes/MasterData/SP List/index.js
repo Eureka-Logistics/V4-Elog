@@ -128,7 +128,7 @@ function SpList() {
       <Card>
         <Row>
           <Col sm={3}>
-            <h4>SP List</h4>
+            <h4 >SP List</h4>
           </Col>
           <Table responsive>
             <thead>

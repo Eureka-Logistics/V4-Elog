@@ -484,12 +484,18 @@ function VehicleBaru() {
 
                 <>
                     <Col>
-                        <h5>Master Vehicle</h5>
+                        <h5 style={{ color: "#1A5CBF", fontWeight: "bold" }}>Master Vehicle</h5>
                     </Col>
                     <Row>
                         
                         <Col sm={2}>
                             <Input
+                            style={{
+                                width: "150px",
+                                border: "1px solid #1A5CBF",
+                                borderRadius: "5px",
+                                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                              }}
                                 value={CariNoKendaraan}
                                 onChange={(e) => setCariNoKendaraan(e.target.value)}
                                 placeholder="Cari No Kendaraan" />
@@ -499,7 +505,9 @@ function VehicleBaru() {
                                 showSearch
                                 placeholder="Jenis Kepemilikan"
                                 optionFilterProp="children"
-                                style={{ width: "150px" }}
+                                style={{ width: "150px", border: "1px solid #1A5CBF",
+                                borderRadius: "5px",
+                                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)", }}
                                 // value={CariJenisKepemilikan}
                                 onChange={(value) => setCariJenisKepemilikan(value)}
 
@@ -517,7 +525,9 @@ function VehicleBaru() {
                                 showSearch
                                 placeholder="Status"
                                 optionFilterProp="children"
-                                style={{ width: "150px" }}
+                                style={{ width: "150px", border: "1px solid #1A5CBF",
+                                borderRadius: "5px",
+                                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)", }}
                                 // value={CariJenisKepemilikan}
                                 onChange={(value) => setCariDriverAktif(value)}
 
@@ -532,6 +542,12 @@ function VehicleBaru() {
                         </Col>
                         <Col sm={2}>
                             <Button
+                            style={{
+                                backgroundColor: "#1A5CBF",
+                                color: "#FFFFFF",
+                                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                                borderColor: "#1A5CBF",
+                              }}
                                 type="primary" onClick={() => {
                                     showModal()
                                     setIdDriver(null)

@@ -182,10 +182,10 @@ function DetailTarifMitra() {
   return (
     <div>
       <Card>
-        <h5>Edit dan Detail Tarif Mitra</h5>
+        <h5 style={{color: '#113D7F', fontWeight: 'bold'}}>Edit dan Detail Tarif Mitra</h5>
         <Row>
           <Col className="mt-2" span={8}>
-            <label>Nama Mitra :</label>
+            <label style={{fontWeight: 'bold'}}>Nama Mitra :</label>
             <Select
               className="mt-2"
               showSearch
@@ -211,8 +211,9 @@ function DetailTarifMitra() {
             </Select>
           </Col>
           <Col className="mt-2" span={8}>
-            <label>Kota Muat :</label>
+            <label style={{fontWeight: 'bold'}}>Kota Muat :</label>
             <Select
+            className="mt-2"
               showSearch
               // placeholder={DetailDataTarif.kotaAsal}
               value={mitraId}
@@ -236,9 +237,10 @@ function DetailTarifMitra() {
             </Select>
           </Col>
           <Col className="mt-2" span={8}>
-            <label>Kota Tujuan :</label>
+            <label style={{fontWeight: 'bold'}}>Kota Tujuan :</label>
             <Select
               showSearch
+              className="mt-2"
               // placeholder={DetailDataTarif.kotaTujuan}
               value={KotaYangDiTuju}
               optionFilterProp="value"
@@ -263,9 +265,10 @@ function DetailTarifMitra() {
         </Row>
         <Row>
           <Col className="mt-2" span={8}>
-            <label>Jenis Kendaraan :</label>
+            <label style={{fontWeight: 'bold'}}>Jenis Kendaraan :</label>
             <Select
               showSearch
+              className="mt-2"
               // placeholder={DetailDataTarif.kendaraanJenis}
               value={jenisKendaraan}
               optionFilterProp="value"
@@ -288,7 +291,7 @@ function DetailTarifMitra() {
             </Select>
           </Col>
           <Col className="mt-2" span={8}>
-            <label>Service Type :</label>
+            <label style={{fontWeight: 'bold'}}>Service Type :</label>
             <Select
               className="mt-2"
               placeholder={DetailDataTarif.service_type}
@@ -301,7 +304,7 @@ function DetailTarifMitra() {
             </Select>
           </Col>
           <Col className="mt-2" span={8}>
-            <label>Jenis Kiriman :</label>
+            <label style={{fontWeight: 'bold'}}>Jenis Kiriman :</label>
             <Select
               className="mt-2"
               // placeholder={DetailDataTarif.jenis_kiriman}
@@ -315,7 +318,7 @@ function DetailTarifMitra() {
           </Col>
 
           {/* <Col className="mt-2" span={7}>
-            <label>Via :</label>
+            <label style={{fontWeight: 'bold'}}>Via :</label>
             <Select
               placeholder={DetailDataTarif.via}
               // placeholder={DataTambah.via}
@@ -341,10 +344,10 @@ function DetailTarifMitra() {
         <br />
         <hr />
 
-        <h4>Biaya Penanganan</h4>
+        <h5 style={{color: '#113D7F', fontWeight: 'bold'}}>Biaya Penanganan</h5>
         <Row>
           <Col className="mt-2" span={8}>
-            <label>Tarif :</label>
+            <label style={{fontWeight: 'bold'}}>Tarif :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
               placeholder={DetailDataTarif.tarif}
@@ -356,7 +359,7 @@ function DetailTarifMitra() {
             />
           </Col>
           {/* <Col className="mt-2" span={8}>
-            <label>Ritase :</label>
+            <label style={{fontWeight: 'bold'}}>Ritase :</label>
             Menghubungkan input ritase dengan state ritase
             <Input
               placeholder={DetailDataTarif.ritase}
