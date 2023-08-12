@@ -67,6 +67,7 @@ function SPListlama() {
 
   const ApiDataAwal = async (page = 1, pageSize = 10) => {
     try {
+      setLoading(true)
       const data = await axios.get(
         `${Baseurl}sp/get-SP-all?limit=${pageSize}&page=${page}&keyword=${search}&statusSP=&customerId=${CustumerValue}&cabang=${CariCabangValue}&sales=${CariSalesValue}&buId=${CariBu}`,
         {
@@ -290,6 +291,7 @@ function SPListlama() {
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
   };
+
 
   return (
     <div>

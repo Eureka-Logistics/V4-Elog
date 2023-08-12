@@ -7,6 +7,7 @@ import Baseurl from "../../../Api/BaseUrl";
 import Token from "../../../Api/Token";
 import { useHistory } from "react-router-dom";
 import { Pagination } from "antd";
+
 function SPList() {
   const [isiData, setIsiData] = useState([]);
   const [destinationData, setDestinationData] = useState([]);
@@ -110,6 +111,8 @@ function SPList() {
 
   let counter = 1;
 
+  
+
   const columns = [
     {
       name: "No",
@@ -209,6 +212,8 @@ function SPList() {
     // },
   ];
 
+  
+
   const RowClick = (row) => {
     console.log("RowClick", row);
     history.push(`/masterdata/operasional/detailsp/${row.idmp}`);
@@ -218,6 +223,8 @@ function SPList() {
     dataapi(page);
     // history.push(`/masterdata/splistdetailakunting/${idmp}`);
   };
+  
+
 
   return (
     <div>
@@ -251,17 +258,11 @@ function SPList() {
               columns={columns}
               data={isiData}
               onRowClicked={RowClick}
-              // pagination
-              // paginationServer
-              // paginationPerPage={pagination.limit}
-              // paginationTotalRows={isiData.length}
-              // onChangePage={handlePageChange}
             />
             <div className="d-flex justify-content-end mt-3">
               <Pagination
                 showSizeChanger
                 onChange={buttonarahin}
-                // defaultPageSize={10}
                 size="default"
                 total={TotalPage}
                 defaultCurrent={1}
