@@ -10,6 +10,7 @@ import ElogLoadingGif from "../../.././assets/Loader_Elogs1.gif";
 import Swal from "sweetalert2";
 import { Pagination } from "antd";
 import SpStore from "../../../zustand/Store/FilterSP";
+
 function SPListlama() {
   const [isiData, setIsiData] = useState([]);
   const [Loading, setLoading] = useState(false);

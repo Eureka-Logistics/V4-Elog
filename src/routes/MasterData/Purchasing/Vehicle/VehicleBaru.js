@@ -352,6 +352,7 @@ function VehicleBaru() {
                 text: 'Data berhasil diedit',
             });
             ApiAwal()
+            setIsModalOpen(false);
 
         } catch (error) {
             // Tampilkan SweetAlert untuk error
@@ -360,6 +361,7 @@ function VehicleBaru() {
                 title: 'Gagal',
                 text: 'Terjadi kesalahan saat edit data kendaraan',
             });
+            
         }
     }
 
@@ -385,8 +387,9 @@ function VehicleBaru() {
             })
             console.log(`ini baru`, data.data.data[0]);
             setFotoDriver(data.data.data[0].vehicleImage)
-            setCodeVehicle(data.data.data[0])
+            setCodeVehicle(data.data.data[0]?.vehicleCode)
             formik.setValues({
+                vehicleCode:data.data.data[0].vehicleCode,
                 kode_kendaraan: data.data.data[0].vehicleCode,
                 no_polisi: data.data.data[0].policeNumber,
                 jenis_kepemilikan: data.data.data[0].jenisKepemilikan,
@@ -447,6 +450,7 @@ function VehicleBaru() {
                 title: 'Gagal',
                 text: 'Terjadi kesalahan saat menambahkan data kendaraan',
             });
+            setIsModalOpen(false);
         }
     }
 
@@ -552,6 +556,7 @@ function VehicleBaru() {
                                     showModal()
                                     setIdDriver(null)
                                     setFotoDriver(null)
+                                    DriverName()
                                 }} >
                                 Tambah Vehicle
                             </Button>
@@ -567,7 +572,7 @@ function VehicleBaru() {
                             <Row>
                                 <Col sm={4}>
                                     <Card>
-                                        <img src={FotoDriver}></img>
+                                        <img src={FotoDriver  instanceof File ? URL.createObjectURL(FotoDriver) : FotoDriver}/>
 
                                     </Card>
                                     <AntForm.Item
@@ -581,7 +586,9 @@ function VehicleBaru() {
                                         style={{ marginBottom: 2 }}
                                     >
                                         <Upload
+                                          accept=".png,.jpg,.jpeg"
                                             beforeUpload={file => {
+                                                setFotoDriver(file);
                                                 // Mencegah upload default
                                                 return false;
                                             }}
@@ -692,7 +699,7 @@ function VehicleBaru() {
                                             optionFilterProp="children"
                                             id="jenis_kepemilikan"
                                             name="jenis_kepemilikan"
-                                            onChange={(value) => formik.setFieldValue('jenis_kepemilikan', value)}
+                                            onChange={(value) => formik.setFieldValue('vehicleCode', value)}
                                             value={CodeVehicle}
                                             // onBlur={formik.handleBlur}
                                         >
