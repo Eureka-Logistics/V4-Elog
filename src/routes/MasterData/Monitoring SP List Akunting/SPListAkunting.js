@@ -162,7 +162,7 @@ function SPList() {
               Approved <br /> <small>{dateApproveAct}</small>{" "}
             </Tag>{" "}
           </>
-        ) : row.approveAct === "Invalid date" ? (
+        ) : row.approveAct === "Invalid date" || "1970-01-01 07:00:00" ? (
           <>
             {" "}
             <Tag color="Red">
@@ -191,7 +191,7 @@ function SPList() {
               Approved <br /> <small>{dateApproveOps}</small>{" "}
             </Tag>
           </>
-        ) : row.approveAct === "Invalid date" ? (
+        ) : row.approveAct === "Invalid date" || "1970-01-01 07:00:00" ? (
           <>
             {" "}
             <Tag color="Red">
@@ -215,7 +215,7 @@ function SPList() {
       selector: (row) => {
         return row.approvePurch === "Y" ? (
           <Tag color="green">Approved</Tag>
-        ) : row.approvePurch === "Invalid date" ? (
+        ) : row.approvePurch === "Invalid date" || "1970-01-01 07:00:00" ? (
           <Tag color="red">Reject</Tag>
         ) : (
           <Tag color="yellow">Waiting</Tag>

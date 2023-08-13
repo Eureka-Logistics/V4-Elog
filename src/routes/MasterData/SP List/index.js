@@ -161,9 +161,9 @@ function SpList() {
                   <td>
                     {item.approveOps == "Y" ? (
                       <Tag color="green">Approved</Tag>
-                    ) : item.dateApproveOps == "Invalid date" ? (
+                    ) : item.dateApproveOps == "Invalid date" || "1970-01-01 07:00:00" ? (
                       <Tag color="red">Waiting</Tag>
-                    ) : item.dateApproveOps != "Invalid date" ? (
+                    ) : item.dateApproveOps != "Invalid date" || "1970-01-01 07:00:00" ? (
                       <Tag color="orange">Reject</Tag>
                     ) : (
                       <Tag color="red">Waiting</Tag>

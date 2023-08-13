@@ -10,6 +10,7 @@ import ElogLoadingGif from "../../.././assets/Loader_Elogs1.gif";
 import Swal from "sweetalert2";
 import { Pagination } from "antd";
 import SpStore from "../../../zustand/Store/FilterSP";
+
 function SPListlama() {
   const [isiData, setIsiData] = useState([]);
   const [Loading, setLoading] = useState(false);
@@ -67,6 +68,7 @@ function SPListlama() {
 
   const ApiDataAwal = async (page = 1, pageSize = 10) => {
     try {
+      setLoading(true)
       const data = await axios.get(
         `${Baseurl}sp/get-SP-all?limit=${pageSize}&page=${page}&keyword=${search}&statusSP=&customerId=${CustumerValue}&cabang=${CariCabangValue}&sales=${CariSalesValue}&buId=${CariBu}`,
         {
@@ -187,11 +189,11 @@ function SPListlama() {
           <Tag color="green">
             Approved <br /> {tanggal}
           </Tag>
-        ) : row?.approveAct === "N" && tanggal === "Invalid date" ? (
+        ) : row?.approveAct === "N" && tanggal === "Invalid date" || "1970-01-01 07:00:00" ? (
           <Tag color="yellow">
             Waiting <br /> {tanggal ? "-" : tanggal}
           </Tag>
-        ) : row?.approveAct === "N" && tanggal !== "Invalid date" ? (
+        ) : row?.approveAct === "N" && tanggal !== "Invalid date" || "1970-01-01 07:00:00" ? (
           <Tag color="red">
             Diverted <br /> {tanggal}
           </Tag>
@@ -248,11 +250,11 @@ function SPListlama() {
               <Tag color="green">
                 Approved <br /> {date}
               </Tag>
-            ) : row.approvePurch === "N" && date === "Invalid date" ? (
+            ) : row.approvePurch === "N" && date === "Invalid date" || "1970-01-01 07:00:00" ? (
               <Tag color="yellow">
                 Waiting <br /> {date ? "-" : date}
               </Tag>
-            ) : row.approvePurch === "N" && date != "Invalid date" ? (
+            ) : row.approvePurch === "N" && date != "Invalid date" || "1970-01-01 07:00:00" ? (
               <Tag color="red">
                 Diverted <br /> {date}
               </Tag>
@@ -290,6 +292,7 @@ function SPListlama() {
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
   };
+
 
   return (
     <div>
@@ -387,12 +390,14 @@ function SPListlama() {
             {Loading ? (
               <img src={ElogLoadingGif}></img>
             ) : (
+              <div className="mt-3 ">
               <DataTable
                 columns={columns}
                 data={isiData}
                 onRowClicked={RowClick}
                 className="myCustomTable"
               />
+              </div>
             )}
             <div className="mt-3 d-flex justify-content-end">
               <Pagination
@@ -406,7 +411,7 @@ function SPListlama() {
           </Col>
         </Row>
       </Card>
-    </div>
+    </div>                  
   );
 }
 

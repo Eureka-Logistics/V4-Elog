@@ -37,6 +37,8 @@ import {
   ShopOutlined,
   FundViewOutlined,
   AppstoreOutlined,
+  AppstoreTwoTone,
+  HourglassTwoTone,
 } from "@ant-design/icons";
 const { SubMenu } = Menu;
 
@@ -104,7 +106,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
           <Menu
             defaultOpenKeys={[defaultOpenKeys]}
             selectedKeys={[selectedKeys]}
-            style={{ backgroundColor: "#BAD6FF" }}
+            style={{ backgroundColor: "#1a5cbf" }}
             theme={themeType === LIGHT_PURPLE ? "lite" : "dark"}
             mode="inline"
           >
@@ -117,9 +119,9 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     style={{ width: 180 }}
                     className="d-flex align-items-center justify-content-center"
                     onClick={() => createsp()}
-                    variant="warning"
+                    variant="danger"
                   >
-                    ADD SP
+                    Tambah SP
                   </Button>
                 </div>
               ) : (
@@ -177,7 +179,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       {/* <i className="icon icon-widgets" />
                        */}
                       <AppstoreOutlined style={{ fontSize: '20px' }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Dashboard" />
                       </span>
                     </Link>
@@ -188,7 +190,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       style={{ textDecoration: "none" }}
                     >
                       <FileTextOutlined style={{ fontSize: "20px" }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="SP List" />
                       </span>
                     </Link>
@@ -199,7 +201,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       style={{ textDecoration: "none" }}
                     >
                       <FileExcelOutlined style={{ fontSize: "20px" }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Cancel SP List" />
                       </span>
                     </Link>
@@ -210,7 +212,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       style={{ textDecoration: "none" }}
                     >
                       <UserOutlined style={{ fontSize: "20px" }} />
-                      <span style={{ fontWeight: "bold" }}>Customer</span>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>Customer</span>
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Alamat Customer">
@@ -220,10 +222,10 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     >
                       <ProfileOutlined style={{ fontSize: "20px" }} />
                       {/* <i className="icon icon-widgets" /> */}
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         Alamat Customer
                       </span>
-                      {/* <span style={{ fontWeight: "bold" }}>Data Alamat All</span> */}
+                      {/* <span style={{ fontWeight: "bold",  color: 'white' }}>Data Alamat All</span> */}
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Invoice Customer">
@@ -232,10 +234,10 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       style={{ textDecoration: "none" }}
                     >
                       <FileProtectOutlined style={{ fontSize: "20px" }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         Invoice Customer
                       </span>
-                      {/* <span style={{ fontWeight: "bold" }}>Data Alamat All</span> */}
+                      {/* <span style={{ fontWeight: "bold",  color: 'white' }}>Data Alamat All</span> */}
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Tarif Customer">
@@ -244,7 +246,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       style={{ textDecoration: "none" }}
                     >
                       <DollarOutlined style={{ fontSize: "20px" }} />
-                      <span style={{ fontWeight: "bold" }}>Tarif Customer</span>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>Tarif Customer</span>
                     </Link>
                   </Menu.Item>
 
@@ -254,7 +256,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       style={{ textDecoration: "none" }}
                     >
                       <VideoCameraOutlined style={{ fontSize: "20px" }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Monitoring Vehicle" />
                       </span>
                     </Link>
@@ -269,8 +271,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       style={{ textDecoration: "none" }}
                     >
                       {/* <i className="icon icon-widgets" /> */}
-                      <SmileTwoTone style={{ fontSize: "20px" }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <SmileTwoTone style={{ fontSize: "20px", color: 'white' }} />
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="sidebar.driver" />
                       </span>
                     </Link>
@@ -281,7 +283,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       style={{ textDecoration: "none" }}
                     >
                       <CarTwoTone style={{ fontSize: "20px" }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="sidebar.vehicle" />
                       </span>
                     </Link>
@@ -292,7 +294,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       style={{ textDecoration: "none" }}
                     >
                       <ScheduleTwoTone style={{ fontSize: "20px" }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Monitoring Vehicle" />
                       </span>
                     </Link>
@@ -303,7 +305,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       style={{ textDecoration: "none" }}
                     >
                       <ProfileTwoTone style={{ fontSize: "20px" }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Waiting SP" />
                       </span>
                     </Link>
@@ -314,7 +316,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       style={{ textDecoration: "none" }}
                     >
                       <CheckSquareTwoTone style={{ fontSize: "20px" }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Approve SP" />
                       </span>
                     </Link>
@@ -325,7 +327,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       style={{ textDecoration: "none" }}
                     >
                       <ProfileTwoTone style={{ fontSize: "20px" }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="SP List" />
                       </span>
                     </Link>
@@ -337,7 +339,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     >
                       {/* <i className="icon icon-widgets" /> */}
                       <EnvironmentTwoTone style={{ fontSize: "20px" }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Vehicle Map" />
                       </span>
                     </Link>
@@ -348,7 +350,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       style={{ textDecoration: "none" }}
                     >
                       <CarTwoTone style={{ fontSize: "20px" }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Driver Map" />
                       </span>
                     </Link>
@@ -360,7 +362,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     >
                       {/* <i className="icon icon-widgets" /> */}
                       <CarTwoTone style={{ fontSize: "20px" }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Driver Emc" />
                       </span>
                     </Link>
@@ -372,7 +374,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <Menu.Item key="monitoringVehicle" >
                     <Link to="/masterdata/monitoring">
                       <i className="icon icon-widgets" />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Vehicle Map" />
                       </span>
                     </Link>
@@ -380,7 +382,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <Menu.Item key="monitoringDriver">
                     <Link to="/masterdata/monitoring">
                       <i className="icon icon-widgets" />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Driver Map" />
                       </span>
                     </Link>
@@ -388,7 +390,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <Menu.Item key="DriverEmc">
                     <Link to="/masterdata/monitoring">
                       <i className="icon icon-widgets" />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Driver Emc" />
                       </span>
                     </Link>
@@ -406,7 +408,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       {/* <i className="icon icon-widgets" />
                    */}
                       <AppstoreOutlined style={{ fontSize: '20px' }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      {/* <AppstoreTwoTone style={{ fontSize: '20px' }} /> */}
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Dashboard" />
                       </span>
                     </Link>
@@ -417,7 +420,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         style={{ textDecoration: "none" }}
                       >
                         <FileProtectOutlined style={{ fontSize: '20px' }} />
-                        <span style={{ fontWeight: "bold" }}>
+                        {/* <HourglassTwoTone style={{ fontSize: '20px' }} /> */}
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>
                           Waiting Approve SP
                         </span>
                       </Link>
@@ -428,7 +432,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         style={{ textDecoration: "none" }}
                       >
                         <FileProtectOutlined style={{ fontSize: '20px' }} />
-                        <span style={{ fontWeight: "bold" }}>SP List All</span>
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>SP List All</span>
                       </Link>
                     </Menu.Item>
                     
@@ -438,7 +442,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         style={{ textDecoration: "none" }}
                       >
                         <FileProtectOutlined style={{ fontSize: '20px' }} />
-                        <span style={{ fontWeight: "bold" }}>
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>
                         List Approve All SP 
                         </span>
                       </Link>
@@ -448,7 +452,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Menu.Item key="Data Pesanan Customer">
                       <Link to="/akunting/detaildatacustomer" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span style={{ fontWeight: "bold" }}>Data Customer</span>
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>Data Customer</span>
                       </Link>
                     </Menu.Item>
                   </SubMenu> */}
@@ -459,7 +463,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         style={{ textDecoration: "none" }}
                       >
                         <i className="icon icon-widgets" />
-                        <span style={{ fontWeight: "bold" }}>AR List ALL</span>
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>AR List ALL</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="List Invoice AR">
@@ -468,7 +472,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         style={{ textDecoration: "none" }}
                       >
                         <i className="icon icon-widgets" />
-                        <span style={{ fontWeight: "bold" }}>
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>
                           List Invoice AR
                         </span>
                       </Link>
@@ -479,7 +483,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         style={{ textDecoration: "none" }}
                       >
                         <i className="icon icon-widgets" />
-                        <span style={{ fontWeight: "bold" }}>SJ no AR</span>
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>SJ no AR</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="Penerimaan SJ">
@@ -488,7 +492,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         style={{ textDecoration: "none" }}
                       >
                         <i className="icon icon-widgets" />
-                        <span style={{ fontWeight: "bold" }}>
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>
                           Penerimaan SJ
                         </span>
                       </Link>
@@ -499,7 +503,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         style={{ textDecoration: "none" }}
                       >
                         <i className="icon icon-widgets" />
-                        <span style={{ fontWeight: "bold" }}>
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>
                           Report Pembayaran Customer
                         </span>
                       </Link>
@@ -513,7 +517,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         style={{ textDecoration: "none" }}
                       >
                         <i className="icon icon-widgets" />
-                        <span style={{ fontWeight: "bold" }}>
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>
                           Penerimaan INV
                         </span>
                       </Link>
@@ -527,7 +531,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         style={{ textDecoration: "none" }}
                       >
                         <i className="icon icon-widgets" />
-                        <span style={{ fontWeight: "bold" }}>
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>
                           Data Kecamatan
                         </span>
                       </Link>
@@ -535,7 +539,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Menu.Item key="Master Kota">
                       <Link to="/masterkota" style={{ textDecoration: "none" }}>
                         <i className="icon icon-widgets" />
-                        <span style={{ fontWeight: "bold" }}>Data Kota</span>
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>Data Kota</span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item key="Master Provinsi">
@@ -544,7 +548,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         style={{ textDecoration: "none" }}
                       >
                         <i className="icon icon-widgets" />
-                        <span style={{ fontWeight: "bold" }}>
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>
                           Data Provinsi
                         </span>
                       </Link>
@@ -555,7 +559,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       <Menu.Item key="SP_AP_LIST">
                         <Link to="/akunting/ap/">
                           <i className="icon icon-widgets" />
-                          <span style={{ fontWeight: "bold" }}>AP List ALL</span>
+                          <span style={{ fontWeight: "bold",  color: 'white' }}>AP List ALL</span>
                         </Link>
                       </Menu.Item>
 
@@ -568,7 +572,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         style={{ textDecoration: "none" }}
                       >
                         <i className="icon icon-widgets" />
-                        <span style={{ fontWeight: "bold" }}>Tarif Eureka</span>
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>Tarif Eureka</span>
                       </Link>
                     </Menu.Item>
                   </Menu.ItemGroup>
@@ -585,7 +589,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       {/* <i className="icon icon-widgets" />
                        */}
                       <AppstoreOutlined style={{ fontSize: '20px' }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Dashboard" />
                       </span>
                     </Link>
@@ -598,7 +602,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       {/* <i className="icon icon-widgets" />
                        */}
                       <FileProtectOutlined style={{ fontSize: '20px' }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Approve SP" />
                       </span>
                     </Link>
@@ -611,7 +615,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       {/* <i className="icon icon-widgets" />
                        */}
                       <FileTextOutlined style={{ fontSize: '20px' }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="SP List" />
                       </span>
                     </Link>
@@ -624,7 +628,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       {/* <i className="icon icon-widgets" />
                        */}
                       <FolderOpenOutlined style={{ fontSize: '20px' }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="SJ List" />
                       </span>
                     </Link>
@@ -637,7 +641,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       {/* <i className="icon icon-widgets" />
                        */}
                       <CarOutlined style={{ fontSize: '20px' }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Master Driver" />
                       </span>
                     </Link>
@@ -647,7 +651,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       {/* <i className="icon icon-widgets" />
                        */}
                       <ShopOutlined style={{ fontSize: '20px' }} />
-                      <span style={{ fontWeight: "bold" }}>Master Mitra</span>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>Master Mitra</span>
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Tarif Mitra">
@@ -655,7 +659,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       {/* <i className="icon icon-widgets" />
                        */}
                       <DollarOutlined style={{ fontSize: '20px' }} />
-                      <span style={{ fontWeight: "bold" }}>Tarif Mitra</span>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>Tarif Mitra</span>
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="vehiclepurch">
@@ -665,7 +669,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     >
                       {/* <i className="icon icon-heart" /> */}
                       <FundViewOutlined style={{ fontSize: '20px' }} />
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: "bold",  color: 'white' }}>
                         <IntlMessages id="Master Vehicle" />
                       </span>
                     </Link>

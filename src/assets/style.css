@@ -12,7 +12,7 @@
 }
 
 .ant-layout-sider .ant-menu-item-group-title {
-  padding-top: 10px;
+  padding-top: 20px;
 }
 
 .ant-menu-item-group-title {
@@ -79,9 +79,7 @@
 }
 
 /* Contoh gaya khusus untuk kolom "Kode Tarif" */
-.table-head .kode_tarif {
-  background-color: lightgreen;
-}
+
 
 .custom-button {
     width: 180px;
@@ -157,6 +155,6 @@
   @media screen and (max-width: 991px){
     .gx-layout-sider-scrollbar {
     height: calc(100vh - 72px) !important;
-    background-color: #BAD6FF;}
+    background-color: #1a5cbf;}
 
 }
