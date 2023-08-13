@@ -411,8 +411,8 @@ function VehicleBaru() {
                 lebar: data.data.data[0]?.vehicleWidth,
                 tinggi: data.data.data[0]?.vehicleHeight,
                 kapasitas_maks: data.data.data[0]?.maxCapacity,
-                id_jenis_kendaraan: data.data.data[0]?.id_jenis_kendaraan
-
+                id_jenis_kendaraan: data.data.data[0]?.id_jenis_kendaraan,
+                driverName : data.data.data[0]?.driverName,
 
 
             });
@@ -847,9 +847,10 @@ function VehicleBaru() {
                                             type="text"
                                             onChange={(value) => {
                                                 formik.setFieldValue('id_driver', value);
+                                                formik.setFieldValue('driverName', value);
                                             }}
                                             // value={formik.values.id_driver}
-                                            value={formik.values.id_driver}
+                                            value={formik.values.driverName}
 
                                             onBlur={formik.handleBlur}
                                         >

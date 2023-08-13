@@ -185,7 +185,7 @@ function SPList() {
     //         Approved <br />
     //         {row.dateApproveOps}
     //       </Tag>
-    //     ) : row.dateApproveOps === "Invalid date" ? (
+    //     ) : row.dateApproveOps === "Invalid date" || "1970-01-01 07:00:00" ? (
     //       <Tag color="orange">
     //         Waiting <br /> {row.dateApproveOps}
     //       </Tag>
