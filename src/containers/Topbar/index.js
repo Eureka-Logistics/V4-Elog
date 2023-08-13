@@ -21,10 +21,11 @@ import {
 } from "../../constants/ThemeSetting";
 import { useDispatch, useSelector } from "react-redux";
 import UserProfile from "../Sidebar/UserProfile";
-
+import { Modal } from 'antd';
 const { Header } = Layout;
 
 const Topbar = () => {
+  const [open, setOpen] = useState(false);
   const { locale, navStyle } = useSelector(({ settings }) => settings);
   const navCollapsed = useSelector(({ common }) => common.navCollapsed);
   const width = useSelector(({ common }) => common.width);
@@ -57,8 +58,8 @@ const Topbar = () => {
   return (
     <Header>
       {navStyle === NAV_STYLE_DRAWER ||
-      ((navStyle === NAV_STYLE_FIXED || navStyle === NAV_STYLE_MINI_SIDEBAR) &&
-        width < TAB_SIZE) ? (
+        ((navStyle === NAV_STYLE_FIXED || navStyle === NAV_STYLE_MINI_SIDEBAR) &&
+          width < TAB_SIZE) ? (
         <div className="gx-linebar gx-mr-3">
           <i
             className="gx-icon-btn icon icon-menu "
@@ -73,16 +74,21 @@ const Topbar = () => {
       </Link>
 
       {/* <div className="gx-d-none gx-d-lg-block d-flex justify-content-end gx-lt-icon-search-bar-lg gx-move-right-to-left">Halo👋 {fullname} || {namaRole} || cabang {cabang}</div> */}
-      <Row style={{marginLeft: '2%'}}>
+      <Row style={{ marginLeft: '2%' }}>
         <Col span={24} >
           {" "}
-          <Button>
-            <h6 style={{ color: "#1A5CBF" }} className="mt-1">
-               Welcome, {fullname}
+          <Button style={{backgroundColor:"#1a5cbf"}}>
+            <h6 style={{ color: "white" }} className="mt-1">
+              Welcome, {fullname}👋
             </h6>
           </Button>
         </Col>
       </Row>
+      {/* <Col className="ms-3">
+        <Button type="primary" onClick={() => setOpen(true)}>
+          Buka What'sApp
+        </Button>
+      </Col> */}
       {/* <div style={{ marginLeft: "5%", backgroundColor: 'GrayText' }} className="mt-2">
        
       </div>
@@ -156,14 +162,31 @@ const Topbar = () => {
             </li>
           </Auxiliary>
         )} */}
-       
+
       </ul>
+      {/* <Modal
+        title="WhatsApp Web"
+        centered
+        visible={open}
+        onOk={() => setOpen(false)}
+        onCancel={() => setOpen(false)}
+        width={1000}
+      >
+        <iframe
+          src="https://google.com/"
+          width="100%"
+          height="600px"
+          frameborder="0"
+          allowfullscreen>
+        </iframe>
+      </Modal> */}
+
       <Row className="mt-1">
-          <Col span={24}>
-            {" "}
-            <UserProfile />
-          </Col>
-        </Row>
+        <Col span={24}>
+          {" "}
+          <UserProfile />
+        </Col>
+      </Row>
     </Header>
   );
 };

@@ -2239,7 +2239,7 @@ function FormTable({
                 disabled
                 value={
                   isidata[0]
-                    ? isidata[0].pickupDate === "Invalid date"
+                    ? isidata[0].pickupDate === "Invalid date" || "1970-01-01 07:00:00"
                       ? "-"
                       : isidata[0].pickupDate
                     : SJKosongModal

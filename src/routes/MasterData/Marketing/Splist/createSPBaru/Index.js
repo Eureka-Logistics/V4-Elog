@@ -10,7 +10,7 @@ import { DatePicker } from 'antd';
 import Swal from "sweetalert2";
 import { notification } from 'antd';
 import EditSP from "../EditSP";
-
+import gambarloading from "../../../../../assets/Loader_Elogs1.gif"
 
 function Index() {
   const { RangePicker } = DatePicker;
@@ -140,6 +140,9 @@ function Index() {
     setTgl_bongkar(dateStrings[1]); // nilai kedua untuk tgl_bongkar
   };
 
+if (!noSPawal) {
+  return <img src={gambarloading} alt="gambarloading"></img>
+}
 
   return (
     <div>

@@ -119,9 +119,9 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     style={{ width: 180 }}
                     className="d-flex align-items-center justify-content-center"
                     onClick={() => createsp()}
-                    variant="warning"
+                    variant="danger"
                   >
-                    ADD SP
+                    Tambah SP
                   </Button>
                 </div>
               ) : (

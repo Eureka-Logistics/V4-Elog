@@ -97,7 +97,7 @@ const SamplePage = () => {
         <Space size="middle">
           <Tag color={record.approveAct == "Y" ? "green" : "red"}>
             {record.approveAct == "Y" ? "Approved" : "Not Approved"}
-            {record.dateApproveAct !== "Invalid date"
+            {record.dateApproveAct !== "Invalid date" || "1970-01-01 07:00:00"
               ? record.dateApproveAct
               : ""}
           </Tag>
@@ -112,7 +112,7 @@ const SamplePage = () => {
         <Space size="middle">
           <Tag color={record.approveOps == "Y" ? "green" : "red"}>
             {record.approveOps == "Y" ? "Approved" : "Not Approved"}
-            {record.dateApproveOps !== "Invalid date"
+            {record.dateApproveOps !== "Invalid date" || "1970-01-01 07:00:00"
               ? record.dateApproveOps
               : ""}
           </Tag>
@@ -129,7 +129,7 @@ const SamplePage = () => {
         <Space size="middle">
           <Tag color={record.approvePurch == "Y" ? "green" : "red"}>
             {record.approvePurch == "Y" ? "Approved" : "Not Approved"}
-            {record.dateApprovePurch !== "Invalid date"
+            {record.dateApprovePurch !== "Invalid date" || "1970-01-01 07:00:00"
               ? record.dateApprovePurch
               : ""}
           </Tag>
