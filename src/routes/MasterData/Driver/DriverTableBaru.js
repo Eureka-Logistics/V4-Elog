@@ -352,16 +352,26 @@ function DriverTableBaru() {
 
       // Perform other actions after success
     } catch (error) {
-      // Handle errors
       console.error(error);
+      let errorStatus;
+      if (error.response && error.response.data && error.response.data.status) {
+        errorStatus = error.response.data.status.message
+      }
 
-      // Display SweetAlert error message
+      let errorMessage;
+      if (error.response && error.response.data && error.response.data.errors) {
+        errorMessage = error.response.data.errors.map(err => err.message).join(', ');
+      } else if (error.response && error.response.data && error.response.data.status && error.response.data.status.message) {
+        errorMessage = error.response.data.status.message;
+      } else {
+        errorMessage = 'Terjadi kesalahan! Silakan coba lagi.';
+      }
+
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "Failed to update driver",
+        title: errorStatus,
+        text: errorMessage,
       });
-    } finally {
       setLoading(false);
     }
   };
@@ -752,7 +762,7 @@ function DriverTableBaru() {
                       }
                       onBlur={formik.handleBlur}
                       value={
-                        formik.values.tglmasuk
+                        formik.values.tglmasuk 
                           ? moment(formik.values.tglmasuk)
                           : null
                       }
