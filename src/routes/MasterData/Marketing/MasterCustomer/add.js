@@ -16,6 +16,7 @@ import { httpClient } from "../../../../Api/Api";
 import { InputGroup, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Label } from "recharts";
+import moment from "moment";
 
 const { RangePicker } = DatePicker;
 
@@ -34,6 +35,7 @@ const SamplePage = () => {
   const [detailSp, setDetailSp] = useState([]);
   const [isiValues, setIsiValues] = useState("");
   const [jenisPembayaran, setJenisPembayaran] = useState("");
+  const [TOP, setTOP] = useState("");
 
   const optjenisPembayaran = [
     {
@@ -47,23 +49,23 @@ const SamplePage = () => {
   ];
   const optionToP = [
     {
-      value: "1",
+      value: 1,
       label: "7 Hari",
     },
     {
-      Value: "2",
+      value: 2,
       label: "14 Hari",
     },
     {
-      Value: "2",
+      value: 3,
       label: "20 Hari",
     },
     {
-      Value: "2",
+      value: 4,
       label: "30 Hari",
     },
     {
-      Value: "2",
+      value: 5,
       label: "60 Hari",
     },
   ];
@@ -242,9 +244,9 @@ const SamplePage = () => {
           <br />
           <hr />
           <h5>Customer Data</h5>
-          <hr/>
+          <hr />
           <br />
-          <Row style={{ marginBottom: "10px" }} >
+          <Row style={{ marginBottom: "10px" }}>
             <Col span={12}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>
@@ -262,7 +264,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={12}>
+            <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Date Register :
@@ -275,6 +277,36 @@ const SamplePage = () => {
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.tgl_bergabung}
                   />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={6}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Tanggal Berdiri :
+                </Form.Label>
+                <InputGroup>
+                  <DatePicker
+                    name="tgl_berdiri"
+                    placeholder="YYYY-MM-DD"
+                    selected={
+                      formik.values.tgl_berdiri
+                        ? moment(formik.values.tgl_berdiri).toDate()
+                        : null
+                    }
+                    onChange={(date) =>
+                      formik.setFieldValue(
+                        "tgl_berdiri",
+                        moment(date).format("YYYY-MM-DD")
+                      )
+                    }
+                    isInvalid={!!formik.errors.tgl_berdiri}
+                  />
+                  {formik.errors.tgl_berdiri && (
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.tgl_berdiri}
+                    </Form.Control.Feedback>
+                  )}
                 </InputGroup>
               </Form.Group>
             </Col>
@@ -458,7 +490,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                   type="number"
+                    type="number"
                     name="pic_phone"
                     placeholder="PIC Phone"
                     value={formik.values.pic_phone}
@@ -476,7 +508,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                  type="number"
+                    type="number"
                     name="pic_birth"
                     placeholder="PIC Birth"
                     value={formik.values.pic_birth}
@@ -516,7 +548,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                   type="number"
+                    type="number"
                     name="npwp"
                     placeholder="Nomor NPWP"
                     value={formik.values.npwp}
@@ -551,7 +583,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                   type="number"
+                    type="number"
                     name="ktp"
                     placeholder="Nomor KTP"
                     value={formik.values.ktp}
@@ -636,7 +668,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                   type="number"
+                    type="number"
                     name="tax_phone_office"
                     placeholder="TAX Phone Office"
                     value={formik.values.tax_phone_office}
@@ -653,7 +685,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                   type="number"
+                    type="number"
                     name="tax_mobile"
                     placeholder="TAX Mobile"
                     value={formik.values.tax_mobile}
@@ -709,7 +741,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                   type="number"
+                    type="number"
                     name="no_rek"
                     placeholder="Nomor Rekening"
                     value={formik.values.no_rek}
@@ -731,11 +763,13 @@ const SamplePage = () => {
                     style={{ width: "100%" }}
                     options={optjenisPembayaran}
                     name="jenis_pembayaran"
-                    value={jenisPembayaran}
-                    placeholder="Type Of Payment"
-                    onChange={(label,value) => {setJenisPembayaran(value.label)
-                      formik.setFieldValue(`jenis_pembayaran`,value.label)
-                    console.log(value.label);}}
+                    // value={jenisPembayaran}
+                    placeholder="Select Type Of Payment"
+                    onChange={(label, value) => {
+                      setJenisPembayaran(value.label);
+                      formik.setFieldValue(`jenis_pembayaran`, value.label);
+                      console.log(value.label);
+                    }}
                     isInvalid={!!formik.errors.jenis_pembayaran}
                     // styles={customStylesReactSelect}
                   />
@@ -743,6 +777,30 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
             <Col span={8}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <label style={{ fontWeight: "bold", marginBottom: "10px" }}>
+                  ToP:{" "}
+                </label>
+                <InputGroup>
+                  <Select
+                    style={{ width: "100%" }}
+                    options={optionToP}
+                    name="top"
+                    // value={TOP}
+
+                    placeholder="Select ToP"
+                    onChange={(value, label) => {
+                      setTOP(label.label);
+                      formik.setFieldValue(`top`, label.label);
+                      console.log(label.label);
+                    }}
+                    isInvalid={!!formik.errors.top}
+                    // styles={customStylesReactSelect}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            {/* <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>ToP :</Form.Label>
                 <InputGroup>
@@ -755,7 +813,7 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-            </Col>
+            </Col> */}
             <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
@@ -813,7 +871,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                   type="number"
+                    type="number"
                     name="bank_phone_office"
                     placeholder="Bank Office Phone"
                     value={formik.values.bank_phone_office}
@@ -832,7 +890,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                   type="number"
+                    type="number"
                     name="bank_mobile"
                     placeholder="Bank Mobile"
                     value={formik.values.bank_mobile}
@@ -906,7 +964,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                   type="number"
+                    type="number"
                     name="invoice_phone_office"
                     placeholder=" Inv Office Phone"
                     value={formik.values.invoice_phone_office}
@@ -923,7 +981,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                   type="number"
+                    type="number"
                     name="invoice_mobile"
                     placeholder="Invoice Mobile"
                     value={formik.values.invoice_mobile}
@@ -933,7 +991,6 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-           
           </Row>
 
           <Col span={24} className="d-flex justify-content-end mt-5">

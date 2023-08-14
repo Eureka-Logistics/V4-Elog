@@ -87,6 +87,12 @@ function DetailTarifPelanggan() {
       setIDBiayaJalan(respons.data.order[0]?.biaya_jalan);
       setIDBiayaLain(respons.data.order[0]?.biaya_lain);
       setJenisVia(respons.data.order[0]?.via);
+      setIDBiayaMuat(respons.data.order[0]?.biaya_muat);
+      setIDBiayaBongkar(respons.data.order[0]?.biaya_bongkar);
+      setIDBiayaOvertonase(respons.data.order[0]?.biaya_overtonase);
+      setIDBiayaMultiDrop(respons.data.order[0]?.biaya_multidrop);
+      setIDBiayaTambahan(respons.data.order[0]?.biaya_tambahan);
+      // setIDBiayaLain(respons.data.order[0]?.biaya_lain);
 
 
     } catch (error) {}
@@ -109,12 +115,12 @@ function DetailTarifPelanggan() {
         diskon_type: TipeDiskon,
         biaya_jalan: parseInt(IDBiayaJalan),
         biaya_lain: parseInt(IDBiayaLain),
-        biaya_muat: "",
-        biaya_bongkar: "",
-        biaya_overtonase: "",
-        biaya_multimuat: "",
-        biaya_multidrop: "",
-        biaya_tambahan: "",
+        biaya_muat: parseInt(IDBiayaMuat),
+        biaya_bongkar: parseInt(IDBiayaBongkar),
+        biaya_overtonase: parseInt(IDBiayaOvertonase),
+        biaya_multimuat: parseInt(IDBiayaMultiMuat),
+        biaya_multidrop: parseInt(IDBiayaBongkar),
+        biaya_tambahan: parseInt(IDBiayaTambahan),
       };
 
       const response = await axios.post(
@@ -174,7 +180,7 @@ function DetailTarifPelanggan() {
   return (
     <div>
       <Card>
-        <h4>Edit dan Detail Tarif Customer</h4>
+        <h5>Edit dan Detail Tarif Customer</h5>
         <Row>
         <Col className="mt-2" span={6}>
           <label>Code Tarif :</label>
@@ -349,13 +355,14 @@ function DetailTarifPelanggan() {
         </Row>
         <br />
         <hr />
-        <h4>Tarif</h4>
+        <h5>Tarif</h5>
         <Row>
         <Col className="mt-2" span={6}>
           <label>Tarif Katalog :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input
+              disabled
                 className="mt-2"
                 value={IDBiayaJalan}
                 onChange={(e) => {
@@ -370,6 +377,7 @@ function DetailTarifPelanggan() {
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input
+              disabled
                 className="mt-2"
                 value={discount}
                 onChange={(e) => {
@@ -396,9 +404,104 @@ function DetailTarifPelanggan() {
           </Col>
           
         </Row>
+        
         <br />
+        <hr />
+        <h5>Biaya Lainnya</h5>
         <Row>
-          <Col span={24} className="d-flex justify-content-end">
+        <Col className="mt-2" span={8}>
+          <label>Biaya Muat :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={IDBiayaMuat}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setIDBiayaMuat(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+        <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
+            <label>Biaya Bongkar :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={IDBiayaBongkar}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setIDBiayaBongkar(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+        <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
+            <label>Biaya Overtonase :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={IDBiayaOvertonase}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setIDBiayaOvertonase(e.target.value);
+                }}
+              />
+            </div>
+          </Col> 
+        
+        </Row>
+        <Row>
+        <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
+            <label>Biaya MultiDrop :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={IDBiayaMultiDrop}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setIDBiayaMultiDrop(e.target.value);
+                }}
+              />
+            </div>
+          </Col> 
+        <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
+            <label>Biaya Tambahan :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={IDBiayaTambahan}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setIDBiayaTambahan(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+      
+        <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
+            <label>Biaya Multimuat :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={IDBiayaMultiMuat}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setIDBiayaMultiMuat(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+      
+        </Row>
+
+        <Row>
+          <Col span={24} className="d-flex justify-content-end mt-2">
             <Button type="primary">
               <span onClick={EditTarif}>Save</span>
             </Button>

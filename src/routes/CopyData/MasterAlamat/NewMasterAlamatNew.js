@@ -74,13 +74,13 @@ function NewMasterAlamatNew() {
               jabatan: DataJabatan,
               email: DataEmail,
               alamat: DataAlamat,
-              ritase: DataRitase,
+              ritase: parseInt(DataRitase),
               hp: DataHP,
               id_provinsi: parseInt(DataKodeWilayah),
               id_kota: parseInt(DataKota),
               id_kecamatan: parseInt(DataKecamatan),
-              lat: DataLat,
-              lon: DataLon,
+              lat: parseInt( DataLat),
+              lon: parseInt(DataLon),
             },
             {
               headers: {
@@ -100,7 +100,7 @@ function NewMasterAlamatNew() {
             text: 'Data has been added successfully!',
           }).then(() => {
             // Reload the window after the success message is closed
-            window.location.reload();
+            // window.location.reload();
           });
       
         } catch (error) {
@@ -218,6 +218,51 @@ function NewMasterAlamatNew() {
               onChange={(e) => {
                 console.log(e.target.value);
                 setDataEmail(e.target.value);
+                // setCustomer(options.key);
+              }}
+              //   placeholder={DataDetailAddress?.customer}
+              //   value={CustomersData}
+            />
+          </Col>
+          <Col span={8}>
+            <label style={{ fontWeight: "bold" }}>Ritase :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2 mb-2"
+              placeholder="Ritase"
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDataRitase(e.target.value);
+                // setCustomer(options.key);
+              }}
+              //   placeholder={DataDetailAddress?.customer}
+              //   value={CustomersData}
+            />
+          </Col>
+          <Col span={8}>
+            <label style={{ fontWeight: "bold" }}>Lat :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2 mb-2"
+              placeholder="latitude"
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDataLat(e.target.value);
+                // setCustomer(options.key);
+              }}
+              //   placeholder={DataDetailAddress?.customer}
+              //   value={CustomersData}
+            />
+          </Col>
+          <Col span={8}>
+            <label style={{ fontWeight: "bold" }}>Lon :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2 mb-2"
+              placeholder="Longitude"
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDataLon(e.target.value);
                 // setCustomer(options.key);
               }}
               //   placeholder={DataDetailAddress?.customer}
