@@ -82,9 +82,9 @@ function SamplePage({ isiValues }) {
         // <Button key="submit" type="primary" onClick={datatest}>
         //     Save
         // </Button>,
-        <Button key="back" onClick={handleClose}>
-            Close
-        </Button>
+        // <Button key="back" onClick={handleClose}>
+        //     Close
+        // </Button>
     ]}
     className="modal-xl"
     style={{color: '#1A5CBF'}}

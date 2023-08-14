@@ -5,6 +5,6 @@ const AppsNavigation = () =>
     <li><i className="icon icon-search-new"/></li>
     <li><i className="icon icon-notification"/></li>
     <li><i className="icon icon-chat-new"/></li>
-  </ul>;
+  </ul>
 
 export default AppsNavigation;

@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import Baseurl from "../../../Api/BaseUrl";
 import Swal from "sweetalert2";
 import { Card, Col, Input, Row, Select, Button } from "antd";
+import { Data } from "@react-google-maps/api";
 
 function EditDetailAlamat() {
   const { customerAddressId } = useParams();
@@ -25,6 +26,7 @@ function EditDetailAlamat() {
   const [CustomersData, setCustomerData] = useState("");
   const [DataTambah, setDataTambah] = useState("");
   const [DataEdit, setDataEdit] = useState("");
+  const [DataProvinsi, setDataProvinsi] = useState("");
 
   const fetchData = async () => {
     try {
@@ -47,6 +49,10 @@ function EditDetailAlamat() {
       setDataHP(respons.data?.data[0].hp || "");
       setDataEmail(respons.data?.data[0].email || "");
       setDataKodeWilayah(respons.data?.data[0].kode_wilayah || "");
+      setDataLon(respons.data?.data[0].lon ||"");
+      setDataLat(respons.data?.data[0].lat ||"");
+      setDataRitase(respons.data?.data[0].ritase ||"");
+      setDataProvinsi(respons.data?.data[0].provinsi ||"");
     } catch (error) {}
   };
 
@@ -76,7 +82,8 @@ function EditDetailAlamat() {
         kecamatan: DataKecamatan.label,
         kota: DataKota.label,
         kode_wilayah: DataKodeWilayah.value,
-        ritase: DataRitase,
+        // provinsi: DataProvinsi.value,
+        ritase: parseInt(DataRitase),
         hp: DataHP,
         lat: DataLat,
         lon: DataLon,
@@ -192,20 +199,8 @@ function EditDetailAlamat() {
           </Col>
         </Row>
         <Row>
-          <Col span={12}>
-            <label style={{ fontWeight: "bold" }}>PIC :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <Input
-              className="mt-2 mb-2"
-              placeholder={DataDetailAddress?.pic}
-              value={DataPIC}
-              onChange={(e) => {
-                console.log(e.target.value);
-                setDataPIC(e.target.value);
-              }}
-            />
-          </Col>
-          <Col span={12}>
+   
+          <Col span={24}>
             <label style={{ fontWeight: "bold" }}>Jabatan :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -246,6 +241,46 @@ function EditDetailAlamat() {
               }}
             />
           </Col>
+          <Col span={8}>
+            <label style={{ fontWeight: "bold" }}>Ritase :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2 mb-2"
+              placeholder={DataDetailAddress?.ritase}
+              value={DataRitase}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDataRitase(e.target.value);
+              }}
+            />
+          </Col>
+          <Col span={8}>
+            <label style={{ fontWeight: "bold" }}>Lat :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2 mb-2"
+              placeholder={DataDetailAddress?.lat}
+              value={DataLat}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDataLat(e.target.value);
+              }}
+            />
+          </Col>
+          <Col span={8}>
+            <label style={{ fontWeight: "bold" }}>Lon :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2 mb-2"
+              placeholder={DataDetailAddress?.lon}
+              value={DataLon}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDataLon(e.target.value);
+              }}
+            />
+          </Col>
+         
         </Row>
         <Row>
           <Col span={8}>

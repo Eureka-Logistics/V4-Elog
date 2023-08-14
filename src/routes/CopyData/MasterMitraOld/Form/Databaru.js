@@ -85,7 +85,7 @@ function DataBaru({ mitraId, DataOptions }) {
       nama_mitra: data.data.data?.nama_mitra,
       kode: data.data.data?.kode,
       kode_mitra: data.data.data?.kode_mitra,
-      kode: data.data.data?.kode,
+      // kode: data.data.data?.kode,
       qrcode: data.data.data?.qrcode,
       title: data.data.data?.title,
       jenis_usaha: data.data.data?.jenis_usaha,
@@ -231,7 +231,17 @@ function DataBaru({ mitraId, DataOptions }) {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <h5 style={{ color: '#113D7F' }}>NAMA DAN ALAMAT PERUSAHAAN(Sold to Party )</h5>
+          <Row>
+            <Col span={8} style={{width: '100%'}}>
+            <h5>NAMA DAN ALAMAT PERUSAHAAN(Sold to Party)</h5>
+            </Col>
+            <Col span={4} className="d-flex justify-content-end">
+              <Button>
+                Print Data
+              </Button>
+            </Col>
+          </Row>
+          
           <Row className="mt-4">
             <Col sm={2} style={{ padding: "0px" }}>
               <Form.Item

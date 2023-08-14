@@ -393,10 +393,10 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                    name="jenis"
-                    value={formik.values.jenis}
+                    name="kode"
+                    value={formik.values.kode}
                     onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.jenis}
+                    isInvalid={!!formik.errors.kode}
                   />
                 </InputGroup>
               </Form.Group>
