@@ -208,37 +208,39 @@ function SPListlama() {
     {
       name: "Operasional",
       selector: (row) => {
-        const dateApproveOps = row?.dateApproveOps;
-        const isValidDate = !isNaN(new Date(dateApproveOps));
-        const data = isValidDate ? dateApproveOps : "-";
-        if (row?.approveOps === "Y") {
-          return (
-            <Tag color="green">
-              Approved <br /> {data}
-            </Tag>
-          );
-        } else if (row?.approveOps === "P") {
-          return (
-            <Tag color="blue">
-              Pass <br /> {data}
-            </Tag>
-          );
-        } else if (!isValidDate) {
-          return (
-            <Tag color="yellow">
-              Waiting <br /> {data}
-            </Tag>
-          );
-        } else {
-          return (
-            <Tag color="red">
-              Diverted <br /> {data}
-            </Tag>
-          );
-        }
+          const dateApproveOps = row?.dateApproveOps;
+          const isValidDate = !isNaN(new Date(dateApproveOps));
+          const data = isValidDate ? dateApproveOps : "-";
+  
+          if (row?.approveOps === "Y") {
+              return (
+                  <Tag color="green">
+                      Approved <br /> {data}
+                  </Tag>
+              );
+          } else if (row?.approveOps === "N" && (dateApproveOps === "Invalid date" || dateApproveOps === "1970-01-01 07:00:00")) {
+              return (
+                  <Tag color="yellow">
+                      Waiting <br />  -
+                  </Tag>
+              );
+          } else if (row?.approveOps === "N" && (dateApproveOps !== "Invalid date" && dateApproveOps !== "1970-01-01 07:00:00")) {
+              return (
+                  <Tag color="red">
+                      Diverted <br /> {data}
+                  </Tag>
+              );
+          } else if (row?.approveOps === "P") {
+              return (
+                  <Tag color="blue">
+                      Pass <br /> {data}
+                  </Tag>
+              );
+          }
       },
       width: "170px",
-    },
+  },
+  
 
     {
       name: "Purchasing",
