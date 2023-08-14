@@ -145,7 +145,7 @@ function SJ() {
     },
     {
       name: "Tanggal PickUp",
-      selector: (row) => row?.pickupDate === "Invalid date" ? "-" : row?.pickupDate,
+      selector: (row) => row?.pickupDate === "Invalid date" || "1970-01-01 07:00:00" ? "-" : row?.pickupDate,
       width: "150px",
     },
     {

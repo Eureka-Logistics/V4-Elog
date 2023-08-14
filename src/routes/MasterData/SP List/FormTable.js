@@ -2239,7 +2239,7 @@ function FormTable({
                 disabled
                 value={
                   isidata[0]
-                    ? isidata[0].pickupDate === "Invalid date"
+                    ? isidata[0].pickupDate === "Invalid date" || "1970-01-01 07:00:00"
                       ? "-"
                       : isidata[0].pickupDate
                     : SJKosongModal
@@ -2303,11 +2303,11 @@ function FormTable({
                       }}
                     >
                       {/* <td></td> */}
-                      <td colSpan={10}>Alamat Muat</td>
+                      <td  colSpan={12}>Alamat Muat</td>
                     </tr>
 
                     <tr key={index}>
-                      <td colSpan={10}>{data.pickup}</td>
+                      <td colSpan={11}>{data.pickup}</td>
                     </tr>
 
                     {IsiDataSPSemua &&
@@ -2424,7 +2424,7 @@ function FormTable({
                                   </>
                                 )} */}
                               </span>
-                              {angkamanual++}
+                              {/* {angkamanual++} */}
                             </td>
 
                             <td>{data.destination}</td>
@@ -2575,7 +2575,7 @@ function FormTable({
             </tbody>
             <tfoot>
               <tr style={{ fontWeight: "bold" }}>
-                <td colSpan={9} width="150px" className="text-right">
+                <td colSpan={11} width="150px" className="text-right">
                   Sub Total
                 </td>
                 <td width="160px">

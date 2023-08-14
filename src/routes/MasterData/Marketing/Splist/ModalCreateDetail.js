@@ -8,7 +8,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import NumberFormat from 'react-number-format';
 import ZustandStore from '../../../../zustand/Store/GetSelectKota';
-function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik, detailData }) {
+function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik, detailData,getDetails}) {
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
     const [selectVia, setSelectVia] = useState("");
@@ -83,6 +83,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                 }
             )
             DetailSP()
+            getDetails()
             message.success('Data berhasil ditambahkan!');
         } catch (error) {
             message.error('Terjadi kesalahan saat menambahkan data');

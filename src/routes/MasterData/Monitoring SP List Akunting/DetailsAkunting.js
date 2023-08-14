@@ -29,7 +29,7 @@ function DetailsAkunting() {
   const [MessageRejectSP, setMessageRejectSP] = useState("");
   const [IDMessageRejectSP, setIDMessageRejectSP] = useState("");
   const [KeteranganRejectSP, setKeteranganRejectSP] = useState("");
-
+console.log(`ApproveAkuntingTgl`,ApproveAkuntingTgl);
   // message reject
   const MessageReject = async () => {
     try {
@@ -191,6 +191,7 @@ function DetailsAkunting() {
         }
       );
       Swal.fire("Berhasil!", "Permintaan berhasil!", "success");
+      setDetailData()
     } catch (error) {
       // Munculkan SweetAlert jika terjadi error
       if (error.response && error.response.status === 403) {
@@ -373,8 +374,8 @@ function DetailsAkunting() {
               )}
             </Row>
           </Modal>
-
-          <div className="d-flex justify-content-end">
+<Row>
+  <div className="d-flex justify-content-end">
             {jobdesk !== "operasional" &&
             jobdesk !== "sales" &&
             jobdesk !== "purchasing" &&
@@ -397,26 +398,26 @@ function DetailsAkunting() {
                 ApproveAkuntingTgl !== null ? (
                   <Alert type="success" message="Approve Akunting" banner />
                 ) : ApproveAkuntingStatus === "N" &&
-                  ApproveAkuntingTgl !== null ? (
+                  ApproveAkuntingTgl !== "1970-01-01T00:00:00.000Z" ? (
                   <Alert type="error" message="Diverted Akunting" banner />
                 ) : ApproveAkuntingStatus === "N" &&
-                  ApproveAkuntingTgl === null ? (
-                  <Alert type="info" message="Waiting Operasional" banner />
+                  ApproveAkuntingTgl !== null && ApproveAkuntingTgl ==="1970-01-01T00:00:00.000Z"?(
+                  <Alert type="info" message="Waiting Akunting" banner />
                 ) : null}
 
                 {Kendaraan_operasional === "Y" && tgl_act_4 != null ? (
                   <Alert type="success" message="Approve Operasional" banner />
-                ) : Kendaraan_operasional === "N" && tgl_act_4 != null ? (
+                ) : Kendaraan_operasional === "N" && tgl_act_4 != "1970-01-01T00:00:00.000Z" ? (
                   <Alert type="error" message="Diverted Operasional" banner />
-                ) : Kendaraan_operasional === "N" && tgl_act_4 === null ? (
+                ) : Kendaraan_operasional === "N" && tgl_act_4 ==="1970-01-01T00:00:00.000Z" ? (
                   <Alert type="info" message="Waiting Operasional" banner />
                 ) : null}
 
                 {Kendaraan_purchasing === "Y" && tgl_act_5 !== null ? (
                   <Alert type="success" message="Approve Purchasing" banner />
-                ) : Kendaraan_purchasing === "N" && tgl_act_5 !== null ? (
+                ) : Kendaraan_purchasing === "N" && tgl_act_5 !== "1970-01-01T00:00:00.000Z" ? (
                   <Alert type="error" message="Diverted Purchasing" banner />
-                ) : Kendaraan_purchasing === "N" && tgl_act_5 === null ? (
+                ) : Kendaraan_purchasing === "N" && tgl_act_5 === "1970-01-01T00:00:00.000Z" ? (
                   <Alert type="info" message="Waiting Purchasing" banner />
                 ) : null}
               </>
@@ -453,6 +454,8 @@ function DetailsAkunting() {
               </Button>
             </> : "" */}
           </div>
+</Row>
+        
 
           {/* <Modal> */}
           {/* <Modal.Header closeButton>
