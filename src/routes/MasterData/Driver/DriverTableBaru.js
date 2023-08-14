@@ -9,7 +9,8 @@ import {
   DatePicker,
   Select,
   Tag,
-  Switch
+  Switch,
+  notification 
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import moment from "moment";
@@ -146,16 +147,9 @@ function DriverTableBaru() {
 
   const ModalONDriver = async (driverId) => {
     try {
-      Swal.fire({
-        title: "Konfirmasi",
-        text: 'Apakah Anda yakin ingin mengubah status driver menjadi "Ready"?',
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Ya",
-        cancelButtonText: "Tidak",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const data = await axios.post(
+        // ... kode Anda yang lain
+
+        const data = await axios.post(
             `${Baseurl}driver/ready-driver`,
             {
               id: driverId,
@@ -166,26 +160,38 @@ function DriverTableBaru() {
                 Authorization: localStorage.getItem("token"),
               },
             }
-          );
-        }
+        );
+
+        // Tampilkan notifikasi sukses dari antd
+        notification.success({
+            message: 'Sukses',
+            description: 'Status driver telah diubah menjadi "ON".',
+            placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+        });
+
         ApiAwal();
-      });
     } catch (error) {
-      // Handle error
+        // Handle error
+        notification.error({
+            message: 'Error',
+            description: 'Terjadi kesalahan saat mengubah status driver.',
+            placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+        });
     }
-  };
+};
+
 
   const ModalOFFDriver = async (driverId) => {
     try {
-      Swal.fire({
-        title: "Konfirmasi",
-        text: 'Apakah Anda yakin ingin mengubah status driver menjadi "Tidak Ready"?',
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Ya",
-        cancelButtonText: "Tidak",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
+      // Swal.fire({
+      //   title: "Konfirmasi",
+      //   text: 'Apakah Anda yakin ingin mengubah status driver menjadi "Tidak Ready"?',
+      //   icon: "warning",
+      //   showCancelButton: true,
+      //   confirmButtonText: "Ya",
+      //   cancelButtonText: "Tidak",
+      // }).then(async (result) => {
+      //   if (result.isConfirmed) {
           const data = await axios.post(
             `${Baseurl}driver/off-driver`,
             {
@@ -198,11 +204,21 @@ function DriverTableBaru() {
               },
             }
           );
-        }
+    
+          notification.success({
+            message: 'Sukses',
+            description: 'Status driver telah diubah menjadi "OFF".',
+            placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+        });
+
         ApiAwal();
-      });
     } catch (error) {
-      // Handle error
+        // Handle error
+        notification.error({
+            message: 'Error',
+            description: 'Terjadi kesalahan saat mengubah status driver.',
+            placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+        });
     }
   };
 
@@ -350,7 +366,7 @@ function DriverTableBaru() {
     }
   };
 
-  const BuatDriver = async () => {
+  const  BuatDriver = async () => {
     try {
       const formData = new FormData();
       formData.append("cover", formik.values.cover);

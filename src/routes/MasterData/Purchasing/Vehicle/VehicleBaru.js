@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import Baseurl from '../../../../Api/BaseUrl';
 import axios from 'axios';
-import { Button, Modal, Input, Form as AntForm, DatePicker, Card, Select, Upload, Pagination, Switch, Tag } from 'antd';
+import { Button, Modal,notification , Input, Form as AntForm, DatePicker, Card, Select, Upload, Pagination, Switch, Tag } from 'antd';
 import moment from 'moment';
 import { UploadOutlined } from '@ant-design/icons';
 import * as Yup from 'yup';
@@ -186,47 +186,50 @@ function VehicleBaru() {
 
     const ModalOFFVehicle = async (vehicleId) => {
         try {
-            Swal.fire({
-                title: 'Konfirmasi',
-                text: 'Apakah Anda yakin ingin mengubah status driver menjadi "Tidak Ready"?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya',
-                cancelButtonText: 'Tidak',
-            }).then(async (result) => {
-                if (result.isConfirmed) {
-                    const data = await axios.post(
-                        `${Baseurl}vehicle/off-vehicle`,
-                        {
-                            id_vehicle: vehicleId,
-                        },
-                        {
-                            headers: {
-                                'Content-Type': 'application/json',
-                                Authorization: localStorage.getItem('token'),
-                            },
-                        }
-                    );
+            const data = await axios.post(
+                `${Baseurl}vehicle/off-vehicle`,
+                {
+                    id_vehicle: vehicleId,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.getItem('token'),
+                    },
                 }
-                ApiAwal()
+            );
+    
+            // Tampilkan notifikasi sukses dari antd setelah API call berhasil
+            notification.success({
+                message: 'Sukses',
+                description: 'Status kendaraan telah diubah menjadi "OFF".',
+                placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
             });
+    
+            ApiAwal();
         } catch (error) {
             // Handle error
+            notification.error({
+                message: 'Error',
+                description: 'Terjadi kesalahan saat mengubah status kendaraan.',
+                placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+            });
         }
     };
+    
 
 
     const ModalONVehicle = async (vehicleId) => {
         try {
-            Swal.fire({
-                title: 'Konfirmasi',
-                text: 'Apakah Anda yakin ingin mengubah status driver menjadi "Ready"?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya',
-                cancelButtonText: 'Tidak',
-            }).then(async (result) => {
-                if (result.isConfirmed) {
+            // Swal.fire({
+            //     title: 'Konfirmasi',
+            //     text: 'Apakah Anda yakin ingin mengubah status driver menjadi "Ready"?',
+            //     icon: 'warning',
+            //     showCancelButton: true,
+            //     confirmButtonText: 'Ya',
+            //     cancelButtonText: 'Tidak',
+            // }).then(async (result) => {
+            //     if (result.isConfirmed) {
                     const data = await axios.post(
                         `${Baseurl}vehicle/on-vehicle`,
                         {
@@ -239,14 +242,22 @@ function VehicleBaru() {
                             },
                         }
                     );
+                    notification.success({
+                        message: 'Sukses',
+                        description: 'Status kendaraan telah diubah menjadi "ON".',
+                        placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+                    });
+            
+                    ApiAwal();
+                } catch (error) {
+                    // Handle error
+                    notification.error({
+                        message: 'Error',
+                        description: 'Terjadi kesalahan saat mengubah status kendaraan.',
+                        placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+                    });
                 }
-                ApiAwal()
-            });
-        } catch (error) {
-            // Handle error
-        }
-    };
-
+            };
 
     const handleCancel = () => {
         setIsModalOpen(false);
