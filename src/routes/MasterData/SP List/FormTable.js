@@ -1828,25 +1828,25 @@ function FormTable({
               } */}
               {StatusApproveAct === "Y" && TanggalACT3 != null ? (
                 <Alert type="success" message="Approve Akunting" banner />
-              ) : StatusApproveAct === "N" && TanggalACT3 === null ? (
+              ) : StatusApproveAct === "N" && TanggalACT3 === "1970-01-01T00:00:00.000Z" ? (
                 <Alert type="info" message="Waiting Akunting" banner />
-              ) : StatusApproveAct === "N" && TanggalACT3 !== null ? (
+              ) : StatusApproveAct === "N" && TanggalACT3 !== "1970-01-01T00:00:00.000Z" ? (
                 <Alert type="error" message="Reject Akunting" banner />
               ) : null}
 
               {Kendaraan_operasionalStatus === "Y" && TanggalACT4 != null ? (
                 <Alert type="success" message="Approve Operasional" banner />
-              ) : StatusApproveOpt === "N" && TanggalACT4 === null ? (
+              ) : StatusApproveOpt === "N" && TanggalACT4 === "1970-01-01T00:00:00.000Z" ? (
                 <Alert type="info" message="Waiting Operasional" banner />
-              ) : StatusApproveOpt === "N" && TanggalACT4 !== null ? (
+              ) : StatusApproveOpt === "N" && TanggalACT4 !== "1970-01-01T00:00:00.000Z" ? (
                 <Alert type="error" message="Reject Operasional" banner />
               ) : null}
 
               {StatusPurchasing === "Y" && TanggalACT5 != null ? (
                 <Alert type="success" message="Approve Purchasing" banner />
-              ) : StatusPurchasing === "N" && TanggalACT5 === null ? (
+              ) : StatusPurchasing === "N" && TanggalACT5 === "1970-01-01T00:00:00.000Z" ? (
                 <Alert type="info" message="Waiting Purchasing" banner />
-              ) : StatusPurchasing === "N" && TanggalACT5 === null ? (
+              ) : StatusPurchasing === "N" && TanggalACT5 !== "1970-01-01T00:00:00.000Z" ? (
                 <Alert type="error" message="Reject Purchasing" banner />
               ) : null}
 

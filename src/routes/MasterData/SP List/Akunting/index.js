@@ -88,11 +88,11 @@ function Index() {
                 const approveact = row.approveAct;
                 const dateApproveAct = row.dateApproveAct;
                 let displayText =
-                    approveact === "Y" && dateApproveAct !== "Invalid date" || "1970-01-01 07:00:00" ? (
+                    approveact === "Y" && dateApproveAct !==  "1970-01-01 07:00:00" ||"Invalid date"  ? (
                         <Tag color="green">
                             Approve <br /> <small>{dateApproveAct}</small>
                         </Tag>
-                    ) : approveact === "N" && dateApproveAct === "Invalid date" || "1970-01-01 07:00:00" ? (
+                    ) : approveact === "N" && dateApproveAct || "1970-01-01 07:00:00"|| "Invalid date"   ? (
                         <Tag color="yellow">
                             Waiting <br /> <small>{dateApproveAct}</small>
                         </Tag>
@@ -101,7 +101,6 @@ function Index() {
                             Diverted <br /> <small>{dateApproveAct}</small>
                         </Tag>
                     );
-
                 return <>{displayText}</>;
             },
             width: "200px",
@@ -116,7 +115,6 @@ function Index() {
     const handlePageChange = (page) => {
         fetchData(page);
     }
-
 
 
 
