@@ -17,16 +17,14 @@ import { InputGroup, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Label } from "recharts";
 import moment from "moment";
-
+import useBanksStore from "../../../../zustand/Store/NamaNamaBank";
 const { RangePicker } = DatePicker;
 
-const { Search } = Input;
 
 const onSearch = (value) => console.log(value);
-
 const SamplePage = () => {
   const router = useHistory();
-
+  const { banks } = useBanksStore();
   const [data, setData] = useState([]);
   const [orderDataTable, setOrderDataTable] = useState([]);
   const [order, setOrder] = useState([]);
@@ -707,15 +705,18 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Bank Name :
                 </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="nama_bank"
-                    placeholder="Nama Bank"
-                    value={formik.values.nama_bank}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.nama_bank}
-                  />
-                </InputGroup>
+                <Select
+                style={{width : "100%"}}
+                name="nama_bank"
+                value={formik.values.nama_bank}
+                onChange={(e)=>formik.setFieldValue("nama_bank", e)}
+                showSearch
+                optionFilterProp="children"
+                >
+                  {banks && banks.map((i)=>(
+                    <select value={i.name}>{i.name}</select>
+                  ))}
+                </Select>
               </Form.Group>
             </Col>
             <Col span={8}>
