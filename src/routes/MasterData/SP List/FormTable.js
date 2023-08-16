@@ -12,6 +12,7 @@ import {
   Form as AntForm,
   DatePicker,
   Upload,
+  notification,
 } from "antd";
 import { useState, useEffect } from "react";
 import Baseurl from "../../../Api/BaseUrl";
@@ -150,6 +151,7 @@ function FormTable({
   const [Kendaraan_operasionalStatus, setKendaraanOperasionalStatus] = useState(
     {}
   );
+  const [NamaMobilDariTable, setNamaMobilDariTable] = useState("")
   const [StatusPurchasing, setStatusPurchasing] = useState("");
   const history = useHistory();
   const [selectTypeMobil, setselectTypeMobil] = useState("");
@@ -212,7 +214,7 @@ function FormTable({
   ///// approve op operasional
   useEffect(() => {
     const vehicle = async () => {
-      let url = `${Baseurl}sp/get-SP-select-2?vehicleType=${types[0]}&mitra=1&id=${selectnomor}`;
+      let url = `${Baseurl}sp/get-SP-select-2?vehicleType=${NamaMobilDariTable}&mitra=1&id=${selectnomor}`;
 
       const sleet = await axios.get(url, {
         headers: {
@@ -227,7 +229,7 @@ function FormTable({
     if (types.length > 0) {
       vehicle();
     }
-  }, [types, selectnomor, mitra1, selectnomor2, selectTypeMobil2]);
+  }, [types, selectnomor, NamaMobilDariTable, mitra1, selectnomor2, selectTypeMobil2]);
 
   const anotherdriver = async () => {
     const another = await axios.get(`${Baseurl}sp/another-driver`, {
@@ -294,7 +296,13 @@ function FormTable({
           handleClose();
         })
         .catch((error) => console.error(`Error: ${error}`));
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.response);
+      notification.error({
+        icon: "error",
+        message: error.response.status.message
+      })
+    }
   };
 
   ///tombol approve
@@ -447,32 +455,33 @@ function FormTable({
   }));
   const kodeKendaraanOptions = Array.isArray(NomorFix)
     ? NomorFix.map((item) => ({
-        value: item.id,
-        label: item.no_polisi,
-        kd_kendaraan: item.kd_kendaraan,
-      }))
+      value: item.id,
+      label: item.no_polisi,
+      kd_kendaraan: item.kd_kendaraan,
+    }))
     : [];
   const kodeKendaraanOptions2 = Array.isArray(NomorFix2)
     ? NomorFix2.map((item) => ({
-        value: item.id,
-        label: item.no_polisi,
-        kd_kendaraan: item.kd_kendaraan,
-      }))
+      value: item.id,
+      label: item.no_polisi,
+      kd_kendaraan: item.kd_kendaraan,
+    }))
     : [];
   const nomorpolisiOptions = Array.isArray(KodeKendaraanOps)
     ? KodeKendaraanOps.map((item) => ({
-        value: item.driverId,
-        label: item.kd_kendaraan + " - " + item.no_polisi + " - " + item.mitra,
-        kd_kendaraan: item.kd_kendaraan,
-      }))
+      value: item.driverId,
+      no_polisi: item.no_polisi,
+      label: item.kd_kendaraan + " - " + item.no_polisi + " - " + item.mitra,
+      kd_kendaraan: item.kd_kendaraan,
+    }))
     : [];
 
   const anotneroptionsdriver = Array.isArray(driveranother)
     ? driveranother.map((item) => ({
-        value: item.id,
-        label: item.name + " || " + item?.mitra,
-        kd_kendaraan: item.kd_kendaraan,
-      }))
+      value: item.id,
+      label: item.name + " || " + item?.mitra,
+      kd_kendaraan: item.kd_kendaraan,
+    }))
     : [];
 
   // const nomorpolisiOptions = nomorpolisi.filter(item => item.mitra === mitra1).map(item => ({
@@ -494,7 +503,6 @@ function FormTable({
       window.removeEventListener("storage", handleStorageChange);
     };
   }, []);
-
   const approvebaru = (idMpd) => {
     setIDMPD(idMpd);
     handleShow();
@@ -605,7 +613,7 @@ function FormTable({
       );
       // console.log(`ini mitra 1`, data.data.data[0]);
       setMitra1Multi(data.data.data[0]);
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     MitraMulti();
@@ -639,7 +647,7 @@ function FormTable({
         data.data.status.message.kendaraan_operasional
       );
       setStatusPurchasing(data.data.status.message.kendaraan_purchasing);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const validationSchema = Yup.object().shape({
@@ -721,7 +729,7 @@ function FormTable({
         }
       );
       setNamaSupir(data.data.data.driverName);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const BuatVehicle = async (values, newFileList) => {
@@ -835,7 +843,7 @@ function FormTable({
                   }
                   validateStatus={
                     formik.touched.tgl_plat_nomor &&
-                    formik.errors.tgl_plat_nomor
+                      formik.errors.tgl_plat_nomor
                       ? "error"
                       : "success"
                   }
@@ -932,7 +940,7 @@ function FormTable({
                   }
                   validateStatus={
                     formik.touched.jenis_kepemilikan &&
-                    formik.errors.jenis_kepemilikan
+                      formik.errors.jenis_kepemilikan
                       ? "error"
                       : "success"
                   }
@@ -970,7 +978,7 @@ function FormTable({
                   }
                   validateStatus={
                     formik.touched.kode_kendaraan &&
-                    formik.errors.kode_kendaraan
+                      formik.errors.kode_kendaraan
                       ? "error"
                       : "success"
                   }
@@ -1056,7 +1064,7 @@ function FormTable({
                   }
                   validateStatus={
                     formik.touched.jenis_kendaraan &&
-                    formik.errors.jenis_kendaraan
+                      formik.errors.jenis_kendaraan
                       ? "error"
                       : "success"
                   }
@@ -1380,7 +1388,7 @@ function FormTable({
                   }
                   validateStatus={
                     formik.touched.kapasitas_maks &&
-                    formik.errors.kapasitas_maks
+                      formik.errors.kapasitas_maks
                       ? "error"
                       : "success"
                   }
@@ -1468,11 +1476,12 @@ function FormTable({
                       <Row>
                         <Col sm={12}>
                           <Form.Label>Vehicle Type</Form.Label>
+                          <Form.Label>ini adalah{NamaMobilDariTable}</Form.Label>
                           <Form.Select
                             type="text"
                             disabled
-                            value={types[0] || ""}
-                            onChange={(e) => {}}
+                            value={NamaMobilDariTable || ""}
+                            onChange={(e) => { }}
                           >
                             {types.map((type, index) => (
                               <option key={index} value={type}>
@@ -1493,7 +1502,7 @@ function FormTable({
                             options={nomorpolisiOptions}
                             onChange={(selectedOption) => {
                               setSelectnomor(selectedOption.value);
-                              setSelectNopol(selectedOption.label);
+                              setSelectNopol(selectedOption.no_polisi);
                             }}
                           />
                           <a
@@ -1551,7 +1560,7 @@ function FormTable({
                             type="text"
                             disabled
                             value={types[0] || ""}
-                            onChange={(e) => {}}
+                            onChange={(e) => { }}
                           >
                             {types.map((type, index) => (
                               <option key={index} value={type}>
@@ -1607,7 +1616,7 @@ function FormTable({
                             type="text"
                             disabled
                             value={types[0] || ""}
-                            onChange={(e) => {}}
+                            onChange={(e) => { }}
                           >
                             {types.map((type, index) => (
                               <option key={index} value={type}>
@@ -1663,7 +1672,7 @@ function FormTable({
                             type="text"
                             disabled
                             value={types[0] || ""}
-                            onChange={(e) => {}}
+                            onChange={(e) => { }}
                           >
                             {types.map((type, index) => (
                               <option key={index} value={type}>
@@ -1893,7 +1902,7 @@ function FormTable({
                           type="text"
                           disabled
                           value={types[0] || ""}
-                          onChange={(e) => {}}
+                          onChange={(e) => { }}
                         >
                           {types.map((type, index) => (
                             <option key={index} value={type}>
@@ -1947,7 +1956,7 @@ function FormTable({
                             <Form.Select
                               disabled
                               value={Mitra1Multi?.driverName || ""}
-                              onChange={() => {}}
+                              onChange={() => { }}
                             >
                               {Mitra1Multi && (
                                 <option value={Mitra1Multi.driverName}>
@@ -1965,7 +1974,7 @@ function FormTable({
                           type="text"
                           disabled
                           value={Mitra1Multi?.tipeKendaraan}
-                          onChange={(e) => {}}
+                          onChange={(e) => { }}
                         >
                           {types.map((type, index) => (
                             <option key={index} value={type}>
@@ -2303,7 +2312,7 @@ function FormTable({
                       }}
                     >
                       {/* <td></td> */}
-                      <td  colSpan={12}>Alamat Muat</td>
+                      <td colSpan={12}>Alamat Muat</td>
                     </tr>
 
                     <tr key={index}>
@@ -2447,10 +2456,10 @@ function FormTable({
                               })}
                             </td>
                             <td>
-                              {jobdesk == "operasional" &&
+                              {/* {jobdesk == "operasional" &&
                                 Kendaraan_operasionalStatus === "Y" && (
-                                  <>
-                                    {/* <Button
+                                  <> */}
+                              {/* <Button
                                       disabled
                                       size="sm"
                                       variant="primary"
@@ -2462,10 +2471,11 @@ function FormTable({
                                     >
                                       Approved
                                     </Button> */}
-                                  </>
-                                )}
+                              {/* </>
+                                )} */}
                             </td>
 
+                            {/* ///////ini approve operasional untuk drivernya////// */}
                             {IsiKomenRejectSP === "Tidak Menggunakan unit" ? (
                               <Alert
                                 type="error"
@@ -2481,6 +2491,7 @@ function FormTable({
                                 onClick={() => {
                                   handleShow(data.idmpd);
                                   approvebaru(data.idmpd);
+                                  setNamaMobilDariTable(data.kendaraan)
                                 }}
                                 className="mt-2"
                                 disabled={LoadingMuterMuter}
@@ -2491,18 +2502,22 @@ function FormTable({
                               data.supirId !== 0 &&
                               data.unitId !== 0 ? (
                               <Button
-                                disabled
+                                // disabled
                                 size="sm"
-                                variant="primary"
+                                type="danger"
+                                variant="danger"
+                                style={{color: "white" , backgroundColor : "red"}}
                                 onClick={() => {
                                   handleShow(data.idmpd);
                                   approvebaru(data.idmpd);
+                                  setNamaMobilDariTable(data.kendaraan)
                                 }}
                                 className="mt-2"
                               >
-                                Approved
+                                Edit
                               </Button>
                             ) : null}
+                            {/* ///////END ini approve operasional untuk drivernya////// */}
 
                             {/* 
                             {(jobdesk == "operasional" && data.supirId === 0 && data.unitId === 0
@@ -2591,7 +2606,7 @@ function FormTable({
           {/* {(jobdesk === "purchasing") && ( */}
           <Table>
             <Row>
-          
+
               <Col
                 span={12}
                 style={{ marginLeft: "10px" }}
@@ -2612,7 +2627,7 @@ function FormTable({
               </Col>
             </Row>
             <Row>
-          
+
               <Col
                 span={12}
                 style={{ marginLeft: "10px" }}
@@ -2623,59 +2638,59 @@ function FormTable({
                     <td style={{ paddingRight: "20px" }}> Biaya Bongkar </td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="150px" style={{ paddingLeft: "10px" }}>
-                    {IsiDataSPSemua?.totalBongkar?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
+                      {IsiDataSPSemua?.totalBongkar?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
                     </td>
                   </tr>
                 </div>
               </Col>
             </Row>
             <Row>
-          
-          <Col
-            span={12}
-            style={{ marginLeft: "10px" }}
-            className="d-flex justify-content-end"
-          >
-            <div>
-              <tr style={{ fontWeight: "bold" }}>
-                <td style={{ paddingRight: "20px" }}>Biaya Mel</td>
-                <td style={{ paddingRight: "10px" }}>:</td>
-                <td width="150px" style={{ paddingLeft: "10px" }}>
-                {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
-                style: "currency",
-                currency: "IDR",
-              })}
-                </td>
-              </tr>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-      
-          <Col
-            span={12}
-            style={{ marginLeft: "10px" }}
-            className="d-flex justify-content-end"
-          >
-            <div>
-              <tr style={{ fontWeight: "bold" }}>
-                <td style={{ paddingRight: "20px" }}> Biaya Inap</td>
-                <td style={{ paddingRight: "10px" }}>:</td>
-                <td width="150px" style={{ paddingLeft: "10px" }}>
-                {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
-                style: "currency",
-                currency: "IDR",
-              })}
-                </td>
-              </tr>
-            </div>
-          </Col>
-        </Row>
+
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}>Biaya Mel</td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="150px" style={{ paddingLeft: "10px" }}>
+                      {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
             <Row>
-          
+
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}> Biaya Inap</td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="150px" style={{ paddingLeft: "10px" }}>
+                      {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+
               <Col
                 span={12}
                 style={{ marginLeft: "10px" }}
@@ -2686,17 +2701,17 @@ function FormTable({
                     <td style={{ paddingRight: "20px" }}> Biaya MultiDrop</td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="150px" style={{ paddingLeft: "10px" }}>
-                    Rp 0,00 {IsiDataSPSemua?.biaya_multidrop?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
+                      Rp 0,00 {IsiDataSPSemua?.biaya_multidrop?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
                     </td>
                   </tr>
                 </div>
               </Col>
             </Row>
             <Row>
-          
+
               <Col
                 span={12}
                 style={{ marginLeft: "10px" }}
@@ -2707,19 +2722,19 @@ function FormTable({
                     <td style={{ paddingRight: "20px" }}>Biaya Overtonase</td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="150px" style={{ paddingLeft: "10px" }}>
-                    Rp 0,00  {IsiDataSPSemua?.biaya_overtonase?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
+                      Rp 0,00  {IsiDataSPSemua?.biaya_overtonase?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
                     </td>
                   </tr>
                 </div>
               </Col>
             </Row>
-           
+
             <hr />
             <Row>
-          
+
               <Col
                 span={12}
                 style={{ marginLeft: "10px" }}
@@ -2730,10 +2745,10 @@ function FormTable({
                     <td style={{ paddingRight: "20px" }}>TOTAL KESELURUHAN</td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="150px" style={{ paddingLeft: "10px" }}>
-                    {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
+                      {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
                     </td>
                   </tr>
                 </div>
