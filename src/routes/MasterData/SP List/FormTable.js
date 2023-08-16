@@ -37,6 +37,7 @@ function FormTable({
   IsiDataSPSemua,
   NamaMarketing,
   JenisBarang,
+  messagedetail
 }) {
   const [modal1Open, setModal1Open] = useState(false);
   const [jobdesk, setJobdesk] = useState(localStorage.getItem("jobdesk"));
@@ -265,10 +266,10 @@ function FormTable({
         id_mitra_pickup: 1,
         id_mitra_2: 1,
         plat_nomor: selectnopol,
-        merk: types[0],
+        merk: NamaMobilDariTable,
         is_multi: checkboxValue,
 
-        pickup_kendaraan: types[0] || "",
+        pickup_kendaraan: NamaMobilDariTable || "",
         pickup_nopol: selectnopol,
         pickup_supir: selectDriver[0]?.name ? selectDriver[0]?.name : idUnit,
       };
@@ -286,13 +287,14 @@ function FormTable({
           console.log(`data approve`, approved);
 
           // Display success alert
+          messagedetail()
           Swal.fire({
             icon: "success",
             title: "Approval Successful",
             text: "The approval process has been completed successfully.",
           });
           setLoadingMuterMuter(false);
-          window.location.reload();
+          // window.location.reload();
           handleClose();
         })
         .catch((error) => console.error(`Error: ${error}`));

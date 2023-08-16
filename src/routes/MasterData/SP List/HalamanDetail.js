@@ -213,6 +213,7 @@ function HalamanDetail() {
           IsiDataSPSemua={IsiDataSPSemua}
           isidata={isidata}
           idmp={idmp}
+          messagedetail={messagedetail}
         ></FormTable>
         <Form>
           <Form.Group controlId="inputText">
