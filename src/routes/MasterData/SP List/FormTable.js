@@ -143,7 +143,7 @@ function FormTable({
     FetchTipeKendaraan: state.FetchTipeKendaraan,
   }));
   const [FotoDriver, setFotoDriver] = useState("");
-  const [Mitra1Multi, setMitra1Multi] = useState([]);
+  const [Mitra1Multi, setMitra1Multi] = useState("");
   const [StatusApproveAct, setStatusApproveAct] = useState("");
   const [TanggalACT3, setTanggalACT3] = useState("");
   const [TanggalACT4, setTanggalACT4] = useState("");
@@ -157,7 +157,7 @@ function FormTable({
   const history = useHistory();
   const [selectTypeMobil, setselectTypeMobil] = useState("");
   const [selectTypeMobil2, setselectTypeMobil2] = useState("");
-
+  const [DataUntukPurchsingDanApprovenya, setDataUntukPurchsingDanApprovenya] = useState("")
   ////checkbox multi
   const handleCheckboxChange = (event) => {
     setCheckboxValue(event.target.checked ? 1 : 0);
@@ -209,6 +209,7 @@ function FormTable({
       vehicle();
     }
     FetchTipeKendaraan();
+    console.log(`TipeKendaraan`,TipeKendaraan);
   }, [types, selectnomor, mitra2, selectnomor2, selectTypeMobil2]); // pastikan Anda memasukkan semua variabel yang Anda gunakan sebagai dependensi useEffect
 
   // console.log(`ini NamaDriverFix2`, NamaDriverFix2);
@@ -223,7 +224,6 @@ function FormTable({
           Authorization: localStorage.getItem("token"),
         },
       });
-      console.log(`ini op driver `, sleet.data?.data.vehicle);
       setKodeKendaraanOps(sleet.data?.data.vehicle);
     };
 
@@ -284,7 +284,6 @@ function FormTable({
         .then((response) => {
           const isidata = response.data.status;
           setApproved(isidata);
-          console.log(`data approve`, approved);
 
           // Display success alert
           messagedetail()
@@ -299,7 +298,6 @@ function FormTable({
         })
         .catch((error) => console.error(`Error: ${error}`));
     } catch (error) {
-      console.log(error.response);
       notification.error({
         icon: "error",
         message: error.response.status.message
@@ -309,52 +307,59 @@ function FormTable({
 
   ///tombol approve
   const HandleApprovePURCH = (idmpd) => {
-    const body = {
-      // id_mp: idmp,
-      // id_mpd: IDMPD,
-      // id_unit: selectDriver[0]?.idUnit,
-      // id_supir: selectnomor,
-      // id_mitra: selectMitra,
-      // id_mitra_pickup: ``,
-      // id_mitra_2: ``,
-      // plat_nomor: selectnopol,
-      // merk: types[0],
-      id_mp: idmp,
-      id_mpd: IDMPD,
-      id_unit: selectDriver[0]?.idUnit ? selectDriver[0]?.idUnit : idUnit,
-      id_unit_2: selectnomor,
-      id_unit_3: selectnomor2,
-      id_driver: selectDriver?.[0]?.idUnit,
-      id_driver_2: idUnit,
-      id_driver_3: idUnit2,
-      id_mitra_pickup: 1,
-      id_mitra: mitra1,
-      id_mitra_2: mitra1,
-      id_mitra_3: mitra2,
-    };
+    try {
+      const body = {
+        // id_mp: idmp,
+        // id_mpd: IDMPD,
+        // id_unit: selectDriver[0]?.idUnit,
+        // id_supir: selectnomor,
+        // id_mitra: selectMitra,
+        // id_mitra_pickup: ``,
+        // id_mitra_2: ``,
+        // plat_nomor: selectnopol,
+        // merk: types[0],
+        id_mp: idmp,
+        id_mpd: IDMPD,
+        id_unit: selectDriver[0]?.idUnit ? selectDriver[0]?.idUnit : idUnit,
+        id_unit_2: selectnomor,
+        id_unit_3: selectnomor2,
+        id_driver: selectDriver?.[0]?.idUnit,
+        id_driver_2: idUnit,
+        id_driver_3: idUnit2,
+        id_mitra_pickup: 1,
+        id_mitra: mitra1,
+        id_mitra_2: mitra1,
+        id_mitra_3: mitra2,
+      };
 
-    axios
-      .post(`${Baseurl}sp/approve-SP-purch`, body, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      })
-      .then((response) => {
-        const isidata = response.data.status;
-        setApproved(isidata);
-        // console.log(`data approve`, approved);
+      const response = axios
+        .post(`${Baseurl}sp/approve-SP-purch`, body, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        })
+      const isidata = response.data.status;
+      setApproved(isidata);
+      // console.log(`data approve`, approved);
 
-        // Display success alert
-        Swal.fire({
-          icon: "success",
-          title: "Approval Successful",
-          text: "The approval process has been completed successfully.",
-        });
-        handleClose();
-        window.location.reload();
+      // Display success alert
+      Swal.fire({
+        icon: "success",
+        title: "Approval Successful",
+        text: "The approval process has been completed successfully.",
+      });
+      handleClose();
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+      notification.error({
+        message: "Error",
+        description: "Ada Kesalahan Dalam Approve , Data Tidak Boleh Kosong",
       })
-      .catch((error) => console.error(`Error: ${error}`));
+      handleClose();
+    }
+
   };
   const handleAnotherDriverClick = () => {
     setBukaanother(true);
@@ -505,9 +510,10 @@ function FormTable({
       window.removeEventListener("storage", handleStorageChange);
     };
   }, []);
-  const approvebaru = (idMpd) => {
+  const approvebaru = (idMpd, data) => {
     setIDMPD(idMpd);
     handleShow();
+    setDataUntukPurchsingDanApprovenya(data)
     // HandleApproveOPS(idMpd)
     // HandleApprovePURCH(idMpd)
   };
@@ -756,7 +762,6 @@ function FormTable({
         text: "Data kendaraan berhasil ditambahkan",
       });
     } catch (error) {
-      console.log(error);
       Swal.fire({
         icon: "error",
         title: "Gagal",
@@ -764,6 +769,7 @@ function FormTable({
       });
     }
   };
+  console.log('TipeKendaraan', TipeKendaraan);
 
   return (
     <>
@@ -1957,12 +1963,12 @@ function FormTable({
                             <Form.Label>Select Mitra 1</Form.Label>
                             <Form.Select
                               disabled
-                              value={Mitra1Multi?.driverName || ""}
+                              value={Mitra1Multi?.mitra || ""}
                               onChange={() => { }}
                             >
                               {Mitra1Multi && (
                                 <option value={Mitra1Multi.driverName}>
-                                  {Mitra1Multi.driverName}
+                                  {Mitra1Multi.mitra}
                                 </option>
                               )}
                             </Form.Select>
@@ -1975,7 +1981,7 @@ function FormTable({
                         <Form.Select
                           type="text"
                           disabled
-                          value={Mitra1Multi?.tipeKendaraan}
+                          value={DataUntukPurchsingDanApprovenya?.kendaraan}
                           onChange={(e) => { }}
                         >
                           {types.map((type, index) => (
@@ -2508,7 +2514,7 @@ function FormTable({
                                 size="sm"
                                 type="danger"
                                 variant="danger"
-                                style={{color: "white" , backgroundColor : "red"}}
+                                style={{ color: "white", backgroundColor: "red" }}
                                 onClick={() => {
                                   handleShow(data.idmpd);
                                   approvebaru(data.idmpd);
@@ -2565,7 +2571,8 @@ function FormTable({
                                     variant="primary"
                                     onClick={() => {
                                       handleShow(data.idmpd);
-                                      approvebaru(data.idmpd);
+                                      approvebaru(data.idmpd, data);
+                                      // FetchTipeKendaraan()
                                     }}
                                     className="mt-2"
                                   >

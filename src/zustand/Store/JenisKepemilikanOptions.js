@@ -74,7 +74,6 @@ const ZustandStore = create((set) => ({
           }
       });
       set({ TipeKendaraan: data.data.data });
-      console.log(`ini`,data.data.data);
     } catch (error) {
       console.error(error);
     }
