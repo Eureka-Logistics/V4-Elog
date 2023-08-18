@@ -25,7 +25,7 @@ function Index() {
                 },
             });
             setDataAwal(response.data.data.order);
-            setTotalRows(response.data.totalData); 
+            setTotalRows(response.data.totalData);
             Isloading(false)
         } catch (error) {
             console.log(error);
@@ -49,9 +49,9 @@ function Index() {
             wrap: true,
             cell: (row) => (
                 <Tag color='blue'>
-                  {row.sp}
+                    {row.sp}
                 </Tag>
-              ),
+            ),
         },
         {
             name: "Perusahaan",
@@ -66,9 +66,9 @@ function Index() {
             wrap: true,
             cell: (row) => (
                 <Tag color={row.service === "Charter" ? "blue" : row.service === "Retailer" ? "green" : "default"}>
-                  {row.service}
+                    {row.service}
                 </Tag>
-              ),
+            ),
         },
         {
             name: "sales Name",
@@ -85,27 +85,14 @@ function Index() {
         {
             name: "Approve By Akunting",
             cell: (row) => {
-                const approveact = row.approveAct;
-                const dateApproveAct = row.dateApproveAct;
-                let displayText =
-                    approveact === "Y" && dateApproveAct !==  "1970-01-01 07:00:00" ||"Invalid date"  ? (
-                        <Tag color="green">
-                            Approve <br /> <small>{dateApproveAct}</small>
-                        </Tag>
-                    ) : approveact === "N" && dateApproveAct || "1970-01-01 07:00:00"|| "Invalid date"   ? (
-                        <Tag color="yellow">
-                            Waiting <br /> <small>{dateApproveAct}</small>
-                        </Tag>
-                    ) : (
-                        <Tag color="red">
-                            Diverted <br /> <small>{dateApproveAct}</small>
-                        </Tag>
-                    );
-                return <>{displayText}</>;
+                if (row.approveAct === "N" && row.dateApproveAct === "1970-01-01 07:00:00") {
+                    return <Tag color="yellow">Waiting</Tag>;
+                } else {
+                    return <Tag color="green">Approve</Tag>;
+                }
             },
             width: "200px",
         },
-
     ];
 
     const buttonarahin = (row) => {
@@ -122,7 +109,7 @@ function Index() {
         <div>
             <Card>
                 <Row>
-                    <h5 style={{color: '#1A5CBF', fontWeight: 'bold'}}>Waiting Approve Sp </h5>
+                    <h5 style={{ color: '#1A5CBF', fontWeight: 'bold' }}>Waiting Approve Sp </h5>
                     <div className="d-flex justify-content-end">
                         <Col sm={3}>
                             <Form.Control

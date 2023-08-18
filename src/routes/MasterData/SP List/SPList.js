@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Tag } from "antd";
+import { Card, Tag, notification } from "antd";
 import { Col, Row, Form, Button } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import axios from "axios";
@@ -18,24 +18,33 @@ function SPList() {
   const [pageSize, setPageSize] = useState(10);
 
   const dataapi = async (page = 1) => {
-    const isi = await axios.get(
-      `${Baseurl}sp/get-SP?limit=${pageSize}&page=${page}&keyword=${spId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      }
-    );
-
-    const isidata = isi.data.data.order;
-    setTotalPage(isi.data.data.totalData);
-    setPagination({
-      currentPage: isi.data.data.currentPage,
-      limit: isi.data.data.limit,
-    });
-
-    setIsiData(isidata);
+    try {
+      const isi = await axios.get(
+        `${Baseurl}sp/get-SP?limit=${pageSize}&page=${page}&keyword=${spId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+  
+      const isidata = isi.data.data.order;
+      setTotalPage(isi.data.data.totalData);
+      setPagination({
+        currentPage: isi.data.data.currentPage,
+        limit: isi.data.data.limit,
+      });
+  
+      setIsiData(isidata);
+    } catch (error) {
+      console.log(error.response.data.status.message);
+      notification.error({
+        message: "Error",
+        description: error.response.data.status.message,
+      })
+    }
+   
   };
   useEffect(() => {
     dataapi(pagination.currentPage, spId);
@@ -49,7 +58,7 @@ function SPList() {
   };
 
   useEffect(() => {
-    dataapi(pagination.currentPage, spId);
+    // dataapi(pagination.currentPage, spId);
   }, [pagination.currentPage, spId, TotalPage]);
 
   // useEffect(() => {
