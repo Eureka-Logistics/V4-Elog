@@ -29,6 +29,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import useMitraStore from "../../../zustand/Store/MitraStore";
+import ModalCreatePO from "./ModalCreatePO/Index";
 
 function FormTable({
   isidata,
@@ -203,15 +204,16 @@ function FormTable({
       setNamaDriverFix2(sleet.data.data.Driver);
       // const nomorpolisis = sleet.data.data.vehicle;
       // const drivernya = sleet.data.data.Driver;
+      FetchTipeKendaraan()
     };
 
     if (types.length > 0) {
       vehicle();
     }
-    FetchTipeKendaraan();
-    console.log(`TipeKendaraan`,TipeKendaraan);
-  }, [types, selectnomor, mitra2, selectnomor2, selectTypeMobil2]); // pastikan Anda memasukkan semua variabel yang Anda gunakan sebagai dependensi useEffect
 
+
+  }, [types, selectnomor, mitra2, selectnomor2, selectTypeMobil2]); // pastikan Anda memasukkan semua variabel yang Anda gunakan sebagai dependensi useEffect
+  console.log(`ini TipeKendaraan`, TipeKendaraan);
   // console.log(`ini NamaDriverFix2`, NamaDriverFix2);
   ///// approve op operasional
   useEffect(() => {
@@ -318,7 +320,7 @@ function FormTable({
         // id_mitra_2: ``,
         // plat_nomor: selectnopol,
         // merk: types[0],
-        id_mp: idmp,
+        id_mp:parseInt(idmp),
         id_mpd: IDMPD,
         id_unit: selectDriver[0]?.idUnit ? selectDriver[0]?.idUnit : idUnit,
         id_unit_2: selectnomor,
@@ -339,7 +341,7 @@ function FormTable({
             Authorization: localStorage.getItem("token"),
           },
         })
-      const isidata = response.data.status;
+      const isidata = response?.data?.status;
       setApproved(isidata);
       // console.log(`data approve`, approved);
 
@@ -349,8 +351,9 @@ function FormTable({
         title: "Approval Successful",
         text: "The approval process has been completed successfully.",
       });
+      messagedetail()
       handleClose();
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.log(error);
       notification.error({
@@ -769,7 +772,9 @@ function FormTable({
       });
     }
   };
-  console.log('TipeKendaraan', TipeKendaraan);
+
+  const [ShowModalCreatePO, setShowModalCreatePO] = useState(false);
+
 
   return (
     <>
@@ -1962,7 +1967,6 @@ function FormTable({
                           <>
                             <Form.Label>Select Mitra 1</Form.Label>
                             <Form.Select
-                              disabled
                               value={Mitra1Multi?.mitra || ""}
                               onChange={() => { }}
                             >
@@ -1980,20 +1984,26 @@ function FormTable({
                         <Form.Label>Vehicle Type</Form.Label>
                         <Form.Select
                           type="text"
-                          disabled
+                          // disabled
                           value={DataUntukPurchsingDanApprovenya?.kendaraan}
-                          onChange={(e) => { }}
+                          onChange={(e) => { setDataUntukPurchsingDanApprovenya(e.target.value) }}
                         >
-                          {types.map((type, index) => (
+                          {/* {types.map((type, index) => (
                             <option key={index} value={type}>
                               {type}
                             </option>
-                          ))}
+                          ))} */}
+                          {TipeKendaraan &&
+                            TipeKendaraan.tipe && TipeKendaraan.tipe.map((type, index) => (
+                              <option key={index} value={type.id}>
+                                {type.tipe}
+                              </option>
+                            ))}
                         </Form.Select>
                       </Col>
                       <Col sm={3}>
                         <Form.Label>Kode Kendaraan</Form.Label>
-                        <Form.Select disabled value={Mitra1Multi?.unit}>
+                        <Form.Select value={Mitra1Multi?.unit}>
                           Mitra1Multi && (
                           <option value={Mitra1Multi?.unit}>
                             {Mitra1Multi?.unit}
@@ -2004,17 +2014,20 @@ function FormTable({
                       <Col sm={3}>
                         <Form.Label>Select Driver</Form.Label>
                         <Form.Select
-                          disabled
+                          // disabled
                           value={Mitra1Multi?.driverName || ""}
                           onChange={(e) => {
                             setIdunit3(e.target.value);
                           }}
+
                         >
+
                           {Mitra1Multi && (
                             <option value={Mitra1Multi.driverName}>
                               {Mitra1Multi.driverName}
                             </option>
                           )}
+
                         </Form.Select>
                       </Col>
                       <Col sm={3}>
@@ -2044,7 +2057,7 @@ function FormTable({
                         >
                           <option>Select Type</option>
                           {TipeKendaraan &&
-                            TipeKendaraan.map((type, index) => (
+                            TipeKendaraan.tipe && TipeKendaraan.tipe.map((type, index) => (
                               <option key={index} value={type.id}>
                                 {type.tipe}
                               </option>
@@ -2114,7 +2127,7 @@ function FormTable({
                         >
                           <option>Select Type</option>
                           {TipeKendaraan &&
-                            TipeKendaraan.map((type, index) => (
+                            TipeKendaraan.tipe && TipeKendaraan.tipe.map((type, index) => (
                               <option key={index} value={type.id}>
                                 {type.tipe}
                               </option>
@@ -2297,19 +2310,31 @@ function FormTable({
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group> */}
       </Row>
-      <br />
+      {/* <br /> */}
       <Row>
         <Col>
           <Table responsive>
-            <thead></thead>
+            {/* <thead></thead> */}
             <tbody>
+              {
+                jobdesk === "purchasing" && (
+                  <>
+                    <Button onClick={() => setShowModalCreatePO(true)} variant="danger" style={{ position: 'relative', top: '70px' }}>
+                      Create PO
+                    </Button>
+                    <ModalCreatePO show={ShowModalCreatePO} onHide={() => setShowModalCreatePO(false)} />
+                  </>
+                )
+              }
+
+
               {IsiDataSPSemua &&
                 IsiDataSPSemua.detail &&
                 IsiDataSPSemua.detail.map((data, index) => (
                   <>
                     <tr style={{ fontWeight: "bold" }}>
                       <td colSpan={10}>
-                        <hr />
+                        {/* <hr /> */}
                         <br />{" "}
                       </td>
                     </tr>

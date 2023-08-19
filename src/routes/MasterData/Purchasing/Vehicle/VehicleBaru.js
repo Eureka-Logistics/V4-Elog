@@ -77,8 +77,8 @@ function VehicleBaru() {
             .required('Jenis Kendaraan wajib diisi'),
         vendor: Yup.string()
             .required('Vendor Kendaraan wajib diisi'),
-        nama_driver: Yup.string().required('Nama Driver wajib diisi') 
-        .matches('A-Z', "Nama tidak boleh menggunakan symbol dan angka"),
+        // nama_driver: Yup.string().required('Nama Driver wajib diisi') 
+        // .matches('A-Z', "Nama tidak boleh menggunakan symbol dan angka"),
         // jenis_SIM: Yup.string().required('Jenis SIM wajib diisi'),
         // warna_plat: Yup.string().required('Warna Plat wajib diisi'),
         // merk_mobil: Yup.string().required('Merk Mobil wajib diisi')

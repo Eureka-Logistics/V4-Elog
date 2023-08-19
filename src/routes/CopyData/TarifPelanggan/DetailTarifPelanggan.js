@@ -306,8 +306,8 @@ function DetailTarifPelanggan() {
               style={{ width: "90%" }}
               onChange={(e) => setServiceType(e)}
             >
-              <Option value="Reguler">Reguler</Option>
-              <Option value="Express">Express</Option>
+             <Option value="Retail">Retail</Option>
+              <Option value="Charter">Charter</Option>
             </Select>
           </Col>
           <Col className="mt-2" span={6}>
@@ -318,8 +318,8 @@ function DetailTarifPelanggan() {
               style={{ width: "90%" }}
               onChange={(e) => setJenisKiriman(e)}
             >
-              <Option value="Retail">Retail</Option>
-              <Option value="Charter">Charter</Option>
+              <Option value="Reguler">Reguler</Option>
+              <Option value="Express">Express</Option>
             </Select>
           </Col>
           <Col className="mt-2" span={6}>
