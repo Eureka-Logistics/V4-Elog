@@ -207,6 +207,12 @@ const App = ({ match }) => {
           )}
         />
         <Route
+          path={`${match.url}mastermitraNewCreate`}
+          component={asyncComponent(() =>
+            import("./CopyData/MasterMitraOld/Form/NewDataMasterMitra")
+          )}
+        />
+        <Route
           path={`${match.url}mastermitraPIC/:mitraId`}
           component={asyncComponent(() =>
             import("./CopyData/MasterMitraOld/Form/CreatedPIC")
@@ -473,6 +479,79 @@ const App = ({ match }) => {
             import("./CopyData/TarifEureka/create")
           )}
         />
+        <Route
+          path={`${match.url}DataBUIndex`}
+          component={asyncComponent(() =>
+            import("./MasterData/BU/BU/IndexBU")
+          )}
+        />
+        <Route
+          path={`${match.url}createdataBU`}
+          component={asyncComponent(() =>
+            import("./MasterData/BU/BU/CreateBU")
+          )}
+        />
+        <Route
+          path={`${match.url}dataBisnisUnit/:buId`}
+          component={asyncComponent(() =>
+            import("./MasterData/BU/BU/EditDetailBU")
+          )}
+        />
+        <Route
+          path={`${match.url}DataBuEmployee`}
+          component={asyncComponent(() =>
+            import("./MasterData/BU/BUEmployee/IndexEmployee")
+          )}
+        />
+        <Route
+          path={`${match.url}CreateDataEmployee`}
+          component={asyncComponent(() =>
+            import("./MasterData/BU/BUEmployee/CreateBUEmployee")
+          )}
+        />
+        <Route
+          path={`${match.url}EditDetailEmployeeBU/:idEmploye`}
+          component={asyncComponent(() =>
+            import("./MasterData/BU/BUEmployee/Detail")
+          )}
+        />
+        <Route
+          path={`${match.url}DataBuBrench`}
+          component={asyncComponent(() =>
+            import("./MasterData/BU/BUBrench/IndexBrench")
+          )}
+        />
+        <Route
+          path={`${match.url}CreatedDataBuBrench`}
+          component={asyncComponent(() =>
+            import("./MasterData/BU/BUBrench/CreateBuBrench")
+          )}
+        />
+        <Route
+          path={`${match.url}DetailBuBrench/:bubrenchId`}
+          component={asyncComponent(() =>
+            import("./MasterData/BU/BUBrench/EditDetailBrench")
+          )}
+        />
+          <Route
+          path={`${match.url}DataBuEmployeePosition`}
+          component={asyncComponent(() =>
+            import("./MasterData/BU/BUEmployeePosition/Index")
+          )}
+        />
+          <Route
+          path={`${match.url}DataBuEmployeePositionEditDetail/:id`}
+          component={asyncComponent(() =>
+            import("./MasterData/BU/BUEmployeePosition/EditDetailPosition")
+          )}
+        />
+          <Route
+          path={`${match.url}CreateBuEmployeePositionEditDetail`}
+          component={asyncComponent(() =>
+            import("./MasterData/BU/BUEmployeePosition/CreateEmployeePosition")
+          )}
+        />
+       
 
         <Route
           path={`${match.url}pelanggantarif`}

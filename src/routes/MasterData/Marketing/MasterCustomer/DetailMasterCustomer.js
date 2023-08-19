@@ -7,11 +7,14 @@ import Swal from "sweetalert2";
 import * as Yup from "yup";
 import { async } from "q";
 import moment from "moment";
+import useBanksStore from "../../../../zustand/Store/NamaNamaBank";
+import { Form } from "react-bootstrap";
 
 const { Option } = Select;
 
 function DetailMasterCustomer() {
   const { id_customer } = useParams();
+  const { banks } = useBanksStore();
   const [NamaPerusahaan, setDataNamaPerusahaan] = useState("");
   const [DetailDataMasterCustomer, setDataDetailDataMasterCustomer] =
     useState("");
@@ -260,7 +263,7 @@ function DetailMasterCustomer() {
             <label style={{ fontWeight: "bold" }}>Date Register : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
-            disabled
+              disabled
               className="mt-2"
               placeholder={DetailDataMasterCustomer.tgl_bergabung}
               value={DataTanggalBergabung}
@@ -274,7 +277,7 @@ function DetailMasterCustomer() {
             <label style={{ fontWeight: "bold" }}>Tanggal Berdiri : </label>
             {/* Menggunakan DatePicker dari Ant Design dengan Moment.js */}
             <DatePicker
-            style={{width: '100%'}}
+              style={{ width: "100%" }}
               className="mt-2"
               value={moment(TanggalBerdiri)} // Konversi nilai TanggalBerdiri ke objek Moment
               onChange={(date, dateString) => {
@@ -339,7 +342,7 @@ function DetailMasterCustomer() {
             <label style={{ fontWeight: "bold" }}>Company Anniversary :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
-            type="number"
+              type="number"
               className="mt-2"
               placeholder={DetailDataMasterCustomer.tahun_berdiri}
               value={DataTahunBerdiri}
@@ -369,7 +372,7 @@ function DetailMasterCustomer() {
             <label style={{ fontWeight: "bold" }}>Telp Office :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
-            type="number"
+              type="number"
               className="mt-2"
               placeholder={DetailDataMasterCustomer.telepon}
               value={TeleponKantor}
@@ -444,7 +447,6 @@ function DetailMasterCustomer() {
             <label style={{ fontWeight: "bold" }}>PIC Phone : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
-           
               className="mt-2"
               placeholder={DetailDataMasterCustomer.pic_phone}
               value={PicPhone}
@@ -458,7 +460,7 @@ function DetailMasterCustomer() {
             <label style={{ fontWeight: "bold" }}>PIC Birthday : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <DatePicker
-            style={{width: '100%'}}
+              style={{ width: "100%" }}
               className="mt-2"
               value={moment(PicBirth)} // Konversi nilai TanggalBerdiri ke objek Moment
               onChange={(date, dateStrings) => {
@@ -609,7 +611,7 @@ function DetailMasterCustomer() {
             <label style={{ fontWeight: "bold" }}>TAX Phone Office : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
-            type="number"
+              type="number"
               className="mt-2"
               placeholder={DetailDataMasterCustomer.tax_phone_office}
               value={TaxPhoneOffice}
@@ -623,7 +625,7 @@ function DetailMasterCustomer() {
             <label style={{ fontWeight: "bold" }}> TAX Mobile : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
-            type="number"
+              type="number"
               className="mt-2"
               placeholder={DetailDataMasterCustomer.tax_mobile}
               value={TaxMobile}
@@ -641,9 +643,33 @@ function DetailMasterCustomer() {
         <br />
         <Row className="mt-3">
           <Col span={8}>
-            <label style={{ fontWeight: "bold" }}>Bank Name : </label>
+            <Form.Group>
+              <Form.Label style={{ fontWeight: "bold" }}>
+                Bank Name :
+              </Form.Label>
+              <Select
+                style={{ width: "100%" }}
+                name="nama_bank"
+                // value={formik.values.nama_bank}
+                // onChange={(e) => formik.setFieldValue("nama_bank", e)}
+                showSearch
+                optionFilterProp="children"
+                
+                value={NamaBank}
+                onChange={(e) => {
+                  console.log(e);
+                  setDataNamaBank(e);
+                }}
+              >
+                {banks &&
+                  banks.map((i) => <select value={i.name}>{i.name}</select>)}
+              </Select>
+            </Form.Group>
+          </Col>
+          {/* <Col span={8}> */}
+            {/* <label style={{ fontWeight: "bold" }}>Bank Name : </label> */}
             {/* Menghubungkan input tarif dengan state tarif */}
-            <Input
+            {/* <Input
               className="mt-2"
               placeholder={DetailDataMasterCustomer.nama_bank}
               value={NamaBank}
@@ -651,8 +677,8 @@ function DetailMasterCustomer() {
                 console.log(e.target.value);
                 setDataNamaBank(e.target.value);
               }}
-            />
-          </Col>
+            /> */}
+          {/* </Col> */}
           <Col span={8}>
             <label style={{ fontWeight: "bold" }}> Account Name : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
@@ -687,7 +713,7 @@ function DetailMasterCustomer() {
               className="mt-2"
               // placeholder={DetailDataMasterCustomer.jenis_pembayaran}
               value={JenisPembayaran}
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               onChange={(e) => setDataJenisPembayaran(e)}
             >
               <Option value="Cash">Cash</Option>
@@ -770,7 +796,7 @@ function DetailMasterCustomer() {
             <label style={{ fontWeight: "bold" }}> BANK Office Phone : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
-            type="number"
+              type="number"
               className="mt-2"
               placeholder={DetailDataMasterCustomer.bank_phone_office}
               value={BankPhoneOffice}
@@ -786,7 +812,7 @@ function DetailMasterCustomer() {
             <label style={{ fontWeight: "bold" }}>BANK Mobile : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
-            type="number"
+              type="number"
               className="mt-2"
               placeholder={DetailDataMasterCustomer.bank_mobile}
               value={BankMobilee}
@@ -849,7 +875,7 @@ function DetailMasterCustomer() {
             <label style={{ fontWeight: "bold" }}>INV Office Phone : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
-            type="number"
+              type="number"
               className="mt-2"
               // placeholder={DetailDataMasterCustomer.invoice_phone_office}
               value={InvoicePhoneOffice}
@@ -863,7 +889,7 @@ function DetailMasterCustomer() {
             <label style={{ fontWeight: "bold" }}>INV Mobile : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
-            type="number"
+              type="number"
               className="mt-2"
               placeholder={DetailDataMasterCustomer.invoice_mobile}
               value={InvoiceMobile}

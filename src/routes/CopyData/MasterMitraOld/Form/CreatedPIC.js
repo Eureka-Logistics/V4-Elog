@@ -40,8 +40,7 @@ function CreatedPIC() {
 
   const GetSelectData = async () => {
     try {
-      const respons = await axios.get(`${Baseurl}mitra/get-select-mitraPic`, 
-      {
+      const respons = await axios.get(`${Baseurl}mitra/get-select-mitraPic`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token"),

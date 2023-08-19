@@ -13,6 +13,7 @@ import axios from "axios";
 import Baseurl from "../../../../Api/BaseUrl";
 import moment from "moment";
 import DataBaru from "./Databaru";
+import useBanksStore from "../../../../zustand/Store/NamaNamaBank";
 
 const { RangePicker } = DatePicker;
 
@@ -35,111 +36,55 @@ const SamplePage = () => {
   const [datanyaPT, setDatanyaPT] = useState("");
   const [isiValues, setIsiValues] = useState("");
   const [DataOptions, setDataOptions] = useState("");
+  const { banks } = useBanksStore();
 
   const formik = useFormik({
     initialValues: {
-      kode_mitra: "",
-      kode: "",
-      qrcode: "",
-      nama_mitra: "",
-      title: "",
-      jenis: "",
-      jenis_usaha: "",
-      kepemilikan: "",
-      jumlah_armada: "",
-      jumlah_sdm_operasional: "",
-      cabang: "",
-      jenis_kiriman: "",
-      wilayah: "",
-      tujuan: "",
-      tahun_awal_kontrak: "",
-      awal_kontrak: "",
-      akhir_kontrak: "",
-      kontrak: "",
-      direktur: "",
-      tahun_berdiri: "",
-      npwp_id: "",
-      npwp_name: "",
-      npwp_address: "",
-      npwp_jalan: "",
-      npwp_blok: "",
-      npwp_nomor: "",
-      npwp_rt: "",
-      npwp_rw: "",
-      npwp_kelurahan: "",
-      npwp_kecamatan: "",
-      npwp_kota: "",
-      npwp_provinsi: "",
-      npwp_kodepos: "",
-      is_taxable: "",
-      telepon: "",
-      contact_person: "",
-      telp: "",
-      fax: "",
-      email: "",
-      alamat: "",
-      homepage: "",
-      pembayaran: "",
-      nama_bank: "",
-      nama_akun: "",
-      no_rek: "",
-      currency: "",
-      po_legalitas: "",
-      ktp_legalitas: "",
-      akta_pendirian: "",
-      akta_perubahan_dasar: "",
-      akta_susunan_direksi: "",
-      surat_domisili: "",
-      npwp_legalitas: "",
-      skt_legalitas: "",
-      nppkp_legalitas: "",
-      siup_legalitas: "",
-      ijin_pendirian: "",
-      ppmd_legalitas: "",
-      ijin_usaha: "",
-      tdp_legalitas: "",
-      surat_kuasa: "",
-      lama_bekerja: "",
-      jenis_kartu_kredit: "",
-      bank_penerbit: "",
-      laporan_keuangan: "",
-      status_usaha: "",
-      lama_usaha: "",
-      omset_bulanan: "",
-      asset_tanah: "",
-      asset_bangunan: "",
-      asset_kendaraan: "",
-      asset_mesin: "",
-      affiliasi: "",
-      jumlah_unit: "",
-      periode_sewa: "",
-      nilai_sewa: "",
-      nilai_ruu: "",
-      top: "",
-      metode_pembayaran: "",
-      qty_motor: "",
-      rp_motor: "",
-      qty_grandmax: "",
-      rp_grandmax: "",
-      qty_l300: "",
-      rp_l300: "",
-      qty_traga: "",
-      rp_traga: "",
-      qty_cde: "",
-      rp_cde: "",
-      qty_cdd: "",
-      rp_cdd: "",
-      qty_fuso: "",
-      rp_fuso: "",
-      qty_wingbox: "",
-      rp_wingbox: "",
-      qty_trailer20: "",
-      rp_trailer20: "",
-      qty_trailer40: "",
-      rp_trailer40: "",
-      pic_id: "",
-      type: "",
-      memo: "",
+    kode: "",
+    title: "",
+    nama_mitra: "",
+    jenis: "",
+    jenis_usaha: "",
+    kepemilikan: "",
+    jumlah_armada: "",
+    jumlah_sdm_operasional: "",
+    cabang: "",
+    jenis_kiriman: "",
+    wilayah: "",
+    tujuan: "",
+    awal_kontrak: "",
+    akhir_kontrak: "",
+    direktur: "",
+    tahun_berdiri: "",
+    npwp_id: "",
+    npwp_name: "",
+    npwp_address: "",
+    npwp_jalan: "",
+    npwp_blok: "",
+    npwp_nomor: "",
+    npwp_rt: "",
+    npwp_rw: "",
+    npwp_kelurahan: "",
+    npwp_kecamatan: "",
+    npwp_kota: "",
+    npwp_provinsi: "",
+    npwp_kodepos: "",
+    is_taxable: "",
+    telepon: "",
+    contact_person: "",
+    telp: "",
+    fax: "",
+    email: "",
+    alamat: "",
+    homepage: "",
+    pembayaran: "",
+    nama_bank: "",
+    nama_akun: "",
+    no_rek: "",
+    status_usaha: "",
+    metode_pembayaran: "",
+    type: "",
+    memo: "",
     },
     validationSchema: Yup.object({
       nama_perusahaan: Yup.string().max(30, "Must be 30 characters or less"),
@@ -298,7 +243,6 @@ const SamplePage = () => {
   //     console.log(error.message);
   //   });
 
-
   const OptionsData = async () => {
     const data = await axios.get(
       `${Baseurl}mitra/get-select-mitraPic`,
@@ -311,7 +255,7 @@ const SamplePage = () => {
       }
     );
     console.log(data.data, "ini data options");
-    setDataOptions(data.data)
+    setDataOptions(data.data);
   };
 
   useEffect(() => {
@@ -328,7 +272,9 @@ const SamplePage = () => {
           </Button> */}
         </Col>
         <Card>
-          <h5 style={{ color: '#1A5CBF' }}>NAMA DAN ALAMAT PERUSAHAAN(Sold to Party )</h5>
+          <h5 style={{ color: "#1A5CBF" }}>
+            NAMA DAN ALAMAT PERUSAHAAN(Sold to Party )
+          </h5>
           <hr />
           <Row>
             <Col span={4}>
@@ -348,27 +294,30 @@ const SamplePage = () => {
             </Col>
             <Col span={4}>
               <div style={{ marginBottom: "10px" }}>
-                <label style={{ fontWeight: "bold", display: "block" }}>Title:</label>
+                <label style={{ fontWeight: "bold", display: "block" }}>
+                  Title:
+                </label>
                 <Select
                   name="title"
                   style={{ width: "100%", marginTop: "10px" }}
                   // value={formik.values.title} // Uncomment if you're using this
                   onChange={(value) => {
-                    formik.setFieldValue('title', value);
+                    formik.setFieldValue("title", value);
                   }}
                 >
-                  {DataOptions && DataOptions.jabatan.map((i) => (
-                    <option key={i.jabatan} value={i.jabatan}>
-                      {i.jabatan}
-                    </option>
-                  ))}
+                  {DataOptions &&
+                    DataOptions.jabatan.map((i) => (
+                      <option key={i.jabatan} value={i.jabatan}>
+                        {i.jabatan}
+                      </option>
+                    ))}
                 </Select>
                 {/* Display Formik error */}
-                {formik.errors.title &&
-                  <div style={{ color: 'red', marginTop: '5px' }}>
+                {formik.errors.title && (
+                  <div style={{ color: "red", marginTop: "5px" }}>
                     {formik.errors.title}
                   </div>
-                }
+                )}
               </div>
             </Col>
             <Col span={8}>
@@ -621,7 +570,7 @@ const SamplePage = () => {
             </Col>
           </Row>
           <Row className="mt-2">
-            <Col span={8} >
+            <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Wilayah (Operasional):
@@ -680,13 +629,16 @@ const SamplePage = () => {
                   />
                 </InputGroup> */}
                 <DatePicker
-                  style={{ width: '100%' }}
-                  value={formik.values.awal_kontrak ? moment(formik.values.awal_kontrak) : null}
+                  style={{ width: "100%" }}
+                  value={
+                    formik.values.awal_kontrak
+                      ? moment(formik.values.awal_kontrak)
+                      : null
+                  }
                   onChange={(date, dateString) => {
-                    formik.setFieldValue('awal_kontrak', dateString);
+                    formik.setFieldValue("awal_kontrak", dateString);
                   }}
                 />
-
               </Form.Group>
             </Col>
             <Col span={8}>
@@ -703,10 +655,14 @@ const SamplePage = () => {
                   />
                 </InputGroup> */}
                 <DatePicker
-                  style={{ width: '100%' }}
-                  value={formik.values.akhir_kontrak ? moment(formik.values.akhir_kontrak) : null}
+                  style={{ width: "100%" }}
+                  value={
+                    formik.values.akhir_kontrak
+                      ? moment(formik.values.akhir_kontrak)
+                      : null
+                  }
                   onChange={(date, dateString) => {
-                    formik.setFieldValue('akhir_kontrak', dateString);
+                    formik.setFieldValue("akhir_kontrak", dateString);
                   }}
                 />
               </Form.Group>
@@ -729,7 +685,7 @@ const SamplePage = () => {
             </Col>
           </Row>
           <Row className="mt-2">
-            <Col span={24}>
+            <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>Memo :</Form.Label>
                 <InputGroup>
@@ -742,10 +698,28 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Jumlah Unit :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    type="number"
+                    name="jumlah_unit"
+                    value={formik.values.jumlah_unit}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.jumlah_unit}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
           </Row>
           <br />
           <hr />
-          <h5 style={{ color: '#1A5CBF' }}>Data Perpajakan (Tax Information)</h5>
+          <h5 style={{ color: "#1A5CBF" }}>
+            Data Perpajakan (Tax Information)
+          </h5>
           <hr />
           <Row>
             <Col span={12}>
@@ -877,10 +851,10 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                    name="npwp_provisin"
-                    value={formik.values.npwp_provisin}
+                    name="npwp_provinsi"
+                    value={formik.values.npwp_provinsi}
                     onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.npwp_provisin}
+                    isInvalid={!!formik.errors.npwp_provinsi}
                   />
                 </InputGroup>
               </Form.Group>
@@ -949,10 +923,39 @@ const SamplePage = () => {
           </Row>
           <br />
           <hr />
-          <h5 style={{ color: '#1A5CBF' }}>DATA ACCOUNTING (Accounting Information)</h5>
+          <h5 style={{ color: "#1A5CBF" }}>
+            DATA ACCOUNTING (Accounting Information)
+          </h5>
           <br />
           <Row>
             <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Bank Name :
+                </Form.Label>
+                <Select
+                  style={{ width: "100%" }}
+                  name="nama_bank"
+                  value={formik.values.nama_bank}
+                  onChange={(e) => {
+                    console.log(e);
+                    formik.setFieldValue("nama_bank", e);
+                  }}
+                  showSearch
+                  optionFilterProp="children"
+
+                  // value={NamaBank}
+                  // onChange={(e) => {
+                  //   console.log(e);
+                  //   setDataNamaBank(e);
+                  // }}
+                >
+                  {banks &&
+                    banks.map((i) => <select value={i.name}>{i.name}</select>)}
+                </Select>
+              </Form.Group>
+            </Col>
+            {/* <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>Bank : </Form.Label>
                 <InputGroup>
@@ -964,7 +967,7 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-            </Col>
+            </Col> */}
             <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
@@ -1000,7 +1003,7 @@ const SamplePage = () => {
           <br />
           <hr />
           <Row>
-            <Col span={8}>
+            <Col span={6}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Currency :{" "}
@@ -1015,7 +1018,28 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col span={6}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  ToP :{" "}
+                </Form.Label>
+                <Select
+                  value={formik.values.pembayaran}
+                  style={{ width: "100%" }}
+                  onChange={(e) => {
+                    console.log(e);
+                    formik.setFieldValue("pembayaran", e);
+                  }}
+                >
+                  <option value={7}>7</option>
+                  <option value={14}>14</option>
+                  <option value={20}>20</option>
+                  <option value={30}>30</option>
+                  <option value={60}>60</option>
+                </Select>
+              </Form.Group>
+            </Col>
+            <Col span={6}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Type Of Payment :{" "}
@@ -1029,19 +1053,22 @@ const SamplePage = () => {
                   />
                 </InputGroup> */}
                 <Select
-                  value={formik.values.pembayaran}
+                  value={formik.values.metode_pembayaran}
                   style={{ width: "100%" }}
                   onChange={(e) => {
                     console.log(e);
-                    formik.setFieldValue('pembayaran', e);
-                  }}>
-
-                  <option value={'Cash'}>Cash</option>
-                  <option value={'Credit'}>Credit</option>
+                    formik.setFieldValue("metode_pembayaran", e);
+                  }}
+                >
+                  <option value={"TUNAI MUKA"}>TUNAI MUKA</option>
+                  <option value={"TUNAI"}>TUNAI</option>
+                  <option value={"CHECK"}>CHECK</option>
+                  <option value={"TRANSFER"}>TRANSFER</option>
+                  <option value={"CREDIT CARD"}>CREDIT CARD</option>
                 </Select>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col span={6}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Status :{" "}
@@ -1049,10 +1076,11 @@ const SamplePage = () => {
                 <Select
                   style={{ width: "100%" }}
                   onChange={(label) => {
-                    formik.setFieldValue('status', label);
-                  }}>
-                  <option value={'Aktif'}>Aktif</option>
-                  <option value={'Tidak Aktif'}>Tidak Aktif</option>
+                    formik.setFieldValue("type", label);
+                  }}
+                >
+                  <option value={"elogs"}>ELOGS</option>
+                  <option value={"race"}>RACE</option>
                 </Select>
               </Form.Group>
             </Col>
