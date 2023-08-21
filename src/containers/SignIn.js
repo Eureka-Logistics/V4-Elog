@@ -42,10 +42,6 @@ const SignIn = () => {
     );
   };
 
-
-
-  
-
   return (
     <div
       className="gx-app-login-wrap"
