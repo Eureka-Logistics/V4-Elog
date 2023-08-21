@@ -1,16 +1,18 @@
-import { Button, Card, Col, Pagination, Row, Space, Table, Tag } from 'antd'
+import { Button, Card, Col, Pagination, Row, Space, Table, Tag, Modal } from 'antd'
 import React, { useEffect, useState } from 'react'
 import Baseurl from '../../../../Api/BaseUrl';
 import axios from 'axios';
 import { FormOutlined } from '@ant-design/icons';
 import { useHistory } from "react-router-dom";
+import CreateBUEmployee from '../BUEmployee/CreateBUEmployee';
+import CreateEmployeePosition from './CreateEmployeePosition';
 
 function Index() {
   const router = useHistory();
   const [DataBuEmployeePosition, setDataBuEmployeePosition] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const [listData, setListData] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -43,7 +45,7 @@ function Index() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [limit]);
 
   const columns = [
     {
@@ -83,20 +85,32 @@ function Index() {
   ];
 
   const handleAdd = () => {
-    router.push(`/CreateBuEmployeePositionEditDetail/`);
+    // router.push(`/CreateBuEmployeePositionEditDetail/`);
     // router.push(`/pelanggantarifcerate/`);
-    // showModal();
+    showModal();
   };
 
   const ubahHalaman = (pages) => {
     fetchData(pages);
   };
 
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    // Place your logic here to handle OK button click
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <div>
      <Card>
-      <h5>
+      <h5 style={{fontWeight:'bold'}}>
         Data BU Employee Position
       </h5>
       <hr />
@@ -105,6 +119,14 @@ function Index() {
             <Button style={{backgroundColor: '#1A5CBF', color: 'white'}} onClick={handleAdd}>New Position</Button>
           </Col>
         </Row>
+        <Modal
+          title={<span style={{ color: "#1A5CBF" }}><h5 style={{fontWeight: 'bold'}}> Create Employee Position</h5></span>}
+          visible={isModalVisible}
+          footer={null}
+          onCancel={() => setIsModalVisible(false)}
+        >
+          <CreateEmployeePosition />
+        </Modal>
       <div style={{ overflowX: "auto" }}>
           <Table
             className="mt-3"

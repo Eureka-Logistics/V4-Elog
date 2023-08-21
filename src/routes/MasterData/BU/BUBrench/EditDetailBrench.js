@@ -29,7 +29,7 @@ function EditDetailBrench() {
       setDataBrenchh(respons.data.data);
       console.log("ini data detail", respons.data.data);
       setNamaBrench(respons.data.data.name_bu_brench || "");
-      setDataCodeBrench(respons.data.data.code_bu_brench || "");
+      setIDBuCode(respons.data.data.code_bu_brench || "");
       setIDBuBrench(respons.data.data.id_bu || "");
     } catch (error) {}
   };
@@ -53,7 +53,7 @@ function EditDetailBrench() {
         id_bu_brench: bubrenchId,
         code_bu_brench: IDBuCode,
         id_bu: IDBuBrench,
-        name_bu_brench: NamaBrench,
+        // name_bu_brench: NamaBrench,
       };
 
       const response = await axios.post(`${Baseurl}bu/edit-bu-brench`, data, {
@@ -102,9 +102,8 @@ function EditDetailBrench() {
         <h5>Data Detail Bisnis Unit Brench</h5>
         <hr />
         <Row>
-          <Col span={24} className="mt-3">
+          {/* <Col span={24} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Nama BU Brench :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input
                 className="mt-2"
@@ -115,12 +114,20 @@ function EditDetailBrench() {
                 }}
               />
             </div>
-          </Col>
+          </Col> */}
           <Col span={24} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Code BU Brench :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
-            <Select
+            <Input
+                className="mt-2"
+                value={IDBuCode}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setIDBuCode(e.target.value);
+                }}
+              />
+            {/* <Select
               className="mt-2"
               showSearch
               value={DataCodeBrench}
@@ -141,12 +148,20 @@ function EditDetailBrench() {
                     {KotaItem.BU}
                   </Select.Option>
                 ))}
-            </Select>
+            </Select> */}
             </div>
           </Col>
           <Col className="mt-2" span={24}>
             <label style={{fontWeight: "bold"}}>ID BU Brench :</label>
-            <Select
+            <Input
+                className="mt-2"
+                value={IDBuBrench}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setIDBuBrench(e.target.value);
+                }}
+              />
+            {/* <Select
               className="mt-2"
               showSearch
               value={IDBuBrench}
@@ -167,7 +182,7 @@ function EditDetailBrench() {
                     {KotaItem.BU}
                   </Select.Option>
                 ))}
-            </Select>
+            </Select> */}
           </Col>
         </Row>
         <Row>

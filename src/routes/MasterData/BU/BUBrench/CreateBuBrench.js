@@ -1,18 +1,16 @@
-import axios from 'axios';
-import React, { useState } from 'react'
-import Baseurl from '../../../../Api/BaseUrl';
-import { Button, Card, Col, Input, Row } from 'antd';
-import Swal from 'sweetalert2';
+import axios from "axios";
+import React, { useState } from "react";
+import Baseurl from "../../../../Api/BaseUrl";
+import { Button, Card, Col, Input, Row } from "antd";
+import Swal from "sweetalert2";
 
 function CreateBuBrench() {
   const [DataCodeBu, setDataCodeBu] = useState("");
   const [IDBuBrench, setIDBuBrench] = useState("");
   const [IDBu, setIDBu] = useState("");
-  const [DataIDBuBrench, setDataIDBuBrench] = useState(""); 
+  const [DataIDBuBrench, setDataIDBuBrench] = useState("");
   const [DataIDBu, setDataIDBu] = useState("");
   const [DataTambah, setDataTambah] = useState("");
-
-
 
   const TambahData = async () => {
     try {
@@ -48,20 +46,14 @@ function CreateBuBrench() {
     }
   };
 
-
   return (
     <div>
-      
-        <h5>
-          Data New BU Brench
-        </h5>
-        <hr />
-        <Row>
+      <Row>
         <Col span={24}>
           <label style={{ fontWeight: "bold" }}>ID BU Brench :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
-          type='number'
+            type="number"
             className="mt-2 mb-2"
             name="id_bu_brench"
             placeholder="Input ID BU Brench"
@@ -70,12 +62,12 @@ function CreateBuBrench() {
               setIDBuBrench(e.target.value);
             }}
           />
-          </Col>
-          <Col span={24}>
+        </Col>
+        <Col span={24}>
           <label style={{ fontWeight: "bold" }}>Code BU Brench :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
-          type='number'
+            type="number"
             className="mt-2 mb-2"
             name="id_bu"
             placeholder="Input ID BU"
@@ -84,8 +76,8 @@ function CreateBuBrench() {
               setIDBu(e.target.value);
             }}
           />
-          </Col>
-          <Col span={24}>
+        </Col>
+        <Col span={24}>
           <label style={{ fontWeight: "bold" }}>Code BU Brench :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -97,10 +89,9 @@ function CreateBuBrench() {
               setDataCodeBu(e.target.value);
             }}
           />
-          </Col>
-        
-        </Row>
-        <Row>
+        </Col>
+      </Row>
+      <Row>
         <Col span={24} className="d-flex justify-content-end">
           <Button
             style={{
@@ -114,9 +105,8 @@ function CreateBuBrench() {
           </Button>
         </Col>
       </Row>
-      
     </div>
-  )
+  );
 }
 
-export default CreateBuBrench
+export default CreateBuBrench;

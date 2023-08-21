@@ -1,21 +1,34 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import Baseurl from '../../../../Api/BaseUrl';
-import { Button, Card, Col, Modal, Pagination, Row, Space, Table, Tag } from 'antd';
-import { useHistory } from 'react-router-dom';
-import { DeleteOutlined, ExclamationCircleOutlined, FormOutlined } from '@ant-design/icons';
-import { httpClient } from '../../../../Api/Api';
-import CreateBuBrench from './CreateBuBrench';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Baseurl from "../../../../Api/BaseUrl";
+import {
+  Button,
+  Card,
+  Col,
+  Modal,
+  Pagination,
+  Row,
+  Space,
+  Table,
+  Tag,
+} from "antd";
+import { useHistory } from "react-router-dom";
+import {
+  DeleteOutlined,
+  ExclamationCircleOutlined,
+  FormOutlined,
+} from "@ant-design/icons";
+import { httpClient } from "../../../../Api/Api";
+import CreateBuBrench from "./CreateBuBrench";
 
 function IndexBrench() {
   const router = useHistory();
   const [DataBrench, setDataBrench] = useState("");
-  const [total, setTotal] = useState(0);
-  const [limit, setLimit] = useState(5);
-  const [page, setPage] = useState("");
   const [listData, setListData] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [limit, setLimit] = useState(10);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  
 
   const fetchData = async (pages = 1) => {
     try {
@@ -30,8 +43,8 @@ function IndexBrench() {
       );
       setDataBrench(respons.data.data.order);
       console.log("ini data BU", respons.data.data);
-      setTotal(respons.data.data.order.totalData);
-      setLimit(respons.data.data.limit)
+      setTotal(respons.data.data.totalData);
+    
     } catch (error) {}
   };
 
@@ -61,12 +74,12 @@ function IndexBrench() {
       dataIndex: "status",
       key: "status",
       render: (status) => (
-        <Tag color={status === 1 ? 'green' : 'red'}>
-          {status === 1 ? 'Aktif' : 'Tidak Aktif'}
+        <Tag color={status === 1 ? "green" : "red"}>
+          {status === 1 ? "Aktif" : "Tidak Aktif"}
         </Tag>
       ),
     },
-   
+
     {
       title: "Aksi",
       key: "no",
@@ -92,9 +105,7 @@ function IndexBrench() {
     // router.push(`/pelanggantarifcerate/`);
     showModal();
   };
-  const ubahHalaman = (pages) => {
-    fetchData(pages);
-  };
+ 
 
   const handleView = (bubrenchId) => {
     router.push(`/DetailBuBrench/${bubrenchId}`);
@@ -114,7 +125,9 @@ function IndexBrench() {
           .post(`bu/delete-bu-brench`, datas)
           .then(({ data }) => {
             if (data.status.code === 200) {
-              const newOrder = listData.filter((item) => item.id_bu_brench !== bubrenchId);
+              const newOrder = listData.filter(
+                (item) => item.id_bu_brench !== bubrenchId
+              );
               setListData(newOrder);
               // Reload the data after successful deletion if necessary
               // fetchData();
@@ -142,21 +155,31 @@ function IndexBrench() {
     setIsModalVisible(false);
   };
 
+  const ubahHalaman = (pages) => {
+    fetchData(pages);
+  };
 
   return (
     <div>
       <Card>
-        <h5>
-          Data Bisnis Unit Brench 
-        </h5>
+        <h5 style={{ fontWeight: "bold" }}>Data Bisnis Unit Brench</h5>
         <hr />
-      <Row>
+        <Row>
           <Col span={24} className="d-flex justify-content-end">
-            <Button style={{backgroundColor: '#1A5CBF', color: 'white'}} onClick={handleAdd}>New BU Brench</Button>
+            <Button
+              style={{ backgroundColor: "#1A5CBF", color: "white" }}
+              onClick={handleAdd}
+            >
+              New BU Brench
+            </Button>
           </Col>
         </Row>
         <Modal
-          title={<span style={{ color: "#1A5CBF" }}>New Bisnis Unit Brench</span>}
+          title={
+            <span style={{ color: "#1A5CBF" }}>
+              <h5 style={{ fontWeight: "bold" }}>Create Bisnis Unit Brench</h5>
+            </span>
+          }
           visible={isModalVisible}
           footer={null}
           onCancel={() => setIsModalVisible(false)}
@@ -166,7 +189,6 @@ function IndexBrench() {
         <div style={{ overflowX: "auto" }}>
           <Table
             className="mt-3"
-            // onRowClicked={IniRowClick}
             dataSource={DataBrench}
             columns={columns}
             pagination={false}
@@ -181,10 +203,10 @@ function IndexBrench() {
             total={total}
           />
         </div>
-
+       
       </Card>
     </div>
-  )
+  );
 }
 
-export default IndexBrench
+export default IndexBrench;

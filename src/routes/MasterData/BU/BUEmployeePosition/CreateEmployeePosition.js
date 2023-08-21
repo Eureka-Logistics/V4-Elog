@@ -44,8 +44,7 @@ function CreateEmployeePosition() {
   };
   return (
     <div>
-      <h5 style={{fontWeight: 'bold'}}>Employee Position</h5>
-      <hr />
+ 
       <Row>
         <Col span={24}>
           <label style={{ fontWeight: "bold" }}>Kode Employee Position :</label>

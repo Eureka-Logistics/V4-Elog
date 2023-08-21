@@ -126,7 +126,7 @@ function IndexEmployee() {
   return (
     <div>
      <Card>
-      <h5>
+      <h5 style={{fontWeight:'bold'}}>
         Data Bisnis Unit Employee
       </h5>
       <hr />
@@ -136,7 +136,7 @@ function IndexEmployee() {
           </Col>
         </Row>
         <Modal
-          title={<span style={{ color: "#1A5CBF" }}>New Bisnis Unit Employee</span>}
+          title={<span style={{ color: "#1A5CBF" }}><h5 style={{fontWeight: 'bold'}}>Create Bisnis Unit Employee</h5></span>}
           visible={isModalVisible}
           footer={null}
           onCancel={() => setIsModalVisible(false)}

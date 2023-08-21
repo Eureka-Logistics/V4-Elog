@@ -71,6 +71,16 @@ function IndexBU() {
       key: "cbu",
     },
     {
+      title: "STATUS",
+      dataIndex: "status",
+      key: "status",
+      render: (status) => (
+        <Tag color={status === 1 ? 'green' : 'red'}>
+          {status === 1 ? 'Active' : 'Inactive'}
+        </Tag>
+      ),
+    },
+    {
       title: "Aksi",
       key: "no",
       render: (text, record) => (
@@ -140,7 +150,7 @@ function IndexBU() {
   return (
     <div>
       <Card>
-        <h5>Data Bisnis Unit</h5>
+        <h5 style={{fontWeight:'bold'}}>Data Bisnis Unit</h5>
         <hr />
         <Row>
           <Col span={24} className="d-flex justify-content-end">
@@ -148,7 +158,7 @@ function IndexBU() {
           </Col>
         </Row>
         <Modal
-          title={<span style={{ color: "#1A5CBF" }}>New Bisnis Unit</span>}
+          title={<span style={{ color: "#1A5CBF" }}><h5 style={{fontWeight: 'bold'}}>New Bisnis Unit</h5></span>}
           visible={isModalVisible}
           footer={null}
           onCancel={() => setIsModalVisible(false)}

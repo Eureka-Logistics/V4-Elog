@@ -280,14 +280,16 @@ const SamplePage = () => {
             <Col span={4}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>
-                  Kode Mitra:
+                  Kode Mitra :
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                  disabled
                     name="kode_mitra"
                     value={formik.values.kode_mitra}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.kode_mitra}
+                    placeholder="Automatic Input"
                   />
                 </InputGroup>
               </Form.Group>

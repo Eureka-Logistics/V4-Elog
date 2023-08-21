@@ -96,7 +96,7 @@ function CreateBU() {
           <Input
             className="mt-2 mb-2"
             name="name"
-            placeholder="Input Nama Bisnis Unit"
+            placeholder="Exp: PT Eureka Logisticss"
             onChange={(e) => {
               console.log(e.target.value);
               setDataNama(e.target.value);
@@ -108,27 +108,29 @@ function CreateBU() {
         <Col span={24}>
           <label style={{ fontWeight: "bold" }}>Kode Bisnis Unit :</label>
           <Input
+           
             className="mt-2 mb-2"
-            name="code"
-            placeholder="Input Kode Bisnis Unit"
-            value={DataKodeBU}
-            onChange={handleKodeBUChange}
-          />
-          {kodeBUError && <p style={{ color: "red" }}>{kodeBUError}</p>}
-        </Col>
+            name="buCode"
+            placeholder="Exp: LOG"
+            onChange={(e) => {
+              console.log(e.target.value);
+              setDataKodeBU(e.target.value);
+            }}
+          /> </Col>
       </Row>
       <Row>
         <Col span={24}>
           <label style={{ fontWeight: "bold" }}>CBU :</label>
           <Input
+           
             className="mt-2 mb-2"
             name="cbu"
-            placeholder="Input CBU"
-            value={DataCBU}
-            onChange={handleCBUChange}
-          />
-          {cbuError && <p style={{ color: "red" }}>{cbuError}</p>}
-        </Col>
+            placeholder="Exp: LG"
+            onChange={(e) => {
+              console.log(e.target.value);
+              setDataCBU(e.target.value);
+            }}
+          /> </Col>
       </Row>
 
 

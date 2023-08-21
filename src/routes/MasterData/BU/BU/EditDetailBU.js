@@ -82,9 +82,12 @@ function DetailBU() {
     }
   };
 
+  
+
   useEffect(() => {
     DetailBisnisUnit(buId);
   }, []);
+  
 
   return (
     <div>
