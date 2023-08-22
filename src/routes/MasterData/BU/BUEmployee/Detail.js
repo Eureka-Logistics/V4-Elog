@@ -32,6 +32,8 @@ function Detail() {
   const [DataSelect, setDataSelect] = useState("");
   const [IDKodeEmployeePosition, setIDKodeEmployeePosition] = useState("");
   const [DataSelecttEmployee, setDataSelecttEmployee] = useState("");
+  const [DataGL, setDataGL] = useState("");
+
 
   const DetailEmployee = async (idEmploye) => {
     try {
@@ -93,8 +95,9 @@ function Detail() {
           Authorization: localStorage.getItem("token"),
         },
       });
-      console.log("responssssscarismid", respons.data.data);
-      setDataSelecttEmployee(respons.data.data);
+      console.log("responssssscarismid", respons.data.user);
+      setDataSelecttEmployee(respons.data.user);
+      setDataGL(respons.data.user.fullname);
     } catch (error) {}
   };
 

@@ -20,6 +20,7 @@ import useBanksStore from "../../../../zustand/Store/NamaNamaBank";
 import Swal from "sweetalert2";
 import { Data } from "@react-google-maps/api";
 import moment from "moment";
+import { PrinterOutlined } from "@ant-design/icons";
 
 function DataBaru({ mitraId, DataOptions }) {
   // const [datamiTraProfile, setDataMitraProfile] = useState([]);
@@ -86,6 +87,11 @@ function DataBaru({ mitraId, DataOptions }) {
   const [DataTahunRegister, setDataTahunRegister] = useState("");
   const [DataMemo, setDataMemo] = useState("");
   const [DataType, setDataType] = useState("");
+
+  const handleView = () => {
+    router.push(`/PrintMasterMitra/`);
+    // console.log("ini id_bu", idEmploye);
+  };
 
   console.log(`nama mitara`, namaMitra);
   const onFinish = async (values) => {
@@ -443,7 +449,12 @@ function DataBaru({ mitraId, DataOptions }) {
               <h5>NAMA DAN ALAMAT PERUSAHAAN(Sold to Party)</h5>
             </Col>
             <Col span={4} className="d-flex justify-content-end">
-              <Button>Print Data</Button>
+            <Button onClick={() => handleView()} type="primary">
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <PrinterOutlined/>
+            </span>
+          </Button>
+              {/* <Button>Print Data</Button> */}
             </Col>
           </Row>
 
