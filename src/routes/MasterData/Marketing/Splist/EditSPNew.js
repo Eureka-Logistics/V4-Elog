@@ -10,6 +10,7 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik'
 import Swal from 'sweetalert2';
 import ModalCreateDetail from './ModalCreateDetail';
+import ModalEditSPDetail from './EditModalSPDetail/ModalEditSPDetail';
 function EditSPNew({getDetail}) {
     const { idmp } = useParams();
     const [NomorSP, setNoSP] = useState("")
@@ -470,7 +471,7 @@ function EditSPNew({getDetail}) {
             </Row>
             <ModalCreateDetail
                getDetails={getDetail} idmp={idmp} DetailSP={DetailSP} JenisBarangFormik={formik.values.jenisBarang} AlamatInvoiceOptions={AlamatInvoiceOptions} DetailSemua={DetailSemua} />
-            {/* </Card> */}
+       
         </div>
     )
 }

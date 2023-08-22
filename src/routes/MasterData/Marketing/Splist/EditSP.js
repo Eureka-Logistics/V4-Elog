@@ -1394,10 +1394,10 @@ function EditSP({ alamatInvoice }) {
                     <td style={{ paddingRight: "20px" }}>Biaya MultiDrop</td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.biaya_multidrop?.toLocaleString("id-ID", {
+                      {detailData?.totalMulti?.toLocaleString("id-ID", {
                         style: "currency",
                         currency: "IDR",
-                      }) === undefined ? "Rp 0,00" : detailData?.biaya_multidrop?.toLocaleString("id-ID", {
+                      }) === undefined ? "Rp 0,00" : detailData?.totalMulti?.toLocaleString("id-ID", {
                         style: "currency",
                         currency: "IDR",
                       })}
@@ -1417,10 +1417,10 @@ function EditSP({ alamatInvoice }) {
                     <td style={{ paddingRight: "20px" }}>Biaya Overtonase</td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.biaya_overtonase?.toLocaleString("id-ID", {
+                      {detailData?.totalovertonase?.toLocaleString("id-ID", {
                         style: "currency",
                         currency: "IDR",
-                      }) === undefined ? "Rp 0,00" : detailData?.biaya_overtonase?.toLocaleString("id-ID", {
+                      }) === undefined ? "Rp 0,00" : detailData?.totalovertonase?.toLocaleString("id-ID", {
                         style: "currency",
                         currency: "IDR",
                       })}
@@ -1440,10 +1440,13 @@ function EditSP({ alamatInvoice }) {
                     <td style={{ paddingRight: "20px" }}>Biaya Mel</td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.Totalprice?.toLocaleString("id-ID", {
+                      {detailData?.biayamel?.toLocaleString("id-ID", {
                         style: "currency",
-                        currency: "IDR",
-                      })}
+                        currency: "IDR"})
+                        === undefined ? "Rp 0,00" : detailData?.biayamel?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })}
                     </td>
                   </tr>
                 </div>
@@ -1460,7 +1463,10 @@ function EditSP({ alamatInvoice }) {
                     <td style={{ paddingRight: "20px" }}>Biaya Inap</td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.Totalprice?.toLocaleString("id-ID", {
+                      {detailData?.biayainap?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })=== undefined ? "Rp 0,00" : detailData?.biayainap?.toLocaleString("id-ID", {
                         style: "currency",
                         currency: "IDR",
                       })}

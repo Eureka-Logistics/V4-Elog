@@ -10,7 +10,7 @@ import {
   Select,
   Tag,
   Switch,
-  notification 
+  notification
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import moment from "moment";
@@ -147,38 +147,38 @@ function DriverTableBaru() {
 
   const ModalONDriver = async (driverId) => {
     try {
-        // ... kode Anda yang lain
+      // ... kode Anda yang lain
 
-        const data = await axios.post(
-            `${Baseurl}driver/ready-driver`,
-            {
-              id: driverId,
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: localStorage.getItem("token"),
-              },
-            }
-        );
+      const data = await axios.post(
+        `${Baseurl}driver/ready-driver`,
+        {
+          id: driverId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
 
-        // Tampilkan notifikasi sukses dari antd
-        notification.success({
-            message: 'Sukses',
-            description: 'Status driver telah diubah menjadi "ON".',
-            placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
-        });
+      // Tampilkan notifikasi sukses dari antd
+      notification.success({
+        message: 'Sukses',
+        description: 'Status driver telah diubah menjadi "ON".',
+        placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+      });
 
-        ApiAwal();
+      ApiAwal();
     } catch (error) {
-        // Handle error
-        notification.error({
-            message: 'Error',
-            description: 'Terjadi kesalahan saat mengubah status driver.',
-            placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
-        });
+      // Handle error
+      notification.error({
+        message: 'Error',
+        description: 'Terjadi kesalahan saat mengubah status driver.',
+        placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+      });
     }
-};
+  };
 
 
   const ModalOFFDriver = async (driverId) => {
@@ -192,33 +192,33 @@ function DriverTableBaru() {
       //   cancelButtonText: "Tidak",
       // }).then(async (result) => {
       //   if (result.isConfirmed) {
-          const data = await axios.post(
-            `${Baseurl}driver/off-driver`,
-            {
-              id: driverId,
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: localStorage.getItem("token"),
-              },
-            }
-          );
-    
-          notification.success({
-            message: 'Sukses',
-            description: 'Status driver telah diubah menjadi "OFF".',
-            placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
-        });
+      const data = await axios.post(
+        `${Baseurl}driver/off-driver`,
+        {
+          id: driverId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
 
-        ApiAwal();
+      notification.success({
+        message: 'Sukses',
+        description: 'Status driver telah diubah menjadi "OFF".',
+        placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+      });
+
+      ApiAwal();
     } catch (error) {
-        // Handle error
-        notification.error({
-            message: 'Error',
-            description: 'Terjadi kesalahan saat mengubah status driver.',
-            placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
-        });
+      // Handle error
+      notification.error({
+        message: 'Error',
+        description: 'Terjadi kesalahan saat mengubah status driver.',
+        placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+      });
     }
   };
 
@@ -376,7 +376,7 @@ function DriverTableBaru() {
     }
   };
 
-  const  BuatDriver = async () => {
+  const BuatDriver = async () => {
     try {
       const formData = new FormData();
       formData.append("cover", formik.values.cover);
@@ -517,8 +517,8 @@ function DriverTableBaru() {
         .required("Nik harus diisi")
         .max(6, "Tidak Boleh Melebihi 6 Karakter")
         .matches(
-          /^[A-Za-z0-9]*$/,
-          "Nik hanya boleh berupa angka/huruf, symbol dan tidak boleh mengandung spasi"
+          /^[A-Z][A-Za-z0-9]*$/,
+          "Nik harus dimulai dengan huruf besar dan hanya boleh berupa angka/huruf, tanpa simbol atau spasi"
         )
         .transform((value) =>
           value ? value.charAt(0).toUpperCase() + value.slice(1) : ""
@@ -531,7 +531,7 @@ function DriverTableBaru() {
       email: Yup.string().email("Format email tidak valid"),
       // .required('Email harus diisi'),
       divisi: Yup.string().required("Divisi Driver harus diisi"),
-      // nosim: Yup.number().required('No SIM harus diisi').integer('Nik harus berupa angka'),
+      nosim: Yup.number().required('No SIM harus diisi').integer('Nik harus berupa angka'),
       // jenissim: Yup.string().required('Jenis SIM harus diisi'),
       // alamat: Yup.string().required('Alamat harus diisi'),
       // tgllahir: Yup.date().required('Tanggal Lahir harus diisi'),
@@ -756,14 +756,16 @@ function DriverTableBaru() {
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
+                      format="DD-MM-YYYY"
                       name="tglmasuk"
                       onChange={(date, dateString) =>
-                        formik.setFieldValue("tglmasuk", dateString)
-                      }
+                        { const apiFormatDate = date.format("YYYY-MM-DD")
+                        formik.setFieldValue("tglmasuk", apiFormatDate)
+                      }}
                       onBlur={formik.handleBlur}
                       value={
-                        formik.values.tglmasuk 
-                          ? moment(formik.values.tglmasuk)
+                        (formik.values.tglmasuk)
+                          ? moment(formik.values.tglmasuk, "YYYY-MM-DD")
                           : null
                       }
                       placeholder="Pilih tanggal masuk"
@@ -784,6 +786,7 @@ function DriverTableBaru() {
                     }
                   >
                     <DatePicker
+                      format="DD-MM-YYYY"
                       style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
@@ -791,13 +794,14 @@ function DriverTableBaru() {
                       placeholder="input tgl sim"
                       name="tglsim"
                       id="tglsim"
-                      onChange={(date, dateString) =>
-                        formik.setFieldValue("tglsim", dateString)
-                      }
+                      onChange={(date, dateString) => {
+                        const apiFormatDate = date.format("YYYY-MM-DD");
+                        formik.setFieldValue("tglsim", apiFormatDate)
+                      }}
                       onBlur={formik.handleBlur}
                       value={
                         formik.values.tglsim
-                          ? moment(formik.values.tglsim)
+                          ? moment(formik.values.tglsim, "YYYY-MM-DD")
                           : null
                       }
                     />
@@ -817,19 +821,22 @@ function DriverTableBaru() {
                     }
                   >
                     <DatePicker
+                      format="DD-MM-YYYY"
                       style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
                       }}
                       placeholder="input tgl lahir"
                       name="tgllahir"
-                      onChange={(date, dateString) =>
-                        formik.setFieldValue("tgllahir", dateString)
-                      }
+                      onChange={(date, dateString) => {
+                        const apiFormatDate = date.format("YYYY-MM-DD");
+                        formik.setFieldValue("tgllahir", apiFormatDate);
+                        console.log(apiFormatDate);
+                      }}
                       onBlur={formik.handleBlur}
                       value={
-                        formik.values.tgllahir
-                          ? moment(formik.values.tgllahir)
+                        moment(formik.values.tgllahir)
+                          ? moment(formik.values.tgllahir, "YYYY-MM-DD")
                           : null
                       }
                     />
@@ -1331,7 +1338,7 @@ function DriverTableBaru() {
                   </Form.Item>
                   <Form.Item
                     style={{ fontWeight: "bold" }}
-                    label="Rekening Bank"
+                    label="Nama Bank"
                     help={
                       formik.touched.rekeningbank && formik.errors.rekeningbank
                         ? formik.errors.rekeningbank
