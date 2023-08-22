@@ -89,11 +89,11 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     id_albongkar: formik.values.IDalamatbongkar,
                     // nama_barang: formik.values.namabarang,
                     nama_barang: JenisBarangFormik,
-                    berat: formik.values.berat,
+                    berat: parseInt (formik.values.berat),
                     qty: formik.values.qty,
                     koli: formik.values.koli,
                     id_price_customer: id_price_customer,
-                    harga: parseInt(PenjumlahanTotal) === 0 ? parseInt(PenjumlahanTotal) + HasilTarif + Hitung() : parseInt(PenjumlahanTotal),
+                    harga: HasilTarif,
                     // harga: HasilTarif + Hitung(),
                     harga_bongkar: formik.values.bongkar,
                     harga_muat: formik.values.biayamuat,
@@ -282,44 +282,44 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         });
     };
 
-    const Hitung = () => {
-        let total = 0;
+    // const Hitung = () => {
+    //     let total = 0;
 
-        // Daftar semua field yang ingin dijumlahkan
-        const fields = ['biayamel', 'biayamultidrop', 'biayamultimuat', 'biayamuat', 'bongkar'];
+    //     // Daftar semua field yang ingin dijumlahkan
+    //     const fields = ['biayamel', 'biayamultidrop', 'biayamultimuat', 'biayamuat', 'bongkar'];
 
-        for (let field of fields) {
-            let value = Number(formik.values[field] * 1);
+    //     for (let field of fields) {
+    //         let value = Number(formik.values[field] * 1);
 
-            if (!value || isNaN(value)) {
-                value = 0;
-            }
+    //         if (!value || isNaN(value)) {
+    //             value = 0;
+    //         }
 
-            total += Number(value);
-        }
+    //         total += Number(value);
+    //     }
 
-        /// Ini itungan kalau dia adalah retail
-        if (formik.values.shipment === "Retail") {
-            total += formik.values.berat * HasilTarif;
+    //     /// Ini itungan kalau dia adalah retail
+    //     if (formik.values.shipment === "Retail") {
+    //         total += formik.values.berat * HasilTarif;
 
-        } else if (formik.values.shipment !== "Charter") {
-            const fields = ['biayamel', 'biayamultidrop', 'biayamultimuat', 'biayamuat', 'bongkar'];
-            console.log("HasilTarif:", HasilTarif);
+    //     } else if (formik.values.shipment !== "Charter") {
+    //         const fields = ['biayamel', 'biayamultidrop', 'biayamultimuat', 'biayamuat', 'bongkar'];
+    //         console.log("HasilTarif:", HasilTarif);
 
-            for (let field of fields) {
-                let value = Number(formik.values[field]);
+    //         for (let field of fields) {
+    //             let value = Number(formik.values[field]);
 
-                if (!value || isNaN(value)) {
-                    value = 0;
-                }
+    //             if (!value || isNaN(value)) {
+    //                 value = 0;
+    //             }
 
-                total += Number(value); // tambahkan HasilTarif setelah loop berakhir
-            }
+    //             total += Number(value); // tambahkan HasilTarif setelah loop berakhir
+    //         }
 
-        }
+    //     }
 
-        return total;
-    }
+    //     return total;
+    // }
 
 
     const formatToIDR = (value) => {
@@ -374,7 +374,25 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     useEffect(() => {
         const total = calculateTotal(formik.values.shipment, formik.values.berat, HasilTarif);
         formik.setFieldValue("total", total);
+        const totalCreate = calculateTotal(formik.values.shipment, formik.values.berat, HasilTarif);
+        formik.setFieldValue("totalCreate", totalCreate);
     }, [HasilTarif, formik.values.shipment, formik.values.berat, formik.values.bongkar, formik.values.biayamuat]);
+
+
+
+    const calculateTotalCreate = (shipmentType, kilogram, tarif) => {
+        const biayaBongkar = Number(formik.values.bongkar);
+        const biayaMuat = Number(formik.values.biayamuat);
+
+        if (DetailSemua?.service === 'Retailer') {
+            return Number(formik.values.berat) * Number(HasilTarif) + biayaBongkar + biayaMuat;
+        } else if (DetailSemua?.service === 'Charter') {
+            return Number(tarif) + biayaBongkar + biayaMuat;
+        } else {
+            return 0; // atau pesan error jika tipe pengiriman tidak dikenal
+        }
+    }
+
 
     return (
         <div className='mt-3'>
@@ -1159,9 +1177,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         formik.handleChange(e);
                                         setPenjumlahanTotal(e.target.value);
                                     }}
-                                    // value={(formik.values.shipment === "Retail" ? Hitung(HasilTarif) : HasilTarif + Hitung())}
-                                    value={formatToIDR(formik.values.total)}
-                                    // value={n()}
+                                    placeholder={formatToIDR(formik.values.totalCreate)}
+                                    // value={formatToIDR(formik.values.totalCreate)}
                                     onBlur={formik.handleBlur}
                                 />
                             </Form.Item>
@@ -1931,6 +1948,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 <Input
                                     id="total"
                                     name="total"
+                                    disabled
                                     type="text"  // Change type from "number" to "text" since formatted values will contain non-numeric characters.
                                     onChange={e => {
                                         const value = e.target.value.replace(/[^0-9]/g, ""); // Remove all non-numeric characters
