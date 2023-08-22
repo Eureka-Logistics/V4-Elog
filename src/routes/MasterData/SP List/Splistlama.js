@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Input, Select, Tag } from "antd";
+import { Card, Input, Select, Tag, notification } from "antd";
 import { Col, Row, Form, Button } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import axios from "axios";
@@ -87,6 +87,11 @@ function SPListlama() {
       setIsiData(isidata);
       setLoading(false);
     } catch (error) {
+      console.log(error.response);
+      notification.error({
+        message: 'Terjadi Error',
+        description: error.response.data.errors.map((i) => (i.message === "ID driver Tidak Boleh Kosong" ? "Nama Driver Harus Di isi" : i.message)),
+      });
       if (error.response && error.response.status === 401) {
         localStorage.removeItem("token");
         if (localStorage.getItem("token") === null) {
@@ -111,10 +116,11 @@ function SPListlama() {
     [search, CustumerValue, CariCabangValue, CariSalesValue, CariBu]
   );
 
+  let number = 1
   const columns = [
     {
       name: "No",
-      selector: (row) => row?.no,
+      selector: (row, index) => (pagination.currentPage - 1) * 10 + index + 1,
       width: "80px",
       wrap: true,
     },
@@ -189,11 +195,11 @@ function SPListlama() {
           <Tag color="green">
             Approved <br /> {tanggal}
           </Tag>
-        ) : row?.approveAct === "N" && tanggal === "Invalid date" || "1970-01-01 07:00:00" ? (
+        ) : row?.approveAct === "N" && tanggal === "1970-01-01 07:00:00" ? (
           <Tag color="yellow">
             Waiting <br /> {tanggal ? "-" : tanggal}
           </Tag>
-        ) : row?.approveAct === "N" && tanggal !== "Invalid date" || "1970-01-01 07:00:00" ? (
+        ) : row?.approveAct === "N" && tanggal !== "1970-01-01 07:00:00" ? (
           <Tag color="red">
             Diverted <br /> {tanggal}
           </Tag>
@@ -208,39 +214,39 @@ function SPListlama() {
     {
       name: "Operasional",
       selector: (row) => {
-          const dateApproveOps = row?.dateApproveOps;
-          const isValidDate = !isNaN(new Date(dateApproveOps));
-          const data = isValidDate ? dateApproveOps : "-";
-  
-          if (row?.approveOps === "Y") {
-              return (
-                  <Tag color="green">
-                      Approved <br /> {data}
-                  </Tag>
-              );
-          } else if (row?.approveOps === "N" && (dateApproveOps === "Invalid date" || dateApproveOps === "1970-01-01 07:00:00")) {
-              return (
-                  <Tag color="yellow">
-                      Waiting <br />  -
-                  </Tag>
-              );
-          } else if (row?.approveOps === "N" && (dateApproveOps !== "Invalid date" && dateApproveOps !== "1970-01-01 07:00:00")) {
-              return (
-                  <Tag color="red">
-                      Diverted <br /> {data}
-                  </Tag>
-              );
-          } else if (row?.approveOps === "P") {
-              return (
-                  <Tag color="blue">
-                      Pass <br /> {data}
-                  </Tag>
-              );
-          }
+        const dateApproveOps = row?.dateApproveOps;
+        const isValidDate = !isNaN(new Date(dateApproveOps));
+        const data = isValidDate ? dateApproveOps : "-";
+
+        if (row?.approveOps === "Y") {
+          return (
+            <Tag color="green">
+              Approved <br /> {data}
+            </Tag>
+          );
+        } else if (row?.approveOps === "N" && (dateApproveOps ===  "1970-01-01 07:00:00")) {
+          return (
+            <Tag color="yellow">
+              Waiting <br />  -
+            </Tag>
+          );
+        } else if (row?.approveOps === "N" && (dateApproveOps !==  "1970-01-01 07:00:00")) {
+          return (
+            <Tag color="red">
+              Diverted <br /> {data}
+            </Tag>
+          );
+        } else if (row?.approveOps === "P") {
+          return (
+            <Tag color="blue">
+              Pass <br /> {data}
+            </Tag>
+          );
+        }
       },
       width: "170px",
-  },
-  
+    },
+
 
     {
       name: "Purchasing",
@@ -252,11 +258,11 @@ function SPListlama() {
               <Tag color="green">
                 Approved <br /> {date}
               </Tag>
-            ) : row.approvePurch === "N" && date === "Invalid date" || "1970-01-01 07:00:00" ? (
+            ) : row.approvePurch === "N" && date === "1970-01-01 07:00:00" ? (
               <Tag color="yellow">
                 Waiting <br /> {date ? "-" : date}
               </Tag>
-            ) : row.approvePurch === "N" && date != "Invalid date" || "1970-01-01 07:00:00" ? (
+            ) : row.approvePurch === "N" && date != "1970-01-01 07:00:00" ? (
               <Tag color="red">
                 Diverted <br /> {date}
               </Tag>
@@ -312,9 +318,11 @@ function SPListlama() {
                     optionFilterProp="label"
                     onChange={(e) => setCustumerValue(e)}
                     placeholder="Cari Customer"
-                    style={{ width: "100%" , border: "1px solid #1A5CBF",
-                    borderRadius: "5px",
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",}}
+                    style={{
+                      width: "100%", border: "1px solid #1A5CBF",
+                      borderRadius: "5px",
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                    }}
                   />
                 </Form.Group>
               </Col>
@@ -326,9 +334,11 @@ function SPListlama() {
                     options={CariCabangOptions}
                     onChange={(e) => setCariCabangValue(e)}
                     placeholder="Cari Cabang"
-                    style={{ width: "100%", border: "1px solid #1A5CBF",
-                    borderRadius: "5px",
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)", }}
+                    style={{
+                      width: "100%", border: "1px solid #1A5CBF",
+                      borderRadius: "5px",
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                    }}
                   />
                 </Form.Group>
               </Col>
@@ -340,9 +350,11 @@ function SPListlama() {
                     onChange={(e) => setCariSalesValue(e)}
                     showSearch
                     placeholder="Cari Sales"
-                    style={{ width: "100%", border: "1px solid #1A5CBF",
-                    borderRadius: "5px",
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)", }}
+                    style={{
+                      width: "100%", border: "1px solid #1A5CBF",
+                      borderRadius: "5px",
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                    }}
                   />
                 </Form.Group>
               </Col>
@@ -354,9 +366,11 @@ function SPListlama() {
                     onChange={(e) => setCariBu(e)}
                     showSearch
                     placeholder="Cari Bu"
-                    style={{ width: "100%", border: "1px solid #1A5CBF",
-                    borderRadius: "5px",
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)", }}
+                    style={{
+                      width: "100%", border: "1px solid #1A5CBF",
+                      borderRadius: "5px",
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                    }}
                   />
                 </Form.Group>
               </Col>
@@ -393,12 +407,12 @@ function SPListlama() {
               <img src={ElogLoadingGif}></img>
             ) : (
               <div className="mt-3 ">
-              <DataTable
-                columns={columns}
-                data={isiData}
-                onRowClicked={RowClick}
-                className="myCustomTable"
-              />
+                <DataTable
+                  columns={columns}
+                  data={isiData}
+                  onRowClicked={RowClick}
+                  className="myCustomTable"
+                />
               </div>
             )}
             <div className="mt-3 d-flex justify-content-end">
@@ -413,7 +427,7 @@ function SPListlama() {
           </Col>
         </Row>
       </Card>
-    </div>                  
+    </div>
   );
 }
 

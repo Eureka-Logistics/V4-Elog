@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import Baseurl from '../../../../Api/BaseUrl';
 import axios from 'axios';
-import { Button, Modal,notification , Input, Form as AntForm, DatePicker, Card, Select, Upload, Pagination, Switch, Tag } from 'antd';
+import { Button, Modal, notification, Input, Form as AntForm, DatePicker, Card, Select, Upload, Pagination, Switch, Tag } from 'antd';
 import moment from 'moment';
 import { UploadOutlined } from '@ant-design/icons';
 import * as Yup from 'yup';
@@ -59,7 +59,7 @@ function VehicleBaru() {
     const jenisKepemilikanOptions = jenisKepemilikan.map((item) => ({
         label: item.jenis,
     }))
-    const [CodeVehicle,setCodeVehicle]= useState("")
+    const [CodeVehicle, setCodeVehicle] = useState("")
 
     const validationSchema = Yup.object().shape({
         kode_kendaraan: Yup.string()
@@ -77,7 +77,8 @@ function VehicleBaru() {
             .required('Jenis Kendaraan wajib diisi'),
         vendor: Yup.string()
             .required('Vendor Kendaraan wajib diisi'),
-        // nama_driver: Yup.string().required('Nama Driver wajib diisi'),
+        // nama_driver: Yup.string().required('Nama Driver wajib diisi') 
+        // .matches('A-Z', "Nama tidak boleh menggunakan symbol dan angka"),
         // jenis_SIM: Yup.string().required('Jenis SIM wajib diisi'),
         // warna_plat: Yup.string().required('Warna Plat wajib diisi'),
         // merk_mobil: Yup.string().required('Merk Mobil wajib diisi')
@@ -198,14 +199,14 @@ function VehicleBaru() {
                     },
                 }
             );
-    
+
             // Tampilkan notifikasi sukses dari antd setelah API call berhasil
             notification.success({
                 message: 'Sukses',
                 description: 'Status kendaraan telah diubah menjadi "OFF".',
                 placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
             });
-    
+
             ApiAwal();
         } catch (error) {
             // Handle error
@@ -216,7 +217,7 @@ function VehicleBaru() {
             });
         }
     };
-    
+
 
 
     const ModalONVehicle = async (vehicleId) => {
@@ -230,34 +231,34 @@ function VehicleBaru() {
             //     cancelButtonText: 'Tidak',
             // }).then(async (result) => {
             //     if (result.isConfirmed) {
-                    const data = await axios.post(
-                        `${Baseurl}vehicle/on-vehicle`,
-                        {
-                            id_vehicle: vehicleId,
-                        },
-                        {
-                            headers: {
-                                'Content-Type': 'application/json',
-                                Authorization: localStorage.getItem('token'),
-                            },
-                        }
-                    );
-                    notification.success({
-                        message: 'Sukses',
-                        description: 'Status kendaraan telah diubah menjadi "ON".',
-                        placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
-                    });
-            
-                    ApiAwal();
-                } catch (error) {
-                    // Handle error
-                    notification.error({
-                        message: 'Error',
-                        description: 'Terjadi kesalahan saat mengubah status kendaraan.',
-                        placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
-                    });
+            const data = await axios.post(
+                `${Baseurl}vehicle/on-vehicle`,
+                {
+                    id_vehicle: vehicleId,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.getItem('token'),
+                    },
                 }
-            };
+            );
+            notification.success({
+                message: 'Sukses',
+                description: 'Status kendaraan telah diubah menjadi "ON".',
+                placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+            });
+
+            ApiAwal();
+        } catch (error) {
+            // Handle error
+            notification.error({
+                message: 'Error',
+                description: 'Terjadi kesalahan saat mengubah status kendaraan.',
+                placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+            });
+        }
+    };
 
     const handleCancel = () => {
         setIsModalOpen(false);
@@ -372,7 +373,7 @@ function VehicleBaru() {
                 title: 'Gagal',
                 text: 'Terjadi kesalahan saat edit data kendaraan',
             });
-            
+
         }
     }
 
@@ -400,7 +401,7 @@ function VehicleBaru() {
             setFotoDriver(data.data.data[0].vehicleImage)
             setCodeVehicle(data.data.data[0]?.vehicleCode)
             formik.setValues({
-                vehicleCode:data.data.data[0].vehicleCode,
+                vehicleCode: data.data.data[0].vehicleCode,
                 kode_kendaraan: data.data.data[0].vehicleCode,
                 no_polisi: data.data.data[0].policeNumber,
                 jenis_kepemilikan: data.data.data[0].jenisKepemilikan,
@@ -426,7 +427,7 @@ function VehicleBaru() {
                 tinggi: data.data.data[0]?.vehicleHeight,
                 kapasitas_maks: data.data.data[0]?.maxCapacity,
                 id_jenis_kendaraan: data.data.data[0]?.id_jenis_kendaraan,
-                driverName : data.data.data[0]?.driverName,
+                driverName: data.data.data[0]?.driverName,
 
 
             });
@@ -453,15 +454,22 @@ function VehicleBaru() {
                 text: 'Data kendaraan berhasil ditambahkan',
             });
             ApiAwal()
-
-        } catch (error) {
-            console.log(error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal',
-                text: 'Terjadi kesalahan saat menambahkan data kendaraan',
-            });
             setIsModalOpen(false);
+        } catch (error) {
+            error.response.data.errors.forEach((err) => {
+                let customMessage;
+
+                if (err.message === "ID driver Tidak Boleh Kosong") {
+                    customMessage = "Nama Driver Harus Di isi";
+                } else {
+                    customMessage = err.message;
+                }
+
+                notification.error({
+                    message: 'ADA KESALAHAN DI FORM INPUT',
+                    description: customMessage,
+                });
+            })
         }
     }
 
@@ -502,15 +510,15 @@ function VehicleBaru() {
                         <h5 style={{ color: "#1A5CBF", fontWeight: "bold" }}>Master Vehicle</h5>
                     </Col>
                     <Row>
-                        
+
                         <Col sm={2}>
                             <Input
-                            style={{
-                                width: "150px",
-                                border: "1px solid #1A5CBF",
-                                borderRadius: "5px",
-                                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
-                              }}
+                                style={{
+                                    width: "150px",
+                                    border: "1px solid #1A5CBF",
+                                    borderRadius: "5px",
+                                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                                }}
                                 value={CariNoKendaraan}
                                 onChange={(e) => setCariNoKendaraan(e.target.value)}
                                 placeholder="Cari No Kendaraan" />
@@ -520,9 +528,11 @@ function VehicleBaru() {
                                 showSearch
                                 placeholder="Jenis Kepemilikan"
                                 optionFilterProp="children"
-                                style={{ width: "150px", border: "1px solid #1A5CBF",
-                                borderRadius: "5px",
-                                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)", }}
+                                style={{
+                                    width: "150px", border: "1px solid #1A5CBF",
+                                    borderRadius: "5px",
+                                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                                }}
                                 // value={CariJenisKepemilikan}
                                 onChange={(value) => setCariJenisKepemilikan(value)}
 
@@ -540,9 +550,11 @@ function VehicleBaru() {
                                 showSearch
                                 placeholder="Status"
                                 optionFilterProp="children"
-                                style={{ width: "150px", border: "1px solid #1A5CBF",
-                                borderRadius: "5px",
-                                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)", }}
+                                style={{
+                                    width: "150px", border: "1px solid #1A5CBF",
+                                    borderRadius: "5px",
+                                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                                }}
                                 // value={CariJenisKepemilikan}
                                 onChange={(value) => setCariDriverAktif(value)}
 
@@ -557,12 +569,12 @@ function VehicleBaru() {
                         </Col>
                         <Col sm={2}>
                             <Button
-                            style={{
-                                backgroundColor: "#1A5CBF",
-                                color: "#FFFFFF",
-                                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
-                                borderColor: "#1A5CBF",
-                              }}
+                                style={{
+                                    backgroundColor: "#1A5CBF",
+                                    color: "#FFFFFF",
+                                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                                    borderColor: "#1A5CBF",
+                                }}
                                 type="primary" onClick={() => {
                                     showModal()
                                     setIdDriver(null)
@@ -583,7 +595,7 @@ function VehicleBaru() {
                             <Row>
                                 <Col sm={4}>
                                     <Card>
-                                        <img src={FotoDriver  instanceof File ? URL.createObjectURL(FotoDriver) : FotoDriver}/>
+                                        <img src={FotoDriver instanceof File ? URL.createObjectURL(FotoDriver) : FotoDriver} />
 
                                     </Card>
                                     <AntForm.Item
@@ -597,7 +609,7 @@ function VehicleBaru() {
                                         style={{ marginBottom: 2 }}
                                     >
                                         <Upload
-                                          accept=".png,.jpg,.jpeg"
+                                            accept=".png,.jpg,.jpeg"
                                             beforeUpload={file => {
                                                 setFotoDriver(file);
                                                 // Mencegah upload default
@@ -705,16 +717,16 @@ function VehicleBaru() {
                                         style={{ marginBottom: 2 }}
                                     >
                                         <Input
-                                        disabled
+                                            disabled
                                             showSearch
                                             optionFilterProp="children"
                                             id="jenis_kepemilikan"
                                             name="jenis_kepemilikan"
                                             onChange={(value) => formik.setFieldValue('vehicleCode', value)}
                                             value={CodeVehicle}
-                                            // onBlur={formik.handleBlur}
+                                        // onBlur={formik.handleBlur}
                                         >
-                                           
+
                                         </Input>
                                     </AntForm.Item>
                                     <AntForm.Item
@@ -855,7 +867,7 @@ function VehicleBaru() {
                                         help={formik.touched.nama_driver && formik.errors.nama_driver}
                                         validateStatus={formik.touched.nama_driver && formik.errors.nama_driver ? 'error' : 'success'}
                                         style={{ marginBottom: 2 }}
-                                        
+
                                     >
                                         <Select
                                             showSearch

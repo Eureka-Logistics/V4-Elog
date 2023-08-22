@@ -60,11 +60,11 @@ function SplistOperasional() {
         const approveact = row.approveAct;
         const dateApproveAct = row.dateApproveAct;
         let displayText =
-          approveact === "Y" && dateApproveAct !== "Invalid date" || "1970-01-01 07:00:00" ? (
+          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00"  ? (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
-          ) : approveact === "N" && dateApproveAct === "Invalid date" || "1970-01-01 07:00:00" ? (
+          ) : approveact === "N" && dateApproveAct === "1970-01-01 07:00:00" ? (
             <Tag color="yellow">
               Waiting <br /> <small>{dateApproveAct}</small>
             </Tag>
@@ -84,11 +84,11 @@ function SplistOperasional() {
         const approveact = row.approveOps;
         const dateApproveAct = row.dateApproveOps;
         let displayText =
-          approveact === "Y" && dateApproveAct !== "Invalid date" || "1970-01-01 07:00:00" ? (
+          approveact === "Y" && dateApproveAct !==  "1970-01-01 07:00:00" ? (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
-          ) : approveact === "N" && dateApproveAct === "Invalid date" || "1970-01-01 07:00:00" ? (
+          ) : approveact === "N" && dateApproveAct ===  "1970-01-01 07:00:00" ? (
             <Tag color="yellow">
               Waiting <br /> <small>{dateApproveAct}</small>
             </Tag>
@@ -109,11 +109,11 @@ function SplistOperasional() {
         const approveact = row.approvePurch;
         const dateApproveAct = row.dateApprovePurch;
         let displayText =
-          approveact === "Y" && dateApproveAct !== "Invalid date" || "1970-01-01 07:00:00" ? (
+          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" ? (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
-          ) : approveact === "N" && dateApproveAct === "Invalid date" || "1970-01-01 07:00:00" ? (
+          ) : approveact === "N" && dateApproveAct === "1970-01-01 07:00:00" ? (
             <Tag color="yellow">
               Waiting <br /> <small>{dateApproveAct}</small>
             </Tag>

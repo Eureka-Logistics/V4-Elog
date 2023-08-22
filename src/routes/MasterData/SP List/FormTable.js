@@ -12,6 +12,7 @@ import {
   Form as AntForm,
   DatePicker,
   Upload,
+  notification,
 } from "antd";
 import { useState, useEffect } from "react";
 import Baseurl from "../../../Api/BaseUrl";
@@ -28,6 +29,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import useMitraStore from "../../../zustand/Store/MitraStore";
+import ModalCreatePO from "./ModalCreatePO/Index";
 
 function FormTable({
   isidata,
@@ -36,6 +38,7 @@ function FormTable({
   IsiDataSPSemua,
   NamaMarketing,
   JenisBarang,
+  messagedetail
 }) {
   const [modal1Open, setModal1Open] = useState(false);
   const [jobdesk, setJobdesk] = useState(localStorage.getItem("jobdesk"));
@@ -141,7 +144,7 @@ function FormTable({
     FetchTipeKendaraan: state.FetchTipeKendaraan,
   }));
   const [FotoDriver, setFotoDriver] = useState("");
-  const [Mitra1Multi, setMitra1Multi] = useState([]);
+  const [Mitra1Multi, setMitra1Multi] = useState("");
   const [StatusApproveAct, setStatusApproveAct] = useState("");
   const [TanggalACT3, setTanggalACT3] = useState("");
   const [TanggalACT4, setTanggalACT4] = useState("");
@@ -150,11 +153,12 @@ function FormTable({
   const [Kendaraan_operasionalStatus, setKendaraanOperasionalStatus] = useState(
     {}
   );
+  const [NamaMobilDariTable, setNamaMobilDariTable] = useState("")
   const [StatusPurchasing, setStatusPurchasing] = useState("");
   const history = useHistory();
   const [selectTypeMobil, setselectTypeMobil] = useState("");
   const [selectTypeMobil2, setselectTypeMobil2] = useState("");
-
+  const [DataUntukPurchsingDanApprovenya, setDataUntukPurchsingDanApprovenya] = useState("")
   ////checkbox multi
   const handleCheckboxChange = (event) => {
     setCheckboxValue(event.target.checked ? 1 : 0);
@@ -200,19 +204,21 @@ function FormTable({
       setNamaDriverFix2(sleet.data.data.Driver);
       // const nomorpolisis = sleet.data.data.vehicle;
       // const drivernya = sleet.data.data.Driver;
+      FetchTipeKendaraan()
     };
 
     if (types.length > 0) {
       vehicle();
     }
-    FetchTipeKendaraan();
-  }, [types, selectnomor, mitra2, selectnomor2, selectTypeMobil2]); // pastikan Anda memasukkan semua variabel yang Anda gunakan sebagai dependensi useEffect
 
+
+  }, [types, selectnomor, mitra2, selectnomor2, selectTypeMobil2]); // pastikan Anda memasukkan semua variabel yang Anda gunakan sebagai dependensi useEffect
+  console.log(`ini TipeKendaraan`, TipeKendaraan);
   // console.log(`ini NamaDriverFix2`, NamaDriverFix2);
   ///// approve op operasional
   useEffect(() => {
     const vehicle = async () => {
-      let url = `${Baseurl}sp/get-SP-select-2?vehicleType=${types[0]}&mitra=1&id=${selectnomor}`;
+      let url = `${Baseurl}sp/get-SP-select-2?vehicleType=${NamaMobilDariTable}&mitra=1&id=${selectnomor}`;
 
       const sleet = await axios.get(url, {
         headers: {
@@ -220,14 +226,13 @@ function FormTable({
           Authorization: localStorage.getItem("token"),
         },
       });
-      console.log(`ini op driver `, sleet.data?.data.vehicle);
       setKodeKendaraanOps(sleet.data?.data.vehicle);
     };
 
     if (types.length > 0) {
       vehicle();
     }
-  }, [types, selectnomor, mitra1, selectnomor2, selectTypeMobil2]);
+  }, [types, selectnomor, NamaMobilDariTable, mitra1, selectnomor2, selectTypeMobil2]);
 
   const anotherdriver = async () => {
     const another = await axios.get(`${Baseurl}sp/another-driver`, {
@@ -263,10 +268,10 @@ function FormTable({
         id_mitra_pickup: 1,
         id_mitra_2: 1,
         plat_nomor: selectnopol,
-        merk: types[0],
+        merk: NamaMobilDariTable,
         is_multi: checkboxValue,
 
-        pickup_kendaraan: types[0] || "",
+        pickup_kendaraan: NamaMobilDariTable || "",
         pickup_nopol: selectnopol,
         pickup_supir: selectDriver[0]?.name ? selectDriver[0]?.name : idUnit,
       };
@@ -281,70 +286,83 @@ function FormTable({
         .then((response) => {
           const isidata = response.data.status;
           setApproved(isidata);
-          console.log(`data approve`, approved);
 
           // Display success alert
+          messagedetail()
           Swal.fire({
             icon: "success",
             title: "Approval Successful",
             text: "The approval process has been completed successfully.",
           });
           setLoadingMuterMuter(false);
-          window.location.reload();
+          // window.location.reload();
           handleClose();
         })
         .catch((error) => console.error(`Error: ${error}`));
-    } catch (error) {}
+    } catch (error) {
+      notification.error({
+        icon: "error",
+        message: error.response.status.message
+      })
+    }
   };
 
   ///tombol approve
   const HandleApprovePURCH = (idmpd) => {
-    const body = {
-      // id_mp: idmp,
-      // id_mpd: IDMPD,
-      // id_unit: selectDriver[0]?.idUnit,
-      // id_supir: selectnomor,
-      // id_mitra: selectMitra,
-      // id_mitra_pickup: ``,
-      // id_mitra_2: ``,
-      // plat_nomor: selectnopol,
-      // merk: types[0],
-      id_mp: idmp,
-      id_mpd: IDMPD,
-      id_unit: selectDriver[0]?.idUnit ? selectDriver[0]?.idUnit : idUnit,
-      id_unit_2: selectnomor,
-      id_unit_3: selectnomor2,
-      id_driver: selectDriver?.[0]?.idUnit,
-      id_driver_2: idUnit,
-      id_driver_3: idUnit2,
-      id_mitra_pickup: 1,
-      id_mitra: mitra1,
-      id_mitra_2: mitra1,
-      id_mitra_3: mitra2,
-    };
+    try {
+      const body = {
+        // id_mp: idmp,
+        // id_mpd: IDMPD,
+        // id_unit: selectDriver[0]?.idUnit,
+        // id_supir: selectnomor,
+        // id_mitra: selectMitra,
+        // id_mitra_pickup: ``,
+        // id_mitra_2: ``,
+        // plat_nomor: selectnopol,
+        // merk: types[0],
+        id_mp: parseInt(idmp),
+        id_mpd: IDMPD,
+        id_unit: selectDriver[0]?.idUnit ? selectDriver[0]?.idUnit : idUnit,
+        id_unit_2: selectnomor,
+        id_unit_3: selectnomor2,
+        id_driver: selectDriver?.[0]?.idUnit,
+        id_driver_2: idUnit,
+        id_driver_3: idUnit2,
+        id_mitra_pickup: 1,
+        id_mitra: mitra1,
+        id_mitra_2: mitra1,
+        id_mitra_3: mitra2,
+      };
 
-    axios
-      .post(`${Baseurl}sp/approve-SP-purch`, body, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      })
-      .then((response) => {
-        const isidata = response.data.status;
-        setApproved(isidata);
-        // console.log(`data approve`, approved);
+      const response = axios
+        .post(`${Baseurl}sp/approve-SP-purch`, body, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        })
+      const isidata = response?.data?.status;
+      setApproved(isidata);
+      // console.log(`data approve`, approved);
 
-        // Display success alert
-        Swal.fire({
-          icon: "success",
-          title: "Approval Successful",
-          text: "The approval process has been completed successfully.",
-        });
-        handleClose();
-        window.location.reload();
+      // Display success alert
+      Swal.fire({
+        icon: "success",
+        title: "Approval Successful",
+        text: "The approval process has been completed successfully.",
+      });
+      messagedetail()
+      handleClose();
+      // window.location.reload();
+    } catch (error) {
+      console.log(error);
+      notification.error({
+        message: "Error",
+        description: "Ada Kesalahan Dalam Approve , Data Tidak Boleh Kosong",
       })
-      .catch((error) => console.error(`Error: ${error}`));
+      handleClose();
+    }
+
   };
   const handleAnotherDriverClick = () => {
     setBukaanother(true);
@@ -447,32 +465,33 @@ function FormTable({
   }));
   const kodeKendaraanOptions = Array.isArray(NomorFix)
     ? NomorFix.map((item) => ({
-        value: item.id,
-        label: item.no_polisi,
-        kd_kendaraan: item.kd_kendaraan,
-      }))
+      value: item.id,
+      label: item.no_polisi,
+      kd_kendaraan: item.kd_kendaraan,
+    }))
     : [];
   const kodeKendaraanOptions2 = Array.isArray(NomorFix2)
     ? NomorFix2.map((item) => ({
-        value: item.id,
-        label: item.no_polisi,
-        kd_kendaraan: item.kd_kendaraan,
-      }))
+      value: item.id,
+      label: item.no_polisi,
+      kd_kendaraan: item.kd_kendaraan,
+    }))
     : [];
   const nomorpolisiOptions = Array.isArray(KodeKendaraanOps)
     ? KodeKendaraanOps.map((item) => ({
-        value: item.driverId,
-        label: item.kd_kendaraan + " - " + item.no_polisi + " - " + item.mitra,
-        kd_kendaraan: item.kd_kendaraan,
-      }))
+      value: item.driverId,
+      no_polisi: item.no_polisi,
+      label: item.kd_kendaraan + " - " + item.no_polisi + " - " + item.mitra,
+      kd_kendaraan: item.kd_kendaraan,
+    }))
     : [];
 
   const anotneroptionsdriver = Array.isArray(driveranother)
     ? driveranother.map((item) => ({
-        value: item.id,
-        label: item.name + " || " + item?.mitra,
-        kd_kendaraan: item.kd_kendaraan,
-      }))
+      value: item.id,
+      label: item.name + " || " + item?.mitra,
+      kd_kendaraan: item.kd_kendaraan,
+    }))
     : [];
 
   // const nomorpolisiOptions = nomorpolisi.filter(item => item.mitra === mitra1).map(item => ({
@@ -494,10 +513,10 @@ function FormTable({
       window.removeEventListener("storage", handleStorageChange);
     };
   }, []);
-
-  const approvebaru = (idMpd) => {
+  const approvebaru = (idMpd, data) => {
     setIDMPD(idMpd);
     handleShow();
+    setDataUntukPurchsingDanApprovenya(data)
     // HandleApproveOPS(idMpd)
     // HandleApprovePURCH(idMpd)
   };
@@ -592,10 +611,10 @@ function FormTable({
 
   //// ngambil mitra 1 kalau multi
 
-  const MitraMulti = async () => {
+  const MitraMulti = async (idmpd) => {
     try {
       const data = await axios.get(
-        `${Baseurl}sp/get-SP-detail-purch?id_mp=${idmp}`,
+        `${Baseurl}sp/get-SP-detail-purch?id_mpd=${idmpd}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -605,7 +624,7 @@ function FormTable({
       );
       // console.log(`ini mitra 1`, data.data.data[0]);
       setMitra1Multi(data.data.data[0]);
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     MitraMulti();
@@ -639,7 +658,7 @@ function FormTable({
         data.data.status.message.kendaraan_operasional
       );
       setStatusPurchasing(data.data.status.message.kendaraan_purchasing);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const validationSchema = Yup.object().shape({
@@ -721,7 +740,7 @@ function FormTable({
         }
       );
       setNamaSupir(data.data.data.driverName);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const BuatVehicle = async (values, newFileList) => {
@@ -746,7 +765,6 @@ function FormTable({
         text: "Data kendaraan berhasil ditambahkan",
       });
     } catch (error) {
-      console.log(error);
       Swal.fire({
         icon: "error",
         title: "Gagal",
@@ -754,6 +772,9 @@ function FormTable({
       });
     }
   };
+
+  const [ShowModalCreatePO, setShowModalCreatePO] = useState(false);
+
 
   return (
     <>
@@ -835,7 +856,7 @@ function FormTable({
                   }
                   validateStatus={
                     formik.touched.tgl_plat_nomor &&
-                    formik.errors.tgl_plat_nomor
+                      formik.errors.tgl_plat_nomor
                       ? "error"
                       : "success"
                   }
@@ -932,7 +953,7 @@ function FormTable({
                   }
                   validateStatus={
                     formik.touched.jenis_kepemilikan &&
-                    formik.errors.jenis_kepemilikan
+                      formik.errors.jenis_kepemilikan
                       ? "error"
                       : "success"
                   }
@@ -970,7 +991,7 @@ function FormTable({
                   }
                   validateStatus={
                     formik.touched.kode_kendaraan &&
-                    formik.errors.kode_kendaraan
+                      formik.errors.kode_kendaraan
                       ? "error"
                       : "success"
                   }
@@ -1056,7 +1077,7 @@ function FormTable({
                   }
                   validateStatus={
                     formik.touched.jenis_kendaraan &&
-                    formik.errors.jenis_kendaraan
+                      formik.errors.jenis_kendaraan
                       ? "error"
                       : "success"
                   }
@@ -1380,7 +1401,7 @@ function FormTable({
                   }
                   validateStatus={
                     formik.touched.kapasitas_maks &&
-                    formik.errors.kapasitas_maks
+                      formik.errors.kapasitas_maks
                       ? "error"
                       : "success"
                   }
@@ -1468,11 +1489,12 @@ function FormTable({
                       <Row>
                         <Col sm={12}>
                           <Form.Label>Vehicle Type</Form.Label>
+                          <Form.Label>ini adalah{NamaMobilDariTable}</Form.Label>
                           <Form.Select
                             type="text"
                             disabled
-                            value={types[0] || ""}
-                            onChange={(e) => {}}
+                            value={NamaMobilDariTable || ""}
+                            onChange={(e) => { }}
                           >
                             {types.map((type, index) => (
                               <option key={index} value={type}>
@@ -1493,7 +1515,7 @@ function FormTable({
                             options={nomorpolisiOptions}
                             onChange={(selectedOption) => {
                               setSelectnomor(selectedOption.value);
-                              setSelectNopol(selectedOption.label);
+                              setSelectNopol(selectedOption.no_polisi);
                             }}
                           />
                           <a
@@ -1551,7 +1573,7 @@ function FormTable({
                             type="text"
                             disabled
                             value={types[0] || ""}
-                            onChange={(e) => {}}
+                            onChange={(e) => { }}
                           >
                             {types.map((type, index) => (
                               <option key={index} value={type}>
@@ -1607,7 +1629,7 @@ function FormTable({
                             type="text"
                             disabled
                             value={types[0] || ""}
-                            onChange={(e) => {}}
+                            onChange={(e) => { }}
                           >
                             {types.map((type, index) => (
                               <option key={index} value={type}>
@@ -1663,7 +1685,7 @@ function FormTable({
                             type="text"
                             disabled
                             value={types[0] || ""}
-                            onChange={(e) => {}}
+                            onChange={(e) => { }}
                           >
                             {types.map((type, index) => (
                               <option key={index} value={type}>
@@ -1828,25 +1850,25 @@ function FormTable({
               } */}
               {StatusApproveAct === "Y" && TanggalACT3 != null ? (
                 <Alert type="success" message="Approve Akunting" banner />
-              ) : StatusApproveAct === "N" && TanggalACT3 === null ? (
+              ) : StatusApproveAct === "N" && TanggalACT3 === "1970-01-01T00:00:00.000Z" ? (
                 <Alert type="info" message="Waiting Akunting" banner />
-              ) : StatusApproveAct === "N" && TanggalACT3 !== null ? (
+              ) : StatusApproveAct === "N" && TanggalACT3 !== "1970-01-01T00:00:00.000Z" ? (
                 <Alert type="error" message="Reject Akunting" banner />
               ) : null}
 
               {Kendaraan_operasionalStatus === "Y" && TanggalACT4 != null ? (
                 <Alert type="success" message="Approve Operasional" banner />
-              ) : StatusApproveOpt === "N" && TanggalACT4 === null ? (
+              ) : StatusApproveOpt === "N" && TanggalACT4 === "1970-01-01T00:00:00.000Z" ? (
                 <Alert type="info" message="Waiting Operasional" banner />
-              ) : StatusApproveOpt === "N" && TanggalACT4 !== null ? (
+              ) : StatusApproveOpt === "N" && TanggalACT4 !== "1970-01-01T00:00:00.000Z" ? (
                 <Alert type="error" message="Reject Operasional" banner />
               ) : null}
 
               {StatusPurchasing === "Y" && TanggalACT5 != null ? (
                 <Alert type="success" message="Approve Purchasing" banner />
-              ) : StatusPurchasing === "N" && TanggalACT5 === null ? (
+              ) : StatusPurchasing === "N" && TanggalACT5 === "1970-01-01T00:00:00.000Z" ? (
                 <Alert type="info" message="Waiting Purchasing" banner />
-              ) : StatusPurchasing === "N" && TanggalACT5 === null ? (
+              ) : StatusPurchasing === "N" && TanggalACT5 !== "1970-01-01T00:00:00.000Z" ? (
                 <Alert type="error" message="Reject Purchasing" banner />
               ) : null}
 
@@ -1893,7 +1915,7 @@ function FormTable({
                           type="text"
                           disabled
                           value={types[0] || ""}
-                          onChange={(e) => {}}
+                          onChange={(e) => { }}
                         >
                           {types.map((type, index) => (
                             <option key={index} value={type}>
@@ -1945,13 +1967,12 @@ function FormTable({
                           <>
                             <Form.Label>Select Mitra 1</Form.Label>
                             <Form.Select
-                              disabled
-                              value={Mitra1Multi?.driverName || ""}
-                              onChange={() => {}}
+                              value={Mitra1Multi?.mitra || ""}
+                              onChange={() => { }}
                             >
                               {Mitra1Multi && (
                                 <option value={Mitra1Multi.driverName}>
-                                  {Mitra1Multi.driverName}
+                                  {Mitra1Multi.mitra}
                                 </option>
                               )}
                             </Form.Select>
@@ -1963,20 +1984,26 @@ function FormTable({
                         <Form.Label>Vehicle Type</Form.Label>
                         <Form.Select
                           type="text"
-                          disabled
-                          value={Mitra1Multi?.tipeKendaraan}
-                          onChange={(e) => {}}
+                          // disabled
+                          value={DataUntukPurchsingDanApprovenya?.kendaraan}
+                          onChange={(e) => { setDataUntukPurchsingDanApprovenya(e.target.value) }}
                         >
-                          {types.map((type, index) => (
+                          {/* {types.map((type, index) => (
                             <option key={index} value={type}>
                               {type}
                             </option>
-                          ))}
+                          ))} */}
+                          {TipeKendaraan &&
+                            TipeKendaraan.tipe && TipeKendaraan.tipe.map((type, index) => (
+                              <option key={index} value={type.id}>
+                                {type.tipe}
+                              </option>
+                            ))}
                         </Form.Select>
                       </Col>
                       <Col sm={3}>
                         <Form.Label>Kode Kendaraan</Form.Label>
-                        <Form.Select disabled value={Mitra1Multi?.unit}>
+                        <Form.Select value={Mitra1Multi?.unit}>
                           Mitra1Multi && (
                           <option value={Mitra1Multi?.unit}>
                             {Mitra1Multi?.unit}
@@ -1987,17 +2014,20 @@ function FormTable({
                       <Col sm={3}>
                         <Form.Label>Select Driver</Form.Label>
                         <Form.Select
-                          disabled
+                          // disabled
                           value={Mitra1Multi?.driverName || ""}
                           onChange={(e) => {
                             setIdunit3(e.target.value);
                           }}
+
                         >
+
                           {Mitra1Multi && (
                             <option value={Mitra1Multi.driverName}>
                               {Mitra1Multi.driverName}
                             </option>
                           )}
+
                         </Form.Select>
                       </Col>
                       <Col sm={3}>
@@ -2027,7 +2057,7 @@ function FormTable({
                         >
                           <option>Select Type</option>
                           {TipeKendaraan &&
-                            TipeKendaraan.map((type, index) => (
+                            TipeKendaraan.tipe && TipeKendaraan.tipe.map((type, index) => (
                               <option key={index} value={type.id}>
                                 {type.tipe}
                               </option>
@@ -2097,7 +2127,7 @@ function FormTable({
                         >
                           <option>Select Type</option>
                           {TipeKendaraan &&
-                            TipeKendaraan.map((type, index) => (
+                            TipeKendaraan.tipe && TipeKendaraan.tipe.map((type, index) => (
                               <option key={index} value={type.id}>
                                 {type.tipe}
                               </option>
@@ -2280,19 +2310,39 @@ function FormTable({
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group> */}
       </Row>
-      <br />
+      {/* <br /> */}
       <Row>
         <Col>
           <Table responsive>
-            <thead></thead>
+            {/* <thead></thead> */}
             <tbody>
+              {
+                jobdesk === "purchasing" &&
+                IsiDataSPSemua && (
+                  <>
+                    <Button
+                      onClick={() => setShowModalCreatePO(true)}
+                      variant="danger"
+                      style={{ position: "relative", top: "70px" }}
+                    >
+                      Create PO
+                    </Button>
+                    <ModalCreatePO
+                      show={ShowModalCreatePO}
+                      onHide={() => setShowModalCreatePO(false)}
+                    />
+                  </>
+                )
+              }
+
+
               {IsiDataSPSemua &&
                 IsiDataSPSemua.detail &&
                 IsiDataSPSemua.detail.map((data, index) => (
                   <>
                     <tr style={{ fontWeight: "bold" }}>
                       <td colSpan={10}>
-                        <hr />
+                        {/* <hr /> */}
                         <br />{" "}
                       </td>
                     </tr>
@@ -2303,7 +2353,7 @@ function FormTable({
                       }}
                     >
                       {/* <td></td> */}
-                      <td  colSpan={12}>Alamat Muat</td>
+                      <td colSpan={12}>Alamat Muat</td>
                     </tr>
 
                     <tr key={index}>
@@ -2447,10 +2497,10 @@ function FormTable({
                               })}
                             </td>
                             <td>
-                              {jobdesk == "operasional" &&
+                              {/* {jobdesk == "operasional" &&
                                 Kendaraan_operasionalStatus === "Y" && (
-                                  <>
-                                    {/* <Button
+                                  <> */}
+                              {/* <Button
                                       disabled
                                       size="sm"
                                       variant="primary"
@@ -2462,10 +2512,11 @@ function FormTable({
                                     >
                                       Approved
                                     </Button> */}
-                                  </>
-                                )}
+                              {/* </>
+                                )} */}
                             </td>
 
+                            {/* ///////ini approve operasional untuk drivernya////// */}
                             {IsiKomenRejectSP === "Tidak Menggunakan unit" ? (
                               <Alert
                                 type="error"
@@ -2481,6 +2532,7 @@ function FormTable({
                                 onClick={() => {
                                   handleShow(data.idmpd);
                                   approvebaru(data.idmpd);
+                                  setNamaMobilDariTable(data.kendaraan)
                                 }}
                                 className="mt-2"
                                 disabled={LoadingMuterMuter}
@@ -2491,18 +2543,22 @@ function FormTable({
                               data.supirId !== 0 &&
                               data.unitId !== 0 ? (
                               <Button
-                                disabled
+                                // disabled
                                 size="sm"
-                                variant="primary"
+                                type="danger"
+                                variant="danger"
+                                style={{ color: "white", backgroundColor: "red" }}
                                 onClick={() => {
                                   handleShow(data.idmpd);
                                   approvebaru(data.idmpd);
+                                  setNamaMobilDariTable(data.kendaraan)
                                 }}
                                 className="mt-2"
                               >
-                                Approved
+                                Edit
                               </Button>
                             ) : null}
+                            {/* ///////END ini approve operasional untuk drivernya////// */}
 
                             {/* 
                             {(jobdesk == "operasional" && data.supirId === 0 && data.unitId === 0
@@ -2548,7 +2604,9 @@ function FormTable({
                                     variant="primary"
                                     onClick={() => {
                                       handleShow(data.idmpd);
-                                      approvebaru(data.idmpd);
+                                      approvebaru(data.idmpd, data);
+                                      MitraMulti(data.idmpd)
+                                      // FetchTipeKendaraan()
                                     }}
                                     className="mt-2"
                                   >
@@ -2591,7 +2649,7 @@ function FormTable({
           {/* {(jobdesk === "purchasing") && ( */}
           <Table>
             <Row>
-          
+
               <Col
                 span={12}
                 style={{ marginLeft: "10px" }}
@@ -2612,7 +2670,7 @@ function FormTable({
               </Col>
             </Row>
             <Row>
-          
+
               <Col
                 span={12}
                 style={{ marginLeft: "10px" }}
@@ -2623,59 +2681,59 @@ function FormTable({
                     <td style={{ paddingRight: "20px" }}> Biaya Bongkar </td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="150px" style={{ paddingLeft: "10px" }}>
-                    {IsiDataSPSemua?.totalBongkar?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
+                      {IsiDataSPSemua?.totalBongkar?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
                     </td>
                   </tr>
                 </div>
               </Col>
             </Row>
             <Row>
-          
-          <Col
-            span={12}
-            style={{ marginLeft: "10px" }}
-            className="d-flex justify-content-end"
-          >
-            <div>
-              <tr style={{ fontWeight: "bold" }}>
-                <td style={{ paddingRight: "20px" }}>Biaya Mel</td>
-                <td style={{ paddingRight: "10px" }}>:</td>
-                <td width="150px" style={{ paddingLeft: "10px" }}>
-                {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
-                style: "currency",
-                currency: "IDR",
-              })}
-                </td>
-              </tr>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-      
-          <Col
-            span={12}
-            style={{ marginLeft: "10px" }}
-            className="d-flex justify-content-end"
-          >
-            <div>
-              <tr style={{ fontWeight: "bold" }}>
-                <td style={{ paddingRight: "20px" }}> Biaya Inap</td>
-                <td style={{ paddingRight: "10px" }}>:</td>
-                <td width="150px" style={{ paddingLeft: "10px" }}>
-                {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
-                style: "currency",
-                currency: "IDR",
-              })}
-                </td>
-              </tr>
-            </div>
-          </Col>
-        </Row>
+
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}>Biaya Mel</td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="150px" style={{ paddingLeft: "10px" }}>
+                      {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
             <Row>
-          
+
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}> Biaya Inap</td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="150px" style={{ paddingLeft: "10px" }}>
+                      {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+
               <Col
                 span={12}
                 style={{ marginLeft: "10px" }}
@@ -2686,17 +2744,17 @@ function FormTable({
                     <td style={{ paddingRight: "20px" }}> Biaya MultiDrop</td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="150px" style={{ paddingLeft: "10px" }}>
-                    Rp 0,00 {IsiDataSPSemua?.biaya_multidrop?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
+                      Rp 0,00 {IsiDataSPSemua?.biaya_multidrop?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
                     </td>
                   </tr>
                 </div>
               </Col>
             </Row>
             <Row>
-          
+
               <Col
                 span={12}
                 style={{ marginLeft: "10px" }}
@@ -2707,19 +2765,19 @@ function FormTable({
                     <td style={{ paddingRight: "20px" }}>Biaya Overtonase</td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="150px" style={{ paddingLeft: "10px" }}>
-                    Rp 0,00  {IsiDataSPSemua?.biaya_overtonase?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
+                      Rp 0,00  {IsiDataSPSemua?.biaya_overtonase?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
                     </td>
                   </tr>
                 </div>
               </Col>
             </Row>
-           
+
             <hr />
             <Row>
-          
+
               <Col
                 span={12}
                 style={{ marginLeft: "10px" }}
@@ -2730,10 +2788,10 @@ function FormTable({
                     <td style={{ paddingRight: "20px" }}>TOTAL KESELURUHAN</td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="150px" style={{ paddingLeft: "10px" }}>
-                    {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
+                      {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
                     </td>
                   </tr>
                 </div>
