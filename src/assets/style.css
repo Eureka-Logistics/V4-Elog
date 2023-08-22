@@ -1,7 +1,7 @@
 .h5, h5 {
   font-size: 1.25rem;
   color: #1A5CBF;
-  font-weight: bold;
+  font-weight: bold;  
 }
 
 .ant-menu ul, .ant-menu ol {
@@ -80,7 +80,43 @@
 
 /* Contoh gaya khusus untuk kolom "Kode Tarif" */
 
+/* .ant-select {
+  box-sizing: border-box;
+  margin: 0;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding: 0;
+  color: blue;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.3;
+  list-style: none;
+  font-feature-settings: 'tnum';
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+} */
 
+/* .input-group>.form-control, .input-group>.form-floating, .input-group>.form-select {
+  position: relative;
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0;
+  border-block-color: blue;
+  border-inline-color: blue;
+} */
+
+.form-control:disabled {
+  background-color: #e9ecef;
+  opacity: 1;
+  /* border-block-end-color: blue; */
+  border-block-color: blue;
+  border-inline-color: blue;
+}
+
+  
 .custom-button {
     width: 180px;
     color: white;

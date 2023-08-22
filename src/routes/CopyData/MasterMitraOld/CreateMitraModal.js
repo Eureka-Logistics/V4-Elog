@@ -11,6 +11,7 @@ function SamplePage({ isiValues }) {
   const history = useHistory();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const router = useHistory();
 
   const handleSubmit = (values) => {
     httpClient
@@ -57,8 +58,12 @@ function SamplePage({ isiValues }) {
     OptionsData();
   }, []);
 
+ 
+
+
   return (
     <>
+  
       <Button
         style={{
           backgroundColor: "#1A5CBF",
@@ -75,7 +80,7 @@ function SamplePage({ isiValues }) {
       <Modal
     title="New Master Mitra"
     visible={show}
-    width={1000}
+    width={1200}
     onCancel={handleClose}
     footer={[
         // Uncomment this if you want the Save button

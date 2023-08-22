@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 const { confirm } = Modal;
 
 function PIC({ mitraId }) {
+  const [semuaEdit, setsemuaEdit] = useState("");
   const [order, setOrder] = useState([]);
   const router = useHistory();
   const [showModal, setShowModal] = useState(false);
@@ -25,16 +26,18 @@ function PIC({ mitraId }) {
   const [Jabatan, setDataJabatan] = useState("");
   const [KTP, setDataKTP] = useState("");
 
-  const handleShowModal = () => {
+  const handleShowModal = (row) => {
     setShowModal(true);
+    console.log(row);
+    setsemuaEdit(row);
   };
 
   const initialValues = {
-    nama: "",
-    email: "",
-    telpon: "",
-    jabatan: "",
-    ktp: "",
+    nama: Nama,
+    email: Email,
+    telpon: Telepon,
+    jabatan: Jabatan,
+    ktp: KTP,
   };
 
   const createMitraPic = (values) => {
@@ -47,6 +50,7 @@ function PIC({ mitraId }) {
         console.error(error); // Replace with your desired error handling logic
       });
   };
+  console.log(`mitraId`, mitraId);
 
   const fetchDataDetail = async () => {
     try {
@@ -102,7 +106,11 @@ function PIC({ mitraId }) {
       name: "Aksi",
       cell: (row) => (
         <>
-          <Button size="sm" variant="primary" onClick={handleShowModal}>
+          <Button
+            size="sm"
+            variant="primary"
+            onClick={() => handleShowModal(row)}
+          >
             Edit
           </Button>
           {/* <Button onClick={handleDelete} size="sm" variant="danger">
@@ -124,13 +132,13 @@ function PIC({ mitraId }) {
   const EditMitraPIC = async () => {
     try {
       const data = {
-        id_mitra_pic: mitraId,
-        id_mitra: mitraId,
-        nama: Nama,
-        telepon: parseInt(Telepon),
-        email: Email,
-        jabatan: Jabatan,
-        ktp: KTP,
+        id_mitra_pic: parseInt(semuaEdit.id_mitra_pic),
+        id_mitra: parseInt(mitraId),
+        nama: Nama === null ? semuaEdit.nama : Nama,
+        telepon: Telepon === null ? semuaEdit.telepon : Telepon,
+        email: Email === null ? semuaEdit.email : Email,
+        jabatan: Jabatan === null ? semuaEdit.jabatan : Jabatan,
+        ktp: KTP === null ? semuaEdit.ktp : KTP,
       };
 
       const response = await axios.post(
@@ -156,6 +164,8 @@ function PIC({ mitraId }) {
           text: "Tarif has been saved",
           // footer: '<a href="">Why do I have this issue?</a>'
         });
+        fetchDataDetail();
+        setShowModal(false);
       } else if (response.status === 500) {
         // Swal.fire({
         //     icon: 'error',
@@ -168,12 +178,6 @@ function PIC({ mitraId }) {
     } catch (error) {
       console.log(`ini error`);
       console.error(`ini errorr`, error);
-      Swal.fire({
-        icon: "error",
-        title: "Isi Semua Data Terlebih dahulu",
-        // text: "Isi Semua Data",
-        // footer: '<a href="">Why do I have this issue?</a>'
-      });
     }
   };
 
@@ -197,147 +201,101 @@ function PIC({ mitraId }) {
           <Modal.Title>Edit Mitra PIC</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Row>
-            <Col span={24}>
-            <label className="mt-2">Nama PIC :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
-              <Input
-                className="mt-2"
-                value={Nama}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setDataNama(e.target.value);
-                }}
-              />
-            </div>
-            </Col>
-            <Col span={24}>
-            <label className="mt-2">Email :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
-              <Input
-                className="mt-2"
-                value={Email}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setDataEmail(e.target.value);
-                }}
-              />
-            </div>
-            </Col>
-            <Col span={24}>
-            <label className="mt-2">Telp :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
-              <Input
-                className="mt-2"
-                value={Telepon}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setDataTelepon(e.target.value);
-                }}
-              />
-            </div>
-            </Col>
-            <Col span={24}>
-            <label className="mt-2">Jabatan :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
-              <Input
-                className="mt-2"
-                value={Jabatan}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setDataJabatan(e.target.value);
-                }}
-              />
-            </div>
-            </Col>
-            <Col span={24}>
-            <label className="mt-2">KTP :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
-              <Input
-                className="mt-2"
-                value={KTP}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setDataKTP(e.target.value);
-                }}
-              />
-            </div>
-            </Col>
-          </Row>
-          <Row>
-          <Col span={24} className="d-flex justify-content-end mt-2">
-            <Button type="primary">
-              <span onClick={EditMitraPIC}>Save</span>
-            </Button>
-          </Col>
-        </Row>
-          {/* <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             <Form>
               <div className="mb-3">
                 <label htmlFor="nama" className="form-label">
                   Nama:
                 </label>
-                <Field
-                  type="text"
-                  className="form-control"
-                  id="nama"
-                  name="nama"
+                <Input
+                  value={Nama === "" ? semuaEdit.nama : Nama}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    if (e.target.value === "") {
+                      setDataNama(semuaEdit.nama);
+                      setDataNama(null);
+                    } else {
+                      setDataNama(e.target.value);
+                    }
+                  }}
                 />
               </div>
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">
                   Email:
                 </label>
-                <Field
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  name="email"
+                <Input
+                  value={Email === "" ? semuaEdit.email : Email}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    if (e.target.value === "") {
+                      setDataEmail(semuaEdit.email);
+                      setDataEmail(null);
+                    } else {
+                      setDataEmail(e.target.value);
+                    }
+                  }}
                 />
               </div>
               <div className="mb-3">
                 <label htmlFor="telpon" className="form-label">
                   Telpon:
                 </label>
-                <Field
-                  type="tel"
-                  className="form-control"
-                  id="telpon"
-                  name="telpon"
+                <Input
+                  value={Telepon === "" ? semuaEdit.telepon : Telepon}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    if (e.target.value === "") {
+                      setDataTelepon(semuaEdit.telepon);
+                      setDataTelepon(null);
+                    } else {
+                      setDataTelepon(e.target.value);
+                    }
+                  }}
                 />
               </div>
               <div className="mb-3">
                 <label htmlFor="jabatan" className="form-label">
                   Jabatan:
                 </label>
-                <Field
-                  type="text"
-                  className="form-control"
-                  id="jabatan"
-                  name="jabatan"
+                
+                <Input
+                  value={Jabatan === "" ? semuaEdit.jabatan : Jabatan}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    if (e.target.value === "") {
+                      setDataJabatan(semuaEdit.jabatan);
+                      setDataJabatan(null);
+                    } else {
+                      setDataJabatan(e.target.value);
+                    }
+                  }}
                 />
               </div>
               <div className="mb-3">
                 <label htmlFor="ktp" className="form-label">
                   KTP:
                 </label>
-                <Field
-                  type="text"
-                  className="form-control"
-                  id="ktp"
-                  name="ktp"
-                />
+                <Input 
+                 value={KTP === "" ? semuaEdit.ktp : KTP}
+                 onChange={(e) => {
+                   console.log(e.target.value);
+                   if (e.target.value === "") {
+                     setDataKTP(semuaEdit.ktp);
+                     setDataKTP(null);
+                   } else {
+                     setDataKTP(e.target.value);
+                   }
+                 }} />
               </div>
-              <button onClick={EditMitraPIC} className="btn btn-primary">
+              <button
+                onClick={() => EditMitraPIC(semuaEdit)}
+                className="btn btn-primary"
+              >
                 Submit
               </button>
             </Form>
-          </Formik> */}
+          </Formik>
         </Modal.Body>
         {/* <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowModal(false)}>

@@ -576,6 +576,44 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </Menu.ItemGroup>
+                  <Menu.ItemGroup key="BU" title="Data BU">
+                    <Menu.Item key="Data BU">
+                      <Link
+                        to="/DataBUIndex"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <i className="icon icon-widgets" />
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>Data BU</span>
+                      </Link>
+                    </Menu.Item>
+                    <Menu.Item key="Data BU Employee">
+                      <Link
+                        to="/DataBuEmployee"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <i className="icon icon-widgets" />
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>Data BU Employee</span>
+                      </Link>
+                    </Menu.Item>
+                    <Menu.Item key="Data BU Brench">
+                      <Link
+                        to="/DataBuBrench"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <i className="icon icon-widgets" />
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>Data BU Brench</span>
+                      </Link>
+                    </Menu.Item>
+                    <Menu.Item key="Data Employee Position">
+                      <Link
+                        to="/DataBuEmployeePosition"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <i className="icon icon-widgets" />
+                        <span style={{ fontWeight: "bold",  color: 'white' }}>Data Employee Position</span>
+                      </Link>
+                    </Menu.Item>
+                  </Menu.ItemGroup>
                 </>
               ) : null}
 
@@ -674,6 +712,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
+                 
+                 
                 </Menu.ItemGroup>
               ) : null}
             </MenuItemGroup>
