@@ -2,12 +2,15 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup';
 import { Button, Modal, Form, Input, Select } from 'antd'
 import { Col, Row } from 'react-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EditDetailSPModal from '../../../../../zustand/Store/EditDetailSPModal';
+import axios from 'axios';
+import Baseurl from '../../../../../Api/BaseUrl';
 function ModalEditSPDetail({ isOpen, onClose, handleOpenModal, data, NamaKotaGlobal }) {
     const [dataas, setdatass] = useState("")
     const datawoi = EditDetailSPModal(state => state.data);
     const setData = EditDetailSPModal(state => state.setData);
+   
     const formik = useFormik({
         initialValues: {
             alamatmuat: data?.alamatmuat || '',
@@ -31,15 +34,29 @@ function ModalEditSPDetail({ isOpen, onClose, handleOpenModal, data, NamaKotaGlo
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-    console.log(`data darai datawoi`, datawoi)
+    console.log(`datawoi zustand`, datawoi);
+    const apidetailidmpd = async () => {
+        try {
+            const data = await axios.get(`${Baseurl}sp/get-SP-detail-purch-idmp?id_mp=${data.idmpd}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.getItem("token"),
+                },
+            })
+            console.log(`ini dari modal editspdetail`, data);
+        } catch (error) {
+
+        }
+    }
+
     return (
         <div className='mt-3'>
-            {/* <div className='d-flex justify-content-end'>
+            <div className='d-flex justify-content-end'>
                 <Button type='primary' onClick={() => {
+                    apidetailidmpd()
                     handleOpenModal()
                 }}>Edit Detail SP </Button>
-            </div> */}
-
+            </div>
 
             <Modal
                 title={`Edit Detail SP`}
