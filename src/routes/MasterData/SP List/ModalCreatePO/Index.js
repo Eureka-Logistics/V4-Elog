@@ -1,5 +1,6 @@
 import { Button, Form, Input, Modal } from 'antd';
 import React, { useState } from 'react'
+import { Col, Row } from 'react-bootstrap';
 
 function ModalCreatePO({ show, onHide }) {
     const [form] = Form.useForm();
@@ -30,14 +31,14 @@ function ModalCreatePO({ show, onHide }) {
                     layout="vertical"
                     name="basic"
                     labelCol={{
-                        span: 8,
+                        span: 24,
                     }}
                     wrapperCol={{
-                        span: 16,
+                        span: 24,
                     }}
-                    style={{
-                        maxWidth: 600,
-                    }}
+                    // style={{
+                    //     maxWidth: 600,
+                    // }}
                     initialValues={{
                         remember: true,
                     }}
@@ -45,32 +46,25 @@ function ModalCreatePO({ show, onHide }) {
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
+                    <Row>
                     {Array.from({ length: 3 }).map((_, index) => (
-                        <Form.Item
-                            key={index}
-                            label={`PO number ${index + 1} Mitra Name`}
-                            name={`po_number_${index + 1}`}
-                            rules={[
-                                {
-                                    required: false,
-                                    message: `Please input PO number ${index + 1}!`,
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
+                            <Col md={4}>
+                            <Form.Item
+                                key={index}
+                                label={`PO number ${index + 1} Mitra Name`}
+                                name={`po_number_${index + 1}`}
+                                rules={[
+                                    {
+                                        required: false,
+                                        message: `Please input PO number ${index + 1}!`,
+                                    },
+                                ]}
+                            >
+                                <Input />
+                            </Form.Item>
+                            </Col>
                     ))}
-
-                    {/* <Form.Item
-                        wrapperCol={{
-                            offset: 8,
-                            span: 16,
-                        }}
-                    > */}
-                    {/* <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button> */}
-                    {/* </Form.Item> */}
+                    </Row>
                 </Form>
             </Modal>
             <br />

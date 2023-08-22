@@ -320,7 +320,7 @@ function FormTable({
         // id_mitra_2: ``,
         // plat_nomor: selectnopol,
         // merk: types[0],
-        id_mp:parseInt(idmp),
+        id_mp: parseInt(idmp),
         id_mpd: IDMPD,
         id_unit: selectDriver[0]?.idUnit ? selectDriver[0]?.idUnit : idUnit,
         id_unit_2: selectnomor,
@@ -611,10 +611,10 @@ function FormTable({
 
   //// ngambil mitra 1 kalau multi
 
-  const MitraMulti = async () => {
+  const MitraMulti = async (idmpd) => {
     try {
       const data = await axios.get(
-        `${Baseurl}sp/get-SP-detail-purch?id_mp=${idmp}`,
+        `${Baseurl}sp/get-SP-detail-purch?id_mpd=${idmpd}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -2317,12 +2317,20 @@ function FormTable({
             {/* <thead></thead> */}
             <tbody>
               {
-                jobdesk === "purchasing" && (
+                jobdesk === "purchasing" &&
+                IsiDataSPSemua && (
                   <>
-                    <Button onClick={() => setShowModalCreatePO(true)} variant="danger" style={{ position: 'relative', top: '70px' }}>
+                    <Button
+                      onClick={() => setShowModalCreatePO(true)}
+                      variant="danger"
+                      style={{ position: "relative", top: "70px" }}
+                    >
                       Create PO
                     </Button>
-                    <ModalCreatePO show={ShowModalCreatePO} onHide={() => setShowModalCreatePO(false)} />
+                    <ModalCreatePO
+                      show={ShowModalCreatePO}
+                      onHide={() => setShowModalCreatePO(false)}
+                    />
                   </>
                 )
               }
@@ -2597,6 +2605,7 @@ function FormTable({
                                     onClick={() => {
                                       handleShow(data.idmpd);
                                       approvebaru(data.idmpd, data);
+                                      MitraMulti(data.idmpd)
                                       // FetchTipeKendaraan()
                                     }}
                                     className="mt-2"

@@ -195,11 +195,11 @@ function SPListlama() {
           <Tag color="green">
             Approved <br /> {tanggal}
           </Tag>
-        ) : row?.approveAct === "N" && tanggal === "Invalid date" || "1970-01-01 07:00:00" ? (
+        ) : row?.approveAct === "N" && tanggal === "1970-01-01 07:00:00" ? (
           <Tag color="yellow">
             Waiting <br /> {tanggal ? "-" : tanggal}
           </Tag>
-        ) : row?.approveAct === "N" && tanggal !== "Invalid date" || "1970-01-01 07:00:00" ? (
+        ) : row?.approveAct === "N" && tanggal !== "1970-01-01 07:00:00" ? (
           <Tag color="red">
             Diverted <br /> {tanggal}
           </Tag>
@@ -224,13 +224,13 @@ function SPListlama() {
               Approved <br /> {data}
             </Tag>
           );
-        } else if (row?.approveOps === "N" && (dateApproveOps === "Invalid date" || dateApproveOps === "1970-01-01 07:00:00")) {
+        } else if (row?.approveOps === "N" && (dateApproveOps ===  "1970-01-01 07:00:00")) {
           return (
             <Tag color="yellow">
               Waiting <br />  -
             </Tag>
           );
-        } else if (row?.approveOps === "N" && (dateApproveOps !== "Invalid date" && dateApproveOps !== "1970-01-01 07:00:00")) {
+        } else if (row?.approveOps === "N" && (dateApproveOps !==  "1970-01-01 07:00:00")) {
           return (
             <Tag color="red">
               Diverted <br /> {data}
@@ -258,11 +258,11 @@ function SPListlama() {
               <Tag color="green">
                 Approved <br /> {date}
               </Tag>
-            ) : row.approvePurch === "N" && date === "Invalid date" || "1970-01-01 07:00:00" ? (
+            ) : row.approvePurch === "N" && date === "1970-01-01 07:00:00" ? (
               <Tag color="yellow">
                 Waiting <br /> {date ? "-" : date}
               </Tag>
-            ) : row.approvePurch === "N" && date != "Invalid date" || "1970-01-01 07:00:00" ? (
+            ) : row.approvePurch === "N" && date != "1970-01-01 07:00:00" ? (
               <Tag color="red">
                 Diverted <br /> {date}
               </Tag>

@@ -8,6 +8,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import NumberFormat from 'react-number-format';
 import ZustandStore from '../../../../zustand/Store/GetSelectKota';
+import ModalEditSPDetail from './EditModalSPDetail/ModalEditSPDetail';
 function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik, detailData, getDetails }) {
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
@@ -21,10 +22,22 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     const [IDKotaBongkar, setIDKotaBongkar] = useState("")
     const [HasilTarif, setasilTarif] = useState("")
     const [PenjumlahanTotal, setPenjumlahanTotal] = useState(0);
+    const [dataas, setdatass] = useState("")
     const { NamaKotaGlobal, setNamaKotaGlobal } = ZustandStore((i) => ({
         NamaKotaGlobal: i.NamaKotaGlobal,
         setNamaKotaGlobal: i.setNamaKotaGlobal
     }))
+    const [modal1Open1, setModal1Open1] = useState(false);
+    const handleOpenModal = (data) => {
+        setModal1Open1(true);
+        console.log(`ini data dari modal`, data);
+        setdatass(data)
+    };
+
+    const handleCloseModal = () => {
+        setModal1Open1(false);
+    };
+
     const [id_price_customer, setid_price_customer] = useState("")
     const [GetTarifOptions, setGetTarifOptions] = useState([])
     const formik = useFormik({
@@ -34,7 +47,6 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
             kendaraan: "",
             via: "",
             alamatrute: '',
-
         },
         validationSchema: Yup.object({
             alamatmuat: Yup.string().required('Alamat Muat Harus Di Isi'),
@@ -55,8 +67,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     });
     var counter = 1
     // Create Detail SP
-    console.log(`PenjumlahanTotal`,PenjumlahanTotal)
-    console.log(`HasilTarif`,HasilTarif)
+    console.log(`PenjumlahanTotal`, PenjumlahanTotal)
+    console.log(`HasilTarif`, HasilTarif)
     const CreateDetailSP = async () => {
         try {
             setLoding(true)
@@ -76,7 +88,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     qty: formik.values.qyt,
                     koli: formik.values.koli,
                     id_price_customer: id_price_customer,
-                    harga: parseInt (PenjumlahanTotal) === 0 ? parseInt (PenjumlahanTotal) + HasilTarif + Hitung() : parseInt (PenjumlahanTotal),
+                    harga: parseInt(PenjumlahanTotal) === 0 ? parseInt(PenjumlahanTotal) + HasilTarif + Hitung() : parseInt(PenjumlahanTotal),
                     // harga: HasilTarif + Hitung(),
                     harga_bongkar: formik.values.bongkar,
                     harga_muat: formik.values.biayamuat,
@@ -327,7 +339,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         /// Ini itungan kalau dia adalah retail
         if (formik.values.shipment === "Retail") {
             total += formik.values.berat * HasilTarif;
-        
+
         } else if (formik.values.shipment !== "Charter") {
             const fields = ['biayamel', 'biayamultidrop', 'biayamultimuat', 'biayamuat', 'bongkar'];
             console.log("HasilTarif:", HasilTarif);
@@ -517,7 +529,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         setid_price_customer(value)
                                         console.log(`id_price`, value);
                                     }}
-                                    value={"Kendaraan :" + " " + formik.values.kendaraan + " | | " + "Via :" + " " +  formik.values.via +" | | "+ "Shipment : " + formik.values.shipment + " | | " + "Tarif : " + formik.values.biaya_jalan}
+                                    value={"Kendaraan :" + " " + formik.values.kendaraan + " | | " + "Via :" + " " + formik.values.via + " | | " + "Shipment : " + formik.values.shipment}
 
                                     onBlur={formik.handleBlur}
                                 >
@@ -767,7 +779,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     <Row>
                         <Col sm={3}>
                             <Form.Item
-                                label={"Berat (KG)" }
+                                label={"Berat (KG)"}
                                 help={formik.touched.berat && formik.errors.berat}
                                 validateStatus={
                                     formik.touched.berat && formik.errors.berat
@@ -934,11 +946,11 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 style={{ marginBottom: 2 }}
                             >
                                 <Input
-                                    
+
                                     id="tarif"
                                     name="tarif"
                                     type="number"
-                                    onChange={(e)=>setasilTarif(e.target.value)}
+                                    onChange={(e) => setasilTarif(e.target.value)}
                                     // value={formik.values.tarif === null ? true : false}
                                     value={HasilTarif === "" ? formik.values.biaya_jalan : HasilTarif}
                                     onBlur={formik.handleBlur}
@@ -984,7 +996,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
                                         formik.setFieldValue("bongkar", Number(e.target.value.replace(/\D/g, '')))
                                     }}
-                                    
+
                                     value={formik.values.bongkar === undefined ? '0' : formik.values.bongkar}
                                     onBlur={formik.handleBlur}
                                 />
@@ -1268,7 +1280,23 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                         >
                                                             Edit
                                                         </Button>
-
+                                                        <Button
+                                                            size="md"
+                                                            type="primary"
+                                                            onClick={()=>handleOpenModal(data)}
+                                                            className="mt-2"
+                                                        >
+                                                            Edit
+                                                        </Button>
+                                                        <ModalEditSPDetail
+                                                            datasemua={dataas}
+                                                            data={dataas}
+                                                            isOpen={modal1Open1}
+                                                            // handleOpenModal={() => handleOpenModal(data)}
+                                                            idkotamuat={formik.values?.id_kota_muat}
+                                                            NamaKotaGlobal={NamaKotaGlobal}
+                                                            onClose={handleCloseModal}
+                                                        />
                                                     </span>
                                                 </td>
                                                 <td>{data.destination}</td>
