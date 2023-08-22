@@ -265,6 +265,10 @@ const App = ({ match }) => {
           component={asyncComponent(() => import("./Print/PrintSP"))}
         />
         <Route
+          path={`${match.url}PrintMasterMitra`}
+          component={asyncComponent(() => import("./Print/PrintMasterMitra/PrintMasterMitra"))}
+        />
+        <Route
           path={`${match.url}masterdata/splistlama`}
           component={asyncComponent(() => import("./MasterData/SP List/index"))}
         />

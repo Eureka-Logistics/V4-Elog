@@ -1,6 +1,6 @@
 import React from "react";
 
 const CircularProgress = ({className}) => <div className={`loader ${className}`}>
-  <img src="/assets/images/LogoEureka.png" alt="loader"/>
+  <img src="/assets/images/elogs.svg" alt="loader"/>
 </div>;
 export default CircularProgress;
