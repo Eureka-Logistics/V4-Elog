@@ -24,6 +24,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     const [IDKotaBongkar, setIDKotaBongkar] = useState("")
     const [HasilTarif, setasilTarif] = useState("")
     const [PenjumlahanTotal, setPenjumlahanTotal] = useState(0);
+    const [TarifAsli, setTarifAsli] = useState(0);
     const { NamaKotaGlobal, setNamaKotaGlobal } = ZustandStore((i) => ({
         NamaKotaGlobal: i.NamaKotaGlobal,
         setNamaKotaGlobal: i.setNamaKotaGlobal
@@ -93,7 +94,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     qty: formik.values.qty,
                     koli: formik.values.koli,
                     id_price_customer: id_price_customer,
-                    harga: formik.values.totalCreate,
+                    // harga: formik.values.totalCreate,
+                    harga: TarifAsli,
                     total: formik.values.totalCreate,
                     harga_bongkar: formik.values.bongkar,
                     harga_muat: formik.values.biayamuat,
@@ -245,6 +247,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                 }
             )
             DetailSP()
+            getDetails()
+            setModal1Open1(false)
             message.success('Data berhasil Diubah!');
         } catch (error) {
             message.error('Terjadi kesalahan saat Edit data');
@@ -383,7 +387,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     }, [HasilTarif, formik.values.totalCreate, formik.values.shipment, formik.values.berat, formik.values.bongkar, formik.values.biayamuat]);
 
 
-
+console.log(`GetTarifOptions`,GetTarifOptions);
     // const calculateTotalCreate = (shipmentType, kilogram, tarif) => {
     //     const biayaBongkar = Number(formik.values.bongkar);
     //     const biayaMuat = Number(formik.values.biayamuat);
@@ -421,7 +425,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
             >
 
                 <Form
-                    onFinish={formik.handleSubmit}
+                    // onFinish={formik.handleSubmit}
+                    onFinish={CreateDetailSP}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                     name="Edit Detail SP"
@@ -518,14 +523,15 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     id="pilihrute"
                                     name="pilihrute"
                                     type="text"
-                                    onChange={(value, option) => {
+                                    onChange={(value, option , biaya) => {
                                         formik.setFieldValue("alamatrute", option);
                                         formik.setFieldValue("kendaraan", option.children[1].props.children);
                                         formik.setFieldValue("via", option.children[3].props.children);
                                         formik.setFieldValue("shipment", option.children[5].props.children);
                                         setasilTarif(option.children[7].props.children)
                                         setid_price_customer(value)
-                                        console.log(`id_price`, value);
+                                        console.log(`id_price`, option);
+                                        setTarifAsli(option?.biaya)
                                     }}
                                     value={"Kendaraan :" + " " + formik.values.kendaraan + " | | " + "Via :" + " " + formik.values.via + " | | " + "Shipment : " + formik.values.shipment}
                                     onBlur={formik.handleBlur}
@@ -533,7 +539,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     {GetTarifOptions && GetTarifOptions
                                         .filter(item => item.service_type === DetailSemua?.service)
                                         .map((item) => (
-                                            <Select.Option key={item.kotaTujuan} value={item.id_price}>
+                                            <Select.Option biaya={item.biaya_jalan} key={item.kotaTujuan} value={item.id_price}>
                                                 Kendaraan:<Tag color='blue'>{item.kendaraanJenis}</Tag>via:<Tag color='gold'>{item.via}</Tag>Shipment:<Tag color='cyan'>{item.service_type}</Tag>Tarif:<Tag color='green'>{item.biaya_jalan}</Tag>
                                             </Select.Option>
                                         ))
@@ -748,7 +754,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                         <Col sm={4}>
                             <Form.Item
                                 required
-                                label="Shipment"
+                                label="Service"
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
                                 validateStatus={
                                     formik.touched.alamatmuat && formik.errors.alamatmuat
@@ -951,7 +957,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     id="tarif"
                                     name="tarif"
                                     type="number"
-                                    onChange={(e) => setasilTarif(e.target.value)}
+                                    onChange={(e) => {setasilTarif(e.target.value)
+                                    }}
                                     // value={formik.values.tarif === null ? true : false}
                                     value={HasilTarif}
                                     onBlur={formik.handleBlur}
@@ -1606,7 +1613,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                         <Col sm={4}>
                             <Form.Item
                                 required
-                                label="Shipment"
+                                label="Service"
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
                                 // validateStatus={
                                 //     formik.touched.alamatmuat && formik.errors.alamatmuat
