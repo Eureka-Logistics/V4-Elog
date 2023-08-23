@@ -1727,10 +1727,10 @@ function FormTable({
                   <>
                     {jobdesk != "purchasing" ? (
                       <Checkbox
-                        className="justify-content-end d-flex"
+                        className="justify-content-end d-flex mt-2"
                         onChange={handleCheckboxChange}
                       >
-                        Multi
+                        Lanjut Ke Purchasing
                       </Checkbox>
                     ) : null}
 

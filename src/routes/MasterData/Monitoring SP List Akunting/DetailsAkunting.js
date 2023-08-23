@@ -1063,7 +1063,7 @@ function DetailsAkunting() {
                             <CheckCircleOutlined
                               style={{ fontSize: "15px", marginRight: "5px" }}
                             />
-                            {data.tgl_chat.substring(0, 10)}
+                            {data.tgl_chat}
                           </span>
                         </Tag>
                       </td>

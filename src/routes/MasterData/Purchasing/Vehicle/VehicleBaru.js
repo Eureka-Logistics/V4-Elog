@@ -588,7 +588,7 @@ function VehicleBaru() {
 
                     <Modal
                         title={title()} style={{ top: 10 }} visible={isModalOpen} onOk={formik.handleSubmit}
-                        width={800}
+                        width={1000}
                         onCancel={handleCancel}>
 
                         <AntForm>
@@ -1018,7 +1018,7 @@ function VehicleBaru() {
                                     <Row gutter={16}>
                                         <Col sm={4}>
                                             <AntForm.Item
-                                                label="Panjang"
+                                                label="Panjang (m)"
                                                 required
                                                 labelCol={{ span: 24 }}
                                                 wrapperCol={{ span: 24 }}
@@ -1038,7 +1038,7 @@ function VehicleBaru() {
                                         </Col>
                                         <Col sm={4}>
                                             <AntForm.Item
-                                                label="Lebar"
+                                                label="Lebar (m)"
                                                 required
                                                 labelCol={{ span: 24 }}
                                                 wrapperCol={{ span: 24 }}
@@ -1058,7 +1058,7 @@ function VehicleBaru() {
                                         </Col>
                                         <Col sm={4}>
                                             <AntForm.Item
-                                                label="Tinggi"
+                                                label="Tinggi (m)"
                                                 required
                                                 labelCol={{ span: 24 }}
                                                 wrapperCol={{ span: 24 }}
