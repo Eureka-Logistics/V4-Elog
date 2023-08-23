@@ -249,7 +249,7 @@ if (!noSPawal) {
                 <Form.Label>Service</Form.Label>
                 <Form.Select onChange={(e) => setServiceSelectValue(e.target.value)} type="text">
                   <option value={"Charter"}>Charter</option>
-                  <option value={"Retailer"}>Retailer</option>
+                  <option value={"Retail"}>Retail</option>
                   {/* {serviceSelect &&
                     serviceSelect.map((item) => <option value={item.tipe}>{item.tipe}</option>)} */}
                 </Form.Select>

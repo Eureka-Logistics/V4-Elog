@@ -94,7 +94,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     koli: formik.values.koli,
                     id_price_customer: id_price_customer,
                     harga: formik.values.totalCreate,
-                    // harga: HasilTarif + Hitung(),
+                    total: formik.values.totalCreate,
                     harga_bongkar: formik.values.bongkar,
                     harga_muat: formik.values.biayamuat,
                     id_kota_muat: IDMuatKota,
@@ -319,7 +319,10 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
 
     //     return total;
     // }
-
+    const service = GetTarifOptions.map((i) => (
+        i.service_type
+    ))
+    console.log(`GetTarifOptions`, service);
 
     const formatToIDR = (value) => {
         return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(value);
@@ -363,7 +366,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         const berat = Number(formik.values.berat) || 0;
         const HasilTarifNumerik = Number(HasilTarif) || 0;
 
-        if (DetailSemua?.service === 'Retailer') {
+        if (DetailSemua?.service === 'Retail') {
             return berat * HasilTarifNumerik + biayaBongkar + biayaMuat;
         } else if (DetailSemua?.service === 'Charter') {
             return HasilTarifNumerik + biayaBongkar + biayaMuat;
@@ -376,8 +379,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         const total = calculateTotal(formik.values.shipment, formik.values.berat, HasilTarif);
         formik.setFieldValue("total", total);
         const totalCreate = calculateTotal(formik.values.shipment, formik.values.berat, HasilTarif);
-        formik.setFieldValue("totalCreate", totalCreate );
-    }, [HasilTarif, formik.values.totalCreate,formik.values.shipment, formik.values.berat, formik.values.bongkar, formik.values.biayamuat]);
+        formik.setFieldValue("totalCreate", totalCreate);
+    }, [HasilTarif, formik.values.totalCreate, formik.values.shipment, formik.values.berat, formik.values.bongkar, formik.values.biayamuat]);
 
 
 
@@ -525,16 +528,19 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         console.log(`id_price`, value);
                                     }}
                                     value={"Kendaraan :" + " " + formik.values.kendaraan + " | | " + "Via :" + " " + formik.values.via + " | | " + "Shipment : " + formik.values.shipment}
-
                                     onBlur={formik.handleBlur}
                                 >
-                                    {GetTarifOptions && GetTarifOptions.map((item) => (
-                                        <Select.Option key={item.kotaTujuan} value={item.id_price}>
-                                            Kendaraan:<Tag color='blue'>{item.kendaraanJenis}</Tag>via:<Tag color='gold'>{item.via}</Tag>Shipment:<Tag color='cyan'>{item.service_type}</Tag>Tarif:<Tag color='green'>{item.biaya_jalan}</Tag>
-                                        </Select.Option>
-                                    ))}
+                                    {GetTarifOptions && GetTarifOptions
+                                        .filter(item => item.service_type === DetailSemua?.service)
+                                        .map((item) => (
+                                            <Select.Option key={item.kotaTujuan} value={item.id_price}>
+                                                Kendaraan:<Tag color='blue'>{item.kendaraanJenis}</Tag>via:<Tag color='gold'>{item.via}</Tag>Shipment:<Tag color='cyan'>{item.service_type}</Tag>Tarif:<Tag color='green'>{item.biaya_jalan}</Tag>
+                                            </Select.Option>
+                                        ))
+                                    }
                                 </Select>
                             </Form.Item>
+
                         </Col>
                         <Col sm={8}>
                             <Form.Item
@@ -1207,7 +1213,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         backgroundColor: "#dff0d8",
                                     }}
                                 >
-                                    <td>No {nomorr++} </td>
+                                    <td>No. {index + 1} </td>
                                     <td colSpan={12}>Alamat Muat</td>
                                 </tr>
 
@@ -1234,10 +1240,10 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                             <tr
                                                 style={{
                                                     fontWeight: "bold",
-                                                    backgroundColor: "#dff0d8",
+                                                    backgroundColor: "#b7d1f8",
                                                 }}
                                             >
-                                                <td>No {counter++}</td>
+                                                <td>No. {index + 1}</td>
                                                 <td>Alamat Bongkar</td>
                                                 <td width="100px">NO SJ</td>
                                                 <td>Kendaraan</td>
@@ -1264,7 +1270,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                         >
                                                             X
                                                         </Button>
-                                                        <Button
+                                                        {/* <Button
                                                             size="md"
                                                             type="primary"
                                                             onClick={() => {
@@ -1277,7 +1283,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                             className="mt-2"
                                                         >
                                                             Edit
-                                                        </Button>
+                                                        </Button> */}
                                                         <Button
                                                             size="md"
                                                             type="primary"
@@ -1289,7 +1295,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                             }}
                                                             className="mt-2"
                                                         >
-                                                            Edit 2
+                                                            Edit
                                                         </Button>
                                                         {/* <ModalEditSPDetail
                                                             datasemua={dataas}
@@ -1331,6 +1337,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                     currency: "IDR",
                                                 })}</td>
                                             </tr>
+                                            <br />
                                         </>
                                     ))}
                             </>
@@ -1432,7 +1439,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                         <Col sm={12}>
                             <Form.Item
                                 required
-                                label="Pilih Rute"
+                                label={`Pilih Rute ${DetailSemua?.service?.toUpperCase()}`}
                                 help={formik.touched.alamatbongkar && formik.errors.alamatbongkar}
 
                                 style={{ marginBottom: 2 }}
