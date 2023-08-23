@@ -383,7 +383,7 @@ function DataBaru({ mitraId, DataOptions }) {
         Swal.fire({
           icon: "success",
           title: "Success",
-          text: "Tarif has been saved",
+          text: "Data has been Changed",
           // footer: '<a href="">Why do I have this issue?</a>'
         });
       } else if (response.status === 500) {

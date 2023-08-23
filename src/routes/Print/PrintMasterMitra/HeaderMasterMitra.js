@@ -3,7 +3,7 @@ import React from "react";
 
 function HeaderMasterMitra() {
   return (
-    <div id="outtable" style={{ overflow: "auto", maxHeight: "700px",  }}>
+    <div id="outtable" style={{ overflow: "auto", maxHeight: "700px" }}>
       <div style={{ padding: "20px" }}>
         <table
           width="100%"
@@ -12,7 +12,7 @@ function HeaderMasterMitra() {
         >
           <tr>
             <td width="110px" style={{ border: "1px solid black" }}>
-              <div style={{ padding: "10px" }}>
+              <div style={{ padding: "10px" , marginLeft: '20%'}}>
                 <img
                   src="https://elogs.eurekalogistics.co.id/assets/admin/dist/img/logo-eurekalogistics.png"
                   class="img-circle"
@@ -30,7 +30,7 @@ function HeaderMasterMitra() {
               <i>Master Data Application & Survey Analysis Form</i>
             </td>
             <td width="110px" align="" style={{ border: "1px solid black" }}>
-              <div style={{ padding: "5px" }}>
+              <div style={{ padding: "5px" , marginLeft: '10%'}}>
                 MITRA CODE <br />
                 <strong>#EM00318</strong>
               </div>
@@ -55,9 +55,9 @@ function HeaderMasterMitra() {
             <td
               align="center"
               colSpan="8"
-              style={{ border: "1px solid black" }}
+              style={{ border: "1px solid black" , height: '40px', paddingTop: '10px'}}
             >
-              <b>
+              <b >
                 {" "}
                 NAMA DAN ALAMAT PERUSAHAAN (<i>Sold to Party</i>){" "}
               </b>
@@ -286,7 +286,8 @@ function HeaderMasterMitra() {
           {/* DATA PERPAJAKAN */}
           <>
             <tr align="center">
-              <td colspan="6">
+              <td colspan="6"
+              style={{height: '40px'}}>
                 {" "}
                 <b>
                   {" "}
@@ -460,7 +461,8 @@ function HeaderMasterMitra() {
           {/* DATA ACCOUNTING */}
           <>
             <tr align="center">
-              <td colspan="6">
+              <td colspan="6"
+               style={{ border: "1px solid black" , height: '40px'}}>
                 {" "}
                 <b>
                   {" "}
@@ -530,7 +532,7 @@ function HeaderMasterMitra() {
           {/* DATA PENANGGUNG JAWAB */}
           <>
             <tr align="center">
-              <td colspan="6">
+              <td colspan="6"  style={{ border: "1px solid black" , height: '40px'}}>   
                 {" "}
                 <b>
                   {" "}
@@ -607,6 +609,7 @@ function HeaderMasterMitra() {
             </tr>
             <tr>
               <td
+              
                 colspan="6"
                 style={{ border: "1px solid black", padding: "10px" }}
               >
@@ -1079,69 +1082,254 @@ function HeaderMasterMitra() {
                 ADA LENGKAP
               </td>
             </tr>
-            
+            <tr style={{ border: "1px solid black", padding: "10px" }}>
+              <td
+                width="100px"
+                style={{ border: "1px solid black", padding: "10px" }}
+              >
+                <b>DIBUAT OLEH (Created By)</b>{" "}
+              </td>
+              <td
+                width="100px"
+                style={{ border: "1px solid black", padding: "10px" }}
+              ></td>{" "}
+              <td
+              width="150px"
+                align="left"
+                style={{ border: "1px solid black", padding: "10px" }}
+              >
+                <b> DIPERIKSA OLEH (Checked By)</b>
+              </td>{" "}
+              <td width="100px"> </td>
+            </tr>
+            <tr style={{ height: "100px" }}>
+              <td
+                width="100px"
+                style={{ border: "1px solid black", padding: "10px" }}
+              >
+                {" "}
+              </td>{" "}
+              <td
+                align="left"
+                style={{ border: "1px solid black", padding: "10px" }}
+              >
+                {" "}
+              </td>{" "}
+              <td
+                width="100px"
+                style={{ border: "1px solid black", padding: "10px" }}
+              >
+                {" "}
+              </td>{" "}
+              <td
+                  colSpan={3}
+                align="left"
+                style={{ border: "1px solid black", padding: "10px" }}
+              >
+                {" "}
+              </td>
+            </tr>
+            <tr>
+              <td
+                width="160px"
+                style={{ border: "1px solid black", padding: "10px" }}
+              >
+                <b>EVIYANA NURAINI</b> <br /> LEGAL PARTNERSHIP EUREKA
+              </td>{" "}
+              <td
+                align="left"
+                style={{ border: "1px solid black", padding: "10px" }}
+              >
+                {" "}
+                <b> SUKI LIE</b> <br /> DIREKTUR
+              </td>
+              <td
+                width="150px"
+                style={{ border: "1px solid black", padding: "10px" }}
+              >
+                <b>VITRI YENI</b> <br /> Ka. PARTNERSHIP EUREKA
+              </td>{" "}
+              <td
+              colSpan={3}
+                width="150px"
+                style={{ border: "1px solid black", padding: "10px" }}
+              >
+                <b>ERNANTO TRIATMOJO</b> <br /> ASM. AKT & KEU
+              </td>
+            </tr>
+          </>
+          {/* DATA KEUANGAN */}
+          <>
+          <tr>
+              <td
+                align="center"
+                colspan="6"
+                style={{ border: "1px solid black", padding: "10px" }}
+              >
+                {" "}
+                <b>
+                  {" "}
+                  DATA KEUANGAN(<i>Financial Analysis</i>)
+                </b>
+              </td>
+            </tr>
+          <tr>
+              <td
+                align="left"
+                colspan="6"
+                style={{ border: "1px solid black", padding: "10px" }}
+              >
+                {" "}
+                <b>
+                  {" "}
+                  A. PERORANGAN
+                </b>
+              </td>
+            </tr>
+            <tr>
+        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>LAMANYA BEKERJA </td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}> 0 TAHUN</td> 
+        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>JENIS KARTU KREDIT</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }} colSpan={3}> TIDAK ADA</td> 
+      </tr> 
+      <tr>
+        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}> BANK PENERBIT </td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}> TIDAK ADA</td>  
+      </tr> 
+      <tr>
+              <td
+                align="left"
+                colspan="6"
+                style={{ border: "1px solid black", padding: "10px" }}
+              >
+                {" "}
+                <b>
+                  {" "}
+                  B. BADAN USAHA
+                </b>
+              </td>
+            </tr>
+            <tr>
+        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>LAPORAN KEUANGAN </td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}> TIDAK</td> 
+        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>LAMA USAHA (TAHUN/YEAR)</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }} colSpan={3}> 0 TAHUN</td>  
+      </tr> 
+      <tr>
+        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>STATUS USAHA</td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}> BESAR</td> 
+        <td  width="100px"  style={{ border: "1px solid black", padding: "10px" }}>OMSET BULANAN</td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }} colSpan={3}> 0</td>   
+      </tr> 
+      <tr> 
+        <td  width="100px"  style={{ border: "1px solid black", padding: "10px" }}>ASSET TANAH</td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}> MILIK SENDIRI</td>  
+        <td  width="100px"  style={{ border: "1px solid black", padding: "10px" }}>ASSET BANGUNAN</td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }} colSpan={3}> MILIK SENDIRI</td>
+      </tr> 
+      <tr> 
+        <td  width="100px"  style={{ border: "1px solid black", padding: "10px" }}>ASSET KENDARAAN</td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}> MILIK SENDIRI</td>  
+        <td  width="100px"  style={{ border: "1px solid black", padding: "10px" }}>ASSET MESIN</td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }} colSpan={3}> MILIK SENDIRI</td>
+      </tr> 
+       
+    	<tr><td colspan="2"  width="100px"> <b> PERUSAHAAN AFFILIASI YANG PERNAH MENYEWA DI EUREKA</b></td><td align="left"  colspan="4" style={{ border: "1px solid black", padding: "10px" }}> </td>
+    	</tr> 
+        <tr>
+              <td
+                align="center"
+                colspan="6"
+                style={{ border: "1px solid black", padding: "10px" }}
+              >
+                {" "}
+                <b>
+                  {" "}
+                   DATA SEWA(<i>Order Data</i>) 
+                </b>
+              </td>
+            </tr>
+            <tr> 
+        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >JENIS MITRA</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  > VENDOR DARAT  </td>   
+        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >JENIS KIRIMAN</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  colSpan={3}> ["TRUCKING"] </td>   
+      </tr> 
+      <tr> 
+        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >PERIODE SEWA (BULAN/MONTH)</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  > 0 BULAN</td>   
+        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >NILAI RUU (%)</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  colSpan={3}> 0 %</td>   
+      </tr> 
+    <tr><td colspan="6"> <b> PEMBAYARAN (Payment Policy) </b></td></tr> 
+      <tr> 
+        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >JUMLAH WAKTU PEMBAYARAN (ToP)</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  > 30</td>  
+        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >METODE PEMBAYARAN</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  colSpan={3}> TRANSFER</td>
+      </tr> 
+          </>
+          {/* DATA UNIT */}
+          <>
+          <tr>
+              <td
+                align="center"
+                colspan="6"
+                style={{ border: "1px solid black", padding: "10px" }}
+              >
+                {" "}
+                <b>
+                  {" "}
+                  DATA UNIT(<i>Unit Data</i>)
+                </b>
+              </td>
+            </tr>
           </>
         </table>
-
-        <>
-          <Row style={{ paddingLeft: "16px", paddingRight: "14px" }}>
-            <Col span={6} style={{  border: "1px solid black" }}>
-              <b>
-                DIBUAT OLEH (Created By)
-              </b>
-            </Col>
-            <Col span={6} style={{  border: "1px solid black" }}>
-             
-            </Col>
-            <Col span={6} style={{  border: "1px solid black"}}>
-            <b>
-                DIPERIKSA OLEH (Created By)
-              </b>
-            </Col>
-            <Col span={6} style={{  border: "1px solid black" }}>
-           
-            </Col>
-          </Row>
-          <Row style={{ paddingLeft: "16px", paddingRight: "14px" }}>
-            <Col span={6} style={{  border: "1px solid black" }}>
-             
-            </Col>
-            <Col span={6} style={{  border: "1px solid black" }}>
-             
-            </Col>
-            <Col span={6} style={{  border: "1px solid black"}}>
-            
-            </Col>
-            <Col span={6} style={{  border: "1px solid black", height: '60px' }}>
-           
-            </Col>
-          </Row>
-          <Row style={{ paddingLeft: "16px", paddingRight: "14px" }}>
-            <Col span={6} style={{  border: "1px solid black" }}>
-            <div style={{padding:'10px'}}>
-            <b>EVIYANA NURAINI</b> <br /> LEGAL PARTNERSHIP EUREKA
-            </div>
-            </Col>
-            <Col span={6} style={{  border: "1px solid black" }}>
-            <div style={{padding:'10px'}}>
-            <b> SUKI LIE</b> <br /> DIREKTUR
-            </div>
-           
-            </Col>
-            <Col span={6} style={{  border: "1px solid black"}}>
-            <div style={{padding:'10px'}}>
-            <b>VITRI YENI</b> <br /> Ka. PARTNERSHIP EUREKA
-            </div>
-            
-            </Col>
-            <Col span={6} style={{  border: "1px solid black" }}>
-            <div style={{padding:'10px'}}>
-            <b>ERNANTO TRIATMOJO</b> <br /> ASM. AKT & KEU
-            </div>
-            
-            </Col>
-          </Row>
-        </>
+        <table style={{width: '100%', border: "1px solid black", padding: "10px" }} >
+        <tr> 
+         <td  width="70px" style={{ border: "1px solid black", padding: "10px" }}>JENIS</td>  
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>MOTOR</td>  
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>GRANDMAX</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>L300</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >TRAGA</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>CDE</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>CDD</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>FUSO</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>WINGBOX</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >TRAILER 20"</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>TRAILER 40"</td>
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>TOTAL UNIT</td>    
+      </tr> 
+      <tr>
+         <td  width="70px" style={{ border: "1px solid black", padding: "10px" }}>QTY</td>  
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td>  
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >15</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >19</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >45</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td>  
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >79</td>  
+      </tr> 
+      <tr>
+         <td  width="70px" style={{ border: "1px solid black", padding: "10px" }}>DISEWA</td>  
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td>  
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
+         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
+      </tr> 
+        </table>
+        <table width="100%">
+      
+    </table>
+    <table width="100%" >  
+      <tr style={{ border: "1px solid black", padding: "10px" }}>
+        <td  width="100px" colspan="3" style={{ border: "1px solid black", padding: "10px" }}><b>DIPERIKSA OLEH (Checked By)</b> </td>  <td align="left"  colspan="3" style={{ border: "1px solid black", padding: "10px" }}><b> DISETUJUI OLEH (Approved By)</b></td>  
+      </tr>     
+      <tr style={{height: '100px'}}>
+        <td  width="100px" colspan="3" style={{ border: "1px solid black", padding: "10px" }}> </td>  <td align="left"  colspan="2" style={{ border: "1px solid black", padding: "10px" }}>   </td>    
+      </tr>     
+      <tr style={{ border: "1px solid black", padding: "10px" }}>
+        <td  width="100px" colspan="3" style={{ border: "1px solid black", padding: "10px" }}><b>ERNANTO TRIATMOJO</b>  <br/> ASM. AKT & KEU</td>  <td align="left"  colspan="3" style={{ border: "1px solid black", padding: "10px" }}> <b>ADRIANSYAH</b> <br/>KEPALA CABANG EUREKA</td>    
+      </tr>  
+      <tr style={{ border: "1px solid black", padding: "10px" }}> 
+         <td align="right"  colspan="6" style={{ border: "1px solid black", padding: "10px" }}> 3 </td>   
+      </tr>         
+  </table>
       </div>
     </div>
   );

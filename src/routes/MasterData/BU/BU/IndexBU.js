@@ -55,7 +55,12 @@ function IndexBU() {
       key: "no",
     },
     {
-      title: "Kode Bisnis Unit",
+      title: "Kode BU",
+      dataIndex: "buId",
+      key: "buId",
+    },
+    {
+      title: "Nama Alias",
       dataIndex: "buCode",
       key: "buCode",
       render: (text) => <Tag color="blue">{text}</Tag>,
@@ -65,11 +70,7 @@ function IndexBU() {
       dataIndex: "buName",
       key: "buName",
     },
-    {
-      title: "CBU",
-      dataIndex: "cbu",
-      key: "cbu",
-    },
+    
     {
       title: "STATUS",
       dataIndex: "status",

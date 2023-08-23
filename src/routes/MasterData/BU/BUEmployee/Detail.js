@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+  import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Baseurl from "../../../../Api/BaseUrl";
 import axios from "axios";
@@ -33,6 +33,10 @@ function Detail() {
   const [IDKodeEmployeePosition, setIDKodeEmployeePosition] = useState("");
   const [DataSelecttEmployee, setDataSelecttEmployee] = useState("");
   const [DataGL, setDataGL] = useState("");
+  const [DataASM, setDATAASM] = useState("");
+  const [DataAMD, setDataAMD] = useState("");
+  const [DataKacab, setDataKacab] = useState("");
+  const [DataMGR, setDataMGR] = useState("");
 
 
   const DetailEmployee = async (idEmploye) => {
@@ -69,6 +73,12 @@ function Detail() {
       setDataJobLevel(respons.data.data.job_level || "");
       setDataKodeEmployee(respons.data.data.code_employee || "");
       setIDKodeEmployeePosition(respons.data.data.code_employee_position || "");
+      // setDataGL(respons.data.data.fullname || "");
+      // setDATAASM(respons.data.data.fullname || "");
+      // setDataAMD(respons.data.data.fullname || "");
+      // setDataKacab(respons.data.data.fullname || "");
+      // setDataMGR(respons.data.data.fullname || "");
+    
 
       // setDataJobLevel(respons.data.data.job_level || "");
     } catch (error) {}
@@ -84,6 +94,7 @@ function Detail() {
       });
       console.log("responssssscarismid", respons.data.data);
       setDataSelect(respons.data.data);
+     
     } catch (error) {}
   };
 
@@ -97,7 +108,7 @@ function Detail() {
       });
       console.log("responssssscarismid", respons.data.user);
       setDataSelecttEmployee(respons.data.user);
-      setDataGL(respons.data.user.fullname);
+      // setDataGL(respons.data.user.fullname);
     } catch (error) {}
   };
 
@@ -399,22 +410,22 @@ function Detail() {
               <Select
                 className="mt-2"
                 showSearch
-                value={IDgl}
+                value={DataGL}
                 optionFilterProp="value"
                 style={{ width: "100%" }}
                 onChange={(e, options) => {
                   console.log(options);
-                  // setIDgl(options);
-                  setIDgl(options.value);
+                  setDataGL(options.value);
+                  setIDgl(options.key);
                 }}
               >
                 {DataSelecttEmployee &&
                   DataSelecttEmployee.map((CustomerItem) => (
                     <Select.Option
-                      // key={CustomerItem.id_gl}
-                      value={CustomerItem.id_gl}
+                      key={CustomerItem.id_gl}
+                      value={CustomerItem.fullname}
                     >
-                      {CustomerItem.id_gl}
+                      {CustomerItem.fullname}
                     </Select.Option>
                   ))}
               </Select>
@@ -436,22 +447,22 @@ function Detail() {
             <Select
                 className="mt-2"
                 showSearch
-                value={IDASM}
+                value={DataASM}
                 optionFilterProp="value"
                 style={{ width: "100%" }}
                 onChange={(e, options) => {
                   console.log(options);
-                  // setIDgl(options);
-                  setIDASM(options.value);
+                  setDATAASM(options.value);
+                  setIDASM(options.key);
                 }}
               >
                 {DataSelecttEmployee &&
                   DataSelecttEmployee.map((CustomerItem) => (
                     <Select.Option
-                      // key={CustomerItem.id_gl}
-                      value={CustomerItem.id_asm}
+                      key={CustomerItem.id_asm}
+                      value={CustomerItem.fullname}
                     >
-                      {CustomerItem.id_asm}
+                      {CustomerItem.fullname}
                     </Select.Option>
                   ))}
               </Select>
@@ -472,22 +483,22 @@ function Detail() {
             <Select
                 className="mt-2"
                 showSearch
-                value={IDMGR}
+                value={DataMGR}
                 optionFilterProp="value"
                 style={{ width: "100%" }}
                 onChange={(e, options) => {
                   console.log(options);
-                  // setIDgl(options);
-                  setIDMGR(options.value);
+                  setDataMGR(options.value);
+                  setIDMGR(options.key);
                 }}
               >
                 {DataSelecttEmployee &&
                   DataSelecttEmployee.map((CustomerItem) => (
                     <Select.Option
-                      // key={CustomerItem.id_gl}
-                      value={CustomerItem.id_mgr}
+                      key={CustomerItem.id_mgr}
+                      value={CustomerItem.fullname}
                     >
-                      {CustomerItem.id_mgr}
+                      {CustomerItem.fullname}
                     </Select.Option>
                   ))}
               </Select>
@@ -506,22 +517,22 @@ function Detail() {
             <Select
                 className="mt-2"
                 showSearch
-                value={IDAMD}
+                value={DataAMD}
                 optionFilterProp="value"
                 style={{ width: "100%" }}
                 onChange={(e, options) => {
                   console.log(options);
-                  // setIDgl(options);
-                  setIDAMD(options.value);
+                  setDataAMD(options.value);
+                  setIDAMD(options.key);
                 }}
               >
                 {DataSelecttEmployee &&
                   DataSelecttEmployee.map((CustomerItem) => (
                     <Select.Option
-                      // key={CustomerItem.id_gl}
-                      value={CustomerItem.id_amd}
+                      key={CustomerItem.id_amd}
+                      value={CustomerItem.fullname}
                     >
-                      {CustomerItem.id_amd}
+                      {CustomerItem.fullname}
                     </Select.Option>
                   ))}
               </Select>
@@ -536,22 +547,22 @@ function Detail() {
             <Select
                 className="mt-2"
                 showSearch
-                value={IDKacab}
+                value={DataKacab}
                 optionFilterProp="value"
                 style={{ width: "100%" }}
                 onChange={(e, options) => {
                   console.log(options);
-                  // setIDgl(options);
-                  setIDKacab(options.value);
+                  setDataKacab(options.value);
+                  setIDKacab(options.key);
                 }}
               >
                 {DataSelecttEmployee &&
                   DataSelecttEmployee.map((CustomerItem) => (
                     <Select.Option
-                      // key={CustomerItem.id_gl}
-                      value={CustomerItem.id_kacab}
+                      key={CustomerItem.id_kacab}
+                      value={CustomerItem.fullname}
                     >
-                      {CustomerItem.id_kacab}
+                      {CustomerItem.fullname}
                     </Select.Option>
                   ))}
               </Select>

@@ -29,12 +29,12 @@ export default function DetailMitra() {
               <Tab eventKey="home" title="DATA PROFILE">
                 <DataBaru mitraId={mitraId} />
               </Tab>
-              <Tab eventKey="profile" title="DATA REFERENSI">
+              {/* <Tab eventKey="profile" title="DATA REFERENSI">
                 <DataReferensi mitraId={mitraId} />
               </Tab>
               <Tab eventKey="longer-tab" title="DATA KEUANGAN">
                 <DataKeuangan mitraId={mitraId} />
-              </Tab>
+              </Tab> */}
               <Tab eventKey="contact" title="PIC">
                 <PIC mitraId={mitraId} />
       {/* <PIC namaMitra={namaMitra}/> */}
