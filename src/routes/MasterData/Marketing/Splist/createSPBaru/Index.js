@@ -32,9 +32,9 @@ function Index() {
   const [diskonselect, setDiskonSelect] = useState("");
   const [diskonselectValue, setDiskonSelectValue] = useState("");
   const [serviceSelect, setServiceSelect] = useState("");
-  const [serviceSelectValue, setServiceSelectValue] = useState("");
+  const [serviceSelectValue, setServiceSelectValue] = useState("Charter");
   const [insuranceSelect, setInsuranceSelect] = useState("");
-  const [insuranceSelects, setInsuranceSelects] = useState("");
+  const [insuranceSelects, setInsuranceSelects] = useState("N");
   const [packingValue, setpackingValue] = useState("");
   const [packingValues, setpackingValues] = useState("");
   const [tgl_pickup, setTgl_pickup] = useState("");
@@ -248,9 +248,10 @@ if (!noSPawal) {
               <FormGroup>
                 <Form.Label>Service</Form.Label>
                 <Form.Select onChange={(e) => setServiceSelectValue(e.target.value)} type="text">
-                  <option>Pilih Service</option>
-                  {serviceSelect &&
-                    serviceSelect.map((item) => <option value={item.tipe}>{item.tipe}</option>)}
+                  <option value={"Charter"}>Charter</option>
+                  <option value={"Retailer"}>Retailer</option>
+                  {/* {serviceSelect &&
+                    serviceSelect.map((item) => <option value={item.tipe}>{item.tipe}</option>)} */}
                 </Form.Select>
               </FormGroup>
             </Col>
@@ -261,11 +262,12 @@ if (!noSPawal) {
                   onChange={(e) => setInsuranceSelects(e.target.value)}
                   type="text"
                 >
-                  <option>Pilih Asuransi</option>
-                  {insuranceSelect &&
+                  <option value={"N"}>Tidak Menggunakan Asuransi</option>
+                  <option value={"Y"}>Menggunakan Asuransi</option>
+                  {/* {insuranceSelect &&
                     insuranceSelect.map((item) => (
                       <option value={item.value}>{item.tipe}</option>
-                    ))}
+                    ))} */}
                 </Form.Select>
               </FormGroup>
             </Col>

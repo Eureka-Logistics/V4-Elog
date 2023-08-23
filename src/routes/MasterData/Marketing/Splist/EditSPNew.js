@@ -40,7 +40,6 @@ function EditSPNew({getDetail}) {
             setLoading(false)
             setNoSP(data.data.sp)
             setDetailSemua(data.data)
-            console.log(`idPerusahaan`, DetailSemua);
             formik.setValues({
                 noSP: data.data.sp,
                 service: data.data.service,
@@ -79,7 +78,6 @@ function EditSPNew({getDetail}) {
             })
             setAsuransiSelect(data.data.data.insurance)
             setJenisBarangSelection(data.data.data.service)
-            console.log(`dari edit`, data.data.data)
             setNamaMarketing(data.data.data?.marketing)
         } catch (error) {
 

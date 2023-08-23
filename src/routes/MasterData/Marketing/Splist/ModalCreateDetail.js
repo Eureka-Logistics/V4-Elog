@@ -89,11 +89,11 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     id_albongkar: formik.values.IDalamatbongkar,
                     // nama_barang: formik.values.namabarang,
                     nama_barang: JenisBarangFormik,
-                    berat: parseInt (formik.values.berat),
+                    berat: parseInt(formik.values.berat),
                     qty: formik.values.qty,
                     koli: formik.values.koli,
                     id_price_customer: id_price_customer,
-                    harga: HasilTarif,
+                    harga: formik.values.totalCreate,
                     // harga: HasilTarif + Hitung(),
                     harga_bongkar: formik.values.bongkar,
                     harga_muat: formik.values.biayamuat,
@@ -191,7 +191,6 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         })
     ), [DetailSemuaTemp])
 
-    console.log(`DetailSemuaTemp`, DetailSemuaTemp);
     useEffect(() => {
 
         if (formik.values.via) {
@@ -353,46 +352,47 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     Authorization: localStorage.getItem("token"),
                 },
             })
-        console.log(`ini get tarif`, data.data.data.order);
         setGetTarifOptions(data.data.data.order)
     }
 
     let nomorr = 1
 
     const calculateTotal = (shipmentType, kilogram, tarif) => {
-        const biayaBongkar = Number(formik.values.bongkar);
-        const biayaMuat = Number(formik.values.biayamuat);
+        const biayaBongkar = Number(formik.values.bongkar) || 0;
+        const biayaMuat = Number(formik.values.biayamuat) || 0;
+        const berat = Number(formik.values.berat) || 0;
+        const HasilTarifNumerik = Number(HasilTarif) || 0;
 
         if (DetailSemua?.service === 'Retailer') {
-            return Number(formik.values.berat) * Number(HasilTarif) + biayaBongkar + biayaMuat;
+            return berat * HasilTarifNumerik + biayaBongkar + biayaMuat;
         } else if (DetailSemua?.service === 'Charter') {
-            return Number(tarif) + biayaBongkar + biayaMuat;
+            return HasilTarifNumerik + biayaBongkar + biayaMuat;
         } else {
             return 0; // atau pesan error jika tipe pengiriman tidak dikenal
         }
-    }
+    };
+
     useEffect(() => {
         const total = calculateTotal(formik.values.shipment, formik.values.berat, HasilTarif);
         formik.setFieldValue("total", total);
         const totalCreate = calculateTotal(formik.values.shipment, formik.values.berat, HasilTarif);
-        formik.setFieldValue("totalCreate", totalCreate);
-    }, [HasilTarif, formik.values.shipment, formik.values.berat, formik.values.bongkar, formik.values.biayamuat]);
+        formik.setFieldValue("totalCreate", totalCreate );
+    }, [HasilTarif, formik.values.totalCreate,formik.values.shipment, formik.values.berat, formik.values.bongkar, formik.values.biayamuat]);
 
 
 
-    const calculateTotalCreate = (shipmentType, kilogram, tarif) => {
-        const biayaBongkar = Number(formik.values.bongkar);
-        const biayaMuat = Number(formik.values.biayamuat);
+    // const calculateTotalCreate = (shipmentType, kilogram, tarif) => {
+    //     const biayaBongkar = Number(formik.values.bongkar);
+    //     const biayaMuat = Number(formik.values.biayamuat);
 
-        if (DetailSemua?.service === 'Retailer') {
-            return Number(formik.values.berat) * Number(HasilTarif) + biayaBongkar + biayaMuat;
-        } else if (DetailSemua?.service === 'Charter') {
-            return Number(tarif) + biayaBongkar + biayaMuat;
-        } else {
-            return 0; // atau pesan error jika tipe pengiriman tidak dikenal
-        }
-    }
-
+    //     if (DetailSemua?.service === 'Retailer') {
+    //         return Number(formik.values.berat) * Number(HasilTarif) + biayaBongkar + biayaMuat;
+    //     } else if (DetailSemua?.service === 'Charter') {
+    //         return Number(tarif) + biayaBongkar + biayaMuat;
+    //     } else {
+    //         return 0; // atau pesan error jika tipe pengiriman tidak dikenal
+    //     }
+    // }
 
     return (
         <div className='mt-3'>
@@ -499,7 +499,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                         <Col sm={12}>
                             <Form.Item
                                 required
-                                label="Pilih Rute"
+                                label={"Pilih Rute " + DetailSemua?.service}
                                 help={formik.touched.alamatbongkar && formik.errors.alamatbongkar}
                                 validateStatus={
                                     formik.touched.alamatbongkar && formik.errors.alamatbongkar
@@ -1159,7 +1159,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                         </Col>
                         <Col>
                             <Form.Item
-                                label="TOTAL"
+                                label={`TOTAL ${DetailSemua?.service?.toUpperCase()}`}
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
                                 validateStatus={
                                     formik.touched.alamatmuat && formik.errors.alamatmuat
@@ -1177,7 +1177,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         formik.handleChange(e);
                                         setPenjumlahanTotal(e.target.value);
                                     }}
-                                    placeholder={formatToIDR(formik.values.totalCreate)}
+                                    placeholder={formatToIDR(formik.values.totalCreate) || 0}
                                     // value={formatToIDR(formik.values.totalCreate)}
                                     onBlur={formik.handleBlur}
                                 />

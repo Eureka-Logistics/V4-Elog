@@ -29,7 +29,7 @@ function DetailsAkunting() {
   const [MessageRejectSP, setMessageRejectSP] = useState("");
   const [IDMessageRejectSP, setIDMessageRejectSP] = useState("");
   const [KeteranganRejectSP, setKeteranganRejectSP] = useState("");
-console.log(`ApproveAkuntingTgl`,ApproveAkuntingTgl);
+  console.log(`ApproveAkuntingTgl`, ApproveAkuntingTgl);
   // message reject
   const MessageReject = async () => {
     try {
@@ -43,7 +43,7 @@ console.log(`ApproveAkuntingTgl`,ApproveAkuntingTgl);
         }
       );
       setMessageRejectSP(data.data.data.order);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -268,7 +268,7 @@ console.log(`ApproveAkuntingTgl`,ApproveAkuntingTgl);
       settgl_act_4(data.data.status.message.tgl_act_4);
       setKendaraan_purchasing(data.data.status.message.kendaraan_purchasing);
       settgl_act_5(data.data.status.message.tgl_act_5);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -310,6 +310,8 @@ console.log(`ApproveAkuntingTgl`,ApproveAkuntingTgl);
       }
     }
   };
+
+  let nuomber = 1
   return (
     <div>
       <Card>
@@ -374,78 +376,78 @@ console.log(`ApproveAkuntingTgl`,ApproveAkuntingTgl);
               )}
             </Row>
           </Modal>
-<Row>
-  <div className="d-flex justify-content-end">
-            {jobdesk !== "operasional" &&
-            jobdesk !== "sales" &&
-            jobdesk !== "purchasing" &&
-            ApproveAkuntingStatus !== "Y" ? (
-              <>
-                <Button size="sm" onClick={() => tombolApprove()}>
-                  Approve
-                </Button>
-                <Button
-                  size="sm"
-                  variant="danger"
-                  onClick={() => rejectbutton()}
-                >
-                  Reject SP
-                </Button>
-              </>
-            ) : (
-              <>
-                {ApproveAkuntingStatus === "Y" &&
-                ApproveAkuntingTgl !== null ? (
-                  <Alert type="success" message="Approve Akunting" banner />
-                ) : ApproveAkuntingStatus === "N" &&
-                  ApproveAkuntingTgl !== "1970-01-01T00:00:00.000Z" ? (
-                  <Alert type="error" message="Diverted Akunting" banner />
-                ) : ApproveAkuntingStatus === "N" &&
-                  ApproveAkuntingTgl !== null && ApproveAkuntingTgl ==="1970-01-01T00:00:00.000Z"?(
-                  <Alert type="info" message="Waiting Akunting" banner />
-                ) : null}
+          <Row>
+            <div className="d-flex justify-content-end">
+              {jobdesk !== "operasional" &&
+                jobdesk !== "sales" &&
+                jobdesk !== "purchasing" &&
+                ApproveAkuntingStatus !== "Y" ? (
+                <>
+                  <Button size="sm" onClick={() => tombolApprove()}>
+                    Approve
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="danger"
+                    onClick={() => rejectbutton()}
+                  >
+                    Reject SP
+                  </Button>
+                </>
+              ) : (
+                <>
+                  {ApproveAkuntingStatus === "Y" &&
+                    ApproveAkuntingTgl !== null ? (
+                    <Alert type="success" message="Approve Akunting" banner />
+                  ) : ApproveAkuntingStatus === "N" &&
+                    ApproveAkuntingTgl !== "1970-01-01T00:00:00.000Z" ? (
+                    <Alert type="error" message="Diverted Akunting" banner />
+                  ) : ApproveAkuntingStatus === "N" &&
+                    ApproveAkuntingTgl !== null && ApproveAkuntingTgl === "1970-01-01T00:00:00.000Z" ? (
+                    <Alert type="info" message="Waiting Akunting" banner />
+                  ) : null}
 
-                {Kendaraan_operasional === "Y" && tgl_act_4 != null ? (
-                  <Alert type="success" message="Approve Operasional" banner />
-                ) : Kendaraan_operasional === "N" && tgl_act_4 != "1970-01-01T00:00:00.000Z" ? (
-                  <Alert type="error" message="Diverted Operasional" banner />
-                ) : Kendaraan_operasional === "N" && tgl_act_4 ==="1970-01-01T00:00:00.000Z" ? (
-                  <Alert type="info" message="Waiting Operasional" banner />
-                ) : null}
+                  {Kendaraan_operasional === "Y" && tgl_act_4 != null ? (
+                    <Alert type="success" message="Approve Operasional" banner />
+                  ) : Kendaraan_operasional === "N" && tgl_act_4 != "1970-01-01T00:00:00.000Z" ? (
+                    <Alert type="error" message="Diverted Operasional" banner />
+                  ) : Kendaraan_operasional === "N" && tgl_act_4 === "1970-01-01T00:00:00.000Z" ? (
+                    <Alert type="info" message="Waiting Operasional" banner />
+                  ) : null}
 
-                {Kendaraan_purchasing === "Y" && tgl_act_5 !== null ? (
-                  <Alert type="success" message="Approve Purchasing" banner />
-                ) : Kendaraan_purchasing === "N" && tgl_act_5 !== "1970-01-01T00:00:00.000Z" ? (
-                  <Alert type="error" message="Diverted Purchasing" banner />
-                ) : Kendaraan_purchasing === "N" && tgl_act_5 === "1970-01-01T00:00:00.000Z" ? (
-                  <Alert type="info" message="Waiting Purchasing" banner />
-                ) : null}
-              </>
-            )}
+                  {Kendaraan_purchasing === "Y" && tgl_act_5 !== null ? (
+                    <Alert type="success" message="Approve Purchasing" banner />
+                  ) : Kendaraan_purchasing === "N" && tgl_act_5 !== "1970-01-01T00:00:00.000Z" ? (
+                    <Alert type="error" message="Diverted Purchasing" banner />
+                  ) : Kendaraan_purchasing === "N" && tgl_act_5 === "1970-01-01T00:00:00.000Z" ? (
+                    <Alert type="info" message="Waiting Purchasing" banner />
+                  ) : null}
+                </>
+              )}
 
-            <div class="ms-3">
-              <Button size="sm" onClick={() => handlePrint()} variant="primary">
-                Print
-              </Button>
-            </div>
-
-            {jobdesk === "sales" && actSalesStatus === "N" ? (
-              <>
-                <Button
-                  size="sm"
-                  onClick={() => setModal1Open(true)}
-                  variant="danger"
-                >
-                  Reject SP Sales
+              <div class="ms-3">
+                <Button size="sm" onClick={() => handlePrint()} variant="primary">
+                  Print
                 </Button>
-                <Button size="sm" onClick={pindahedit} variant="primary">
-                  Edit SJ
-                </Button>
-              </>
-            ) : (
-              ""
-            )}
-            {/* ? jobdesk === "sales" && actSalesStatus === "Y" : <>
+              </div>
+
+              {jobdesk === "sales" && actSalesStatus === "N" ? (
+                <>
+                  <Button
+                    size="sm"
+                    onClick={() => setModal1Open(true)}
+                    variant="danger"
+                  >
+                    Reject SP Sales
+                  </Button>
+                  <Button size="sm" onClick={pindahedit} variant="primary">
+                    Edit SJ
+                  </Button>
+                </>
+              ) : (
+                ""
+              )}
+              {/* ? jobdesk === "sales" && actSalesStatus === "Y" : <>
               <Button size="sm" disabled onClick={() => setModal1Open(true)} variant="danger">
                 Reject SP Sales
               </Button>
@@ -453,9 +455,9 @@ console.log(`ApproveAkuntingTgl`,ApproveAkuntingTgl);
                 Edit SJ
               </Button>
             </> : "" */}
-          </div>
-</Row>
-        
+            </div>
+          </Row>
+
 
           {/* <Modal> */}
           {/* <Modal.Header closeButton>
@@ -560,7 +562,7 @@ console.log(`ApproveAkuntingTgl`,ApproveAkuntingTgl);
                           backgroundColor: "#dff0d8",
                         }}
                       >
-                        <td>{index + 1}</td>
+                        <td>{index + 1}.</td>
                         <td colSpan={9}>Alamat Muat</td>
                       </tr>
                       <tr key={index}>
@@ -586,10 +588,10 @@ console.log(`ApproveAkuntingTgl`,ApproveAkuntingTgl);
                             <tr
                               style={{
                                 fontWeight: "bold",
-                                backgroundColor: "#dff0d8",
+                                backgroundColor: "#B7D1F8",
                               }}
                             >
-                              <td> </td>
+                              <td> {index + 1}. </td>
                               <td>Alamat Bongkar</td>
                               <td width="100px">NO SM</td>
                               <td>Kendaraan</td>
@@ -758,10 +760,11 @@ console.log(`ApproveAkuntingTgl`,ApproveAkuntingTgl);
                             <td style={{ paddingRight: "20px" }}>Biaya Mel</td>
                             <td style={{ paddingRight: "10px" }}>:</td>
                             <td width="150px" style={{ paddingLeft: "10px" }}>
-                              {detailData?.Totalprice?.toLocaleString("id-ID", {
+                              Rp. 0,00
+                              {/* {detailData?.biayamel?.toLocaleString("id-ID", {
                                 style: "currency",
                                 currency: "IDR",
-                              })}
+                              })} */}
                             </td>
                           </div>
                         </>
@@ -795,10 +798,11 @@ console.log(`ApproveAkuntingTgl`,ApproveAkuntingTgl);
                             </td>
                             <td style={{ paddingRight: "10px" }}>:</td>
                             <td width="150px" style={{ paddingLeft: "10px" }}>
-                              {detailData?.Totalprice?.toLocaleString("id-ID", {
+                              Rp. 0,00
+                              {/* {detailData?.biayainap?.toLocaleString("id-ID", {
                                 style: "currency",
                                 currency: "IDR",
-                              })}
+                              })} */}
                             </td>
                           </div>
                         </>
