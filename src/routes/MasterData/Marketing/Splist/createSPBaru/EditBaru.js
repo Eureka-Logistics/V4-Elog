@@ -119,7 +119,6 @@ function EditBaru({ alamatInvoice }) {
       setAlamatOptions(data.data.data.address)
       setAsuransiOptions(data.data.data.insurance)
       setServiceValueOptios(data.data.data.service)
-      console.log(`ini ServiceValueOptions`, ServiceValueOptions);
 
     } catch (error) {
 
@@ -174,8 +173,7 @@ function EditBaru({ alamatInvoice }) {
     }
   };
 
-  console.log(`detailData?.service
-  `, detailData?.service);
+  
   const columns = [
     {
       name: "Title",
@@ -257,7 +255,6 @@ function EditBaru({ alamatInvoice }) {
     // console.log(comment);
     setComment(comment);
   };
-  console.log(`initempdata`, detailDataTemp?.via);
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -342,7 +339,6 @@ function EditBaru({ alamatInvoice }) {
     Swal.fire("Good job!", "Data Berhasil Di tambahkan", "success");
   };
 
-  console.log(`AsuransiOptionsValue`, AsuransiOptionsValue);
 
 
   const deltebutton = async (x) => {
@@ -509,7 +505,6 @@ function EditBaru({ alamatInvoice }) {
 
   }
   // console.log(`ini tarif`, isiTarif?.biaya_jalan);
-  console.log(`KendaraanValue`, KendaraanValue);
 
 
   const options = detaildestination.map((item, index) => ({
@@ -586,7 +581,6 @@ function EditBaru({ alamatInvoice }) {
   }))
   // console.log(`detail data`, detailData.detail?.[0].tujuan);
   // const alamatbongkarscroll  =
-console.log(`KendaraanModal`,KendaraanModal);
 
   const validationSchema = Yup.object().shape({
     alamatMuat: Yup.string()
@@ -683,7 +677,6 @@ console.log(`KendaraanModal`,KendaraanModal);
                               onChange={(e) => {
                                 setKendaraanValue(e.value);
                                 setNameKendaraan(e.label);
-                                console.log(`KendaraanValue.value`,e);
                               }}
                             />
                             <Form.Select

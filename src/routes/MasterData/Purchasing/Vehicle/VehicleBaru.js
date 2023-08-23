@@ -588,7 +588,7 @@ function VehicleBaru() {
 
                     <Modal
                         title={title()} style={{ top: 10 }} visible={isModalOpen} onOk={formik.handleSubmit}
-                        width={800}
+                        width={1000}
                         onCancel={handleCancel}>
 
                         <AntForm>
@@ -638,11 +638,13 @@ function VehicleBaru() {
                                         style={{ marginBottom: 2 }}
                                     >
                                         <DatePicker
+                                            format="DD-MM-YYYY"
                                             id="tgl_stnk"
                                             name="tgl_stnk"
                                             onChange={(date) => {
                                                 formik.setFieldValue("tgl_stnk", date ? date.format("YYYY-MM-DD") : "");
                                             }}
+
                                             value={formik.values.tgl_stnk ? moment(formik.values.tgl_stnk) : null}
                                             onBlur={formik.handleBlur}
                                         />
@@ -659,6 +661,7 @@ function VehicleBaru() {
                                         style={{ marginBottom: 2 }}
                                     >
                                         <DatePicker
+                                            format="DD-MM-YYYY"
                                             id="tgl_plat_nomor"
                                             name="tgl_plat_nomor"
                                             onChange={(date) => {
@@ -678,6 +681,7 @@ function VehicleBaru() {
                                         style={{ marginBottom: 2 }}
                                     >
                                         <DatePicker
+                                            format="DD-MM-YYYY"
                                             id="tgl_kir"
                                             name="tgl_kir"
                                             onChange={(date) => {
@@ -698,6 +702,7 @@ function VehicleBaru() {
                                         style={{ marginBottom: 2 }}
                                     >
                                         <DatePicker
+                                            format="DD-MM-YYYY"
                                             id="tgl_beli"
                                             name="tgl_beli"
                                             onChange={(date) => {
@@ -1013,7 +1018,7 @@ function VehicleBaru() {
                                     <Row gutter={16}>
                                         <Col sm={4}>
                                             <AntForm.Item
-                                                label="Panjang"
+                                                label="Panjang (m)"
                                                 required
                                                 labelCol={{ span: 24 }}
                                                 wrapperCol={{ span: 24 }}
@@ -1033,7 +1038,7 @@ function VehicleBaru() {
                                         </Col>
                                         <Col sm={4}>
                                             <AntForm.Item
-                                                label="Lebar"
+                                                label="Lebar (m)"
                                                 required
                                                 labelCol={{ span: 24 }}
                                                 wrapperCol={{ span: 24 }}
@@ -1053,7 +1058,7 @@ function VehicleBaru() {
                                         </Col>
                                         <Col sm={4}>
                                             <AntForm.Item
-                                                label="Tinggi"
+                                                label="Tinggi (m)"
                                                 required
                                                 labelCol={{ span: 24 }}
                                                 wrapperCol={{ span: 24 }}

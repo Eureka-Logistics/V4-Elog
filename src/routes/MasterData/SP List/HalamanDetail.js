@@ -208,6 +208,7 @@ function HalamanDetail() {
     <div>
       <Card>
         <FormTable
+          datarefresh={memos}
           NamaMarketing={NamaMarketing}
           JenisBarang={JenisBarang}
           IsiDataSPSemua={IsiDataSPSemua}

@@ -38,7 +38,8 @@ function FormTable({
   IsiDataSPSemua,
   NamaMarketing,
   JenisBarang,
-  messagedetail
+  messagedetail,
+  datarefresh
 }) {
   const [modal1Open, setModal1Open] = useState(false);
   const [jobdesk, setJobdesk] = useState(localStorage.getItem("jobdesk"));
@@ -286,7 +287,7 @@ function FormTable({
         .then((response) => {
           const isidata = response.data.status;
           setApproved(isidata);
-
+          datarefresh()
           // Display success alert
           messagedetail()
           Swal.fire({
@@ -1726,10 +1727,10 @@ function FormTable({
                   <>
                     {jobdesk != "purchasing" ? (
                       <Checkbox
-                        className="justify-content-end d-flex"
+                        className="justify-content-end d-flex mt-2"
                         onChange={handleCheckboxChange}
                       >
-                        Multi
+                        Lanjut Ke Purchasing
                       </Checkbox>
                     ) : null}
 
@@ -2352,7 +2353,7 @@ function FormTable({
                         backgroundColor: "#dff0d8",
                       }}
                     >
-                      {/* <td></td> */}
+                      <td>{index + 1}.</td>
                       <td colSpan={12}>Alamat Muat</td>
                     </tr>
 
@@ -2367,10 +2368,10 @@ function FormTable({
                           <tr
                             style={{
                               fontWeight: "bold",
-                              backgroundColor: "#dff0d8",
+                              backgroundColor: "#b7d1f8",
                             }}
                           >
-                            <td>No </td>
+                            <td>{index + 1}. </td>
 
                             <td>Alamat Bongkar</td>
 
@@ -2393,7 +2394,7 @@ function FormTable({
                             <td>
                               {jobdesk !== "purchasing" && (
                                 <>
-                                  <p className="text-center">{counter++}</p>
+                                  {/* <p className="text-center">{++}</p> */}
                                 </>
                               )}
                               <span>
@@ -2702,10 +2703,11 @@ function FormTable({
                     <td style={{ paddingRight: "20px" }}>Biaya Mel</td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="150px" style={{ paddingLeft: "10px" }}>
-                      {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
+                      Rp. 0,00
+                      {/* {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
                         style: "currency",
                         currency: "IDR",
-                      })}
+                      })} */}
                     </td>
                   </tr>
                 </div>
@@ -2723,10 +2725,11 @@ function FormTable({
                     <td style={{ paddingRight: "20px" }}> Biaya Inap</td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="150px" style={{ paddingLeft: "10px" }}>
-                      {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
+                      Rp. 0,00
+                      {/* {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
                         style: "currency",
                         currency: "IDR",
-                      })}
+                      })} */}
                     </td>
                   </tr>
                 </div>

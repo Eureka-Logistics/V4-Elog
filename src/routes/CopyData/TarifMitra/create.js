@@ -43,13 +43,14 @@ const SamplePage = () => {
   const [viaOptions, setViaOptions] = useState([]);
   const [jenisDiskon, setJenisDiskon] = useState("");
   const [KodeID, setKodeID] = useState("");
+  const [selectJenisLayanan, setSelectJenisLayanan] = useState("")
   const optjenisLayanan = [
     {
       value: 1,
       label: "Retail",
     },
     {
-      Value: 2,
+      value: 2,
       label: "Charter",
     },
   ];
@@ -80,7 +81,7 @@ const SamplePage = () => {
       id_tujuan_kota: kotaTujuan?.value,
       id_kendaraan_jenis: jenisKendaraan?.value,
       id_mitra: IdMitra?.value,
-      service_type: jenisLayanan,
+      service_type: "",
       jenis_kiriman: jenisKiriman,
       via: via?.label,
       tarif: Tarif,
@@ -94,7 +95,7 @@ const SamplePage = () => {
       httpClient
         .post("tarif/create-tarifMitra", {
           ...values,
-          service_type: jenisLayanan,
+          service_type: jenisLayanan.label,
           jenis_kiriman: jenisKiriman.label,
           tarif: Tarif,
           ritase: Ritase,
@@ -103,34 +104,49 @@ const SamplePage = () => {
         .then(({ data }) => {
           notification.success({
             message: "Success",
-            description: data.message,
+            description: `Code Tarif Mitra : ${KodeID.kodeTarifMitra} Berhasil Di Buat ✅`,
           });
-          setTimeout(() => router.push("/tarifmitra"), 1000);
+          setKota("")
+          setKotaTujuan("")
+          setVia("")
+          setJenisKendaraan("")
+          setJenisKiriman("")
+          setJenisLayanan("")
+          fetchTarifAndCustomerOptions()
+          // setTimeout(() => router.push("/tarifmitra"), 1000);
         })
         .catch(function (error) {
           notification.error({
             message: "Error",
-            description: error.message,
+            description: error.response.data.status.message,
           });
-          console.log(error.message);
+          console.log(error.response);
         });
     },
   });
 
+  console.log(IdMitra);
+  const fetchTarifAndCustomerOptions = () => {
+    return httpClient.get("tarif/get-select?idMuat=&idBogkar=&idJenisKendaraan=&service_type=Reguler")
+      .then(({ data }) => {
+        if (data.status.code === 200) {
+          setKodeID(data.kodeTarif);
+          setCustomerOptions(
+            data.customer.map((x) => ({
+              label: x.Customer,
+              value: x.idCustomer,
+            }))
+          );
+        }
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
+  };
+
+
+
   useEffect(() => {
-    // const url = window.location.href;
-    // const idMpFix = url.substring(url.lastIndexOf("/") + 1);
-    // httpClient
-    //   .get(`sp/get-SP-massage?id_mp=${idMpFix}`)
-    //   .then(({ data }) => {
-    //     if (data.status.code === 200) {
-    //       setData(data.data);
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error.message);
-    //   });
-    // // Fetch province options
     httpClient
       .get("wilayah/get-kota")
       .then(({ data }) => {
@@ -178,7 +194,7 @@ const SamplePage = () => {
       })
       .catch(function (error) {
         console.log(error.message);
-      
+
       });
 
     httpClient
@@ -287,7 +303,6 @@ const SamplePage = () => {
     }
   };
 
-  console.log("ini dia muat kota", jenisLayanan);
 
   return (
     <div>
@@ -295,16 +310,16 @@ const SamplePage = () => {
         <Form onSubmit={formik.handleSubmit}>
           <Row style={{ marginBottom: "10px" }}>
             <Col span={8}>
-              <h4 style={{color: '#1A5CBF'}}>Buat Tarif Mitra Baru</h4>
+              <h4 style={{ color: '#1A5CBF' }}>Buat Tarif Mitra Baru</h4>
             </Col>
             <Col span={3}></Col>
             <Col span={3}></Col>
-            
+
           </Row>
           <Row style={{ marginBottom: "10px" }}>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Code Mitra</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>Code Tarif Mitra</Form.Label>
                 <Form.Control disabled value={KodeID.kodeTarifMitra} />
                 {/* <InputGroup>
                   <Input
@@ -317,7 +332,7 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Nama Mitra</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>Nama Mitra</Form.Label>
                 <InputGroup>
                   <Select
                     options={customerOptions}
@@ -333,7 +348,7 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Kota Muat</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>Kota Muat</Form.Label>
                 <InputGroup>
                   <Select
                     options={kotaOptions}
@@ -349,7 +364,7 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Kota Tujuan</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>Kota Tujuan</Form.Label>
                 <InputGroup>
                   <Select
                     options={kotaOptions}
@@ -365,7 +380,7 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Via</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>Via</Form.Label>
                 <InputGroup>
                   <Select
                     options={viaOptions}
@@ -381,7 +396,7 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Jenis kendaraan </Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>Jenis kendaraan </Form.Label>
                 <InputGroup>
                   <Select
                     options={jenisKendaraanOptions}
@@ -397,22 +412,42 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Jenis Layanan</Form.Label>
-                <InputGroup>
-                  <Select
-                    options={optjenisLayanan}
-                    name="service_type"
-                    // value={jenisLayanan}
-                    onChange={(e) => setJenisLayanan(e.label)}
-                    isInvalid={!!formik.errors.service_type}
-                    styles={customStylesReactSelect}
-                  />
-                </InputGroup>
+                <Form.Label style={{ fontWeight: `bold` }}>Jenis Layanan</Form.Label>
+
+                <Select
+                  options={[
+                    { label: "Retail", value: "Retail" },
+                    { label: "Charter", value: "Charter" }
+                  ]}
+                  name="service_type"
+                  value={jenisLayanan}
+                  onChange={(e) => {
+                    setJenisLayanan(e);
+                    console.log('Updated jenisLayanan:', e);
+                  }}
+                  isInvalid={!!formik.errors.service_type}
+                  styles={customStylesReactSelect}
+                />
+
+                {/* <Select
+                  options={[
+                    { label: "Retail", value: "Retail" },
+                    { label: "Charter", value: "Charter" }
+                  ]}
+                  name="another_field"
+                  value={selectJenisLayanan}
+                  onChange={(e) => {
+                    setSelectJenisLayanan(e);
+                    console.log('Updated selectJenisLayanan:', e);
+                  }}
+                  styles={customStylesReactSelect}
+                /> */}
               </Form.Group>
             </Col>
+
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Jenis Kiriman</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>Jenis Kiriman</Form.Label>
                 <InputGroup>
                   <Select
                     options={optjenisKiriman}
@@ -428,14 +463,14 @@ const SamplePage = () => {
           </Row>
           <br />
           <hr />
-          
-          <h4 style={{color: '#1A5CBF'}}>
-              Biaya Penanganan
-            </h4>
+
+          <h4 style={{ color: '#1A5CBF' }}>
+            Biaya Penanganan
+          </h4>
           <Row className="mt-4">
             <Col span={6} >
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Tarif</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>Tarif</Form.Label>
                 <InputGroup>
                   <Form.Control
                     // name="tarif"
@@ -478,8 +513,8 @@ const SamplePage = () => {
           </Row>
         </Form>
         <Col span={24} className="d-flex justify-content-end">
-              <Button onClick={formik.handleSubmit} >Simpan Tarif</Button>
-            </Col>
+          <Button onClick={formik.handleSubmit} >Simpan Tarif</Button>
+        </Col>
       </Card>
     </div>
   );

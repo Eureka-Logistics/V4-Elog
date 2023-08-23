@@ -23,7 +23,6 @@ function EditSP({ alamatInvoice }) {
     phZustand: state.phZustand,
   }));
 
-  console.log("alamatInvoice", alamatInvoice);
   const { shipmentSementara, setshipmentSementara } = mobil((state) => ({
     shipmentSementara: state.shipmentSementara,
     setshipmentSementara: state.setshipmentSementara,
@@ -120,7 +119,6 @@ function EditSP({ alamatInvoice }) {
       setAlamatOptions(data.data.data.address);
       setAsuransiOptions(data.data.data.insurance);
       setServiceValueOptios(data.data.data.service);
-      console.log(`ini ServiceValueOptions`, ServiceValueOptions);
     } catch (error) {}
   };
 
@@ -172,11 +170,7 @@ function EditSP({ alamatInvoice }) {
     }
   };
 
-  console.log(
-    `detailData?.service
-  `,
-    detailData?.service
-  );
+  
   const columns = [
     {
       name: "Title",
@@ -258,7 +252,6 @@ function EditSP({ alamatInvoice }) {
     // console.log(comment);
     setComment(comment);
   };
-  console.log(`initempdata`, detailDataTemp?.via);
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -352,7 +345,6 @@ function EditSP({ alamatInvoice }) {
     Swal.fire("Good job!", "Data Berhasil Di tambahkan", "success");
   };
 
-  console.log(`AsuransiOptionsValue`, AsuransiOptionsValue);
 
   const deltebutton = async (x) => {
     Swal.fire({
@@ -517,7 +509,6 @@ function EditSP({ alamatInvoice }) {
     }
   };
   // console.log(`ini tarif`, isiTarif?.biaya_jalan);
-  console.log(`KendaraanValue`, KendaraanValue);
 
   const options = detaildestination.map((item, index) => ({
     value: item.id,
@@ -596,7 +587,6 @@ function EditSP({ alamatInvoice }) {
   }));
   // console.log(`detail data`, detailData.detail?.[0].tujuan);
   // const alamatbongkarscroll  =
-  console.log(`KendaraanModal`, KendaraanModal);
 
   const validationSchema = Yup.object().shape({
     alamatMuat: Yup.string().required("Alamat Muat Required"),
@@ -688,7 +678,6 @@ function EditSP({ alamatInvoice }) {
                               onChange={(e) => {
                                 setKendaraanValue(e.value);
                                 setNameKendaraan(e.label);
-                                console.log(`KendaraanValue.value`, e);
                               }}
                             />
                             <Form.Select

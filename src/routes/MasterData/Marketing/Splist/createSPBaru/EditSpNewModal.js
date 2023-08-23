@@ -71,7 +71,6 @@ function EditSPNewModal() {
             setAlamatInvoiceOptions(data.data.data.address)
             setAsuransiSelect(data.data.data.insurance)
             setJenisBarangSelection(data.data.data.service)
-            console.log(`dari edit`, data.data.data)
             setNamaMarketing(data.data.data?.marketing)
         } catch (error) {
 

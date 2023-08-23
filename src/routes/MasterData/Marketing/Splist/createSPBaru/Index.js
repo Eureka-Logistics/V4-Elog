@@ -1,4 +1,4 @@
-import { Card , Select as SelectAntd} from "antd";
+import { Card, Select as SelectAntd } from "antd";
 import React, { useEffect, useState } from "react";
 import { Row, Form, FormGroup, Col, Button } from "react-bootstrap";
 import Baseurl from "../../../../../Api/BaseUrl";
@@ -19,7 +19,7 @@ function Index() {
     setPHZustand: state.setPHZustand,
     phZustand: state.phZustand
   }));
-  const [ButtonDisable , setButtonDisable] = useState(false)
+  const [ButtonDisable, setButtonDisable] = useState(false)
   const [getawalSP, setgetAwalSP] = useState([]);
   const [noPH, setnoPH] = useState("");
   const [noSPawal, setnogetAwalSP] = useState("");
@@ -32,9 +32,9 @@ function Index() {
   const [diskonselect, setDiskonSelect] = useState("");
   const [diskonselectValue, setDiskonSelectValue] = useState("");
   const [serviceSelect, setServiceSelect] = useState("");
-  const [serviceSelectValue, setServiceSelectValue] = useState("");
+  const [serviceSelectValue, setServiceSelectValue] = useState("Charter");
   const [insuranceSelect, setInsuranceSelect] = useState("");
-  const [insuranceSelects, setInsuranceSelects] = useState("");
+  const [insuranceSelects, setInsuranceSelects] = useState("N");
   const [packingValue, setpackingValue] = useState("");
   const [packingValues, setpackingValues] = useState("");
   const [tgl_pickup, setTgl_pickup] = useState("");
@@ -43,6 +43,7 @@ function Index() {
   const [JenisBarang, setJenisBarang] = useState("");
   const [TypeMobilSelect, setTypeMobilSelect] = useState("");
   const [MultiChange, setMultiChange] = useState(0);
+  const [IdSales, SetIdSales] = useState(0);
   const history = useHistory();
   const dapetinnosp = async () => {
     const data = await axios.get(
@@ -68,7 +69,7 @@ function Index() {
     setInsuranceSelect(data.data.data.insurance);
     setTypeMobilSelect(data.data.data.type)
     setpackingValue(data.data.data.packing);
-    
+
   };
   useEffect(() => {
     dapetinnosp();
@@ -93,8 +94,9 @@ function Index() {
           diskon: diskonselectValue,
           asuransi_fee: 0,
           total_keseluruhan: 0,
-          is_multi:MultiChange,
-          is_tarif_multidrop:MultiChange
+          is_multi: MultiChange,
+          is_tarif_multidrop: MultiChange,
+          id_sales: parseInt(IdSales)
         },
         {
           headers: {
@@ -140,9 +142,9 @@ function Index() {
     setTgl_bongkar(dateStrings[1]); // nilai kedua untuk tgl_bongkar
   };
 
-if (!noSPawal) {
-  return <img src={gambarloading} alt="gambarloading"></img>
-}
+  if (!noSPawal) {
+    return <img src={gambarloading} alt="gambarloading"></img>
+  }
 
   return (
     <div>
@@ -159,11 +161,13 @@ if (!noSPawal) {
             <Col sm={6}>
               <FormGroup>
                 <Form.Label>Marketing</Form.Label>
-                <Form.Select>
+                <Form.Select
+
+                  onChange={(e) => SetIdSales(e.target.value)}>
                   <option>Select Marketing</option>
                   {namaMarketing &&
                     namaMarketing.map((item) => (
-                      <option>{item?.fullname}</option>
+                      <option value={item.id}>{item?.fullname}</option>
                     ))}
                 </Form.Select>
               </FormGroup>
@@ -174,7 +178,7 @@ if (!noSPawal) {
               <FormGroup>
                 <Form.Label>Nama Pelanggan</Form.Label>
                 <Select
-                  placeholder="Select Nama Perusahaan"
+                  placeholder="Select Nama Pelanggan"
                   options={namaPerusahaan && namaPerusahaan.map(item => ({ label: item.companyName, value: item.id, item }))}
                   onChange={selectedOption => {
                     dapetinnosp(selectedOption.value);
@@ -189,7 +193,7 @@ if (!noSPawal) {
             <Col sm>
               <Form.Label>Tanggal Pickup - Tanggal Bongkar</Form.Label>
               <br />
-              <RangePicker style={{width:"100%"}} onChange={handleDatesChange} />
+              <RangePicker style={{ width: "100%" }} onChange={handleDatesChange} />
             </Col>
             {/* <Col sm={3}>
         <Form.Label label="Type Vehicle">
@@ -248,9 +252,10 @@ if (!noSPawal) {
               <FormGroup>
                 <Form.Label>Service</Form.Label>
                 <Form.Select onChange={(e) => setServiceSelectValue(e.target.value)} type="text">
-                  <option>Pilih Service</option>
-                  {serviceSelect &&
-                    serviceSelect.map((item) => <option value={item.tipe}>{item.tipe}</option>)}
+                  <option value={"Charter"}>Charter</option>
+                  <option value={"Retail"}>Retail</option>
+                  {/* {serviceSelect &&
+                    serviceSelect.map((item) => <option value={item.tipe}>{item.tipe}</option>)} */}
                 </Form.Select>
               </FormGroup>
             </Col>
@@ -261,23 +266,24 @@ if (!noSPawal) {
                   onChange={(e) => setInsuranceSelects(e.target.value)}
                   type="text"
                 >
-                  <option>Pilih Asuransi</option>
-                  {insuranceSelect &&
+                  <option value={"N"}>Tidak Menggunakan Asuransi</option>
+                  <option value={"Y"}>Menggunakan Asuransi</option>
+                  {/* {insuranceSelect &&
                     insuranceSelect.map((item) => (
                       <option value={item.value}>{item.tipe}</option>
-                    ))}
+                    ))} */}
                 </Form.Select>
               </FormGroup>
             </Col>
             <Col sm={3}>
               <FormGroup>
                 <Form.Label>Packing Request</Form.Label>
-                <SelectAntd 
-                optionFilterProp="children"
-                showSearch
-                style={{width : "100%"}}
-                placeholder="Pilih Packing"
-                onChange={(e)=>{console.log(e);setpackingValues(e)}}
+                <SelectAntd
+                  optionFilterProp="children"
+                  showSearch
+                  style={{ width: "100%" }}
+                  placeholder="Pilih Packing"
+                  onChange={(e) => { console.log(e); setpackingValues(e) }}
                 >
                   {packingValue &&
                     packingValue.map((item) => (
@@ -300,7 +306,7 @@ if (!noSPawal) {
               <FormGroup>
                 <Form.Label>Multi Drop</Form.Label>
                 <Form.Select
-                  onChange={(e) => {setMultiChange(e.target.value);console.log(e.target.value)}}
+                  onChange={(e) => { setMultiChange(e.target.value); console.log(e.target.value) }}
                   type="text"
                 >
                   <option value={0}>Tidak Multi</option>

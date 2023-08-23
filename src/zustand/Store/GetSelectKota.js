@@ -29,7 +29,6 @@ const ZustandStore = create((set) => ({
           }
       });
       set({ NamaKotaGlobal: data.data });
-      console.log(`muatKota`,data.data);
     } catch (error) {
       console.error(error);
     }
