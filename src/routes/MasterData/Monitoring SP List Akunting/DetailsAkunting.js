@@ -193,14 +193,7 @@ function DetailsAkunting() {
       Swal.fire("Berhasil!", "Permintaan berhasil!", "success");
       setDetailData()
     } catch (error) {
-      // Munculkan SweetAlert jika terjadi error
-      if (error.response && error.response.status === 403) {
-        const isieror = error.response.data.status.message;
-        Swal.fire("Gagal!", `${isieror}`, "error");
-      } else if (error.response && error.response.status === 403) {
-        const isieror = error.response.data.status.message;
-        Swal.fire("Gagal!", `${isieror}`, "error");
-      }
+      message.error(error.response.data.status.message)
     }
   };
   const comments = async () => {
@@ -435,6 +428,7 @@ function DetailsAkunting() {
                 <>
                   <Button
                     size="sm"
+                    className="mx-2"
                     onClick={() => setModal1Open(true)}
                     variant="danger"
                   >

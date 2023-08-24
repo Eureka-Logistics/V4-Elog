@@ -1,4 +1,4 @@
-import { Card, Input, Pagination } from 'antd'
+import { Card, Input, Pagination, message, notification } from 'antd'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
@@ -39,7 +39,8 @@ function CancelSPListSales() {
             setDataPaginations(data.data.data?.totalData)
             setDataAwal(data.data.data.order)
         } catch (error) {
-
+            notification.error({
+               message : error.response.data.status.message})
         }
     }
 

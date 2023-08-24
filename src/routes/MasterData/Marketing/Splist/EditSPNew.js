@@ -468,7 +468,7 @@ function EditSPNew({getDetail}) {
 
             </Row>
             <ModalCreateDetail
-               getDetails={getDetail} idmp={idmp} DetailSP={DetailSP} JenisBarangFormik={formik.values.jenisBarang} AlamatInvoiceOptions={AlamatInvoiceOptions} DetailSemua={DetailSemua} />
+            idmp={idmp} DetailSP={DetailSP} JenisBarangFormik={formik.values.jenisBarang} AlamatInvoiceOptions={AlamatInvoiceOptions} DetailSemua={DetailSemua} />
        
         </div>
     )

@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import { Col, Row, Form, Button, Table, Modal } from "react-bootstrap";
-import { Card, Input, Tag } from "antd";
+import { Card, Input, Tag, notification } from "antd";
 import { useParams } from "react-router-dom";
 import Baseurl from "../../../Api/BaseUrl";
 import Token from "../../../Api/Token";
@@ -14,6 +14,7 @@ function HalamanDetail() {
   const [IsiDataSPSemua, setIsiDataSPSemua] = useState("");
   const [isidata, setIsidata] = useState([]);
   const [show, setShow] = useState(false);
+  const [tambahKomen, setTambahKomen] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [totalPrice, setTotalPrice] = useState([]);
@@ -82,7 +83,6 @@ function HalamanDetail() {
       setTotalPrice(totalPrices);
       // setSJKosongModal(totalPrice)
       setDuit(totalPrices);
-      // console.log(`ini totalPrice`, semua);
 
       const isidetail = semua.map((item) => ({
         berat: item.berat,
@@ -204,6 +204,41 @@ function HalamanDetail() {
       setIsiKomenRejectSP(isicommentTidak.chat);
     }
   };
+
+  const tambahkomen = async () => {
+    try {
+      if (tambahKomen === "") {
+        alert("Kolom komentar harus terisi");
+      } else {
+        const data = await axios.post(
+          `${Baseurl}sp/create-massage`,
+          {
+            id_mp: idmp,
+            ph: IsiDataSPSemua?.sp,
+            chat: tambahKomen,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        );
+      }
+      messagedetail();
+      notification.success({
+        message: "success",
+      })
+    } catch (error) {
+      notification.error({
+        message: "Error",
+        description: error.response.status.message
+      })
+    }
+  };
+
+
+
   return (
     <div>
       <Card>
@@ -215,7 +250,8 @@ function HalamanDetail() {
           isidata={isidata}
           idmp={idmp}
           messagedetail={messagedetail}
-        ></FormTable>
+        >
+        </FormTable>
         <Form>
           <Form.Group controlId="inputText">
             <Form.Label style={{ fontWeight: "bold" }}>Isi Memo </Form.Label>
@@ -223,6 +259,25 @@ function HalamanDetail() {
           </Form.Group>
         </Form>
         <br />
+        <Row className="mt-3 align-items-center">
+          <Col sm={9}>
+            <Form.Group className="mt-4">
+              <Form.Label style={{ fontWeight: "bold" }}></Form.Label>
+              <textarea
+                style={{ border: '2px solid blue', height: '50px', width: '100%', resize: 'none' }}
+                onChange={(e) => setTambahKomen(e.target.value)}
+                placeholder="Tulis komentar"
+              />
+            </Form.Group>
+          </Col>
+          <Col sm={3} className="text-start mt-4">
+            <Button onClick={tambahkomen} size="sm">
+              Tambah Komen
+            </Button>
+          </Col>
+        </Row>
+
+
         <br />
         <Table responsive>
           <thead>

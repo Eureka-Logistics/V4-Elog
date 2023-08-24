@@ -214,7 +214,6 @@ function FormTable({
 
 
   }, [types, selectnomor, mitra2, selectnomor2, selectTypeMobil2]); // pastikan Anda memasukkan semua variabel yang Anda gunakan sebagai dependensi useEffect
-  console.log(`ini TipeKendaraan`, TipeKendaraan);
   // console.log(`ini NamaDriverFix2`, NamaDriverFix2);
   ///// approve op operasional
   useEffect(() => {

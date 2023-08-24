@@ -10,7 +10,7 @@ import NumberFormat from 'react-number-format';
 import ZustandStore from '../../../../zustand/Store/GetSelectKota';
 import ModalEditSPDetail from './EditModalSPDetail/ModalEditSPDetail';
 import EditDetailSPModal from '../../../../zustand/Store/EditDetailSPModal';
-function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik, detailData, getDetails }) {
+function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik, detailData,  }) {
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
     const [selectVia, setSelectVia] = useState("");
@@ -110,10 +110,11 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                 }
             )
             DetailSP()
-            getDetails()
+            // getDetails()
             message.success('Data berhasil ditambahkan!');
         } catch (error) {
-            message.error('Terjadi kesalahan saat menambahkan data');
+            message.error(error.response.data.status.message)
+            setModal1Open(true)
         } finally {
             setLoding(false); // akan dipanggil baik ada error maupun tidak
         }
@@ -247,11 +248,11 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                 }
             )
             DetailSP()
-            getDetails()
+            // getDetails()
             setModal1Open1(false)
             message.success('Data berhasil Diubah!');
         } catch (error) {
-            message.error('Terjadi kesalahan saat Edit data');
+            message.error(error.response.data.status.message)
 
         }
     }

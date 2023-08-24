@@ -1,4 +1,4 @@
-import { Card, Select as SelectAntd } from "antd";
+  import { Card, Select as SelectAntd } from "antd";
 import React, { useEffect, useState } from "react";
 import { Row, Form, FormGroup, Col, Button } from "react-bootstrap";
 import Baseurl from "../../../../../Api/BaseUrl";
@@ -167,7 +167,7 @@ function Index() {
                   <option>Select Marketing</option>
                   {namaMarketing &&
                     namaMarketing.map((item) => (
-                      <option value={item.id}>{item?.fullname}</option>
+                      <option value={item.id}>{item?.fullname} ({item?.nik}) - {item?.divisi}</option>
                     ))}
                 </Form.Select>
               </FormGroup>
