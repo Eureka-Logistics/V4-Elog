@@ -1082,81 +1082,7 @@ function HeaderMasterMitra() {
                 ADA LENGKAP
               </td>
             </tr>
-            <tr style={{ border: "1px solid black", padding: "10px" }}>
-              <td
-                width="100px"
-                style={{ border: "1px solid black", padding: "10px" }}
-              >
-                <b>DIBUAT OLEH (Created By)</b>{" "}
-              </td>
-              <td
-                width="100px"
-                style={{ border: "1px solid black", padding: "10px" }}
-              ></td>{" "}
-              <td
-              width="150px"
-                align="left"
-                style={{ border: "1px solid black", padding: "10px" }}
-              >
-                <b> DIPERIKSA OLEH (Checked By)</b>
-              </td>{" "}
-              <td width="100px"> </td>
-            </tr>
-            <tr style={{ height: "100px" }}>
-              <td
-                width="100px"
-                style={{ border: "1px solid black", padding: "10px" }}
-              >
-                {" "}
-              </td>{" "}
-              <td
-                align="left"
-                style={{ border: "1px solid black", padding: "10px" }}
-              >
-                {" "}
-              </td>{" "}
-              <td
-                width="100px"
-                style={{ border: "1px solid black", padding: "10px" }}
-              >
-                {" "}
-              </td>{" "}
-              <td
-                  colSpan={3}
-                align="left"
-                style={{ border: "1px solid black", padding: "10px" }}
-              >
-                {" "}
-              </td>
-            </tr>
-            <tr>
-              <td
-                width="160px"
-                style={{ border: "1px solid black", padding: "10px" }}
-              >
-                <b>EVIYANA NURAINI</b> <br /> LEGAL PARTNERSHIP EUREKA
-              </td>{" "}
-              <td
-                align="left"
-                style={{ border: "1px solid black", padding: "10px" }}
-              >
-                {" "}
-                <b> SUKI LIE</b> <br /> DIREKTUR
-              </td>
-              <td
-                width="150px"
-                style={{ border: "1px solid black", padding: "10px" }}
-              >
-                <b>VITRI YENI</b> <br /> Ka. PARTNERSHIP EUREKA
-              </td>{" "}
-              <td
-              colSpan={3}
-                width="150px"
-                style={{ border: "1px solid black", padding: "10px" }}
-              >
-                <b>ERNANTO TRIATMOJO</b> <br /> ASM. AKT & KEU
-              </td>
-            </tr>
+           
           </>
           {/* DATA KEUANGAN */}
           <>
@@ -1316,6 +1242,25 @@ function HeaderMasterMitra() {
         <table width="100%">
       
     </table>
+  
+    <table width="100%" >  
+      <tr style={{ border: "1px solid black", padding: "10px" }}>
+        <td  width="100px" colspan="6" style={{ border: "1px solid black", padding: "10px" }}><b>DIBUAT OLEH (Created By)</b>{" "} </td>  <td align="left"  colspan="2" style={{ border: "1px solid black", padding: "10px" }}><b> DIPERIKSA OLEH (Checked By)</b></td>  
+        
+      </tr>     
+      <tr style={{height: '100px'}}>
+        <td  width="100px" colspan="3" style={{ border: "1px solid black", padding: "10px" }}> </td>  <td align="left"  colspan="2" style={{ border: "1px solid black", padding: "10px" }}>   </td>    
+        <td  width="100px" colspan="6" style={{ border: "1px solid black", padding: "10px" }}> </td>    
+      </tr>     
+      <tr style={{ border: "1px solid black", padding: "10px" }}>
+        <td  width="100px" colspan="3" style={{ border: "1px solid black", padding: "10px" }}>  <b>EVIYANA NURAINI</b> <br /> LEGAL PARTNERSHIP EUREKA</td>  <td align="left"  colspan="3" style={{ border: "1px solid black", padding: "10px" }}>  <b> SUKI LIE</b> <br /> DIREKTUR</td>    
+        <td  width="100px" colspan="6" style={{ border: "1px solid black", padding: "10px" }}>  <b>VITRI YENI</b> <br /> Ka. PARTNERSHIP EUREKA</td>    
+      </tr>  
+      <tr style={{ border: "1px solid black", padding: "10px" }}> 
+         <td align="right"  colspan="12" style={{ border: "1px solid black", padding: "10px" }}>  </td>   
+      </tr>         
+  </table>
+  
     <table width="100%" >  
       <tr style={{ border: "1px solid black", padding: "10px" }}>
         <td  width="100px" colspan="3" style={{ border: "1px solid black", padding: "10px" }}><b>DIPERIKSA OLEH (Checked By)</b> </td>  <td align="left"  colspan="3" style={{ border: "1px solid black", padding: "10px" }}><b> DISETUJUI OLEH (Approved By)</b></td>  
@@ -1330,6 +1275,7 @@ function HeaderMasterMitra() {
          <td align="right"  colspan="6" style={{ border: "1px solid black", padding: "10px" }}> 3 </td>   
       </tr>         
   </table>
+ 
       </div>
     </div>
   );

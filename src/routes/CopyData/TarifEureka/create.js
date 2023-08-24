@@ -42,6 +42,7 @@ const SamplePage = () => {
   const [viaOptions, setViaOptions] = useState([]);
   const [jenisDiskon, setJenisDiskon] = useState("");
   const [KodeID, setKodeID] = useState("");
+  const [DataLeadTime, setDataLeadTime] = useState("");
 
   const optjenisLayanan = [
     {
@@ -411,8 +412,25 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
+
+            <Col span={6}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label style={{fontWeight: `bold`}}>Lead Time</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    // name="tarif"
+                    type="number"
+                    // Menambahkan desimal dengan step 0.01
+                    // value={Tarif}
+                    // onChange={(e) => setTarif(e.target.value)}
+                    // isInvalid={!!formik.errors.tarif}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
            
           </Row>
+        
           <br />
           <hr />
           <h4 style={{color: '#1A5CBF'}}>Biaya Penanganan</h4>

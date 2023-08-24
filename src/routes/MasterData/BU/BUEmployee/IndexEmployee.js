@@ -16,7 +16,7 @@ function IndexEmployee() {
 
   const handleView = (idEmploye) => {
     router.push(`/EditDetailEmployeeBU/${idEmploye}`);
-    console.log("ini id_bu", idEmploye);
+    console.log("ini id_bu", );
   };
 
   const handleAdd = () => {

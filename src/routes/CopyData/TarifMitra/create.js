@@ -43,6 +43,7 @@ const SamplePage = () => {
   const [viaOptions, setViaOptions] = useState([]);
   const [jenisDiskon, setJenisDiskon] = useState("");
   const [KodeID, setKodeID] = useState("");
+  const [DataLeadTime, setDataTime] = useState ("");
   const [selectJenisLayanan, setSelectJenisLayanan] = useState("")
   const optjenisLayanan = [
     {
@@ -468,6 +469,20 @@ const SamplePage = () => {
             Biaya Penanganan
           </h4>
           <Row className="mt-4">
+             <Col span={6} >
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label style={{ fontWeight: `bold` }}>Lead Time</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    // name="tarif"
+                    type="number"
+                    // value={Tarif}
+                    // onChange={(e) => setTarif(e.target.value)}
+                    // isInvalid={!!formik.errors.tarif}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
             <Col span={6} >
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>Tarif</Form.Label>
@@ -482,6 +497,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
+           
             {/* <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{fontWeight: `bold`}}>Ritase</Form.Label>

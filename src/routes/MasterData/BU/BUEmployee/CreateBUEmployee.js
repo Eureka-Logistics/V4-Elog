@@ -29,6 +29,18 @@ function CreateBUEmployee() {
   const [imageUrl, setImageUrl] = useState("");
   const [DataSelecttEmployee, setDataSelecttEmployee] = useState("");
   const [DataBU,setDataBU] = useState("");
+  const [DataGl, setDataGl] = useState("");
+  const [DataASM, setDataASM] = useState("");
+  const [DataMgr, setDataMgr] = useState("");
+  const [DataKacab, setDataKacab] = useState("");
+  const [DataAmd, setDataAmd] = useState("");
+  const [PosisiGL, setPosisiGL] = useState("");
+  const [PosisiASM, setPosisiASM] = useState("");
+  const [PosisiMGR, setPosisiMGR] = useState("");
+  const [PosisiKACAB, setPosisiKACAB] = useState("");
+  const [PosisiAMD, setPosisiAMD] = useState("");
+  // const [DataMgr, setDataMgr] = useState("");
+
 
   const DataSelectEmployee = async () => {
     try {
@@ -131,6 +143,10 @@ function CreateBUEmployee() {
 
   return (
     <div>
+      <h5>
+        Data Employee
+      </h5>
+      <hr />
       <Row>
         {/* <Col span={8}>
           <label style={{ fontWeight: "bold" }}>Photo :</label>
@@ -152,20 +168,7 @@ function CreateBUEmployee() {
             </Upload>
           </Card>
         </Col> */}
-        <Col span={12}>
-          <label style={{ fontWeight: "bold" }}>Full Name :</label>
-          {/* Menghubungkan input tarif dengan state tarif */}
-          <Input
-            className="mt-2 mb-2"
-            name="fullname"
-            placeholder="Input Full Name"
-            onChange={(e) => {
-              console.log(e.target.value);
-              setDataFullName(e.target.value);
-            }}
-          />
-        </Col>
-        <Col span={12}>
+        <Col span={4}>
           <label style={{ fontWeight: "bold" }}>Code Employee :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -178,9 +181,20 @@ function CreateBUEmployee() {
             }}
           />
         </Col>
-      </Row>
-      <Row>
-        <Col span={12}>
+        <Col span={8}>
+          <label style={{ fontWeight: "bold" }}>Full Name :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            className="mt-2 mb-2"
+            name="fullname"
+            placeholder="Input Full Name"
+            onChange={(e) => {
+              console.log(e.target.value);
+              setDataFullName(e.target.value);
+            }}
+          />
+        </Col>
+        <Col span={6}>
           <label style={{ fontWeight: "bold" }}>Designation :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -206,52 +220,7 @@ function CreateBUEmployee() {
               ))}
           </Select>
         </Col>
-
-        {/* <label style={{ fontWeight: "bold" }}>Job Level :</label> */}
-        {/* Menghubungkan input tarif dengan state tarif */}
-        <Col span={12}>
-          <label style={{ fontWeight: "bold" }}>Job Level:</label>
-          <Input
-            className={`mt-2 mb-2 ${isInputValid ? "" : "invalid-input"}`}
-            name="job_level"
-            placeholder="Exp: STAFF MARKETING EUREKA LOGISTIK SURABAYA"
-            onChange={handleJobLevelChange}
-          />
-          {!isInputValid && (
-            <p style={{ color: "red" }}>
-              Please enter valid UPPERCASE letters only.
-            </p>
-          )}
-        </Col>
-      </Row>
-      <Row>
-        <Col span={12}>
-          <label style={{ fontWeight: "bold" }}>Employee Position :</label>
-          {/* Menghubungkan input tarif dengan state tarif */}
-          <Select
-            className="mt-2"
-            showSearch
-            value={DataCodeEmployeePosition}
-            optionFilterProp="value"
-            placeholder="Select Employee Position"
-            style={{ width: "100%" }}
-            onChange={(e, options) => {
-              setIDCodeEmployee(options.key);
-              setDataCodeEmployeePosition(options);
-            }}
-          >
-            {DataSelect &&
-              DataSelect.BuEmployee.map((DataItem) => (
-                <Select.Option
-                  key={DataItem.codeEmployeePosition}
-                  value={DataItem.name}
-                >
-                  {DataItem.BuEmployee}
-                </Select.Option>
-              ))}
-          </Select>
-        </Col>
-        <Col span={12}>
+        <Col span={6}>
           <label style={{ fontWeight: "bold" }}>BU Brench :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -278,6 +247,50 @@ function CreateBUEmployee() {
               ))}
           </Select>
         </Col>
+       
+        <Col span={12}>
+          <label style={{ fontWeight: "bold" }}>Employee Position :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Select
+            className="mt-2"
+            showSearch
+            value={DataCodeEmployeePosition}
+            optionFilterProp="value"
+            placeholder="Select Employee Position"
+            style={{ width: "100%" }}
+            onChange={(e, options) => {
+              setIDCodeEmployee(options.key);
+              setDataCodeEmployeePosition(options);
+            }}
+          >
+            {DataSelect &&
+              DataSelect.BuEmployee.map((DataItem) => (
+                <Select.Option
+                  key={DataItem.codeEmployeePosition}
+                  value={DataItem.name}
+                >
+                  {DataItem.BuEmployee}
+                </Select.Option>
+              ))}
+          </Select>
+        </Col>
+         {/* <label style={{ fontWeight: "bold" }}>Job Level :</label> */}
+        {/* Menghubungkan input tarif dengan state tarif */}
+        <Col span={12}>
+          <label style={{ fontWeight: "bold" }}>Job Level:</label>
+          <Input
+            className={`mt-2 mb-2 ${isInputValid ? "" : "invalid-input"}`}
+            name="job_level"
+            placeholder="Exp: STAFF MARKETING EUREKA LOGISTIK SURABAYA"
+            onChange={handleJobLevelChange}
+          />
+          {!isInputValid && (
+            <p style={{ color: "red" }}>
+              Please enter valid UPPERCASE letters only.
+            </p>
+          )}
+        </Col>
+        
       </Row>
       <Row className="mt-2">
         <Col span={12}>
@@ -308,9 +321,9 @@ function CreateBUEmployee() {
           />
         </Col>
       </Row>
-      <Row className="mt-2">
-        <Col span={8}>
-          <label style={{ fontWeight: "bold" }}>Bisnis Unit  :</label>
+      <Row>
+      <Col span={12}>
+          <label style={{ fontWeight: "bold" }}>Kode Bisnis Unit  :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
             className="mt-2 mb-2"
@@ -329,95 +342,33 @@ function CreateBUEmployee() {
               DataSelect?.BU.map((CustomerItem) => (
                 <Select.Option
                   key={CustomerItem?.id}
-                  value={CustomerItem?.codeBu
+                  value={CustomerItem?.nameBu
                   }
                 >
-                  {CustomerItem?.codeBu
+                  {CustomerItem?.id
 }
                 </Select.Option>
               ))}
           </Select>
-          {/* <Input
-            className="mt-2 mb-2"
-            name="id_bu"
-            placeholder="Exp: 13"
-            onChange={(e) => {
-              console.log(e.target.value);
-              setIDBu(e.target.value);
-            }}
-          /> */}
         </Col>
-        <Col span={8}>
-          <label style={{ fontWeight: "bold" }}>Kepala Cabang :</label>
-          {/* Menghubungkan input tarif dengan state tarif */}
-          <Select
+      <Col span={12}>
+          <label style={{ fontWeight: "bold" }}>Nama Bisnis Unit  :</label>
+          
+          <Input
+          disabled
             className="mt-2 mb-2"
-            showSearch
-            //   value={DataDetailAddress?.kode_wilayah}
-            placeholder="Pilih Kepala Cabang"
-            optionFilterProp="value"
-            style={{ width: "100%" }}
-            onChange={(e, options) => {
-              console.log(options.key);
-              setIDKacab(options.key);
-            }}
-          >
-            {DataSelecttEmployee &&
-              DataSelecttEmployee?.map((CustomerItem) => (
-                <Select.Option
-                  key={CustomerItem?.id_kacab}
-                  value={CustomerItem?.fullname}
-                >
-                  {CustomerItem?.fullname}
-                </Select.Option>
-              ))}
-          </Select>
-          {/* <Input
-            className="mt-2 mb-2"
-            name="id_kacab"
-            placeholder="Exp: K1001"
-            onChange={(e) => {
-              console.log(e.target.value);
-              setIDKacab(e.target.value);
-            }}
-          /> */}
-        </Col>
-        <Col span={8}>
-          <label style={{ fontWeight: "bold" }}>ID AMD :</label>
-          {/* Menghubungkan input tarif dengan state tarif */}
-          <Select
-            className="mt-2 mb-2"
-            showSearch
-            //   value={DataDetailAddress?.kode_wilayah}
-            placeholder="Pilih AMD"
-            optionFilterProp="value"
-            style={{ width: "100%" }}
-            onChange={(e, options) => {
-              console.log(options.key);
-              setIDAmd(options.key);
-            }}
-          >
-            {DataSelecttEmployee &&
-              DataSelecttEmployee?.map((CustomerItem) => (
-                <Select.Option
-                  key={CustomerItem?.id_amd}
-                  value={CustomerItem?.fullname}
-                >
-                  {CustomerItem?.fullname}
-                </Select.Option>
-              ))}
-          </Select>
-          {/* <Input
-            className="mt-2 mb-2"
-            name="id_amd"
-            placeholder="Exp: D1001"
-            onChange={(e) => {
-              console.log(e.target.value);
-              setIDAmd(e.target.value);
-            }}
-          /> */}
+            name="nameBu "
+            placeholder="Automatic Input"
+            value={DataBU}
+          />
         </Col>
       </Row>
+
+     <br/>
+      <h5>
+        Wilayah Group Leader
+      </h5>
+      <hr />
       <Row className="mt-2">
         <Col span={8}>
           <label style={{ fontWeight: "bold" }}>ID GL :</label>
@@ -432,6 +383,8 @@ function CreateBUEmployee() {
             onChange={(e, options) => {
               console.log(options.key);
               setIDgl(options.key);
+              setDataGl(options.value)
+              setPosisiGL(options.value2);
             }}
           >
             {DataSelecttEmployee &&
@@ -439,8 +392,9 @@ function CreateBUEmployee() {
                 <Select.Option
                   key={CustomerItem?.id_gl}
                   value={CustomerItem?.fullname}
+                  value2={CustomerItem?.job_level}
                 >
-                  {CustomerItem?.fullname}
+                  {CustomerItem?.id_gl}
                 </Select.Option>
               ))}
           </Select>
@@ -455,6 +409,35 @@ function CreateBUEmployee() {
           /> */}
         </Col>
         <Col span={8}>
+          <label style={{ fontWeight: "bold" }}>Nama Group Leader  :</label>
+          <Input
+          disabled
+            className="mt-2 mb-2"
+            name="fullname "
+            placeholder="Automatic Input"
+            value={DataGl}
+          />
+        </Col>
+       
+        <Col span={8}>
+          <label style={{ fontWeight: "bold" }}>Position Grup Leader :</label>
+          <Input
+          disabled
+            className="mt-2 mb-2"
+            name="job_level"
+            placeholder="Automatic Input"
+            value={PosisiGL}
+          />
+        </Col>
+       
+      </Row>
+      <br/>
+      <h5>
+        Wilayah ASMEN
+      </h5>
+      <hr />
+      <Row className="mt-2">
+      <Col span={8}>
           <label style={{ fontWeight: "bold" }}>ID ASM :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -467,6 +450,8 @@ function CreateBUEmployee() {
             onChange={(e, options) => {
               console.log(options.key);
               setIDAsm(options.key);
+              setDataASM(options.value);
+              setPosisiASM(options.value2);
             }}
           >
             {DataSelecttEmployee &&
@@ -474,22 +459,42 @@ function CreateBUEmployee() {
                 <Select.Option
                   key={CustomerItem?.id_asm}
                   value={CustomerItem?.fullname}
+                  value2={CustomerItem?.job_level}
                 >
-                  {CustomerItem?.fullname}
+                  {CustomerItem?.id_asm}
                 </Select.Option>
               ))}
           </Select>
-          {/* <Input
-            className="mt-2 mb-2"
-            name="id_asm"
-            placeholder="Exp: A1002"
-            onChange={(e) => {
-              console.log(e.target.value);
-              setIDAsm(e.target.value);
-            }}
-          /> */}
         </Col>
         <Col span={8}>
+          <label style={{ fontWeight: "bold" }}>Nama ASMEN :</label>
+          <Input
+          disabled
+            className="mt-2 mb-2"
+            name="fullname"
+            placeholder="Automatic Input"
+            value={DataASM}
+          />
+        </Col>
+        <Col span={8}>
+          <label style={{ fontWeight: "bold" }}>Position ASMEN :</label>
+          <Input
+          disabled
+            className="mt-2 mb-2"
+            name="fullname"
+            placeholder="Automatic Input"
+            value={PosisiASM}
+          />
+        </Col>
+       
+      </Row>
+      <br/>
+      <h5>
+        Wilayah Manager
+      </h5>
+      <hr />
+      <Row>
+      <Col span={8}>
           <label style={{ fontWeight: "bold" }}>ID MGR :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -502,6 +507,8 @@ function CreateBUEmployee() {
             onChange={(e, options) => {
               console.log(options.key);
               setIDMgr(options.key);
+              setDataMgr(options.value);
+              setPosisiMGR(options.value2)
             }}
           >
             {DataSelecttEmployee &&
@@ -509,20 +516,145 @@ function CreateBUEmployee() {
                 <Select.Option
                   key={CustomerItem?.id_mgr}
                   value={CustomerItem?.fullname}
+                  value2={CustomerItem?.job_level}
                 >
-                  {CustomerItem?.fullname}
+                  {CustomerItem?.id_mgr}
                 </Select.Option>
               ))}
           </Select>
-          {/* <Input
+        </Col>
+        <Col span={8}>
+          <label style={{ fontWeight: "bold" }}>Nama Manager :</label>
+          <Input
+          disabled
             className="mt-2 mb-2"
-            name="id_mgr"
-            placeholder="Exp: M1001"
-            onChange={(e) => {
-              console.log(e.target.value);
-              setIDMgr(e.target.value);
+            name="fullname"
+            placeholder="Automatic Input"
+            value={DataMgr}
+          />
+        </Col>
+        <Col span={8}>
+          <label style={{ fontWeight: "bold" }}>Position Manager :</label>
+          <Input
+          disabled
+            className="mt-2 mb-2"
+            name="fullname"
+            placeholder="Automatic Input"
+            value={PosisiMGR}
+          />
+        </Col>
+      </Row>
+      <br/>
+      <h5>
+        Wilayah Kepala Cabang
+      </h5>
+      <hr />
+      <Row>
+      <Col span={8}>
+          <label style={{ fontWeight: "bold" }}>Kepala Cabang :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Select
+            className="mt-2 mb-2"
+            showSearch
+            //   value={DataDetailAddress?.kode_wilayah}
+            placeholder="Pilih Kepala Cabang"
+            optionFilterProp="value"
+            style={{ width: "100%" }}
+            onChange={(e, options) => {
+              console.log(options.key);
+              setIDKacab(options.key);
+              setDataKacab(options.value);
+              setPosisiKACAB(options.value2);
             }}
-          /> */}
+          >
+            {DataSelecttEmployee &&
+              DataSelecttEmployee?.map((CustomerItem) => (
+                <Select.Option
+                  key={CustomerItem?.id_kacab}
+                  value={CustomerItem?.fullname}
+                  value2={CustomerItem?.job_level}
+                >
+                  {CustomerItem?.id_kacab}
+                </Select.Option>
+              ))}
+          </Select>
+        </Col>
+        <Col span={8}>
+          <label style={{ fontWeight: "bold" }}>Nama Kepala Cabang :</label>
+          <Input
+          disabled
+            className="mt-2 mb-2"
+            name="fullname"
+            placeholder="Automatic Input"
+            value={DataKacab}
+          />
+        </Col>
+        <Col span={8}>
+          <label style={{ fontWeight: "bold" }}>Position Kepala Cabang :</label>
+          <Input
+          disabled
+            className="mt-2 mb-2"
+            name="fullname"
+            placeholder="Automatic Input"
+            value={PosisiKACAB}
+          />
+        </Col>
+       
+      </Row>
+      <br/>
+      <h5>
+        Wilayah AMD
+      </h5>
+      <hr />
+      <Row>
+      <Col span={8}>
+          <label style={{ fontWeight: "bold" }}>ID AMD :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Select
+            className="mt-2 mb-2"
+            showSearch
+            //   value={DataDetailAddress?.kode_wilayah}
+            placeholder="Pilih AMD"
+            optionFilterProp="value"
+            style={{ width: "100%" }}
+            onChange={(e, options) => {
+              console.log(options.key);
+              setIDAmd(options.key);
+              setDataAmd(options.value);
+              setPosisiAMD(options.value2);
+            }}
+          >
+            {DataSelecttEmployee &&
+              DataSelecttEmployee?.map((CustomerItem) => (
+                <Select.Option
+                  key={CustomerItem?.id_amd}
+                  value={CustomerItem?.fullname}
+                  value2={CustomerItem?.job_level}
+                >
+                  {CustomerItem?.id_amd}
+                </Select.Option>
+              ))}
+          </Select>
+        </Col>
+        <Col span={8}>
+          <label style={{ fontWeight: "bold" }}>Nama AMD :</label>
+          <Input
+          disabled
+            className="mt-2 mb-2"
+            name="fullname"
+            placeholder="Automatic Input"
+            value={DataAmd}
+          />
+        </Col>
+        <Col span={8}>
+          <label style={{ fontWeight: "bold" }}>Position AMD :</label>
+          <Input
+          disabled
+            className="mt-2 mb-2"
+            name="fullname"
+            placeholder="Automatic Input"
+            value={PosisiAMD}
+          />
         </Col>
       </Row>
       <Row>

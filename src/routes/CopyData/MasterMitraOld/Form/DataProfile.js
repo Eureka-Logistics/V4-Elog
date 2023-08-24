@@ -37,54 +37,56 @@ const SamplePage = () => {
   const [isiValues, setIsiValues] = useState("");
   const [DataOptions, setDataOptions] = useState("");
   const { banks } = useBanksStore();
+  const [DataSelect, setDataSelect] = useState("");
 
   const formik = useFormik({
     initialValues: {
-    kode: "",
-    title: "",
-    nama_mitra: "",
-    jenis: "",
-    jenis_usaha: "",
-    kepemilikan: "",
-    jumlah_armada: "",
-    jumlah_sdm_operasional: "",
-    cabang: "",
-    jenis_kiriman: "",
-    wilayah: "",
-    tujuan: "",
-    awal_kontrak: "",
-    akhir_kontrak: "",
-    direktur: "",
-    tahun_berdiri: "",
-    npwp_id: "",
-    npwp_name: "",
-    npwp_address: "",
-    npwp_jalan: "",
-    npwp_blok: "",
-    npwp_nomor: "",
-    npwp_rt: "",
-    npwp_rw: "",
-    npwp_kelurahan: "",
-    npwp_kecamatan: "",
-    npwp_kota: "",
-    npwp_provinsi: "",
-    npwp_kodepos: "",
-    is_taxable: "",
-    telepon: "",
-    contact_person: "",
-    telp: "",
-    fax: "",
-    email: "",
-    alamat: "",
-    homepage: "",
-    pembayaran: "",
-    nama_bank: "",
-    nama_akun: "",
-    no_rek: "",
-    status_usaha: "",
-    metode_pembayaran: "",
-    type: "",
-    memo: "",
+      kode: "",
+      title: "",
+      nama_mitra: "",
+      jenis: "",
+      jenis_usaha: "",
+      kepemilikan: "",
+      jumlah_armada: "",
+      jumlah_sdm_operasional: "",
+      cabang: "",
+      jenis_kiriman: "",
+      wilayah: "",
+      tujuan: "",
+      kontrak: "",
+      awal_kontrak: "",
+      akhir_kontrak: "",
+      direktur: "",
+      tahun_berdiri: "",
+      npwp_id: "",
+      npwp_name: "",
+      npwp_address: "",
+      npwp_jalan: "",
+      npwp_blok: "",
+      npwp_nomor: "",
+      npwp_rt: "",
+      npwp_rw: "",
+      npwp_kelurahan: "",
+      npwp_kecamatan: "",
+      npwp_kota: "",
+      npwp_provinsi: "",
+      npwp_kodepos: "",
+      is_taxable: "",
+      telepon: "",
+      contact_person: "",
+      telp: "",
+      fax: "",
+      email: "",
+      alamat: "",
+      homepage: "",
+      pembayaran: "",
+      nama_bank: "",
+      nama_akun: "",
+      no_rek: "",
+      status_usaha: "",
+      metode_pembayaran: "",
+      type: "",
+      memo: "",
     },
     validationSchema: Yup.object({
       nama_perusahaan: Yup.string().max(30, "Must be 30 characters or less"),
@@ -94,7 +96,50 @@ const SamplePage = () => {
       setIsiValues(values);
 
       httpClient
-        .post("mitra/create-mitra", values)
+        .post("mitra/create-mitra", {
+          ...values,
+          npwp_address:
+            formik.values.npwp_jalan !== ""
+              ? "Jalan" +
+                " " +
+                formik.values.npwp_jalan +
+                ", Kota" +
+                " " +
+                formik.values.npwp_kota +
+                " " +
+                ", Kelurahan" +
+                " " +
+                formik.values.npwp_kelurahan +
+                " " +
+                ", Kecamatan" +
+                " " +
+                formik.values.npwp_kecamatan +
+                " " +
+                ", Provinsi" +
+                " " +
+                formik.values.npwp_provinsi +
+                " " +
+                ", Blok" +
+                " " +
+                formik.values.npwp_blok +
+                " " +
+                ", Nomor" +
+                " " +
+                formik.values.npwp_nomor +
+                " " +
+                ", RT" +
+                " " +
+                formik.values.npwp_rt +
+                " " +
+                ", RW" +
+                " " +
+                formik.values.npwp_rw +
+                " " +
+                ", Kode POS : " +
+                " " +
+                formik.values.npwp_kodepos
+              : " ",
+        })
         .then(({ data }) => {
           notification.success({
             message: "Success",
@@ -258,9 +303,57 @@ const SamplePage = () => {
     setDataOptions(data.data);
   };
 
+  const GetSelectMitra = async () => {
+    const data = await axios.get(
+      `${Baseurl}mitra/get-select-mitra`,
+
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem(`token`),
+        },
+      }
+    );
+    console.log(data.data, "ini data select");
+    setDataSelect(data.data);
+  };
+
   useEffect(() => {
     OptionsData();
+    GetSelectMitra();
   }, []);
+
+  const formatNpwp = (value) => {
+    // Remove all non-numeric characters
+    const numericValue = value.replace(/[^\d]/g, '');
+
+    // Divide into sections
+    const section1 = numericValue.substr(0, 2);
+    const section2 = numericValue.substr(2, 3);
+    const section3 = numericValue.substr(5, 3);
+    const section4 = numericValue.substr(8, 1);
+    const section5 = numericValue.substr(9, 3);
+    const section6 = numericValue.substr(12, 3);
+
+    // Build formatted NPWP with conditional dots
+    let formattedNpwp = section1;
+    if (section2) formattedNpwp += `.${section2}`;
+    if (section3) formattedNpwp += `.${section3}`;
+    if (section4) formattedNpwp += `-${section4}`;
+    if (section5) formattedNpwp += `.${section5}`;
+    if (section6) formattedNpwp += `.${section6}`;
+
+    return formattedNpwp;
+  };
+  const handleNpwpChange = (event) => {
+    const formattedValue = formatNpwp(event.target.value);
+    formik.handleChange({
+      target: {
+        name: 'npwp_id',
+        value: formattedValue,
+      },
+    });
+  };
 
   return (
     <div>
@@ -284,7 +377,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                  disabled
+                    disabled
                     name="kode_mitra"
                     value={formik.values.kode_mitra}
                     onChange={formik.handleChange}
@@ -300,9 +393,23 @@ const SamplePage = () => {
                   Title:
                 </label>
                 <Select
+                  className="mt-2"
+                  value={formik.values.title}
+                  style={{ width: "100%" }}
+                  onChange={(e) => {
+                    console.log(e);
+                    formik.setFieldValue("title", e);
+                  }}
+                >
+                  <option value="CV">CV</option>
+                  <option value="PT">PT</option>
+                  {/* <option value={20}>20</option>
+                  <option value={30}>30</option>
+                  <option value={60}>60</option> */}
+                </Select>
+                {/* <Select
                   name="title"
                   style={{ width: "100%", marginTop: "10px" }}
-                  // value={formik.values.title} // Uncomment if you're using this
                   onChange={(value) => {
                     formik.setFieldValue("title", value);
                   }}
@@ -314,12 +421,11 @@ const SamplePage = () => {
                       </option>
                     ))}
                 </Select>
-                {/* Display Formik error */}
                 {formik.errors.title && (
                   <div style={{ color: "red", marginTop: "5px" }}>
                     {formik.errors.title}
                   </div>
-                )}
+                )} */}
               </div>
             </Col>
             <Col span={8}>
@@ -329,6 +435,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: EUREKA LOGISTICS (EL)"
                     name="nama_mitra"
                     value={formik.values.nama_mitra}
                     onChange={formik.handleChange}
@@ -345,6 +452,7 @@ const SamplePage = () => {
                 <InputGroup>
                   <Form.Control
                     name="kode"
+                    placeholder="Exp: EL"
                     value={formik.values.kode}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.kode}
@@ -353,6 +461,7 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
           </Row>
+
           <Row>
             <Col sm={8}>
               <Form.Group style={{ marginBottom: "10px" }}>
@@ -362,6 +471,7 @@ const SamplePage = () => {
                 <InputGroup>
                   <Form.Control
                     name="jenis_usaha"
+                    placeholder="Exp: EXPRESS DAN LOGISTIK"
                     value={formik.values.jenis_usaha}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.jenis_usaha}
@@ -374,14 +484,25 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Jenis Kepemilikan :
                 </Form.Label>
-                <InputGroup>
+                <Select
+                  value={formik.values.kepemilikan}
+                  style={{ width: "100%" }}
+                  onChange={(e) => {
+                    console.log(e);
+                    formik.setFieldValue("kepemilikan", e);
+                  }}
+                >
+                  <option value="SWASTA">SWASTA</option>
+                  <option value="NASIONAL">NASIONAL</option>
+                </Select>
+                {/* <InputGroup>
                   <Form.Control
                     name="kepemilikan"
                     value={formik.values.kepemilikan}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.kepemilikan}
                   />
-                </InputGroup>
+                </InputGroup> */}
               </Form.Group>
             </Col>
             <Col sm={8}>
@@ -391,6 +512,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: https://www.puninar.com/"
                     name="homepage"
                     value={formik.values.homepage}
                     onChange={formik.handleChange}
@@ -399,32 +521,49 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-          </Row>
-          <Row>
-            <Col span={16}>
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>Alamat :</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="alamat"
-                    value={formik.values.alamat}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.alamat}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={8}>
+            <Col span={8} className="mb-2">
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   PIC Purchasing :
                 </Form.Label>
-                <InputGroup>
+                <Select
+                  name="pic_id"
+                  style={{ width: "100%", marginTop: "10px" }}
+                  onChange={(value) => {
+                    formik.setFieldValue("pic_id", value);
+                  }}
+                >
+                  {DataSelect &&
+                    DataSelect.marketing.map((i) => (
+                      <option key={i.id} value={i.fullname}>
+                        {i.fullname}
+                      </option>
+                    ))}
+                </Select>
+                {/* <InputGroup>
                   <Form.Control
                     name="pic_id"
                     value={formik.values.pic_id}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.pic_id}
+                  />
+                </InputGroup> */}
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>Alamat :</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    placeholder="Exp: Jl Cakung Cilincing KM 1.5, Cakung Barat, Jakarta Timur"
+                    name="alamat"
+                    style={{ height: "80px" }}
+                    as="textarea"
+                    value={formik.values.alamat}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.alamat}
                   />
                 </InputGroup>
               </Form.Group>
@@ -438,6 +577,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: Raja D.M Hutauruk"
                     name="direktur"
                     value={formik.values.direktur}
                     onChange={formik.handleChange}
@@ -453,6 +593,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: 680"
                     name="jumlah_armada"
                     value={formik.values.jumlah_armada}
                     onChange={formik.handleChange}
@@ -468,6 +609,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: 538"
                     name="jumlah_sdm_operasional"
                     value={formik.values.jumlah_sdm_operasional}
                     onChange={formik.handleChange}
@@ -485,6 +627,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: Jakarta"
                     name="cabang"
                     value={formik.values.cabang}
                     onChange={formik.handleChange}
@@ -498,61 +641,25 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Jenis Kiriman :
                 </Form.Label>
-                <InputGroup>
+                <Select
+                  value={formik.values.jenis_kiriman}
+                  style={{ width: "100%" }}
+                  onChange={(e) => {
+                    console.log(e);
+                    formik.setFieldValue("jenis_kiriman", e);
+                  }}
+                >
+                  <option value="RETAIL">RETAIL</option>
+                  <option value="CHARTER">CHARTER</option>
+                </Select>
+                {/* <InputGroup>
                   <Form.Control
                     name="jenis_kiriman"
                     value={formik.values.jenis_kiriman}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.jenis_kiriman}
                   />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={8}>
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  Status Usaha :{" "}
-                </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="status_usaha"
-                    value={formik.values.status_usaha}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.status_usaha}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row className="mt-2">
-            <Col span={8}>
-              <Form.Group>
-                <Form.Label type="number" style={{ fontWeight: "bold" }}>
-                  Telp. Kantor:{" "}
-                </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="telepon"
-                    value={formik.values.telepon}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.telepon}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={8}>
-              <Form.Group>
-                <Form.Label type="number" style={{ fontWeight: "bold" }}>
-                  Fax. Kantor:{" "}
-                </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="fax"
-                    value={formik.values.fax}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.fax}
-                  />
-                </InputGroup>
+                </InputGroup> */}
               </Form.Group>
             </Col>
             <Col span={8}>
@@ -560,17 +667,30 @@ const SamplePage = () => {
                 <Form.Label type="number" style={{ fontWeight: "bold" }}>
                   Jenis Mitra:{" "}
                 </Form.Label>
-                <InputGroup>
+                <Select
+                  value={formik.values.jenis}
+                  style={{ width: "100%" }}
+                  onChange={(e) => {
+                    console.log(e);
+                    formik.setFieldValue("jenis", e);
+                  }}
+                >
+                  <option value="Vendor Darat">Vendor Darat</option>
+                  <option value="Vendor Laut">Vendor Laut</option>
+                  <option value="Vendor Udara">Vendor Udara</option>
+                </Select>
+                {/* <InputGroup>
                   <Form.Control
                     name="jenis"
                     value={formik.values.jenis}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.jenis}
                   />
-                </InputGroup>
+                </InputGroup> */}
               </Form.Group>
             </Col>
           </Row>
+
           <Row className="mt-2">
             <Col span={8}>
               <Form.Group>
@@ -579,6 +699,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: Jawa"
                     name="wilayah"
                     value={formik.values.wilayah}
                     onChange={formik.handleChange}
@@ -592,6 +713,7 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>Tujuan :</Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: Sumatera, Jawa, Bali, Kalimantan, Sulawesi, NTT, NTB, Papua"
                     name="tujuan"
                     value={formik.values.tujuan}
                     onChange={formik.handleChange}
@@ -607,6 +729,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: 2019"
                     name="tahun_berdiri"
                     value={formik.values.tahun_berdiri}
                     onChange={formik.handleChange}
@@ -676,6 +799,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: 2023"
                     type="number"
                     name="tahun_awal_kontrak"
                     value={formik.values.tahun_awal_kontrak}
@@ -689,9 +813,63 @@ const SamplePage = () => {
           <Row className="mt-2">
             <Col span={8}>
               <Form.Group>
+                <Form.Label type="number" style={{ fontWeight: "bold" }}>
+                  Telp. Kantor:{" "}
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    placeholder="Exp: (021) 460-2278"
+                    name="telepon"
+                    value={formik.values.telepon}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.telepon}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label type="number" style={{ fontWeight: "bold" }}>
+                  Fax. Kantor:{" "}
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    placeholder="Exp: (021) 460-2278"
+                    name="fax"
+                    value={formik.values.fax}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.fax}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Kontrak <i>(Tahun)</i> :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    placeholder="Exp: 2"
+                    type="number"
+                    name="kontrak"
+                    value={formik.values.kontrak}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.kontrak}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="mt-2">
+            <Col span={24}>
+              <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>Memo :</Form.Label>
                 <InputGroup>
                   <Form.Control
+                    style={{ height: "150px", overflowWrap: "break-word" }}
+                    placeholder="Inputkan Memo jika diperlukan"
+                    as="textarea"
                     name="memo"
                     value={formik.values.memo}
                     onChange={formik.handleChange}
@@ -700,7 +878,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            {/* <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Jumlah Unit :
@@ -715,7 +893,7 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-            </Col>
+            </Col> */}
           </Row>
           <br />
           <hr />
@@ -724,33 +902,222 @@ const SamplePage = () => {
           </h5>
           <hr />
           <Row>
-            <Col span={12}>
+            <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   No. NPWP :
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                    type="number"
+                    placeholder="Exp: 01.300.326.4-046.000"
+                    type="text"
                     name="npwp_id"
                     value={formik.values.npwp_id}
-                    onChange={formik.handleChange}
+                    onChange={handleNpwpChange}
                     isInvalid={!!formik.errors.npwp_id}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.npwp_id}
+                  </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={12}>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Status Usaha :{" "}
+                </Form.Label>
+                <Select
+                  value={formik.values.status_usaha}
+                  style={{ width: "100%" }}
+                  onChange={(e) => {
+                    console.log(e);
+                    formik.setFieldValue("status_usaha", e);
+                  }}
+                >
+                  <option value="PKP">PKP</option>
+                  <option value="NON PKP">NON PKP</option>
+                </Select>
+                {/* <InputGroup>
+                  <Form.Control
+                    name="status_usaha"
+                    value={formik.values.status_usaha}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.status_usaha}
+                  />
+                </InputGroup> */}
+              </Form.Group>
+            </Col>
+            <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   NPWP Name :{" "}
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: PT. NOO Logistics"
                     name="npwp_name"
                     value={formik.values.npwp_name}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.npwp_name}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <Row className="mt-2">
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>Jalan : </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    placeholder="Nama Jalan"
+                    name="npwp_jalan"
+                    value={formik.values.npwp_jalan}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.npwp_jalan}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={4}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>Kota : </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    placeholder="Nama Kota"
+                    name="npwp_kota"
+                    value={formik.values.npwp_kota}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.npwp_kota}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={4}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Kelurahan :{" "}
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    placeholder="Nama Kelurahan"
+                    name="npwp_kelurahan"
+                    value={formik.values.npwp_kelurahan}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.npwp_kelurahan}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={4}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Kecamatan :{" "}
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    placeholder="Nama Kecamatan"
+                    name="npwp_kecamatan"
+                    value={formik.values.npwp_kecamatan}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.npwp_kecamatan}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={4}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Provinsi :{" "}
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    placeholder="Nama Provinsi"
+                    name="npwp_provinsi"
+                    value={formik.values.npwp_provinsi}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.npwp_provinsi}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="mt-2">
+            <Col span={4}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>Blok :</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    placeholder="Blok"
+                    name="npwp_blok"
+                    value={formik.values.npwp_blok}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.npwp_blok}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={4}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>Nomor :</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    placeholder="Nomor"
+                    type="number"
+                    name="npwp_nomor"
+                    value={formik.values.npwp_nomor}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.npwp_nomor}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={4}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>RT : </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    placeholder="RT"
+                    type="number"
+                    name="npwp_rt"
+                    value={formik.values.npwp_rt}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.npwp_rt}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={4}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>RW : </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    placeholder="RW"
+                    type="number"
+                    name="npwp_rw"
+                    value={formik.values.npwp_rw}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.npwp_rw}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Kode POS :{" "}
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    placeholder="Kode Pos"
+                    type="number"
+                    name="npwp_kodepos"
+                    value={formik.values.npwp_kodepos}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.npwp_kodepos}
                   />
                 </InputGroup>
               </Form.Group>
@@ -764,160 +1131,60 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Automatic Input"
+                    style={{ height: "100px", overflowWrap: "break-word" }}
                     name="npwp_address"
-                    value={formik.values.npwp_address}
+                    as="textarea"
+                    disabled
+                    // value={formik.values.npwp_address}
+                    // value={
+                    //   formik.values.npwp_jalan +
+                    //   (formik.values.npwp_kota ? "Kota" + formik.values.npwp_kota : "")
+                    // }
+                    value={
+                      formik.values.npwp_jalan !== ""
+                        ? "Jalan" +
+                          " " +
+                          formik.values.npwp_jalan +
+                          ", Kota" +
+                          " " +
+                          formik.values.npwp_kota +
+                          " " +
+                          ", Kelurahan" +
+                          " " +
+                          formik.values.npwp_kelurahan +
+                          " " +
+                          ", Kecamatan" +
+                          " " +
+                          formik.values.npwp_kecamatan +
+                          " " +
+                          ", Provinsi" +
+                          " " +
+                          formik.values.npwp_provinsi +
+                          " " +
+                          ", Blok" +
+                          " " +
+                          formik.values.npwp_blok +
+                          " " +
+                          ", Nomor" +
+                          " " +
+                          formik.values.npwp_nomor +
+                          " " +
+                          ", RT" +
+                          " " +
+                          formik.values.npwp_rt +
+                          " " +
+                          ", RW" +
+                          " " +
+                          formik.values.npwp_rw +
+                          " " +
+                          ", Kode POS : " +
+                          " " +
+                          formik.values.npwp_kodepos
+                        : " "
+                    }
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.npwp_address}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row className="mt-2">
-            <Col span={24}>
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  Jalan NPWP :{" "}
-                </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="npwp_jalan"
-                    value={formik.values.npwp_jalan}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.npwp_jalan}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row className="mt-2">
-            <Col span={2}>
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>Blok :</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="npwp_blok"
-                    value={formik.values.npwp_blok}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.npwp_blok}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={2}>
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>Nomor :</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    type="number"
-                    name="npwp_nomor"
-                    value={formik.values.npwp_nomor}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.npwp_nomor}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={2}>
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>RT : </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    type="number"
-                    name="npwp_rt"
-                    value={formik.values.npwp_rt}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.npwp_rt}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={2}>
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>RW : </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    type="number"
-                    name="npwp_rw"
-                    value={formik.values.npwp_rw}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.npwp_rw}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={4}>
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  Provinsi :{" "}
-                </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="npwp_provinsi"
-                    value={formik.values.npwp_provinsi}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.npwp_provinsi}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={4}>
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>Kota : </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="npwp_kota"
-                    value={formik.values.npwp_kota}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.npwp_kota}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={4}>
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  Kecamatan :{" "}
-                </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="npwp_kecamatan"
-                    value={formik.values.npwp_kecamatan}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.npwp_kecamatan}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={4}>
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  Kelurahan :{" "}
-                </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    name="npwp_kelurahan"
-                    value={formik.values.npwp_kelurahan}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.npwp_kelurahan}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row className="mt-2">
-            <Col span={6}>
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  Kode Pos :{" "}
-                </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    type="number"
-                    name="npwp_kodepos"
-                    value={formik.values.npwp_kodepos}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.npwp_kodepos}
                   />
                 </InputGroup>
               </Form.Group>
@@ -977,6 +1244,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: BANK MANDIRI"
                     name="nama_akun"
                     value={formik.values.nama_akun}
                     onChange={formik.handleChange}
@@ -992,6 +1260,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: 156-000-484-7499"
                     type="number"
                     name="no_rek"
                     value={formik.values.no_rek}
@@ -1005,25 +1274,36 @@ const SamplePage = () => {
           <br />
           <hr />
           <Row>
-            <Col span={6}>
+            <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Currency :{" "}
                 </Form.Label>
-                <InputGroup>
+                <Select
+                  value={formik.values.currency}
+                  style={{ width: "100%" }}
+                  onChange={(e) => {
+                    console.log(e);
+                    formik.setFieldValue("currency", e);
+                  }}
+                >
+                  <option value="Rupiah (RP.)">Rupiah (RP.)</option>
+                </Select>
+                {/* <InputGroup>
                   <Form.Control
+                  placeholder="Select "
                     name="currency"
                     value={formik.values.currency}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.currency}
                   />
-                </InputGroup>
+                </InputGroup> */}
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
-                  ToP :{" "}
+                  Term of payment (Hari):{" "}
                 </Form.Label>
                 <Select
                   value={formik.values.pembayaran}
@@ -1033,6 +1313,7 @@ const SamplePage = () => {
                     formik.setFieldValue("pembayaran", e);
                   }}
                 >
+                  <option value={0}>0</option>
                   <option value={7}>7</option>
                   <option value={14}>14</option>
                   <option value={20}>20</option>
@@ -1041,7 +1322,7 @@ const SamplePage = () => {
                 </Select>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Type Of Payment :{" "}
@@ -1062,27 +1343,11 @@ const SamplePage = () => {
                     formik.setFieldValue("metode_pembayaran", e);
                   }}
                 >
-                  <option value={"TUNAI MUKA"}>TUNAI MUKA</option>
-                  <option value={"TUNAI"}>TUNAI</option>
+                  <option value={"DP"}>DP</option>
+                  <option value={"CASH"}>CASH</option>
                   <option value={"CHECK"}>CHECK</option>
                   <option value={"TRANSFER"}>TRANSFER</option>
                   <option value={"CREDIT CARD"}>CREDIT CARD</option>
-                </Select>
-              </Form.Group>
-            </Col>
-            <Col span={6}>
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  Status :{" "}
-                </Form.Label>
-                <Select
-                  style={{ width: "100%" }}
-                  onChange={(label) => {
-                    formik.setFieldValue("type", label);
-                  }}
-                >
-                  <option value={"elogs"}>ELOGS</option>
-                  <option value={"race"}>RACE</option>
                 </Select>
               </Form.Group>
             </Col>
@@ -1095,6 +1360,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: Januar S."
                     name="contact_person"
                     value={formik.values.contact_person}
                     onChange={formik.handleChange}
@@ -1108,6 +1374,7 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>Email : </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: elief.pratama@puninar.com"
                     name="email"
                     value={formik.values.email}
                     onChange={formik.handleChange}
@@ -1121,12 +1388,31 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>Telp : </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    placeholder="Exp: +62345798xxx"
                     name="telp"
                     value={formik.values.telp}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.telp}
                   />
                 </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={8} className="mt-2">
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Status :{" "}
+                </Form.Label>
+                <Select
+                  style={{ width: "100%" }}
+                  onChange={(label) => {
+                    formik.setFieldValue("type", label);
+                  }}
+                >
+                  <option value={"elogs"}>ELOGS</option>
+                  <option value={"race"}>RACE</option>
+                </Select>
               </Form.Group>
             </Col>
           </Row>

@@ -449,11 +449,11 @@ function DataBaru({ mitraId, DataOptions }) {
               <h5>NAMA DAN ALAMAT PERUSAHAAN(Sold to Party)</h5>
             </Col>
             <Col span={4} className="d-flex justify-content-end">
-            <Button onClick={() => handleView()} type="primary">
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <PrinterOutlined/>
-            </span>
-          </Button>
+              <Button onClick={() => handleView()} type="primary">
+                <span style={{ display: "flex", alignItems: "center" }}>
+                  <PrinterOutlined />
+                </span>
+              </Button>
               {/* <Button>Print Data</Button> */}
             </Col>
           </Row>
@@ -493,11 +493,22 @@ function DataBaru({ mitraId, DataOptions }) {
                     setDataTitle(e);
                   }}
                 >
+                  <option value={"CV"}>CV</option>
+                  <option value={"PT"}>PT</option>
+                </Select>
+                {/* <Select
+                  className="mt-2"
+                  value={DataTitle}
+                  onChange={(e) => {
+                    console.log(e);
+                    setDataTitle(e);
+                  }}
+                >
                   {TitleSelect &&
                     TitleSelect.map((i) => (
                       <option value={i.jabatan}>{i.jabatan}</option>
                     ))}
-                </Select>
+                </Select> */}
               </Form.Item>
             </Col>
             <Col sm={4} style={{ padding: "0px" }}>
@@ -571,14 +582,25 @@ function DataBaru({ mitraId, DataOptions }) {
                   { required: false, message: "Please input your jenis!" },
                 ]}
               >
-                <Input
+                <Select
+                  className="mt-2"
+                  value={DataKepemilikan}
+                  onChange={(e) => {
+                    console.log(e);
+                    setDataKepemilikan(e);
+                  }}
+                >
+                  <option value="SWASTA">SWASTA</option>
+                  <option value="NASIONAL">NASIONAL</option>
+                </Select>
+                {/* <Input
                   className="mt-2"
                   value={DataKepemilikan}
                   onChange={(e) => {
                     console.log(e.target.value);
                     setDataKepemilikan(e.target.value);
                   }}
-                />
+                /> */}
               </Form.Item>
             </Col>
             <Col sm={4} style={{ padding: "0px" }}>
@@ -602,18 +624,19 @@ function DataBaru({ mitraId, DataOptions }) {
             </Col>
           </Row>
           <Row>
-            <Col sm={8} style={{ padding: "0px" }}>
+            <Col sm={12} style={{ padding: "0px" }}>
               <Form.Item
                 label="Alamat :"
                 style={{ fontWeight: "bold" }}
-                name="Alamat"
+                name="alamat"
                 rules={[
                   { required: false, message: "Please input your alamat!" },
                 ]}
               >
-                <Input
+                <Input.TextArea
                   className="mt-2"
                   value={DataAlamat}
+                  style={{ height: "100px" }}
                   onChange={(e) => {
                     console.log(e.target.value);
                     setDataAlamat(e.target.value);
@@ -727,73 +750,25 @@ function DataBaru({ mitraId, DataOptions }) {
                   { required: false, message: "Please input your alamat!" },
                 ]}
               >
-                <Input
+                <Select
+                  className="mt-2"
+                  value={DataJenisKiriman}
+                  onChange={(e) => {
+                    console.log(e);
+                    setDataJenisKiriman(e);
+                  }}
+                >
+                  <option value="RETAIL">RETAIL</option>
+                  <option value="CHARTER">CHARTER</option>
+                </Select>
+                {/* <Input
                   className="mt-2"
                   value={DataJenisKiriman}
                   onChange={(e) => {
                     console.log(e.target.value);
                     setDataJenisKiriman(e.target.value);
                   }}
-                />
-              </Form.Item>
-            </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
-              <Form.Item
-                label="Status Usaha :"
-                style={{ fontWeight: "bold" }}
-                name="-"
-                rules={[
-                  { required: false, message: "Please input your alamat!" },
-                ]}
-              >
-                <Input
-                  className="mt-2"
-                  value={DataStatusUsaha}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                    setDataStatusUsaha(e.target.value);
-                  }}
-                />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={4} style={{ padding: "0px" }}>
-              <Form.Item
-                label="Telp. Kantor :"
-                style={{ fontWeight: "bold" }}
-                name="telp"
-                rules={[
-                  { required: false, message: "Please input your alamat!" },
-                ]}
-              >
-                <Input
-                  className="mt-2"
-                  value={DataTelp}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                    setDataTelp(e.target.value);
-                  }}
-                />
-              </Form.Item>
-            </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
-              <Form.Item
-                label="Fax. Kantor :"
-                style={{ fontWeight: "bold" }}
-                name="fax"
-                rules={[
-                  { required: false, message: "Please input your alamat!" },
-                ]}
-              >
-                <Input
-                  className="mt-2"
-                  value={DataFax}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                    setDataFax(e.target.value);
-                  }}
-                />
+                /> */}
               </Form.Item>
             </Col>
             <Col sm={4} style={{ padding: "0px" }}>
@@ -801,21 +776,33 @@ function DataBaru({ mitraId, DataOptions }) {
                 label="Jenis Mitra :"
                 style={{ fontWeight: "bold" }}
                 name="jenis"
-                rules={[
-                  { required: false, message: "Please input your alamat!" },
-                ]}
+                  
               >
-                <Input
+                <Select
+                  className="mt-2"
+                  value={DataJenis}
+                  onChange={(e) => {
+                    console.log(e);
+                    setDataJenis(e);
+                  }}
+                >
+                  <option value="Vendor Darat">Vendor Darat</option>
+                  <option value="Vendor Laut">Vendor Laut</option>
+                  <option value="Vendor Udara">Vendor Udara</option>
+                </Select>
+                {/* <Input
                   className="mt-2"
                   value={DataJenis}
                   onChange={(e) => {
                     console.log(e.target.value);
                     setDataJenis(e.target.value);
                   }}
-                />
+                /> */}
               </Form.Item>
             </Col>
+          
           </Row>
+        
           <Row>
             <Col sm={4} style={{ padding: "0px" }}>
               <Form.Item
@@ -955,14 +942,56 @@ function DataBaru({ mitraId, DataOptions }) {
             </Col>
           </Row>
           <Row>
+            <Col sm={6} style={{ padding: "0px" }}>
+              <Form.Item
+                label="Telp. Kantor :"
+                style={{ fontWeight: "bold" }}
+                name="telp"
+                rules={[
+                  { required: false, message: "Please input your alamat!" },
+                ]}
+              >
+                <Input
+                  className="mt-2"
+                  value={DataTelp}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setDataTelp(e.target.value);
+                  }}
+                />
+              </Form.Item>
+            </Col>
+            <Col sm={6} style={{ padding: "0px" }}>
+              <Form.Item
+                label="Fax. Kantor :"
+                style={{ fontWeight: "bold" }}
+                name="fax"
+                rules={[
+                  { required: false, message: "Please input your alamat!" },
+                ]}
+              >
+                <Input
+                  className="mt-2"
+                  value={DataFax}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setDataFax(e.target.value);
+                  }}
+                />
+              </Form.Item>
+            </Col>
+           
+          </Row>
+          <Row>
             <Col sm={12} style={{ padding: "0px" }}>
               <Form.Item
                 label="Memo :"
                 name="memo"
                 style={{ fontWeight: "bold", height: "138px" }}
               >
-                <Input
+                <Input.TextArea
                   className="mt-2"
+                  style={{height: '100px'}}
                   value={DataMemo}
                   onChange={(e) => {
                     console.log(e.target.value);
@@ -980,7 +1009,7 @@ function DataBaru({ mitraId, DataOptions }) {
             DATA PERPAJAKAN (Tax Information)
           </h5>
           <Row className="mt-5">
-            <Col sm={6} style={{ padding: "0px" }}>
+            <Col sm={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="No. NPWP :"
                 style={{ fontWeight: "bold" }}
@@ -991,6 +1020,7 @@ function DataBaru({ mitraId, DataOptions }) {
               >
                 <Input
                   className="mt-2"
+                  type="number"
                   value={DataNPWPNomor}
                   onChange={(e) => {
                     console.log(e.target.value);
@@ -999,7 +1029,37 @@ function DataBaru({ mitraId, DataOptions }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={6} style={{ padding: "0px" }}>
+            <Col sm={4} style={{ padding: "0px" }}>
+              <Form.Item
+                label="Status Usaha :"
+                style={{ fontWeight: "bold" }}
+                name="-"
+                // rules={[
+                //   { required: false, message: "Please input your alamat!" },
+                // ]}
+              >
+                  <Select
+                  className="mt-2"
+                  value={DataStatusUsaha}
+                  onChange={(e) => {
+                    console.log(e);
+                    setDataStatusUsaha(e);
+                  }}
+                >
+                  <option value="PKP">PKP</option>
+                  <option value="NON PKP">NON PKP</option>
+                </Select>
+                {/* <Input
+                  className="mt-2"
+                  value={DataStatusUsaha}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setDataStatusUsaha(e.target.value);
+                  }}
+                /> */}
+              </Form.Item>
+            </Col>
+            <Col sm={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Nama NPWP :"
                 style={{ fontWeight: "bold" }}
@@ -1019,26 +1079,9 @@ function DataBaru({ mitraId, DataOptions }) {
               </Form.Item>
             </Col>
           </Row>
+         
           <Row>
-            <Col sm={12} style={{ padding: "0px" }}>
-              <Form.Item
-                label="Alamat NPWP:"
-                style={{ fontWeight: "bold" }}
-                name="npwp_address"
-              >
-                <Input
-                  className="mt-2"
-                  value={DataNPWPAddress}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                    setDataNPWPAddress(e.target.value);
-                  }}
-                />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={12} style={{ padding: "0px" }}>
+            <Col sm={2} style={{ padding: "0px", width: '20%' }}>
               <Form.Item
                 label="Jalan NPWP:"
                 style={{ fontWeight: "bold" }}
@@ -1053,69 +1096,53 @@ function DataBaru({ mitraId, DataOptions }) {
                   }}
                 />
               </Form.Item>
+              
             </Col>
-          </Row>
-          <Row>
-            <Col sm={2} style={{ width: "10%", padding: "0px" }}>
+            <Col sm={2} style={{ width: "20%", padding: "0px" }}>
               <Form.Item
-                label="Blok :"
+                label="Kota :"
                 style={{ fontWeight: "bold" }}
-                name="npwp_blok"
+                name="npwp_kota"
               >
                 <Input
                   className="mt-2"
-                  value={DataBlok}
+                  value={DataNPWPKota}
                   onChange={(e) => {
                     console.log(e.target.value);
-                    setDataBlok(e.target.value);
+                    setDataNPWPKota(e.target.value);
                   }}
                 />
               </Form.Item>
             </Col>
-            <Col sm={2} style={{ width: "10%", padding: "0px" }}>
+            
+            <Col sm={2} style={{ width: "20%", padding: "0px" }}>
               <Form.Item
-                label="Nomor :"
+                label="Kecamatan :"
                 style={{ fontWeight: "bold" }}
-                name="npwp_nomor"
+                name="npwp_kecamatan"
               >
                 <Input
                   className="mt-2"
-                  value={DataNPWPNomor}
+                  value={DataNPWPKecamatan}
                   onChange={(e) => {
                     console.log(e.target.value);
-                    setDataNPWPNomor(e.target.value);
+                    setDataNPWPKecamatan(e.target.value);
                   }}
                 />
               </Form.Item>
             </Col>
-            <Col sm={2} style={{ width: "10%", padding: "0px" }}>
+            <Col sm={2} style={{ width: "20%", padding: "0px" }}>
               <Form.Item
-                label="RT :"
+                label="Kelurahan :"
                 style={{ fontWeight: "bold" }}
-                name="npwp_rt"
+                name="npwp_kelurahan"
               >
                 <Input
                   className="mt-2"
-                  value={DataNPWPRT}
+                  value={DataNPWKelurahan}
                   onChange={(e) => {
                     console.log(e.target.value);
-                    setDataNPWPRT(e.target.value);
-                  }}
-                />
-              </Form.Item>
-            </Col>
-            <Col sm={2} style={{ width: "10%", padding: "0px" }}>
-              <Form.Item
-                label="RW :"
-                style={{ fontWeight: "bold" }}
-                name="npwp_rw"
-              >
-                <Input
-                  className="mt-2"
-                  value={DataNPWPRW}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                    setDataNPWPRW(e.target.value);
+                    setDataNPWKelurahan(e.target.value);
                   }}
                 />
               </Form.Item>
@@ -1136,68 +1163,112 @@ function DataBaru({ mitraId, DataOptions }) {
                 />
               </Form.Item>
             </Col>
-            <Col span={2} style={{ width: "20%", padding: "0px" }}>
-              <Form.Item
-                label="Kota :"
-                style={{ fontWeight: "bold" }}
-                name="npwp_kota"
-              >
-                <Input
-                  className="mt-2"
-                  value={DataNPWPKota}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                    setDataNPWPKota(e.target.value);
-                  }}
-                />
-              </Form.Item>
-            </Col>
-            <Col span={2} style={{ width: "20%", padding: "0px" }}>
-              <Form.Item
-                label="Kecamatan :"
-                style={{ fontWeight: "bold" }}
-                name="npwp_kecamatan"
-              >
-                <Input
-                  className="mt-2"
-                  value={DataNPWPKecamatan}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                    setDataNPWPKecamatan(e.target.value);
-                  }}
-                />
-              </Form.Item>
-            </Col>
-            <Col span={2} style={{ width: "20%", padding: "0px" }}>
-              <Form.Item
-                label="Kelurahan :"
-                style={{ fontWeight: "bold" }}
-                name="npwp_kelurahan"
-              >
-                <Input
-                  className="mt-2"
-                  value={DataNPWKelurahan}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                    setDataNPWKelurahan(e.target.value);
-                  }}
-                />
-              </Form.Item>
-            </Col>
           </Row>
+       
           <Row>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col sm={2} style={{ width: "20%", padding: "0px" }}>
+              <Form.Item
+                label="Blok :"
+                style={{ fontWeight: "bold" }}
+                name="npwp_blok"
+              >
+                <Input
+                  className="mt-2"
+                  value={DataBlok}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setDataBlok(e.target.value);
+                  }}
+                />
+              </Form.Item>
+            </Col>
+            <Col sm={2} style={{ width: "20%", padding: "0px" }}>
+              <Form.Item
+                label="Nomor :"
+              
+                style={{ fontWeight: "bold" }}
+                name="npwp_nomor"
+              >
+                <Input
+                type="number"
+                  className="mt-2"
+                  value={DataNPWPNomor}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setDataNPWPNomor(e.target.value);
+                  }}
+                />
+              </Form.Item>
+            </Col>
+            <Col sm={2} style={{ width: "20%", padding: "0px" }}>
+              <Form.Item
+
+                label="RT :"
+                style={{ fontWeight: "bold" }}
+                name="npwp_rt"
+              >
+                <Input
+                 type="number"
+                  className="mt-2"
+                  value={DataNPWPRT}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setDataNPWPRT(e.target.value);
+                  }}
+                />
+              </Form.Item>
+            </Col>
+            <Col sm={2} style={{ width: "20%", padding: "0px" }}>
+              <Form.Item
+                label="RW :"
+                style={{ fontWeight: "bold" }}
+                name="npwp_rw"
+              >
+                <Input
+                 type="number"
+                  className="mt-2"
+                  value={DataNPWPRW}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setDataNPWPRW(e.target.value);
+                  }}
+                />
+              </Form.Item>
+            </Col>
+           
+            <Col sm={4} style={{ padding: "0px", width: '20%' }}>
               <Form.Item
                 label="Kode Pos :"
                 style={{ fontWeight: "bold" }}
                 name="npwp_kodepos"
               >
                 <Input
+                 type="number"
                   className="mt-2"
                   value={DataNPWPKodePos}
                   onChange={(e) => {
                     console.log(e.target.value);
                     setDataNPWPKodePos(e.target.value);
+                  }}
+                />
+              </Form.Item>
+            </Col>
+           
+          </Row>
+         
+          <Row>
+            <Col sm={12} style={{ padding: "0px" }}>
+              <Form.Item
+                label="Alamat NPWP:"
+                style={{ fontWeight: "bold" }}
+                name="npwp_address"
+              >
+                <Input.TextArea
+                  className="mt-2"
+                  value={DataNPWPAddress}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setDataNPWPAddress(e.target.value);
                   }}
                 />
               </Form.Item>
@@ -1290,6 +1361,28 @@ function DataBaru({ mitraId, DataOptions }) {
             </Col>
             <Col sm={4} style={{ padding: "0px" }}>
               <Form.Item
+                label="Term of payment (Hari) :"
+                style={{ fontWeight: "bold" }}
+                // name="-"
+              >
+                <Select
+                  className="mt-2"
+                  value={DataPembayaran}
+                  onChange={(e) => {
+                    console.log(e);
+                    setDataPembayaran(e);
+                  }}
+                >
+                  <option value={7}>7</option>
+                  <option value={14}>14</option>
+                  <option value={20}>20</option>
+                  <option value={30}>30</option>
+                  <option value={60}>60</option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col sm={4} style={{ padding: "0px" }}>
+              <Form.Item
                 label="Type Of Payment :"
                 style={{ fontWeight: "bold" }}
                 name="metode_pembayaran"
@@ -1311,47 +1404,8 @@ function DataBaru({ mitraId, DataOptions }) {
                 </Select>
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
-              <Form.Item
-                label="Status :"
-                style={{ fontWeight: "bold" }}
-                // name="-"
-              >
-                <Select
-                  className="mt-2"
-                  value={DataType}
-                  onChange={(e) => {
-                    console.log(e);
-                    setDataType(e);
-                  }}
-                >
-                  <option value={"elogs"}>ELOGS</option>
-                  <option value={"race"}>RACE</option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
-              <Form.Item
-                label="ToP :"
-                style={{ fontWeight: "bold" }}
-                // name="-"
-              >
-                <Select
-                  className="mt-2"
-                  value={DataPembayaran}
-                  onChange={(e) => {
-                    console.log(e);
-                    setDataPembayaran(e);
-                  }}
-                >
-                  <option value={7}>7</option>
-                  <option value={14}>14</option>
-                  <option value={20}>20</option>
-                  <option value={30}>30</option>
-                  <option value={60}>60</option>
-                </Select>
-              </Form.Item>
-            </Col>
+            
+            
           </Row>
           <Row className="mt-4">
             <Col sm={4} style={{ padding: "0px" }}>
@@ -1400,6 +1454,27 @@ function DataBaru({ mitraId, DataOptions }) {
                     setDataEmail(e.target.value);
                   }}
                 />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={4} style={{ padding: "0px" }}>
+              <Form.Item
+                label="Status :"
+                style={{ fontWeight: "bold" }}
+                // name="-"
+              >
+                <Select
+                  className="mt-2"
+                  value={DataType}
+                  onChange={(e) => {
+                    console.log(e);
+                    setDataType(e);
+                  }}
+                >
+                  <option value={"elogs"}>ELOGS</option>
+                  <option value={"race"}>RACE</option>
+                </Select>
               </Form.Item>
             </Col>
           </Row>

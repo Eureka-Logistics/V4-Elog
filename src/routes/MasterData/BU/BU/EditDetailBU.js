@@ -14,6 +14,7 @@ function DetailBU() {
   const [DataKodeBU, setDataKodeBU] = useState("");
   const [DataCBU, setDataCBU] = useState("");
   const [DataIDBu, setDataIDBu] = useState("");
+  
 
   const DetailBisnisUnit = async (buId) => {
     try {
@@ -39,6 +40,7 @@ function DetailBU() {
   const EditDetailBU = async () => {
     try {
       const data = {
+        id : DataIDBu,
         id_bu: buId,
         name_bu: DataNamaBU,
         code_bu: DataKodeBU,

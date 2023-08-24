@@ -61,8 +61,8 @@ function IndexBU() {
     },
     {
       title: "Nama Alias",
-      dataIndex: "buCode",
-      key: "buCode",
+      dataIndex: "cbu",
+      key: "cbu",
       render: (text) => <Tag color="blue">{text}</Tag>,
     },
     {
