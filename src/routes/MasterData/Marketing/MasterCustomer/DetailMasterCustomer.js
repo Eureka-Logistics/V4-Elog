@@ -239,7 +239,7 @@ function DetailMasterCustomer() {
   return (
     <div>
       <Card>
-        <h4 style={{ fontWeight: "bold" }}>CUSTOMER DATA</h4>
+        <h5 style={{ fontWeight: "bold" }}>CUSTOMER DATA</h5>
         <hr />
         <Row>
           {/* <Col span={12} className="mt-3">
@@ -250,13 +250,26 @@ function DetailMasterCustomer() {
               placeholder={DetailDataMasterCustomer.id_customer}
             /> */}
           {/* </Col> */}
-          <Col span={12} className="mt-3">
+          <Col span={4} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Code Customer :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
               className="mt-2"
               placeholder={DetailDataMasterCustomer.kode_customer}
               disabled
+            />
+          </Col>
+          <Col span={8} className="mt-3">
+            <label style={{ fontWeight: "bold" }}>Customer Name :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2"
+              placeholder={DetailDataMasterCustomer.nama_perusahaan}
+              value={NamaPerusahaan}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDataNamaPerusahaan(e.target.value);
+              }}
             />
           </Col>
           <Col span={6} className="mt-3">
@@ -297,20 +310,21 @@ function DetailMasterCustomer() {
           </Col>
         </Row>
         <Row>
-          <Col span={12} className="mt-3">
-            <label style={{ fontWeight: "bold" }}>Customer Name :</label>
+          <Col span={4} className="mt-3">
+            <label style={{ fontWeight: "bold" }}>Item :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
               className="mt-2"
-              placeholder={DetailDataMasterCustomer.nama_perusahaan}
-              value={NamaPerusahaan}
+              name="jenis_barang"
+              placeholder={DetailDataMasterCustomer.jenis_barang}
+              value={JenisBarangPerusahaan}
               onChange={(e) => {
                 console.log(e.target.value);
-                setDataNamaPerusahaan(e.target.value);
+                setDataJenisBarangPerusahaan(e.target.value);
               }}
             />
           </Col>
-          <Col span={12} className="mt-3">
+          <Col span={8} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Business :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -320,21 +334,6 @@ function DetailMasterCustomer() {
               onChange={(e) => {
                 console.log(e.target.value);
                 setDataJenisUsahaan(e.target.value);
-              }}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} className="mt-3">
-            <label style={{ fontWeight: "bold" }}>Customer Address :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <Input
-              className="mt-2"
-              placeholder={DetailDataMasterCustomer.alamat_kantor}
-              value={AlamatCustomer}
-              onChange={(e) => {
-                console.log(e.target.value);
-                setDataAlamatCustomer(e.target.value);
               }}
             />
           </Col>
@@ -353,22 +352,6 @@ function DetailMasterCustomer() {
             />
           </Col>
           <Col span={6} className="mt-3">
-            <label style={{ fontWeight: "bold" }}>Item :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <Input
-              className="mt-2"
-              name="jenis_barang"
-              placeholder={DetailDataMasterCustomer.jenis_barang}
-              value={JenisBarangPerusahaan}
-              onChange={(e) => {
-                console.log(e.target.value);
-                setDataJenisBarangPerusahaan(e.target.value);
-              }}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Telp Office :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -382,6 +365,8 @@ function DetailMasterCustomer() {
               }}
             />
           </Col>
+        </Row>
+        <Row>
           <Col span={12} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Fax Office :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
@@ -395,10 +380,24 @@ function DetailMasterCustomer() {
               }}
             />
           </Col>
+          <Col span={12} className="mt-3">
+            <label style={{ fontWeight: "bold" }}>Customer Address :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2"
+              placeholder={DetailDataMasterCustomer.alamat_kantor}
+              value={AlamatCustomer}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDataAlamatCustomer(e.target.value);
+              }}
+            />
+          </Col>
         </Row>
+
         <br />
         <hr />
-        <h4 style={{ fontWeight: "bold" }}>CONTACT PERSON</h4>
+        <h5 style={{ fontWeight: "bold" }}>CONTACT PERSON</h5>
         <hr />
         <br />
         <Row>
@@ -494,7 +493,7 @@ function DetailMasterCustomer() {
         </Row>
         <br />
         <hr />
-        <h4 style={{ fontWeight: "bold" }}>TAX</h4>
+        <h5 style={{ fontWeight: "bold" }}>TAX</h5>
         <hr />
         <br />
         <Row className="mt-3">
@@ -514,7 +513,7 @@ function DetailMasterCustomer() {
           <Col span={16}>
             <label style={{ fontWeight: "bold" }}>NPWP Address : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <Input
+            <Input.TextArea
               className="mt-2"
               placeholder={DetailDataMasterCustomer.alamat_npwp}
               value={AlamatNPWP}
@@ -638,7 +637,7 @@ function DetailMasterCustomer() {
         </Row>
         <br />
         <hr />
-        <h4 style={{ fontWeight: "bold" }}>TERM OF PAYMENT</h4>
+        <h5 style={{ fontWeight: "bold" }}>TERM OF PAYMENT</h5>
         <hr />
         <br />
         <Row className="mt-3">
@@ -654,7 +653,6 @@ function DetailMasterCustomer() {
                 // onChange={(e) => formik.setFieldValue("nama_bank", e)}
                 showSearch
                 optionFilterProp="children"
-                
                 value={NamaBank}
                 onChange={(e) => {
                   console.log(e);
@@ -667,9 +665,9 @@ function DetailMasterCustomer() {
             </Form.Group>
           </Col>
           {/* <Col span={8}> */}
-            {/* <label style={{ fontWeight: "bold" }}>Bank Name : </label> */}
-            {/* Menghubungkan input tarif dengan state tarif */}
-            {/* <Input
+          {/* <label style={{ fontWeight: "bold" }}>Bank Name : </label> */}
+          {/* Menghubungkan input tarif dengan state tarif */}
+          {/* <Input
               className="mt-2"
               placeholder={DetailDataMasterCustomer.nama_bank}
               value={NamaBank}
@@ -826,7 +824,7 @@ function DetailMasterCustomer() {
 
         <br />
         <hr />
-        <h4 style={{ fontWeight: "bold" }}>INVOICE</h4>
+        <h5 style={{ fontWeight: "bold" }}>INVOICE</h5>
         <hr />
         <br />
         <Row className="mt-3">

@@ -148,7 +148,7 @@ function CreateBUEmployee() {
       </h5>
       <hr />
       <Row>
-        {/* <Col span={8}>
+        {/* <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Photo :</label>
           <Card>
             <Upload
@@ -293,7 +293,7 @@ function CreateBUEmployee() {
         
       </Row>
       <Row className="mt-2">
-        <Col span={12}>
+        <Col span={6}>
           <label style={{ fontWeight: "bold" }}>No Telepon :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -307,7 +307,7 @@ function CreateBUEmployee() {
             }}
           />
         </Col>
-        <Col span={12}>
+        <Col span={6}>
           <label style={{ fontWeight: "bold" }}>Email :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -320,10 +320,8 @@ function CreateBUEmployee() {
             }}
           />
         </Col>
-      </Row>
-      <Row>
-      <Col span={12}>
-          <label style={{ fontWeight: "bold" }}>Kode Bisnis Unit  :</label>
+         <Col span={3}>
+          <label style={{ fontWeight: "bold" }}>Kode BU  :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
             className="mt-2 mb-2"
@@ -351,7 +349,7 @@ function CreateBUEmployee() {
               ))}
           </Select>
         </Col>
-      <Col span={12}>
+      <Col span={9}>
           <label style={{ fontWeight: "bold" }}>Nama Bisnis Unit  :</label>
           
           <Input
@@ -363,6 +361,9 @@ function CreateBUEmployee() {
           />
         </Col>
       </Row>
+      {/* <Row>
+     
+      </Row> */}
 
      <br/>
       <h5>
@@ -370,7 +371,7 @@ function CreateBUEmployee() {
       </h5>
       <hr />
       <Row className="mt-2">
-        <Col span={8}>
+        <Col span={3}>
           <label style={{ fontWeight: "bold" }}>ID GL :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -379,7 +380,7 @@ function CreateBUEmployee() {
             //   value={DataDetailAddress?.kode_wilayah}
             placeholder="Pilih GL"
             optionFilterProp="value"
-            style={{ width: "100%" }}
+            style={{ width: "95%" }}
             onChange={(e, options) => {
               console.log(options.key);
               setIDgl(options.key);
@@ -408,10 +409,13 @@ function CreateBUEmployee() {
             }}
           /> */}
         </Col>
-        <Col span={8}>
+        <Col span={10}
+        >
+          
           <label style={{ fontWeight: "bold" }}>Nama Group Leader  :</label>
           <Input
           disabled
+          style={{ width: "100%" }}
             className="mt-2 mb-2"
             name="fullname "
             placeholder="Automatic Input"
@@ -419,7 +423,7 @@ function CreateBUEmployee() {
           />
         </Col>
        
-        <Col span={8}>
+        <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Position Grup Leader :</label>
           <Input
           disabled
@@ -437,7 +441,7 @@ function CreateBUEmployee() {
       </h5>
       <hr />
       <Row className="mt-2">
-      <Col span={8}>
+      <Col span={3}>
           <label style={{ fontWeight: "bold" }}>ID ASM :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -466,7 +470,7 @@ function CreateBUEmployee() {
               ))}
           </Select>
         </Col>
-        <Col span={8}>
+        <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Nama ASMEN :</label>
           <Input
           disabled
@@ -476,7 +480,7 @@ function CreateBUEmployee() {
             value={DataASM}
           />
         </Col>
-        <Col span={8}>
+        <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Position ASMEN :</label>
           <Input
           disabled
@@ -494,7 +498,7 @@ function CreateBUEmployee() {
       </h5>
       <hr />
       <Row>
-      <Col span={8}>
+      <Col span={3}>
           <label style={{ fontWeight: "bold" }}>ID MGR :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -503,7 +507,7 @@ function CreateBUEmployee() {
             //   value={DataDetailAddress?.kode_wilayah}
             placeholder="Pilih Manager"
             optionFilterProp="value"
-            style={{ width: "100%" }}
+            style={{ width: "98%" }}
             onChange={(e, options) => {
               console.log(options.key);
               setIDMgr(options.key);
@@ -523,7 +527,7 @@ function CreateBUEmployee() {
               ))}
           </Select>
         </Col>
-        <Col span={8}>
+        <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Nama Manager :</label>
           <Input
           disabled
@@ -533,7 +537,7 @@ function CreateBUEmployee() {
             value={DataMgr}
           />
         </Col>
-        <Col span={8}>
+        <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Position Manager :</label>
           <Input
           disabled
@@ -550,8 +554,8 @@ function CreateBUEmployee() {
       </h5>
       <hr />
       <Row>
-      <Col span={8}>
-          <label style={{ fontWeight: "bold" }}>Kepala Cabang :</label>
+      <Col span={3}>
+          <label style={{ fontWeight: "bold" }}>ID KACAB:</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
             className="mt-2 mb-2"
@@ -579,7 +583,7 @@ function CreateBUEmployee() {
               ))}
           </Select>
         </Col>
-        <Col span={8}>
+        <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Nama Kepala Cabang :</label>
           <Input
           disabled
@@ -589,7 +593,7 @@ function CreateBUEmployee() {
             value={DataKacab}
           />
         </Col>
-        <Col span={8}>
+        <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Position Kepala Cabang :</label>
           <Input
           disabled
@@ -607,7 +611,7 @@ function CreateBUEmployee() {
       </h5>
       <hr />
       <Row>
-      <Col span={8}>
+      <Col span={3}>
           <label style={{ fontWeight: "bold" }}>ID AMD :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -616,7 +620,7 @@ function CreateBUEmployee() {
             //   value={DataDetailAddress?.kode_wilayah}
             placeholder="Pilih AMD"
             optionFilterProp="value"
-            style={{ width: "100%" }}
+            style={{ width: "95%" }}
             onChange={(e, options) => {
               console.log(options.key);
               setIDAmd(options.key);
@@ -636,7 +640,7 @@ function CreateBUEmployee() {
               ))}
           </Select>
         </Col>
-        <Col span={8}>
+        <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Nama AMD :</label>
           <Input
           disabled
@@ -646,7 +650,7 @@ function CreateBUEmployee() {
             value={DataAmd}
           />
         </Col>
-        <Col span={8}>
+        <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Position AMD :</label>
           <Input
           disabled

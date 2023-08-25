@@ -63,7 +63,7 @@ function PIC({ mitraId }) {
           },
         }
       );
-      console.log("response", response.data.data);
+      // console.log("response", response.data.data);
       setDataList(response.data.data);
       setDataPagination(response.data.total); // Jumlah data pagination
     } catch (error) {
@@ -161,7 +161,7 @@ function PIC({ mitraId }) {
         Swal.fire({
           icon: "success",
           title: "Success",
-          text: "Tarif has been saved",
+          text: "Data has been saved",
           // footer: '<a href="">Why do I have this issue?</a>'
         });
         fetchDataDetail();

@@ -62,7 +62,7 @@ function DetailBU() {
         Swal.fire({
           icon: "success",
           title: "Success",
-          text: "Tarif has been saved",
+          text: "Data has been changed",
           // footer: '<a href="">Why do I have this issue?</a>'
         });
       } else if (response.status === 500) {
@@ -79,7 +79,7 @@ function DetailBU() {
       console.error(`ini errorr`, error);
       Swal.fire({
         icon: "error",
-        title: "Isi Semua Data Terlebih dahulu",
+        title: "Data Sudah Ada",
         // text: "Isi Semua Data",
         // footer: '<a href="">Why do I have this issue?</a>'
       });

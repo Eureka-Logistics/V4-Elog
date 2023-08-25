@@ -93,9 +93,9 @@ function DataBaru({ mitraId, DataOptions }) {
     // console.log("ini id_bu", idEmploye);
   };
 
-  console.log(`nama mitara`, namaMitra);
+  // console.log(`nama mitara`, namaMitra);
   const onFinish = async (values) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
 
     try {
       const response = await axios.post(
@@ -118,16 +118,16 @@ function DataBaru({ mitraId, DataOptions }) {
       message.success("Mitra successfully edited"); // Menampilkan pesan sukses
       DetailMitra();
     } catch (error) {
-      console.error("Failed to edit mitra:", error);
+      // console.error("Failed to edit mitra:", error);
     }
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    // console.log("Failed:", errorInfo);
   };
 
   const onChange = (date, dateString) => {
-    console.log(date, dateString);
+    // console.log(date, dateString);
   };
 
   const DetailMitra = async () => {
@@ -142,7 +142,7 @@ function DataBaru({ mitraId, DataOptions }) {
       }
     );
     await setnamaMitra(data.data.data?.nama_mitra);
-    console.log(data.data.data.jenis);
+    // console.log(data.data.data.jenis);
     setTypeOfPayment(data.data.data?.metode_pembayaran);
     setStatus(data.data.data?.status);
     setTitle(data.data.data?.title);
@@ -199,7 +199,7 @@ function DataBaru({ mitraId, DataOptions }) {
     setDataType(data.data.data?.type || "");
     setDataBlok(data.data.data?.npwp_blok || "");
 
-    console.log("ini detail mitra", data.data.data);
+    // console.log("ini detail mitra", data.data.data);
 
     form.setFieldsValue({
       id_mitra: mitraId,
@@ -393,11 +393,11 @@ function DataBaru({ mitraId, DataOptions }) {
         //     text: 'Something went wrong!',
         //     // footer: '<a href="">Why do I have this issue?</a>'
         //   })
-        console.log(`error`);
+        // console.log(`error`);
       }
     } catch (error) {
-      console.log(`ini error`, error.response.data.errors);
-      console.error(`ini errorr`, error);
+      // console.log(`ini error`, error.response.data.errors);
+      // console.error(`ini errorr`, error);
       error.response.data.errors.forEach((element) => {
         notification.error({
           description: element.message,
@@ -422,7 +422,7 @@ function DataBaru({ mitraId, DataOptions }) {
         },
       }
     );
-    console.log(data.data, "ini data options");
+    // console.log(data.data, "ini data options");
     setTitleSelect(data.data.jabatan);
   };
 

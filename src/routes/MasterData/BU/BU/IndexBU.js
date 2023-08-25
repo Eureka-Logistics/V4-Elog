@@ -122,7 +122,7 @@ function IndexBU() {
 
   const handleDelete = (buId) => {
     Modal.confirm({
-      title: "Are you sure you want to delete this Tarif?",
+      title: "Are you sure you want to delete this BU ?",
       icon: <ExclamationCircleOutlined />,
       content: "This action cannot be undone.",
       onOk() {

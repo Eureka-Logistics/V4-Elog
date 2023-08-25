@@ -150,7 +150,7 @@ function Detail() {
         Swal.fire({
           icon: "success",
           title: "Success",
-          text: "Tarif has been saved",
+          text: "Data has been saved",
           // footer: '<a href="">Why do I have this issue?</a>'
         });
       } else if (response.status === 500) {
@@ -195,7 +195,7 @@ function Detail() {
         <h5>Edit dan Detail Bisnis Unit Employee</h5>
         <hr />
         <Row>
-          {/* <Col  span={8}>
+          {/* <Col  span={10}>
             <label style={{ fontWeight: "bold" }}>Photo :</label>
             <div style={{ paddingRight: "0px" }}>
               <Card className="mt-2">
@@ -212,7 +212,7 @@ function Detail() {
                     style={{ cursor: "pointer" }}
                   />
                   <hr />
-                  <div style={{ marginTop: 8 }}>
+                  <div style={{ marginTop: 10 }}>
                     <UploadOutlined /> Upload Photo
                   </div>
                 </Upload>
@@ -355,7 +355,7 @@ function Detail() {
           </Col>
         </Row>
         <Row className="mt-2">
-          <Col span={12}>
+          <Col span={6}>
             <label style={{ fontWeight: "bold" }}>No. Telepon :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -370,7 +370,7 @@ function Detail() {
               />
             </div>
           </Col>
-          <Col span={12}>
+          <Col span={6}>
             <label style={{ fontWeight: "bold" }}>Email :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -384,9 +384,7 @@ function Detail() {
               />
             </div>
           </Col>
-        </Row>
-        <Row className="mt-2">
-          <Col span={12}>
+          <Col span={3}>
             <label style={{ fontWeight: "bold" }}>Bisnis Unit :</label>
             <Select
               className="mt-2"
@@ -411,7 +409,7 @@ function Detail() {
                 ))}
             </Select>
           </Col>
-          <Col span={12}>
+          <Col span={9}>
             <label style={{ fontWeight: "bold" }}>Nama Bisnis Unit :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -426,13 +424,16 @@ function Detail() {
             </div>
           </Col>
         </Row>
+        {/* <Row className="mt-2">
+        
+        </Row> */}
 
         <br />
         <h5>Wilayah Group Leader</h5>
         <hr />
 
         <Row>
-          <Col span={8}>
+          <Col span={3}>
             <label style={{ fontWeight: "bold" }}>ID GL :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -460,7 +461,7 @@ function Detail() {
               </Select>
             </div>
           </Col>
-          <Col span={8}>
+          <Col span={10}>
             <label style={{ fontWeight: "bold" }}>Nama Group Leader :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -475,7 +476,7 @@ function Detail() {
               />
             </div>
           </Col>
-          <Col span={8}>
+          <Col span={10}>
             <label style={{ fontWeight: "bold" }}>Posisi Group Leader :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -497,7 +498,7 @@ function Detail() {
         <hr />
 
         <Row>
-          <Col span={8}>
+          <Col span={3}>
             <label style={{ fontWeight: "bold" }}>ID ASMEN :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -533,7 +534,7 @@ function Detail() {
               /> */}
             </div>
           </Col>
-          <Col span={8}>
+          <Col span={10}>
             <label style={{ fontWeight: "bold" }}>Nama ASMEN :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -548,7 +549,7 @@ function Detail() {
               />
             </div>
           </Col>
-          <Col span={8}>
+          <Col span={10}>
             <label style={{ fontWeight: "bold" }}>Posisi ASMEN :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -571,8 +572,8 @@ function Detail() {
         <hr />
 
         <Row>
-        <Col span={8}>
-            <label style={{ fontWeight: "bold" }}>ID MANAGER :</label>
+        <Col span={3}>
+            <label style={{ fontWeight: "bold" }}>ID MGR :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
               <Select
@@ -599,7 +600,7 @@ function Detail() {
               </Select>
             </div>
           </Col>
-          <Col span={8}>
+          <Col span={10}>
             <label style={{ fontWeight: "bold" }}>Nama Manager :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -614,7 +615,7 @@ function Detail() {
               />
             </div>
           </Col>
-          <Col span={8}>
+          <Col span={10}>
             <label style={{ fontWeight: "bold" }}>Posisi Manager :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -634,8 +635,8 @@ function Detail() {
         <h5>Wilayah Kepala Cabang</h5>
         <hr />
         <Row>
-        <Col  span={8}>
-            <label style={{ fontWeight: "bold" }}>ID KEPALA CABANG :</label>
+        <Col  span={3}>
+            <label style={{ fontWeight: "bold" }}>ID KACAB :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
               <Select
@@ -662,7 +663,7 @@ function Detail() {
               </Select>
             </div>
           </Col>
-          <Col span={8}>
+          <Col span={10}>
             <label style={{ fontWeight: "bold" }}>Nama Kepala Cabang :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -677,7 +678,7 @@ function Detail() {
               />
             </div>
           </Col>
-          <Col span={8}>
+          <Col span={10}>
             <label style={{ fontWeight: "bold" }}>Posisi Kepala Cabang:</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -697,7 +698,7 @@ function Detail() {
         <h5>Wilayah AMD</h5>
         <hr />
         <Row>
-          <Col span={8}>
+          <Col span={3}>
             <label style={{ fontWeight: "bold" }}> ID AMD :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -726,7 +727,7 @@ function Detail() {
             </div>
           </Col>
 
-          <Col span={8}>
+          <Col span={10}>
             <label style={{ fontWeight: "bold" }}>Nama AMD :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -741,7 +742,7 @@ function Detail() {
               />
             </div>
           </Col>
-          <Col span={8}>
+          <Col span={10}>
             <label style={{ fontWeight: "bold" }}>Posisi AMD :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
