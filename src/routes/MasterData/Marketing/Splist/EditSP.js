@@ -77,7 +77,6 @@ function EditSP({  }) {
   const [AsuransiOptionsValue, setAsuransiOptionsValue] = useState("");
   const [ServiceValue, setServiceValue] = useState("");
   const [ServiceValueOptions, setServiceValueOptios] = useState("");
-
   const getDetail = async () => {
     try {
       const response = await axios.get(

@@ -40,7 +40,8 @@ function CancelSPListSales() {
             setDataAwal(data.data.data.order)
         } catch (error) {
             notification.error({
-               message : error.response.data.status.message})
+                message: error.response.data.status.message
+            })
         }
     }
 
@@ -56,8 +57,8 @@ function CancelSPListSales() {
             <Card>
                 <div className='d-flex justify-content-end'>
                     <Row>
-                        <Col style={{width : "100%"}} sm={6}>
-                            <Input 
+                        <Col style={{ width: "100%" }} sm={6}>
+                            <Input
                                 placeholder='Cari SP'
                                 onChange={(e) => setCariSP(e.target.value)}
                             />
@@ -71,7 +72,15 @@ function CancelSPListSales() {
                         title="Reject SP Sales"
                     />
                     <div className='mt-3 d-flex justify-content-end'>
-
+                        <style>
+                            {`
+          .rdt_TableBody .rdt_TableRow:hover {
+            cursor: pointer;
+            background-color: #C7E1FB;
+          }
+          
+        `}
+                        </style>
                         <Pagination
                             showSizeChanger
                             onChange={onPaginationChange}

@@ -49,21 +49,21 @@ function FormTable({
   const [NamaSupir, setNamaSupir] = useState("");
   const [NomorPolisi2, setNomorPolisi2] = useState([]);
   const [isidaSementara, setIsidaSementara] = useState([]);
-  const [selectnomor, setSelectnomor] = useState([]);
-  const [selectnomor2, setSelectnomor2] = useState([]);
-  const [selectnopol, setSelectNopol] = useState([]);
-  const [selectMitra, setSelectMitra] = useState([]);
-  const [selectMitra2, setSelectMitra2] = useState([]);
-  const [approved, setApproved] = useState([]);
-  const [selectDriver, setselectDriver] = useState([]);
+  const [selectnomor, setSelectnomor] = useState("");
+  const [selectnomor2, setSelectnomor2] = useState("");
+  const [selectnopol, setSelectNopol] = useState("");
+  const [selectMitra, setSelectMitra] = useState("");
+  const [selectMitra2, setSelectMitra2] = useState("");
+  const [approved, setApproved] = useState("");
+  const [selectDriver, setselectDriver] = useState("");
   const [selectDriver2, setselectDriver2] = useState([]);
-  const [idsupir, setIdsupir] = useState([]);
-  const [idUnit, setIdunit] = useState([]);
-  const [idUnit2, setIdunit2] = useState([]);
-  const [idUnit3, setIdunit3] = useState([]);
+  const [idsupir, setIdsupir] = useState("");
+  const [idUnit, setIdunit] = useState("");
+  const [idUnit2, setIdunit2] = useState("");
+  const [idUnit3, setIdunit3] = useState("");
   const [bukaanother, setBukaanother] = useState(false);
   const [LoadingMuterMuter, setLoadingMuterMuter] = useState(false);
-  const [driveranother, setDriveranother] = useState([]);
+  const [driveranother, setDriveranother] = useState("");
   const [selectanotherrvalue, setSelectanotherrvalue] = useState([]);
   const { NamaMitra, fetchMitra } = useMitraStore((item) => ({
     NamaMitra: item.NamaMitra,
@@ -110,9 +110,33 @@ function FormTable({
     setIsiKomenRejectSP: state.setIsiKomenRejectSP,
   }));
   const { orderdate, setOrderdate, asuransi, setAsuransi } = mobil();
+
+  const [spdetailsemuanyasekarang, setspdetailsemuanyasekarang] = useState("")
+  const [serviceState, setserviceState] = useState("")
+
+  const setSpDetailZustand = async () => {
+    try {
+      const data = await axios.get(`${Baseurl}sp/get-SP-all-detail?limit=10&page=1&keyword=&idmp=${idmp}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        }
+      });
+      setspdetailsemuanyasekarang(data.data)
+      setserviceState(data.data?.service)
+      console.log(`asuuuu`, data.data);
+    } catch (error) {
+      console.error("Error fetching data:", error.response.data);
+    }
+  }
+
+
+
   useEffect(() => {
-    setType(isidetail.map((item) => item?.kendaraan));
+    setType(isidetail.map((item) => item?.kendaraan))
   }, [isidetail]);
+
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -123,10 +147,12 @@ function FormTable({
     mitra1: state.mitra1,
     setmitra1: state.setmitra1,
   }));
+  const [mitra1Purchasing, setmitra1Purchasing] = useState("")
   const { mitra2, setmitra2 } = mobil((state) => ({
     mitra2: state.mitra2,
     setmitra2: state.setmitra2,
   }));
+  const [mitra2Purchasing, setmitra2Purchasing] = useState("")
   const [idmitraini, setidmitraini] = useState([]);
   const [idmitraini2, setidmitraini2] = useState([]);
   //////////////////
@@ -144,6 +170,7 @@ function FormTable({
     TipeKendaraan: state.TipeKendaraan,
     FetchTipeKendaraan: state.FetchTipeKendaraan,
   }));
+  const [SelectNamaKendaraan3, setSelectNamaKendaraa3] = useState("")
   const [FotoDriver, setFotoDriver] = useState("");
   const [Mitra1Multi, setMitra1Multi] = useState("");
   const [StatusApproveAct, setStatusApproveAct] = useState("");
@@ -166,9 +193,32 @@ function FormTable({
   };
 
   ///select driver
+  const [SelectMitraPertama, setSelectMitraPertama] = useState("")
+  const [VehicleType1, setVehicleType1] = useState("")
+  const [KodeKendaraanPurc1, setKodeKendaraanPurc1] = useState("")
+  const [AmbilIdKendaraanPurch1, setAmbilIdKendaraanPurch1] = useState("")
+  const [AmbilNamaKendaraanPurch1, setAmbilNamaKendaraanPurch1] = useState("")
+
+  const vehiclePurch1 = async () => {
+    let url = `${Baseurl}sp/get-SP-select-2?vehicleType=${VehicleType1}&mitra=${SelectMitraPertama}&id=${AmbilIdKendaraanPurch1}`;
+
+    const sleet = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+    setKodeKendaraanPurc1(sleet?.data?.data?.vehicle)
+  };
+
+  useEffect(() => {
+    vehiclePurch1()
+
+  }, [VehicleType1, SelectMitraPertama, AmbilIdKendaraanPurch1])
+  let KodeKendaraanPurc1s = Array.isArray(KodeKendaraanPurc1) ? KodeKendaraanPurc1 : [];
 
   const vehicle = async () => {
-    let url = `${Baseurl}sp/get-SP-select-2?vehicleType=${selectTypeMobil}&mitra=${mitra1}&id=${selectnomor}`;
+    let url = `${Baseurl}sp/get-SP-select-2?vehicleType=${selectTypeMobil}&mitra=${mitra1Purchasing}&id=${selectnomor}`;
 
     const sleet = await axios.get(url, {
       headers: {
@@ -189,11 +239,11 @@ function FormTable({
     if (types.length > 0) {
       vehicle();
     }
-  }, [types, selectnomor, mitra1, selectnomor2, selectTypeMobil]); // pastikan Anda memasukkan semua variabel yang Anda gunakan sebagai dependensi useEffect
+  }, [types, selectnomor, mitra1, selectnomor2, selectTypeMobil, mitra1Purchasing]); // pastikan Anda memasukkan semua variabel yang Anda gunakan sebagai dependensi useEffect
 
   useEffect(() => {
     const vehicle = async () => {
-      let url = `${Baseurl}sp/get-SP-select-2?vehicleType=${selectTypeMobil2}&mitra=${mitra2}&id=${selectnomor2}`;
+      let url = `${Baseurl}sp/get-SP-select-2?vehicleType=${selectTypeMobil2}&mitra=${mitra2Purchasing}&id=${selectnomor2}`;
 
       const sleet = await axios.get(url, {
         headers: {
@@ -204,7 +254,7 @@ function FormTable({
       setNomorFix2(sleet.data.data.vehicle);
       setNamaDriverFix2(sleet.data.data.Driver);
       // const nomorpolisis = sleet.data.data.vehicle;
-      // const drivernya = sleet.data.data.Driver;
+      // const drivernya = s  leet.data.data.Driver;
       FetchTipeKendaraan()
     };
 
@@ -213,7 +263,7 @@ function FormTable({
     }
 
 
-  }, [types, selectnomor, mitra2, selectnomor2, selectTypeMobil2]); // pastikan Anda memasukkan semua variabel yang Anda gunakan sebagai dependensi useEffect
+  }, [types, selectnomor, mitra2, selectnomor2, selectTypeMobil2, mitra2Purchasing]); // pastikan Anda memasukkan semua variabel yang Anda gunakan sebagai dependensi useEffect
   // console.log(`ini NamaDriverFix2`, NamaDriverFix2);
   ///// approve op operasional
   useEffect(() => {
@@ -232,7 +282,7 @@ function FormTable({
     if (types.length > 0) {
       vehicle();
     }
-  }, [types, selectnomor, NamaMobilDariTable, mitra1, selectnomor2, selectTypeMobil2]);
+  }, [types, selectnomor, NamaMobilDariTable, mitra1, selectnomor2, selectTypeMobil2, mitra1Purchasing]);
 
   const anotherdriver = async () => {
     const another = await axios.get(`${Baseurl}sp/another-driver`, {
@@ -247,6 +297,7 @@ function FormTable({
   };
   useEffect(() => {
     anotherdriver();
+    setSpDetailZustand()
   }, []);
 
   const PindahVehicle = () => {
@@ -307,6 +358,9 @@ function FormTable({
     }
   };
 
+  // console.log(`VehicleType1:  `, VehicleType1 );
+  // console.log(`SelectMitraPertama:  `, SelectMitraPertama);
+  console.log(`Mitra1Multi `, Mitra1Multi   );
   ///tombol approve
   const HandleApprovePURCH = (idmpd) => {
     try {
@@ -322,16 +376,32 @@ function FormTable({
         // merk: types[0],
         id_mp: parseInt(idmp),
         id_mpd: IDMPD,
+        id_mitra_pickup: Mitra1Multi?.mitraId === "-" ? SelectMitraPertama : Mitra1Multi?.mitraId,
         id_unit: selectDriver[0]?.idUnit ? selectDriver[0]?.idUnit : idUnit,
-        id_unit_2: selectnomor,
-        id_unit_3: selectnomor2,
-        id_driver: selectDriver?.[0]?.idUnit,
-        id_driver_2: idUnit,
-        id_driver_3: idUnit2,
-        id_mitra_pickup: 1,
-        id_mitra: mitra1,
-        id_mitra_2: mitra1,
-        id_mitra_3: mitra2,
+        pickup_kendaraan: DataUntukPurchsingDanApprovenya?.kendaraan !== "-" ? VehicleType1 : DataUntukPurchsingDanApprovenya?.kendaraan,
+        pickup_nopol: Mitra1Multi?.unit,
+        pickup_supir: Mitra1Multi?.driverId === "-" ? idUnit3 : Mitra1Multi?.driverId,
+        id_driver: Mitra1Multi?.driverId === "-" ? idUnit3 : Mitra1Multi?.driverId,
+
+        id_mitra: mitra1Purchasing === "" ? Mitra1Multi?.mitraId : mitra1Purchasing,
+        id_unit_2: selectnomor === "" ? selectDriver[0]?.idUnit : selectnomor,
+        id_driver_2: idUnit === "" ? selectDriver[0]?.idUnit : idUnit,
+        kendaraan: selectTypeMobil === "" ? DataUntukPurchsingDanApprovenya?.kendaraan : selectTypeMobil,
+        nopol: selectnopol === "" ? Mitra1Multi?.unit : selectnopol,
+        supir: idUnit == "" ? Mitra1Multi?.driverId : idUnit,
+
+        id_mitra_2: mitra2Purchasing === ""
+          ? (mitra1Purchasing === ""
+            ? Mitra1Multi?.mitraId
+            : mitra1Purchasing)
+          : mitra2Purchasing,
+
+        id_unit_3: selectnomor2 === "" ? selectnomor : selectnomor2,
+        id_driver_3: idUnit2 === "" ? idUnit : idUnit2,
+        kendaraan_2: selectTypeMobil2 === "" ? selectTypeMobil : selectTypeMobil2,
+        nopol_2: SelectNamaKendaraan3 === "" ? selectnopol : SelectNamaKendaraan3,
+        supir_2: idUnit2 === "" ? idUnit : idUnit2,
+
       };
 
       const response = axios
@@ -343,9 +413,6 @@ function FormTable({
         })
       const isidata = response?.data?.status;
       setApproved(isidata);
-      // console.log(`data approve`, approved);
-
-      // Display success alert
       Swal.fire({
         icon: "success",
         title: "Approval Successful",
@@ -358,7 +425,7 @@ function FormTable({
       console.log(error);
       notification.error({
         message: "Error",
-        description: "Ada Kesalahan Dalam Approve , Data Tidak Boleh Kosong",
+        description: error.response.data.status.message,
       })
       handleClose();
     }
@@ -1966,16 +2033,14 @@ function FormTable({
                         {jobdesk === "purchasing" && (
                           <>
                             <Form.Label>Select Mitra 1</Form.Label>
-                            <Form.Select
-                              value={Mitra1Multi?.mitra || ""}
-                              onChange={() => { }}
+                            <Select
+                              placeholder={Mitra1Multi?.mitra || ""}
+                              options={mitraOptions}
+                              onChange={(mitraOptions) => {
+                                setSelectMitraPertama(mitraOptions.value);
+                              }}
                             >
-                              {Mitra1Multi && (
-                                <option value={Mitra1Multi.driverName}>
-                                  {Mitra1Multi.mitra}
-                                </option>
-                              )}
-                            </Form.Select>
+                            </Select>
                           </>
                         )}
                       </Col>
@@ -1986,7 +2051,12 @@ function FormTable({
                           type="text"
                           // disabled
                           value={DataUntukPurchsingDanApprovenya?.kendaraan}
-                          onChange={(e) => { setDataUntukPurchsingDanApprovenya(e.target.value) }}
+                          onChange={(e) => {
+                            console.log(e.target.value
+                            );
+                            setVehicleType1(e.target.value);
+                            setDataUntukPurchsingDanApprovenya(e.target.value)
+                          }}
                         >
                           {/* {types.map((type, index) => (
                             <option key={index} value={type}>
@@ -2002,33 +2072,40 @@ function FormTable({
                         </Form.Select>
                       </Col>
                       <Col sm={3}>
-                        <Form.Label>Kode Kendaraan</Form.Label>
-                        <Form.Select value={Mitra1Multi?.unit}>
-                          Mitra1Multi && (
-                          <option value={Mitra1Multi?.unit}>
-                            {Mitra1Multi?.unit}
-                          </option>
-                          )
+                        <Form.Label>Kode Kendaraanss</Form.Label>
+                        <Form.Select placeholder={DataUntukPurchsingDanApprovenya?.unit}
+
+                          onChange={(e, key, option) => {
+                            setAmbilIdKendaraanPurch1(e.target.value)
+                            setAmbilNamaKendaraanPurch1(e.target.value)
+                          }}
+                        >
+                          {/* <option>Select Kendaraan</option> */}
+                          {
+                            KodeKendaraanPurc1s.map((i, index) => (
+                              <option key={i} option={i.no_polisi} value={i?.id}>
+                                {i?.no_polisi}
+                              </option>
+                            ))
+                          }
                         </Form.Select>
                       </Col>
                       <Col sm={3}>
-                        <Form.Label>Select Driver</Form.Label>
-                        <Form.Select
-                          // disabled
-                          value={Mitra1Multi?.driverName || ""}
+                        <Form.Label>Select Driversss</Form.Label>
+                        <Select
+                           placeholder={Mitra1Multi?.driverName || ""}
                           onChange={(e) => {
-                            setIdunit3(e.target.value);
+                            console.log(e);
+                            setIdunit3(e.value);
                           }}
-
-                        >
-
-                          {Mitra1Multi && (
-                            <option value={Mitra1Multi.driverName}>
-                              {Mitra1Multi.driverName}
-                            </option>
-                          )}
-
-                        </Form.Select>
+                          options={anotneroptionsdriver}
+                        // onChange={(selectedOption) => {
+                        //   anotherdriver();
+                        //   setIdunit(selectedOption.value);
+                        //   console.log(selectedOption);
+                        //   // setSelectNopol(selectedOption.label);
+                        // }}
+                        />
                       </Col>
                       <Col sm={3}>
                         {jobdesk == "purchasing" ? (
@@ -2038,6 +2115,7 @@ function FormTable({
                               options={mitraOptions}
                               onChange={(mitraOptions) => {
                                 setmitra1(mitraOptions.value);
+                                setmitra1Purchasing(mitraOptions.value)
                                 setidmitraini(mitraOptions.mitraId);
                               }}
                             />
@@ -2070,19 +2148,21 @@ function FormTable({
                           options={kodeKendaraanOptions}
                           onChange={(selectedOption) => {
                             anotherdriver();
+                            console.log(selectedOption);
                             setSelectnomor(selectedOption.value);
                             setSelectNopol(selectedOption.label);
                           }}
                         />
                       </Col>
                       <Col sm={3}>
-                        <Form.Label>Select Driver</Form.Label>
+                        <Form.Label>Select Drivers</Form.Label>
                         <Select
                           options={anotneroptionsdriver}
                           onChange={(selectedOption) => {
                             anotherdriver();
                             setIdunit(selectedOption.value);
-                            setSelectNopol(selectedOption.label);
+                            console.log(selectedOption);
+                            // setSelectNopol(selectedOption.label);
                           }}
                         />
                         {/* <Form.Select
@@ -2108,6 +2188,7 @@ function FormTable({
                               options={mitraOptions}
                               onChange={(mitraOptions) => {
                                 setmitra2(mitraOptions.value);
+                                setmitra2Purchasing(mitraOptions.value)
                                 setidmitraini2(mitraOptions.mitraId);
                               }}
                             />
@@ -2142,6 +2223,7 @@ function FormTable({
                             anotherdriver();
                             setSelectnomor2(selectedOption.value);
                             setSelectNopol(selectedOption.label);
+                            setSelectNamaKendaraa3(selectedOption.label);
                           }}
                         />
                       </Col>
@@ -2152,7 +2234,7 @@ function FormTable({
                           onChange={(selectedOption) => {
                             anotherdriver();
                             setIdunit2(selectedOption.value);
-                            setSelectNopol(selectedOption.label);
+                            // setSelectNopol(selectedOption.label);
                           }}
                         />
                       </Col>
@@ -2360,9 +2442,9 @@ function FormTable({
                       <td colSpan={11}>{data.pickup}</td>
                     </tr>
 
-                    {IsiDataSPSemua &&
-                      IsiDataSPSemua.detail[index].tujuan &&
-                      IsiDataSPSemua.detail[index].tujuan.map((data, index) => (
+                    {spdetailsemuanyasekarang &&
+                      spdetailsemuanyasekarang.detail[index].tujuan &&
+                      spdetailsemuanyasekarang.detail[index].tujuan.map((data, index) => (
                         <>
                           <tr
                             style={{
@@ -2377,11 +2459,14 @@ function FormTable({
                             <td width="100px">SJ ID</td>
                             <td>Kendaraan</td>
                             <td>Via</td>
+                            <td>Service</td>
                             <td>Item</td>
                             <td>Berat</td>
-                            <td>Qty</td>
-                            <td width="150px">Biaya Kirim</td>
-                            <td width="150px">Total</td>
+                            <td >Qty</td>
+                            <td >Tarif</td>
+                            <td width="50px">Biaya Muat</td>
+                            <td width="50px">Biaya Bongkar</td>
+                            <td width="50px">Total</td>
                             {jobdesk != "akunting" ? (
                               <td colSpan={2}>Aksi</td>
                             ) : (
@@ -2480,6 +2565,7 @@ function FormTable({
                             <td>{data.destination}</td>
                             <td>{data.noSJ}</td>
                             <td>{data.kendaraan}</td>
+                            <td>{data?.service}</td>
                             <td>{data?.via}</td>
                             <td>{data.item}</td>
                             <td>{data.berat}</td>
@@ -2491,11 +2577,34 @@ function FormTable({
                               })}
                             </td>
                             <td>
-                              {data.Price?.toLocaleString("id-ID", {
+                              {data.harga_muat?.toLocaleString("id-ID", {
                                 style: "currency",
                                 currency: "IDR",
                               })}
                             </td>
+                            <td>
+                              {data.harga_bongkar?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}
+                            </td>
+                            {serviceState === "Charter" ?
+                              <>
+                                <td>
+                                  {data.totalBiayaCharter?.toLocaleString("id-ID", {
+                                    style: "currency",
+                                    currency: "IDR",
+                                  })}
+                                </td>
+                              </> : <>
+                                <td>
+                                  {data.totalBiayaRetail?.toLocaleString("id-ID", {
+                                    style: "currency",
+                                    currency: "IDR",
+                                  })}
+                                </td>
+                              </>}
+
                             <td>
                               {/* {jobdesk == "operasional" &&
                                 Kendaraan_operasionalStatus === "Y" && (
@@ -2633,7 +2742,7 @@ function FormTable({
             </tbody>
             <tfoot>
               <tr style={{ fontWeight: "bold" }}>
-                <td colSpan={11} width="150px" className="text-right">
+                <td colSpan={12} width="150px" className="text-right">
                   Sub Total
                 </td>
                 <td width="160px">
@@ -2799,60 +2908,6 @@ function FormTable({
                 </div>
               </Col>
             </Row>
-            {/* <tr>
-              <>
-                <p style={{ fontWeight: "bold" }}>
-                  Biaya Muat :
-                  {IsiDataSPSemua?.totalMuat?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </p>
-                <p style={{ fontWeight: "bold" }}>
-                  Biaya Bongkar :
-                  {IsiDataSPSemua?.totalBongkar?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </p>
-                <p style={{ fontWeight: "bold" }}>
-                  Biaya MultiDrop :
-                  {IsiDataSPSemua?.biaya_multidrop?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </p>
-                <p style={{ fontWeight: "bold" }}>
-                  Biaya Overtonase :
-                  {IsiDataSPSemua?.biaya_overtonase?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </p>
-                <p style={{ fontWeight: "bold" }}>
-                  Biaya Mel :
-                  {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </p>
-                <p style={{ fontWeight: "bold" }}>
-                  Biaya Inap :
-                  {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </p>
-                <hr />
-                <p style={{ fontWeight: "bold" }}>
-                  TOTAL KESELURUHAN :
-                  {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </p>
-              </>
-            </tr> */}
           </Table>
         </Col>
       </Row>
