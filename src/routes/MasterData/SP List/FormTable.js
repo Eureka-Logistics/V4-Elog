@@ -30,6 +30,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import useMitraStore from "../../../zustand/Store/MitraStore";
 import ModalCreatePO from "./ModalCreatePO/Index";
+import ModalDetailMarketing from "../Marketing/Splist/ModalDetailMarketing/Index";
 
 function FormTable({
   isidata,
@@ -65,6 +66,8 @@ function FormTable({
   const [LoadingMuterMuter, setLoadingMuterMuter] = useState(false);
   const [driveranother, setDriveranother] = useState("");
   const [selectanotherrvalue, setSelectanotherrvalue] = useState([]);
+  const [modal1OpenDetail, setmodal1OpenDetail] = useState(false);
+  const { Option } = SelectAntd;
   const { NamaMitra, fetchMitra } = useMitraStore((item) => ({
     NamaMitra: item.NamaMitra,
     fetchMitra: item.fetchMitra,
@@ -197,7 +200,9 @@ function FormTable({
   const [VehicleType1, setVehicleType1] = useState("")
   const [KodeKendaraanPurc1, setKodeKendaraanPurc1] = useState("")
   const [AmbilIdKendaraanPurch1, setAmbilIdKendaraanPurch1] = useState("")
-  const [AmbilNamaKendaraanPurch1, setAmbilNamaKendaraanPurch1] = useState("")
+  const [AmbilIDriverPucrh1, setAmbilIDriverPucrh1] = useState("")
+  const [AmbilKodeKendaraanPurch1, setAmbilKodeKendaraanPurch1] = useState("")
+  const [AmbilIdUnitPurch1, setAmbilIdUnitPurch1] = useState("")
 
   const vehiclePurch1 = async () => {
     let url = `${Baseurl}sp/get-SP-select-2?vehicleType=${VehicleType1}&mitra=${SelectMitraPertama}&id=${AmbilIdKendaraanPurch1}`;
@@ -216,6 +221,11 @@ function FormTable({
 
   }, [VehicleType1, SelectMitraPertama, AmbilIdKendaraanPurch1])
   let KodeKendaraanPurc1s = Array.isArray(KodeKendaraanPurc1) ? KodeKendaraanPurc1 : [];
+  const KodeKendaraanPurc1ss = KodeKendaraanPurc1s.map((item) => ({
+    label: item.no_polisi,
+    value: item.driverId,
+    id: item.id,
+  }));
 
   const vehicle = async () => {
     let url = `${Baseurl}sp/get-SP-select-2?vehicleType=${selectTypeMobil}&mitra=${mitra1Purchasing}&id=${selectnomor}`;
@@ -360,8 +370,18 @@ function FormTable({
 
   // console.log(`VehicleType1:  `, VehicleType1 );
   // console.log(`SelectMitraPertama:  `, SelectMitraPertama);
-  console.log(`Mitra1Multi `, Mitra1Multi   );
+  console.log(`KodeKendaraanPurc1ss `, KodeKendaraanPurc1s);
   ///tombol approve
+  const id_mitra_pickup = SelectMitraPertama ? SelectMitraPertama : (Mitra1Multi?.mitraId === "-" ? null : Mitra1Multi?.mitraId);
+  const id_mitra = mitra1Purchasing === "" ? id_mitra_pickup : mitra1Purchasing;
+  const pickup_kendaraan = VehicleType1 ? VehicleType1 : (DataUntukPurchsingDanApprovenya?.kendaraan === "-" ? null : DataUntukPurchsingDanApprovenya?.kendaraan);
+  const kendaraan = selectTypeMobil === "" ? pickup_kendaraan : selectTypeMobil;
+  const pickup_nopol = AmbilKodeKendaraanPurch1 ? AmbilKodeKendaraanPurch1 : (Mitra1Multi?.unit === "-" ? null : Mitra1Multi?.unit);
+  const nopol = selectnopol === "" ? pickup_nopol : selectnopol;
+  const pickup_supir = AmbilIDriverPucrh1 ? AmbilIDriverPucrh1 : (Mitra1Multi?.driverId === "-" ? null : Mitra1Multi?.driverId);
+  const supir = idUnit === "" ? pickup_supir : idUnit;
+  const id_unit = AmbilIdUnitPurch1 ? AmbilIdUnitPurch1 : (selectDriver[0]?.idUnit === "-" ? null : selectDriver[0]?.idUnit);
+  const id_unit_2 = selectnomor === "" ? id_unit : selectnomor;
   const HandleApprovePURCH = (idmpd) => {
     try {
       const body = {
@@ -376,31 +396,26 @@ function FormTable({
         // merk: types[0],
         id_mp: parseInt(idmp),
         id_mpd: IDMPD,
-        id_mitra_pickup: Mitra1Multi?.mitraId === "-" ? SelectMitraPertama : Mitra1Multi?.mitraId,
-        id_unit: selectDriver[0]?.idUnit ? selectDriver[0]?.idUnit : idUnit,
-        pickup_kendaraan: DataUntukPurchsingDanApprovenya?.kendaraan !== "-" ? VehicleType1 : DataUntukPurchsingDanApprovenya?.kendaraan,
-        pickup_nopol: Mitra1Multi?.unit,
-        pickup_supir: Mitra1Multi?.driverId === "-" ? idUnit3 : Mitra1Multi?.driverId,
-        id_driver: Mitra1Multi?.driverId === "-" ? idUnit3 : Mitra1Multi?.driverId,
+        id_mitra_pickup: SelectMitraPertama ? SelectMitraPertama : (Mitra1Multi?.mitraId === "-" ? null : Mitra1Multi?.mitraId),
+        id_unit: id_unit,
+        pickup_kendaraan: pickup_kendaraan,
+        pickup_nopol: pickup_nopol,
+        pickup_supir: pickup_supir,
+        id_driver: pickup_supir,
 
-        id_mitra: mitra1Purchasing === "" ? Mitra1Multi?.mitraId : mitra1Purchasing,
-        id_unit_2: selectnomor === "" ? selectDriver[0]?.idUnit : selectnomor,
-        id_driver_2: idUnit === "" ? selectDriver[0]?.idUnit : idUnit,
-        kendaraan: selectTypeMobil === "" ? DataUntukPurchsingDanApprovenya?.kendaraan : selectTypeMobil,
-        nopol: selectnopol === "" ? Mitra1Multi?.unit : selectnopol,
-        supir: idUnit == "" ? Mitra1Multi?.driverId : idUnit,
+        id_mitra: id_mitra,
+        id_unit_2: id_unit_2,
+        id_driver_2: supir,
+        kendaraan: kendaraan,
+        nopol: nopol,
+        supir: supir,
 
-        id_mitra_2: mitra2Purchasing === ""
-          ? (mitra1Purchasing === ""
-            ? Mitra1Multi?.mitraId
-            : mitra1Purchasing)
-          : mitra2Purchasing,
-
-        id_unit_3: selectnomor2 === "" ? selectnomor : selectnomor2,
-        id_driver_3: idUnit2 === "" ? idUnit : idUnit2,
-        kendaraan_2: selectTypeMobil2 === "" ? selectTypeMobil : selectTypeMobil2,
-        nopol_2: SelectNamaKendaraan3 === "" ? selectnopol : SelectNamaKendaraan3,
-        supir_2: idUnit2 === "" ? idUnit : idUnit2,
+        id_mitra_2: mitra2Purchasing === "" ? id_mitra : mitra2Purchasing,
+        id_unit_3: selectnomor2 === "" ? id_unit_2 : selectnomor2,
+        id_driver_3: idUnit2 === "" ? supir : idUnit2,
+        kendaraan_2: selectTypeMobil2 === "" ? kendaraan : selectTypeMobil2,
+        nopol_2: SelectNamaKendaraan3 === "" ? nopol : SelectNamaKendaraan3,
+        supir_2: idUnit2 === "" ? supir : idUnit2,
 
       };
 
@@ -412,6 +427,7 @@ function FormTable({
           },
         })
       const isidata = response?.data?.status;
+      console.log(response);
       setApproved(isidata);
       Swal.fire({
         icon: "success",
@@ -809,7 +825,9 @@ function FormTable({
       setNamaSupir(data.data.data.driverName);
     } catch (error) { }
   };
-
+  const DetailMarketing = () => {
+    setmodal1OpenDetail(true)
+  }
   const BuatVehicle = async (values, newFileList) => {
     try {
       const formData = new FormData();
@@ -2034,14 +2052,17 @@ function FormTable({
                           <>
                             <Form.Label>Select Mitra 1</Form.Label>
                             <Select
+                              styles={{ width: "100%" }}
                               placeholder={Mitra1Multi?.mitra || ""}
                               options={mitraOptions}
                               onChange={(mitraOptions) => {
+                                console.log(`ini dari select`, mitraOptions.value);
                                 setSelectMitraPertama(mitraOptions.value);
                               }}
                             >
                             </Select>
-                          </>
+                          </
+                          >
                         )}
                       </Col>
 
@@ -2072,28 +2093,23 @@ function FormTable({
                         </Form.Select>
                       </Col>
                       <Col sm={3}>
-                        <Form.Label>Kode Kendaraanss</Form.Label>
-                        <Form.Select placeholder={DataUntukPurchsingDanApprovenya?.unit}
-
+                        <Form.Label>Kode Kendaraans</Form.Label>
+                        <Select placeholder={Mitra1Multi?.unit}
+                          options={KodeKendaraanPurc1ss}
                           onChange={(e, key, option) => {
-                            setAmbilIdKendaraanPurch1(e.target.value)
-                            setAmbilNamaKendaraanPurch1(e.target.value)
+                            console.log(e);
+                            // setAmbilIdKendaraanPurch1(e.target.value)
+                            setAmbilKodeKendaraanPurch1(e.label)
+                            setAmbilIDriverPucrh1(e.value)
+                            setAmbilIdUnitPurch1(e.id)
                           }}
                         >
-                          {/* <option>Select Kendaraan</option> */}
-                          {
-                            KodeKendaraanPurc1s.map((i, index) => (
-                              <option key={i} option={i.no_polisi} value={i?.id}>
-                                {i?.no_polisi}
-                              </option>
-                            ))
-                          }
-                        </Form.Select>
+                        </Select>
                       </Col>
                       <Col sm={3}>
                         <Form.Label>Select Driversss</Form.Label>
                         <Select
-                           placeholder={Mitra1Multi?.driverName || ""}
+                          placeholder={Mitra1Multi?.driverName || ""}
                           onChange={(e) => {
                             console.log(e);
                             setIdunit3(e.value);
@@ -2329,8 +2345,26 @@ function FormTable({
             </Form.Group>
             <Form.Group>
               <Form.Label>Marketing</Form.Label>
-              <Form.Control type="text" disabled value={NamaMarketing} />
+              <div style={{ position: 'relative' }}>
+                <Form.Control type="text" disabled value={NamaMarketing} />
+                <Tag
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    right: '10px',
+                    transform: 'translateY(-50%)',
+                    backgroundColor: 'RGB(81 130 243)',
+                    color: 'white',
+                    cursor: 'pointer'
+                  }}
+                  onClick={() => DetailMarketing()}
+                  type="primary"
+                >
+                  Lihat Detail Marketing
+                </Tag>
+              </div>
             </Form.Group>
+            <ModalDetailMarketing detailsemua={spdetailsemuanyasekarang} modal1Open={modal1OpenDetail} setModal1Open={setmodal1OpenDetail} name={NamaMarketing} />
           </Form>
         </Col>
         <Col sm={6}>

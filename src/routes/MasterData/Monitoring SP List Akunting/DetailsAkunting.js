@@ -10,6 +10,7 @@ import Baseurl from "../../../Api/BaseUrl";
 import Swal from "sweetalert2";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import useServiceStatusStore from "../../../zustand/Store/StatusService";
+import ModalDetailMarketing from "../Marketing/Splist/ModalDetailMarketing/Index";
 function DetailsAkunting() {
   const history = useHistory();
   const [detailData, setDetailData] = useState([]);
@@ -18,6 +19,8 @@ function DetailsAkunting() {
   const { isicombinedData, setisiCombinedData } = mobil((item) => ({
     sp: item.sp,
   }));
+  const [modal1Open, setModal1Open] = useState(false);
+  const [modal1OpenDetail, setmodal1OpenDetail] = useState(false);
   const { idmp } = useParams();
   const [comment, setComment] = useState([]);
   const [ApproveAkuntingStatus, setApproveAkuntingStatus] = useState("");
@@ -26,7 +29,6 @@ function DetailsAkunting() {
   const [tgl_act_4, settgl_act_4] = useState("");
   const [Kendaraan_purchasing, setKendaraan_purchasing] = useState("");
   const [tgl_act_5, settgl_act_5] = useState("");
-  const [modal1Open, setModal1Open] = useState(false);
   const [MessageRejectSP, setMessageRejectSP] = useState("");
   const [IDMessageRejectSP, setIDMessageRejectSP] = useState("");
   const [KeteranganRejectSP, setKeteranganRejectSP] = useState("");
@@ -304,7 +306,9 @@ function DetailsAkunting() {
       }
     }
   };
-
+  const DetailMarketing = () => {
+    setmodal1OpenDetail(true)
+}
   let nuomber = 1
   return (
     <div>
@@ -491,8 +495,27 @@ function DetailsAkunting() {
               </Form.Group>
               <Form.Group>
                 <Form.Label>Marketing</Form.Label>
-                <Form.Control disabled value={detailData?.marketing} />
+                <div style={{ position: 'relative' }}>
+                  <Form.Control disabled value={detailData?.marketing} />
+                  <Tag
+                    style={{
+                      position: 'absolute',
+                      top: '50%',
+                      right: '10px',
+                      transform: 'translateY(-50%)',
+                      backgroundColor: 'RGB(81 130 243)',
+                      color: 'white',
+                      cursor: 'pointer'
+                    }}
+                    onClick={() => DetailMarketing()}
+                    type="primary"
+                  >
+                    Lihat Detail Marketing
+                  </Tag>
+                </div>
               </Form.Group>
+              <ModalDetailMarketing detailsemua={detailData} modal1Open={modal1OpenDetail} setModal1Open={setmodal1OpenDetail} name={detailData?.marketing} />
+
             </Form>
           </Col>
           <Col sm={6}>
@@ -628,7 +651,7 @@ function DetailsAkunting() {
                               <td>{data.item}</td>
                               <td>{data.berat}</td>
                               <td>{data.qty}</td>
-                              {jobdesk !== "operasional" && statusservice === "Charter" &&(
+                              {jobdesk !== "operasional" && statusservice === "Charter" && (
                                 <>
                                   <td>
                                     {data.Price?.toLocaleString("id-ID", {
@@ -655,10 +678,10 @@ function DetailsAkunting() {
                                     })}
                                   </td>
                                 </>
-                              ) }
+                              )}
                               {jobdesk !== "operasional" && statusservice === "Retail" &&
-                              <>
-                              <td>
+                                <>
+                                  <td>
                                     {data.Price?.toLocaleString("id-ID", {
                                       style: "currency",
                                       currency: "IDR",
@@ -682,7 +705,7 @@ function DetailsAkunting() {
                                       currency: "IDR",
                                     })}
                                   </td>
-                              </>
+                                </>
                               }
                             </tr>
                           </>

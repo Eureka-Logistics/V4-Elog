@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Input, Select, Tag, notification } from "antd";
+import { Card, Input, Select, Tag, Tooltip, notification } from "antd";
 import { Col, Row, Form, Button } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import axios from "axios";
@@ -138,7 +138,18 @@ function SPListlama() {
     },
     {
       name: "Marketing",
-      selector: (row) => row?.salesName,
+      selector: (row) => (
+        <Tooltip title={<>
+          {"Kacap: " + row?.kacab} <br />
+          {"Asm: " + row?.asm} <br />
+          {"gl: " + row?.gl} <br />
+          {"mgr: " + row?.mgr} <br />
+          {"amd: " + row?.amd} <br />
+        </>}
+        >
+          {row?.salesName}
+        </Tooltip>
+      ),
       width: "100px",
       wrap: true,
     },
@@ -224,13 +235,13 @@ function SPListlama() {
               Approved <br /> {data}
             </Tag>
           );
-        } else if (row?.approveOps === "N" && (dateApproveOps ===  "1970-01-01 07:00:00")) {
+        } else if (row?.approveOps === "N" && (dateApproveOps === "1970-01-01 07:00:00")) {
           return (
             <Tag color="yellow">
               Waiting <br />  -
             </Tag>
           );
-        } else if (row?.approveOps === "N" && (dateApproveOps !==  "1970-01-01 07:00:00")) {
+        } else if (row?.approveOps === "N" && (dateApproveOps !== "1970-01-01 07:00:00")) {
           return (
             <Tag color="red">
               Diverted <br /> {data}

@@ -1297,6 +1297,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                 <td>Service</td>
                                                 <td>Via</td>
                                                 <td>Item</td>
+                                                <td>Shipment</td>
                                                 <td>Berat</td>
                                                 <td>Qty</td>
                                                 <td width="150px">Tarif</td>
@@ -1361,6 +1362,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                 <td>{DetailSemua?.service}</td>
                                                 <td>{data?.via}</td>
                                                 <td>{data.item}</td>
+                                                <td>{data.shipmentName}</td>
                                                 <td>{data.berat}</td>
                                                 <td>{data.qty}</td>
                                                 <td>{data.Price?.toLocaleString("id-ID", {
@@ -1402,7 +1404,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                 </tbody>
                 <tfoot>
                     <tr style={{ fontWeight: "bold" }}>
-                        <td colSpan={12} width="150px" className="text-right">
+                        <td colSpan={13} width="150px" className="text-right">
                             Sub Total
                         </td>
                         <td width="150px">{DetailSemua?.subTotal?.toLocaleString("id-ID", {
@@ -1599,7 +1601,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     <br />
                     <hr />
                     <Row>
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <Form.Item
                                 required
                                 label="Kendaraan"
@@ -1631,7 +1633,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <Form.Item
                                 required
                                 label="Via"
@@ -1660,7 +1662,36 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col sm={4}>
+                        <Col sm={3}>
+                            <Form.Item
+                                required
+                                label="Shipment"
+                                help={formik.touched.via && formik.errors.via}
+                                // validateStatus={
+                                //     formik.touched.via && formik.errors.via
+                                //         ? 'error'
+                                //         : 'success'
+                                // }
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Select
+                                    required
+                                    id="via"
+                                    disabled
+                                    name="via"
+                                    type="via"
+                                    onChange={(e) => formik.setFieldValue("via", e)}
+                                    value={data?.shipmentName}
+                                    onBlur={formik.handleBlur}
+                                >
+                                    {/* {selectVia && selectVia.map((item) => (
+                                        <Select.Option value={item.via}>{item.via}</Select.Option>
+                                    ))} */}
+
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                        <Col sm={3}>
                             <Form.Item
                                 required
                                 label="Service"
@@ -1683,7 +1714,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         formik.setFieldValue("shipmentID", e)
                                         console.log(e);
                                     }}
-                                    value={data?.shipmentName}
+                                    value={data?.service}
                                     onBlur={formik.handleBlur}
                                 >
                                     {/* {shipmentOptions && shipmentOptions.map((item) => (
