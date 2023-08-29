@@ -75,7 +75,7 @@ function CreateBU() {
     <div>
       <Row>
         <Col span={24}>
-          <label style={{ fontWeight: "bold" }}>ID BU :</label>
+          <label style={{ fontWeight: "bold" }}>Kode BU :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
             type="number"

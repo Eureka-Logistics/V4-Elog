@@ -3,7 +3,7 @@ import Baseurl from "../../../../Api/BaseUrl";
 import axios from "axios";
 import { useParams } from "react-router";
 import Swal from "sweetalert2";
-import { Button, Col, Input, Row, Select } from "antd";
+import { Button, Card, Col, Input, Row, Select } from "antd";
 import useBanksStore from "../../../../zustand/Store/NamaNamaBank";
 
 function CreateMitraCabang() {
@@ -61,7 +61,8 @@ function CreateMitraCabang() {
     <div>
       {/* <h5>Create New Mitra Cabang</h5> */}
       {/* <hr /> */}
-      <h5>
+     <Card>
+     <h5>
         Data Contact PIC
       </h5>
       <hr/>
@@ -160,6 +161,7 @@ function CreateMitraCabang() {
           </Button>
         </Col>
       </Row>
+     </Card>
     </div>
   );
 }

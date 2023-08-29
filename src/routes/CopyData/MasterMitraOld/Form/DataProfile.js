@@ -1412,6 +1412,9 @@ const SamplePage = () => {
                 >
                   <option value={"elogs"}>ELOGS</option>
                   <option value={"race"}>RACE</option>
+                  <option value={"masdis"}>MASDIS</option>
+                  <option value={"katarasa"}>KATARSA</option>
+                  <option value={"jaja"}>JAJA</option>
                 </Select>
               </Form.Group>
             </Col>

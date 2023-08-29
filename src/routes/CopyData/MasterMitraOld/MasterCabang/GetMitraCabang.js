@@ -40,6 +40,7 @@ function GetMitraCabang(idmitra) {
   const [DataCabangEmail, setDataCabangEmail] = useState("");
   const [DataCabangTelp, setDataCabangTelp] = useState("");
   const { banks } = useBanksStore();
+  const [DataEdit, setDataEdit] = ("");
 
   const initialValues = {
     bank: DataBank,
@@ -184,7 +185,7 @@ function GetMitraCabang(idmitra) {
   };
 
   const handleAdd = () => {
-    // router.push(`/CreatemastermitraCabang/${idmitra.mitraId}`);
+    router.push(`/CreatemastermitraCabang/${idmitra.mitraId}`);
     showModal();
   };
 
