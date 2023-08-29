@@ -8,6 +8,7 @@ import axios from 'axios';
 import Baseurl from '../../../../../Api/BaseUrl';
 import ZustandStore from '../../../../../zustand/Store/JenisKepemilikanOptions';
 import useMitraStore from '../../../../../zustand/Store/MitraStore';
+import AnotherDriverZustand from '../../../../../zustand/Store/NamaAnotherDriver';
 
 function Index() {
     const { id } = useParams()
@@ -25,6 +26,12 @@ function Index() {
     const [KendaraanMitra1, setKendaraanMitra1] = useState("")
     const [KendaraanMitra2, setKendaraanMitra2] = useState(DataDetail.mitra1)
     const [KendaraanMitra3, setKendaraanMitra3] = useState(DataDetail.mitra2)
+    const { NamaAnotherZustand, SetnamaAnotherZustand } = AnotherDriverZustand((state) => ({
+        NamaAnotherZustand: state.NamaAnotherZustand,
+        SetnamaAnotherZustand: state.SetnamaAnotherZustand
+    }));
+    console.log(`ini NamaAnotherZustand`, NamaAnotherZustand);
+
     let nambahangka = 1
     const { NamaMitra, fetchMitra } = useMitraStore((item) => ({
         NamaMitra: item.NamaMitra,
@@ -132,6 +139,7 @@ function Index() {
             setkendaraanOptions1(data.data.kendaraan)
             setDriverOptions1(data.data.driver)
             setKendaraanMitra1(data.data.kendaraan.kodeKendaraan)
+            console.log(`data`, data);
         } catch (error) {
 
         }
@@ -144,6 +152,7 @@ function Index() {
         fetchMitra()
         select()
         setKendaraan()
+        SetnamaAnotherZustand()
     }, [kendaraan, NoPol1])
     if (!DataDetail) {
         return "Memuat data...";
@@ -431,7 +440,7 @@ function Index() {
 
                             >
                                 <Select optionFilterProp='children' showSearch
-                                    onChange={(e) => { setKendaraanMitra1(e);  }}
+                                    onChange={(e) => { setKendaraanMitra1(e); }}
                                 >
                                     {NamaMitra && NamaMitra.map((item) => (
 
@@ -502,8 +511,12 @@ function Index() {
                                 {/* <Input value={NamaDriver1} /> */}
                                 <Select value={NamaDriver1}>
 
-                                    {DriverOptions1 && DriverOptions1.map((i) => (
+                                    {/* {DriverOptions1 && DriverOptions1.map((i) => (
                                         <option>{i.nama}</option>
+                                    ))} */}
+
+                                    {NamaAnotherZustand && NamaAnotherZustand.map((i) => (
+                                        <option>{i.name}</option>
                                     ))}
                                 </Select>
                             </Form.Item>
@@ -578,7 +591,12 @@ function Index() {
                                     },
                                 ]}
                             >
-                                <Input />
+                                {/* <Input /> */}
+                                <Select>
+                                    {NamaAnotherZustand && NamaAnotherZustand.map((i) => (
+                                        <option>{i.name}</option>
+                                    ))}
+                                </Select>
                             </Form.Item>
                             <Form.Item
                                 label="No HP Supir"
@@ -590,6 +608,7 @@ function Index() {
                                 ]}
                             >
                                 <Input />
+
                             </Form.Item>
                         </Col>
                         <Col sm={4}>
@@ -655,7 +674,11 @@ function Index() {
                                     },
                                 ]}
                             >
-                                <Input />
+                                <Select>
+                                    {NamaAnotherZustand && NamaAnotherZustand.map((i) => (
+                                        <option>{i.name}</option>
+                                    ))}
+                                </Select>
                             </Form.Item>
                             <Form.Item
                                 label="No HP Supir"

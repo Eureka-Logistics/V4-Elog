@@ -119,7 +119,7 @@ function DetailsAkunting() {
             title: "Berhasil",
             text: "Data telah disetujui.",
           });
-          window.location.reload();
+          comments();
         } catch (error) {
           Swal.fire({
             icon: "error",
