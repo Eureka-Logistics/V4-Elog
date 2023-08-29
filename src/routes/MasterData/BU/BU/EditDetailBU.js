@@ -13,6 +13,8 @@ function DetailBU() {
   const [DataNamaBU, setDataNamaBU] = useState("");
   const [DataKodeBU, setDataKodeBU] = useState("");
   const [DataCBU, setDataCBU] = useState("");
+  const [DataIDBu, setDataIDBu] = useState("");
+  
 
   const DetailBisnisUnit = async (buId) => {
     try {
@@ -30,6 +32,7 @@ function DetailBU() {
       setDataNamaBU(respons.data.data.name_bu || "");
       setDataKodeBU(respons.data.data.code_bu || "");
       setDataCBU(respons.data.data.cbu || "");
+      setDataIDBu(respons.data.data.id_bu || "");
 
     } catch (error) {}
   };
@@ -37,6 +40,7 @@ function DetailBU() {
   const EditDetailBU = async () => {
     try {
       const data = {
+        id : DataIDBu,
         id_bu: buId,
         name_bu: DataNamaBU,
         code_bu: DataKodeBU,
@@ -58,7 +62,7 @@ function DetailBU() {
         Swal.fire({
           icon: "success",
           title: "Success",
-          text: "Tarif has been saved",
+          text: "Data has been changed",
           // footer: '<a href="">Why do I have this issue?</a>'
         });
       } else if (response.status === 500) {
@@ -75,7 +79,7 @@ function DetailBU() {
       console.error(`ini errorr`, error);
       Swal.fire({
         icon: "error",
-        title: "Isi Semua Data Terlebih dahulu",
+        title: "Data Sudah Ada",
         // text: "Isi Semua Data",
         // footer: '<a href="">Why do I have this issue?</a>'
       });
@@ -98,6 +102,22 @@ function DetailBU() {
         <hr />
         <Row >
           <Col span={24} className='mt-3'>
+          <label style={{fontWeight: 'bold'}}>Kode BU :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={DataIDBu}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setDataIDBu(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+        </Row>
+        <Row >
+          <Col span={24} className='mt-3'>
           <label style={{fontWeight: 'bold'}}>Nama Bisnis Unit :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
@@ -112,9 +132,10 @@ function DetailBU() {
             </div>
           </Col>
         </Row>
+       
         <Row >
           <Col span={24} className='mt-3'>
-          <label style={{fontWeight: 'bold'}}>Kode Bisnis Unit :</label>
+          <label style={{fontWeight: 'bold'}}>Nama Bisnis Unit :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input

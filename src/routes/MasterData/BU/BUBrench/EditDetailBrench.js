@@ -53,7 +53,7 @@ function EditDetailBrench() {
         id_bu_brench: bubrenchId,
         code_bu_brench: IDBuCode,
         id_bu: IDBuBrench,
-        // name_bu_brench: NamaBrench,
+        name_bu_brench: NamaBrench,
       };
 
       const response = await axios.post(`${Baseurl}bu/edit-bu-brench`, data, {
@@ -67,7 +67,7 @@ function EditDetailBrench() {
         Swal.fire({
           icon: "success",
           title: "Success",
-          text: "Tarif has been saved",
+          text: "Data has been saved",
           // footer: '<a href="">Why do I have this issue?</a>'
         });
       } else if (response.status === 500) {
@@ -102,7 +102,7 @@ function EditDetailBrench() {
         <h5>Data Detail Bisnis Unit Brench</h5>
         <hr />
         <Row>
-          {/* <Col span={24} className="mt-3">
+          <Col span={24} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Nama BU Brench :</label>
             <div style={{ paddingRight: "30px" }}>
               <Input
@@ -114,7 +114,7 @@ function EditDetailBrench() {
                 }}
               />
             </div>
-          </Col> */}
+          </Col>
           <Col span={24} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Code BU Brench :</label>
             {/* Menghubungkan input tarif dengan state tarif */}

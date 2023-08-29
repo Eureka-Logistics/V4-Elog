@@ -55,9 +55,14 @@ function IndexBU() {
       key: "no",
     },
     {
-      title: "Kode Bisnis Unit",
-      dataIndex: "buCode",
-      key: "buCode",
+      title: "Kode BU",
+      dataIndex: "buId",
+      key: "buId",
+    },
+    {
+      title: "Nama Alias",
+      dataIndex: "cbu",
+      key: "cbu",
       render: (text) => <Tag color="blue">{text}</Tag>,
     },
     {
@@ -65,11 +70,7 @@ function IndexBU() {
       dataIndex: "buName",
       key: "buName",
     },
-    {
-      title: "CBU",
-      dataIndex: "cbu",
-      key: "cbu",
-    },
+    
     {
       title: "STATUS",
       dataIndex: "status",
@@ -121,7 +122,7 @@ function IndexBU() {
 
   const handleDelete = (buId) => {
     Modal.confirm({
-      title: "Are you sure you want to delete this Tarif?",
+      title: "Are you sure you want to delete this BU ?",
       icon: <ExclamationCircleOutlined />,
       content: "This action cannot be undone.",
       onOk() {

@@ -16,7 +16,7 @@ function IndexEmployee() {
 
   const handleView = (idEmploye) => {
     router.push(`/EditDetailEmployeeBU/${idEmploye}`);
-    console.log("ini id_bu", idEmploye);
+    console.log("ini id_bu", );
   };
 
   const handleAdd = () => {
@@ -140,7 +140,7 @@ function IndexEmployee() {
           visible={isModalVisible}
           footer={null}
           onCancel={() => setIsModalVisible(false)}
-          width={1000}
+          width={1200}
         >
           <CreateBUEmployee />
         </Modal>

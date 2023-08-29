@@ -49,33 +49,33 @@ function CreateBU() {
     }
   };
 
-  const handleKodeBUChange = (e) => {
-    const inputValue = e.target.value;
+  // const handleKodeBUChange = (e) => {
+  //   const inputValue = e.target.value;
 
-    if (inputValue.length <= 3) {
-      setDataKodeBU(inputValue.toUpperCase());
-      setKodeBUError('');
-    } else {
-      setKodeBUError('Kode Bisnis Unit harus terdiri dari 3 huruf');
-    }
-  };
+  //   if (inputValue.length <= 3) {
+  //     setDataKodeBU(inputValue.toUpperCase());
+  //     setKodeBUError('');
+  //   } else {
+  //     setKodeBUError('Kode Bisnis Unit harus terdiri dari 3 huruf');
+  //   }
+  // };
 
-  const handleCBUChange = (e) => {
-    const inputValue = e.target.value;
+  // const handleCBUChange = (e) => {
+  //   const inputValue = e.target.value;
 
-    if (inputValue.length <= 2) {
-      setDataCBU(inputValue);
-      setCBUError('');
-    } else {
-      setCBUError('CBU harus terdiri dari 2 huruf');
-    }
-  };
+  //   if (inputValue.length <= 2) {
+  //     setDataCBU(inputValue);
+  //     setCBUError('');
+  //   } else {
+  //     setCBUError('CBU harus terdiri dari 2 huruf');
+  //   }
+  // };
 
   return (
     <div>
       <Row>
         <Col span={24}>
-          <label style={{ fontWeight: "bold" }}>ID BU :</label>
+          <label style={{ fontWeight: "bold" }}>Kode BU :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
             type="number"

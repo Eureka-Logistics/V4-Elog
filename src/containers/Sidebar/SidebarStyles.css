@@ -34,6 +34,10 @@
     background-color: #000;  /* Adjust color as needed */
 }
 
+.ant-layout-sider .ant-menu-submenu > .ant-menu.ant-menu-sub .ant-menu-item, .ant-drawer .ant-menu-submenu > .ant-menu.ant-menu-sub .ant-menu-item {
+    padding-left: 35px !important;
+}
+
 
 
 /* Change the color of icons or other elements inside the menu item on hover or when selected */

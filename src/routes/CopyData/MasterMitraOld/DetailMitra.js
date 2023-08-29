@@ -7,6 +7,7 @@ import DataReferensi from "./Form/DataReferensi";
 import DataKeuangan from "./Form/DataKeuangan";
 import PIC from "./Form/PIC";
 import DataBaru from "./Form/Databaru";
+import GetMitraCabang from "./MasterCabang/GetMitraCabang";
 
 // import Report from "./Form/Report";
 export default function DetailMitra() {
@@ -29,14 +30,16 @@ export default function DetailMitra() {
               <Tab eventKey="home" title="DATA PROFILE">
                 <DataBaru mitraId={mitraId} />
               </Tab>
-              <Tab eventKey="profile" title="DATA REFERENSI">
+              {/* <Tab eventKey="profile" title="DATA REFERENSI">
                 <DataReferensi mitraId={mitraId} />
-              </Tab>
-              <Tab eventKey="longer-tab" title="DATA KEUANGAN">
-                <DataKeuangan mitraId={mitraId} />
+              </Tab> */}
+              <Tab eventKey="longer-tab" title="DATA CABANG">
+                <GetMitraCabang mitraId={mitraId} />
               </Tab>
               <Tab eventKey="contact" title="PIC">
                 <PIC mitraId={mitraId} />
+                
+               
       {/* <PIC namaMitra={namaMitra}/> */}
 
               </Tab>
