@@ -325,12 +325,12 @@ const App = ({ match }) => {
             import("./MasterData/Marketing/Splist/createSPBaru/Index")
           )}
         />
-        <Route
+        {/* <Route
           path={`${match.url}masterdata/marketing/createspbaru`}
           component={asyncComponent(() =>
             import("./MasterData/Marketing/Splist/createSPBaru/CreateBaru")
           )}
-        />
+        /> */}
 
         <Route
           path={`${match.url}masterdata/driver`}

@@ -9,6 +9,8 @@ import mobil from "../../redux toolkit/store/ZustandStore";
 import Baseurl from "../../../Api/BaseUrl";
 import Swal from "sweetalert2";
 import { CheckCircleOutlined } from "@ant-design/icons";
+import useServiceStatusStore from "../../../zustand/Store/StatusService";
+import ModalDetailMarketing from "../Marketing/Splist/ModalDetailMarketing/Index";
 function DetailsAkunting() {
   const history = useHistory();
   const [detailData, setDetailData] = useState([]);
@@ -17,6 +19,8 @@ function DetailsAkunting() {
   const { isicombinedData, setisiCombinedData } = mobil((item) => ({
     sp: item.sp,
   }));
+  const [modal1Open, setModal1Open] = useState(false);
+  const [modal1OpenDetail, setmodal1OpenDetail] = useState(false);
   const { idmp } = useParams();
   const [comment, setComment] = useState([]);
   const [ApproveAkuntingStatus, setApproveAkuntingStatus] = useState("");
@@ -25,12 +29,11 @@ function DetailsAkunting() {
   const [tgl_act_4, settgl_act_4] = useState("");
   const [Kendaraan_purchasing, setKendaraan_purchasing] = useState("");
   const [tgl_act_5, settgl_act_5] = useState("");
-  const [modal1Open, setModal1Open] = useState(false);
   const [MessageRejectSP, setMessageRejectSP] = useState("");
   const [IDMessageRejectSP, setIDMessageRejectSP] = useState("");
   const [KeteranganRejectSP, setKeteranganRejectSP] = useState("");
-  console.log(`ApproveAkuntingTgl`, ApproveAkuntingTgl);
   // message reject
+  let statusservice = detailData?.service
   const MessageReject = async () => {
     try {
       const data = await axios.get(
@@ -193,14 +196,7 @@ function DetailsAkunting() {
       Swal.fire("Berhasil!", "Permintaan berhasil!", "success");
       setDetailData()
     } catch (error) {
-      // Munculkan SweetAlert jika terjadi error
-      if (error.response && error.response.status === 403) {
-        const isieror = error.response.data.status.message;
-        Swal.fire("Gagal!", `${isieror}`, "error");
-      } else if (error.response && error.response.status === 403) {
-        const isieror = error.response.data.status.message;
-        Swal.fire("Gagal!", `${isieror}`, "error");
-      }
+      message.error(error.response.data.status.message)
     }
   };
   const comments = async () => {
@@ -310,7 +306,9 @@ function DetailsAkunting() {
       }
     }
   };
-
+  const DetailMarketing = () => {
+    setmodal1OpenDetail(true)
+}
   let nuomber = 1
   return (
     <div>
@@ -435,6 +433,7 @@ function DetailsAkunting() {
                 <>
                   <Button
                     size="sm"
+                    className="mx-2"
                     onClick={() => setModal1Open(true)}
                     variant="danger"
                   >
@@ -496,8 +495,27 @@ function DetailsAkunting() {
               </Form.Group>
               <Form.Group>
                 <Form.Label>Marketing</Form.Label>
-                <Form.Control disabled value={detailData?.marketing} />
+                <div style={{ position: 'relative' }}>
+                  <Form.Control disabled value={detailData?.marketing} />
+                  <Tag
+                    style={{
+                      position: 'absolute',
+                      top: '50%',
+                      right: '10px',
+                      transform: 'translateY(-50%)',
+                      backgroundColor: 'RGB(81 130 243)',
+                      color: 'white',
+                      cursor: 'pointer'
+                    }}
+                    onClick={() => DetailMarketing()}
+                    type="primary"
+                  >
+                    Lihat Detail Marketing
+                  </Tag>
+                </div>
               </Form.Group>
+              <ModalDetailMarketing detailsemua={detailData} modal1Open={modal1OpenDetail} setModal1Open={setmodal1OpenDetail} name={detailData?.marketing} />
+
             </Form>
           </Col>
           <Col sm={6}>
@@ -551,7 +569,7 @@ function DetailsAkunting() {
                     <>
                       <tr style={{ fontWeight: "bold" }}>
                         <td colSpan={10}>
-                          <hr />
+                          <br />
                           <br />{" "}
                         </td>
                       </tr>
@@ -563,7 +581,7 @@ function DetailsAkunting() {
                         }}
                       >
                         <td>{index + 1}.</td>
-                        <td colSpan={9}>Alamat Muat</td>
+                        <td colSpan={14}>Alamat Muat</td>
                       </tr>
                       <tr key={index}>
                         <td>
@@ -595,13 +613,16 @@ function DetailsAkunting() {
                               <td>Alamat Bongkar</td>
                               <td width="100px">NO SM</td>
                               <td>Kendaraan</td>
+                              <td>Service</td>
                               <td>Via</td>
                               <td>Item</td>
                               <td>Berat</td>
                               <td>Qty</td>
                               {jobdesk !== "operasional" && (
                                 <>
-                                  <td width="150px">Biaya Kirim</td>
+                                  <td width="150px">Tarif</td>
+                                  <td width="150px">Biaya Muat</td>
+                                  <td width="150px">Biaya Bongkar</td>
                                   <td width="150px">Total</td>
                                 </>
                               )}
@@ -625,11 +646,12 @@ function DetailsAkunting() {
                               <td>{data.destination}</td>
                               <td>{data.noSJ}</td>
                               <td>{data.kendaraan}</td>
+                              <td>{data.service}</td>
                               <td>{data?.via}</td>
                               <td>{data.item}</td>
                               <td>{data.berat}</td>
                               <td>{data.qty}</td>
-                              {jobdesk !== "operasional" && (
+                              {jobdesk !== "operasional" && statusservice === "Charter" && (
                                 <>
                                   <td>
                                     {data.Price?.toLocaleString("id-ID", {
@@ -638,13 +660,53 @@ function DetailsAkunting() {
                                     })}
                                   </td>
                                   <td>
-                                    {data.Price?.toLocaleString("id-ID", {
+                                    {data.harga_muat?.toLocaleString("id-ID", {
+                                      style: "currency",
+                                      currency: "IDR",
+                                    })}
+                                  </td>
+                                  <td>
+                                    {data.harga_bongkar?.toLocaleString("id-ID", {
+                                      style: "currency",
+                                      currency: "IDR",
+                                    })}
+                                  </td>
+                                  <td>
+                                    {data.totalBiayaCharter?.toLocaleString("id-ID", {
                                       style: "currency",
                                       currency: "IDR",
                                     })}
                                   </td>
                                 </>
                               )}
+                              {jobdesk !== "operasional" && statusservice === "Retail" &&
+                                <>
+                                  <td>
+                                    {data.Price?.toLocaleString("id-ID", {
+                                      style: "currency",
+                                      currency: "IDR",
+                                    })}
+                                  </td>
+                                  <td>
+                                    {data.harga_muat?.toLocaleString("id-ID", {
+                                      style: "currency",
+                                      currency: "IDR",
+                                    })}
+                                  </td>
+                                  <td>
+                                    {data.harga_bongkar?.toLocaleString("id-ID", {
+                                      style: "currency",
+                                      currency: "IDR",
+                                    })}
+                                  </td>
+                                  <td>
+                                    {data.totalBiayaRetail?.toLocaleString("id-ID", {
+                                      style: "currency",
+                                      currency: "IDR",
+                                    })}
+                                  </td>
+                                </>
+                              }
                             </tr>
                           </>
                         ))}
@@ -656,7 +718,7 @@ function DetailsAkunting() {
                 <tr style={{ fontWeight: "bold" }}>
                   {jobdesk !== "operasional" && (
                     <>
-                      <td colSpan={9} width="150px" className="text-right">
+                      <td colSpan={12} width="150px" className="text-right">
                         Sub Total
                       </td>
                     </>

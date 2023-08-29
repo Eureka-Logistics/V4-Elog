@@ -500,6 +500,18 @@ function VehicleBaru() {
         }
     }
 
+    const perhitunganVolume = () => {
+        const panjang = Number(formik.values.panjang) || 0;
+        const lebar = Number(formik.values.lebar) || 0;
+        const tinggi = Number(formik.values.tinggi) || 0;
+
+        const volume = panjang * lebar * tinggi;
+
+        return volume;
+    };
+
+
+
     return (
 
         <div>
@@ -1078,6 +1090,29 @@ function VehicleBaru() {
                                         </Col>
                                     </Row>
                                     <AntForm.Item
+                                        label={
+                                            <span>
+                                              Kubikasi (Penjumlahan Dari <strong>P x L x T</strong>)
+                                            </span>
+                                          }
+                                        required
+                                        labelCol={{ span: 24 }}
+                                        wrapperCol={{ span: 24 }}
+                                        help={formik.touched.tinggi && formik.errors.tinggi}
+                                        validateStatus={formik.touched.tinggi && formik.errors.tinggi ? 'error' : 'success'}
+                                        style={{ marginBottom: 2 }}
+                                    >
+                                        <Input
+                                            id="kubikasi"
+                                            name="kubikasi"
+                                            type="number"
+                                            onChange={formik.handleChange}
+                                            // value={`${perhitunganVolume()}m`}
+                                            value={`${perhitunganVolume()}`}
+                                            onBlur={formik.handleBlur}
+                                        />
+                                    </AntForm.Item>
+                                    <AntForm.Item
                                         label="No BPKB"
                                         required
                                         labelCol={{ span: 24 }}
@@ -1150,24 +1185,7 @@ function VehicleBaru() {
                                             onBlur={formik.handleBlur}
                                         />
                                     </AntForm.Item>
-                                    <AntForm.Item
-                                        label="Kubikasi"
-                                        required
-                                        labelCol={{ span: 24 }}
-                                        wrapperCol={{ span: 24 }}
-                                        help={formik.touched.tinggi && formik.errors.tinggi}
-                                        validateStatus={formik.touched.tinggi && formik.errors.tinggi ? 'error' : 'success'}
-                                        style={{ marginBottom: 2 }}
-                                    >
-                                        <Input
-                                            id="kubikasi"
-                                            name="kubikasi"
-                                            type="number"
-                                            onChange={formik.handleChange}
-                                            value={formik.values.kubikasi}
-                                            onBlur={formik.handleBlur}
-                                        />
-                                    </AntForm.Item>
+                                   
                                     <AntForm.Item
                                         label="Cabang"
                                         required

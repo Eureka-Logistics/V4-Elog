@@ -1,4 +1,4 @@
-import { Button, Card, Form, Input, Select, DatePicker } from 'antd'
+import { Button, Card, Form, Input, Select, DatePicker, notification, Tag } from 'antd'
 import { Table } from 'react-bootstrap';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
@@ -11,7 +11,8 @@ import { useFormik } from 'formik'
 import Swal from 'sweetalert2';
 import ModalCreateDetail from './ModalCreateDetail';
 import ModalEditSPDetail from './EditModalSPDetail/ModalEditSPDetail';
-function EditSPNew({getDetail}) {
+import ModalDetailMarketing from './ModalDetailMarketing/Index';
+function EditSPNew({ getDetail }) {
     const { idmp } = useParams();
     const [NomorSP, setNoSP] = useState("")
     const [DetailSemua, setDetailSemua] = useState("")
@@ -26,6 +27,7 @@ function EditSPNew({getDetail}) {
         console.log('Failed:', errorInfo);
     };
     const [Loading, setLoading] = useState(false)
+    const [modal1Open, setModal1Open] = useState(false);
     var counter = 1
     const DetailSP = async () => {
         setLoading(true)
@@ -130,7 +132,7 @@ function EditSPNew({getDetail}) {
                         memo: "",
                         id_customer: DetailSemua.idcustomer,
                         jenis_barang: formik.values.jenisBarang,
-                        packing: "",
+                        packing: formik.values.jenisBarang,
                         marketing: formik.values.marketing,
                         asuransi: formik.values.asuransi,
                         tgl_pickup: formik.values.pickup_date,
@@ -157,27 +159,34 @@ function EditSPNew({getDetail}) {
                         'success'
                     );
                 } catch (error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Permintaan gagal',
-                    });
+                    console.log(error.response.data.status.message);
+                    notification.error({
+                        message: error.response.data.status.message,
+                    })
+                    // Swal.fire({
+                    //     icon: 'error',
+                    //     title: 'Error',
+                    //     text: 'Permintaan gagal',
+                    // });
                 }
             }
         });
     }
 
+    const DetailMarketing = () => {
+        setModal1Open(true)
+    }
 
-
+console.log(DetailSemua?.asm);
     return (
         <div>
             {/* <Card> */}
             <div className='d-flex justify-content-end'>
                 <Button style={{ backgroundColor: "green", color: "#ffffff" }} size='default' onClick={EditSp}>Save Edit SP</Button>
             </div>
-           
+
             {Loading ? <div> loading </div> : null}
-            
+
 
             <Row>
                 <Col sm={6}>
@@ -211,7 +220,26 @@ function EditSPNew({getDetail}) {
                         </Form.Item>
                         <Form.Item
                             style={{ marginBottom: 0 }}
-                            label="Marketing"
+                            label={
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <span>Marketing : </span>
+                                    <Tag
+                                        onClick={() => DetailMarketing()}
+                                        type="primary"
+                                        size='sm'
+                                        style={{
+                                            backgroundColor: 'RGB(81 130 243)',
+                                            color: 'white',
+                                            height: "20px",
+                                            marginLeft: '3px',
+                                            marginTop: "10px",
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        Lihat Detail Marketing
+                                    </Tag>
+                                </div>
+                            }
                             help={formik.touched.noSP && formik.errors.noSP}
                             validateStatus={
                                 formik.touched.noSP && formik.errors.noSP
@@ -235,6 +263,8 @@ function EditSPNew({getDetail}) {
                                         </Select.Option>
                                     ))}
                             </Select>
+                            <ModalDetailMarketing detailsemua={DetailSemua} modal1Open={modal1Open} setModal1Open={setModal1Open} name={formik.values.marketing == null ? "-" : formik.values.marketing}/>
+
                             {/* <Input
                                 id="marketing"
                                 name="marketing"
@@ -246,7 +276,9 @@ function EditSPNew({getDetail}) {
                         </Form.Item>
                         <Form.Item
                             style={{ marginBottom: 0 }}
-                            label="Service"
+                            label={
+                                "Service"
+                            }
                             help={formik.touched.service && formik.errors.service}
                             validateStatus={
                                 formik.touched.service && formik.errors.service
@@ -267,26 +299,50 @@ function EditSPNew({getDetail}) {
                                 ))}
                             </Select>
                         </Form.Item>
-                        <Form.Item
-                            style={{ marginBottom: 0 }}
-                            label="Jenis Barang"
-                            help={formik.touched.jenisBarang && formik.errors.jenisBarang}
-                            validateStatus={
-                                formik.touched.jenisBarang && formik.errors.jenisBarang
-                                    ? 'error'
-                                    : 'success'
-                            }
-                        >
-                            <Input
-                                id="jenisBarang"
-                                name="jenisBarang"
-                                type="text"
-                                onChange={formik.handleChange}
-                                value={formik.values.jenisBarang}
-                                onBlur={formik.handleBlur}
-                            />
-                        </Form.Item>
-
+                        <Row>
+                            <Col sm={6}>
+                                <Form.Item
+                                    style={{ marginBottom: 0 }}
+                                    label="Jenis Barang"
+                                    help={formik.touched.jenisBarang && formik.errors.jenisBarang}
+                                    validateStatus={
+                                        formik.touched.jenisBarang && formik.errors.jenisBarang
+                                            ? 'error'
+                                            : 'success'
+                                    }
+                                >
+                                    <Input
+                                        id="jenisBarang"
+                                        name="jenisBarang"
+                                        type="text"
+                                        onChange={formik.handleChange}
+                                        value={formik.values.jenisBarang}
+                                        onBlur={formik.handleBlur}
+                                    />
+                                </Form.Item>
+                            </Col>
+                            <Col sm={6}>
+                                <Form.Item
+                                    style={{ marginBottom: 0 }}
+                                    label="Packing"
+                                    help={formik.touched.jenisBarang && formik.errors.jenisBarang}
+                                    validateStatus={
+                                        formik.touched.jenisBarang && formik.errors.jenisBarang
+                                            ? 'error'
+                                            : 'success'
+                                    }
+                                >
+                                    <Select
+                                        id="jenisBarang"
+                                        name="jenisBarang"
+                                        type="text"
+                                        onChange={formik.handleChange}
+                                        value={formik.values.jenisBarang}
+                                        onBlur={formik.handleBlur}
+                                    />
+                                </Form.Item>
+                            </Col>
+                        </Row>
                     </Form>
                 </Col>
                 <Col sm={6}>
@@ -435,7 +491,7 @@ function EditSPNew({getDetail}) {
 
                 </Col>
             </Row>
-                
+
             <Row>
                 <Col sm={12}>
                     <Form.Item
@@ -468,8 +524,8 @@ function EditSPNew({getDetail}) {
 
             </Row>
             <ModalCreateDetail
-               getDetails={getDetail} idmp={idmp} DetailSP={DetailSP} JenisBarangFormik={formik.values.jenisBarang} AlamatInvoiceOptions={AlamatInvoiceOptions} DetailSemua={DetailSemua} />
-       
+                idmp={idmp} DetailSP={DetailSP} JenisBarangFormik={formik.values.jenisBarang} AlamatInvoiceOptions={AlamatInvoiceOptions} DetailSemua={DetailSemua} />
+
         </div>
     )
 }

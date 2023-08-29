@@ -10,7 +10,8 @@ import NumberFormat from 'react-number-format';
 import ZustandStore from '../../../../zustand/Store/GetSelectKota';
 import ModalEditSPDetail from './EditModalSPDetail/ModalEditSPDetail';
 import EditDetailSPModal from '../../../../zustand/Store/EditDetailSPModal';
-function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik, detailData, getDetails }) {
+import useServiceStatusStore from '../../../../zustand/Store/StatusService';
+function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik, detailData, }) {
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
     const [selectVia, setSelectVia] = useState("");
@@ -29,6 +30,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         NamaKotaGlobal: i.NamaKotaGlobal,
         setNamaKotaGlobal: i.setNamaKotaGlobal
     }))
+    const { serviceStatus, setServiceStatus } = useServiceStatusStore();
     const setData = EditDetailSPModal(state => state.setData);
 
     const [modal1Open1, setModal1Open1] = useState(false);
@@ -84,7 +86,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     idcustomer: DetailSemua?.idcustomer,
                     ph: DetailSemua?.sp,
                     via: formik.values.via,
-                    shipment: formik.values.shipmentID,
+                    shipment: formik.values.shipmentIDBaru,
                     kendaraan: formik.values.kendaraan,
                     id_almuat: formik.values.IDalamatmuat,
                     id_albongkar: formik.values.IDalamatbongkar,
@@ -110,10 +112,11 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                 }
             )
             DetailSP()
-            getDetails()
+            // getDetails()
             message.success('Data berhasil ditambahkan!');
         } catch (error) {
-            message.error('Terjadi kesalahan saat menambahkan data');
+            message.error(error.response.data.status.message)
+            setModal1Open(true)
         } finally {
             setLoding(false); // akan dipanggil baik ada error maupun tidak
         }
@@ -157,7 +160,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         }
     };
     useEffect(() => {
-
+        setServiceStatus(DetailSemua?.service);
         getDetailModal();
         setNamaKotaGlobal()
     }, [DetailSemua, detailData]);
@@ -247,11 +250,11 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                 }
             )
             DetailSP()
-            getDetails()
+            // getDetails()
             setModal1Open1(false)
             message.success('Data berhasil Diubah!');
         } catch (error) {
-            message.error('Terjadi kesalahan saat Edit data');
+            message.error(error.response.data.status.message)
 
         }
     }
@@ -387,7 +390,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     }, [HasilTarif, formik.values.totalCreate, formik.values.shipment, formik.values.berat, formik.values.bongkar, formik.values.biayamuat]);
 
 
-console.log(`GetTarifOptions`,GetTarifOptions);
+    console.log(`GetTarifOptions`, GetTarifOptions);
     // const calculateTotalCreate = (shipmentType, kilogram, tarif) => {
     //     const biayaBongkar = Number(formik.values.bongkar);
     //     const biayaMuat = Number(formik.values.biayamuat);
@@ -437,9 +440,9 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                         <Col sm={6}>
                             <Form.Item
                                 label="nama kota muat"
-                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
+                                help={formik.touched.IDNamaKotaMuat && formik.errors.IDNamaKotaMuat}
                                 validateStatus={
-                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                    formik.touched.IDNamaKotaMuat && formik.errors.IDNamaKotaMuat
                                         ? 'error'
                                         : 'success'
                                 }
@@ -471,9 +474,9 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                         <Col sm={6}>
                             <Form.Item
                                 label="nama kota bongkar"
-                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
+                                help={formik.touched.IDNamaKotaBongkar && formik.errors.IDNamaKotaBongkar}
                                 validateStatus={
-                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                    formik.touched.IDNamaKotaBongkar && formik.errors.IDNamaKotaBongkar
                                         ? 'error'
                                         : 'success'
                                 }
@@ -523,7 +526,7 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                                     id="pilihrute"
                                     name="pilihrute"
                                     type="text"
-                                    onChange={(value, option , biaya) => {
+                                    onChange={(value, option, biaya) => {
                                         formik.setFieldValue("alamatrute", option);
                                         formik.setFieldValue("kendaraan", option.children[1].props.children);
                                         formik.setFieldValue("via", option.children[3].props.children);
@@ -688,7 +691,7 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                     <br />
                     <hr />
                     <Row>
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <Form.Item
                                 required
                                 label="Kendaraan"
@@ -723,7 +726,7 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <Form.Item
                                 required
                                 label="Via"
@@ -751,7 +754,38 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col sm={4}>
+                        <Col sm={3}>
+                            <Form.Item
+                                required
+                                label="Shipment"
+                                help={formik.touched.shipment && formik.errors.shipment}
+                                validateStatus={
+                                    formik.touched.shipment && formik.errors.shipment
+                                        ? 'error'
+                                        : 'success'
+                                }
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Select
+                                    required
+                                    id="shipment"
+                                    name="shipment"
+                                    type="text"
+                                    onChange={(e) => {
+                                        formik.setFieldValue("shipmentBaru", e)
+                                        formik.setFieldValue("shipmentIDBaru", e)
+                                        console.log(e);
+                                    }}
+                                    value={formik.values.shipmentBaru}
+                                    onBlur={formik.handleBlur}
+                                >
+                                    {shipmentOptions && shipmentOptions.map((item) => (
+                                        <Select.Option value={item.id}>{item.shipment + " - " + formik.values.via}</Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                        <Col sm={3}>
                             <Form.Item
                                 required
                                 label="Service"
@@ -764,6 +798,7 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                                 style={{ marginBottom: 2 }}
                             >
                                 <Select
+                                disabled
                                     required
                                     id="shipment"
                                     name="shipment"
@@ -776,9 +811,11 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                                     value={formik.values.shipment}
                                     onBlur={formik.handleBlur}
                                 >
-                                    {shipmentOptions && shipmentOptions.map((item) => (
+                                    {/* {shipmentOptions && shipmentOptions.map((item) => (
                                         <Select.Option value={item.id}>{item.shipment + " - " + formik.values.via}</Select.Option>
-                                    ))}
+                                    ))} */}
+                                    <Select.Option value={"Charter"}>Charter</Select.Option>
+                                    <Select.Option value={"Retail"}>Retail</Select.Option>
                                 </Select>
                             </Form.Item>
                         </Col>
@@ -794,8 +831,10 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                                         : 'success'
                                 }
                                 style={{ marginBottom: 2 }}
+                                required
                             >
                                 <Input
+                                required
                                     id="berat"
                                     name="berat"
                                     type="number"
@@ -957,7 +996,8 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                                     id="tarif"
                                     name="tarif"
                                     type="number"
-                                    onChange={(e) => {setasilTarif(e.target.value)
+                                    onChange={(e) => {
+                                        setasilTarif(e.target.value)
                                     }}
                                     // value={formik.values.tarif === null ? true : false}
                                     value={HasilTarif}
@@ -1257,6 +1297,7 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                                                 <td>Service</td>
                                                 <td>Via</td>
                                                 <td>Item</td>
+                                                <td>Shipment</td>
                                                 <td>Berat</td>
                                                 <td>Qty</td>
                                                 <td width="150px">Tarif</td>
@@ -1321,6 +1362,7 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                                                 <td>{DetailSemua?.service}</td>
                                                 <td>{data?.via}</td>
                                                 <td>{data.item}</td>
+                                                <td>{data.shipmentName}</td>
                                                 <td>{data.berat}</td>
                                                 <td>{data.qty}</td>
                                                 <td>{data.Price?.toLocaleString("id-ID", {
@@ -1339,10 +1381,20 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                                                     style: "currency",
                                                     currency: "IDR",
                                                 })}</td>
-                                                <td>{data.total?.toLocaleString("id-ID", {
-                                                    style: "currency",
-                                                    currency: "IDR",
-                                                })}</td>
+                                                {serviceStatus === "Charter" ?
+                                                    <>
+                                                        <td>{data.totalBiayaCharter?.toLocaleString("id-ID", {
+                                                            style: "currency",
+                                                            currency: "IDR",
+                                                        })}</td>
+                                                    </> : <>
+                                                        <td>{data.totalBiayaRetail?.toLocaleString("id-ID", {
+                                                            style: "currency",
+                                                            currency: "IDR",
+                                                        })}</td>
+                                                    </>}
+
+
                                             </tr>
                                             <br />
                                         </>
@@ -1352,7 +1404,7 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                 </tbody>
                 <tfoot>
                     <tr style={{ fontWeight: "bold" }}>
-                        <td colSpan={12} width="150px" className="text-right">
+                        <td colSpan={13} width="150px" className="text-right">
                             Sub Total
                         </td>
                         <td width="150px">{DetailSemua?.subTotal?.toLocaleString("id-ID", {
@@ -1549,7 +1601,7 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                     <br />
                     <hr />
                     <Row>
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <Form.Item
                                 required
                                 label="Kendaraan"
@@ -1581,7 +1633,7 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <Form.Item
                                 required
                                 label="Via"
@@ -1610,7 +1662,36 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col sm={4}>
+                        <Col sm={3}>
+                            <Form.Item
+                                required
+                                label="Shipment"
+                                help={formik.touched.via && formik.errors.via}
+                                // validateStatus={
+                                //     formik.touched.via && formik.errors.via
+                                //         ? 'error'
+                                //         : 'success'
+                                // }
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Select
+                                    required
+                                    id="via"
+                                    disabled
+                                    name="via"
+                                    type="via"
+                                    onChange={(e) => formik.setFieldValue("via", e)}
+                                    value={data?.shipmentName}
+                                    onBlur={formik.handleBlur}
+                                >
+                                    {/* {selectVia && selectVia.map((item) => (
+                                        <Select.Option value={item.via}>{item.via}</Select.Option>
+                                    ))} */}
+
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                        <Col sm={3}>
                             <Form.Item
                                 required
                                 label="Service"
@@ -1633,7 +1714,7 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                                         formik.setFieldValue("shipmentID", e)
                                         console.log(e);
                                     }}
-                                    value={data?.shipmentName}
+                                    value={data?.service}
                                     onBlur={formik.handleBlur}
                                 >
                                     {/* {shipmentOptions && shipmentOptions.map((item) => (
@@ -1654,8 +1735,10 @@ console.log(`GetTarifOptions`,GetTarifOptions);
                                 //         : 'success'
                                 // }
                                 style={{ marginBottom: 2 }}
+                                required
                             >
                                 <Input
+                                    required
                                     id="berat"
                                     name="berat"
                                     type="number"
@@ -1928,7 +2011,7 @@ console.log(`GetTarifOptions`,GetTarifOptions);
 
                         </Col>
                         <Col sm={4}>
-                            <Form.Item       
+                            <Form.Item
                                 label="Biaya Mel"
                                 help={formik.touched.biayamel && formik.errors.biayamel}
 

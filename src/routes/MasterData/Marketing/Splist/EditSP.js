@@ -1,4 +1,4 @@
-import { Card, Modal as ModalAntd } from "antd";
+import { Card, Modal as ModalAntd, notification } from "antd";
 import React from "react";
 import DataTable from "react-data-table-component";
 import { useEffect, useState } from "react";
@@ -15,7 +15,7 @@ import * as Yup from "yup";
 import EditSPNew from "./EditSPNew";
 import ModalCreateDetail from "./ModalCreateDetail";
 
-function EditSP({ alamatInvoice }) {
+function EditSP({  }) {
   const [show, setShow] = useState(false);
   const [showSP, setShowSP] = useState(false);
   const { phZustand, setPHZustand } = mobil((state) => ({
@@ -77,7 +77,6 @@ function EditSP({ alamatInvoice }) {
   const [AsuransiOptionsValue, setAsuransiOptionsValue] = useState("");
   const [ServiceValue, setServiceValue] = useState("");
   const [ServiceValueOptions, setServiceValueOptios] = useState("");
-
   const getDetail = async () => {
     try {
       const response = await axios.get(
@@ -119,7 +118,7 @@ function EditSP({ alamatInvoice }) {
       setAlamatOptions(data.data.data.address);
       setAsuransiOptions(data.data.data.insurance);
       setServiceValueOptios(data.data.data.service);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -170,7 +169,7 @@ function EditSP({ alamatInvoice }) {
     }
   };
 
-  
+
   const columns = [
     {
       name: "Title",
@@ -286,8 +285,8 @@ function EditSP({ alamatInvoice }) {
         TarifValue != 0
           ? parseInt(TarifValue)
           : isiTarif?.biaya_jalan
-          ? parseInt(isiTarif?.biaya_jalan)
-          : 0;
+            ? parseInt(isiTarif?.biaya_jalan)
+            : 0;
       const biaya = biayaMuatValue ? parseInt(biayaMuatValue) : 0;
 
       const totals = bongkar + tarif + biaya;
@@ -324,8 +323,8 @@ function EditSP({ alamatInvoice }) {
           TarifValue != 0
             ? parseInt(TarifValue)
             : isiTarif?.biaya_jalan
-            ? parseInt(isiTarif?.biaya_jalan)
-            : 0,
+              ? parseInt(isiTarif?.biaya_jalan)
+              : 0,
         // harga: isiTarif?.biaya_jalan != 0 ? isiTarif?.biaya_jalan : TarifValue,
         harga_bongkar: bongkarValue,
         harga_muat: biayaMuatValue,
@@ -394,10 +393,17 @@ function EditSP({ alamatInvoice }) {
             },
           }
         );
+        notification.success({
+          message: "success",
+          description: data.data.status.message
+        })
+        comments();
       }
-      comments();
     } catch (error) {
-      console.log(error);
+      notification.error({
+        message: "Error",
+        description: error.response.status.message
+      })
     }
   };
 
@@ -552,8 +558,8 @@ function EditSP({ alamatInvoice }) {
                 TarifValue != 0
                   ? parseInt(TarifValue)
                   : isiTarif?.biaya_jalan
-                  ? parseInt(isiTarif?.biaya_jalan)
-                  : 0,
+                    ? parseInt(isiTarif?.biaya_jalan)
+                    : 0,
               total: totalValue,
             },
             {
@@ -1431,7 +1437,8 @@ function EditSP({ alamatInvoice }) {
                     <td width="130px" style={{ paddingLeft: "10px" }}>
                       {detailData?.biayamel?.toLocaleString("id-ID", {
                         style: "currency",
-                        currency: "IDR"})
+                        currency: "IDR"
+                      })
                         === undefined ? "Rp 0,00" : detailData?.biayamel?.toLocaleString("id-ID", {
                           style: "currency",
                           currency: "IDR",
@@ -1455,7 +1462,7 @@ function EditSP({ alamatInvoice }) {
                       {detailData?.biayainap?.toLocaleString("id-ID", {
                         style: "currency",
                         currency: "IDR",
-                      })=== undefined ? "Rp 0,00" : detailData?.biayainap?.toLocaleString("id-ID", {
+                      }) === undefined ? "Rp 0,00" : detailData?.biayainap?.toLocaleString("id-ID", {
                         style: "currency",
                         currency: "IDR",
                       })}
@@ -1561,24 +1568,24 @@ function EditSP({ alamatInvoice }) {
               <Form.Label style={{ fontWeight: "bold" }}>Isi Memo</Form.Label>
               <Form.Control disabled value={memo} />
             </Form.Group>
-            <Row className="mt-3">
-              <Col sm={12}>
-                <Form.Group>
+            <Row className="mt-3 align-items-center">
+              <Col sm={9}>
+                <Form.Group className="mt-4">
                   <Form.Label style={{ fontWeight: "bold" }}></Form.Label>
-                  <Form.Control
+                  <textarea
+                    style={{ border: '2px solid blue', height: '50px', width: '100%', resize: 'none' }}
                     onChange={(e) => setTambahKomen(e.target.value)}
-                    type="text"
+                    placeholder="Tulis komentar"
                   />
                 </Form.Group>
               </Col>
-              <div className="mt-3">
-                <Col className="text-end">
-                  <Button onClick={tambahkomen} size="sm">
-                    Tambah Komen
-                  </Button>
-                </Col>
-              </div>
+              <Col sm={3} className="text-start mt-4">
+                <Button onClick={tambahkomen} size="sm">
+                  Tambah Komen
+                </Button>
+              </Col>
             </Row>
+
             <br />
             <Table></Table>
             <Table responsive>
