@@ -349,6 +349,8 @@ function FormTable({
           setApproved(isidata);
           datarefresh()
           // Display success alert
+          setSpDetailZustand()
+          AmbilStatusApprove()
           messagedetail()
           Swal.fire({
             icon: "success",

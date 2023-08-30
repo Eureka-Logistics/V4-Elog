@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Tag, message } from "antd";
+import { Card, Tag, message, notification } from "antd";
 import { Col, Row, Form, Button, ButtonGroup } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import axios from "axios";
@@ -78,6 +78,9 @@ function SJ() {
           }, 2000);
           // history.push('/signin');
         }
+        notification.error({
+          message : error.response.data.status.message
+        })
       } else {
         console.error(error);
       }
@@ -274,6 +277,9 @@ function SJ() {
       if (error.response && error.response.status === 401) {
         localStorage.removeItem('token');
       }
+      notification.error({
+        message : error.response.data.status.message
+    })
     }
   };
 

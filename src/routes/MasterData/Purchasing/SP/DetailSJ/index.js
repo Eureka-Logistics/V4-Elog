@@ -1,6 +1,6 @@
-import { message, Card, Select } from 'antd'
+import { message, Card, Select, notification } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { Col, Row } from 'react-bootstrap'
+import { Alert, Col, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { Button, Form, Input } from 'antd';
 import gambarorang from "./employee (1).png"
@@ -8,12 +8,13 @@ import axios from 'axios';
 import Baseurl from '../../../../../Api/BaseUrl';
 import ZustandStore from '../../../../../zustand/Store/JenisKepemilikanOptions';
 import useMitraStore from '../../../../../zustand/Store/MitraStore';
+import AnotherDriverZustand from '../../../../../zustand/Store/NamaAnotherDriver';
 
 function Index() {
     const { id } = useParams()
     const [DataDetail, setDataDetail] = useState("")
     const [kendaraan, setKendaraan] = useState(DataDetail.kendaraanPickup);
-    const [NamaDriver1, setNamaDriver1] = useState(DataDetail.unit1);
+    const [NamaDriver1, setNamaDriver1] = useState("");
     const [IDkendaraan1, setIDKendaraan1] = useState(DataDetail.kendaraanPickup);
     const [kendaraanOptions1, setkendaraanOptions1] = useState("")
     const [DriverOptions1, setDriverOptions1] = useState("")
@@ -25,6 +26,11 @@ function Index() {
     const [KendaraanMitra1, setKendaraanMitra1] = useState("")
     const [KendaraanMitra2, setKendaraanMitra2] = useState(DataDetail.mitra1)
     const [KendaraanMitra3, setKendaraanMitra3] = useState(DataDetail.mitra2)
+    // const { NamaAnotherZustand, SetnamaAnotherZustand } = AnotherDriverZustand((state) => ({
+    //     NamaAnotherZustand: state.NamaAnotherZustand,
+    //     SetnamaAnotherZustand: state.SetnamaAnotherZustand
+    // }));
+    const { NamaAnotherZustand, SetnamaAnotherZustand } = AnotherDriverZustand(store => store);
     let nambahangka = 1
     const { NamaMitra, fetchMitra } = useMitraStore((item) => ({
         NamaMitra: item.NamaMitra,
@@ -33,8 +39,8 @@ function Index() {
     const onFinish = async (values) => {
         console.log('Success:', values);
         await EditSM()
-        await DataDetailSM()
-        message.success(`berhasil`)
+        // await DataDetailSM()
+        // message.success(`berhasil`)
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -51,21 +57,46 @@ function Index() {
     }))
 
 
-    const DataDetailSM = async () => {
-        const data = await axios.get(`${Baseurl}sm/get-sm-detail?id_msm=${id}`, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: localStorage.getItem("token"),
-            },
+    // Mengambil data detail
+    const fetchDataDetail = async () => {
+        try {
+            const data = await axios.get(`${Baseurl}sm/get-sm-detail?id_msm=${id}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.getItem("token"),
+                },
+            });
+            setDataDetail(data.data.data?.[0]);
+        } catch (error) {
+            console.error(error);
         }
-        );
-        setDataDetail(data.data.data?.[0])
-        setNamaDriver1(data.data.data?.[0].driver1)
-    }
+    };
+    useEffect(() => {
 
+        // Memuat data driver
+        SetnamaAnotherZustand();
 
+        // Memanggil fungsi untuk memuat data
+        fetchDataDetail();
+    }, []);
+    const [DriverName1, setDriverName1] = useState(null);
+    const [DriverName2, setDriverName2] = useState(null);
+    const [DriverName3, setDriverName3] = useState(null);
+    useEffect(() => {
+        if (NamaAnotherZustand && DataDetail) {
+            const matchedDriver = NamaAnotherZustand.find(driver => String(driver.id) === String(DataDetail.driver1));
+            if (matchedDriver) {
+                console.log(`Name dari driver dengan ID ${DataDetail.driver1} adalah ${matchedDriver.name}`);
+                const matchedDriver2 = NamaAnotherZustand.find(driver => String(driver.id) === String(DataDetail.driver2));
+                const matchedDriver3 = NamaAnotherZustand.find(driver => String(driver.id) === String(DataDetail.driver3));
+                setDriverName1(matchedDriver.name)
+                setDriverName2(matchedDriver2.name)
+                setDriverName3(matchedDriver3.name)
 
-    // console.log(`ini KendaraanMitra1`, KendaraanMitra1);
+            }
+        }
+    }, [NamaAnotherZustand, DataDetail]);
+    console.log(`ini DriverName1`, DriverName1);
 
 
 
@@ -98,7 +129,7 @@ function Index() {
                 id_unit: 2,
                 id_unit_2: 3,
                 id_unit_3: 1,
-                id_driver: 22,
+                id_driver: DriverName1,
                 id_driver_2: 33,
                 id_driver_3: 1,
                 id_mitra_pickup: KendaraanMitra1,
@@ -110,8 +141,16 @@ function Index() {
                     Authorization: localStorage.getItem("token"),
                 },
             });
+            console.log(response);
+            fetchDataDetail()
+            notification.success({
+                message : response.data.status.message
+            })
         } catch (error) {
             console.error(error);
+            notification.error({
+                message : error.response.data.status.message
+            })
         }
     }
 
@@ -132,6 +171,7 @@ function Index() {
             setkendaraanOptions1(data.data.kendaraan)
             setDriverOptions1(data.data.driver)
             setKendaraanMitra1(data.data.kendaraan.kodeKendaraan)
+            console.log(`data`, data);
         } catch (error) {
 
         }
@@ -139,18 +179,17 @@ function Index() {
 
 
     useEffect(() => {
-        DataDetailSM()
         setDriverType()
         fetchMitra()
         select()
         setKendaraan()
+        // SetnamaAnotherZustand()
+
     }, [kendaraan, NoPol1])
     if (!DataDetail) {
         return "Memuat data...";
     }
-    // if (!KendaraanMitra1){
-    //     return "memuat data...";
-    // }
+
 
     return (
         <>
@@ -166,6 +205,7 @@ function Index() {
                     }}
 
                     initialValues={DataDetail}
+
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
@@ -181,7 +221,7 @@ function Index() {
                             style={{ textAlign: 'end' }}
                         >
                             <div className="tombol">
-                                <Button style={{ backgroundColor: "#00a65a", color: "white" }} htmlType="submit">
+                                <Button  style={{ backgroundColor: "#00a65a", color: "white" }} htmlType="submit">
                                     Submit
                                 </Button>
                                 <Button onClick={handlePrint} type="primary" >
@@ -431,7 +471,7 @@ function Index() {
 
                             >
                                 <Select optionFilterProp='children' showSearch
-                                    onChange={(e) => { setKendaraanMitra1(e);  }}
+                                    onChange={(e) => { setKendaraanMitra1(e); }}
                                 >
                                     {NamaMitra && NamaMitra.map((item) => (
 
@@ -492,18 +532,19 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="Supir Pickup"
-                                name="driver1"
+                                // name="driver1"
                                 rules={[
                                     {
+                                        required: false,
                                         message: 'Please input your password!',
                                     },
                                 ]}
                             >
                                 {/* <Input value={NamaDriver1} /> */}
-                                <Select value={NamaDriver1}>
-
-                                    {DriverOptions1 && DriverOptions1.map((i) => (
-                                        <option>{i.nama}</option>
+                                <Select value={DriverName1}
+                                    onChange={(e) => setDriverName1(e)} >
+                                    {NamaAnotherZustand && NamaAnotherZustand.map((i, index) => (
+                                        <Select.Option key={index} value={i.id}>{i.name}</Select.Option>
                                     ))}
                                 </Select>
                             </Form.Item>
@@ -571,14 +612,20 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="Supir Pickup"
-                                name="driver2"
+                                // name="driver2"
                                 rules={[
                                     {
+                                        required: false,
                                         message: 'Please input your password!',
                                     },
                                 ]}
                             >
-                                <Input />
+                                {/* <Input /> */}
+                                <Select value={DriverName2}>
+                                    {NamaAnotherZustand && NamaAnotherZustand.map((i) => (
+                                        <Select.Option value={i.id}>{i.name}</Select.Option>
+                                    ))}
+                                </Select>
                             </Form.Item>
                             <Form.Item
                                 label="No HP Supir"
@@ -590,6 +637,7 @@ function Index() {
                                 ]}
                             >
                                 <Input />
+
                             </Form.Item>
                         </Col>
                         <Col sm={4}>
@@ -648,14 +696,19 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="Supir Pickup"
-                                name="driver3"
+                                // name="driver3"
                                 rules={[
                                     {
+                                        required: false,
                                         message: 'Please input your password!',
                                     },
                                 ]}
                             >
-                                <Input />
+                                <Select value={DriverName3}>
+                                    {NamaAnotherZustand && NamaAnotherZustand.map((i) => (
+                                        <Select.Option value={i.id}>{i.name}</Select.Option>
+                                    ))}
+                                </Select>
                             </Form.Item>
                             <Form.Item
                                 label="No HP Supir"

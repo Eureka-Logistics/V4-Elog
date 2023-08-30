@@ -1,4 +1,4 @@
-import { Card, Pagination, Tag, notification } from 'antd';
+import { Card, Pagination, Tag, Tooltip, notification } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import DataTable from "react-data-table-component";
@@ -28,10 +28,21 @@ function Index() {
         },
         {
             name: "Marketing",
-            selector: (row) => row.salesName,
+            selector: (row) => (
+              <Tooltip title={<>
+                {"Kacap: " + row?.kacab} <br />
+                {"Asm: " + row?.asm} <br />
+                {"gl: " + row?.gl} <br />
+                {"mgr: " + row?.mgr} <br />
+                {"amd: " + row?.amd} <br />
+              </>}
+              >
+                {row?.salesName}
+              </Tooltip>
+            ),
             width: "100px",
             wrap: true,
-        },
+          },
         {
             name: "Service",
             selector: (row) => row.service,

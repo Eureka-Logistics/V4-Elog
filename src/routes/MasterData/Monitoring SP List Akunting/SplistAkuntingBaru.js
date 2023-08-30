@@ -1,4 +1,4 @@
-import { Card, Pagination, Tag, notification } from "antd";
+import { Card, Pagination, Tag, Tooltip, notification } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Form } from "react-bootstrap";
@@ -33,7 +33,24 @@ function SplistAkuntingBaru() {
     {
       name: " Perusahaan",
       selector: (row) => row?.perusahaan,
-      width: "250px"
+      width: "210px"
+    },
+    {
+      name: "Marketing",
+      selector: (row) => (
+        <Tooltip title={<>
+          {"Kacap: " + row?.kacab} <br />
+          {"Asm: " + row?.asm} <br />
+          {"gl: " + row?.gl} <br />
+          {"mgr: " + row?.mgr} <br />
+          {"amd: " + row?.amd} <br />
+        </>}
+        >
+          {row?.salesName}
+        </Tooltip>
+      ),
+      width: "100px",
+      wrap: true,
     },
     {
       name: "Service",

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Tag, notification } from "antd";
+import { Card, Tag, Tooltip, notification } from "antd";
 import { Col, Row, Form, Button } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import axios from "axios";
@@ -143,7 +143,18 @@ function SPList() {
     },
     {
       name: "Marketing",
-      selector: (row) => row.salesName,
+      selector: (row) => (
+        <Tooltip title={<>
+          {"Kacap: " + row?.kacab} <br />
+          {"Asm: " + row?.asm} <br />
+          {"gl: " + row?.gl} <br />
+          {"mgr: " + row?.mgr} <br />
+          {"amd: " + row?.amd} <br />
+        </>}
+        >
+          {row?.salesName}
+        </Tooltip>
+      ),
       width: "100px",
       wrap: true,
     },
