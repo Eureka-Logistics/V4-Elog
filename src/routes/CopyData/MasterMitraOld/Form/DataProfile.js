@@ -101,43 +101,43 @@ const SamplePage = () => {
           npwp_address:
             formik.values.npwp_jalan !== ""
               ? "Jalan" +
-                " " +
-                formik.values.npwp_jalan +
-                ", Kota" +
-                " " +
-                formik.values.npwp_kota +
-                " " +
-                ", Kelurahan" +
-                " " +
-                formik.values.npwp_kelurahan +
-                " " +
-                ", Kecamatan" +
-                " " +
-                formik.values.npwp_kecamatan +
-                " " +
-                ", Provinsi" +
-                " " +
-                formik.values.npwp_provinsi +
-                " " +
-                ", Blok" +
-                " " +
-                formik.values.npwp_blok +
-                " " +
-                ", Nomor" +
-                " " +
-                formik.values.npwp_nomor +
-                " " +
-                ", RT" +
-                " " +
-                formik.values.npwp_rt +
-                " " +
-                ", RW" +
-                " " +
-                formik.values.npwp_rw +
-                " " +
-                ", Kode POS : " +
-                " " +
-                formik.values.npwp_kodepos
+              " " +
+              formik.values.npwp_jalan +
+              ", Kota" +
+              " " +
+              formik.values.npwp_kota +
+              " " +
+              ", Kelurahan" +
+              " " +
+              formik.values.npwp_kelurahan +
+              " " +
+              ", Kecamatan" +
+              " " +
+              formik.values.npwp_kecamatan +
+              " " +
+              ", Provinsi" +
+              " " +
+              formik.values.npwp_provinsi +
+              " " +
+              ", Blok" +
+              " " +
+              formik.values.npwp_blok +
+              " " +
+              ", Nomor" +
+              " " +
+              formik.values.npwp_nomor +
+              " " +
+              ", RT" +
+              " " +
+              formik.values.npwp_rt +
+              " " +
+              ", RW" +
+              " " +
+              formik.values.npwp_rw +
+              " " +
+              ", Kode POS : " +
+              " " +
+              formik.values.npwp_kodepos
               : " ",
         })
         .then(({ data }) => {
@@ -150,8 +150,15 @@ const SamplePage = () => {
         .catch(function (error) {
           notification.error({
             message: "Error",
-            description: error.message,
+            description: error.response.data.status.message,
           });
+          error.response.data.errors.forEach((errorItem) => {
+            notification.error({
+              message: "Error",
+              description: errorItem.message // Pastikan struktur object ini sesuai dengan data yang Anda miliki
+            });
+          });
+
           console.log(error.message);
         });
     },
@@ -359,7 +366,6 @@ const SamplePage = () => {
     <div>
       <Form onSubmit={formik.handleSubmit}>
         <Col span={24} className="d-flex justify-content-end">
-          <Button type="submit">Save</Button>
           {/* <Button variant="secondary" onClick={handleClose}>
             Close
           </Button> */}
@@ -1144,43 +1150,43 @@ const SamplePage = () => {
                     value={
                       formik.values.npwp_jalan !== ""
                         ? "Jalan" +
-                          " " +
-                          formik.values.npwp_jalan +
-                          ", Kota" +
-                          " " +
-                          formik.values.npwp_kota +
-                          " " +
-                          ", Kelurahan" +
-                          " " +
-                          formik.values.npwp_kelurahan +
-                          " " +
-                          ", Kecamatan" +
-                          " " +
-                          formik.values.npwp_kecamatan +
-                          " " +
-                          ", Provinsi" +
-                          " " +
-                          formik.values.npwp_provinsi +
-                          " " +
-                          ", Blok" +
-                          " " +
-                          formik.values.npwp_blok +
-                          " " +
-                          ", Nomor" +
-                          " " +
-                          formik.values.npwp_nomor +
-                          " " +
-                          ", RT" +
-                          " " +
-                          formik.values.npwp_rt +
-                          " " +
-                          ", RW" +
-                          " " +
-                          formik.values.npwp_rw +
-                          " " +
-                          ", Kode POS : " +
-                          " " +
-                          formik.values.npwp_kodepos
+                        " " +
+                        formik.values.npwp_jalan +
+                        ", Kota" +
+                        " " +
+                        formik.values.npwp_kota +
+                        " " +
+                        ", Kelurahan" +
+                        " " +
+                        formik.values.npwp_kelurahan +
+                        " " +
+                        ", Kecamatan" +
+                        " " +
+                        formik.values.npwp_kecamatan +
+                        " " +
+                        ", Provinsi" +
+                        " " +
+                        formik.values.npwp_provinsi +
+                        " " +
+                        ", Blok" +
+                        " " +
+                        formik.values.npwp_blok +
+                        " " +
+                        ", Nomor" +
+                        " " +
+                        formik.values.npwp_nomor +
+                        " " +
+                        ", RT" +
+                        " " +
+                        formik.values.npwp_rt +
+                        " " +
+                        ", RW" +
+                        " " +
+                        formik.values.npwp_rw +
+                        " " +
+                        ", Kode POS : " +
+                        " " +
+                        formik.values.npwp_kodepos
                         : " "
                     }
                     onChange={formik.handleChange}
@@ -1213,11 +1219,11 @@ const SamplePage = () => {
                   showSearch
                   optionFilterProp="children"
 
-                  // value={NamaBank}
-                  // onChange={(e) => {
-                  //   console.log(e);
-                  //   setDataNamaBank(e);
-                  // }}
+                // value={NamaBank}
+                // onChange={(e) => {
+                //   console.log(e);
+                //   setDataNamaBank(e);
+                // }}
                 >
                   {banks &&
                     banks.map((i) => <select value={i.name}>{i.name}</select>)}
@@ -1970,6 +1976,9 @@ const SamplePage = () => {
           </Col>
         </Row> */}
         {/* <CreateMitraModal isiValues={isiValues}/> */}
+        <Row  className="justify-content-end d-flex"> 
+            <Button  type="submit">Save</Button>
+        </Row>
       </Form>
     </div>
   );
