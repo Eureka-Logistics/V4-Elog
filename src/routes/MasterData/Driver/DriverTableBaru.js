@@ -173,10 +173,8 @@ function DriverTableBaru() {
     } catch (error) {
       // Handle error
       notification.error({
-        message: 'Error',
-        description: 'Terjadi kesalahan saat mengubah status driver.',
-        placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
-      });
+        message: error.response.data.status.message
+      })
     }
   };
 
@@ -215,10 +213,8 @@ function DriverTableBaru() {
     } catch (error) {
       // Handle error
       notification.error({
-        message: 'Error',
-        description: 'Terjadi kesalahan saat mengubah status driver.',
-        placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
-      });
+        message: error.response.data.status.message
+      })
     }
   };
 
@@ -758,8 +754,8 @@ function DriverTableBaru() {
                       }}
                       format="DD-MM-YYYY"
                       name="tglmasuk"
-                      onChange={(date, dateString) =>
-                        { const apiFormatDate = date.format("YYYY-MM-DD")
+                      onChange={(date, dateString) => {
+                        const apiFormatDate = date.format("YYYY-MM-DD")
                         formik.setFieldValue("tglmasuk", apiFormatDate)
                       }}
                       onBlur={formik.handleBlur}

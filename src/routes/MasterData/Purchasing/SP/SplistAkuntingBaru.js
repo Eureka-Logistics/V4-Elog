@@ -1,4 +1,4 @@
-import { Card, Tag } from "antd";
+import { Card, Tag, Tooltip } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Form } from "react-bootstrap";
@@ -34,7 +34,24 @@ function SplistOperasional() {
       name: " Perusahaan",
       selector: (row) => row?.perusahaan,
       wrap: true,
-      width: "240px"
+      width: "220px"
+    },
+    {
+      name: "Marketing",
+      selector: (row) => (
+        <Tooltip title={<>
+          {"Kacap: " + row?.kacab} <br />
+          {"Asm: " + row?.asm} <br />
+          {"gl: " + row?.gl} <br />
+          {"mgr: " + row?.mgr} <br />
+          {"amd: " + row?.amd} <br />
+        </>}
+        >
+          {row?.salesName}
+        </Tooltip>
+      ),
+      width: "100px",
+      wrap: true,
     },
     {
       name: "Service",
