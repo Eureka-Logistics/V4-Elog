@@ -3,7 +3,7 @@ import React from "react";
 
 function HeaderMasterMitra() {
   return (
-    <div id="outtable" style={{ overflow: "auto", maxHeight: "700px" }}>
+    <div id="outtable" style={{ overflow: "auto", maxHeight: "auto" }}>
       <div style={{ padding: "20px" }}>
         <table
           width="100%"

@@ -23,7 +23,7 @@ import DetailEditMitraCabang from "./DetailEditMitraCabang";
 import { Formik, Form } from "formik";
 import { httpClient } from "../../../../Api/Api";
 
-function GetMitraCabang(idmitra) {
+function GetMitraCabang(idmitra, id) {
   const router = useHistory();
   const [DataCabang, setDataCabang] = useState("");
   const [total, setTotal] = useState(0);
@@ -43,6 +43,8 @@ function GetMitraCabang(idmitra) {
   const [DataEdit, setDataEdit] = ("");
 
   const initialValues = {
+    id: id,
+    id_mitra: idmitra,
     bank: DataBank,
     account_name: DataAccountName,
     account_number: DataAccountNumber,
@@ -66,6 +68,7 @@ function GetMitraCabang(idmitra) {
       setDataCabang(response.data.data.order);
       setTotal(response.data.data.order.totalData);
       setsemuaEdit(response.data.data.order);
+      setDataBank(semuaEdit.bank)
       //   setDataAccountNumber(response.data.data.order.account_name || "")
       // Jumlah data pagination
     } catch (error) {
@@ -207,9 +210,9 @@ function GetMitraCabang(idmitra) {
         account_name:
           DataAccountName === null ? semuaEdit.account_name : DataAccountName,
         account_number:
-          DataAccountNumber === null
+        parseInt (DataAccountNumber === null
             ? semuaEdit.account_number
-            : DataAccountNumber,
+            : DataAccountNumber),
         cabang_pic:
           DataCabangPIC === null ? semuaEdit.cabang_pic : DataCabangPIC,
         cabang_email:
@@ -232,13 +235,13 @@ function GetMitraCabang(idmitra) {
       // If you want to update the state with the edited data, you can do so here.
       // For example:
       setDataMitraCabang(response.data); // Assuming the response contains the updated data
-
+console.log(response.data.status.message);
       // Check if the save operation was successful and redirect to the desired page
       if (response.status === 200) {
         Swal.fire({
           icon: "success",
           title: "Success",
-          text: "Data has been saved",
+          text: response.data.status.message,
           // footer: '<a href="">Why do I have this issue?</a>'
         });
         fetchDataDetail();
@@ -368,14 +371,17 @@ function GetMitraCabang(idmitra) {
                     Nama PIC :
                   </label>
                   <Input
-                    value={
-                        DataCabangPIC
+                  value={ DataCabangPIC === null ? semuaEdit.cabang_pic : DataCabangPIC}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    if (e.target.value === "") {
+                      setDataCabangPIC(semuaEdit.cabang_pic);
+                      setDataCabangPIC(null);
+                    } else {
+                      setDataCabangPIC(e.target.value);
                     }
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                      setDataCabangPIC(e.target.value)
-                    }}
-                  />
+                  }}
+                />
                 </div>
               </Col>
               <Col span={8}>
@@ -388,14 +394,17 @@ function GetMitraCabang(idmitra) {
                     Email PIC :
                   </label>
                   <Input
-                    value={
-                        DataCabangEmail
+                  value={ DataCabangEmail === null ? semuaEdit.cabang_email : DataCabangEmail}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    if (e.target.value === "") {
+                      setDataCabangEmail(semuaEdit.cabang_email);
+                      setDataCabangEmail(null);
+                    } else {
+                      setDataCabangEmail(e.target.value);
                     }
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                      setDataCabangEmail(e.target.value)
-                    }}
-                  />
+                  }}
+                />
                 </div>
               </Col>
               <Col span={8}>
@@ -408,14 +417,17 @@ function GetMitraCabang(idmitra) {
                     Telepon PIC :
                   </label>
                   <Input
-                    value={
-                        DataCabangTelp
+                  value={ DataCabangTelp === null ? semuaEdit.cabang_telp : DataCabangTelp}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    if (e.target.value === "") {
+                      setDataCabangTelp(semuaEdit.cabang_telp);
+                      setDataCabangTelp(null);
+                    } else {
+                      setDataCabangTelp(e.target.value);
                     }
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                      setDataCabangTelp(e.target.value)
-                    }}
-                  />
+                  }}
+                />
                 </div>
               </Col>
             </Row>
@@ -435,7 +447,8 @@ function GetMitraCabang(idmitra) {
                   <Select
                     
                     showSearch
-                    value={semuaEdit.bank}
+                    // value={semuaEdit.bank}
+                    value={DataBank}
                     optionFilterProp="value"
                     // placeholder={DataBank}
                     style={{ width: "100%" }}
@@ -461,14 +474,17 @@ function GetMitraCabang(idmitra) {
                     Nama Akun Bank :
                   </label>
                   <Input
-                    value={
-                        DataAccountName
+                  value={ DataAccountName === null ? semuaEdit.account_name : DataAccountName}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    if (e.target.value === "") {
+                      setDataAccountName(semuaEdit.account_name);
+                      setDataAccountName(null);
+                    } else {
+                      setDataAccountName(e.target.value);
                     }
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                      setDataAccountName(e.target.value)
-                    }}
-                  />
+                  }}
+                />
                 </div>
               </Col>
               <Col span={8}>
@@ -481,14 +497,19 @@ function GetMitraCabang(idmitra) {
                     Nomor Rekening :
                   </label>
                   <Input
-                    value={
-                        DataAccountNumber
+                  value={  DataAccountNumber === null
+                    ? semuaEdit.account_number
+                    : DataAccountNumber}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    if (e.target.value === "") {
+                      setDataAccountNumber(semuaEdit.account_number);
+                      setDataAccountNumber(null);
+                    } else {
+                      setDataAccountNumber(e.target.value);
                     }
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                      setDataAccountNumber(e.target.value)
-                    }}
-                  />
+                  }}
+                />
                 </div>
               </Col>
             </Row>

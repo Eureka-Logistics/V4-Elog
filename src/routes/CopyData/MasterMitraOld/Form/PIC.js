@@ -30,6 +30,11 @@ function PIC({ mitraId }) {
     setShowModal(true);
     console.log(row);
     setsemuaEdit(row);
+    setDataNama(row.nama);
+    setDataTelepon(row.telepon);
+    setDataEmail(row.email);
+    setDataJabatan(row.jabatan);
+    setDataKTP(row.ktp)
   };
 
   const initialValues = {

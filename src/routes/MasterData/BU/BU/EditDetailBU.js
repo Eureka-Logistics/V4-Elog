@@ -14,7 +14,7 @@ function DetailBU() {
   const [DataKodeBU, setDataKodeBU] = useState("");
   const [DataCBU, setDataCBU] = useState("");
   const [DataIDBu, setDataIDBu] = useState("");
-  
+  const [DataID, setDataID] = useState("");
 
   const DetailBisnisUnit = async (buId) => {
     try {
@@ -33,6 +33,7 @@ function DetailBU() {
       setDataKodeBU(respons.data.data.code_bu || "");
       setDataCBU(respons.data.data.cbu || "");
       setDataIDBu(respons.data.data.id_bu || "");
+      setDataID(respons.data.data.id || "" );
 
     } catch (error) {}
   };
@@ -40,8 +41,8 @@ function DetailBU() {
   const EditDetailBU = async () => {
     try {
       const data = {
-        id : DataIDBu,
-        id_bu: buId,
+        id : buId,
+        id_bu: DataIDBu,
         name_bu: DataNamaBU,
         code_bu: DataKodeBU,
         cbu: DataCBU,

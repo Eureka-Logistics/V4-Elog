@@ -28,7 +28,7 @@ function CreateBUEmployee() {
   const [isInputValid, setIsInputValid] = useState(true);
   const [imageUrl, setImageUrl] = useState("");
   const [DataSelecttEmployee, setDataSelecttEmployee] = useState("");
-  const [DataBU,setDataBU] = useState("");
+  const [DataBU, setDataBU] = useState("");
   const [DataGl, setDataGl] = useState("");
   const [DataASM, setDataASM] = useState("");
   const [DataMgr, setDataMgr] = useState("");
@@ -39,8 +39,8 @@ function CreateBUEmployee() {
   const [PosisiMGR, setPosisiMGR] = useState("");
   const [PosisiKACAB, setPosisiKACAB] = useState("");
   const [PosisiAMD, setPosisiAMD] = useState("");
+  const [DataSelectLagi, setDataSelectLagi] = useState("");
   // const [DataMgr, setDataMgr] = useState("");
-
 
   const DataSelectEmployee = async () => {
     try {
@@ -135,17 +135,16 @@ function CreateBUEmployee() {
         },
       });
       console.log("responssssscarismid", respons.data.user);
+      console.log("responss11", respons.data);
       setDataSelecttEmployee(respons.data.user);
+      setDataSelectLagi(respons.data);
       // setDataGL(respons.data.user.fullname);
     } catch (error) {}
   };
 
-
   return (
     <div>
-      <h5>
-        Data Employee
-      </h5>
+      <h5>Data Employee</h5>
       <hr />
       <Row>
         {/* <Col span={10}>
@@ -247,7 +246,7 @@ function CreateBUEmployee() {
               ))}
           </Select>
         </Col>
-       
+
         <Col span={12}>
           <label style={{ fontWeight: "bold" }}>Employee Position :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
@@ -274,7 +273,7 @@ function CreateBUEmployee() {
               ))}
           </Select>
         </Col>
-         {/* <label style={{ fontWeight: "bold" }}>Job Level :</label> */}
+        {/* <label style={{ fontWeight: "bold" }}>Job Level :</label> */}
         {/* Menghubungkan input tarif dengan state tarif */}
         <Col span={12}>
           <label style={{ fontWeight: "bold" }}>Job Level:</label>
@@ -290,7 +289,6 @@ function CreateBUEmployee() {
             </p>
           )}
         </Col>
-        
       </Row>
       <Row className="mt-2">
         <Col span={6}>
@@ -320,8 +318,8 @@ function CreateBUEmployee() {
             }}
           />
         </Col>
-         <Col span={3}>
-          <label style={{ fontWeight: "bold" }}>Kode BU  :</label>
+        <Col span={3}>
+          <label style={{ fontWeight: "bold" }}>Kode BU :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
             className="mt-2 mb-2"
@@ -333,27 +331,25 @@ function CreateBUEmployee() {
             onChange={(e, options) => {
               console.log(options.key);
               setIDBu(options.key);
-              setDataBU(options.value)
+              setDataBU(options.value);
             }}
           >
             {DataSelect &&
               DataSelect?.BU.map((CustomerItem) => (
                 <Select.Option
                   key={CustomerItem?.id}
-                  value={CustomerItem?.nameBu
-                  }
+                  value={CustomerItem?.nameBu}
                 >
-                  {CustomerItem?.id
-}
+                  {CustomerItem?.id}
                 </Select.Option>
               ))}
           </Select>
         </Col>
-      <Col span={9}>
-          <label style={{ fontWeight: "bold" }}>Nama Bisnis Unit  :</label>
-          
+        <Col span={9}>
+          <label style={{ fontWeight: "bold" }}>Nama Bisnis Unit :</label>
+
           <Input
-          disabled
+            disabled
             className="mt-2 mb-2"
             name="nameBu "
             placeholder="Automatic Input"
@@ -365,10 +361,8 @@ function CreateBUEmployee() {
      
       </Row> */}
 
-     <br/>
-      <h5>
-        Wilayah Group Leader
-      </h5>
+      <br />
+      <h5>Wilayah Group Leader</h5>
       <hr />
       <Row className="mt-2">
         <Col span={3}>
@@ -384,20 +378,22 @@ function CreateBUEmployee() {
             onChange={(e, options) => {
               console.log(options.key);
               setIDgl(options.key);
-              setDataGl(options.value)
+              setDataGl(options.value);
               setPosisiGL(options.value2);
             }}
           >
-            {DataSelecttEmployee &&
-              DataSelecttEmployee?.map((CustomerItem) => (
-                <Select.Option
-                  key={CustomerItem?.id_gl}
-                  value={CustomerItem?.fullname}
-                  value2={CustomerItem?.job_level}
-                >
-                  {CustomerItem?.id_gl}
-                </Select.Option>
-              ))}
+            {DataSelectLagi &&
+              DataSelectLagi?.employePosition
+                .filter((item) => item.code_employee_position.startsWith("G"))
+                .map((CustomerItem) => (
+                  <Select.Option
+                    key={CustomerItem?.code_employee_position}
+                    value={CustomerItem?.fullname}
+                    value2={CustomerItem?.name_employee_position}
+                  >
+                    {CustomerItem?.code_employee_position}
+                  </Select.Option>
+                ))}
           </Select>
           {/* <Input
             className="mt-2 mb-2"
@@ -409,39 +405,34 @@ function CreateBUEmployee() {
             }}
           /> */}
         </Col>
-        <Col span={10}
-        >
-          
-          <label style={{ fontWeight: "bold" }}>Nama Group Leader  :</label>
+        <Col span={10}>
+          <label style={{ fontWeight: "bold" }}>Nama Group Leader :</label>
           <Input
-          disabled
-          style={{ width: "100%" }}
+            disabled
+            style={{ width: "100%" }}
             className="mt-2 mb-2"
             name="fullname "
             placeholder="Automatic Input"
             value={DataGl}
           />
         </Col>
-       
+
         <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Position Grup Leader :</label>
           <Input
-          disabled
+            disabled
             className="mt-2 mb-2"
-            name="job_level"
+            name="name_employee_position"
             placeholder="Automatic Input"
             value={PosisiGL}
           />
         </Col>
-       
       </Row>
-      <br/>
-      <h5>
-        Wilayah ASMEN
-      </h5>
+      <br />
+      <h5>Wilayah ASMEN</h5>
       <hr />
       <Row className="mt-2">
-      <Col span={3}>
+        <Col span={3}>
           <label style={{ fontWeight: "bold" }}>ID ASM :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -458,22 +449,28 @@ function CreateBUEmployee() {
               setPosisiASM(options.value2);
             }}
           >
-            {DataSelecttEmployee &&
-              DataSelecttEmployee?.map((CustomerItem) => (
-                <Select.Option
-                  key={CustomerItem?.id_asm}
-                  value={CustomerItem?.fullname}
-                  value2={CustomerItem?.job_level}
-                >
-                  {CustomerItem?.id_asm}
-                </Select.Option>
-              ))}
+            {DataSelectLagi &&
+              DataSelectLagi?.employePosition
+                .filter(
+                  (item) =>
+                    item.code_employee_position.startsWith("A") &&
+                    item.code_employee_position !== "AMD101"
+                )
+                .map((CustomerItem) => (
+                  <Select.Option
+                    key={CustomerItem?.code_employee_position}
+                    value={CustomerItem?.name_employee_position}
+                    value2={CustomerItem?.name_employee_position}
+                  >
+                    {CustomerItem?.code_employee_position}
+                  </Select.Option>
+                ))}
           </Select>
         </Col>
         <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Nama ASMEN :</label>
           <Input
-          disabled
+            disabled
             className="mt-2 mb-2"
             name="fullname"
             placeholder="Automatic Input"
@@ -483,22 +480,19 @@ function CreateBUEmployee() {
         <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Position ASMEN :</label>
           <Input
-          disabled
+            disabled
             className="mt-2 mb-2"
-            name="fullname"
+            name="name_employee_position"
             placeholder="Automatic Input"
             value={PosisiASM}
           />
         </Col>
-       
       </Row>
-      <br/>
-      <h5>
-        Wilayah Manager
-      </h5>
+      <br />
+      <h5>Wilayah Manager</h5>
       <hr />
       <Row>
-      <Col span={3}>
+        <Col span={3}>
           <label style={{ fontWeight: "bold" }}>ID MGR :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -512,25 +506,27 @@ function CreateBUEmployee() {
               console.log(options.key);
               setIDMgr(options.key);
               setDataMgr(options.value);
-              setPosisiMGR(options.value2)
+              setPosisiMGR(options.value2);
             }}
           >
-            {DataSelecttEmployee &&
-              DataSelecttEmployee?.map((CustomerItem) => (
-                <Select.Option
-                  key={CustomerItem?.id_mgr}
-                  value={CustomerItem?.fullname}
-                  value2={CustomerItem?.job_level}
-                >
-                  {CustomerItem?.id_mgr}
-                </Select.Option>
-              ))}
+            {DataSelectLagi &&
+              DataSelectLagi?.employePosition
+                .filter((item) => item.code_employee_position.startsWith("M"))
+                .map((CustomerItem) => (
+                  <Select.Option
+                    key={CustomerItem?.code_employee_position}
+                    value={CustomerItem?.name_employee_position}
+                    value2={CustomerItem?.name_employee_position}
+                  >
+                    {CustomerItem?.code_employee_position}
+                  </Select.Option>
+                ))}
           </Select>
         </Col>
         <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Nama Manager :</label>
           <Input
-          disabled
+            disabled
             className="mt-2 mb-2"
             name="fullname"
             placeholder="Automatic Input"
@@ -540,21 +536,19 @@ function CreateBUEmployee() {
         <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Position Manager :</label>
           <Input
-          disabled
+            disabled
             className="mt-2 mb-2"
-            name="fullname"
+            name="name_employee_position"
             placeholder="Automatic Input"
             value={PosisiMGR}
           />
         </Col>
       </Row>
-      <br/>
-      <h5>
-        Wilayah Kepala Cabang
-      </h5>
+      <br />
+      <h5>Wilayah Kepala Cabang</h5>
       <hr />
       <Row>
-      <Col span={3}>
+        <Col span={3}>
           <label style={{ fontWeight: "bold" }}>ID KACAB:</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -571,22 +565,24 @@ function CreateBUEmployee() {
               setPosisiKACAB(options.value2);
             }}
           >
-            {DataSelecttEmployee &&
-              DataSelecttEmployee?.map((CustomerItem) => (
-                <Select.Option
-                  key={CustomerItem?.id_kacab}
-                  value={CustomerItem?.fullname}
-                  value2={CustomerItem?.job_level}
-                >
-                  {CustomerItem?.id_kacab}
-                </Select.Option>
-              ))}
+            {DataSelectLagi &&
+              DataSelectLagi?.employePosition
+                .filter((item) => item.code_employee_position.startsWith("K"))
+                .map((CustomerItem) => (
+                  <Select.Option
+                    key={CustomerItem?.code_employee_position}
+                    value={CustomerItem?.name_employee_position}
+                    value2={CustomerItem?.name_employee_position}
+                  >
+                    {CustomerItem?.code_employee_position}
+                  </Select.Option>
+                ))}
           </Select>
         </Col>
         <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Nama Kepala Cabang :</label>
           <Input
-          disabled
+            disabled
             className="mt-2 mb-2"
             name="fullname"
             placeholder="Automatic Input"
@@ -596,22 +592,19 @@ function CreateBUEmployee() {
         <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Position Kepala Cabang :</label>
           <Input
-          disabled
+            disabled
             className="mt-2 mb-2"
-            name="fullname"
+            name="name_employee_position"
             placeholder="Automatic Input"
             value={PosisiKACAB}
           />
         </Col>
-       
       </Row>
-      <br/>
-      <h5>
-        Wilayah AMD
-      </h5>
+      <br />
+      <h5>Wilayah AMD</h5>
       <hr />
       <Row>
-      <Col span={3}>
+        <Col span={3}>
           <label style={{ fontWeight: "bold" }}>ID AMD :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -628,22 +621,24 @@ function CreateBUEmployee() {
               setPosisiAMD(options.value2);
             }}
           >
-            {DataSelecttEmployee &&
-              DataSelecttEmployee?.map((CustomerItem) => (
-                <Select.Option
-                  key={CustomerItem?.id_amd}
-                  value={CustomerItem?.fullname}
-                  value2={CustomerItem?.job_level}
-                >
-                  {CustomerItem?.id_amd}
-                </Select.Option>
-              ))}
+            {DataSelectLagi &&
+              DataSelectLagi?.employePosition
+                .filter((item) => item.code_employee_position.startsWith("D"))
+                .map((CustomerItem) => (
+                  <Select.Option
+                    key={CustomerItem?.code_employee_position}
+                    value={CustomerItem?.name_employee_position}
+                    value2={CustomerItem?.name_employee_position}
+                  >
+                    {CustomerItem?.code_employee_position}
+                  </Select.Option>
+                ))}
           </Select>
         </Col>
         <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Nama AMD :</label>
           <Input
-          disabled
+            disabled
             className="mt-2 mb-2"
             name="fullname"
             placeholder="Automatic Input"
@@ -653,9 +648,9 @@ function CreateBUEmployee() {
         <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Position AMD :</label>
           <Input
-          disabled
+            disabled
             className="mt-2 mb-2"
-            name="fullname"
+            name="name_employee_position"
             placeholder="Automatic Input"
             value={PosisiAMD}
           />

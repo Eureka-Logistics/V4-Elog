@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
 import DataProfile from "./Form/DataProfile";
-import { notification,Modal } from "antd";
+import { notification, Modal } from "antd";
 import { httpClient } from "../../../Api/Api";
 import axios from "axios";
 import Baseurl from "../../../Api/BaseUrl";
@@ -58,12 +58,8 @@ function SamplePage({ isiValues }) {
     OptionsData();
   }, []);
 
- 
-
-
   return (
     <>
-  
       <Button
         style={{
           backgroundColor: "#1A5CBF",
@@ -78,24 +74,26 @@ function SamplePage({ isiValues }) {
       </Button>
 
       <Modal
-    title="New Master Mitra"
-    visible={show}
-    width={1200}
-    onCancel={handleClose}
-    footer={[
-        // Uncomment this if you want the Save button
-        // <Button key="submit" type="primary" onClick={datatest}>
-        //     Save
-        // </Button>,
-        // <Button key="back" onClick={handleClose}>
-        //     Close
-        // </Button>
-    ]}
-    className="modal-xl"
-    style={{color: '#1A5CBF'}}
->
-    <DataProfile onSubmit={handleSubmit} />
-</Modal>
+        title="New Master Mitra"
+        visible={show}
+        width={1200}
+        onCancel={handleClose}
+        footer={
+          [
+            // Uncomment this if you want the Save button
+            // <Button key="submit" type="primary" onClick={datatest}>
+            //     Save
+            // </Button>,
+            // <Button key="back" onClick={handleClose}>
+            //     Close
+            // </Button>
+          ]
+        }
+        className="modal-xl"
+        style={{ color: "#1A5CBF" }}
+      >
+        <DataProfile onSubmit={handleSubmit} />
+      </Modal>
     </>
   );
 }
