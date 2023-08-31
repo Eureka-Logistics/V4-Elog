@@ -20,17 +20,19 @@ function NewMasterAlamatNew() {
   const [DataKodeWilayah, setDataKodeWilayah] = useState("");
   const [DataKota, setDataKota] = useState("");
   const [DataKecamatan, setDataKecamatan] = useState("");
-  const [DataRitase, setDataRitase] = useState("");
+  const [DataRitase, setDataRitase] = useState(0);
   const [DataHP, setDataHP] = useState("");
   const [DataLat, setDataLat] = useState("");
   const [DataLon, setDataLon] = useState("");
   const [CustomersData, setCustomerData] = useState("");
   const [DataTambah, setDataTambah] = useState("");
+  const [IDProvinsi, setIDProvinsi] = useState("");
+  const [DataProvinsi, setDataProvinsi] = useState("");
 
   const GetSelectData = async () => {
     try {
       const respons = await axios.get(
-        `${Baseurl}customer/get-select-create-address?idProv=${DataKodeWilayah}&idKota=${DataKota}`,
+        `${Baseurl}customer/get-select-create-address?idProv=${DataProvinsi}&idKota=${DataKota}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -46,7 +48,7 @@ function NewMasterAlamatNew() {
   useEffect(() => {
     // fetchData();
     GetSelectData();
-  }, [DataKodeWilayah, DataKecamatan, DataKota]);
+  }, [DataKodeWilayah, DataKecamatan, DataKota, DataProvinsi]);
 
   const KotaOptions =
     DataTambah?.kota && Array.isArray(DataTambah?.kota)
@@ -76,7 +78,7 @@ function NewMasterAlamatNew() {
               alamat: DataAlamat,
               ritase: parseInt(DataRitase),
               hp: DataHP,
-              id_provinsi: parseInt(DataKodeWilayah),
+              id_provinsi: parseInt(DataProvinsi),
               id_kota: parseInt(DataKota),
               id_kecamatan: parseInt(DataKecamatan),
               lat: parseInt( DataLat),
@@ -94,19 +96,38 @@ function NewMasterAlamatNew() {
           setDataTambah(respons.data);
       
           // Show SweetAlert2 success message
-          Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: 'Data has been added successfully!',
-          }).then(() => {
-            // Reload the window after the success message is closed
-            // window.location.reload();
-          });
-      
+          if (respons.status === 200) {
+            Swal.fire({
+              icon: "success",
+              title: "Success",
+              text: "Data has been saved",
+              // footer: '<a href="">Why do I have this issue?</a>'
+            }).then(() => {
+              // Reload the window after showing the success message
+              window.location.reload();
+            });;
+    
+         
+          } else if (respons.status === 500) {
+            // Swal.fire({
+            //     icon: 'error',
+            //     title: 'Oops...',
+            //     text: 'Something went wrong!',
+            //     // footer: '<a href="">Why do I have this issue?</a>'
+            //   })
+            console.log(`error`);
+          }
         } catch (error) {
-          // Handle error if needed
+          console.log(`ini error`);
+          console.error(`ini errorr`, error);
+          Swal.fire({
+            icon: "error",
+            title: "Isi Semua Data Terlebih dahulu",
+            // text: "Isi Semua Data",
+            // footer: '<a href="">Why do I have this issue?</a>'
+          });
         }
-  };
+      };
 
   return (
     <div>
@@ -224,22 +245,20 @@ function NewMasterAlamatNew() {
               //   value={CustomersData}
             />
           </Col>
-          <Col span={8}>
+          {/* <Col span={8}>
             <label style={{ fontWeight: "bold" }}>Ritase :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
             <Input
               className="mt-2 mb-2"
               placeholder="Ritase"
               onChange={(e) => {
                 console.log(e.target.value);
                 setDataRitase(e.target.value);
-                // setCustomer(options.key);
+                
               }}
-              //   placeholder={DataDetailAddress?.customer}
-              //   value={CustomersData}
+             
             />
-          </Col>
-          <Col span={8}>
+          </Col> */}
+          <Col span={12}>
             <label style={{ fontWeight: "bold" }}>Lat :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -254,7 +273,7 @@ function NewMasterAlamatNew() {
               //   value={CustomersData}
             />
           </Col>
-          <Col span={8}>
+          <Col span={12}>
             <label style={{ fontWeight: "bold" }}>Lon :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -283,7 +302,7 @@ function NewMasterAlamatNew() {
               style={{ width: "90%" }}
               onChange={(e, options) => {
                 console.log(options.key);
-                setDataKodeWilayah(options.key);
+                setDataProvinsi(options.key);
               }}
             >
               {DataTambah &&
@@ -304,7 +323,7 @@ function NewMasterAlamatNew() {
               className="mt-2"
               showSearch
               placeholder="Select Kota"
-              optionFilterProp="value"
+              optionFilterProp="label"
               style={{ width: "90%" }}
               options={KotaOptions}
               onChange={(e, options) => {
@@ -320,7 +339,7 @@ function NewMasterAlamatNew() {
               className="mt-2"
               showSearch
               placeholder="Select Kecamatan"
-              optionFilterProp="value"
+              optionFilterProp="label"
               style={{ width: "90%" }}
               options={KecamatanOptions}
               onChange={(e, options) => {

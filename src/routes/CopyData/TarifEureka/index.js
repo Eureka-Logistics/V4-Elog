@@ -233,9 +233,9 @@ const SamplePage = () => {
 
   const handleDelete = (id) => {
     Modal.confirm({
-      title: "Are you sure you want to delete this Tarif?",
+      title: "Yakin untuk menghapus tarif ini? ",
       icon: <ExclamationCircleOutlined />,
-      content: "This action cannot be undone.",
+      content: "Tindakan ini tidak dapat dibatalkan",
       onOk() {
         const datas = {
           id_price: id,

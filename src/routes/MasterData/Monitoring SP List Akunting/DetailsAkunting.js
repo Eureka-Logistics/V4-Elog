@@ -718,7 +718,7 @@ function DetailsAkunting() {
                 <tr style={{ fontWeight: "bold" }}>
                   {jobdesk !== "operasional" && (
                     <>
-                      <td colSpan={12} width="150px" className="text-right">
+                      <td colSpan={12} width="150px" style={{ textAlign: 'end'}}>
                         Sub Total
                       </td>
                     </>
@@ -735,165 +735,64 @@ function DetailsAkunting() {
                   )}
                 </tr>
               </tfoot>
-            </Table>
-            {jobdesk !== "operasional" && (
-              <>
-                <Row>
-                  <Col
-                    span={12}
-                    style={{ marginLeft: "10px" }}
-                    className="d-flex justify-content-end mt-2"
-                  >
-                    <tr style={{ fontWeight: "bold" }}>
-                      {/* {jobdesk !== "operasional" && (
+              <tfoot>
+                <tr style={{ fontWeight: "bold" }}>
+                  {jobdesk !== "operasional" && (
                     <>
-                      <td colSpan={8} width="140px" className="text-right">
-                      Biaya Muat :
+                      <td style={{ textAlign: 'end'}} colSpan={12} width="150px" >
+                       Biaya Muat
                       </td>
-                    </>)} */}
-                      {jobdesk !== "operasional" && (
-                        <>
-                          <div>
-                            <td style={{ paddingRight: "20px" }}>Biaya Muat</td>
-                            <td style={{ paddingRight: "10px" }}>:</td>
-                            <td width="150px" style={{ paddingLeft: "10px" }}>
-                              {detailData?.totalMuat?.toLocaleString("id-ID", {
+                    </>
+                  )}
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td width="150px">
+                      {detailData?.totalMuat?.toLocaleString("id-ID", {
                                 style: "currency",
                                 currency: "IDR",
                               })}
-                            </td>
-                          </div>
-                        </>
-                      )}
-                    </tr>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col
-                    span={12}
-                    style={{ marginLeft: "10px" }}
-                    className="d-flex justify-content-end mt-2"
-                  >
-                    <tr style={{ fontWeight: "bold" }}>
-                      {/* {jobdesk !== "operasional" && (
-                    <>
-                      <td colSpan={8} width="140px" className="text-right">
-                      Biaya Muat :
                       </td>
-                    </>)} */}
-                      {jobdesk !== "operasional" && (
-                        <>
-                          <div>
-                            <td style={{ paddingRight: "20px" }}>
-                              Biaya Bongkar
-                            </td>
-                            <td style={{ paddingRight: "10px" }}>:</td>
-                            <td width="150px" style={{ paddingLeft: "10px" }}>
-                              {detailData?.totalBongkar?.toLocaleString(
+                    </>
+                  )}
+                </tr>
+              </tfoot>
+              <tfoot>
+                <tr style={{ fontWeight: "bold" }}>
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td style={{ textAlign: 'end'}} colSpan={12} width="150px" >
+                       Biaya Bongkar
+                      </td>
+                    </>
+                  )}
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td width="150px">
+                      {detailData?.totalBongkar?.toLocaleString(
                                 "id-ID",
                                 {
                                   style: "currency",
                                   currency: "IDR",
                                 }
                               )}
-                            </td>
-                          </div>
-                        </>
-                      )}
-                    </tr>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col
-                    span={12}
-                    style={{ marginLeft: "10px" }}
-                    className="d-flex justify-content-end mt-2"
-                  >
-                    <tr style={{ fontWeight: "bold" }}>
-                      {/* {jobdesk !== "operasional" && (
-                    <>
-                      <td colSpan={8} width="140px" className="text-right">
-                      Biaya Muat :
                       </td>
-                    </>)} */}
-                      {jobdesk !== "operasional" && (
-                        <>
-                          <div>
-                            <td style={{ paddingRight: "20px" }}>Biaya Mel</td>
-                            <td style={{ paddingRight: "10px" }}>:</td>
-                            <td width="150px" style={{ paddingLeft: "10px" }}>
-                              Rp. 0,00
-                              {/* {detailData?.biayamel?.toLocaleString("id-ID", {
-                                style: "currency",
-                                currency: "IDR",
-                              })} */}
-                            </td>
-                          </div>
-                        </>
-                      )}
-                    </tr>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col
-                    span={12}
-                    style={{ marginLeft: "10px" }}
-                    className="d-flex justify-content-end mt-2"
-                  >
-                    <tr style={{ fontWeight: "bold" }}>
-                      {/* {jobdesk !== "operasional" && (
+                    </>
+                  )}
+                </tr>
+              </tfoot>
+              <tfoot>
+                <tr style={{ fontWeight: "bold" }}>
+                  {jobdesk !== "operasional" && (
                     <>
-                      <td colSpan={8} width="140px" className="text-right">
-                      Biaya Muat :
+                      <td style={{ textAlign: 'end'}} colSpan={12} width="150px" >
+                       Biaya MultiDrop
                       </td>
-                    </>)} */}
-                      {jobdesk !== "operasional" && (
-                        <>
-                          <div>
-                            <td
-                              style={{
-                                paddingRight: "20px",
-                                textAlign: "left",
-                              }}
-                            >
-                              Biaya Inap
-                            </td>
-                            <td style={{ paddingRight: "10px" }}>:</td>
-                            <td width="150px" style={{ paddingLeft: "10px" }}>
-                              Rp. 0,00
-                              {/* {detailData?.biayainap?.toLocaleString("id-ID", {
-                                style: "currency",
-                                currency: "IDR",
-                              })} */}
-                            </td>
-                          </div>
-                        </>
-                      )}
-                    </tr>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col
-                    span={12}
-                    style={{ marginLeft: "10px" }}
-                    className="d-flex justify-content-end mt-2"
-                  >
-                    <tr style={{ fontWeight: "bold" }}>
-                      {/* {jobdesk !== "operasional" && (
+                    </>
+                  )}
+                  {jobdesk !== "operasional" && (
                     <>
-                      <td colSpan={8} width="140px" className="text-right">
-                      Biaya Muat :
-                      </td>
-                    </>)} */}
-                      {jobdesk !== "operasional" && (
-                        <>
-                          <div>
-                            <td style={{ paddingRight: "20px" }}>
-                              Biaya MultiDrop
-                            </td>
-                            <td style={{ paddingRight: "10px" }}>:</td>
-                            <td width="150px" style={{ paddingLeft: "10px" }}>
-                              Rp 0,00{" "}
+                      <td width="150px">
+                      Rp 0,00{" "}
                               {detailData?.biaya_multidrop?.toLocaleString(
                                 "id-ID",
                                 {
@@ -901,35 +800,68 @@ function DetailsAkunting() {
                                   currency: "IDR",
                                 }
                               )}
-                            </td>
-                          </div>
-                        </>
-                      )}
-                    </tr>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col
-                    span={12}
-                    style={{ marginLeft: "10px" }}
-                    className="d-flex justify-content-end mt-2"
-                  >
-                    <tr style={{ fontWeight: "bold" }}>
-                      {/* {jobdesk !== "operasional" && (
-                    <>
-                      <td colSpan={8} width="140px" className="text-right">
-                      Biaya Muat :
                       </td>
-                    </>)} */}
-                      {jobdesk !== "operasional" && (
-                        <>
-                          <div>
-                            <td style={{ paddingRight: "20px" }}>
-                              Biaya Overtonase
-                            </td>
-                            <td style={{ paddingRight: "10px" }}>:</td>
-                            <td width="150px" style={{ paddingLeft: "10px" }}>
-                              Rp 0,00{" "}
+                    </>
+                  )}
+                </tr>
+              </tfoot>
+              <tfoot>
+                <tr style={{ fontWeight: "bold" }}>
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td style={{ textAlign: 'end'}} colSpan={12} width="150px" >
+                       Biaya Mel
+                      </td>
+                    </>
+                  )}
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td width="150px">
+                      Rp. 0,00
+                              {detailData?.biayamel?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}
+                      </td>
+                    </>
+                  )}
+                </tr>
+              </tfoot>
+              <tfoot>
+                <tr style={{ fontWeight: "bold" }}>
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td style={{ textAlign: 'end'}} colSpan={12} width="150px" >
+                       Biaya Inap
+                      </td>
+                    </>
+                  )}
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td width="150px">
+                      Rp. 0,00
+                              {detailData?.biayainap?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}
+                      </td>
+                    </>
+                  )}
+                </tr>
+              </tfoot>
+              <tfoot>
+                <tr style={{ fontWeight: "bold" }}>
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td style={{ textAlign: 'end'}} colSpan={12} width="150px" >
+                       Biaya Overtonase
+                      </td>
+                    </>
+                  )}
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td width="150px">
+                      Rp 0,00{" "}
                               {detailData?.biaya_overtonase?.toLocaleString(
                                 "id-ID",
                                 {
@@ -937,15 +869,16 @@ function DetailsAkunting() {
                                   currency: "IDR",
                                 }
                               )}
-                            </td>
-                          </div>
-                        </>
-                      )}
-                    </tr>
-                  </Col>
-                </Row>
-
-                <hr />
+                      </td>
+                    </>
+                  )}
+                </tr>
+              </tfoot>
+            </Table>
+            {jobdesk !== "operasional" && (
+              <>
+            
+              
                 <Row>
                   <Col
                     span={12}

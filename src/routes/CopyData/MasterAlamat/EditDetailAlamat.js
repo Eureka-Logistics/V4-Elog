@@ -81,12 +81,13 @@ function EditDetailAlamat() {
         alamat: DataAlamat,
         kecamatan: DataKecamatan.label,
         kota: DataKota.label,
-        kode_wilayah: DataKodeWilayah.value,
+        kode_wilayah: DataKodeWilayah,
         // provinsi: DataProvinsi.value,
         ritase: parseInt(DataRitase),
         hp: DataHP,
         lat: DataLat,
         lon: DataLon,
+        // id_provinsi: DataKodeWilayah,
       };
 
       const response = await axios.post(
@@ -241,9 +242,9 @@ function EditDetailAlamat() {
               }}
             />
           </Col>
-          <Col span={8}>
+          {/* <Col span={8}>
             <label style={{ fontWeight: "bold" }}>Ritase :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
+           
             <Input
               className="mt-2 mb-2"
               placeholder={DataDetailAddress?.ritase}
@@ -253,8 +254,8 @@ function EditDetailAlamat() {
                 setDataRitase(e.target.value);
               }}
             />
-          </Col>
-          <Col span={8}>
+          </Col> */}
+          <Col span={12}>
             <label style={{ fontWeight: "bold" }}>Lat :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -267,7 +268,7 @@ function EditDetailAlamat() {
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col span={12}>
             <label style={{ fontWeight: "bold" }}>Lon :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -294,7 +295,7 @@ function EditDetailAlamat() {
               optionFilterProp="value"
               style={{ width: "90%" }}
               onChange={(e, options) => {
-                console.log(options.key);
+                console.log(options.key, "ini kode wilayah");
                 setDataKodeWilayah(options.key);
                 setIDDataKodeWilayah(options.key);
               }}
