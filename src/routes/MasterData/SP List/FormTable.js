@@ -1894,7 +1894,7 @@ function FormTable({
             </>
           )}
           {IsiKomenRejectSP === "Tidak Menggunakan unit" ? (
-            <Alert type="error" message="SP Sudah Di Reject" banner />
+            <Alert type="error" message="SO Sudah Di Reject" banner />
           ) : (
             <>
               {jobdesk !== "purchasing" &&
@@ -1918,7 +1918,7 @@ function FormTable({
                     jobdesk === "akunting" ? rejectspAkunting() : rejectsp()
                   }
                 >
-                  Reject SP
+                  Reject SO
                 </Button>
               )}
               {/* {(StatusApproveAct === 'N') &&
@@ -1961,7 +1961,7 @@ function FormTable({
 
               {jobdesk === "operasional" && (
                 <Button size="sm" variant="danger" onClick={rejectsp}>
-                  Reject SP
+                  Reject SO
                 </Button>
               )}
 
@@ -1981,7 +1981,7 @@ function FormTable({
               {/* //   <Alert type="success" message="SP Telah di Approve" banner />
               // } */}
               {StatusApproveAct === "N" && TanggalACT3 !== null && (
-                <Alert type="error" message="SP Sudah Di Reject" banner />
+                <Alert type="error" message="SO Sudah Di Reject" banner />
               )}
             </>
           )}
@@ -2315,35 +2315,14 @@ function FormTable({
         <Col sm={6}>
           <Form>
             <Form.Group>
-              <Form.Label>ID SP</Form.Label>
+              <Form.Label>ID SO</Form.Label>
               <Form.Control
                 type="text"
                 disabled
-                value={isidata[0] ? isidata[0].sp : SJKosongModal}
+                value={spdetailsemuanyasekarang.sp}
               />
 
               <Form.Text className="text-muted"></Form.Text>
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label>Service</Form.Label>
-              <Form.Control
-                type="text"
-                disabled
-                value={isidata[0] ? isidata[0].service : SJKosongModal}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Jenis Barang</Form.Label>
-              <Form.Control
-                type="text"
-                disabled
-                value={jenisBarang ? jenisBarang : SJKosongModal}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Customer</Form.Label>
-              <Form.Control type="text" disabled value={custumer} />
             </Form.Group>
             <Form.Group>
               <Form.Label>Marketing</Form.Label>
@@ -2367,11 +2346,44 @@ function FormTable({
               </div>
             </Form.Group>
             <ModalDetailMarketing detailsemua={spdetailsemuanyasekarang} modal1Open={modal1OpenDetail} setModal1Open={setmodal1OpenDetail} name={NamaMarketing} />
+            <Form.Group>
+              <Form.Label>Service</Form.Label>
+              <Form.Control
+                type="text"
+                disabled
+                value={isidata[0] ? isidata[0].service : SJKosongModal}
+              />
+            </Form.Group>
+            <Row>
+              <Col sm={6}>
+                <Form.Group>
+                  <Form.Label>Jenis Barang</Form.Label>
+                  <Form.Control
+                    type="text"
+                    disabled
+                    value={jenisBarang ? jenisBarang : SJKosongModal}
+                  />
+                </Form.Group>
+              </Col>
+              <Col sm={6}>
+                <Form.Group>
+                  <Form.Label>Jenis Barang</Form.Label>
+                  <Form.Control type="text" disabled value={JenisBarang} />
+                </Form.Group>
+              </Col>
+            </Row>
+
+
           </Form>
         </Col>
         <Col sm={6}>
           <Form>
             <Form.Group>
+              <Form.Label>Customer</Form.Label>
+              <Form.Control type="text" disabled value={custumer} />
+            </Form.Group>
+
+            {/* <Form.Group>
               <Form.Label>Via</Form.Label>
               <Form.Control
                 type="text"
@@ -2379,26 +2391,34 @@ function FormTable({
                 value={isidata[0] ? isidata[0].via : SJKosongModal}
               />
               <Form.Text></Form.Text>
-            </Form.Group>
+            </Form.Group> */}
             <Form.Group>
-              <Form.Label>Pickup Date</Form.Label>
-              <Form.Control
-                type="text"
-                disabled
-                value={
-                  isidata[0]
-                    ? isidata[0].pickupDate === "Invalid date" || "1970-01-01 07:00:00"
-                      ? "-"
-                      : isidata[0].pickupDate
-                    : SJKosongModal
-                }
-              />
+              <Form.Label>No Telp Customer</Form.Label>
+              <Form.Control type="text" disabled value={spdetailsemuanyasekarang?.telpCustomer} />
             </Form.Group>
+            <Row>
+              <Col sm={6}>
+                <Form.Group>
+                  <Form.Label>Pickup Date</Form.Label>
+                  <Form.Control
+                    type="text"
+                    disabled
+                    value={
+                      spdetailsemuanyasekarang.pickup_date
+                    }
+                  />
+                </Form.Group>
+              </Col>
+              <Col sm={6}>
+                <Form.Group>
+                  <Form.Label>Tgl Bongkar</Form.Label>
+                  <Form.Control type="text" disabled value={spdetailsemuanyasekarang?.bongkar_date} />
+                </Form.Group>
+              </Col>
+            </Row>
 
-            <Form.Group>
-              <Form.Label>Order Date</Form.Label>
-              <Form.Control type="text" disabled value={orderdate} />
-            </Form.Group>
+
+
             <Form.Group>
               <Form.Label>Asuransi</Form.Label>
               <Form.Control
@@ -2411,10 +2431,7 @@ function FormTable({
                 }
               />
             </Form.Group>
-            <Form.Group>
-              <Form.Label>Jenis Barang</Form.Label>
-              <Form.Control type="text" disabled value={JenisBarang} />
-            </Form.Group>
+
           </Form>
         </Col>
 
@@ -2427,6 +2444,14 @@ function FormTable({
           />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group> */}
+        <Row>
+          <Col sm={12}>
+            <Form.Group className="mt-4">
+              <Form.Label>Alamat Invoice</Form.Label>
+              <Form.Control type="text" disabled value={spdetailsemuanyasekarang?.alamatInvoice} />
+            </Form.Group>
+          </Col>
+        </Row>
       </Row>
       {/* <br /> */}
       <Row>
@@ -2665,7 +2690,7 @@ function FormTable({
                             {IsiKomenRejectSP === "Tidak Menggunakan unit" ? (
                               <Alert
                                 type="error"
-                                message="SP Sudah Di Reject"
+                                message="SO Sudah Di Reject"
                                 banner
                               />
                             ) : jobdesk === "operasional" &&

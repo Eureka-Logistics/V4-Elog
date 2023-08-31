@@ -604,7 +604,7 @@ function EditSP({  }) {
     <div>
       <Card>
         <Row>
-          <h5>Detail SP</h5>
+          <h5>Detail SO</h5>
           <EditSPNew getDetail={getDetail} />
           {/* <ModalCreateDetail idmp={idmp} detailData={detailData}/> */}
           <div className="d-flex justify-content-end">

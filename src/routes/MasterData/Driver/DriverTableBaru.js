@@ -76,7 +76,7 @@ function DriverTableBaru() {
     {
       name: "Image",
       selector: (row) => (
-        <img src={row.driverImage} height="108px" width="158px"></img>
+        <img src={row.driverImage} style={{ maxWidth: '100%', maxHeight: 'auto', objectFit: 'cover' }} ></img>
       ),
     },
     {
@@ -680,15 +680,15 @@ function DriverTableBaru() {
             <Form layout="vertical" onSubmitCapture={formik.handleSubmit}>
               <Row>
                 <Col sm={4}>
-                  <Card style={{ height: "200px" }}>
+                  <Card style={{ height: "280px" }}>
                     <div style={{ width: "100%", height: "100%" }}>
                       <img
                         src={GambarDriver instanceof File ? URL.createObjectURL(GambarDriver) : GambarDriver}
                         alt="Gambar Driver"
                         style={{
-                          objectFit: "contain",
+                          objectFit: "cover",
                           width: "100%",
-                          height: "100%",
+                          // height: "100%",
                         }}
                       />
 

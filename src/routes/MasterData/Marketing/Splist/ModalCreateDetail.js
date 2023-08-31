@@ -411,12 +411,12 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     formik.resetForm();
                     setModal1Open(true);
                     getTarifRute()
-                }}>Create Detail SP</Button>
+                }}>Create Detail SO</Button>
             </div>
 
 
             <Modal
-                title="Create Detail SP"
+                title="Create Detail SO"
                 style={{
                     top: 20,
                 }}
@@ -432,7 +432,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     onFinish={CreateDetailSP}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
-                    name="Edit Detail SP"
+                    name="Edit Detail SO"
                     labelCol={{ span: 24 }}
                     wrapperCol={{ span: 24 }}
                 >
@@ -1419,7 +1419,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
 
 
             <Modal
-                title={`Edit Detail SP`}
+                title={`Edit Detail SO`}
                 style={{ top: 20 }}
                 open={modal1Open1}
                 onOk={EditSJ}
@@ -1431,7 +1431,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     onFinish={formik.handleSubmit}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
-                    name="Edit Detail SP"
+                    name="Edit Detail SO"
                     labelCol={{ span: 24 }}
                     wrapperCol={{ span: 24 }}
                 >
