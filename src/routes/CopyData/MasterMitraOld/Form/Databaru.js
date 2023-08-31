@@ -21,6 +21,7 @@ import Swal from "sweetalert2";
 import { Data } from "@react-google-maps/api";
 import moment from "moment";
 import { PrinterOutlined } from "@ant-design/icons";
+import PrintZustand from "../../../../zustand/Store/untukPrint/MasterMitra";
 
 function DataBaru({ mitraId, DataOptions }) {
   // const [datamiTraProfile, setDataMitraProfile] = useState([]);
@@ -36,7 +37,13 @@ function DataBaru({ mitraId, DataOptions }) {
   const { banks } = useBanksStore();
   const [DataJenis, setDataJenis] = useState("");
   const [DataDetailMitra, setDataDetailMitra] = useState("");
+  const {DataKodeMitraZustand,setDataKodeMitraZustand} = PrintZustand((state) =>({
+    DataKodeMitraZustand : state.DataKodeMitraZustand,
+    setDataKodeMitraZustand : state.setDataKodeMitraZustand
+
+  }));
   const [DataKodeMitra, setDataKodeMitra] = useState("");
+ console.log(`DataKodeMitraZustand`,DataKodeMitraZustand);
   const [DataKodeInisial, setDataKodeInisial] = useState("");
   const [DataQRKode, setDataQRKode] = useState("");
   const [DataNamaMitra, setDataNamaMitra] = useState("");
@@ -148,6 +155,7 @@ function DataBaru({ mitraId, DataOptions }) {
     setTitle(data.data.data?.title);
     setDataDetailMitra(data.data.data?.data);
     setDataKodeMitra(data.data.data?.kode_mitra || "");
+    setDataKodeMitraZustand(data.data.data?.kode_mitra)
     setDataTitle(data.data.data?.title || "");
     setDataNamaMitra(data.data.data?.nama_mitra || "");
     setDataJenis(data.data.data?.jenis || "");
@@ -409,6 +417,7 @@ function DataBaru({ mitraId, DataOptions }) {
   useEffect(() => {
     DetailMitra();
     OptionsData();
+    setDataKodeMitraZustand()
   }, []);
 
   const OptionsData = async () => {

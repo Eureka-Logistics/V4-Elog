@@ -130,7 +130,7 @@ function SPList() {
       wrap: true,
     },
     {
-      name: "SP ID",
+      name: "SO ID",
       selector: (row) => row.sp,
       width: "150px",
       wrap: true,
@@ -251,14 +251,14 @@ function SPList() {
       <Card>
         <Row>
           <Col>
-            <h5 style={{color: `#1A5CBF`, fontWeight: 'bold'}}>Approve Sp</h5>
+            <h5 style={{color: `#1A5CBF`, fontWeight: 'bold'}}>Approve SO</h5>
             <div className="d-flex justify-content-end">
               <Col sm={3}>
                 <Form.Group controlId="spId">
                   <Form.Control
                     type="text"
                     value={spId}
-                    placeholder="Cari No SP "
+                    placeholder="Cari No SO "
                     onChange={(e) => setSpId(e.target.value)}
                   />
                 </Form.Group>

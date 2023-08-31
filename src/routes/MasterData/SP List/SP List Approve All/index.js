@@ -15,7 +15,7 @@ function Index() {
             wrap: true,
         },
         {
-            name: "SP ID",
+            name: "SO ID",
             selector: (row) => row.sp,
             width: "150px",
             wrap: true,

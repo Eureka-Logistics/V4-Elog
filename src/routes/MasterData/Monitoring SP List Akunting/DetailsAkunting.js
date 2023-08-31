@@ -308,16 +308,16 @@ function DetailsAkunting() {
   };
   const DetailMarketing = () => {
     setmodal1OpenDetail(true)
-}
+  }
   let nuomber = 1
   return (
     <div>
       <Card>
         <Row>
-          <h5>Detail Sp</h5>
+          <h5>Detail SO</h5>
           {/* Modal Reject*/}
           <Modal
-            title="Reject SP Sales"
+            title="Batalkan SO Sales"
             style={{
               top: 180,
             }}
@@ -389,7 +389,7 @@ function DetailsAkunting() {
                     variant="danger"
                     onClick={() => rejectbutton()}
                   >
-                    Reject SP
+                    Reject SO
                   </Button>
                 </>
               ) : (
@@ -437,10 +437,10 @@ function DetailsAkunting() {
                     onClick={() => setModal1Open(true)}
                     variant="danger"
                   >
-                    Reject SP Sales
+                    Batalkan SO Sales
                   </Button>
                   <Button size="sm" onClick={pindahedit} variant="primary">
-                    Edit SJ
+                    Edit SO
                   </Button>
                 </>
               ) : (
@@ -481,17 +481,8 @@ function DetailsAkunting() {
           <Col sm={6}>
             <Form>
               <Form.Group>
-                <Form.Label>No.SPK</Form.Label>
+                <Form.Label>No.SO</Form.Label>
                 <Form.Control disabled value={detailData?.sp} />
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>Service</Form.Label>
-                <Form.Control disabled value={detailData?.service} />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Jenis Barang</Form.Label>
-                <Form.Control disabled value={detailData?.jenisBarang} />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Marketing</Form.Label>
@@ -515,6 +506,25 @@ function DetailsAkunting() {
                 </div>
               </Form.Group>
               <ModalDetailMarketing detailsemua={detailData} modal1Open={modal1OpenDetail} setModal1Open={setmodal1OpenDetail} name={detailData?.marketing} />
+              <Form.Group>
+                <Form.Label>Service</Form.Label>
+                <Form.Control disabled value={detailData?.service} />
+              </Form.Group>
+              <Row>
+                <Col sm={6}>
+                  <Form.Group>
+                    <Form.Label>Jenis Barang</Form.Label>
+                    <Form.Control disabled value={detailData?.jenisBarang} />
+                  </Form.Group>
+                </Col>
+                <Col sm={6}>
+                  <Form.Group>
+                    <Form.Label>Packing</Form.Label>
+                    <Form.Control disabled value={detailData?.jenisBarang} />
+                  </Form.Group>
+                </Col>
+              </Row>
+
 
             </Form>
           </Col>
@@ -529,13 +539,24 @@ function DetailsAkunting() {
                 <Form.Control disabled value={detailData?.customer} />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Tgl Pickup</Form.Label>
-                <Form.Control disabled value={detailData?.pickup_date} />
+                <Form.Label>No Telp Customer</Form.Label>
+                <Form.Control disabled value={detailData?.telpCustomer} />
               </Form.Group>
-              <Form.Group>
-                <Form.Label>Tgl Bongkar</Form.Label>
-                <Form.Control disabled value={detailData?.bongkar_date} />
-              </Form.Group>
+              <Row>
+                <Col sm={6}>
+                  <Form.Group>
+                    <Form.Label>Tgl Pickup</Form.Label>
+                    <Form.Control disabled value={detailData?.pickup_date} />
+                  </Form.Group>
+                </Col>
+                <Col sm={6}>
+                  <Form.Group>
+                    <Form.Label>Tgl Bongkar</Form.Label>
+                    <Form.Control disabled value={detailData?.bongkar_date} />
+                  </Form.Group>
+                </Col>
+              </Row>
+
               <Form.Group>
                 <Form.Label>Asuransi</Form.Label>
                 <Form.Control
@@ -556,6 +577,12 @@ function DetailsAkunting() {
               value={detailData?.detail?.[0]?.pickupAddress}
             />
           </Form.Group> */}
+          <Col sm={12}>
+          <Form.Group className="mt-4">
+                    <Form.Label>Alamat Invoice</Form.Label>
+                    <Form.Control disabled value={detailData?.alamatInvoice} />
+                  </Form.Group>
+          </Col>
         </Row>
         <br />
         <Row>
