@@ -673,9 +673,32 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
 
                   <Menu.Item key="Tarif Eureka">
                     <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
-                      <i className="icon icon-widgets" />
+                      {/* <i className="icon icon-widgets" /> */}
+                      <DollarOutlined style={{ fontSize: "20px" }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Tarif Eureka
+                      </span>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="Tarif Mitra" disabled>
+                    
+                    <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
+                      {/* <i className="icon icon-widgets" />
+                       */}
+                      <DollarOutlined style={{ fontSize: "20px" }} />
+                      <span style={{ fontWeight: "bold", color: "white" }}>
+                        Tarif Mitra
+                      </span>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="Tarif Customer" disabled>
+                    <Link
+                      to="/pelanggantarif"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <DollarOutlined style={{ fontSize: "20px" }} />
+                      <span style={{ fontWeight: "bold", color: "white" }}>
+                        Tarif Customer
                       </span>
                     </Link>
                   </Menu.Item>

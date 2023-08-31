@@ -452,20 +452,18 @@ function Detail() {
                   setIDgl(options.key);
                 }}
               >
-                {DataSelectLagi &&
-                  DataSelectLagi?.employePosition
-                    .filter((item) =>
-                      item.code_employee_position.startsWith("G")
-                    )
-                    .map((CustomerItem) => (
-                      <Select.Option
-                        key={CustomerItem?.code_employee_position}
-                        value={CustomerItem?.fullname}
-                        value2={CustomerItem?.name_employee_position}
-                      >
-                        {CustomerItem?.code_employee_position}
-                      </Select.Option>
-                    ))}
+               {DataSelect &&
+              DataSelect?.BuEmployee
+                .filter((item) => item.codeEmployeePosition.startsWith("G"))
+                .map((CustomerItem) => (
+                  <Select.Option
+                    key={CustomerItem?.codeEmployeePosition}
+                    value={CustomerItem?.name}
+                    value2={CustomerItem?.namePosition}
+                  >
+                    {CustomerItem?.codeEmployeePosition}
+                  </Select.Option>
+                ))}
               </Select>
             </div>
           </Col>
