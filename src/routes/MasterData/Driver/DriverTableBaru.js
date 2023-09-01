@@ -10,7 +10,7 @@ import {
   Select,
   Tag,
   Switch,
-  notification,
+  notification
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import moment from "moment";
@@ -76,7 +76,7 @@ function DriverTableBaru() {
     {
       name: "Image",
       selector: (row) => (
-        <img src={row.driverImage} style={{ maxWidth: '100%', maxHeight: 'auto', objectFit: 'cover' }} ></img>
+        <img src={row.driverImage} height="108px" width="158px"></img>
       ),
     },
     {
@@ -94,16 +94,16 @@ function DriverTableBaru() {
         <>
           {(row.jenisKepemilikan === "eureka" ||
             row.jenisKepemilikan === "race") && (
-            <Tag color="blue">{row.jenisKepemilikan}</Tag>
-          )}
+              <Tag color="blue">{row.jenisKepemilikan}</Tag>
+            )}
           {(row.jenisKepemilikan === "eur_sewa" ||
             row.jenisKepemilikan === "rcn_sewa") && (
-            <Tag color="green">{row.jenisKepemilikan}</Tag>
-          )}
+              <Tag color="green">{row.jenisKepemilikan}</Tag>
+            )}
           {(row.jenisKepemilikan === "eur_oncall" ||
             row.jenisKepemilikan === "rcn_oncall") && (
-            <Tag color="yellow">{row.jenisKepemilikan}</Tag>
-          )}
+              <Tag color="yellow">{row.jenisKepemilikan}</Tag>
+            )}
         </>
       ),
     },
@@ -130,22 +130,18 @@ function DriverTableBaru() {
     //   ),
     // },
     {
-      name: "Aksi",
-      selector: (row) => (row.status === 1 ? "Aktif" : "Tidak Aktif"),
-      cell: (row) => (
+      name: 'Aksi',
+      selector: row => row.status === 1 ? "Aktif" : "Tidak Aktif",
+      cell: row => (
         <div>
           <Switch
             checked={row.driverStatus === 1 ? true : false}
             checkedChildren="ON"
             unCheckedChildren="OFF"
-            onChange={(checked) =>
-              checked
-                ? ModalONDriver(row.driverId)
-                : ModalOFFDriver(row.driverId)
-            }
+            onChange={(checked) => checked ? ModalONDriver(row.driverId) : ModalOFFDriver(row.driverId)}
           />
         </div>
-      ),
+      )
     },
   ];
 
@@ -168,19 +164,20 @@ function DriverTableBaru() {
 
       // Tampilkan notifikasi sukses dari antd
       notification.success({
-        message: "Sukses",
+        message: 'Sukses',
         description: 'Status driver telah diubah menjadi "ON".',
-        placement: "topRight", // ini akan menempatkan notifikasi di pojok kanan atas
+        placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
       });
 
       ApiAwal();
     } catch (error) {
       // Handle error
       notification.error({
-        message: error.response.data.status.message,
-      });
+        message: error.response.data.status.message
+      })
     }
   };
+
 
   const ModalOFFDriver = async (driverId) => {
     try {
@@ -207,17 +204,17 @@ function DriverTableBaru() {
       );
 
       notification.success({
-        message: "Sukses",
+        message: 'Sukses',
         description: 'Status driver telah diubah menjadi "OFF".',
-        placement: "topRight", // ini akan menempatkan notifikasi di pojok kanan atas
+        placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
       });
 
       ApiAwal();
     } catch (error) {
       // Handle error
       notification.error({
-        message: error.response.data.status.message,
-      });
+        message: error.response.data.status.message
+      })
     }
   };
 
@@ -235,7 +232,7 @@ function DriverTableBaru() {
       setDataAwal(data.data.data.order);
       setTotalPages(data.data.data.totalData);
       console.log(data.data.data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -300,7 +297,7 @@ function DriverTableBaru() {
         mitraId: data.data.data[0]?.mitraId,
         cover: data.data.data[0]?.driverImage,
       });
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const EditDriver = async (driverId) => {
@@ -354,23 +351,16 @@ function DriverTableBaru() {
       console.error(error);
       let errorStatus;
       if (error.response && error.response.data && error.response.data.status) {
-        errorStatus = error.response.data.status.message;
+        errorStatus = error.response.data.status.message
       }
 
       let errorMessage;
       if (error.response && error.response.data && error.response.data.errors) {
-        errorMessage = error.response.data.errors
-          .map((err) => err.message)
-          .join(", ");
-      } else if (
-        error.response &&
-        error.response.data &&
-        error.response.data.status &&
-        error.response.data.status.message
-      ) {
+        errorMessage = error.response.data.errors.map(err => err.message).join(', ');
+      } else if (error.response && error.response.data && error.response.data.status && error.response.data.status.message) {
         errorMessage = error.response.data.status.message;
       } else {
-        errorMessage = "Terjadi kesalahan! Silakan coba lagi.";
+        errorMessage = 'Terjadi kesalahan! Silakan coba lagi.';
       }
 
       Swal.fire({
@@ -431,23 +421,16 @@ function DriverTableBaru() {
       console.error(error);
       let errorStatus;
       if (error.response && error.response.data && error.response.data.status) {
-        errorStatus = error.response.data.status.message;
+        errorStatus = error.response.data.status.message
       }
 
       let errorMessage;
       if (error.response && error.response.data && error.response.data.errors) {
-        errorMessage = error.response.data.errors
-          .map((err) => err.message)
-          .join(", ");
-      } else if (
-        error.response &&
-        error.response.data &&
-        error.response.data.status &&
-        error.response.data.status.message
-      ) {
+        errorMessage = error.response.data.errors.map(err => err.message).join(', ');
+      } else if (error.response && error.response.data && error.response.data.status && error.response.data.status.message) {
         errorMessage = error.response.data.status.message;
       } else {
-        errorMessage = "Terjadi kesalahan! Silakan coba lagi.";
+        errorMessage = 'Terjadi kesalahan! Silakan coba lagi.';
       }
 
       Swal.fire({
@@ -456,7 +439,7 @@ function DriverTableBaru() {
         text: errorMessage,
       });
     }
-  };
+  }
 
   const { NamaMitra, fetchMitra } = useMitraStore((item) => ({
     NamaMitra: item.NamaMitra,
@@ -544,9 +527,7 @@ function DriverTableBaru() {
       email: Yup.string().email("Format email tidak valid"),
       // .required('Email harus diisi'),
       divisi: Yup.string().required("Divisi Driver harus diisi"),
-      nosim: Yup.number()
-        .required("No SIM harus diisi")
-        .integer("Nik harus berupa angka"),
+      nosim: Yup.number().required('No SIM harus diisi').integer('Nik harus berupa angka'),
       // jenissim: Yup.string().required('Jenis SIM harus diisi'),
       // alamat: Yup.string().required('Alamat harus diisi'),
       // tgllahir: Yup.date().required('Tanggal Lahir harus diisi'),
@@ -699,31 +680,18 @@ function DriverTableBaru() {
             <Form layout="vertical" onSubmitCapture={formik.handleSubmit}>
               <Row>
                 <Col sm={4}>
-<<<<<<< HEAD
-                  <Card style={{ height: "250px", width: "200px" }}>
-=======
-                  <Card style={{ height: "280px" }}>
->>>>>>> ridwan
+                  <Card style={{ height: "200px" }}>
                     <div style={{ width: "100%", height: "100%" }}>
                       <img
-                        src={
-                          GambarDriver instanceof File
-                            ? URL.createObjectURL(GambarDriver)
-                            : GambarDriver
-                        }
+                        src={GambarDriver instanceof File ? URL.createObjectURL(GambarDriver) : GambarDriver}
                         alt="Gambar Driver"
                         style={{
-                          objectFit: "cover",
+                          objectFit: "contain",
                           width: "100%",
-<<<<<<< HEAD
                           height: "100%",
-                          margin: 0,
-                          padding: 0,
-=======
-                          // height: "100%",
->>>>>>> ridwan
                         }}
                       />
+
                     </div>
                   </Card>
                   <Form.Item
@@ -745,7 +713,7 @@ function DriverTableBaru() {
                       name="cover"
                       accept=".png,.jpg,.jpeg"
                       beforeUpload={(file) => {
-                        setGambarDriver(file);
+                        setGambarDriver(file)
                         console.log(file);
                         formik.setFieldValue("cover", file);
                         return false; // Prevent upload immediately
@@ -787,12 +755,12 @@ function DriverTableBaru() {
                       format="DD-MM-YYYY"
                       name="tglmasuk"
                       onChange={(date, dateString) => {
-                        const apiFormatDate = date.format("YYYY-MM-DD");
-                        formik.setFieldValue("tglmasuk", apiFormatDate);
+                        const apiFormatDate = date.format("YYYY-MM-DD")
+                        formik.setFieldValue("tglmasuk", apiFormatDate)
                       }}
                       onBlur={formik.handleBlur}
                       value={
-                        formik.values.tglmasuk
+                        (formik.values.tglmasuk)
                           ? moment(formik.values.tglmasuk, "YYYY-MM-DD")
                           : null
                       }
@@ -824,7 +792,7 @@ function DriverTableBaru() {
                       id="tglsim"
                       onChange={(date, dateString) => {
                         const apiFormatDate = date.format("YYYY-MM-DD");
-                        formik.setFieldValue("tglsim", apiFormatDate);
+                        formik.setFieldValue("tglsim", apiFormatDate)
                       }}
                       onBlur={formik.handleBlur}
                       value={
@@ -961,12 +929,14 @@ function DriverTableBaru() {
                     style={{ fontWeight: "bold" }}
                     label="Perusahaan"
                     help={
-                      formik.touched.mitra && formik.errors.mitra
+                      formik.touched.mitra &&
+                        formik.errors.mitra
                         ? formik.errors.mitra
                         : null
                     }
                     validateStatus={
-                      formik.touched.mitra && formik.errors.mitra
+                      formik.touched.mitra &&
+                        formik.errors.mitra
                         ? "error"
                         : undefined
                     }
@@ -1011,13 +981,13 @@ function DriverTableBaru() {
                     label="Jenis Driver"
                     help={
                       formik.touched.jeniskepemilikan &&
-                      formik.errors.jeniskepemilikan
+                        formik.errors.jeniskepemilikan
                         ? formik.errors.jeniskepemilikan
                         : null
                     }
                     validateStatus={
                       formik.touched.jeniskepemilikan &&
-                      formik.errors.jeniskepemilikan
+                        formik.errors.jeniskepemilikan
                         ? "error"
                         : undefined
                     }
@@ -1396,19 +1366,12 @@ function DriverTableBaru() {
                       optionFilterProp="children"
                       placeholder="input rekening bank"
                       name="rekeningbank"
-                      onChange={(key) => {
-                        formik.setFieldValue(`rekeningbank`, key);
-                        console.log("ini log", key);
-                      }}
+                      onChange={(key) => { formik.setFieldValue(`rekeningbank`, key); console.log('ini log', key) }}
                       onBlur={formik.handleBlur}
-                      value={formik.values.rekeningbank}
-                    >
-                      {NamaBankOptionsZustand &&
-                        NamaBankOptionsZustand.map((i) => (
-                          <option key={i.name} value={i.name}>
-                            {i.name}
-                          </option>
-                        ))}
+                      value={formik.values.rekeningbank}>
+                      {NamaBankOptionsZustand && NamaBankOptionsZustand.map((i) => (
+                        <option key={i.name} value={i.name}>{i.name}</option>
+                      ))}
                     </Select>
                   </Form.Item>
                   <Form.Item
