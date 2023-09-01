@@ -1,7 +1,10 @@
 import { Col, Row } from "antd";
 import React from "react";
+import PrintZustand from "../../../zustand/Store/untukPrint/MasterMitra";
 
 function HeaderMasterMitra() {
+  const DataKodeMitraZustand = PrintZustand((state) => state.DataKodeMitraZustand);
+  console.log(`DataKodeMitraZustand`,DataKodeMitraZustand);
   return (
     <div id="outtable" style={{ overflow: "auto", maxHeight: "auto" }}>
       <div style={{ padding: "20px" }}>
@@ -32,7 +35,7 @@ function HeaderMasterMitra() {
             <td width="110px" align="" style={{ border: "1px solid black" }}>
               <div style={{ padding: "5px" , marginLeft: '10%'}}>
                 MITRA CODE <br />
-                <strong>#EM00318</strong>
+                <strong>{DataKodeMitraZustand}</strong>
               </div>
             </td>
             <td width="110px" height="100px" align="">

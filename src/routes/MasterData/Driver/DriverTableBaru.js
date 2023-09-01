@@ -76,7 +76,7 @@ function DriverTableBaru() {
     {
       name: "Image",
       selector: (row) => (
-        <img src={row.driverImage} height="108px" width="158px"></img>
+        <img src={row.driverImage} style={{ maxWidth: '100%', maxHeight: 'auto', objectFit: 'cover' }} ></img>
       ),
     },
     {
@@ -699,7 +699,11 @@ function DriverTableBaru() {
             <Form layout="vertical" onSubmitCapture={formik.handleSubmit}>
               <Row>
                 <Col sm={4}>
+<<<<<<< HEAD
                   <Card style={{ height: "250px", width: "200px" }}>
+=======
+                  <Card style={{ height: "280px" }}>
+>>>>>>> ridwan
                     <div style={{ width: "100%", height: "100%" }}>
                       <img
                         src={
@@ -711,9 +715,13 @@ function DriverTableBaru() {
                         style={{
                           objectFit: "cover",
                           width: "100%",
+<<<<<<< HEAD
                           height: "100%",
                           margin: 0,
                           padding: 0,
+=======
+                          // height: "100%",
+>>>>>>> ridwan
                         }}
                       />
                     </div>

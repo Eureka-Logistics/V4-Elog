@@ -28,6 +28,7 @@ function EditSPNew({ getDetail }) {
     };
     const [Loading, setLoading] = useState(false)
     const [modal1Open, setModal1Open] = useState(false);
+    const [data, setdata] = useState("")
     var counter = 1
     const DetailSP = async () => {
         setLoading(true)
@@ -42,26 +43,31 @@ function EditSPNew({ getDetail }) {
             setLoading(false)
             setNoSP(data.data.sp)
             setDetailSemua(data.data)
-            formik.setValues({
-                noSP: data.data.sp,
-                service: data.data.service,
-                jenisBarang: data.data.jenisBarang,
-                customer: data.data.customer,
-                pickup_date: data.data.pickup_date,
-                order_date: data.data.order_date,
-                bongkar_date: data.data.bongkar_date,
-                asuransi: data.data.asuransi,
-                alamatInvoice: data.data.alamatInvoice,
-                idPerusahaan: data.data.idcustomer,
-                marketing: data.data.marketing,
-                telpCustomer: data.data.telpCustomer
-            })
+            setdata(data)
+            setTimeout(() => {
+                formik.setValues({
+                    noSP: data?.data?.sp,
+                    service: data?.data?.service,
+                    jenisBarang: data?.data?.jenisBarang,
+                    customer: data?.data?.customer,
+                    pickup_date: data?.data?.pickup_date,
+                    order_date: data?.data?.order_date,
+                    bongkar_date: data?.data?.bongkar_date,
+                    asuransi: data?.data?.asuransi,
+                    alamatInvoice: data?.data?.alamatInvoice,
+                    idPerusahaan: data?.data?.idcustomer,
+                    marketing: data?.data?.marketing,
+                    telpCustomer: data?.data?.telpCustomer
+                })
+            }, 500);
+            
             console.log(NomorSP)
 
         } catch (error) {
 
         }
     }
+
 
     const [NamaMarketing, setNamaMarketing] = useState("")
     const DetailSPSelect = async () => {
@@ -89,8 +95,9 @@ function EditSPNew({ getDetail }) {
     useEffect(() => {
         DetailSP()
         DetailSPSelect()
-    }, [DetailSemua.idcustomer])
 
+    }, [DetailSemua.idcustomer])
+    console.log(data.data);
 
     const formik = useFormik({
         initialValues: {
@@ -177,15 +184,13 @@ function EditSPNew({ getDetail }) {
         setModal1Open(true)
     }
 
-console.log(DetailSemua?.asm);
     return (
         <div>
             {/* <Card> */}
             <div className='d-flex justify-content-end'>
-                <Button style={{ backgroundColor: "green", color: "#ffffff" }} size='default' onClick={EditSp}>Save Edit SP</Button>
+                <Button style={{ backgroundColor: "green", color: "#ffffff" }} size='default' onClick={EditSp}>Save Edit SO</Button>
             </div>
 
-            {Loading ? <div> loading </div> : null}
 
 
             <Row>
@@ -194,12 +199,12 @@ console.log(DetailSemua?.asm);
                         onFinish={formik.handleSubmit}
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
-                        name="Edit Detail SP"
+                        name="Edit Detail SO"
                         labelCol={{ span: 24 }}
                         wrapperCol={{ span: 24 }}
                     >
                         <Form.Item
-                            label="No SP"
+                            label="No SO"
                             help={formik.touched.noSP && formik.errors.noSP}
                             validateStatus={
                                 formik.touched.noSP && formik.errors.noSP
@@ -263,7 +268,7 @@ console.log(DetailSemua?.asm);
                                         </Select.Option>
                                     ))}
                             </Select>
-                            <ModalDetailMarketing detailsemua={DetailSemua} modal1Open={modal1Open} setModal1Open={setModal1Open} name={formik.values.marketing == null ? "-" : formik.values.marketing}/>
+                            <ModalDetailMarketing detailsemua={DetailSemua} modal1Open={modal1Open} setModal1Open={setModal1Open} name={formik.values.marketing == null ? "-" : formik.values.marketing} />
 
                             {/* <Input
                                 id="marketing"
