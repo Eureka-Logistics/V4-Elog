@@ -10,8 +10,11 @@ import ElogLoadingGif from "../../.././assets/Loader_Elogs1.gif";
 import Swal from "sweetalert2";
 import { Pagination } from "antd";
 import SpStore from "../../../zustand/Store/FilterSP";
+import DetailUserLoginZustand from "../../../zustand/Store/DetailUserLogin/Index";
 
 function SPListlama() {
+  const DetailUserLoginZustandState = DetailUserLoginZustand((i) => i?.DetailUserLoginZustandState)
+
   const [isiData, setIsiData] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [destinationData, setDestinationData] = useState([]);
@@ -28,7 +31,10 @@ function SPListlama() {
     SPFilter: items.SPFilter,
     setSPFilter: items.setSPFilter,
   }));
-
+  const { userProfileZustand, setuserProfileZustand } = DetailUserLoginZustand((i) => ({
+    userProfileZustand: i.DetailUserLoginZustandState,
+    setuserProfileZustand: i.setDetailUserLoginZustand,
+  }))
   let nomor = 1;
   const CariCustomerOptions = SPFilter &&
     SPFilter.customer && [
@@ -65,6 +71,27 @@ function SPListlama() {
     ];
   // const [Pagginations, setPagginations] = useState(1)
   const history = useHistory();
+  if (!userProfileZustand.id) {
+    console.log(`kosong bolo`);
+  }
+
+
+
+  const detail = async() => {
+    try {
+      const data = await axios.get(`${Baseurl}auth/get-profile`, {
+          headers: {
+              "Content-Type": "application/json",
+              Authorization: localStorage.getItem("token"),
+          }
+      });
+      console.log(`nin`,data.data.data.id);
+      setCariSalesValue(data.data.data.id)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 
   const ApiDataAwal = async (page = 1, pageSize = 10) => {
     try {
@@ -109,12 +136,19 @@ function SPListlama() {
   };
 
   useEffect(
-    (page) => {
-      setSPFilter();
-      ApiDataAwal();
+    async () => {
+      // await setuserProfileZustand()
+      await detail()
+      await setSPFilter();
+      await ApiDataAwal();
     },
     [search, CustumerValue, CariCabangValue, CariSalesValue, CariBu]
   );
+  // console.log(`DetailUserLoginZustandState`, DetailUserLoginZustandState.id);
+  // useEffect(() => {
+  //   // Set nilai awal dari CariSalesValue
+  //   setCariSalesValue(userProfileZustand.id);
+  // }, []); // Dependency array kosong berarti ini akan dijalankan sekali saat komponen dimuat
 
   let number = 1
   const columns = [
@@ -125,7 +159,7 @@ function SPListlama() {
       wrap: true,
     },
     {
-      name: "SP ID",
+      name: "SO ID",
       selector: (row) => row?.sp,
       width: "150px",
       wrap: true,
@@ -317,18 +351,18 @@ function SPListlama() {
     <div>
       <Card>
         <Row>
-          <h5 style={{ color: "#1A5CBF", fontWeight: "bold" }}>Sp List</h5>
+          <h5 style={{ color: "#1A5CBF", fontWeight: "bold" }}>SO List</h5>
           <Col>
             {/* <h1>SP List</h1> */}
             <Row>
               <Col sm={2}>
-                <Form.Group controlId="search">
+                <Form.Group controlId="bu">
                   <Select
-                    options={CariCustomerOptions}
-                    showSearch
+                    options={CariBUOptions}
                     optionFilterProp="label"
-                    onChange={(e) => setCustumerValue(e)}
-                    placeholder="Cari Customer"
+                    onChange={(e) => setCariBu(e)}
+                    showSearch
+                    placeholder="Cari Bu"
                     style={{
                       width: "100%", border: "1px solid #1A5CBF",
                       borderRadius: "5px",
@@ -358,6 +392,7 @@ function SPListlama() {
                   <Select
                     optionFilterProp="label"
                     options={CariSalesOptions}
+                    value={CariSalesValue} // ini akan membuat komponen ini controlled component
                     onChange={(e) => setCariSalesValue(e)}
                     showSearch
                     placeholder="Cari Sales"
@@ -370,13 +405,13 @@ function SPListlama() {
                 </Form.Group>
               </Col>
               <Col sm={2}>
-                <Form.Group controlId="bu">
+                <Form.Group controlId="search">
                   <Select
-                    options={CariBUOptions}
-                    optionFilterProp="label"
-                    onChange={(e) => setCariBu(e)}
+                    options={CariCustomerOptions}
                     showSearch
-                    placeholder="Cari Bu"
+                    optionFilterProp="label"
+                    onChange={(e) => setCustumerValue(e)}
+                    placeholder="Cari Customer"
                     style={{
                       width: "100%", border: "1px solid #1A5CBF",
                       borderRadius: "5px",
@@ -385,6 +420,9 @@ function SPListlama() {
                   />
                 </Form.Group>
               </Col>
+
+
+
               <Col
                 style={{ display: "flex", justifyContent: "flex-end" }}
                 sm={2}
@@ -397,7 +435,7 @@ function SPListlama() {
                       borderRadius: "5px",
                       boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
                     }}
-                    placeholder="Cari No SP"
+                    placeholder="Cari No SO"
                     onChange={handleSearchChange}
                   />
                 </Form.Group>

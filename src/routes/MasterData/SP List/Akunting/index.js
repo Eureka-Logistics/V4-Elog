@@ -43,7 +43,7 @@ function Index() {
             wrap: true,
         },
         {
-            name: "SP ID",
+            name: "SO ID",
             selector: (row) => row.sp,
             width: "200px",
             wrap: true,
@@ -109,12 +109,12 @@ function Index() {
         <div>
             <Card>
                 <Row>
-                    <h5 style={{ color: '#1A5CBF', fontWeight: 'bold' }}>Waiting Approve Sp </h5>
+                    <h5 style={{ color: '#1A5CBF', fontWeight: 'bold' }}>Waiting Approve SO </h5>
                     <div className="d-flex justify-content-end">
                         <Col sm={3}>
                             <Form.Control
                                 type="text"
-                                placeholder="Cari No SP "
+                                placeholder="Cari No SO "
                                 value={search}
                                 onChange={(e) =>
                                     setSearch(e.target.value)
