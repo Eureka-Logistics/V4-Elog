@@ -29,6 +29,7 @@
 .table>:not(caption)>*>* {
   padding: 0.5rem 0.5rem;
   background-color: var(--bs-table-bg);
+  margin-top: 5px;
   font-family: 'NoirPro';
   border-bottom-width: 1px;
   box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
@@ -68,11 +69,12 @@
   word-wrap: break-word;
 }
 
-.ant-table-tbody > tr > td {
+/* .ant-table-tbody > tr > td {
   border-bottom: 1px solid #e8e8e8;
   transition: background 0.3s;
   font-family: 'NoirPro';
-}
+  margin-top: 10px;
+} */
 
 .ant-table-thead > tr > th {
   position: relative;
