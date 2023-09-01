@@ -266,7 +266,7 @@ function CreateBUEmployee() {
               DataSelect.BuEmployee.map((DataItem) => (
                 <Select.Option
                   key={DataItem.codeEmployeePosition}
-                  value={DataItem.name}
+                  value={DataItem.namePosition}
                 >
                   {DataItem.BuEmployee}
                 </Select.Option>
@@ -382,16 +382,16 @@ function CreateBUEmployee() {
               setPosisiGL(options.value2);
             }}
           >
-            {DataSelectLagi &&
-              DataSelectLagi?.employePosition
-                .filter((item) => item.code_employee_position.startsWith("G"))
+            {DataSelect &&
+              DataSelect?.BuEmployee
+                .filter((item) => item.codeEmployeePosition.startsWith("G"))
                 .map((CustomerItem) => (
                   <Select.Option
-                    key={CustomerItem?.code_employee_position}
-                    value={CustomerItem?.fullname}
-                    value2={CustomerItem?.name_employee_position}
+                    key={CustomerItem?.codeEmployeePosition}
+                    value={CustomerItem?.name}
+                    value2={CustomerItem?.namePosition}
                   >
-                    {CustomerItem?.code_employee_position}
+                    {CustomerItem?.codeEmployeePosition}
                   </Select.Option>
                 ))}
           </Select>
@@ -411,7 +411,7 @@ function CreateBUEmployee() {
             disabled
             style={{ width: "100%" }}
             className="mt-2 mb-2"
-            name="fullname "
+            name="name"
             placeholder="Automatic Input"
             value={DataGl}
           />
@@ -422,7 +422,7 @@ function CreateBUEmployee() {
           <Input
             disabled
             className="mt-2 mb-2"
-            name="name_employee_position"
+            name="namePosition"
             placeholder="Automatic Input"
             value={PosisiGL}
           />
@@ -449,20 +449,20 @@ function CreateBUEmployee() {
               setPosisiASM(options.value2);
             }}
           >
-            {DataSelectLagi &&
-              DataSelectLagi?.employePosition
+            {DataSelect &&
+              DataSelect?.BuEmployee
                 .filter(
                   (item) =>
-                    item.code_employee_position.startsWith("A") &&
-                    item.code_employee_position !== "AMD101"
+                    item.codeEmployeePosition.startsWith("A") &&
+                    item.codeEmployeePosition !== "AMD101"
                 )
                 .map((CustomerItem) => (
                   <Select.Option
-                    key={CustomerItem?.code_employee_position}
-                    value={CustomerItem?.name_employee_position}
-                    value2={CustomerItem?.name_employee_position}
-                  >
-                    {CustomerItem?.code_employee_position}
+                  key={CustomerItem?.codeEmployeePosition}
+                  value={CustomerItem?.name}
+                  value2={CustomerItem?.namePosition}
+                >
+                  {CustomerItem?.codeEmployeePosition}
                   </Select.Option>
                 ))}
           </Select>
@@ -472,7 +472,7 @@ function CreateBUEmployee() {
           <Input
             disabled
             className="mt-2 mb-2"
-            name="fullname"
+            name="name"
             placeholder="Automatic Input"
             value={DataASM}
           />
@@ -482,7 +482,7 @@ function CreateBUEmployee() {
           <Input
             disabled
             className="mt-2 mb-2"
-            name="name_employee_position"
+            name="namePosition"
             placeholder="Automatic Input"
             value={PosisiASM}
           />
@@ -509,16 +509,16 @@ function CreateBUEmployee() {
               setPosisiMGR(options.value2);
             }}
           >
-            {DataSelectLagi &&
-              DataSelectLagi?.employePosition
-                .filter((item) => item.code_employee_position.startsWith("M"))
+             {DataSelect &&
+              DataSelect?.BuEmployee
+                .filter((item) => item.codeEmployeePosition.startsWith("M"))
                 .map((CustomerItem) => (
                   <Select.Option
-                    key={CustomerItem?.code_employee_position}
-                    value={CustomerItem?.name_employee_position}
-                    value2={CustomerItem?.name_employee_position}
+                    key={CustomerItem?.codeEmployeePosition}
+                    value={CustomerItem?.name}
+                    value2={CustomerItem?.namePosition}
                   >
-                    {CustomerItem?.code_employee_position}
+                    {CustomerItem?.codeEmployeePosition}
                   </Select.Option>
                 ))}
           </Select>
@@ -528,7 +528,7 @@ function CreateBUEmployee() {
           <Input
             disabled
             className="mt-2 mb-2"
-            name="fullname"
+            name="name"
             placeholder="Automatic Input"
             value={DataMgr}
           />
@@ -538,7 +538,7 @@ function CreateBUEmployee() {
           <Input
             disabled
             className="mt-2 mb-2"
-            name="name_employee_position"
+            name="namePosition"
             placeholder="Automatic Input"
             value={PosisiMGR}
           />
@@ -565,16 +565,16 @@ function CreateBUEmployee() {
               setPosisiKACAB(options.value2);
             }}
           >
-            {DataSelectLagi &&
-              DataSelectLagi?.employePosition
-                .filter((item) => item.code_employee_position.startsWith("K"))
+           {DataSelect &&
+              DataSelect?.BuEmployee
+                .filter((item) => item.codeEmployeePosition.startsWith("K"))
                 .map((CustomerItem) => (
                   <Select.Option
-                    key={CustomerItem?.code_employee_position}
-                    value={CustomerItem?.name_employee_position}
-                    value2={CustomerItem?.name_employee_position}
+                    key={CustomerItem?.codeEmployeePosition}
+                    value={CustomerItem?.name}
+                    value2={CustomerItem?.namePosition}
                   >
-                    {CustomerItem?.code_employee_position}
+                    {CustomerItem?.codeEmployeePosition}
                   </Select.Option>
                 ))}
           </Select>
@@ -584,7 +584,7 @@ function CreateBUEmployee() {
           <Input
             disabled
             className="mt-2 mb-2"
-            name="fullname"
+            name="name"
             placeholder="Automatic Input"
             value={DataKacab}
           />
@@ -594,7 +594,7 @@ function CreateBUEmployee() {
           <Input
             disabled
             className="mt-2 mb-2"
-            name="name_employee_position"
+            name="namePosition"
             placeholder="Automatic Input"
             value={PosisiKACAB}
           />
@@ -621,16 +621,16 @@ function CreateBUEmployee() {
               setPosisiAMD(options.value2);
             }}
           >
-            {DataSelectLagi &&
-              DataSelectLagi?.employePosition
-                .filter((item) => item.code_employee_position.startsWith("D"))
+            {DataSelect &&
+              DataSelect?.BuEmployee
+                .filter((item) => item.codeEmployeePosition.startsWith("D"))
                 .map((CustomerItem) => (
                   <Select.Option
-                    key={CustomerItem?.code_employee_position}
-                    value={CustomerItem?.name_employee_position}
-                    value2={CustomerItem?.name_employee_position}
+                    key={CustomerItem?.codeEmployeePosition}
+                    value={CustomerItem?.name}
+                    value2={CustomerItem?.namePosition}
                   >
-                    {CustomerItem?.code_employee_position}
+                    {CustomerItem?.codeEmployeePosition}
                   </Select.Option>
                 ))}
           </Select>
@@ -640,7 +640,7 @@ function CreateBUEmployee() {
           <Input
             disabled
             className="mt-2 mb-2"
-            name="fullname"
+            name="name"
             placeholder="Automatic Input"
             value={DataAmd}
           />
@@ -650,7 +650,7 @@ function CreateBUEmployee() {
           <Input
             disabled
             className="mt-2 mb-2"
-            name="name_employee_position"
+            name="namePosition"
             placeholder="Automatic Input"
             value={PosisiAMD}
           />
