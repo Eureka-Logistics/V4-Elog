@@ -12,6 +12,7 @@ import DashboardOperasional from "./DashboardOperasional/index"
 import DashboardPurchasing from "./DashboardPurchasing/index"
 import DetailUserLoginZustand from "../../zustand/Store/DetailUserLogin/Index";
 import { useSelector } from "react-redux";
+import Index from "../Race/WebAdmin/Index";
 const SamplePage = () => {
 
   const { jobdesk, setJobdesk } = mobil((state) => ({
@@ -112,11 +113,9 @@ const SamplePage = () => {
               <h5>ini dashboard {jobdesk}</h5>
             </>
           )}
-        {jobdesk === "akunting" &&
+        {jobdesk === "rcadmin" &&
           (
-            <>
-              <h5>ini dashboard {jobdesk}</h5>
-            </>
+            <Index />
           )}
 
       </Row>
