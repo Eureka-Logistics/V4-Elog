@@ -517,7 +517,7 @@ const App = ({ match }) => {
           )}
         />
         <Route
-          path={`${match.url}dataBisnisUnit/:buId`}
+          path={`${match.url}dataBisnisUnit/:id`}
           component={asyncComponent(() =>
             import("./MasterData/BU/BU/EditDetailBU")
           )}

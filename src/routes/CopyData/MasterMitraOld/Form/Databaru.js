@@ -1036,7 +1036,7 @@ function DataBaru({ mitraId, DataOptions }) {
                     setDataNPWPNomor(e.target.value);
                   }}
                 />
-              </Form.Item>
+              </Form.Item>  
             </Col>
             <Col sm={4} style={{ padding: "0px" }}>
               <Form.Item
