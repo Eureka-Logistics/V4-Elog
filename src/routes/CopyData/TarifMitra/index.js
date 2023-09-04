@@ -24,6 +24,7 @@ import {
 import { async } from "q";
 import axios from "axios";
 import Baseurl from "../../../Api/BaseUrl";
+import XLSX from "xlsx";
 
 const SamplePage = () => {
   const router = useHistory();
@@ -40,7 +41,7 @@ const SamplePage = () => {
   const [namaMitranyaoptionSelect, setnamaMitranyaoptionSelect] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [NamaMitraOptions , setNamaMitraOptions] = useState("")
+  const [NamaMitraOptions , setNamaMitraOptions] = useState("");
    
   const handleView = (id) => {
     router.push(`/tarifmitraeditdetail/${id}`);
@@ -341,6 +342,28 @@ const SamplePage = () => {
     });
   };
 
+  const exportToExcel = () => {
+    const dataToExport = listData.map((item) => ({
+      "No.": item.no,
+      "Nama Mitra": { v: item.mitra, s: { fill: { fgColor: { rgb: "0000FF" } } } },
+      Muat: item.kotaAsal,
+      Bongkar: item.kotaTujuan,
+      "Biaya Kirim": formatRupiah(item.tarif),
+      Keterangan:
+        item.service_type === "Retail"
+          ? "Retail"
+          : item.service_type === "Charter"
+          ? "Charter"
+          : "",
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Data Tarif Mitra");
+
+    XLSX.writeFile(wb, "tarif_mitra.xlsx"); // Nama file Excel yang dihasilkan
+  };
+
 
   return (
     <div>
@@ -441,7 +464,19 @@ const SamplePage = () => {
               </Select>
             </Col>
             <Col sm={3} className="d-flex justify-content-end mt-4">
-              <Button
+            <Button
+          style={{
+            backgroundColor: "green",
+            color: "#FFFFFF",
+            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+            borderColor: "green",
+            marginRight: "10px",
+          }}
+          onClick={exportToExcel}
+        >
+          Export Excel
+        </Button>
+        <Button
                 style={{
                   backgroundColor: "#1A5CBF",
                   color: "#FFFFFF",
@@ -453,6 +488,9 @@ const SamplePage = () => {
               >
                 New Tarif
               </Button>
+            </Col>
+            <Col sm={3} className="d-flex justify-content-end mt-4">
+             
             </Col>
             {/* <Col sm={3} className="d-flex justify-content mb-2">
               <Input style={{ width: "100%" }} placeholder="Cari Pricelist" />

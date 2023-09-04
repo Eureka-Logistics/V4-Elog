@@ -42,6 +42,7 @@ function DetailTarifPelanggan() {
   const [IDBiayaMultiDrop, setIDBiayaMultiDrop] = useState("");
   const [IDBiayaTambahan, setIDBiayaTambahan] = useState("");
   const [IDBiayaMel, setIDBiayaMel] = useState("");
+  const [DataIdPriceEureka, setDataPriceIdEureka] = useState("");
 
   const fetchData = async () => {
     try {
@@ -92,6 +93,7 @@ function DetailTarifPelanggan() {
       setIDBiayaOvertonase(respons.data.order[0]?.biaya_overtonase);
       setIDBiayaMultiDrop(respons.data.order[0]?.biaya_multidrop);
       setIDBiayaTambahan(respons.data.order[0]?.biaya_tambahan);
+      setDataPriceIdEureka(respons.data.order[0]?.id_price_eureka);
       // setIDBiayaLain(respons.data.order[0]?.biaya_lain);
 
 
@@ -121,6 +123,7 @@ function DetailTarifPelanggan() {
         biaya_multimuat: parseInt(IDBiayaMultiMuat),
         biaya_multidrop: parseInt(IDBiayaBongkar),
         biaya_tambahan: parseInt(IDBiayaTambahan),
+        id_price_eureka: parseInt(DataIdPriceEureka),
       };
 
       const response = await axios.post(
@@ -195,7 +198,6 @@ function DetailTarifPelanggan() {
           </Col>
           <Col className="mt-2" span={6}>
             <label>Customer :</label>
-
             <Select
               className="mt-2"
               showSearch
@@ -357,6 +359,21 @@ function DetailTarifPelanggan() {
         <hr />
         <h5>Tarif</h5>
         <Row>
+        <Col className="mt-2" span={6}>
+          <label>ID Price Eureka :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+              disabled
+                className="mt-2"
+                value={DataIdPriceEureka}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setDataPriceIdEureka(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
         <Col className="mt-2" span={6}>
           <label>Tarif Katalog :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
