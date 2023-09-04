@@ -849,6 +849,19 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Link>
                 </Menu.Item>
               )}
+              {/* ////Login Race///// */}
+              {jobdesk == "rcadmin" && (
+                <Menu.Item key="Dashboard">
+                  <Link to="/admin/race" style={{ textDecoration: "none" }}>
+                    {/* <i className="icon icon-widgets" />
+                       */}
+                    <AppstoreOutlined style={{ fontSize: "20px" }} />
+                    <span style={{ fontWeight: "bold", color: "white" }}>
+                    Dashboard 
+                    </span>
+                  </Link>
+                </Menu.Item>
+              )}
             </MenuItemGroup>
           </Menu>
         </CustomScrollbars>
