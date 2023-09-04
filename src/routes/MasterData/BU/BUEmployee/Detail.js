@@ -391,7 +391,7 @@ function Detail() {
             <Select
               className="mt-2"
               showSearch
-              value={DataBU}
+              value={IDBu}
               optionFilterProp="value"
               style={{ width: "100%" }}
               onChange={(e, options) => {

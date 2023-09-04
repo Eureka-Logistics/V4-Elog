@@ -1340,8 +1340,23 @@ const SamplePage = () => {
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.pembayaran}
                   />
+
                 </InputGroup> */}
-                <Select
+                 <Select
+                  name="metode_pembayaran"
+                  style={{ width: "100%", marginTop: "10px" }}
+                  onChange={(value) => {
+                    formik.setFieldValue("metode_pembayaran", value);
+                  }}
+                >
+                  {DataSelect &&
+                    DataSelect.jenisPembayaran.map((i) => (
+                      <option key={i.name} value={i.value}>
+                        {i.value}
+                      </option>
+                    ))}
+                </Select>
+                {/* <Select
                   value={formik.values.metode_pembayaran}
                   style={{ width: "100%" }}
                   onChange={(e) => {
@@ -1354,7 +1369,7 @@ const SamplePage = () => {
                   <option value={"CHECK"}>CHECK</option>
                   <option value={"TRANSFER"}>TRANSFER</option>
                   <option value={"CREDIT CARD"}>CREDIT CARD</option>
-                </Select>
+                </Select> */}
               </Form.Group>
             </Col>
           </Row>
