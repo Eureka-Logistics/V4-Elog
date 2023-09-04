@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Baseurl from "../../../Api/BaseUrl";
 import Swal from "sweetalert2";
-import { Card, Col, Input, Row, Select, Button } from "antd";
+import { Card, Col, Input, Row, Select, Button, notification } from "antd";
 import { Data } from "@react-google-maps/api";
 
 function EditDetailAlamat() {
@@ -17,6 +17,7 @@ function EditDetailAlamat() {
   const [DataAlamatDetail, setDataAlamatDetail] = useState("");
   const [IDDataKodeWilayah, setIDDataKodeWilayah] = useState("");
   const [DataKodeWilayah, setDataKodeWilayah] = useState("");
+  const [DataKodeWilayahValue, setDataKodeWilayahValue] = useState("");
   const [DataKota, setDataKota] = useState("");
   const [DataKecamatan, setDataKecamatan] = useState("");
   const [DataRitase, setDataRitase] = useState("");
@@ -49,11 +50,11 @@ function EditDetailAlamat() {
       setDataHP(respons.data?.data[0].hp || "");
       setDataEmail(respons.data?.data[0].email || "");
       setDataKodeWilayah(respons.data?.data[0].kode_wilayah || "");
-      setDataLon(respons.data?.data[0].lon ||"");
-      setDataLat(respons.data?.data[0].lat ||"");
-      setDataRitase(respons.data?.data[0].ritase ||"");
-      setDataProvinsi(respons.data?.data[0].provinsi ||"");
-    } catch (error) {}
+      setDataLon(respons.data?.data[0].lon || "");
+      setDataLat(respons.data?.data[0].lat || "");
+      setDataRitase(respons.data?.data[0].ritase || "");
+      setDataProvinsi(respons.data?.data[0].provinsi || "");
+    } catch (error) { }
   };
 
   const GetSelectData = async () => {
@@ -68,7 +69,7 @@ function EditDetailAlamat() {
         }
       );
       setDataTambah(respons.data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const EditAddress = async () => {
@@ -81,7 +82,8 @@ function EditDetailAlamat() {
         alamat: DataAlamat,
         kecamatan: DataKecamatan.label,
         kota: DataKota.label,
-        kode_wilayah: DataKodeWilayah,
+        kode_wilayah: DataKodeWilayahValue,
+        // kode_wilayah: DataKodeWilayah,
         // provinsi: DataProvinsi.value,
         ritase: parseInt(DataRitase),
         hp: DataHP,
@@ -104,7 +106,7 @@ function EditDetailAlamat() {
       // If you want to update the state with the edited data, you can do so here.
       // For example:
       setDataEdit(response.data); // Assuming the response contains the updated data
-
+      console.log(response);
       // Check if the save operation was successful and redirect to the desired page
       if (response.status === 200) {
         Swal.fire({
@@ -128,41 +130,51 @@ function EditDetailAlamat() {
       }
     } catch (error) {
       console.log(`ini error`);
+      console.log(`ini errorr response`, error.response.data.status.message);
       console.error(`ini errorr`, error);
-      Swal.fire({
-        icon: "error",
-        title: "Isi Semua Data Terlebih dahulu",
-        // text: "Isi Semua Data",
-        // footer: '<a href="">Why do I have this issue?</a>'
-      });
+      if (error.response && error.response.data && Array.isArray(error.response.data.status)) {
+        error.response.data.status.forEach(element => {
+          if (element && element.message) {
+            notification.error({
+              message: error.response.data.status.message
+            });
+          }
+        });
+      } else {
+        // Handle unexpected structure
+        notification.error({
+          message: error.response.data.status.message
+        });
+      }
     }
   };
 
   useEffect(() => {
     fetchData();
     GetSelectData();
-  }, [customerAddressId, DataKodeWilayah, DataKecamatan, DataKota,IDDataKodeWilayah]);
+  }, [customerAddressId, DataKodeWilayah, DataKecamatan, DataKota, IDDataKodeWilayah]);
 
   const KotaOptions =
     DataTambah?.kota && Array.isArray(DataTambah?.kota)
       ? DataTambah?.kota.map((item) => ({
-          label: item.kotaName,
-          value: item.id,
-        }))
+        label: item.kotaName,
+        value: item.id,
+      }))
       : [];
 
   const KecamatanOptions =
     DataTambah && Array.isArray(DataTambah?.kecamatan)
       ? DataTambah?.kecamatan.map((item) => ({
-          label: item.kecamatanName,
-          value: item.id,
-        }))
+        label: item.kecamatanName,
+        value: item.id,
+      }))
       : [];
+
 
   return (
     <div>
       <Card>
-        <h4 style={{fontWeight: "bold"}}>Data Detail Address Customer</h4>
+        <h4 style={{ fontWeight: "bold" }}>Data Detail Address Customer</h4>
         <Row>
           <Col span={24}>
             <label className="mt-2" style={{ fontWeight: "bold" }}>
@@ -200,7 +212,7 @@ function EditDetailAlamat() {
           </Col>
         </Row>
         <Row>
-   
+
           <Col span={24}>
             <label style={{ fontWeight: "bold" }}>Jabatan :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
@@ -281,7 +293,7 @@ function EditDetailAlamat() {
               }}
             />
           </Col>
-         
+
         </Row>
         <Row>
           <Col span={8}>
@@ -291,12 +303,13 @@ function EditDetailAlamat() {
               className="mt-2"
               showSearch
               //   value={DataDetailAddress?.kode_wilayah}
-              placeholder={DataDetailAddress?.kode_wilayah}
+              placeholder={DataKodeWilayah}
               optionFilterProp="value"
               style={{ width: "90%" }}
               onChange={(e, options) => {
-                console.log(options.key, "ini kode wilayah");
-                setDataKodeWilayah(options.key);
+                console.log(options.value, "ini kode wilayah");
+                setDataKodeWilayahValue(options.value);
+                // setDataKodeWilayah(options.value);
                 setIDDataKodeWilayah(options.key);
               }}
             >

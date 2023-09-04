@@ -77,16 +77,16 @@ function SPListlama() {
 
 
 
-  const detail = async() => {
+  const detail = async () => {
     try {
       const data = await axios.get(`${Baseurl}auth/get-profile`, {
-          headers: {
-              "Content-Type": "application/json",
-              Authorization: localStorage.getItem("token"),
-          }
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        }
       });
-      console.log(`nin`,data.data.data.id);
-      setCariSalesValue(data.data.data.id)
+      console.log(`nin`, data.data.data.id);
+      setCariSalesValue(data?.data?.data?.id)
     } catch (error) {
       console.error(error);
     }
@@ -105,7 +105,7 @@ function SPListlama() {
           },
         }
       );
-      const isidata = data.data.data.order;
+      const isidata = data?.data?.data?.order;
       setPagination({
         currentPage: data.data.data.currentPage,
         totalPage: data.data.data.totalPage,
@@ -114,11 +114,14 @@ function SPListlama() {
       setIsiData(isidata);
       setLoading(false);
     } catch (error) {
-      console.log(error.response);
-      notification.error({
-        message: 'Terjadi Error',
-        description: error.response.data.errors.map((i) => (i.message === "ID driver Tidak Boleh Kosong" ? "Nama Driver Harus Di isi" : i.message)),
-      });
+      if (Array.isArray(error?.response?.data?.status)) {
+        error.response.data.status.forEach(element => {
+          notification.error({
+            message: element?.message,
+          });
+        });
+      }
+
       if (error.response && error.response.status === 401) {
         localStorage.removeItem("token");
         if (localStorage.getItem("token") === null) {
