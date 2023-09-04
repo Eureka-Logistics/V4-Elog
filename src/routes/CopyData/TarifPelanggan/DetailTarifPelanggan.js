@@ -94,6 +94,7 @@ function DetailTarifPelanggan() {
       setIDBiayaMultiDrop(respons.data.order[0]?.biaya_multidrop);
       setIDBiayaTambahan(respons.data.order[0]?.biaya_tambahan);
       setDataPriceIdEureka(respons.data.order[0]?.id_price_eureka);
+      setIDBiayaMultiMuat(respons.data.order[0]?.biaya_multimuat);
       // setIDBiayaLain(respons.data.order[0]?.biaya_lain);
 
 
