@@ -85,24 +85,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
         <div
           className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
         >
-          {/* {jobdesk === "sales" ? (
-                <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
-                  <Button
-                    size="lg"
-                    style={{ width: 180 }}
-                    className="d-flex align-items-center justify-content-center"
-                    onClick={() => createsp()}
-                    variant="warning"
-                  >
-                    ADD SP
-                  </Button>
-                </div>
-              ) : (
-                <>
-                <hr/></>
-              )} */}
-          {/* <UserProfile /> */}
-          {/* <AppsNavigation /> */}
+
           <Row>
             <Col span={24} className="d-flex justify-content-center">
               <Avatar
@@ -148,12 +131,6 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
                     <Button
                       size="lg"
-                      // style={{
-                      //   width: 180,
-                      //   backgroundColor: "#00a65a",
-                      //   color: "white",
-
-                      // }}
                       style={{
                         width: 180,
                         backgroundColor: "#00a65a",
@@ -186,8 +163,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 <MenuItemGroup key="main">
                   <Menu.Item key="Dashboard">
                     <Link to="/dashboard" style={{ textDecoration: "none" }}>
-                      {/* <i className="icon icon-widgets" />
-                       */}
+
                       <AppstoreOutlined style={{ fontSize: "20px" }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="Dashboard" />
@@ -249,11 +225,9 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       style={{ textDecoration: "none" }}
                     >
                       <ProfileOutlined style={{ fontSize: "20px" }} />
-                      {/* <i className="icon icon-widgets" /> */}
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Alamat Customer
                       </span>
-                      {/* <span style={{ fontWeight: "bold",  color: 'white' }}>Data Alamat All</span> */}
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Invoice Customer">
@@ -860,6 +834,21 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                 </Menu.ItemGroup>
               ) : null}
+
+
+              {/* ////Login Race///// */}
+              {jobdesk == "emc" && (
+                <Menu.Item key="Dashboard">
+                  <Link to="/admin/race" style={{ textDecoration: "none" }}>
+                    {/* <i className="icon icon-widgets" />
+                       */}
+                    <AppstoreOutlined style={{ fontSize: "20px" }} />
+                    <span style={{ fontWeight: "bold", color: "white" }}>
+                    Dashboard
+                    </span>
+                  </Link>
+                </Menu.Item>
+              )}
             </MenuItemGroup>
           </Menu>
         </CustomScrollbars>
