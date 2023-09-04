@@ -8,6 +8,7 @@ import { UploadOutlined } from "@ant-design/icons";
 
 function Detail() {
   const { idEmploye } = useParams();
+  const [DataSelectLagi, setDataSelectLagi] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [DataDetailEmployee, setDataDetailEmployee] = useState("");
   const [DataKodeEmployee, setDataKodeEmployee] = useState("");
@@ -43,7 +44,6 @@ function Detail() {
   const [DataPositionKacab, setDataPositionKacab] = useState("");
   const [DataPositionMGR, setDataPositionMGR] = useState("");
 
-
   const DetailEmployee = async (idEmploye) => {
     try {
       const respons = await axios.get(
@@ -59,8 +59,8 @@ function Detail() {
       console.log("ini detail", respons.data);
       setDataFullName(respons.data.name || "");
       setDataDesignation(respons.data.designation || "");
-      setDataCodeEmployeePosition(respons.data.code_employee_position || "");
-      setDataNomorTelepon(respons.data.no_telp || "");
+      setDataCodeEmployeePosition(respons.data.position || "");
+      setDataNomorTelepon(respons.data.noTelp || "");
       setDataEmail(respons.data.email || "");
       setDataPhoto(respons.data.photo || "");
       setDataBU(respons.data.bu || "");
@@ -85,7 +85,8 @@ function Detail() {
       setDataPositionAMD(respons.data.positionAmd || "");
       setDataPositionASM(respons.data.positionAsm || "");
       setDataPositionKacab(respons.data.positionKacab || "");
-      setDataPositionMGR(respons.data.DataPositionMGR || "");
+      setDataPositionMGR(respons.data.positionMgr || "");
+      // setDataPosition(respons.data.data.position || "");
 
       setDataJobLevel(respons.data.job_level || "");
     } catch (error) {}
@@ -114,6 +115,7 @@ function Detail() {
       });
       console.log("responssssscarismid", respons.data.user);
       setDataSelecttEmployee(respons.data.user);
+      setDataSelectLagi(respons.data);
       // setDataGL(respons.data.user.fullname);
     } catch (error) {}
   };
@@ -322,8 +324,8 @@ function Detail() {
               optionFilterProp="value"
               style={{ width: "100%" }}
               onChange={(e, options) => {
-                console.log(options);
-                setDataCodeEmployeePosition(options);
+                console.log(options.value);
+                setDataCodeEmployeePosition(options.value);
                 setIDKodeEmployeePosition(options.key);
               }}
             >
@@ -440,24 +442,30 @@ function Detail() {
               <Select
                 className="mt-2"
                 showSearch
-                value={DataGL}
+                value={IDgl}
                 optionFilterProp="value"
                 style={{ width: "100%" }}
                 onChange={(e, options) => {
                   console.log(options);
                   setDataGL(options.value);
+                  setDataPositionGL(options.value2);
                   setIDgl(options.key);
                 }}
               >
-                {DataSelecttEmployee &&
-                  DataSelecttEmployee.map((CustomerItem) => (
-                    <Select.Option
-                      key={CustomerItem.id_gl}
-                      value={CustomerItem.fullname}
-                    >
-                      {CustomerItem.id_gl}
-                    </Select.Option>
-                  ))}
+                {DataSelectLagi &&
+                  DataSelectLagi?.employePosition
+                    .filter((item) =>
+                      item.code_employee_position.startsWith("G")
+                    )
+                    .map((CustomerItem) => (
+                      <Select.Option
+                        key={CustomerItem?.code_employee_position}
+                        value={CustomerItem?.fullname}
+                        value2={CustomerItem?.name_employee_position}
+                      >
+                        {CustomerItem?.code_employee_position}
+                      </Select.Option>
+                    ))}
               </Select>
             </div>
           </Col>
@@ -481,7 +489,7 @@ function Detail() {
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
               <Input
-               disabled
+                disabled
                 className="mt-2"
                 value={DataPositionGL}
                 onChange={(e) => {
@@ -511,18 +519,26 @@ function Detail() {
                 onChange={(e, options) => {
                   console.log(options);
                   setDATAASM(options.value);
+                  setDataPositionASM(options.value2);
                   setIDASM(options.key);
                 }}
               >
-                {DataSelecttEmployee &&
-                  DataSelecttEmployee.map((CustomerItem) => (
-                    <Select.Option
-                      key={CustomerItem.id_asm}
-                      value={CustomerItem.fullname}
-                    >
-                      {CustomerItem.id_asm}
-                    </Select.Option>
-                  ))}
+                {DataSelectLagi &&
+                  DataSelectLagi?.employePosition
+                    .filter(
+                      (item) =>
+                        item.code_employee_position.startsWith("A") &&
+                        item.code_employee_position !== "AMD101"
+                    )
+                    .map((CustomerItem) => (
+                      <Select.Option
+                        key={CustomerItem?.code_employee_position}
+                        value={CustomerItem?.name_employee_position}
+                        value2={CustomerItem?.name_employee_position}
+                      >
+                        {CustomerItem?.code_employee_position}
+                      </Select.Option>
+                    ))}
               </Select>
               {/* <Input
                 className="mt-2"
@@ -554,7 +570,7 @@ function Detail() {
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
               <Input
-             disabled
+                disabled
                 className="mt-2"
                 value={DataPositionASM}
                 onChange={(e) => {
@@ -564,15 +580,14 @@ function Detail() {
               />
             </div>
           </Col>
-          
         </Row>
-        
+
         <br />
         <h5>Wilayah Manager</h5>
         <hr />
 
         <Row>
-        <Col span={3}>
+          <Col span={3}>
             <label style={{ fontWeight: "bold" }}>ID MGR :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
@@ -586,17 +601,23 @@ function Detail() {
                   console.log(options);
                   setDataMGR(options.value);
                   setIDMGR(options.key);
+                  setDataPositionMGR(options.value2);
                 }}
               >
-                {DataSelecttEmployee &&
-                  DataSelecttEmployee.map((CustomerItem) => (
-                    <Select.Option
-                      key={CustomerItem.id_mgr}
-                      value={CustomerItem.fullname}
-                    >
-                      {CustomerItem.id_mgr}
-                    </Select.Option>
-                  ))}
+                {DataSelectLagi &&
+                  DataSelectLagi?.employePosition
+                    .filter((item) =>
+                      item.code_employee_position.startsWith("M")
+                    )
+                    .map((CustomerItem) => (
+                      <Select.Option
+                        key={CustomerItem?.code_employee_position}
+                        value={CustomerItem?.name_employee_position}
+                        value2={CustomerItem?.name_employee_position}
+                      >
+                        {CustomerItem?.code_employee_position}
+                      </Select.Option>
+                    ))}
               </Select>
             </div>
           </Col>
@@ -635,31 +656,37 @@ function Detail() {
         <h5>Wilayah Kepala Cabang</h5>
         <hr />
         <Row>
-        <Col  span={3}>
+          <Col span={3}>
             <label style={{ fontWeight: "bold" }}>ID KACAB :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
               <Select
                 className="mt-2"
                 showSearch
-                value={DataKacab}
+                value={IDKacab}
                 optionFilterProp="value"
                 style={{ width: "100%" }}
                 onChange={(e, options) => {
                   console.log(options);
                   setDataKacab(options.value);
                   setIDKacab(options.key);
+                  setDataPositionKacab(options.value2);
                 }}
               >
-                {DataSelecttEmployee &&
-                  DataSelecttEmployee.map((CustomerItem) => (
-                    <Select.Option
-                      key={CustomerItem.id_kacab}
-                      value={CustomerItem.fullname}
-                    >
-                      {CustomerItem.id_kacab}
-                    </Select.Option>
-                  ))}
+                {DataSelectLagi &&
+                  DataSelectLagi?.employePosition
+                    .filter((item) =>
+                      item.code_employee_position.startsWith("K")
+                    )
+                    .map((CustomerItem) => (
+                      <Select.Option
+                        key={CustomerItem?.code_employee_position}
+                        value={CustomerItem?.name_employee_position}
+                        value2={CustomerItem?.name_employee_position}
+                      >
+                        {CustomerItem?.code_employee_position}
+                      </Select.Option>
+                    ))}
               </Select>
             </div>
           </Col>
@@ -711,18 +738,24 @@ function Detail() {
                 onChange={(e, options) => {
                   console.log(options);
                   setDataAMD(options.value);
+                  setDataPositionAMD(options.value2);
                   setIDAMD(options.key);
                 }}
               >
-                {DataSelecttEmployee &&
-                  DataSelecttEmployee.map((CustomerItem) => (
-                    <Select.Option
-                      key={CustomerItem.id_amd}
-                      value={CustomerItem.fullname}
-                    >
-                      {CustomerItem.id_amd}
-                    </Select.Option>
-                  ))}
+                {DataSelectLagi &&
+                  DataSelectLagi?.employePosition
+                    .filter((item) =>
+                      item.code_employee_position.startsWith("D")
+                    )
+                    .map((CustomerItem) => (
+                      <Select.Option
+                        key={CustomerItem?.code_employee_position}
+                        value={CustomerItem?.name_employee_position}
+                        value2={CustomerItem?.name_employee_position}
+                      >
+                        {CustomerItem?.code_employee_position}
+                      </Select.Option>
+                    ))}
               </Select>
             </div>
           </Col>
@@ -747,7 +780,7 @@ function Detail() {
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>
               <Input
-              disabled
+                disabled
                 className="mt-2"
                 value={DataPositionAMD}
                 onChange={(e) => {

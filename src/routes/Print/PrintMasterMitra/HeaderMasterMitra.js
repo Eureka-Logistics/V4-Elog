@@ -6,7 +6,7 @@ function HeaderMasterMitra() {
   const DataKodeMitraZustand = PrintZustand((state) => state.DataKodeMitraZustand);
   console.log(`DataKodeMitraZustand`,DataKodeMitraZustand);
   return (
-    <div id="outtable" style={{ overflow: "auto", maxHeight: "700px" }}>
+    <div id="outtable" style={{ overflow: "auto", maxHeight: "auto" }}>
       <div style={{ padding: "20px" }}>
         <table
           width="100%"

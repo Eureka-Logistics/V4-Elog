@@ -1976,8 +1976,9 @@ const SamplePage = () => {
           </Col>
         </Row> */}
         {/* <CreateMitraModal isiValues={isiValues}/> */}
-        <Row  className="justify-content-end d-flex"> 
-            <Button  type="submit">Save</Button>
+        <Row > 
+           <Col span={24} className="justify-content-end d-flex">
+           <Button  type="submit">Save</Button></Col>
         </Row>
       </Form>
     </div>
