@@ -391,7 +391,7 @@ function Detail() {
             <Select
               className="mt-2"
               showSearch
-              value={DataBU}
+              value={IDBu}
               optionFilterProp="value"
               style={{ width: "100%" }}
               onChange={(e, options) => {
@@ -521,20 +521,20 @@ function Detail() {
                   setIDASM(options.key);
                 }}
               >
-                {DataSelectLagi &&
-                  DataSelectLagi?.employePosition
+                {DataSelect &&
+                  DataSelect?.BuEmployee
                     .filter(
                       (item) =>
-                        item.code_employee_position.startsWith("A") &&
-                        item.code_employee_position !== "AMD101"
+                        item.codeEmployeePosition.startsWith("A") &&
+                        item.codeEmployeePosition !== "AMD101"
                     )
                     .map((CustomerItem) => (
                       <Select.Option
-                        key={CustomerItem?.code_employee_position}
-                        value={CustomerItem?.name_employee_position}
-                        value2={CustomerItem?.name_employee_position}
+                        key={CustomerItem?.codeEmployeePosition}
+                        value={CustomerItem?.name}
+                        value2={CustomerItem?.namePosition}
                       >
-                        {CustomerItem?.code_employee_position}
+                        {CustomerItem?.codeEmployeePosition}
                       </Select.Option>
                     ))}
               </Select>
@@ -602,20 +602,18 @@ function Detail() {
                   setDataPositionMGR(options.value2);
                 }}
               >
-                {DataSelectLagi &&
-                  DataSelectLagi?.employePosition
-                    .filter((item) =>
-                      item.code_employee_position.startsWith("M")
-                    )
-                    .map((CustomerItem) => (
-                      <Select.Option
-                        key={CustomerItem?.code_employee_position}
-                        value={CustomerItem?.name_employee_position}
-                        value2={CustomerItem?.name_employee_position}
-                      >
-                        {CustomerItem?.code_employee_position}
-                      </Select.Option>
-                    ))}
+                {DataSelect &&
+              DataSelect?.BuEmployee
+                .filter((item) => item.codeEmployeePosition.startsWith("M"))
+                .map((CustomerItem) => (
+                  <Select.Option
+                    key={CustomerItem?.codeEmployeePosition}
+                    value={CustomerItem?.name}
+                    value2={CustomerItem?.namePosition}
+                  >
+                    {CustomerItem?.codeEmployeePosition}
+                  </Select.Option>
+                ))}
               </Select>
             </div>
           </Col>
@@ -671,20 +669,18 @@ function Detail() {
                   setDataPositionKacab(options.value2);
                 }}
               >
-                {DataSelectLagi &&
-                  DataSelectLagi?.employePosition
-                    .filter((item) =>
-                      item.code_employee_position.startsWith("K")
-                    )
-                    .map((CustomerItem) => (
-                      <Select.Option
-                        key={CustomerItem?.code_employee_position}
-                        value={CustomerItem?.name_employee_position}
-                        value2={CustomerItem?.name_employee_position}
-                      >
-                        {CustomerItem?.code_employee_position}
-                      </Select.Option>
-                    ))}
+                 {DataSelect &&
+              DataSelect?.BuEmployee
+                .filter((item) => item.codeEmployeePosition.startsWith("K"))
+                .map((CustomerItem) => (
+                  <Select.Option
+                    key={CustomerItem?.codeEmployeePosition}
+                    value={CustomerItem?.name}
+                    value2={CustomerItem?.namePosition}
+                  >
+                    {CustomerItem?.codeEmployeePosition}
+                  </Select.Option>
+                ))}
               </Select>
             </div>
           </Col>
@@ -740,20 +736,18 @@ function Detail() {
                   setIDAMD(options.key);
                 }}
               >
-                {DataSelectLagi &&
-                  DataSelectLagi?.employePosition
-                    .filter((item) =>
-                      item.code_employee_position.startsWith("D")
-                    )
-                    .map((CustomerItem) => (
-                      <Select.Option
-                        key={CustomerItem?.code_employee_position}
-                        value={CustomerItem?.name_employee_position}
-                        value2={CustomerItem?.name_employee_position}
-                      >
-                        {CustomerItem?.code_employee_position}
-                      </Select.Option>
-                    ))}
+                 {DataSelect &&
+              DataSelect?.BuEmployee
+                .filter((item) => item.codeEmployeePosition.startsWith("D"))
+                .map((CustomerItem) => (
+                  <Select.Option
+                    key={CustomerItem?.codeEmployeePosition}
+                    value={CustomerItem?.name}
+                    value2={CustomerItem?.namePosition}
+                  >
+                    {CustomerItem?.codeEmployeePosition}
+                  </Select.Option>
+                ))}
               </Select>
             </div>
           </Col>

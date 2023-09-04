@@ -22,7 +22,7 @@ function SamplePage({ isiValues }) {
           message: "Success",
           description: data.message,
         });
-        setTimeout(() => history.push("/tarifmitra"), 1000);
+        // setTimeout(() => history.push("/tarifmitra"), 1000);
       })
       .catch((error) => {
         notification.error({

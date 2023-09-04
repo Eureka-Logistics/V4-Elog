@@ -155,7 +155,7 @@ function DataBaru({ mitraId, DataOptions }) {
     setTitle(data.data.data?.title);
     setDataDetailMitra(data.data.data?.data);
     setDataKodeMitra(data.data.data?.kode_mitra || "");
-    setDataKodeMitraZustand(data.data.data?.kode_mitra)
+    setDataKodeMitraZustand(data.data.data)
     setDataTitle(data.data.data?.title || "");
     setDataNamaMitra(data.data.data?.nama_mitra || "");
     setDataJenis(data.data.data?.jenis || "");
@@ -1022,7 +1022,7 @@ function DataBaru({ mitraId, DataOptions }) {
               <Form.Item
                 label="No. NPWP :"
                 style={{ fontWeight: "bold" }}
-                name="npwp_nomor"
+                name="npwp_id"
                 rules={[
                   { required: false, message: "Please input your alamat!" },
                 ]}
@@ -1030,19 +1030,19 @@ function DataBaru({ mitraId, DataOptions }) {
                 <Input
                   className="mt-2"
                   type="number"
-                  value={DataNPWPNomor}
+                  value={DataNPWPID}
                   onChange={(e) => {
                     console.log(e.target.value);
-                    setDataNPWPNomor(e.target.value);
+                    setDataNPWPID(e.target.value);
                   }}
                 />
-              </Form.Item>
+              </Form.Item>  
             </Col>
             <Col sm={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Status Usaha :"
                 style={{ fontWeight: "bold" }}
-                name="-"
+                name="status_usaha"
                 // rules={[
                 //   { required: false, message: "Please input your alamat!" },
                 // ]}

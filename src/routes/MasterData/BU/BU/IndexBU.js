@@ -20,9 +20,9 @@ function IndexBU() {
   const [limit, setLimit] = useState(10);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const handleView = (buId) => {
-    router.push(`/dataBisnisUnit/${buId}`);
-    console.log("ini id_bu", buId);
+  const handleView = (id) => {
+    router.push(`/dataBisnisUnit/${id}`);
+    console.log("ini id_bu", id);
   };
 
   const fetchData = async () => {
@@ -86,12 +86,12 @@ function IndexBU() {
       key: "no",
       render: (text, record) => (
         <Space size="middle">
-          <Button onClick={() => handleView(record.buId)} type="primary">
+          <Button onClick={() => handleView(record.id)} type="primary">
             <span style={{ display: "flex", alignItems: "center" }}>
               <FormOutlined />
             </span>
           </Button>
-          <Button danger onClick={() => handleDelete(record.buId)}>
+          <Button danger onClick={() => handleDelete(record.id)}>
             <span style={{ display: "flex", alignItems: "center" }}>
               <DeleteOutlined />
             </span>
@@ -120,20 +120,20 @@ function IndexBU() {
     setIsModalVisible(false);
   };
 
-  const handleDelete = (buId) => {
+  const handleDelete = (id) => {
     Modal.confirm({
-      title: "Are you sure you want to delete this BU ?",
+      title: "Yakin untuk menghapus Bisnis Unit ini ?",
       icon: <ExclamationCircleOutlined />,
-      content: "This action cannot be undone.",
+      content: "Tindakan ini tidak dapat dibatalkan.",
       onOk() {
         const datas = {
-          id_bu: buId,
+          id: id,
         };
         httpClient
           .post(`bu/delete-bu`, datas)
           .then(({ data }) => {
             if (data.status.code === 200) {
-              const newOrder = listData.filter((item) => item.id_bu !== buId);
+              const newOrder = listData.filter((item) => item.id !== id);
               setListData(newOrder);
               // Reload the data after successful deletion if necessary
               // fetchData();

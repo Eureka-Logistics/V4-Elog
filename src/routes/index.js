@@ -517,7 +517,7 @@ const App = ({ match }) => {
           )}
         />
         <Route
-          path={`${match.url}dataBisnisUnit/:buId`}
+          path={`${match.url}dataBisnisUnit/:id`}
           component={asyncComponent(() =>
             import("./MasterData/BU/BU/EditDetailBU")
           )}
@@ -697,6 +697,12 @@ const App = ({ match }) => {
           )}
         />
 
+        <Route
+          path={`${match.url}admin/race`}
+          component={asyncComponent(() =>
+            import("./Race/WebAdmin/Index")
+          )}
+        />
         <Route
           path={`${match.url}masterdata/operasional/detailsp/:idmp`}
           component={asyncComponent(() =>

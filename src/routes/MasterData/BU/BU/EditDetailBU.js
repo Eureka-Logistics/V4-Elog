@@ -7,7 +7,7 @@ import { ColumnWidthOutlined } from '@ant-design/icons';
 import Swal from 'sweetalert2';
 
 function DetailBU() {
-  const { buId } = useParams();
+  const { id } = useParams();
   const [DataDetailBU, setDataDetailBU] = useState("");
   const [DataEdit, setDataEdit] = useState("");
   const [DataNamaBU, setDataNamaBU] = useState("");
@@ -16,10 +16,10 @@ function DetailBU() {
   const [DataIDBu, setDataIDBu] = useState("");
   const [DataID, setDataID] = useState("");
 
-  const DetailBisnisUnit = async (buId) => {
+  const DetailBisnisUnit = async (id) => {
     try {
       const respons = await axios.get(
-        `${Baseurl}bu/get-bu-detail?id_bu=${buId}`,
+        `${Baseurl}bu/get-bu-detail?id=${id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -28,7 +28,7 @@ function DetailBU() {
         }
       );
       setDataDetailBU(respons.data.data);
-      // console.log('ini data detail', respons.data.data );
+      console.log('ini data detail', respons.data.data );
       setDataNamaBU(respons.data.data.name_bu || "");
       setDataKodeBU(respons.data.data.code_bu || "");
       setDataCBU(respons.data.data.cbu || "");
@@ -41,7 +41,7 @@ function DetailBU() {
   const EditDetailBU = async () => {
     try {
       const data = {
-        id : buId,
+        id : id,
         id_bu: DataIDBu,
         name_bu: DataNamaBU,
         code_bu: DataKodeBU,
@@ -90,7 +90,7 @@ function DetailBU() {
   
 
   useEffect(() => {
-    DetailBisnisUnit(buId);
+    DetailBisnisUnit(id);
   }, []);
   
 

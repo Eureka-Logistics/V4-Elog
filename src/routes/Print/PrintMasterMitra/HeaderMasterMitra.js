@@ -6,7 +6,7 @@ function HeaderMasterMitra() {
   const DataKodeMitraZustand = PrintZustand((state) => state.DataKodeMitraZustand);
   console.log(`DataKodeMitraZustand`,DataKodeMitraZustand);
   return (
-    <div id="outtable" style={{ overflow: "auto", maxHeight: "auto" }}>
+    <div id="outtable" style={{ overflow: "auto", maxHeight: "800px" }}>
       <div style={{ padding: "20px" }}>
         <table
           width="100%"
@@ -35,7 +35,7 @@ function HeaderMasterMitra() {
             <td width="110px" align="" style={{ border: "1px solid black" }}>
               <div style={{ padding: "5px" , marginLeft: '10%'}}>
                 MITRA CODE <br />
-                <strong>{DataKodeMitraZustand}</strong>
+                <strong>{DataKodeMitraZustand.kode_mitra}</strong>
               </div>
             </td>
             <td width="110px" height="100px" align="">
@@ -77,7 +77,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-                2023-07-28
+                {DataKodeMitraZustand.awal_kontrak}
               </td>
               <td
                 width="100px"
@@ -91,7 +91,7 @@ function HeaderMasterMitra() {
                 colSpan={3}
               >
                 {" "}
-                2025-07-27
+                {DataKodeMitraZustand.akhir_kontrak}
               </td>
             </tr>
             <tr>
@@ -106,7 +106,9 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-                PT
+                {DataKodeMitraZustand.title}
+                
+                
               </td>
               <td
                 width="100px"
@@ -120,7 +122,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-                PT. ADHI LINTAS NUSA (ALN)
+                {DataKodeMitraZustand.nama_mitra}
               </td>
             </tr>
             <tr style={{ textAlign: "center" }}>
@@ -152,8 +154,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-                Jl. Selayar , Kawasan MM 2100 Blok B2-1 , Mekarwangi, Cikarang
-                Baratm Bekasi
+                {DataKodeMitraZustand.alamat}
               </td>
             </tr>
             <tr>
@@ -219,7 +220,7 @@ function HeaderMasterMitra() {
                 colspan="4"
               >
                 {" "}
-                -
+                {DataKodeMitraZustand.homepage}
               </td>
             </tr>
             <tr style={{ textAlign: "center" }}>
@@ -239,7 +240,8 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-                (021) 501-16028
+                {DataKodeMitraZustand.telepon}
+
               </td>
               <td
                 width="100px"
@@ -253,7 +255,8 @@ function HeaderMasterMitra() {
                 colSpan={3}
               >
                 {" "}
-                0813-99288155
+                {DataKodeMitraZustand.telp}
+
               </td>
             </tr>
             <tr>
@@ -268,7 +271,8 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-                (021) 501-16028
+                {DataKodeMitraZustand.fax}
+
               </td>
               <td
                 width="100px"
@@ -282,7 +286,7 @@ function HeaderMasterMitra() {
                 colSpan={3}
               >
                 {" "}
-                1997
+                {DataKodeMitraZustand.tahun_berdiri}
               </td>
             </tr>
           </>
@@ -310,7 +314,7 @@ function HeaderMasterMitra() {
                 width="250px"
               >
                 {" "}
-                94.519.736.6-413.000
+                {DataKodeMitraZustand.npwp_id}
               </td>
               <td
                 width="100px"
@@ -324,7 +328,7 @@ function HeaderMasterMitra() {
                 colSpan={4}
               >
                 {" "}
-                PT. Adhi Lintas Nusa
+                {DataKodeMitraZustand.npwp_name}
               </td>
             </tr>
             <tr>
@@ -340,8 +344,10 @@ function HeaderMasterMitra() {
                 colspan="6"
               >
                 {" "}
-                Jalan Selayar Blok B2 Nomor 1, Kawasan Industri MM2100,
-                Mekarwangi, Cikarang Barat, Kab Bekasi, Jawa Barat,17530
+                {DataKodeMitraZustand.npwp_address}
+
+                {/* Jalan Selayar Blok B2 Nomor 1, Kawasan Industri MM2100,
+                Mekarwangi, Cikarang Barat, Kab Bekasi, Jawa Barat,17530 */}
               </td>
             </tr>
             <tr>
@@ -356,7 +362,8 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-                B2
+                {DataKodeMitraZustand.npwp_blok}
+
               </td>
               <td
                 width="100px"
@@ -370,7 +377,7 @@ function HeaderMasterMitra() {
                 colSpan={4}
               >
                 {" "}
-                1
+                {DataKodeMitraZustand.npwp_nomor}
               </td>
             </tr>
             <tr>
@@ -385,7 +392,8 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-                -
+                {DataKodeMitraZustand.npwp_rt}
+
               </td>
               <td
                 width="100px"
@@ -399,7 +407,8 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-                -
+                {DataKodeMitraZustand.npwp_rw}
+
               </td>
             </tr>
             <tr>
@@ -414,7 +423,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-                Mekarwangi
+                {DataKodeMitraZustand.npwp_kelurahan}
               </td>
               <td
                 width="100px"
@@ -428,7 +437,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-                Cikarang Barat
+                {DataKodeMitraZustand.npwp_kecamatan}
               </td>
             </tr>
             <tr>
@@ -443,7 +452,8 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-                Kota Bekasi
+                {DataKodeMitraZustand.npwp_kota}
+
               </td>
               <td
                 width="100px"
@@ -457,7 +467,8 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-                Jawa Barat
+                {DataKodeMitraZustand.npwp_provinsi}
+
               </td>
             </tr>
           </>
@@ -485,7 +496,8 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-                BANK BCA
+                {DataKodeMitraZustand.nama_bank}
+
               </td>
               <td
                 width="100px"
@@ -499,7 +511,8 @@ function HeaderMasterMitra() {
                 colSpan={4}
               >
                 {" "}
-                PT. Adhi Lintas Nusa
+                {DataKodeMitraZustand.nama_akun}
+
               </td>
             </tr>
             <tr>
@@ -514,7 +527,8 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-                4860400168
+                {DataKodeMitraZustand.no_rek}
+
               </td>
               <td
                 width="100px"
@@ -528,7 +542,7 @@ function HeaderMasterMitra() {
                 colSpan={4}
               >
                 {" "}
-                Rupiah (Rp.)
+                {DataKodeMitraZustand.currency}
               </td>
             </tr>
           </>

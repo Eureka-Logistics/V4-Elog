@@ -8,6 +8,10 @@
   font-family: 'NoirPro';
 }
 
+.ant-picker-input > input {
+  font-family: 'NoirPro';
+}
+
 .dQuovt {
   overflow: hidden;
   white-space: nowrap;

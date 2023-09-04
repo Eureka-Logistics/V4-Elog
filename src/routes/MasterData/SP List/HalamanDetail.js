@@ -232,7 +232,7 @@ function HalamanDetail() {
     } catch (error) {
       notification.error({
         message: "Error",
-        description: error.response.status.message
+        description: error.response.data.status.message
       })
     }
   };
