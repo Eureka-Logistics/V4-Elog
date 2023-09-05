@@ -2,9 +2,13 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap'
 import Baseurl from '../../../Api/BaseUrl'
+import FormTable from '../SP List/FormTable'
+import HalamanDetail from '../SP List/HalamanDetail'
+import RefreshMitra123 from '../../../zustand/Store/RefreshMitra123/RefreshMitra123'
 
 function DetailKendaraanSOdiSemuaSO({ idmpd }) {
     const [Detail, setDetail] = useState("")
+
     const ambildata = async () => {
         try {
             const data = await axios.get(
@@ -16,7 +20,8 @@ function DetailKendaraanSOdiSemuaSO({ idmpd }) {
                     },
                 }
             );
-            setDetail(data?.data?.data[0]);
+            console.log(`asdasdasdasd`);
+            setDetail(data?.data?.data?.[0]);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -24,7 +29,7 @@ function DetailKendaraanSOdiSemuaSO({ idmpd }) {
 
     useEffect(() => {
         ambildata(); // Memanggil ambildata
-    }, [idmpd]); // idmpd sebagai dependency
+    }, [idmpd,]); // idmpd sebagai dependency
     return (
         <div>
             <Table responsive bordered>
@@ -40,17 +45,16 @@ function DetailKendaraanSOdiSemuaSO({ idmpd }) {
                 </thead>
                 <tbody>
                     <tr >
-                        <td>{Detail?.mitraPickup}</td>
-                        <td>{Detail?.driver1} {Detail?.unit1} ({Detail.kendaraanPickup})</td>
-                        <td>{Detail?.mitra1}</td>
-                        <td>{Detail?.driver2} {Detail?.unit2} ({Detail.kendaraanMitra1})</td>
-                        <td>{Detail?.mitra2}</td>
-                        <td>{Detail?.driver3} {Detail?.unit3} ({Detail.kendaraanMitra2})</td>
+                        <td>{Detail?.mitraPickup === undefined ? "Belum Pilih Unit" : Detail?.mitraPickup}</td>
+                        <td>{Detail?.driver1 === undefined ? "Belum Pilih Unit" : Detail?.driver1} - {Detail?.unit1} - {Detail.kendaraanPickup}</td>
+                        <td>{Detail?.mitra1 === undefined ? "Belum Pilih Unit" : Detail?.mitra1}</td>
+                        <td>{Detail?.driver2 === undefined ? " Belum Pilih Unit" : Detail?.driver2} - {Detail?.unit2} - {Detail.kendaraanMitra1}</td>
+                        <td>{Detail?.mitra2 === undefined ? "Belum Pilih Unit" : Detail?.mitra2}</td>
+                        <td>{Detail?.driver3 === undefined ? "Belum Pilih Unit" : Detail?.driver3} - {Detail?.unit3} - {Detail.kendaraanMitra2}</td>
                     </tr>
                 </tbody>
             </Table>
         </div>
-
     )
 }
 

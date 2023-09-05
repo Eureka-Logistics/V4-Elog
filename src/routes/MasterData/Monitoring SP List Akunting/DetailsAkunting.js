@@ -198,6 +198,7 @@ function DetailsAkunting() {
       );
       Swal.fire("Berhasil!", "Permintaan berhasil!", "success");
       setDetailData()
+      comments()
     } catch (error) {
       message.error(error.response.data.status.message)
     }
@@ -379,7 +380,7 @@ function DetailsAkunting() {
           </Modal>
           <Row>
             <div className="d-flex justify-content-end">
-              {jobdesk === "sales" && (
+              {/* {jobdesk === "sales" && (
                 <>
                   <Button size="sm" onClick={() => tombolApprove()}>
                     Approve
@@ -392,7 +393,7 @@ function DetailsAkunting() {
                     Reject SO
                   </Button>
                 </>
-              )}
+              )} */}
 
               {jobdesk !== "operasional" &&
                 jobdesk !== "sales" &&
@@ -447,7 +448,7 @@ function DetailsAkunting() {
                 </Button>
               </div>
 
-              {jobdesk === "sales" && actSalesStatus === "N" ? (
+              {jobdesk === "sales" && actSalesStatus === "Y" ? (
                 <>
                   <Button
                     size="sm"

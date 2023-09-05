@@ -181,6 +181,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
             panjang: DetailSemuaTemp?.panjang,
             lebar: DetailSemuaTemp?.lebar,
             tinggi: DetailSemuaTemp?.tinggi,
+            // bongkar: DetailSemuaTemp?.harga_bongkar,
             bongkar: DetailSemuaTemp?.harga_bongkar,
             biayamultimuat: DetailSemuaTemp?.biayamultimuat,
             biayamuat: DetailSemuaTemp?.harga_muat,
@@ -984,11 +985,11 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
 
                                 label="Tarif"
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
-                                validateStatus={
-                                    formik.touched.alamatmuat && formik.errors.alamatmuat
-                                        ? 'error'
-                                        : 'success'
-                                }
+                                // validateStatus={
+                                //     formik.touched.alamatmuat && formik.errors.alamatmuat
+                                //         ? 'error'
+                                //         : 'success'
+                                // }
                                 style={{ marginBottom: 2 }}
                             >
                                 <Input

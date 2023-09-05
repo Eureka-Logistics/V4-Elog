@@ -456,20 +456,28 @@ function VehicleBaru() {
             ApiAwal()
             setIsModalOpen(false);
         } catch (error) {
-            error.response.data.errors.forEach((err) => {
-                let customMessage;
+            if (error.response.data.errors) {
+                error.response.data.errors.forEach((err) => {
+                    let customMessage;
 
-                if (err.message === "ID driver Tidak Boleh Kosong") {
-                    customMessage = "Nama Driver Harus Di isi";
-                } else {
-                    customMessage = err.message;
-                }
+                    if (err.message === "ID driver Tidak Boleh Kosong") {
+                        customMessage = "Nama Driver Harus Di isi";
+                    } else {
+                        customMessage = err.message;
+                    }
 
+                    notification.error({
+                        message: 'ADA KESALAHAN DI FORM INPUT',
+                        description: customMessage,
+                    });
+                })
+            } else if (error.response.data.status) {
+                alert("error else")
                 notification.error({
-                    message: 'ADA KESALAHAN DI FORM INPUT',
-                    description: customMessage,
-                });
-            })
+                    message : error.response.data.status.message
+                })
+            }
+
         }
     }
 
@@ -1092,9 +1100,9 @@ function VehicleBaru() {
                                     <AntForm.Item
                                         label={
                                             <span>
-                                              Kubikasi (Penjumlahan Dari <strong>P x L x T</strong>)
+                                                Kubikasi (Penjumlahan Dari <strong>P x L x T</strong>)
                                             </span>
-                                          }
+                                        }
                                         required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
@@ -1185,7 +1193,7 @@ function VehicleBaru() {
                                             onBlur={formik.handleBlur}
                                         />
                                     </AntForm.Item>
-                                   
+
                                     <AntForm.Item
                                         label="Cabang"
                                         required

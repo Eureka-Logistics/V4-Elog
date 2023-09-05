@@ -680,7 +680,7 @@ function DriverTableBaru() {
             <Form layout="vertical" onSubmitCapture={formik.handleSubmit}>
               <Row>
                 <Col sm={4}>
-                  <Card style={{ height: "200px" }}>
+                  <Card style={{ height: "280px" }}>
                     <div style={{ width: "100%", height: "100%" }}>
                       <img
                         src={GambarDriver instanceof File ? URL.createObjectURL(GambarDriver) : GambarDriver}
@@ -827,14 +827,19 @@ function DriverTableBaru() {
                       onChange={(date, dateString) => {
                         const apiFormatDate = date.format("YYYY-MM-DD");
                         formik.setFieldValue("tgllahir", apiFormatDate);
-                        console.log(apiFormatDate);
                       }}
                       onBlur={formik.handleBlur}
+                      // value={
+                      //   moment(formik.values.tgllahir)
+                      //     ? moment(formik.values.tgllahir, "YYYY-MM-DD")
+                      //     : null
+                      // }
                       value={
-                        moment(formik.values.tgllahir)
-                          ? moment(formik.values.tgllahir, "YYYY-MM-DD")
+                        formik.values.tgllahir 
+                          ? moment(formik.values.tgllahir, "YYYY-MM-DD") 
                           : null
                       }
+                      
                     />
                   </Form.Item>
                 </Col>
