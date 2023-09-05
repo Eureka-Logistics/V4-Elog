@@ -43,10 +43,10 @@ const SamplePage = () => {
   const [viaOptions, setViaOptions] = useState([]);
   const [jenisDiskon, setJenisDiskon] = useState("");
   const [KodeID, setKodeID] = useState("");
-  const [DataLeadTime, setDataTime] = useState ("");
-  const [selectJenisLayanan, setSelectJenisLayanan] = useState("")
+  const [DataLeadTime, setDataTime] = useState("");
+  const [selectJenisLayanan, setSelectJenisLayanan] = useState("");
   const [PenampungLastDataNotif, setPenampungLastDataNotif] = useState({
-    MitraCode:null,
+    MitraCode: null,
     Nama_Mitra: null,
     Kota_Muat: null,
     Kota_Tujuan: null,
@@ -54,9 +54,9 @@ const SamplePage = () => {
     Jenis_Kendaraan: null,
     Jenis_Layanan: null,
     Jenis_Kiriman: null,
-    Tarif : null
-  })
-  const [Loading, setLoading] = useState(false)
+    Tarif: null,
+  });
+  const [Loading, setLoading] = useState(false);
   const optjenisLayanan = [
     {
       value: 1,
@@ -105,7 +105,7 @@ const SamplePage = () => {
       id_customer: Yup.string().max(30, "Must be 30 characters or less"),
     }),
     onSubmit: (values) => {
-      setLoading(false)
+      setLoading(false);
       httpClient
         .post("tarif/create-tarifMitra", {
           ...values,
@@ -120,15 +120,15 @@ const SamplePage = () => {
             message: "Success",
             description: data.status.message,
           });
-          setLoading(true)
-          setKota("")
-          setKotaTujuan("")
-          setVia("")
-          setJenisKendaraan("")
-          setJenisKiriman("")
-          setJenisLayanan("")
-          setTarif(10000)
-          fetchTarifAndCustomerOptions("")
+          setLoading(true);
+          setKota("");
+          setKotaTujuan("");
+          setVia("");
+          setJenisKendaraan("");
+          setJenisKiriman("");
+          setJenisLayanan("");
+          setTarif(10000);
+          fetchTarifAndCustomerOptions("");
         })
         .catch(function (error) {
           notification.error({
@@ -141,7 +141,10 @@ const SamplePage = () => {
   });
 
   const fetchTarifAndCustomerOptions = () => {
-    return httpClient.get("tarif/get-select?idMuat=&idBogkar=&idJenisKendaraan=&service_type=Reguler")
+    return httpClient
+      .get(
+        "tarif/get-select?idMuat=&idBogkar=&idJenisKendaraan=&service_type=Reguler"
+      )
       .then(({ data }) => {
         if (data.status.code === 200) {
           setKodeID(data.kodeTarif);
@@ -153,12 +156,10 @@ const SamplePage = () => {
           );
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.message);
       });
   };
-
-
 
   useEffect(() => {
     httpClient
@@ -193,10 +194,12 @@ const SamplePage = () => {
       });
 
     httpClient
-      .get("tarif/get-select?idMuat=&idBogkar=&idJenisKendaraan=&service_type=Reguler")
+      .get(
+        "tarif/get-select?idMuat=&idBogkar=&idJenisKendaraan=&service_type=Reguler"
+      )
       .then(({ data }) => {
         if (data.status.code === 200) {
-          console.log('customer', data.kodeTarif);
+          console.log("customer", data.kodeTarif);
           setKodeID(data.kodeTarif);
           setCustomerOptions(
             data.customer.map((x) => ({
@@ -208,7 +211,6 @@ const SamplePage = () => {
       })
       .catch(function (error) {
         console.log(error.message);
-
       });
 
     httpClient
@@ -290,34 +292,48 @@ const SamplePage = () => {
     } else if (e.name === "id_kendaraan_jenis") {
       formik.setFieldValue("id_kendaraan_jenis", value.value);
       setJenisKendaraan(value);
-      setPenampungLastDataNotif({ ...PenampungLastDataNotif, Jenis_Kendaraan: value.label });
+      setPenampungLastDataNotif({
+        ...PenampungLastDataNotif,
+        Jenis_Kendaraan: value.label,
+      });
     } else if (e.name === "id_customer") {
       formik.setFieldValue("id_customer", value.value);
       setCustomer(value);
     } else if (e.name === "id_muat_kota") {
       formik.setFieldValue("id_muat_kota", value.value);
-      setPenampungLastDataNotif({ ...PenampungLastDataNotif, Kota_Muat: value.label });
+      setPenampungLastDataNotif({
+        ...PenampungLastDataNotif,
+        Kota_Muat: value.label,
+      });
       setKota(value);
     } else if (e.name === "id_tujuan_kota") {
       setKotaTujuan(value);
-      setPenampungLastDataNotif({ ...PenampungLastDataNotif, Kota_Tujuan: value.label });
+      setPenampungLastDataNotif({
+        ...PenampungLastDataNotif,
+        Kota_Tujuan: value.label,
+      });
       formik.setFieldValue("id_tujuan_kota", value.value);
     } else if (e.name === "via") {
       setVia(value);
       formik.setFieldValue("via", value);
-      setPenampungLastDataNotif({ ...PenampungLastDataNotif, Via: value.label });
+      setPenampungLastDataNotif({
+        ...PenampungLastDataNotif,
+        Via: value.label,
+      });
     } else if (e.name === "id_mitra") {
       setIdMitra(value);
-      setPenampungLastDataNotif({ ...PenampungLastDataNotif, Nama_Mitra: value.label });
+      setPenampungLastDataNotif({
+        ...PenampungLastDataNotif,
+        Nama_Mitra: value.label,
+      });
       formik.setFieldValue("id_mitra", value.value);
     } else if (e.name === "tarif") {
-
       // setIdMitra(value);
       formik.setFieldValue("tarif", value);
     } else if (e.name === "jenis_kiriman") {
       // setIdMitra(value);
       console.log(value);
-      
+
       formik.setFieldValue("jenis_kiriman", value);
     } else if (e.name === "ritase") {
       // setIdMitra(value);
@@ -325,12 +341,17 @@ const SamplePage = () => {
     }
   };
 
-  const toRupiah = (angka) => {
-    var rupiah = '';
-    var angkarev = angka.toString().split('').reverse().join('');
-    for (var i = 0; i < angkarev.length; i++) if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + '.';
-    return `Rp.${rupiah.split('', rupiah.length - 1).reverse().join('')}`;
-}
+    const toRupiah = (angka) => {
+      var rupiah = '';
+      var angkarev = angka.toString().split('').reverse().join('');
+      for (var i = 0; i < angkarev.length; i++) if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + '.';
+      return `${rupiah.split('', rupiah.length - 1).reverse().join('')}`;
+  }
+
+  // function toRupiah(angka) {
+  //   const rupiah = angka.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+  //   return `Rp ${rupiah}`;
+  // }
 
   return (
     <div>
@@ -338,23 +359,24 @@ const SamplePage = () => {
         <Form onSubmit={formik.handleSubmit}>
           <Row style={{ marginBottom: "10px" }}>
             <Col span={8}>
-              <h4 style={{ color: '#1A5CBF' }}>Buat Tarif Mitra Baru</h4>
+              <h4 style={{ color: "#1A5CBF" }}>Buat Tarif Mitra Baru</h4>
             </Col>
             <Col span={3}></Col>
             <Col span={3}></Col>
-
           </Row>
-          {Loading &&
+          {Loading && (
             <Alert
               message={`Tarif Baru Berhasil Di Buat Dengan, Nama Mitra : ${PenampungLastDataNotif.Nama_Mitra} | Kota Muat : ${PenampungLastDataNotif.Kota_Muat} | Kota Tujuan : ${PenampungLastDataNotif.Kota_Tujuan} | Via : ${PenampungLastDataNotif.Via} | Jenis Kendaraan : ${PenampungLastDataNotif.Jenis_Kendaraan} | Jenis Layanan : ${PenampungLastDataNotif.Jenis_Layanan} | Jenis Kiriman : ${PenampungLastDataNotif.Jenis_Kiriman} | Tarif : ${PenampungLastDataNotif.Tarif} `}
               type="success"
               showIcon
             />
-          }
+          )}
           <Row style={{ marginBottom: "10px" }}>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{ fontWeight: `bold` }}>Code Tarif Mitra</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Code Tarif Mitra
+                </Form.Label>
                 <Form.Control disabled value={KodeID.kodeTarifMitra} />
                 {/* <InputGroup>
                   <Input
@@ -367,7 +389,9 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{ fontWeight: `bold` }}>Nama Mitra</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Nama Mitra
+                </Form.Label>
                 <InputGroup>
                   <Select
                     options={customerOptions}
@@ -383,7 +407,9 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{ fontWeight: `bold` }}>Kota Muat</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Kota Muat
+                </Form.Label>
                 <InputGroup>
                   <Select
                     options={kotaOptions}
@@ -399,7 +425,9 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{ fontWeight: `bold` }}>Kota Tujuan</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Kota Tujuan
+                </Form.Label>
                 <InputGroup>
                   <Select
                     options={kotaOptions}
@@ -431,7 +459,9 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{ fontWeight: `bold` }}>Jenis kendaraan </Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Jenis kendaraan{" "}
+                </Form.Label>
                 <InputGroup>
                   <Select
                     options={jenisKendaraanOptions}
@@ -447,19 +477,24 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{ fontWeight: `bold` }}>Jenis Layanan</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Jenis Layanan
+                </Form.Label>
 
                 <Select
                   options={[
                     { label: "Retail", value: "Retail" },
-                    { label: "Charter", value: "Charter" }
+                    { label: "Charter", value: "Charter" },
                   ]}
                   name="service_type"
                   value={jenisLayanan}
                   onChange={(e) => {
                     setJenisLayanan(e);
-                    setPenampungLastDataNotif({ ...PenampungLastDataNotif, Jenis_Layanan: e.label });
-                    console.log('Updated jenisLayanan:', e.label);
+                    setPenampungLastDataNotif({
+                      ...PenampungLastDataNotif,
+                      Jenis_Layanan: e.label,
+                    });
+                    console.log("Updated jenisLayanan:", e.label);
                   }}
                   isInvalid={!!formik.errors.service_type}
                   styles={customStylesReactSelect}
@@ -483,14 +518,20 @@ const SamplePage = () => {
 
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{ fontWeight: `bold` }}>Jenis Kiriman</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Jenis Kiriman
+                </Form.Label>
                 <InputGroup>
                   <Select
                     options={optjenisKiriman}
                     name="jenis_kiriman"
                     value={jenisKiriman}
-                    onChange={(e) => {setJenisKiriman(e)
-                      setPenampungLastDataNotif({ ...PenampungLastDataNotif, Jenis_Kiriman: e.label });
+                    onChange={(e) => {
+                      setJenisKiriman(e);
+                      setPenampungLastDataNotif({
+                        ...PenampungLastDataNotif,
+                        Jenis_Kiriman: e.label,
+                      });
                     }}
                     isInvalid={!!formik.errors.jenis_kiriman}
                     styles={customStylesReactSelect}
@@ -502,13 +543,13 @@ const SamplePage = () => {
           <br />
           <hr />
 
-          <h4 style={{ color: '#1A5CBF' }}>
-            Biaya Penanganan
-          </h4>
+          <h4 style={{ color: "#1A5CBF" }}>Biaya Penanganan</h4>
           <Row className="mt-4">
-             <Col span={6} >
+            <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{ fontWeight: `bold` }}>Lead Time</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Lead Time
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
                     // name="tarif"
@@ -520,12 +561,26 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6} >
+            <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>Tarif</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    // name="tarif"
+                    type="text"
+                    value={toRupiah(Tarif)} // Menggunakan fungsi toRupiah
+                    onChange={(e) => {
+                      const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+                      setTarif(inputAngka); // Set nilai tanpa tanda titik
+                      setPenampungLastDataNotif({
+                        ...PenampungLastDataNotif,
+                        Tarif: toRupiah(inputAngka),
+                      });
+                    }}
+                    isInvalid={!!formik.errors.tarif}
+                  />
+                </InputGroup>
+                {/* <InputGroup>
+                  <Form.Control
                     type="number"
                     value={(Tarif)}
                     onChange={(e) => {
@@ -534,10 +589,10 @@ const SamplePage = () => {
                     }}
                     isInvalid={!!formik.errors.tarif}
                   />
-                </InputGroup>
+                </InputGroup> */}
               </Form.Group>
             </Col>
-           
+
             {/* <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{fontWeight: `bold`}}>Ritase</Form.Label>
@@ -569,7 +624,7 @@ const SamplePage = () => {
           </Row>
         </Form>
         <Col span={24} className="d-flex justify-content-end">
-          <Button onClick={formik.handleSubmit} >Simpan Tarif</Button>
+          <Button onClick={formik.handleSubmit}>Simpan Tarif</Button>
         </Col>
       </Card>
     </div>

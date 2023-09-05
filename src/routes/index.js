@@ -698,12 +698,6 @@ const App = ({ match }) => {
         />
 
         <Route
-          path={`${match.url}admin/race`}
-          component={asyncComponent(() =>
-            import("./Race/WebAdmin/Index")
-          )}
-        />
-        <Route
           path={`${match.url}masterdata/operasional/detailsp/:idmp`}
           component={asyncComponent(() =>
             import("./MasterData/SP List/HalamanDetail")

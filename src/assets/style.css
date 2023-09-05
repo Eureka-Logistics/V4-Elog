@@ -8,6 +8,18 @@
   font-family: 'NoirPro';
 }
 
+.ant-select{
+  font-family: 'NoirPro';
+}
+
+.ant-select-selection-item{
+  font-family: 'NoirPro';
+}
+
+.ant-table-cell{
+  font-family:'NoirPro';
+}
+
 .ant-picker-input > input {
   font-family: 'NoirPro';
 }

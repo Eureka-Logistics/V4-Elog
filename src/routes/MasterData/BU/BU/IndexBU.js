@@ -58,12 +58,13 @@ function IndexBU() {
       title: "Kode BU",
       dataIndex: "buId",
       key: "buId",
+       render: (buId) => <Tag color="magenta">{buId}</Tag>,
     },
     {
       title: "Nama Alias",
       dataIndex: "cbu",
       key: "cbu",
-      render: (text) => <Tag color="blue">{text}</Tag>,
+      render: (cbu) => <Tag color="blue">{cbu}</Tag>,
     },
     {
       title: "Nama Bisnis Unit",

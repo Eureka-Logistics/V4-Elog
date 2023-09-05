@@ -84,6 +84,7 @@
     "sweetalert2": "^11.7.3",
     "url-search-params": "^1.1.0",
     "victory": "^35.4.6",
+    "xlsx-style": "^0.8.13",
     "yup": "^1.2.0",
     "zustand": "^4.3.7"
   },

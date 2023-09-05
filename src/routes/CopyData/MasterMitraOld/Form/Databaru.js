@@ -37,13 +37,14 @@ function DataBaru({ mitraId, DataOptions }) {
   const { banks } = useBanksStore();
   const [DataJenis, setDataJenis] = useState("");
   const [DataDetailMitra, setDataDetailMitra] = useState("");
-  const {DataKodeMitraZustand,setDataKodeMitraZustand} = PrintZustand((state) =>({
-    DataKodeMitraZustand : state.DataKodeMitraZustand,
-    setDataKodeMitraZustand : state.setDataKodeMitraZustand
-
-  }));
+  const { DataKodeMitraZustand, setDataKodeMitraZustand } = PrintZustand(
+    (state) => ({
+      DataKodeMitraZustand: state.DataKodeMitraZustand,
+      setDataKodeMitraZustand: state.setDataKodeMitraZustand,
+    })
+  );
   const [DataKodeMitra, setDataKodeMitra] = useState("");
- console.log(`DataKodeMitraZustand`,DataKodeMitraZustand);
+  console.log(`DataKodeMitraZustand`, DataKodeMitraZustand);
   const [DataKodeInisial, setDataKodeInisial] = useState("");
   const [DataQRKode, setDataQRKode] = useState("");
   const [DataNamaMitra, setDataNamaMitra] = useState("");
@@ -155,7 +156,7 @@ function DataBaru({ mitraId, DataOptions }) {
     setTitle(data.data.data?.title);
     setDataDetailMitra(data.data.data?.data);
     setDataKodeMitra(data.data.data?.kode_mitra || "");
-    setDataKodeMitraZustand(data.data.data)
+    setDataKodeMitraZustand(data.data.data);
     setDataTitle(data.data.data?.title || "");
     setDataNamaMitra(data.data.data?.nama_mitra || "");
     setDataJenis(data.data.data?.jenis || "");
@@ -381,7 +382,6 @@ function DataBaru({ mitraId, DataOptions }) {
           Authorization: localStorage.getItem("token"),
         },
       });
-
       // If you want to update the state with the edited data, you can do so here.
       // For example:
       setDataDetailMitra(response.data); // Assuming the response contains the updated data
@@ -404,20 +404,30 @@ function DataBaru({ mitraId, DataOptions }) {
         // console.log(`error`);
       }
     } catch (error) {
-      // console.log(`ini error`, error.response.data.errors);
-      // console.error(`ini errorr`, error);
-      error.response.data.errors.forEach((element) => {
-        notification.error({
-          description: element.message,
+      if (error.response && error.response.data && error.response.data.errors) {
+        const errorMessages = error.response.data.errors.map((element) => {
+          return `${element.field}: ${element.message}`;
         });
-      });
+        const errorMessage = errorMessages.join("\n");
+
+        notification.error({
+          description: errorMessage,
+        });
+      } else if (
+        error.response &&
+        error.response.data &&
+        error.response.data.status
+      ) {
+        notification.error({
+          description: error.response.data.status.message,
+        });
+      }
     }
   };
-
   useEffect(() => {
     DetailMitra();
     OptionsData();
-    setDataKodeMitraZustand()
+    setDataKodeMitraZustand();
   }, []);
 
   const OptionsData = async () => {
@@ -785,7 +795,6 @@ function DataBaru({ mitraId, DataOptions }) {
                 label="Jenis Mitra :"
                 style={{ fontWeight: "bold" }}
                 name="jenis"
-                  
               >
                 <Select
                   className="mt-2"
@@ -809,9 +818,8 @@ function DataBaru({ mitraId, DataOptions }) {
                 /> */}
               </Form.Item>
             </Col>
-          
           </Row>
-        
+
           <Row>
             <Col sm={4} style={{ padding: "0px" }}>
               <Form.Item
@@ -910,8 +918,8 @@ function DataBaru({ mitraId, DataOptions }) {
                     }}
                   />
                 </Input.Group>
-                <br />
-                <Checkbox>Berlaku perpanjang otomatis</Checkbox>
+                {/* <br /> */}
+                {/* <Checkbox>Berlaku perpanjang otomatis</Checkbox> */}
               </Form.Item>
             </Col>
             {/* <Col sm={4}>
@@ -989,7 +997,6 @@ function DataBaru({ mitraId, DataOptions }) {
                 />
               </Form.Item>
             </Col>
-           
           </Row>
           <Row>
             <Col sm={12} style={{ padding: "0px" }}>
@@ -1000,7 +1007,7 @@ function DataBaru({ mitraId, DataOptions }) {
               >
                 <Input.TextArea
                   className="mt-2"
-                  style={{height: '100px'}}
+                  style={{ height: "100px" }}
                   value={DataMemo}
                   onChange={(e) => {
                     console.log(e.target.value);
@@ -1029,14 +1036,14 @@ function DataBaru({ mitraId, DataOptions }) {
               >
                 <Input
                   className="mt-2"
-                  type="number"
+                  type="text"
                   value={DataNPWPID}
                   onChange={(e) => {
                     console.log(e.target.value);
                     setDataNPWPID(e.target.value);
                   }}
                 />
-              </Form.Item>  
+              </Form.Item>
             </Col>
             <Col sm={4} style={{ padding: "0px" }}>
               <Form.Item
@@ -1047,7 +1054,7 @@ function DataBaru({ mitraId, DataOptions }) {
                 //   { required: false, message: "Please input your alamat!" },
                 // ]}
               >
-                  <Select
+                <Select
                   className="mt-2"
                   value={DataStatusUsaha}
                   onChange={(e) => {
@@ -1088,9 +1095,9 @@ function DataBaru({ mitraId, DataOptions }) {
               </Form.Item>
             </Col>
           </Row>
-         
+
           <Row>
-            <Col sm={2} style={{ padding: "0px", width: '20%' }}>
+            <Col sm={2} style={{ padding: "0px", width: "20%" }}>
               <Form.Item
                 label="Jalan NPWP:"
                 style={{ fontWeight: "bold" }}
@@ -1105,7 +1112,6 @@ function DataBaru({ mitraId, DataOptions }) {
                   }}
                 />
               </Form.Item>
-              
             </Col>
             <Col sm={2} style={{ width: "20%", padding: "0px" }}>
               <Form.Item
@@ -1123,7 +1129,7 @@ function DataBaru({ mitraId, DataOptions }) {
                 />
               </Form.Item>
             </Col>
-            
+
             <Col sm={2} style={{ width: "20%", padding: "0px" }}>
               <Form.Item
                 label="Kecamatan :"
@@ -1173,7 +1179,7 @@ function DataBaru({ mitraId, DataOptions }) {
               </Form.Item>
             </Col>
           </Row>
-       
+
           <Row>
             <Col sm={2} style={{ width: "20%", padding: "0px" }}>
               <Form.Item
@@ -1194,12 +1200,11 @@ function DataBaru({ mitraId, DataOptions }) {
             <Col sm={2} style={{ width: "20%", padding: "0px" }}>
               <Form.Item
                 label="Nomor :"
-              
                 style={{ fontWeight: "bold" }}
                 name="npwp_nomor"
               >
                 <Input
-                type="number"
+                  type="number"
                   className="mt-2"
                   value={DataNPWPNomor}
                   onChange={(e) => {
@@ -1211,13 +1216,12 @@ function DataBaru({ mitraId, DataOptions }) {
             </Col>
             <Col sm={2} style={{ width: "20%", padding: "0px" }}>
               <Form.Item
-
                 label="RT :"
                 style={{ fontWeight: "bold" }}
                 name="npwp_rt"
               >
                 <Input
-                 type="number"
+                  type="number"
                   className="mt-2"
                   value={DataNPWPRT}
                   onChange={(e) => {
@@ -1234,7 +1238,7 @@ function DataBaru({ mitraId, DataOptions }) {
                 name="npwp_rw"
               >
                 <Input
-                 type="number"
+                  type="number"
                   className="mt-2"
                   value={DataNPWPRW}
                   onChange={(e) => {
@@ -1244,15 +1248,15 @@ function DataBaru({ mitraId, DataOptions }) {
                 />
               </Form.Item>
             </Col>
-           
-            <Col sm={4} style={{ padding: "0px", width: '20%' }}>
+
+            <Col sm={4} style={{ padding: "0px", width: "20%" }}>
               <Form.Item
                 label="Kode Pos :"
                 style={{ fontWeight: "bold" }}
                 name="npwp_kodepos"
               >
                 <Input
-                 type="number"
+                  type="number"
                   className="mt-2"
                   value={DataNPWPKodePos}
                   onChange={(e) => {
@@ -1262,9 +1266,8 @@ function DataBaru({ mitraId, DataOptions }) {
                 />
               </Form.Item>
             </Col>
-           
           </Row>
-         
+
           <Row>
             <Col sm={12} style={{ padding: "0px" }}>
               <Form.Item
@@ -1413,8 +1416,6 @@ function DataBaru({ mitraId, DataOptions }) {
                 </Select>
               </Form.Item>
             </Col>
-            
-            
           </Row>
           <Row className="mt-4">
             <Col sm={4} style={{ padding: "0px" }}>

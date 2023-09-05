@@ -102,11 +102,12 @@ function DetailBU() {
         </h5>
         <hr />
         <Row >
-          <Col span={24} className='mt-3'>
+          <Col span={8} className='mt-3'>
           <label style={{fontWeight: 'bold'}}>Kode BU :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div>
               <Input
+              disabled
                 className="mt-2"
                 value={DataIDBu}
                 onChange={(e) => {
@@ -116,12 +117,10 @@ function DetailBU() {
               />
             </div>
           </Col>
-        </Row>
-        <Row >
-          <Col span={24} className='mt-3'>
+          <Col span={16} className='mt-3'>
           <label style={{fontWeight: 'bold'}}>Nama Bisnis Unit :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={DataNamaBU}
@@ -133,12 +132,15 @@ function DetailBU() {
             </div>
           </Col>
         </Row>
+        <Row >
+         
+        </Row>
        
         <Row >
-          <Col span={24} className='mt-3'>
-          <label style={{fontWeight: 'bold'}}>Nama Bisnis Unit :</label>
+          <Col span={8} className='mt-3'>
+          <label style={{fontWeight: 'bold'}}>Alias Bisnis Unit :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={DataKodeBU}
@@ -149,12 +151,10 @@ function DetailBU() {
               />
             </div>
           </Col>
-        </Row>
-        <Row >
-          <Col span={24} className='mt-3'>
+          <Col span={16} className='mt-3'>
           <label style={{fontWeight: 'bold'}}>CBU :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={DataCBU}
@@ -165,6 +165,9 @@ function DetailBU() {
               />
             </div>
           </Col>
+        </Row>
+        <Row >
+          
         </Row>
         <Row>
           <Col span={24} className="d-flex justify-content-end mt-2">

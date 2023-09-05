@@ -7,7 +7,7 @@ import Baseurl from "../../../../Api/BaseUrl";
 import { Col, Input, Pagination, Space } from "antd";
 import { useHistory } from "react-router-dom";
 import CreatedPIC from "./CreatedPIC";
-import { DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import { DeleteOutlined, ExclamationCircleOutlined, FormOutlined } from "@ant-design/icons";
 import Swal from "sweetalert2";
 
 const { confirm } = Modal;
@@ -89,7 +89,9 @@ function PIC({ mitraId }) {
   const columns = [
     {
       name: "No.",
+      width: '10%',
       selector: (row) => nomor++,
+      
     },
     {
       name: "Nama",
@@ -112,11 +114,14 @@ function PIC({ mitraId }) {
       cell: (row) => (
         <>
           <Button
-            size="sm"
+            size="md"
             variant="primary"
+            className="mt-2"
             onClick={() => handleShowModal(row)}
           >
-            Edit
+            <span style={{ display: "flex", alignItems: "center" }}>
+                <FormOutlined />
+              </span>
           </Button>
           {/* <Button onClick={handleDelete} size="sm" variant="danger">
             Hapus
