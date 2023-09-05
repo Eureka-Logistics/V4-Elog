@@ -9,6 +9,7 @@ import FormTable from "./FormTable";
 import mobil from "../../redux toolkit/store/ZustandStore";
 import useStore from "../../redux toolkit/store/UseStore";
 import { CheckCircleOutlined } from "@ant-design/icons";
+import DetailKendaraanSOdiSemuaSO from "../DetailKendaraanDiSemuaSO/Index";
 function HalamanDetail() {
   const { idmp } = useParams();
   const [IsiDataSPSemua, setIsiDataSPSemua] = useState("");
@@ -83,7 +84,6 @@ function HalamanDetail() {
       setTotalPrice(totalPrices);
       // setSJKosongModal(totalPrice)
       setDuit(totalPrices);
-
       const isidetail = semua.map((item) => ({
         berat: item.berat,
         sp: item.sp,
@@ -168,7 +168,7 @@ function HalamanDetail() {
 
   const [NamaMarketing, setNamaMarketing] = useState("");
   const [JenisBarang, setJenisBarang] = useState("");
-
+  const [Idmpd, setIdmpd] = useState("")
   const memos = async () => {
     const data = await axios.get(
       `${Baseurl}sp/get-SP-all-detail?idmp=${idmp}`,
@@ -179,6 +179,8 @@ function HalamanDetail() {
         },
       }
     );
+    console.log(`iwiiw`, data.data?.detail[0]?.idmpd);
+    setIdmpd(data.data?.detail[0]?.idmpd)
     const datas = data.data.memo;
     const customer = data.data.customer;
     const jenisBarangs = data.data.jenisBarang;
@@ -258,6 +260,9 @@ function HalamanDetail() {
             <Form.Control type="text" value={memo} disabled />
           </Form.Group>
         </Form>
+        <div className=" mt-5">
+          <DetailKendaraanSOdiSemuaSO idmpd={Idmpd} />
+        </div>
         <br />
         <Row className="mt-3 align-items-center">
           <Col sm={9}>

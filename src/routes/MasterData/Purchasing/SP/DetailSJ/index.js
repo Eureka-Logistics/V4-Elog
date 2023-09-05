@@ -60,7 +60,7 @@ function Index() {
     // Mengambil data detail
     const fetchDataDetail = async () => {
         try {
-            const data = await axios.get(`${Baseurl}sm/get-sm-detail?id_msm=${id}`, {
+            const data = await axios.get(`${Baseurl}sm/get-sm-detail?id_mpd=&id_msm=${id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: localStorage.getItem("token"),

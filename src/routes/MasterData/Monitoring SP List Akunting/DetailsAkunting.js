@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import useServiceStatusStore from "../../../zustand/Store/StatusService";
 import ModalDetailMarketing from "../Marketing/Splist/ModalDetailMarketing/Index";
+import DetailKendaraanSOdiSemuaSO from "../DetailKendaraanDiSemuaSO/Index";
 function DetailsAkunting() {
   const history = useHistory();
   const [detailData, setDetailData] = useState([]);
@@ -22,6 +23,7 @@ function DetailsAkunting() {
   const [modal1Open, setModal1Open] = useState(false);
   const [modal1OpenDetail, setmodal1OpenDetail] = useState(false);
   const { idmp } = useParams();
+  const [idmpd, setidmpd] = useState("")
   const [comment, setComment] = useState([]);
   const [ApproveAkuntingStatus, setApproveAkuntingStatus] = useState("");
   const [ApproveAkuntingTgl, setApproveAkuntingTgl] = useState("");
@@ -63,6 +65,7 @@ function DetailsAkunting() {
         );
         setDetailData(response.data);
         const memos = response.data.memo;
+        setidmpd(response.data?.detail?.[0]?.idmpd);
         setMemo(memos);
       } catch (error) {
         console.error("Failed to fetch detail data:", error);
@@ -376,6 +379,21 @@ function DetailsAkunting() {
           </Modal>
           <Row>
             <div className="d-flex justify-content-end">
+              {jobdesk === "sales" && (
+                <>
+                  <Button size="sm" onClick={() => tombolApprove()}>
+                    Approve
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="danger"
+                    onClick={() => rejectbutton()}
+                  >
+                    Reject SO
+                  </Button>
+                </>
+              )}
+
               {jobdesk !== "operasional" &&
                 jobdesk !== "sales" &&
                 jobdesk !== "purchasing" &&
@@ -578,10 +596,10 @@ function DetailsAkunting() {
             />
           </Form.Group> */}
           <Col sm={12}>
-          <Form.Group className="mt-4">
-                    <Form.Label>Alamat Invoice</Form.Label>
-                    <Form.Control disabled value={detailData?.alamatInvoice} />
-                  </Form.Group>
+            <Form.Group className="mt-4">
+              <Form.Label>Alamat Invoice</Form.Label>
+              <Form.Control disabled value={detailData?.alamatInvoice} />
+            </Form.Group>
           </Col>
         </Row>
         <br />
@@ -745,7 +763,7 @@ function DetailsAkunting() {
                 <tr style={{ fontWeight: "bold" }}>
                   {jobdesk !== "operasional" && (
                     <>
-                      <td colSpan={12} width="150px" style={{ textAlign: 'end'}}>
+                      <td colSpan={12} width="150px" style={{ textAlign: 'end' }}>
                         Sub Total
                       </td>
                     </>
@@ -766,18 +784,18 @@ function DetailsAkunting() {
                 <tr style={{ fontWeight: "bold" }}>
                   {jobdesk !== "operasional" && (
                     <>
-                      <td style={{ textAlign: 'end'}} colSpan={12} width="150px" >
-                       Biaya Muat
+                      <td style={{ textAlign: 'end' }} colSpan={12} width="150px" >
+                        Biaya Muat
                       </td>
                     </>
                   )}
                   {jobdesk !== "operasional" && (
                     <>
                       <td width="150px">
-                      {detailData?.totalMuat?.toLocaleString("id-ID", {
-                                style: "currency",
-                                currency: "IDR",
-                              })}
+                        {detailData?.totalMuat?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })}
                       </td>
                     </>
                   )}
@@ -787,21 +805,21 @@ function DetailsAkunting() {
                 <tr style={{ fontWeight: "bold" }}>
                   {jobdesk !== "operasional" && (
                     <>
-                      <td style={{ textAlign: 'end'}} colSpan={12} width="150px" >
-                       Biaya Bongkar
+                      <td style={{ textAlign: 'end' }} colSpan={12} width="150px" >
+                        Biaya Bongkar
                       </td>
                     </>
                   )}
                   {jobdesk !== "operasional" && (
                     <>
                       <td width="150px">
-                      {detailData?.totalBongkar?.toLocaleString(
-                                "id-ID",
-                                {
-                                  style: "currency",
-                                  currency: "IDR",
-                                }
-                              )}
+                        {detailData?.totalBongkar?.toLocaleString(
+                          "id-ID",
+                          {
+                            style: "currency",
+                            currency: "IDR",
+                          }
+                        )}
                       </td>
                     </>
                   )}
@@ -811,22 +829,22 @@ function DetailsAkunting() {
                 <tr style={{ fontWeight: "bold" }}>
                   {jobdesk !== "operasional" && (
                     <>
-                      <td style={{ textAlign: 'end'}} colSpan={12} width="150px" >
-                       Biaya MultiDrop
+                      <td style={{ textAlign: 'end' }} colSpan={12} width="150px" >
+                        Biaya MultiDrop
                       </td>
                     </>
                   )}
                   {jobdesk !== "operasional" && (
                     <>
                       <td width="150px">
-                      Rp 0,00{" "}
-                              {detailData?.biaya_multidrop?.toLocaleString(
-                                "id-ID",
-                                {
-                                  style: "currency",
-                                  currency: "IDR",
-                                }
-                              )}
+                        Rp 0,00{" "}
+                        {detailData?.biaya_multidrop?.toLocaleString(
+                          "id-ID",
+                          {
+                            style: "currency",
+                            currency: "IDR",
+                          }
+                        )}
                       </td>
                     </>
                   )}
@@ -836,19 +854,19 @@ function DetailsAkunting() {
                 <tr style={{ fontWeight: "bold" }}>
                   {jobdesk !== "operasional" && (
                     <>
-                      <td style={{ textAlign: 'end'}} colSpan={12} width="150px" >
-                       Biaya Mel
+                      <td style={{ textAlign: 'end' }} colSpan={12} width="150px" >
+                        Biaya Mel
                       </td>
                     </>
                   )}
                   {jobdesk !== "operasional" && (
                     <>
                       <td width="150px">
-                      Rp. 0,00
-                              {detailData?.biayamel?.toLocaleString("id-ID", {
-                                style: "currency",
-                                currency: "IDR",
-                              })}
+                        Rp. 0,00
+                        {detailData?.biayamel?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })}
                       </td>
                     </>
                   )}
@@ -858,19 +876,19 @@ function DetailsAkunting() {
                 <tr style={{ fontWeight: "bold" }}>
                   {jobdesk !== "operasional" && (
                     <>
-                      <td style={{ textAlign: 'end'}} colSpan={12} width="150px" >
-                       Biaya Inap
+                      <td style={{ textAlign: 'end' }} colSpan={12} width="150px" >
+                        Biaya Inap
                       </td>
                     </>
                   )}
                   {jobdesk !== "operasional" && (
                     <>
                       <td width="150px">
-                      Rp. 0,00
-                              {detailData?.biayainap?.toLocaleString("id-ID", {
-                                style: "currency",
-                                currency: "IDR",
-                              })}
+                        Rp. 0,00
+                        {detailData?.biayainap?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })}
                       </td>
                     </>
                   )}
@@ -880,22 +898,22 @@ function DetailsAkunting() {
                 <tr style={{ fontWeight: "bold" }}>
                   {jobdesk !== "operasional" && (
                     <>
-                      <td style={{ textAlign: 'end'}} colSpan={12} width="150px" >
-                       Biaya Overtonase
+                      <td style={{ textAlign: 'end' }} colSpan={12} width="150px" >
+                        Biaya Overtonase
                       </td>
                     </>
                   )}
                   {jobdesk !== "operasional" && (
                     <>
                       <td width="150px">
-                      Rp 0,00{" "}
-                              {detailData?.biaya_overtonase?.toLocaleString(
-                                "id-ID",
-                                {
-                                  style: "currency",
-                                  currency: "IDR",
-                                }
-                              )}
+                        Rp 0,00{" "}
+                        {detailData?.biaya_overtonase?.toLocaleString(
+                          "id-ID",
+                          {
+                            style: "currency",
+                            currency: "IDR",
+                          }
+                        )}
                       </td>
                     </>
                   )}
@@ -904,8 +922,8 @@ function DetailsAkunting() {
             </Table>
             {jobdesk !== "operasional" && (
               <>
-            
-              
+
+
                 <Row>
                   <Col
                     span={12}
@@ -1059,8 +1077,12 @@ function DetailsAkunting() {
               <Form.Label style={{ fontWeight: "bold" }}>Isi Memo</Form.Label>
               <Form.Control disabled value={memo} />
             </Form.Group>
+            <div className=" mt-5">
+              <DetailKendaraanSOdiSemuaSO idmpd={idmpd} />
+            </div>
             <br />
             <br />
+
             <Table responsive>
               <thead>
                 <tr style={{ fontWeight: "bold", backgroundColor: "#f4dddd" }}>

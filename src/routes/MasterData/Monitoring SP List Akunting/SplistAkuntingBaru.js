@@ -49,8 +49,7 @@ function SplistAkuntingBaru() {
           {row?.salesName}
         </Tooltip>
       ),
-      width: "100px",
-      wrap: true,
+    
     },
     {
       name: "Service",

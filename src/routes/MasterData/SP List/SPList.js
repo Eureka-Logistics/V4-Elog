@@ -138,8 +138,8 @@ function SPList() {
     {
       name: "Perusahaan",
       selector: (row) => row.perusahaan,
-      wrap: true,
-      width: "120px",
+      // wrap: true,
+      // width: "120px",
     },
     {
       name: "Marketing",
@@ -155,32 +155,32 @@ function SPList() {
           {row?.salesName}
         </Tooltip>
       ),
-      width: "100px",
-      wrap: true,
+      // width: "100px",
+      // wrap: true,
     },
     {
       name: "Service",
       selector: (row) => row.service,
-      width: "80px",
-      wrap: true,
+      // width: "80px",
+      // wrap: true,
     },
     {
       name: "Vehicle",
       selector: (row) => row.kendaraan,
-      width: "80px",
-      wrap: true,
+      // width: "80px",
+      // wrap: true,
     },
     {
       name: "Pickup Date",
       selector: (row) => new Date(row.pickupDate).toLocaleDateString("en-CA"),
-      width: "100px",
-      wrap: true,
+      // width: "100px",
+      // wrap: true,
     },
     {
       name: "Destination",
       selector: (row) => row.destination,
-      width: "150px",
-      wrap: true,
+      // width: "150px",
+      // wrap: true,
     },
 
     {
