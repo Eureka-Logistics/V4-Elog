@@ -181,7 +181,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
             panjang: DetailSemuaTemp?.panjang,
             lebar: DetailSemuaTemp?.lebar,
             tinggi: DetailSemuaTemp?.tinggi,
-            // bongkar: DetailSemuaTemp?.harga_bongkar,
+            // bongkar: DetailSemuaTemp?.biaya_bongkar,
             bongkar: DetailSemuaTemp?.harga_bongkar,
             biayamultimuat: DetailSemuaTemp?.biayamultimuat,
             biayamuat: DetailSemuaTemp?.harga_muat,
@@ -371,13 +371,16 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     const calculateTotal = (shipmentType, kilogram, tarif) => {
         const biayaBongkar = Number(formik.values.bongkar) || 0;
         const biayaMuat = Number(formik.values.biayamuat) || 0;
-        const berat = Number(formik.values.berat) || 0;
+        const biayamultimuat = Number(formik.values.biayamultimuat) || 0;
+        const biayamultidrop = Number(formik.values.biayamultidrop) || 0;
+        const biayamel = Number(formik.values.biayamel) || 0;
+        const berat = Number(formik.values.berat) || 1;
         const HasilTarifNumerik = Number(HasilTarif) || 0;
 
         if (DetailSemua?.service === 'Retail') {
-            return berat * HasilTarifNumerik + biayaBongkar + biayaMuat;
+            return   berat * HasilTarifNumerik + biayaBongkar + biayaMuat + biayamultimuat + biayamultidrop + biayamel  ;
         } else if (DetailSemua?.service === 'Charter') {
-            return HasilTarifNumerik + biayaBongkar + biayaMuat;
+            return HasilTarifNumerik + biayaBongkar + biayaMuat + biayamultimuat + biayamultidrop + biayamel;
         } else {
             return 0; // atau pesan error jika tipe pengiriman tidak dikenal
         }
@@ -386,9 +389,10 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     useEffect(() => {
         const total = calculateTotal(formik.values.shipment, formik.values.berat, HasilTarif);
         formik.setFieldValue("total", total);
+
         const totalCreate = calculateTotal(formik.values.shipment, formik.values.berat, HasilTarif);
         formik.setFieldValue("totalCreate", totalCreate);
-    }, [HasilTarif, formik.values.totalCreate, formik.values.shipment, formik.values.berat, formik.values.bongkar, formik.values.biayamuat]);
+    }, [HasilTarif, formik.values.totalCreate, formik.values.shipment, formik.values.berat, formik.values.bongkar, formik.values.biayamuat, formik.values.biayamultimuat, formik.values.biayamultidrop, formik.values.biayamel]);
 
 
     console.log(`GetTarifOptions`, GetTarifOptions);
@@ -533,6 +537,11 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         formik.setFieldValue("via", option.children[3].props.children);
                                         formik.setFieldValue("shipment", option.children[5].props.children);
                                         setasilTarif(option.children[7].props.children)
+                                        formik.setFieldValue("bongkar", option.biaya_bongkar)
+                                        formik.setFieldValue("biayamuat", option.biaya_muat)
+                                        formik.setFieldValue("biayamultimuat", option.biaya_multimuat)
+                                        formik.setFieldValue("biayamultidrop", option.biaya_multidrop)
+                                        formik.setFieldValue("biayamel", option.biaya_mel)
                                         setid_price_customer(value)
                                         console.log(`id_price`, option);
                                         setTarifAsli(option?.biaya)
@@ -543,7 +552,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     {GetTarifOptions && GetTarifOptions
                                         .filter(item => item.service_type === DetailSemua?.service)
                                         .map((item) => (
-                                            <Select.Option biaya={item.biaya_jalan} key={item.kotaTujuan} value={item.id_price}>
+                                            <Select.Option biaya={item.biaya_jalan} biaya_mel={item.biaya_mel} biaya_multidrop={item.biaya_multidrop} key={item.kotaTujuan} biaya_muat={item.biaya_muat} biaya_multimuat={item.biaya_multimuat} biaya_bongkar={item.biaya_bongkar} value={item.id_price}>
                                                 Kendaraan:<Tag color='blue'>{item.kendaraanJenis}</Tag>via:<Tag color='gold'>{item.via}</Tag>Shipment:<Tag color='cyan'>{item.service_type}</Tag>Tarif:<Tag color='green'>{item.biaya_jalan}</Tag>
                                             </Select.Option>
                                         ))
@@ -799,7 +808,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 style={{ marginBottom: 2 }}
                             >
                                 <Select
-                                disabled
+                                    disabled
                                     required
                                     id="shipment"
                                     name="shipment"
@@ -835,7 +844,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 required
                             >
                                 <Input
-                                required
+                                    required
                                     id="berat"
                                     name="berat"
                                     type="number"

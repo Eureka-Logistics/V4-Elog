@@ -29,6 +29,7 @@
     "draftjs-to-html": "^0.9.1",
     "firebase": "^8.2.3",
     "formik": "^2.4.2",
+    "google-maps-react": "^2.0.6",
     "instantsearch.css": "^7.4.5",
     "less": "^4.1.0",
     "less-loader": "5.0.0",

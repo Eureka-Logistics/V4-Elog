@@ -76,7 +76,7 @@ function DriverTableBaru() {
     {
       name: "Image",
       selector: (row) => (
-        <img src={row.driverImage} height="108px" width="158px"></img>
+        <img style={{objectFit : "cover"}} src={row.driverImage} height="108px" width="158px"></img>
       ),
     },
     {
