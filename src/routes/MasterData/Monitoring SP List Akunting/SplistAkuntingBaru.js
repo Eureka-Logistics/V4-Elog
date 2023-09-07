@@ -39,11 +39,11 @@ function SplistAkuntingBaru() {
       name: "Marketing",
       selector: (row) => (
         <Tooltip title={<>
-          {"Kacap: " + row?.kacab} <br />
+         {"Gl: " + row?.gl} <br />
           {"Asm: " + row?.asm} <br />
-          {"gl: " + row?.gl} <br />
-          {"mgr: " + row?.mgr} <br />
-          {"amd: " + row?.amd} <br />
+          {"Mgr: " + row?.mgr} <br />
+          {"Kacab: " + row?.kacab} <br />
+          {"Amd: " + row?.amd} <br />
         </>}
         >
           {row?.salesName}
@@ -85,11 +85,11 @@ function SplistAkuntingBaru() {
             </Tag>
           ) : approveact === "N" && dateApproveAct === "Invalid date" || "1970-01-01 07:00:00" ? (
             <Tag color="red">
-              Diverted <br /> <small>{dateApproveAct}</small>
+              Reject <br /> <small>{dateApproveAct}</small>
             </Tag>
           ) : (
             <Tag color="red">
-              Diverted <br /> <small>{dateApproveAct}</small>
+              Reject <br /> <small>{dateApproveAct}</small>
             </Tag>
           );
 

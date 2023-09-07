@@ -74,6 +74,9 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
   const createap = () => {
     history.push(`/akunting/tambahdataap`);
   };
+  const createuserbaru = () => {
+    history.push(`/akunting/usernew`);
+  };
 
   return (
     <>
@@ -152,6 +155,17 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       variant="warning"
                     >
                       ADD AP
+                    </Button>
+                  </div>
+                  <div className="d-flex justify-content-center gx-sidebar-content w-100 mt-5 text-center ">
+                    <Button
+                      size="lg"
+                      style={{ width: 180, color: "white", marginTop: "-35px" }}
+                      className="d-flex align-items-center justify-content-center"
+                      onClick={() => createuserbaru()}
+                      variant="danger"
+                    >
+                      ADD USER BARU
                     </Button>
                   </div>
                 </>

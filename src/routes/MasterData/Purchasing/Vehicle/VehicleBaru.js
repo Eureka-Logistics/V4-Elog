@@ -96,8 +96,8 @@ function VehicleBaru() {
         //     .max(8, "No STNK Tidak Boleh Lebih dari 8 Karakter"),
         // tgl_kir: Yup.date().required('Tanggal KIR wajib diisi'),
         // tgl_beli: Yup.date().required('Tanggal Pembelian wajib diisi'),
-        // kapasitas: Yup.number().required('Kapasitas wajib diisi').integer('Kapasitas harus berupa angka'),
-        // kapasitas_maks: Yup.number().required('Kapasitas Maks wajib diisi').integer('Kapasitas Maks harus berupa angka'),
+        kapasitas: Yup.number().required('Kapasitas wajib diisi').integer('Kapasitas harus berupa angka'),
+        kapasitas_maks: Yup.number().required('Kapasitas Maks wajib diisi').integer('Kapasitas Maks harus berupa angka'),
         // kubikasi: Yup.number().required('Kubikasi wajib diisi').integer('Kubikasi harus berupa angka'),
         // location: Yup.string().required('Lokasi wajib diisi'),
         // id_driver: Yup.string().required('ID Driver wajib diisi'),
@@ -1168,8 +1168,8 @@ function VehicleBaru() {
                                         required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
-                                        help={formik.touched.tinggi && formik.errors.tinggi}
-                                        validateStatus={formik.touched.tinggi && formik.errors.tinggi ? 'error' : 'success'}
+                                        help={formik.touched.kapasitas && formik.errors.kapasitas}
+                                        validateStatus={formik.touched.kapasitas && formik.errors.kapasitas ? 'error' : 'success'}
                                         style={{ marginBottom: 2 }}
                                     >
                                         <Input

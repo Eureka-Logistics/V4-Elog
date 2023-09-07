@@ -244,11 +244,11 @@ function SPListlama() {
           </Tag>
         ) : row?.approveAct === "N" && tanggal === "1970-01-01 07:00:00" ? (
           <Tag color="red">
-            Diverted <br /> {tanggal ? "-" : tanggal}
+            Reject <br /> {tanggal ? "-" : tanggal}
           </Tag>
         ) : row?.approveAct === "N" && tanggal !== "1970-01-01 07:00:00" ? (
           <Tag color="red">
-            Diverted <br /> {tanggal}
+            Reject <br /> {tanggal}
           </Tag>
         ) : (
           <Tag color="blue">
