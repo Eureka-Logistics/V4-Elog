@@ -1,42 +1,45 @@
 /* SidebarStyles.css */
 
 /* Add some transition for smooth color change and border effects */
-.ant-menu-item {
+/* .ant-menu-item {
     transition: background-color 0.3s ease, border 0.3s ease;
-    border: 2px solid transparent; /* Initial transparent border to avoid jumpiness on hover */
-    border-radius: 8px; /* Rounded corners for the box. Adjust as you like */
-    margin: 5px 0; /* A little margin to separate menu items */
-    padding: 10px 15px; /* Padding around the menu item content */
-}
+    border: 2px solid transparent; 
+    border-radius: 8px;
+    margin: 5px 0; 
+    padding: 10px 15px; 
+} */
 
 /* Hover effect for sidebar menu items */
-.ant-menu-item:hover {
-    background-color: #f5f5f5;  /* Light gray background color on hover */
-    border-color: #dcdcdc;  /* Medium gray border on hover */
-}
+/* .ant-menu-item:hover {
+    background-color: #f5f5f5;  
+    border-color: #dcdcdc;  
+} */
 
 /* Active/Clicked effect for sidebar menu items */
-.ant-menu-item-selected {
+/* .ant-menu-item-selected {
     background-color: #dcdcdc;
     border-color: #a0a0a0;
     color: #000;
     position: relative;
-}
+} */
 
 /* Add a left-side bar for the active menu item */
-.ant-menu-item-selected::before {
+/* .ant-menu-item-selected::before {
     content: '';
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     width: 5px;
-    background-color: #000;  /* Adjust color as needed */
-}
+    background-color: #000; 
+} */
+
+/* .ant-layout-sider .ant-menu-submenu > .ant-menu.ant-menu-sub .ant-menu-item, .ant-drawer .ant-menu-submenu > .ant-menu.ant-menu-sub .ant-menu-item {
+    padding-left: 35px !important;
+} */
 
 
 
 /* Change the color of icons or other elements inside the menu item on hover or when selected */
-.ant-menu-item:hover .anticon, .ant-menu-item-selected .anticon {
-    color: #000;  /* Black color for icons on hover and active state */
-}
+/* .ant-menu-item:hover .anticon, .ant-menu-item-selected .anticon {
+    color: #000; } */

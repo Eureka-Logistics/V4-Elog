@@ -73,8 +73,7 @@ const ZustandStore = create((set) => ({
               Authorization: localStorage.getItem("token"),
           }
       });
-      set({ TipeKendaraan: data.data.data });
-      console.log(`ini`,data.data.data);
+      set({ TipeKendaraan: data?.data });
     } catch (error) {
       console.error(error);
     }

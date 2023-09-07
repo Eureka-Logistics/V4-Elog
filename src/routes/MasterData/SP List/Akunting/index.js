@@ -25,7 +25,7 @@ function Index() {
                 },
             });
             setDataAwal(response.data.data.order);
-            setTotalRows(response.data.totalData); 
+            setTotalRows(response.data.totalData);
             Isloading(false)
         } catch (error) {
             console.log(error);
@@ -43,21 +43,21 @@ function Index() {
             wrap: true,
         },
         {
-            name: "SP ID",
+            name: "SO ID",
             selector: (row) => row.sp,
             width: "200px",
             wrap: true,
             cell: (row) => (
                 <Tag color='blue'>
-                  {row.sp}
+                    {row.sp}
                 </Tag>
-              ),
+            ),
         },
         {
             name: "Perusahaan",
             selector: (row) => row.perusahaan,
-            width: "200px",
-            wrap: true,
+            // width: "200px",
+            // wrap: true,
         },
         {
             name: "Service",
@@ -66,47 +66,31 @@ function Index() {
             wrap: true,
             cell: (row) => (
                 <Tag color={row.service === "Charter" ? "blue" : row.service === "Retailer" ? "green" : "default"}>
-                  {row.service}
+                    {row.service}
                 </Tag>
-              ),
+            ),
         },
         {
             name: "sales Name",
             selector: (row) => row.salesName,
-            width: "150px",
-            wrap: true,
+            // width: "150px",
+            // wrap: true,
         },
         {
             name: "Pickup Date",
             selector: (row) => new Date(row.pickupDate).toLocaleDateString('en-CA'),
-            width: "150px",
             wrap: true,
         },
         {
             name: "Approve By Akunting",
             cell: (row) => {
-                const approveact = row.approveAct;
-                const dateApproveAct = row.dateApproveAct;
-                let displayText =
-                    approveact === "Y" && dateApproveAct !== "Invalid date" || "1970-01-01 07:00:00" ? (
-                        <Tag color="green">
-                            Approve <br /> <small>{dateApproveAct}</small>
-                        </Tag>
-                    ) : approveact === "N" && dateApproveAct === "Invalid date" || "1970-01-01 07:00:00" ? (
-                        <Tag color="yellow">
-                            Waiting <br /> <small>{dateApproveAct}</small>
-                        </Tag>
-                    ) : (
-                        <Tag color="red">
-                            Diverted <br /> <small>{dateApproveAct}</small>
-                        </Tag>
-                    );
-
-                return <>{displayText}</>;
+                if (row.approveAct === "N" && row.dateApproveAct === "1970-01-01 07:00:00") {
+                    return <Tag color="yellow">Waiting</Tag>;
+                } else {
+                    return <Tag color="green">Approve</Tag>;
+                }
             },
-            width: "200px",
         },
-
     ];
 
     const buttonarahin = (row) => {
@@ -119,17 +103,16 @@ function Index() {
 
 
 
-
     return (
         <div>
             <Card>
                 <Row>
-                    <h5 style={{color: '#1A5CBF', fontWeight: 'bold'}}>Waiting Approve Sp </h5>
+                    <h5 style={{ color: '#1A5CBF', fontWeight: 'bold' }}>Waiting Approve SO </h5>
                     <div className="d-flex justify-content-end">
                         <Col sm={3}>
                             <Form.Control
                                 type="text"
-                                placeholder="Cari No SP "
+                                placeholder="Cari No SO "
                                 value={search}
                                 onChange={(e) =>
                                     setSearch(e.target.value)
@@ -139,7 +122,7 @@ function Index() {
                     </div>
                 </Row>
                 <Col className='mt-2'>
-                    {Loading ? "loading gan" : (
+                    {Loading ? "loading" : (
                         <DataTable
                             columns={columns}
                             data={DataAwal}
@@ -149,16 +132,17 @@ function Index() {
                         />
 
                     )}
-                    <div className='d-flex justify-content-end mt-3'>
-                        <style>
-                            {`
+                    <style>
+                        {`
           .rdt_TableBody .rdt_TableRow:hover {
             cursor: pointer;
             background-color: #C7E1FB;
           }
           
         `}
-                        </style>
+                    </style>
+                    <div className='d-flex justify-content-end mt-3'>
+
                         <Pagination
                             showSizeChanger
                             // onShowSizeChange={onShowSizeChange}

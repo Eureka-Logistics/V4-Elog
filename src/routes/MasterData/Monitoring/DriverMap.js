@@ -18,11 +18,11 @@ function DriverMap() {
       <Row>
         <Card>
           <Col>
-          <Card>
-            <p className='d-flex justify-content-center'><Test/></p>
-          </Card>
+            <Card>
+              <div style={{height : "700px"  , contain : "content"}} className='d-flex justify-content-start'><Test /></div>
+            </Card>
             <Button size='sm' onClick={() => setShowDriverTable(!showDriverTable)}>
-               Driver Location
+              Driver Location
             </Button>
             {showDriverTable && (
               <Table striped bordered hover>
@@ -52,7 +52,7 @@ function DriverMap() {
                 </tbody>
               </Table>
             )}
-            <br/>
+            <br />
             <Button size='sm' onClick={() => setShowOrderDriver(!showOrderDriver)}>
               Order Driver
             </Button>

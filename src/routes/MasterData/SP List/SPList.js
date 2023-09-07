@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Tag } from "antd";
+import { Card, Tag, Tooltip, notification } from "antd";
 import { Col, Row, Form, Button } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import axios from "axios";
@@ -18,24 +18,33 @@ function SPList() {
   const [pageSize, setPageSize] = useState(10);
 
   const dataapi = async (page = 1) => {
-    const isi = await axios.get(
-      `${Baseurl}sp/get-SP?limit=${pageSize}&page=${page}&keyword=${spId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      }
-    );
-
-    const isidata = isi.data.data.order;
-    setTotalPage(isi.data.data.totalData);
-    setPagination({
-      currentPage: isi.data.data.currentPage,
-      limit: isi.data.data.limit,
-    });
-
-    setIsiData(isidata);
+    try {
+      const isi = await axios.get(
+        `${Baseurl}sp/get-SP?limit=${pageSize}&page=${page}&keyword=${spId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+  
+      const isidata = isi.data.data.order;
+      setTotalPage(isi.data.data.totalData);
+      setPagination({
+        currentPage: isi.data.data.currentPage,
+        limit: isi.data.data.limit,
+      });
+  
+      setIsiData(isidata);
+    } catch (error) {
+      console.log(error.response.data.status.message);
+      notification.error({
+        message: "Error",
+        description: error.response.data.status.message,
+      })
+    }
+   
   };
   useEffect(() => {
     dataapi(pagination.currentPage, spId);
@@ -49,7 +58,7 @@ function SPList() {
   };
 
   useEffect(() => {
-    dataapi(pagination.currentPage, spId);
+    // dataapi(pagination.currentPage, spId);
   }, [pagination.currentPage, spId, TotalPage]);
 
   // useEffect(() => {
@@ -86,29 +95,6 @@ function SPList() {
 
   const [combinedData, setCombinedData] = useState([]);
 
-  // useEffect(() => {
-  //   if (isiData.length > 0 && destinationData.length > 0) {
-  //     const combined = isiData.map((isiItem) => {
-  //       const destItem = destinationData.find(
-  //         (destinationItem) => destinationItem.idmp === isiItem.idmp
-  //       );
-
-  //       if (destItem) {
-  //         return {
-  //           ...isiItem,
-  //           destination: destItem.destination,
-  //           ...isiItem,
-  //           kendaraan: destItem.kendaraan,
-  //         };
-  //       }
-
-  //       return isiItem;
-  //     });
-
-  //     setCombinedData(combined);
-  //   }
-  // }, [isiData, destinationData]);
-
   let counter = 1;
 
   
@@ -121,7 +107,7 @@ function SPList() {
       wrap: true,
     },
     {
-      name: "SP ID",
+      name: "SO ID",
       selector: (row) => row.sp,
       width: "150px",
       wrap: true,
@@ -129,44 +115,56 @@ function SPList() {
     {
       name: "Perusahaan",
       selector: (row) => row.perusahaan,
-      wrap: true,
-      width: "120px",
+      // wrap: true,
+      // width: "120px",
     },
     {
       name: "Marketing",
-      selector: (row) => row.salesName,
-      width: "100px",
-      wrap: true,
+      selector: (row) => (
+        <Tooltip title={<>
+          {"Kacap: " + row?.kacab} <br />
+          {"Asm: " + row?.asm} <br />
+          {"gl: " + row?.gl} <br />
+          {"mgr: " + row?.mgr} <br />
+          {"amd: " + row?.amd} <br />
+        </>}
+        >
+          {row?.salesName}
+        </Tooltip>
+      ),
+      // width: "100px",
+      // wrap: true,
     },
     {
       name: "Service",
       selector: (row) => row.service,
-      width: "80px",
-      wrap: true,
+      // width: "80px",
+      // wrap: true,
     },
     {
       name: "Vehicle",
       selector: (row) => row.kendaraan,
-      width: "80px",
-      wrap: true,
+      // width: "80px",
+      // wrap: true,
     },
     {
       name: "Pickup Date",
       selector: (row) => new Date(row.pickupDate).toLocaleDateString("en-CA"),
-      width: "100px",
-      wrap: true,
+      // width: "100px",
+      // wrap: true,
     },
     {
       name: "Destination",
       selector: (row) => row.destination,
-      width: "150px",
-      wrap: true,
+      // width: "150px",
+      // wrap: true,
     },
 
     {
       name: "Approved/Decline Act",
       selector: (row) => {
         const date = new Date(row.dateApproveAct);
+        
         return isNaN(date.getTime()) ? (
           "-"
         ) : (
@@ -231,14 +229,14 @@ function SPList() {
       <Card>
         <Row>
           <Col>
-            <h5 style={{color: `#1A5CBF`, fontWeight: 'bold'}}>Approve Sp</h5>
+            <h5 style={{color: `#1A5CBF`, fontWeight: 'bold'}}>Approve SO</h5>
             <div className="d-flex justify-content-end">
               <Col sm={3}>
                 <Form.Group controlId="spId">
                   <Form.Control
                     type="text"
                     value={spId}
-                    placeholder="Cari No SP "
+                    placeholder="Cari No SO "
                     onChange={(e) => setSpId(e.target.value)}
                   />
                 </Form.Group>

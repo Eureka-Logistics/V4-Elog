@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import Baseurl from '../../../../Api/BaseUrl';
 import axios from 'axios';
-import { Button, Modal, Input, Form as AntForm, DatePicker, Card, Select, Upload, Pagination, Switch, Tag } from 'antd';
+import { Button, Modal, notification, Input, Form as AntForm, DatePicker, Card, Select, Upload, Pagination, Switch, Tag } from 'antd';
 import moment from 'moment';
 import { UploadOutlined } from '@ant-design/icons';
 import * as Yup from 'yup';
@@ -59,7 +59,7 @@ function VehicleBaru() {
     const jenisKepemilikanOptions = jenisKepemilikan.map((item) => ({
         label: item.jenis,
     }))
-    const [CodeVehicle,setCodeVehicle]= useState("")
+    const [CodeVehicle, setCodeVehicle] = useState("")
 
     const validationSchema = Yup.object().shape({
         kode_kendaraan: Yup.string()
@@ -77,7 +77,8 @@ function VehicleBaru() {
             .required('Jenis Kendaraan wajib diisi'),
         vendor: Yup.string()
             .required('Vendor Kendaraan wajib diisi'),
-        // nama_driver: Yup.string().required('Nama Driver wajib diisi'),
+        // nama_driver: Yup.string().required('Nama Driver wajib diisi') 
+        // .matches('A-Z', "Nama tidak boleh menggunakan symbol dan angka"),
         // jenis_SIM: Yup.string().required('Jenis SIM wajib diisi'),
         // warna_plat: Yup.string().required('Warna Plat wajib diisi'),
         // merk_mobil: Yup.string().required('Merk Mobil wajib diisi')
@@ -95,8 +96,8 @@ function VehicleBaru() {
         //     .max(8, "No STNK Tidak Boleh Lebih dari 8 Karakter"),
         // tgl_kir: Yup.date().required('Tanggal KIR wajib diisi'),
         // tgl_beli: Yup.date().required('Tanggal Pembelian wajib diisi'),
-        // kapasitas: Yup.number().required('Kapasitas wajib diisi').integer('Kapasitas harus berupa angka'),
-        // kapasitas_maks: Yup.number().required('Kapasitas Maks wajib diisi').integer('Kapasitas Maks harus berupa angka'),
+        kapasitas: Yup.number().required('Kapasitas wajib diisi').integer('Kapasitas harus berupa angka'),
+        kapasitas_maks: Yup.number().required('Kapasitas Maks wajib diisi').integer('Kapasitas Maks harus berupa angka'),
         // kubikasi: Yup.number().required('Kubikasi wajib diisi').integer('Kubikasi harus berupa angka'),
         // location: Yup.string().required('Lokasi wajib diisi'),
         // id_driver: Yup.string().required('ID Driver wajib diisi'),
@@ -133,7 +134,7 @@ function VehicleBaru() {
             tgl_beli: '',
             kapasitas: '',
             kapasitas_maks: '',
-            kubikasi: '',
+            // kubikasi: "",
             location: '',
             id_driver: '',
             id_kendaraan_jenis: ''
@@ -153,12 +154,27 @@ function VehicleBaru() {
             console.log(values);;
         },
     });
+    const perhitunganVolume = () => {
+        const panjang = Number(formik.values.panjang) || 1;
+        const lebar = Number(formik.values.lebar) || 1;
+        const tinggi = Number(formik.values.tinggi) || 1;
 
+        const volume = panjang * lebar * tinggi;
+        console.log(volume);
+
+        // formik.setFieldValue('kubikasi', volume);
+
+        return volume;
+    };
+    console.log(`ini dari kubikasi`, formik.values.kubikasi);
+         
     const showModal = () => {
         setIsModalOpen(true);
         formik.resetForm();
 
     };
+
+
 
     const UploadFoto = async () => {
         try {
@@ -186,67 +202,78 @@ function VehicleBaru() {
 
     const ModalOFFVehicle = async (vehicleId) => {
         try {
-            Swal.fire({
-                title: 'Konfirmasi',
-                text: 'Apakah Anda yakin ingin mengubah status driver menjadi "Tidak Ready"?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya',
-                cancelButtonText: 'Tidak',
-            }).then(async (result) => {
-                if (result.isConfirmed) {
-                    const data = await axios.post(
-                        `${Baseurl}vehicle/off-vehicle`,
-                        {
-                            id_vehicle: vehicleId,
-                        },
-                        {
-                            headers: {
-                                'Content-Type': 'application/json',
-                                Authorization: localStorage.getItem('token'),
-                            },
-                        }
-                    );
+            const data = await axios.post(
+                `${Baseurl}vehicle/off-vehicle`,
+                {
+                    id_vehicle: vehicleId,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.getItem('token'),
+                    },
                 }
-                ApiAwal()
+            );
+
+            // Tampilkan notifikasi sukses dari antd setelah API call berhasil
+            notification.success({
+                message: 'Sukses',
+                description: 'Status kendaraan telah diubah menjadi "OFF".',
+                placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
             });
+
+            ApiAwal();
         } catch (error) {
             // Handle error
+            notification.error({
+                message: 'Error',
+                description: 'Terjadi kesalahan saat mengubah status kendaraan.',
+                placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+            });
         }
     };
+
 
 
     const ModalONVehicle = async (vehicleId) => {
         try {
-            Swal.fire({
-                title: 'Konfirmasi',
-                text: 'Apakah Anda yakin ingin mengubah status driver menjadi "Ready"?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya',
-                cancelButtonText: 'Tidak',
-            }).then(async (result) => {
-                if (result.isConfirmed) {
-                    const data = await axios.post(
-                        `${Baseurl}vehicle/on-vehicle`,
-                        {
-                            id_vehicle: vehicleId,
-                        },
-                        {
-                            headers: {
-                                'Content-Type': 'application/json',
-                                Authorization: localStorage.getItem('token'),
-                            },
-                        }
-                    );
+            // Swal.fire({
+            //     title: 'Konfirmasi',
+            //     text: 'Apakah Anda yakin ingin mengubah status driver menjadi "Ready"?',
+            //     icon: 'warning',
+            //     showCancelButton: true,
+            //     confirmButtonText: 'Ya',
+            //     cancelButtonText: 'Tidak',
+            // }).then(async (result) => {
+            //     if (result.isConfirmed) {
+            const data = await axios.post(
+                `${Baseurl}vehicle/on-vehicle`,
+                {
+                    id_vehicle: vehicleId,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.getItem('token'),
+                    },
                 }
-                ApiAwal()
+            );
+            notification.success({
+                message: 'Sukses',
+                description: 'Status kendaraan telah diubah menjadi "ON".',
+                placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
             });
+
+            ApiAwal();
         } catch (error) {
             // Handle error
+            notification.error({
+                message: 'Error',
+                description: 'Terjadi kesalahan saat mengubah status kendaraan.',
+                placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+            });
         }
     };
-
 
     const handleCancel = () => {
         setIsModalOpen(false);
@@ -327,7 +354,7 @@ function VehicleBaru() {
         setWarnaPlat()
         setStatusDriverAktif()
         DriverName()
-    }, [CariNoKendaraan, CariJenisKepemilikan, CariDriverAktif])
+    }, [CariNoKendaraan, CariJenisKepemilikan, CariDriverAktif, formik.values.panjang, formik.values.lebar, formik.values.tinggi, perhitunganVolume()])
 
     const EditVehicle = async (values) => {
         try {
@@ -361,7 +388,7 @@ function VehicleBaru() {
                 title: 'Gagal',
                 text: 'Terjadi kesalahan saat edit data kendaraan',
             });
-            
+
         }
     }
 
@@ -389,7 +416,7 @@ function VehicleBaru() {
             setFotoDriver(data.data.data[0].vehicleImage)
             setCodeVehicle(data.data.data[0]?.vehicleCode)
             formik.setValues({
-                vehicleCode:data.data.data[0].vehicleCode,
+                vehicleCode: data.data.data[0].vehicleCode,
                 kode_kendaraan: data.data.data[0].vehicleCode,
                 no_polisi: data.data.data[0].policeNumber,
                 jenis_kepemilikan: data.data.data[0].jenisKepemilikan,
@@ -415,7 +442,7 @@ function VehicleBaru() {
                 tinggi: data.data.data[0]?.vehicleHeight,
                 kapasitas_maks: data.data.data[0]?.maxCapacity,
                 id_jenis_kendaraan: data.data.data[0]?.id_jenis_kendaraan,
-                driverName : data.data.data[0]?.driverName,
+                driverName: data.data.data[0]?.driverName,
 
 
             });
@@ -428,6 +455,7 @@ function VehicleBaru() {
             const formData = new FormData();
             Object.keys(values).forEach(key => formData.append(key, values[key]));
             formData.append("cover", FotoDriver);
+            formData.append("kubikasi", perhitunganVolume());
 
             const data = await axios.post(`${Baseurl}vehicle/create-vehicle`, formData,
                 {
@@ -442,15 +470,30 @@ function VehicleBaru() {
                 text: 'Data kendaraan berhasil ditambahkan',
             });
             ApiAwal()
-
-        } catch (error) {
-            console.log(error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal',
-                text: 'Terjadi kesalahan saat menambahkan data kendaraan',
-            });
             setIsModalOpen(false);
+        } catch (error) {
+            if (error.response.data.errors) {
+                error.response.data.errors.forEach((err) => {
+                    let customMessage;
+
+                    if (err.message === "ID driver Tidak Boleh Kosong") {
+                        customMessage = "Nama Driver Harus Di isi";
+                    } else {
+                        customMessage = err.message;
+                    }
+
+                    notification.error({
+                        message: 'ADA KESALAHAN DI FORM INPUT',
+                        description: customMessage,
+                    });
+                })
+            } else if (error.response.data.status) {
+                // alert("error else")
+                notification.error({
+                    message: error.response.data.status.message
+                })
+            }
+
         }
     }
 
@@ -481,6 +524,8 @@ function VehicleBaru() {
         }
     }
 
+
+
     return (
 
         <div>
@@ -491,15 +536,15 @@ function VehicleBaru() {
                         <h5 style={{ color: "#1A5CBF", fontWeight: "bold" }}>Master Vehicle</h5>
                     </Col>
                     <Row>
-                        
+
                         <Col sm={2}>
                             <Input
-                            style={{
-                                width: "150px",
-                                border: "1px solid #1A5CBF",
-                                borderRadius: "5px",
-                                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
-                              }}
+                                style={{
+                                    width: "150px",
+                                    border: "1px solid #1A5CBF",
+                                    borderRadius: "5px",
+                                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                                }}
                                 value={CariNoKendaraan}
                                 onChange={(e) => setCariNoKendaraan(e.target.value)}
                                 placeholder="Cari No Kendaraan" />
@@ -509,9 +554,11 @@ function VehicleBaru() {
                                 showSearch
                                 placeholder="Jenis Kepemilikan"
                                 optionFilterProp="children"
-                                style={{ width: "150px", border: "1px solid #1A5CBF",
-                                borderRadius: "5px",
-                                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)", }}
+                                style={{
+                                    width: "150px", border: "1px solid #1A5CBF",
+                                    borderRadius: "5px",
+                                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                                }}
                                 // value={CariJenisKepemilikan}
                                 onChange={(value) => setCariJenisKepemilikan(value)}
 
@@ -529,9 +576,11 @@ function VehicleBaru() {
                                 showSearch
                                 placeholder="Status"
                                 optionFilterProp="children"
-                                style={{ width: "150px", border: "1px solid #1A5CBF",
-                                borderRadius: "5px",
-                                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)", }}
+                                style={{
+                                    width: "150px", border: "1px solid #1A5CBF",
+                                    borderRadius: "5px",
+                                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                                }}
                                 // value={CariJenisKepemilikan}
                                 onChange={(value) => setCariDriverAktif(value)}
 
@@ -546,12 +595,12 @@ function VehicleBaru() {
                         </Col>
                         <Col sm={2}>
                             <Button
-                            style={{
-                                backgroundColor: "#1A5CBF",
-                                color: "#FFFFFF",
-                                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
-                                borderColor: "#1A5CBF",
-                              }}
+                                style={{
+                                    backgroundColor: "#1A5CBF",
+                                    color: "#FFFFFF",
+                                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                                    borderColor: "#1A5CBF",
+                                }}
                                 type="primary" onClick={() => {
                                     showModal()
                                     setIdDriver(null)
@@ -565,14 +614,14 @@ function VehicleBaru() {
 
                     <Modal
                         title={title()} style={{ top: 10 }} visible={isModalOpen} onOk={formik.handleSubmit}
-                        width={800}
+                        width={1000}
                         onCancel={handleCancel}>
 
                         <AntForm>
                             <Row>
                                 <Col sm={4}>
                                     <Card>
-                                        <img src={FotoDriver  instanceof File ? URL.createObjectURL(FotoDriver) : FotoDriver}/>
+                                        <img src={FotoDriver instanceof File ? URL.createObjectURL(FotoDriver) : FotoDriver} />
 
                                     </Card>
                                     <AntForm.Item
@@ -586,7 +635,7 @@ function VehicleBaru() {
                                         style={{ marginBottom: 2 }}
                                     >
                                         <Upload
-                                          accept=".png,.jpg,.jpeg"
+                                            accept=".png,.jpg,.jpeg"
                                             beforeUpload={file => {
                                                 setFotoDriver(file);
                                                 // Mencegah upload default
@@ -615,11 +664,13 @@ function VehicleBaru() {
                                         style={{ marginBottom: 2 }}
                                     >
                                         <DatePicker
+                                            format="DD-MM-YYYY"
                                             id="tgl_stnk"
                                             name="tgl_stnk"
                                             onChange={(date) => {
                                                 formik.setFieldValue("tgl_stnk", date ? date.format("YYYY-MM-DD") : "");
                                             }}
+
                                             value={formik.values.tgl_stnk ? moment(formik.values.tgl_stnk) : null}
                                             onBlur={formik.handleBlur}
                                         />
@@ -636,6 +687,7 @@ function VehicleBaru() {
                                         style={{ marginBottom: 2 }}
                                     >
                                         <DatePicker
+                                            format="DD-MM-YYYY"
                                             id="tgl_plat_nomor"
                                             name="tgl_plat_nomor"
                                             onChange={(date) => {
@@ -655,6 +707,7 @@ function VehicleBaru() {
                                         style={{ marginBottom: 2 }}
                                     >
                                         <DatePicker
+                                            format="DD-MM-YYYY"
                                             id="tgl_kir"
                                             name="tgl_kir"
                                             onChange={(date) => {
@@ -675,6 +728,7 @@ function VehicleBaru() {
                                         style={{ marginBottom: 2 }}
                                     >
                                         <DatePicker
+                                            format="DD-MM-YYYY"
                                             id="tgl_beli"
                                             name="tgl_beli"
                                             onChange={(date) => {
@@ -694,16 +748,16 @@ function VehicleBaru() {
                                         style={{ marginBottom: 2 }}
                                     >
                                         <Input
-                                        disabled
+                                            disabled
                                             showSearch
                                             optionFilterProp="children"
                                             id="jenis_kepemilikan"
                                             name="jenis_kepemilikan"
                                             onChange={(value) => formik.setFieldValue('vehicleCode', value)}
                                             value={CodeVehicle}
-                                            // onBlur={formik.handleBlur}
+                                        // onBlur={formik.handleBlur}
                                         >
-                                           
+
                                         </Input>
                                     </AntForm.Item>
                                     <AntForm.Item
@@ -844,7 +898,7 @@ function VehicleBaru() {
                                         help={formik.touched.nama_driver && formik.errors.nama_driver}
                                         validateStatus={formik.touched.nama_driver && formik.errors.nama_driver ? 'error' : 'success'}
                                         style={{ marginBottom: 2 }}
-                                        
+
                                     >
                                         <Select
                                             showSearch
@@ -990,7 +1044,7 @@ function VehicleBaru() {
                                     <Row gutter={16}>
                                         <Col sm={4}>
                                             <AntForm.Item
-                                                label="Panjang"
+                                                label="Panjang (m)"
                                                 required
                                                 labelCol={{ span: 24 }}
                                                 wrapperCol={{ span: 24 }}
@@ -1010,7 +1064,7 @@ function VehicleBaru() {
                                         </Col>
                                         <Col sm={4}>
                                             <AntForm.Item
-                                                label="Lebar"
+                                                label="Lebar (m)"
                                                 required
                                                 labelCol={{ span: 24 }}
                                                 wrapperCol={{ span: 24 }}
@@ -1030,7 +1084,7 @@ function VehicleBaru() {
                                         </Col>
                                         <Col sm={4}>
                                             <AntForm.Item
-                                                label="Tinggi"
+                                                label="Tinggi (m)"
                                                 required
                                                 labelCol={{ span: 24 }}
                                                 wrapperCol={{ span: 24 }}
@@ -1049,6 +1103,29 @@ function VehicleBaru() {
                                             </AntForm.Item>
                                         </Col>
                                     </Row>
+                                    <AntForm.Item
+                                        label={
+                                            <span>
+                                                Kubikasi (Penjumlahan Dari <strong>P x L x T</strong>)
+                                            </span>
+                                        }
+                                        required
+                                        labelCol={{ span: 24 }}
+                                        wrapperCol={{ span: 24 }}
+                                        help={formik.touched.tinggi && formik.errors.tinggi}
+                                        validateStatus={formik.touched.tinggi && formik.errors.tinggi ? 'error' : 'success'}
+                                        style={{ marginBottom: 2 }}
+                                    >
+                                        <Input
+                                            id="kubikasi"
+                                            name="kubikasi"
+                                            type="number"
+                                            onChange={formik.handleChange}
+                                            // value={`${perhitunganVolume()}m`}
+                                            value={`${perhitunganVolume()}`}
+                                            onBlur={formik.handleBlur}
+                                        />
+                                    </AntForm.Item>
                                     <AntForm.Item
                                         label="No BPKB"
                                         required
@@ -1091,8 +1168,8 @@ function VehicleBaru() {
                                         required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
-                                        help={formik.touched.tinggi && formik.errors.tinggi}
-                                        validateStatus={formik.touched.tinggi && formik.errors.tinggi ? 'error' : 'success'}
+                                        help={formik.touched.kapasitas && formik.errors.kapasitas}
+                                        validateStatus={formik.touched.kapasitas && formik.errors.kapasitas ? 'error' : 'success'}
                                         style={{ marginBottom: 2 }}
                                     >
                                         <Input
@@ -1122,24 +1199,7 @@ function VehicleBaru() {
                                             onBlur={formik.handleBlur}
                                         />
                                     </AntForm.Item>
-                                    <AntForm.Item
-                                        label="Kubikasi"
-                                        required
-                                        labelCol={{ span: 24 }}
-                                        wrapperCol={{ span: 24 }}
-                                        help={formik.touched.tinggi && formik.errors.tinggi}
-                                        validateStatus={formik.touched.tinggi && formik.errors.tinggi ? 'error' : 'success'}
-                                        style={{ marginBottom: 2 }}
-                                    >
-                                        <Input
-                                            id="kubikasi"
-                                            name="kubikasi"
-                                            type="number"
-                                            onChange={formik.handleChange}
-                                            value={formik.values.kubikasi}
-                                            onBlur={formik.handleBlur}
-                                        />
-                                    </AntForm.Item>
+
                                     <AntForm.Item
                                         label="Cabang"
                                         required

@@ -10,8 +10,10 @@ import Card from "antd/lib/card/Card";
 import { Row, Col } from "react-bootstrap";
 import DashboardOperasional from "./DashboardOperasional/index"
 import DashboardPurchasing from "./DashboardPurchasing/index"
+import DetailUserLoginZustand from "../../zustand/Store/DetailUserLogin/Index";
+import { useSelector } from "react-redux";
+import Index from "../Race/WebAdmin/Index";
 const SamplePage = () => {
-
 
   const { jobdesk, setJobdesk } = mobil((state) => ({
     jobdesk: state.jobdesk,
@@ -20,6 +22,11 @@ const SamplePage = () => {
   const [namaJobdesk, setNamaJobdesk] = useState('');
   const [inform, setinform] = useState('');
   const history = useHistory()
+  const { userProfileZustand, setuserProfileZustand } = DetailUserLoginZustand((i) => ({
+    userProfileZustand: i.DetailUserLoginZustandState,
+    setuserProfileZustand: i.setDetailUserLoginZustand,
+  }))
+
   useEffect(() => {
     const jobdesk = localStorage.getItem('jobdesk');
     if (Token === "") {
@@ -28,9 +35,10 @@ const SamplePage = () => {
     setJobdesk(jobdesk)
     setNamaJobdesk(jobdesk);
 
+
   }, []);
 
-  console.log(`ini zustand`, jobdesk);
+  console.log(`ini DetailUserLoginZustand`, userProfileZustand);
 
   const fetchData = async () => {
     try {
@@ -78,39 +86,39 @@ const SamplePage = () => {
 
   useEffect(() => {
     fetchData();
+    // setDetailUserLoginZustand()
+    setuserProfileZustand()
   }, []);
 
 
 
   return (
     <div>
-        <Row>
-          {jobdesk === "operasional" &&
-            (
-              <>
-                <DashboardOperasional />
-              </>
-            )}
-          {jobdesk === "purchasing" &&
-            (
-              <>
-               <DashboardPurchasing/>
-              </>
-            )}
-          {jobdesk === "sales" &&
-            (
-              <>
-                <h5>ini dashboard {jobdesk}</h5>
-              </>
-            )}
-          {jobdesk === "akunting" &&
-            (
-              <>
-                <h5>ini dashboard {jobdesk}</h5>
-              </>
-            )}
+      <Row>
+        {jobdesk === "operasional" &&
+          (
+            <>
+              <DashboardOperasional />
+            </>
+          )}
+        {jobdesk === "purchasing" &&
+          (
+            <>
+              <DashboardPurchasing />
+            </>
+          )}
+        {jobdesk === "sales" &&
+          (
+            <>
+              <h5>ini dashboard {jobdesk}</h5>
+            </>
+          )}
+        {jobdesk === "rcadmin" &&
+          (
+            <Index />
+          )}
 
-        </Row>
+      </Row>
 
     </div>
   );

@@ -233,9 +233,9 @@ const SamplePage = () => {
 
   const handleDelete = (id) => {
     Modal.confirm({
-      title: "Are you sure you want to delete this Tarif?",
+      title: "Yakin untuk menghapus tarif ini? ",
       icon: <ExclamationCircleOutlined />,
-      content: "This action cannot be undone.",
+      content: "Tindakan ini tidak dapat dibatalkan",
       onOk() {
         const datas = {
           id_price: id,
@@ -386,6 +386,7 @@ const SamplePage = () => {
               <th>Muat</th>
               <th>Tujuan</th>
               <th>Jenis Kendaraan</th>
+              <th>Tarif</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -410,6 +411,12 @@ const SamplePage = () => {
                 <td>{record.kotaAsal}</td>
                 <td>{record.kotaTujuan}</td>
                 <td>{record.kendaraanJenis}</td>
+                <td>
+                  {`${new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  }).format(record.tarif)}`}
+                </td>
                 <td>
                   <Button
                     onClick={() => handleView(record.id_price)}

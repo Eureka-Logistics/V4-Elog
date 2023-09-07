@@ -33,6 +33,7 @@ function NewTarifCustomer() {
   const [TotalBiaya, setTotalBiaya] = useState("");
   const [KodeID, setKodeID] = useState("");
   const [id_price_eureka, setid_price_eureka] = useState("");
+  const [DataIdPriceEureka, setDataPriceIdEureka] = useState("");
 
   const GetSelectData = async () => {
     try {
@@ -51,6 +52,7 @@ function NewTarifCustomer() {
       setDataTarifKatalog(respons.data.getPrice);
       console.log(respons.data.getPrice);
       setid_price_eureka(respons.data.IdPriceEureka);
+      setDataPriceIdEureka(respons.data.IdPriceEureka);
     } catch (error) {}
   };
 
@@ -59,7 +61,7 @@ function NewTarifCustomer() {
       const respons = await axios.post(
         `${Baseurl}tarif/create-tarifCustomer`,
         {
-          id_price_eureka: id_price_eureka,
+          id_price_eureka: parseInt(DataIdPriceEureka),
           id_muat_kota: parseInt(IDMuatKota),
           id_tujuan_kota: parseInt(IDBongkarKota),
           id_customer: parseInt(IDCustomer),
@@ -377,6 +379,20 @@ function NewTarifCustomer() {
       <h5 style={{ fontWeight: "bold", color: "#1A5CBF" }}>Tarif Customer</h5>
       <br />
       <Row>
+        <Col span={4}>
+          <label style={{ fontWeight: "bold" }}>Id Price Eureka</label>
+          <Form.Control
+          className="mt-2"
+          disabled
+            value={DataIdPriceEureka}
+            onChange={(e) => {
+              console.log(e.target.value);
+              setDataPriceIdEureka(e.target.value);
+              // name = "getPrice";
+              // setCustomer(options.key);
+            }}
+          ></Form.Control>
+        </Col>
         <Col span={6}>
           <label style={{ fontWeight: "bold" }}>Tarif Katalog :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
@@ -443,7 +459,7 @@ function NewTarifCustomer() {
             //   onChange={formik.handleChange}
           />
         </Col>
-        <Col span={6}>
+        <Col span={10}>
           <label style={{ fontWeight: "bold" }}>Total Biaya :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Form.Control

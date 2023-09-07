@@ -1,4 +1,4 @@
-import { Card, Tag } from "antd";
+import { Card, Tag, Tooltip } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Form } from "react-bootstrap";
@@ -34,12 +34,30 @@ function SplistOperasional() {
       name: " Perusahaan",
       selector: (row) => row?.perusahaan,
       wrap: true,
-      width: "240px"
+      // width: "220px"
+    },
+    {
+      name: "Marketing",
+      selector: (row) => (
+        <Tooltip title={<>
+          {"Kacab: " + row?.kacab} <br />
+          {"Asm: " + row?.asm} <br />
+          {"gl: " + row?.gl} <br />
+          {"mgr: " + row?.mgr} <br />
+          {"amd: " + row?.amd} <br />
+        </>}
+        >
+          {row?.salesName}
+        </Tooltip>
+      ),
+      width: "100px",
+      wrap: true,
     },
     {
       name: "Service",
       selector: (row) => row?.service,
       wrap: true,
+      width: "100px",
     },
     // {
     //   name: "Vehicle",
@@ -60,11 +78,11 @@ function SplistOperasional() {
         const approveact = row.approveAct;
         const dateApproveAct = row.dateApproveAct;
         let displayText =
-          approveact === "Y" && dateApproveAct !== "Invalid date" || "1970-01-01 07:00:00" ? (
+          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" ? (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
-          ) : approveact === "N" && dateApproveAct === "Invalid date" || "1970-01-01 07:00:00" ? (
+          ) : approveact === "N" && dateApproveAct === "1970-01-01 07:00:00" ? (
             <Tag color="yellow">
               Waiting <br /> <small>{dateApproveAct}</small>
             </Tag>
@@ -76,7 +94,7 @@ function SplistOperasional() {
 
         return <>{displayText}</>;
       },
-      width: "150px",
+      // width: "150px",
     },
     {
       name: "Approve By Ops",
@@ -84,11 +102,11 @@ function SplistOperasional() {
         const approveact = row.approveOps;
         const dateApproveAct = row.dateApproveOps;
         let displayText =
-          approveact === "Y" && dateApproveAct !== "Invalid date" || "1970-01-01 07:00:00" ? (
+          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" ? (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
-          ) : approveact === "N" && dateApproveAct === "Invalid date" || "1970-01-01 07:00:00" ? (
+          ) : approveact === "N" && dateApproveAct === "1970-01-01 07:00:00" ? (
             <Tag color="yellow">
               Waiting <br /> <small>{dateApproveAct}</small>
             </Tag>
@@ -100,7 +118,7 @@ function SplistOperasional() {
 
         return <>{displayText}</>;
       },
-      width: "150px",
+      // width: "150px",
     },
 
     {
@@ -109,11 +127,11 @@ function SplistOperasional() {
         const approveact = row.approvePurch;
         const dateApproveAct = row.dateApprovePurch;
         let displayText =
-          approveact === "Y" && dateApproveAct !== "Invalid date" || "1970-01-01 07:00:00" ? (
+          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" ? (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
-          ) : approveact === "N" && dateApproveAct === "Invalid date" || "1970-01-01 07:00:00" ? (
+          ) : approveact === "N" && dateApproveAct === "1970-01-01 07:00:00" ? (
             <Tag color="yellow">
               Waiting <br /> <small>{dateApproveAct}</small>
             </Tag>
@@ -125,7 +143,7 @@ function SplistOperasional() {
 
         return <>{displayText}</>;
       },
-      width: "150px",
+      // width: "150px",
     },
     // {
     //   name: "Detail",
@@ -144,44 +162,49 @@ function SplistOperasional() {
   useEffect(() => {
     const dataapi = async () => {
       setLoading(true)
-      const data = await axios.get(
-        `${Baseurl}sp/get-SP-all?limit=10&page=${page}&keyword=${filter}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      );
-      const isi = data.data.data.order.map((item) => ({
-        no: item?.no,
-        idmp: item?.idmp,
-        sp: item?.sp,
-        salesName: item?.salesName,
-        perusahaan: item?.perusahaan,
-        service: item?.service,
-        pickupDate: item?.pickupDate,
-        approveAct: item?.approveAct,
-        dateApproveAct: item?.dateApproveAct,
-        approveOps: item?.approveOps,
-        idops: item?.idops,
-        operationalName: item?.operationalName,
-        dateApproveOps: item?.dateApproveOps,
-        approvePurch: item?.approvePurch,
-        dateApprovePurch: item?.dateApprovePurch,
-      }));
+      try {
+        const data = await axios.get(
+          `${Baseurl}sp/get-SP-all?limit=10&page=${page}&keyword=${filter}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        );
+        const isi = data.data.data.order.map((item) => ({
+          no: item?.no,
+          idmp: item?.idmp,
+          sp: item?.sp,
+          salesName: item?.salesName,
+          perusahaan: item?.perusahaan,
+          service: item?.service,
+          pickupDate: item?.pickupDate,
+          approveAct: item?.approveAct,
+          dateApproveAct: item?.dateApproveAct,
+          approveOps: item?.approveOps,
+          idops: item?.idops,
+          operationalName: item?.operationalName,
+          dateApproveOps: item?.dateApproveOps,
+          approvePurch: item?.approvePurch,
+          dateApprovePurch: item?.dateApprovePurch,
+        }));
 
-      const detailPromises = isi?.map(item => detailSP(item?.idmp));
-      const details = await Promise.all(detailPromises);
+        const detailPromises = isi?.map(item => detailSP(item?.idmp));
+        const details = await Promise.all(detailPromises);
 
-      const combinedData = isi?.map((item, index) => ({
-        ...item,
-        vehicles: details[index]
-      }));
+        const combinedData = isi?.map((item, index) => ({
+          ...item,
+          vehicles: details[index]
+        }));
 
-      setTotalRows(data?.data?.data?.totalData);
-      setCombinedData(combinedData);
-      setLoading(false)
+        setTotalRows(data?.data?.data?.totalData);
+        setCombinedData(combinedData);
+        setLoading(false)
+      } catch (error) {
+
+      }
+
     };
     dataapi();
   }, [filter, page]);
@@ -249,9 +272,12 @@ function SplistOperasional() {
                 {`
           .rdt_TableBody .rdt_TableRow:hover {
             cursor: pointer;
+            background-color: #C7E1FB;
           }
+          
         `}
               </style>
+
               <Pagination
                 showSizeChanger
                 onShowSizeChange={setPage}

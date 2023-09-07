@@ -23,23 +23,22 @@ import {
 } from "constants/ActionTypes";
 import mobil from "../../routes/redux toolkit/store/ZustandStore";
 
-
-
 export const userSignUp = (user) => {
   return {
     type: SIGNUP_USER,
     payload: user
   };
 };
+
 export const userSignIn = (user) => {
   return async dispatch => {
     dispatch(showAuthLoader());
 
     try {
       const response = await axios.post(`${Baseurl}auth/login`, user);
-      
+
       // asumsikan response.data.data berisi token dan jobdesk
-      const { token, jobdesk ,cabang,fullname} = response.data.data;
+      const { token, jobdesk, cabang, fullname } = response.data.data;
 
       // simpan token ke dalam local storage
       localStorage.setItem('token', token);
@@ -47,10 +46,11 @@ export const userSignIn = (user) => {
       localStorage.setItem('cabang', cabang);
       localStorage.setItem('fullname', fullname);
       dispatch(userSignInSuccess({ token, jobdesk }));
-      
+
       // set token to axios header
       axios.defaults.headers.common['Authorization'] = token;
 
+      const detail = await axios.get(`${Baseurl}auth/get-profile`);
     } catch (error) {
       // handle error, misalnya dengan menampilkan pesan kesalahan
       dispatch(showAuthMessage(error.toString()));

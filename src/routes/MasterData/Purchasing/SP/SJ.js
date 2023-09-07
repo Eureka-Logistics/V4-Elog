@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Tag, message } from "antd";
+import { Card, Tag, message, notification } from "antd";
 import { Col, Row, Form, Button, ButtonGroup } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import axios from "axios";
@@ -78,6 +78,9 @@ function SJ() {
           }, 2000);
           // history.push('/signin');
         }
+        notification.error({
+          message : error.response.data.status.message
+        })
       } else {
         console.error(error);
       }
@@ -118,7 +121,9 @@ function SJ() {
         <>
           {row?.mitraPickup === "-" ? "" : row?.mitraPickup}
           <br />
-          {row?.unit1 === "-" ? "" : row?.unit1} - {row?.driver1 === "-" ? "" : row?.driver1}
+          {row?.unit1 === "-" ? "" : row?.unit1}-
+          {row?.driver1 === "-" ? "" : row?.driver1}-
+          {row?.kendaraanPickup === "-" ? "" : row?.kendaraanPickup}
         </>
       ),
       width: "230px",
@@ -129,7 +134,9 @@ function SJ() {
         <>
           {row?.mitra1 === "-" ? "-" : row?.mitra1}
           <br />
-          {row?.unit1 === "-" ? "" : row?.unit1}
+          {row?.unit2 === "-" ? "" : row?.unit2}-
+          {row?.driver2 === "-" ? "" : row?.driver2}-
+          {row?.kendaraanMitra1 === "-" ? "" : row?.kendaraanMitra1}
         </>
       ),
       width: "230px",
@@ -138,14 +145,18 @@ function SJ() {
       name: "Mitra 2",
       selector: (row) => (
         <>
-          -
+          {row?.mitra2 === "-" ? "-" : row?.mitra2}
+          <br />
+          {row?.unit3 === "-" ? "" : row?.unit3}-
+          {row?.driver3 === "-" ? "" : row?.driver3}-
+          {row?.kendaraanMitra2 === "-" ? "" : row?.kendaraanMitra2}
         </>
       ),
       width: "230px",
     },
     {
       name: "Tanggal PickUp",
-      selector: (row) => row?.pickupDate === "Invalid date" || "1970-01-01 07:00:00" ? "-" : row?.pickupDate,
+      selector: (row) => row?.tglPickup,
       width: "150px",
     },
     {
@@ -266,6 +277,9 @@ function SJ() {
       if (error.response && error.response.status === 401) {
         localStorage.removeItem('token');
       }
+      notification.error({
+        message : error.response.data.status.message
+    })
     }
   };
 
@@ -414,11 +428,14 @@ function SJ() {
         `}
             </style>
             {(loading ? (<img src={LoadingElogGif} width="1500px"></img>) : (
-              <DataTable
-                columns={columns}
-                data={isiData}
-                onRowClicked={buttonarahin}
-              />
+              <div className="mt-3">
+                <DataTable
+                  columns={columns}
+                  data={isiData}
+                  onRowClicked={buttonarahin}
+                />
+              </div>
+
             ))}
             <div className="mt-3 d-flex justify-content-end">
 

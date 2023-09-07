@@ -42,14 +42,11 @@ const SignIn = () => {
     );
   };
 
-
-
-  
-
   return (
     <div
       className="gx-app-login-wrap"
       style={{
+        width : "100%",
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover", // Adjust the background size based on your requirement
         backgroundRepeat: "no-repeat", // Adjust the repeat property based on your requirement

@@ -40,8 +40,7 @@ function CreatedPIC() {
 
   const GetSelectData = async () => {
     try {
-      const respons = await axios.get(`${Baseurl}mitra/get-select-mitraPic`, 
-      {
+      const respons = await axios.get(`${Baseurl}mitra/get-select-mitraPic`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token"),
@@ -104,10 +103,19 @@ function CreatedPIC() {
         <Row>
           <Col span={12}>
             <label style={{ fontWeight: "bold" }}> Jabatan : </label>
-            <Select
+            <Input
+              type="text"
+              className="mt-2 mb-2"
+              name="jabatan"
+              placeholder="Exp: Direktur Keuangan"
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDataJabatan(e.target.value);
+              }}
+            />
+            {/* <Select
               className="mt-2 mb-2"
               showSearch
-              //   value={DataDetailAddress?.kode_wilayah}
               placeholder="Select Jabatan"
               optionFilterProp="value"
               style={{ width: "100%" }}
@@ -122,7 +130,7 @@ function CreatedPIC() {
                     {JabatanID?.jabatan}
                   </Select.Option>
                 ))}
-            </Select>
+            </Select> */}
           </Col>
           <Col span={12}>
             <label style={{ fontWeight: "bold" }}>Nama PIC :</label>

@@ -1,22 +1,21 @@
-import { Card, Modal as ModalAntd } from "antd";
+import { Card, Modal as ModalAntd, notification } from "antd";
 import React from "react";
 import DataTable from "react-data-table-component";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import mobil from "../../../redux toolkit/store/ZustandStore";
-import Select from 'react-select';
+import Select from "react-select";
 import Baseurl from "../../../../Api/BaseUrl";
 import Swal from "sweetalert2";
-import { Formik, Field, Form as FormikForm } from 'formik';
+import { Formik, Field, Form as FormikForm } from "formik";
 import { Col, Row, Form, Modal, Button, Table } from "react-bootstrap";
 
-import * as Yup from 'yup';
+import * as Yup from "yup";
 import EditSPNew from "./EditSPNew";
 import ModalCreateDetail from "./ModalCreateDetail";
 
-
-function EditSP({ alamatInvoice }) {
+function EditSP({  }) {
   const [show, setShow] = useState(false);
   const [showSP, setShowSP] = useState(false);
   const { phZustand, setPHZustand } = mobil((state) => ({
@@ -24,12 +23,10 @@ function EditSP({ alamatInvoice }) {
     phZustand: state.phZustand,
   }));
 
-  console.log('alamatInvoice', alamatInvoice);
   const { shipmentSementara, setshipmentSementara } = mobil((state) => ({
     shipmentSementara: state.shipmentSementara,
-    setshipmentSementara: state.setshipmentSementara
-
-  }))
+    setshipmentSementara: state.setshipmentSementara,
+  }));
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleCloseSP = () => setShowSP(false);
@@ -65,22 +62,21 @@ function EditSP({ alamatInvoice }) {
   const [TarifValue, setTarifValue] = useState(0);
   const [totalValue, settotalValue] = useState(0);
   const [tambahKomen, setTambahKomen] = useState("");
-  const [MarketingValue, setMarketingValue] = useState("")
-  const [perubahanServiceValue, setPerubahanServiceValue] = useState("")
-  const [JenisBarangValue, setJenisBarangValue] = useState("")
-  const [CustomerValue, setCustomerValue] = useState("")
-  const [isiTarif, setisiTarif] = useState("")
-  const [IdmpdPerstate, setIdmpdPerstate] = useState([])
-  const [NameKendaraan, setNameKendaraan] = useState("")
-  const [idKota, setidKota] = useState([])
-  const [IdBongkarKota, setIdBongkarKota] = useState([])
-  const [AlamatOptions, setAlamatOptions] = useState('')
-  const [AlamatOptionsValue, setAlamatOptionsValue] = useState('')
-  const [AsuransiOptions, setAsuransiOptions] = useState('')
-  const [AsuransiOptionsValue, setAsuransiOptionsValue] = useState('')
-  const [ServiceValue, setServiceValue] = useState('')
-  const [ServiceValueOptions, setServiceValueOptios] = useState('')
-
+  const [MarketingValue, setMarketingValue] = useState("");
+  const [perubahanServiceValue, setPerubahanServiceValue] = useState("");
+  const [JenisBarangValue, setJenisBarangValue] = useState("");
+  const [CustomerValue, setCustomerValue] = useState("");
+  const [isiTarif, setisiTarif] = useState("");
+  const [IdmpdPerstate, setIdmpdPerstate] = useState([]);
+  const [NameKendaraan, setNameKendaraan] = useState("");
+  const [idKota, setidKota] = useState([]);
+  const [IdBongkarKota, setIdBongkarKota] = useState([]);
+  const [AlamatOptions, setAlamatOptions] = useState("");
+  const [AlamatOptionsValue, setAlamatOptionsValue] = useState("");
+  const [AsuransiOptions, setAsuransiOptions] = useState("");
+  const [AsuransiOptionsValue, setAsuransiOptionsValue] = useState("");
+  const [ServiceValue, setServiceValue] = useState("");
+  const [ServiceValueOptions, setServiceValueOptios] = useState("");
   const getDetail = async () => {
     try {
       const response = await axios.get(
@@ -92,9 +88,9 @@ function EditSP({ alamatInvoice }) {
           },
         }
       );
-      setDetailData(response.data);
-      const memos = response.data.memo;
-      setAsuransiOptionsValue(response.data?.asuransi)
+      setDetailData(response?.data);
+      const memos = response?.data?.memo;
+      setAsuransiOptionsValue(response.data?.asuransi);
       setMemo(memos);
     } catch (error) {
       console.error("Failed to fetch detail data:", error);
@@ -103,29 +99,27 @@ function EditSP({ alamatInvoice }) {
   useEffect(() => {
     getDetail();
     comments();
-    Optionsnya()
-    refresh()
+    Optionsnya();
+    refresh();
   }, [idmp, memo]);
 
   const Optionsnya = async () => {
     try {
-      const data = await axios.get(`${Baseurl}sp/get-SP-select-create?keyword=&companyId=${detailData?.idcustomer}&divisi=sales&kode_cabang=JKT`,
+      const data = await axios.get(
+        `${Baseurl}sp/get-SP-select-create?keyword=&companyId=${detailData?.idcustomer}&divisi=sales&kode_cabang=JKT`,
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: localStorage.getItem("token"),
           },
-        })
+        }
+      );
       console.log(data.data.data);
-      setAlamatOptions(data.data.data.address)
-      setAsuransiOptions(data.data.data.insurance)
-      setServiceValueOptios(data.data.data.service)
-      console.log(`ini ServiceValueOptions`, ServiceValueOptions);
-
-    } catch (error) {
-
-    }
-  }
+      setAlamatOptions(data.data.data.address);
+      setAsuransiOptions(data.data.data.insurance);
+      setServiceValueOptios(data.data.data.service);
+    } catch (error) { }
+  };
 
   useEffect(() => {
     const getDetailModal = async () => {
@@ -143,7 +137,7 @@ function EditSP({ alamatInvoice }) {
         setDestinationDetail(response.data.data.destination);
         setKendaraanModal(response.data.data.type);
         setShipmentModal(response?.data?.data?.shipment);
-        setMarketing(response.data.data.marketing)
+        setMarketing(response.data.data.marketing);
       } catch (error) {
         console.error("Failed to fetch detail data:", error);
         // handle error appropriately
@@ -165,7 +159,7 @@ function EditSP({ alamatInvoice }) {
         }
       );
       setDetailData(response.data);
-      setAlamatOptionsValue(response.data?.alamatInvoice)
+      setAlamatOptionsValue(response.data?.alamatInvoice);
       // setAsuransiOptionsValue(response.data?.asuransi)
       const memos = response.data.memo;
       setMemo(memos);
@@ -175,8 +169,7 @@ function EditSP({ alamatInvoice }) {
     }
   };
 
-  console.log(`detailData?.service
-  `, detailData?.service);
+
   const columns = [
     {
       name: "Title",
@@ -258,7 +251,6 @@ function EditSP({ alamatInvoice }) {
     // console.log(comment);
     setComment(comment);
   };
-  console.log(`initempdata`, detailDataTemp?.via);
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -276,8 +268,7 @@ function EditSP({ alamatInvoice }) {
         (item) => item?.via === selectVia
       );
       setShipmentOptions(filteredShipments);
-    }
-    else {
+    } else {
       setShipmentOptions([]);
     }
   }, [selectVia, ShipmentModal]);
@@ -290,13 +281,18 @@ function EditSP({ alamatInvoice }) {
     setTimeout(() => {
       const bongkar = bongkarValue ? parseInt(bongkarValue) : 0;
       // const tarif = isiTarif?.biaya_jalan != 0 ? parseInt(isiTarif?.biaya_jalan) : (TarifValue ? parseInt(TarifValue) : 0);
-      const tarif = TarifValue != 0 ? parseInt(TarifValue) : (isiTarif?.biaya_jalan ? parseInt(isiTarif?.biaya_jalan) : 0);
+      const tarif =
+        TarifValue != 0
+          ? parseInt(TarifValue)
+          : isiTarif?.biaya_jalan
+            ? parseInt(isiTarif?.biaya_jalan)
+            : 0;
       const biaya = biayaMuatValue ? parseInt(biayaMuatValue) : 0;
 
       const totals = bongkar + tarif + biaya;
       settotalValue(totals);
       console.log("TOTAL", totals);
-    },);
+    });
   };
 
   // Create sp detail
@@ -322,9 +318,14 @@ function EditSP({ alamatInvoice }) {
         tinggi: TinggiValue,
         qty: Value,
         koli: KoliValue,
-        // harga: TarifValue === "" ? TarifValue : isiTarif?.biaya_jalan,  
-        harga: TarifValue != 0 ? parseInt(TarifValue) : (isiTarif?.biaya_jalan ? parseInt(isiTarif?.biaya_jalan) : 0),
-        // harga: isiTarif?.biaya_jalan != 0 ? isiTarif?.biaya_jalan : TarifValue,  
+        // harga: TarifValue === "" ? TarifValue : isiTarif?.biaya_jalan,
+        harga:
+          TarifValue != 0
+            ? parseInt(TarifValue)
+            : isiTarif?.biaya_jalan
+              ? parseInt(isiTarif?.biaya_jalan)
+              : 0,
+        // harga: isiTarif?.biaya_jalan != 0 ? isiTarif?.biaya_jalan : TarifValue,
         harga_bongkar: bongkarValue,
         harga_muat: biayaMuatValue,
         total: totalValue,
@@ -336,14 +337,12 @@ function EditSP({ alamatInvoice }) {
         },
       }
     );
-    setshipmentSementara(shipmentValue)
+    setshipmentSementara(shipmentValue);
     window.location.reload();
     refresh();
     handleClose();
     Swal.fire("Good job!", "Data Berhasil Di tambahkan", "success");
   };
-
-  console.log(`AsuransiOptionsValue`, AsuransiOptionsValue);
 
 
   const deltebutton = async (x) => {
@@ -394,11 +393,17 @@ function EditSP({ alamatInvoice }) {
             },
           }
         );
-
+        notification.success({
+          message: "success",
+          description: data.data.status.message
+        })
+        comments();
       }
-      comments()
     } catch (error) {
-      console.log(error);
+      notification.error({
+        message: "Error",
+        description: error.response.status.message
+      })
     }
   };
 
@@ -408,44 +413,47 @@ function EditSP({ alamatInvoice }) {
     currency: "IDR",
   });
 
-
   ////Edit sp
   useEffect(() => {
     // editttsp()
-  }, [])
+  }, []);
   const editttsp = async () => {
     try {
       Swal.fire({
-        title: 'Apakah data sudah benar?',
+        title: "Apakah data sudah benar?",
         // text: "You won't be able to revert this!",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Ubah'
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ubah",
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire(
-            'Update!',
-            'Data sudah terupdate!',
-            'success'
-          )
+          Swal.fire("Update!", "Data sudah terupdate!", "success");
         }
-      })
-      const data = await axios.post(`${Baseurl}sp/edit-SP`, {
-        id_mp: idmp,
-        memo: "ini barang",
-        id_customer: detailData?.idcustomer,
-        jenis_barang: JenisBarangValue !== "" ? JenisBarangValue : detailData?.jenis_barang,
-        packing: "1",
-        asuransi: AsuransiOptionsValue,
-        tgl_pickup: "2023-05-03 17:12:33",
-        marketing: MarketingValue,
-        tgl_bongkar: "2023-05-03 17:12:33",
-        service: perubahanServiceValue !== "" ? perubahanServiceValue : detailData?.service,
-        customer: CustomerValue !== "" ? CustomerValue : detailData?.customer,
-        alamat_invoice: AlamatOptionsValue,
-      },
+      });
+      const data = await axios.post(
+        `${Baseurl}sp/edit-SP`,
+        {
+          id_mp: idmp,
+          memo: "ini barang",
+          id_customer: detailData?.idcustomer,
+          jenis_barang:
+            JenisBarangValue !== ""
+              ? JenisBarangValue
+              : detailData?.jenis_barang,
+          packing: "1",
+          asuransi: AsuransiOptionsValue,
+          tgl_pickup: "2023-05-03 17:12:33",
+          marketing: MarketingValue,
+          tgl_bongkar: "2023-05-03 17:12:33",
+          service:
+            perubahanServiceValue !== ""
+              ? perubahanServiceValue
+              : detailData?.service,
+          customer: CustomerValue !== "" ? CustomerValue : detailData?.customer,
+          alamat_invoice: AlamatOptionsValue,
+        },
         {
           headers: {
             "Content-Type": "application/json",
@@ -453,34 +461,38 @@ function EditSP({ alamatInvoice }) {
           },
         }
       );
-      getDetail()
+      getDetail();
 
       console.log(data); // Prin
-
     } catch (error) {
-      console.error("An error occurred while making the axios request: ", error);
+      console.error(
+        "An error occurred while making the axios request: ",
+        error
+      );
     }
-  }
+  };
 
-  ////tarif 
+  ////tarif
 
   const tarifalamat = async () => {
-    const data = await axios.post(`${Baseurl}sp/get-tarif-alamat`, {
-      // id_muat_kota: alamatMuatValue,
-      // id_tujuan_kota: alamtBongkarValue,
-      // id_customer: detailData?.idcustomer,
-      // id_kendaraan_jenis: KendaraanValue,
-      // service_type: detailData?.service,
-      // id_muat_kota: 3172,
-      // id_muat_kota: alamatMuatValue,
-      id_muat_kota: IdBongkarKota,
-      // id_tujuan_kota: 3603,
-      id_tujuan_kota: alamatMuatValue,
-      // id_customer: 11,
-      id_customer: detailData?.idcustomer,
-      id_kendaraan_jenis: KendaraanValue,
-      service_type: detailData?.service,
-    },
+    const data = await axios.post(
+      `${Baseurl}sp/get-tarif-alamat`,
+      {
+        // id_muat_kota: alamatMuatValue,
+        // id_tujuan_kota: alamtBongkarValue,
+        // id_customer: detailData?.idcustomer,
+        // id_kendaraan_jenis: KendaraanValue,
+        // service_type: detailData?.service,
+        // id_muat_kota: 3172,
+        // id_muat_kota: alamatMuatValue,
+        id_muat_kota: IdBongkarKota,
+        // id_tujuan_kota: 3603,
+        id_tujuan_kota: alamatMuatValue,
+        // id_customer: 11,
+        id_customer: detailData?.idcustomer,
+        id_kendaraan_jenis: KendaraanValue,
+        service_type: detailData?.service,
+      },
       {
         headers: {
           "Content-Type": "application/json",
@@ -488,35 +500,26 @@ function EditSP({ alamatInvoice }) {
         },
       }
     );
-    const valid = data.data.data.order
-    const Namakendaraan = data.data.data?.jenisKendaraan?.nama_kendaraan_jenis
+    const valid = data.data.data.order;
+    const Namakendaraan = data.data.data?.jenisKendaraan?.nama_kendaraan_jenis;
     // console.log(`apa ini `,KendaraanValue);
     if (valid == undefined) {
-
-      setisiTarif(0)
+      setisiTarif(0);
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Tarif Tidak Ditemukan Silahkan Hubungi Sales!',
-      })
-
+        icon: "error",
+        title: "Oops...",
+        text: "Tarif Tidak Ditemukan Silahkan Hubungi Sales!",
+      });
     } else {
-
-      return (
-        setisiTarif(valid),
-        setNameKendaraan(Namakendaraan)
-      )
+      return setisiTarif(valid), setNameKendaraan(Namakendaraan);
     }
-
-  }
+  };
   // console.log(`ini tarif`, isiTarif?.biaya_jalan);
-  console.log(`KendaraanValue`, KendaraanValue);
-
 
   const options = detaildestination.map((item, index) => ({
     value: item.id,
     idKota: item.idKota,
-    label: "Kota." + item.pic + "-" + item.address
+    label: "Kota." + item.pic + "-" + item.address,
   }));
 
   const EditSPButton = async () => {
@@ -525,16 +528,17 @@ function EditSP({ alamatInvoice }) {
     const updateData = async () => {
       try {
         const result = await Swal.fire({
-          title: 'Apakah data sudah benar?',
-          icon: 'warning',
+          title: "Apakah data sudah benar?",
+          icon: "warning",
           showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Ubah'
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Ubah",
         });
 
         if (result.isConfirmed) {
-          const response = await axios.post(`${Baseurl}sp/edit-SP-detail`,
+          const response = await axios.post(
+            `${Baseurl}sp/edit-SP-detail`,
             {
               id_mpd: IdmpdPerstate,
               via: selectVia,
@@ -550,7 +554,12 @@ function EditSP({ alamatInvoice }) {
               koli: KoliValue,
               harga_muat: biayaMuatValue,
               harga_bongkar: bongkarValue,
-              harga: TarifValue != 0 ? parseInt(TarifValue) : (isiTarif?.biaya_jalan ? parseInt(isiTarif?.biaya_jalan) : 0),
+              harga:
+                TarifValue != 0
+                  ? parseInt(TarifValue)
+                  : isiTarif?.biaya_jalan
+                    ? parseInt(isiTarif?.biaya_jalan)
+                    : 0,
               total: totalValue,
             },
             {
@@ -558,13 +567,10 @@ function EditSP({ alamatInvoice }) {
                 "Content-Type": "application/json",
                 Authorization: localStorage.getItem("token"),
               },
-            });
-
-          Swal.fire(
-            'Update!',
-            'Data sudah terupdate!',
-            'success'
+            }
           );
+
+          Swal.fire("Update!", "Data sudah terupdate!", "success");
           handleClose();
           refresh();
         }
@@ -574,7 +580,7 @@ function EditSP({ alamatInvoice }) {
     };
     handleClose();
     updateData();
-  }
+  };
   let counter = 1;
 
   // console.log(`detail data`, detailDataTemp);
@@ -583,29 +589,23 @@ function EditSP({ alamatInvoice }) {
 
   const KendaraanModalOptions = KendaraanModal.map((item) => ({
     value: item.id,
-    label: item.type
-  }))
+    label: item.type,
+  }));
   // console.log(`detail data`, detailData.detail?.[0].tujuan);
   // const alamatbongkarscroll  =
-  console.log(`KendaraanModal`, KendaraanModal);
 
   const validationSchema = Yup.object().shape({
-    alamatMuat: Yup.string()
-      .required('Alamat Muat Required'),
-    alamatBongkar: Yup.string()
-      .required('Alamat Bongkar Required'),
+    alamatMuat: Yup.string().required("Alamat Muat Required"),
+    alamatBongkar: Yup.string().required("Alamat Bongkar Required"),
     // Sisipkan validasi lainnya sesuai kebutuhan
   });
-
-
-
 
   return (
     <div>
       <Card>
         <Row>
-          <h5>Detail SP</h5>
-          <EditSPNew />
+          <h5>Detail SO</h5>
+          <EditSPNew refreshtable={getDetail} />
           {/* <ModalCreateDetail idmp={idmp} detailData={detailData}/> */}
           <div className="d-flex justify-content-end">
             {jobdesk != "sales" && jobdesk != "operasional" ? (
@@ -631,8 +631,6 @@ function EditSP({ alamatInvoice }) {
 
           {/* Modal add alamat sp */}
 
-
-
           <Modal show={show} onHide={handleClose} size="lg">
             <Modal.Header closeButton>
               <Modal.Title>Masukkan Alamat</Modal.Title>
@@ -641,8 +639,8 @@ function EditSP({ alamatInvoice }) {
               <Col sm={12}>
                 <Formik
                   initialValues={{
-                    alamatMuat: '',
-                    alamatBongkar: '',
+                    alamatMuat: "",
+                    alamatBongkar: "",
                     // Sisipkan nilai awal lainnya
                   }}
                   validationSchema={validationSchema}
@@ -650,16 +648,15 @@ function EditSP({ alamatInvoice }) {
                     console.log(values);
                   }}
                 >
-                  {formikProps => (
+                  {(formikProps) => (
                     <FormikForm noValidate>
                       <Form.Group>
-
                         <Form.Label>* Alamat Muat</Form.Label>
                         <Select
                           options={options}
                           onChange={(selectedOption) => {
-                            setalamatMuatValue(selectedOption.value)
-                            setidKota(selectedOption.idKota)
+                            setalamatMuatValue(selectedOption.value);
+                            setidKota(selectedOption.idKota);
                           }}
                         />
 
@@ -671,10 +668,11 @@ function EditSP({ alamatInvoice }) {
                             <Select
                               options={options}
                               onChange={(selectedOption) => {
-                                setAlamatBongkarValue(selectedOption.value)
-                                { } setIdBongkarKota(selectedOption.idKota)
-                              }
-                              }
+                                setAlamatBongkarValue(selectedOption.value);
+                                {
+                                }
+                                setIdBongkarKota(selectedOption.idKota);
+                              }}
                             />
                           </Col>
                         </Row>
@@ -686,11 +684,12 @@ function EditSP({ alamatInvoice }) {
                               onChange={(e) => {
                                 setKendaraanValue(e.value);
                                 setNameKendaraan(e.label);
-                                console.log(`KendaraanValue.value`, e);
                               }}
                             />
                             <Form.Select
-                              onChange={(e) => setKendaraanValue(e.target.value)}
+                              onChange={(e) =>
+                                setKendaraanValue(e.target.value)
+                              }
                             >
                               <option>Pilih Kendaraan</option>
                               {KendaraanModal.map((item, index) => (
@@ -712,14 +711,13 @@ function EditSP({ alamatInvoice }) {
                           <Col sm={4}>
                             <Form.Label>* Shipment</Form.Label>
                             <Form.Select
-                              onChange={(e) =>
-                                setshipmentValue(e.target.value)
-
-                              }
+                              onChange={(e) => setshipmentValue(e.target.value)}
                             >
                               <option>Pilih Shipment</option>
                               {shipmentOptions.map((item, index) => (
-                                <option value={item.id}>{item?.shipment}</option>
+                                <option value={item.id}>
+                                  {item?.shipment}
+                                </option>
                               ))}
                             </Form.Select>
                           </Col>
@@ -779,17 +777,27 @@ function EditSP({ alamatInvoice }) {
                             <Form.Control
                               disabled
                               // value={TarifValue == "" ? TarifValue : isiTarif.biaya_jalan}
-                              // value={isiTarif?.biaya_jalan}  
-                              defaultValue={isiTarif?.biaya_jalan != 0 ? isiTarif?.biaya_jalan : TarifValue}
+                              // value={isiTarif?.biaya_jalan}
+                              defaultValue={
+                                isiTarif?.biaya_jalan != 0
+                                  ? isiTarif?.biaya_jalan
+                                  : TarifValue
+                              }
                               onChange={(e) => {
                                 setTarifValue(
                                   e.target.value == "" ? 0 : e.target.value
                                 );
                                 tarif();
                               }}
+                            ></Form.Control>
+                            <Button
+                              className="mt-1"
+                              size="sm"
+                              variant="warning"
+                              onClick={() => tarifalamat()}
                             >
-                            </Form.Control>
-                            <Button className="mt-1" size="sm" variant="warning" onClick={() => tarifalamat()}>cek tarif</Button>
+                              cek tarif
+                            </Button>
                           </Col>
                           <Col sm={4}>
                             <Form.Label>* Bongkar</Form.Label>
@@ -884,8 +892,6 @@ function EditSP({ alamatInvoice }) {
             </Modal.Footer>
           </Modal>
 
-
-
           {/* Modal Edit SP */}
           <Modal show={showSP} onHide={handleCloseSP} size="lg">
             <Modal.Header closeButton>
@@ -902,9 +908,7 @@ function EditSP({ alamatInvoice }) {
                           onChange={(e) => setKendaraanValue(e.target.value)}
                           value={detailDataTemp?.kendaraan}
                           disabled
-                        >
-
-                        </Form.Control>
+                        ></Form.Control>
                       </Col>
                       <Col sm={4}>
                         <Form.Label>* Via</Form.Label>
@@ -934,14 +938,15 @@ function EditSP({ alamatInvoice }) {
                       </Col>
                     </Row>
 
-
                     <hr />
                     <Form.Label>* Alamat Muat</Form.Label>
                     <Select
                       // defaultInputValue={detailDataTemp?.destination}
                       options={options}
                       placeholder={detailDataTemp?.destination}
-                      onChange={(selectedOption) => setalamatMuatValue(selectedOption.value)}
+                      onChange={(selectedOption) =>
+                        setalamatMuatValue(selectedOption.value)
+                      }
                     />
                     {/* <h5>Alamat Bongkar</h5> */}
                     <Row>
@@ -951,12 +956,12 @@ function EditSP({ alamatInvoice }) {
                           // defaultInputValue={detailDataTemp?.destination}
                           options={options}
                           label={detailDataTemp?.destination}
-                          onChange={(selectedOption) => setAlamatBongkarValue(selectedOption.value)}
+                          onChange={(selectedOption) =>
+                            setAlamatBongkarValue(selectedOption.value)
+                          }
                         />
                       </Col>
-
                     </Row>
-
 
                     <Row>
                       <Col sm={3}>
@@ -1010,17 +1015,27 @@ function EditSP({ alamatInvoice }) {
                         <Form.Label>* Tarif</Form.Label>
                         <Form.Control
                           // value={TarifValue == "" ? TarifValue : isiTarif.biaya_jalan}
-                          // value={isiTarif?.biaya_jalan}  
-                          defaultValue={isiTarif?.biaya_jalan != 0 ? isiTarif?.biaya_jalan : TarifValue}
+                          // value={isiTarif?.biaya_jalan}
+                          defaultValue={
+                            isiTarif?.biaya_jalan != 0
+                              ? isiTarif?.biaya_jalan
+                              : TarifValue
+                          }
                           onChange={(e) => {
                             setTarifValue(
                               e.target.value == "" ? 0 : e.target.value
                             );
                             tarif();
                           }}
+                        ></Form.Control>
+                        <Button
+                          className="mt-1"
+                          size="sm"
+                          variant="warning"
+                          onClick={() => tarifalamat()}
                         >
-                        </Form.Control>
-                        <Button className="mt-1" size="sm" variant="warning" onClick={() => tarifalamat()}>cek tarif</Button>
+                          cek tarif
+                        </Button>
                       </Col>
                       <Col sm={4}>
                         <Form.Label>* Bongkar</Form.Label>
@@ -1213,8 +1228,6 @@ function EditSP({ alamatInvoice }) {
               Tambah Alamat
             </Button> */}
           </Col>
-
-
         </Row>
         <Row>
           <Col>
@@ -1324,11 +1337,208 @@ function EditSP({ alamatInvoice }) {
                   })}</td>
                 </tr>
               </tfoot> */}
-            <p
-              className="d-flex justify-content-end"
+
+            <Row>
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end mb-2 mb-2"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}>Biaya Muat</td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="130px" style={{ paddingLeft: "10px" }}>
+                      {detailData?.totalMuat?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end mb-2"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}>Biaya Bongkar</td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="130px" style={{ paddingLeft: "10px" }}>
+                      {detailData?.totalBongkar?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end mb-2"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}>Biaya MultiDrop</td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="130px" style={{ paddingLeft: "10px" }}>
+                      {detailData?.totalMulti?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      }) === undefined ? "Rp 0,00" : detailData?.totalMulti?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end mb-2"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}>Biaya Overtonase</td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="130px" style={{ paddingLeft: "10px" }}>
+                      {detailData?.totalovertonase?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      }) === undefined ? "Rp 0,00" : detailData?.totalovertonase?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end mb-2"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}>Biaya Mel</td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="130px" style={{ paddingLeft: "10px" }}>
+                      {detailData?.biayamel?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR"
+                      })
+                        === undefined ? "Rp 0,00" : detailData?.biayamel?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end mb-2"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}>Biaya Inap</td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="130px" style={{ paddingLeft: "10px" }}>
+                      {detailData?.biayainap?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      }) === undefined ? "Rp 0,00" : detailData?.biayainap?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
+            <hr />
+            <Row>
+              <Col
+                span={12}
+                style={{ marginLeft: "10px" }}
+                className="d-flex justify-content-end mb-2"
+              >
+                <div>
+                  <tr style={{ fontWeight: "bold" }}>
+                    <td style={{ paddingRight: "20px" }}>TOTAL KESELURUHAN</td>
+                    <td style={{ paddingRight: "10px" }}>:</td>
+                    <td width="130px" style={{ paddingLeft: "10px" }}>
+                      {detailData?.Totalprice?.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                      })}
+                    </td>
+                  </tr>
+                </div>
+              </Col>
+            </Row>
+
+            {/* <p
+              className="d-flex justify-content-end mb-2"
               style={{ fontWeight: "bold" }}
             >
-              Biaya Muat :{detailData?.totalMuat?.toLocaleString("id-ID", {
+              Biaya Muat :
+              {detailData?.totalMuat?.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+              })}
+            </p> */}
+            {/* <p
+              className="d-flex justify-content-end mb-2"
+              style={{ fontWeight: "bold" }}
+            >
+              Biaya Bongkar :
+              {detailData?.totalBongkar?.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+              })}
+            </p>
+            <p
+              className="d-flex justify-content-end mb-2"
+              style={{ fontWeight: "bold" }}
+            >
+              Biaya MultiDrop :
+              {detailData?.biaya_multidrop?.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+              })}
+            </p>
+            <p
+              className="d-flex justify-content-end mb-2"
+              style={{ fontWeight: "bold" }}
+            >
+              Biaya Overtonase :
+              {detailData?.biaya_overtonase?.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+              })}
+            </p>
+            <p
+              className="d-flex justify-content-end mb-2"
+              style={{ fontWeight: "bold" }}
+            >
+              Biaya Mel :
+              {detailData?.Totalprice?.toLocaleString("id-ID", {
                 style: "currency",
                 currency: "IDR",
               })}
@@ -1337,43 +1547,8 @@ function EditSP({ alamatInvoice }) {
               className="d-flex justify-content-end"
               style={{ fontWeight: "bold" }}
             >
-              Biaya Bongkar :{detailData?.totalBongkar?.toLocaleString("id-ID", {
-                style: "currency",
-                currency: "IDR",
-              })}
-            </p>
-            <p
-              className="d-flex justify-content-end"
-              style={{ fontWeight: "bold" }}
-            >
-              Biaya MultiDrop :{detailData?.biaya_multidrop?.toLocaleString("id-ID", {
-                style: "currency",
-                currency: "IDR",
-              })}
-            </p>
-            <p
-              className="d-flex justify-content-end"
-              style={{ fontWeight: "bold" }}
-            >
-              Biaya Overtonase :{detailData?.biaya_overtonase?.toLocaleString("id-ID", {
-                style: "currency",
-                currency: "IDR",
-              })}
-            </p>
-            <p
-              className="d-flex justify-content-end"
-              style={{ fontWeight: "bold" }}
-            >
-              Biaya Mel :{detailData?.Totalprice?.toLocaleString("id-ID", {
-                style: "currency",
-                currency: "IDR",
-              })}
-            </p>
-            <p
-              className="d-flex justify-content-end"
-              style={{ fontWeight: "bold" }}
-            >
-              Biaya Inap :{detailData?.Totalprice?.toLocaleString("id-ID", {
+              Biaya Inap :
+              {detailData?.Totalprice?.toLocaleString("id-ID", {
                 style: "currency",
                 currency: "IDR",
               })}
@@ -1383,36 +1558,36 @@ function EditSP({ alamatInvoice }) {
               className="d-flex justify-content-end"
               style={{ fontWeight: "bold" }}
             >
-              TOTAL KESELURUHAN :{detailData?.Totalprice?.toLocaleString("id-ID", {
+              TOTAL KESELURUHAN :
+              {detailData?.Totalprice?.toLocaleString("id-ID", {
                 style: "currency",
                 currency: "IDR",
               })}
-            </p>
+            </p> */}
             <Form.Group>
               <Form.Label style={{ fontWeight: "bold" }}>Isi Memo</Form.Label>
               <Form.Control disabled value={memo} />
             </Form.Group>
-            <Row className="mt-3">
-              <Col sm={12}>
-                <Form.Group>
+            <Row className="mt-3 align-items-center">
+              <Col sm={9}>
+                <Form.Group className="mt-4">
                   <Form.Label style={{ fontWeight: "bold" }}></Form.Label>
-                  <Form.Control
+                  <textarea
+                    style={{ border: '2px solid blue', height: '50px', width: '100%', resize: 'none' }}
                     onChange={(e) => setTambahKomen(e.target.value)}
-                    type="text"
+                    placeholder="Tulis komentar"
                   />
                 </Form.Group>
               </Col>
-              <div className='mt-3'>
-                <Col className="text-end">
-                  <Button onClick={tambahkomen} size="sm">
-                    Tambah Komen
-                  </Button>
-                </Col>
-              </div>
-
-
+              <Col sm={3} className="text-start mt-4">
+                <Button onClick={tambahkomen} size="sm">
+                  Tambah Komen
+                </Button>
+              </Col>
             </Row>
+
             <br />
+            <Table></Table>
             <Table responsive>
               <thead>
                 <tr style={{ fontWeight: "bold", backgroundColor: "#f4dddd" }}>
@@ -1436,7 +1611,6 @@ function EditSP({ alamatInvoice }) {
             </Table>
           </Col>
           <br />
-
         </Row>
       </Card>
     </div>

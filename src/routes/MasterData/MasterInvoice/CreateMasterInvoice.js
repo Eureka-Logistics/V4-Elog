@@ -94,16 +94,36 @@ function CreateMasterInvoice() {
           setDataTambah(respons.data);
       
           // Show SweetAlert2 success message
-          Swal.fire({
-            icon: "success",
-            title: "Success",
-            text: "Data has been added successfully!",
-          }).then(() => {
-            // Reload the window after showing the success message
-            window.location.reload();
-          });
+          if (respons.status === 200) {
+            Swal.fire({
+              icon: "success",
+              title: "Success",
+              text: "Data has been saved",
+              // footer: '<a href="">Why do I have this issue?</a>'
+            }).then(() => {
+              // Reload the window after showing the success message
+              window.location.reload();
+            });;
+    
+         
+          } else if (respons.status === 500) {
+            // Swal.fire({
+            //     icon: 'error',
+            //     title: 'Oops...',
+            //     text: 'Something went wrong!',
+            //     // footer: '<a href="">Why do I have this issue?</a>'
+            //   })
+            console.log(`error`);
+          }
         } catch (error) {
-          // Handle error if needed
+          console.log(`ini error`);
+          console.error(`ini errorr`, error);
+          Swal.fire({
+            icon: "error",
+            title: "Isi Semua Data Terlebih dahulu",
+            // text: "Isi Semua Data",
+            // footer: '<a href="">Why do I have this issue?</a>'
+          });
         }
       };
       

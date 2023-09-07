@@ -36,6 +36,7 @@ const SamplePage = () => {
   const [total, setTotal] = useState(0);
   const [loadingState, setLoadingState] = useState(false);
   const [limit, setLimit] = useState(10);
+  
   const handleView = (id) => {
     router.push(`/detailTarifPelanggan/${id}`);
   };
@@ -158,8 +159,10 @@ const SamplePage = () => {
   const [listData, setListData] = useState([]);
   const [muatKota, setMuatKota] = useState("");
   const [kotaTujuan, setKotaTujuan] = useState("");
+  const [NamaMitraa, setNamaMitraa] = useState("");
   const [kotaTujuannOptionSelect, setKotaTujuanOpionSelect] = useState("");
   const [muatKotaOptionSelect, setMuatKotaOptionsSelect] = useState("");
+  const [NamaMitraOptions , setNamaMitraOptions] = useState("")
 
   const IniRowClick = (record) => {
     handleView(record.id_price_mitra);
@@ -168,7 +171,7 @@ const SamplePage = () => {
   const fetchData = async () => {
     try {
       const response = await httpClient.get(
-        `tarif/get-tarifCustomer?limit=${limit}&page=${currentPage}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_price=&id_customer=`
+        `tarif/get-tarifCustomer?limit=${limit}&page=${currentPage}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_price=&id_customer=${NamaMitraa}`
       );
       const data = response.data;
       console.log(data);
@@ -194,6 +197,8 @@ const SamplePage = () => {
       console.log(response.data);
       setMuatKotaOptionsSelect(response.data);
       setKotaTujuanOpionSelect(response.data);
+      setNamaMitraOptions(response.data);
+      // setnamaMitranyaoptionSelect(response.data);
       // Cek apakah permintaan berhasil (kode status 200-299)
       if (response.status >= 200 && response.status < 300) {
         // Mengembalikan data yang diterima dari permintaan
@@ -212,7 +217,24 @@ const SamplePage = () => {
   useEffect(() => {
     fetchData();
     getDataSelectt();
-  }, [currentPage, limit, muatKota, kotaTujuan]);
+   
+  }, [currentPage, limit, muatKota, kotaTujuan, NamaMitraa]);
+
+  const NamaMitraOptionsAPI =async ()=>{
+    try {
+      const data = await axios.get(`${Baseurl}mitra/get-select-mitraPic`, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+        }
+      });
+      console.log(`asu`,data.data.mitra);
+      setNamaMitraOptions(data.data?.mitra)
+      
+    } catch (error) {
+      
+    }
+  }
 
   const handleAdd = (id) => {
     router.push(`/NewTarifCustomer/`);
@@ -221,9 +243,9 @@ const SamplePage = () => {
 
   const handleDelete = (id) => {
     Modal.confirm({
-      title: "Are you sure you want to delete this Tarif?",
+      title: "Yakin untuk menghapus tarif ini?",
       icon: <ExclamationCircleOutlined />,
-      content: "This action cannot be undone.",
+      content: "Tindakan ini tidak dapat dibatalkan.",
       onOk() {
         const datas = {
           id_price: id,
@@ -347,7 +369,36 @@ const SamplePage = () => {
                 ))}
             </Select>
           </Col>
-          <Col sm={12} className="d-flex justify-content-end mt-3">
+          <Col sm={6}>
+              <label className="mb-2" htmlFor="MitraSelect" style={{ fontWeight: "bold" }}>
+                Search Nama Customer :
+              </label>
+              <Select
+              value={NamaMitraa}
+              name="mitra"
+              showSearch
+              optionFilterProp="children"
+              placeholder="Select Nama Mitra"
+              style={{
+                width: "100%",
+                border: "1px solid #1A5CBF",
+                borderRadius: "5px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+              }}
+              onChange={(e, options) => {
+                console.log(options);
+                setNamaMitraa(options.value);
+              }}
+            >
+              {NamaMitraOptions &&
+                NamaMitraOptions.customer.map((item, index) => (
+                  <Select.Option value={item.idCustomer}>
+                    {item.Customer}
+                  </Select.Option>
+                ))}
+            </Select>
+            </Col>
+          <Col sm={6} className="d-flex justify-content-end mt-3">
             <Button style={{backgroundColor: '#1A5CBF', color: 'white'}} onClick={handleAdd}>
               Tambah Tarif Baru
             </Button>

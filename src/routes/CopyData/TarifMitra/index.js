@@ -8,6 +8,7 @@ import {
   Modal,
   Select,
   Tag,
+  Table,
 } from "antd";
 import { useHistory } from "react-router-dom";
 import { httpClient } from "../../../Api/Api";
@@ -23,7 +24,7 @@ import {
 import { async } from "q";
 import axios from "axios";
 import Baseurl from "../../../Api/BaseUrl";
-import ZustandStore from "../../../zustand/Store/NamaMitraStore";
+import XLSX from "xlsx";
 
 const SamplePage = () => {
   const router = useHistory();
@@ -40,8 +41,8 @@ const SamplePage = () => {
   const [namaMitranyaoptionSelect, setnamaMitranyaoptionSelect] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [NamaMitraOptions , setNamaMitraOptions] = useState("")
-   
+  const [NamaMitraOptions, setNamaMitraOptions] = useState("");
+
   const handleView = (id) => {
     router.push(`/tarifmitraeditdetail/${id}`);
   };
@@ -53,6 +54,82 @@ const SamplePage = () => {
     });
     return formatter.format(angka);
   };
+  const columnss = [
+    {
+      title: "No.",
+      dataIndex: "no",
+      key: "no",
+    },
+    {
+      title: "Nama Mitra",
+      dataIndex: "mitra",
+      key: "mitra",
+    },
+    {
+      title: "Muat",
+      dataIndex: "kotaAsal",
+      key: "kotaAsal",
+    },
+    {
+      title: "Bongkar",
+      dataIndex: "kotaTujuan",
+      key: "kotaTujuan",
+    },
+    {
+      title: "Biaya Kirim",
+      dataIndex: "tarif",
+      key: "tarif",
+      render: (tarif) => formatRupiah(tarif),
+    },
+
+    {
+      title: "Keterangan",
+      dataIndex: "service_type",
+      key: "service_type",
+      render: (text) => (
+        <Tag
+          color={
+            text === "Charter"
+              ? "green"
+              : text === "Retail"
+              ? "blue"
+              : "default"
+          }
+        >
+          {text}
+        </Tag>
+      ),
+    },
+
+    {
+      title: "Aksi",
+      key: "no",
+      render: (text, record) => (
+        <Space size="middle">
+          <Button
+            onClick={() => handleView(record.id_price_mitra)}
+            type="primary"
+          >
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <FormOutlined />
+            </span>
+          </Button>
+          <Button danger onClick={() => handleDelete(record.id_price_mitra)}>
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <DeleteOutlined />
+            </span>
+            {/* <DeleteOutlined /> */}
+          </Button>
+        </Space>
+      ),
+    },
+
+    // {
+    //   title: "Keterangan",
+    //   dataIndex: "status",
+    //   key: "status",
+    // },
+  ];
   const columns = [
     // {
     //   name: "No ID",
@@ -152,8 +229,6 @@ const SamplePage = () => {
     },
   ];
 
- 
-
   const IniRowClick = (record) => {
     handleView(record.id_price_mitra);
   };
@@ -206,24 +281,21 @@ const SamplePage = () => {
   useEffect(() => {
     fetchData();
     getDataSelectt();
-    NamaMitraOptionsAPI()
+    NamaMitraOptionsAPI();
   }, [muatKota, kotaTujuan, NamaMitranya]);
 
-  const NamaMitraOptionsAPI =async ()=>{
+  const NamaMitraOptionsAPI = async () => {
     try {
       const data = await axios.get(`${Baseurl}mitra/get-select-mitraPic`, {
         headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-        }
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
       });
-      console.log(`asu`,data.data.mitra);
-      setNamaMitraOptions(data.data?.mitra)
-      
-    } catch (error) {
-      
-    }
-  }
+      console.log(`asu`, data.data.mitra);
+      setNamaMitraOptions(data.data?.mitra);
+    } catch (error) {}
+  };
 
   const ubahHalaman = (pages) => {
     fetchData(pages);
@@ -247,9 +319,9 @@ const SamplePage = () => {
 
   const handleDelete = (id) => {
     Modal.confirm({
-      title: "Are you sure you want to delete this Tarif?",
+      title: "Yakin untuk menghapus tarif ini ?",
       icon: <ExclamationCircleOutlined />,
-      content: "This action cannot be undone.",
+      content: "Tindakan ini tidak dapat dibatalkan.",
       onOk() {
         const datas = {
           id_price_mitra: id,
@@ -275,6 +347,39 @@ const SamplePage = () => {
     });
   };
 
+  const exportToExcel = () => {
+    const dataToExport = listData.map((item) => ({
+      "No.": item.no,
+      "Nama Mitra": item.mitra,
+      Muat: item.kotaAsal,
+      Bongkar: item.kotaTujuan,
+      "Biaya Kirim": formatRupiah(item.tarif),
+      Keterangan:
+        item.service_type === "Retail"
+          ? "Retail"
+          : item.service_type === "Charter"
+          ? "Charter"
+          : "",
+    }));
+  
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+
+    // Menentukan range sel yang akan diwarnai (misalnya, A1 sampai F1)
+    const range = XLSX.utils.decode_range(ws["!ref"]);
+    for (let C = range.s.c; C <= range.e.c; ++C) {
+      const cellAddress = XLSX.utils.encode_cell({ r: 0, c: C }); // Baris pertama, kolom C
+      ws[cellAddress].s = { fill: { fgColor: { rgb: "0000FF" } } }; // Mengubah warna latar belakang ke biru (0000FF)
+    }
+  
+    // Menambahkan header row ke dalam worksheet
+    XLSX.utils.sheet_add_aoa(ws, [["No.", "Nama Mitra", "Muat", "Bongkar", "Biaya Kirim", "Keterangan"]], { origin: "A1" });
+  
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Data Tarif Mitra");
+  
+    XLSX.writeFile(wb, "tarif_mitra.xlsx"); // Nama file Excel yang dihasilkan
+  };
+  
 
   return (
     <div>
@@ -377,6 +482,18 @@ const SamplePage = () => {
             <Col sm={3} className="d-flex justify-content-end mt-4">
               <Button
                 style={{
+                  backgroundColor: "green",
+                  color: "#FFFFFF",
+                  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                  borderColor: "green",
+                  marginRight: "10px",
+                }}
+                onClick={exportToExcel}
+              >
+                Export Excel
+              </Button>
+              <Button
+                style={{
                   backgroundColor: "#1A5CBF",
                   color: "#FFFFFF",
                   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
@@ -388,6 +505,7 @@ const SamplePage = () => {
                 New Tarif
               </Button>
             </Col>
+            <Col sm={3} className="d-flex justify-content-end mt-4"></Col>
             {/* <Col sm={3} className="d-flex justify-content mb-2">
               <Input style={{ width: "100%" }} placeholder="Cari Pricelist" />
             </Col> */}
@@ -402,13 +520,14 @@ const SamplePage = () => {
           
         `}
         </style>
-
-        <DataTable
+        <Table
+          className="mt-5"
           onRowClicked={IniRowClick}
-          columns={columns}
-          data={listData}
+          dataSource={listData}
+          columns={columnss}
+          pagination={false}
         />
-        <div className="mt-5 d-flex justify-content-end">
+        <div className="mt-3 d-flex justify-content-end">
           <Pagination
             onChange={ubahHalaman}
             showSizeChanger
@@ -417,6 +536,20 @@ const SamplePage = () => {
             total={total}
           />
         </div>
+        {/* <DataTable
+          onRowClicked={IniRowClick}
+          columns={columns}
+          data={listData}
+        />
+        <div className="mt-5 d-flex justify-content-end">
+          <Pagination
+            onChange={ubahHalaman}
+            showSizeChanger
+            onShowSizeChange={ubahPerHalaman}
+            defaultCurrent={100}
+            total={total}
+          />
+        </div> */}
         {/* <>
           <DataTable data={listData}  columns={columns} />
         </>

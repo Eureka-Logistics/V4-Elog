@@ -1,4 +1,4 @@
-import { Card, Pagination, Tag } from "antd";
+import { Card, Pagination, Tag, Tooltip, notification } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Form } from "react-bootstrap";
@@ -10,28 +10,46 @@ function SplistAkuntingBaru() {
   const [dataApi, setdataapi] = useState([]);
   const [combinedData, setCombinedData] = useState([]);
   const [filter, setFilter] = useState("");
+  const [TotalCurrentPage, setTotalCurrentPage] = useState("");
   const [page, setPage] = useState(1);
   const [totalRows, setTotalRows] = useState(0);
   const history = useHistory();
   const [datamobil, setDatamobil] = useState([]);
   const [loading, setLoading] = useState(false);
   const [AapproveActValue, setAapproveActValue] = useState("");
+  console.log(page);
   const columns = [
     {
       name: "No",
-      selector: (row) => row?.no,
+      selector: (row , index) => (TotalCurrentPage.currentPage -1) * 10 + index + 1,
       width: "70px",
     },
     {
       name: "No SP",
       selector: (row) => row?.sp,
       width: "150px"
-   
+
     },
     {
       name: " Perusahaan",
       selector: (row) => row?.perusahaan,
-      width: "250px"
+      width: "210px"
+    },
+    {
+      name: "Marketing",
+      selector: (row) => (
+        <Tooltip title={<>
+         {"Gl: " + row?.gl} <br />
+          {"Asm: " + row?.asm} <br />
+          {"Mgr: " + row?.mgr} <br />
+          {"Kacab: " + row?.kacab} <br />
+          {"Amd: " + row?.amd} <br />
+        </>}
+        >
+          {row?.salesName}
+        </Tooltip>
+      ),
+    
     },
     {
       name: "Service",
@@ -56,12 +74,37 @@ function SplistAkuntingBaru() {
       width: "150px"
     },
     {
+      name: "Approve By Sales",
+      cell: (row) => {
+        const approveact = row?.approveSales;
+        const dateApproveAct = row?.dateApproveSales;
+        let displayText =
+          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" ? (
+            <Tag color="green">
+              Approve <br /> <small>{dateApproveAct}</small>
+            </Tag>
+          ) : approveact === "N" && dateApproveAct === "Invalid date" || "1970-01-01 07:00:00" ? (
+            <Tag color="red">
+              Reject <br /> <small>{dateApproveAct}</small>
+            </Tag>
+          ) : (
+            <Tag color="red">
+              Reject <br /> <small>{dateApproveAct}</small>
+            </Tag>
+          );
+
+        return <>{displayText}</>;
+      },
+      width: "150px",
+    },
+
+    {
       name: "Approve By Akunting",
       cell: (row) => {
         const approveact = row?.approveAct;
         const dateApproveAct = row?.dateApproveAct;
         let displayText =
-          approveact === "Y" && dateApproveAct !== "Invalid date" || "1970-01-01 07:00:00" ? (
+          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" ? (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
@@ -85,7 +128,7 @@ function SplistAkuntingBaru() {
         const approveact = row?.approveOps;
         const dateApproveAct = row?.dateApproveOps;
         let displayText =
-          approveact === "Y" && dateApproveAct !== "Invalid date" || "1970-01-01 07:00:00" ? (
+          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" ? (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
@@ -110,7 +153,7 @@ function SplistAkuntingBaru() {
         const approveact = row?.approvePurch;
         const dateApproveAct = row?.dateApprovePurch;
         let displayText =
-          approveact === "Y" && dateApproveAct !== "Invalid date" || "1970-01-01 07:00:00" ? (
+          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" ? (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
@@ -156,8 +199,9 @@ function SplistAkuntingBaru() {
 
 
 
-    const dataapi = async (page = 1) => {
-      setLoading(true)
+  const dataapi = async (page = 1) => {
+    setLoading(true)
+    try {
       const data = await axios.get(
         `${Baseurl}sp/get-SP-all?limit=10&page=${page}&keyword=${filter}`,
         {
@@ -167,127 +211,108 @@ function SplistAkuntingBaru() {
           },
         }
       );
-      const isi = data.data.data.order.map((item) => ({
-        no: item?.no,
-        idmp: item?.idmp,
-        sp: item?.sp,
-        salesName: item?.salesName,
-        perusahaan: item?.perusahaan,
-        service: item?.service,
-        pickupDate: item?.pickupDate,
-        approveAct: item?.approveAct,
-        dateApproveAct: item?.dateApproveAct,
-        approveOps: item?.approveOps,
-        idops: item?.idops,
-        operationalName: item?.operationalName,
-        dateApproveOps: item?.dateApproveOps,
-        approvePurch: item?.approvePurch,
-        dateApprovePurch: item?.dateApprovePurch,
-      }));
-
-      // console.log(`ini`, data.data.data.order.approveAct);
-      // const detailPromises = isi.map(item => detailSP(item.idmp));
-      // const details = await Promise.all(detailPromises);
-
-      // const combinedData = isi.map((item, index) => ({
-      //   ...item,
-      //   vehicles: details[index]
-      // }));
-      setdataapi(data.data.data.order)
+    
+      setdataapi(data.data?.data?.order)
       setTotalRows(data.data.data.totalPage);
+      setTotalCurrentPage(data.data.data);
+      console.log(data.data.data);
       setCombinedData(combinedData);
       setLoading(false)
-    };
-  useEffect(() => {
+    } catch (error) {
+      notification.error({
+        message: 'Error!',
+        description: error.response.data.status.message
+      });
+    }}
+      useEffect(() => {
+        dataapi();
+      }, [filter, page]);
 
-    dataapi();
-  }, [filter, page]);
+      // console.log();
+      const handleFilterChange = (e) => {
+        setFilter(e.target.value);
+      };
 
-  // console.log();
-  const handleFilterChange = (e) => {
-    setFilter(e.target.value);
-  };
+      // const detailSP = async (idmp) => {
+      //   try {
+      //     const response = await axios.get(
+      //       `${Baseurl}sp/get-SP-all-detail?idmp=${idmp}`,
+      //       {
+      //         headers: {
+      //           "Content-Type": "application/json",
+      //           Authorization: localStorage.getItem("token"),
+      //         },
+      //       }
+      //     );
+      //     return response.data.detail.map((item) => ({
+      //       kendaraan: item?.kendaraan,
+      //       destination: item?.destination
+      //     }));
+      //   } catch (error) {
+      //     console.error(error);
+      //     return [];
+      //   }
+      // };
 
-  // const detailSP = async (idmp) => {
-  //   try {
-  //     const response = await axios.get(
-  //       `${Baseurl}sp/get-SP-all-detail?idmp=${idmp}`,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: localStorage.getItem("token"),
-  //         },
-  //       }
-  //     );
-  //     return response.data.detail.map((item) => ({
-  //       kendaraan: item?.kendaraan,
-  //       destination: item?.destination
-  //     }));
-  //   } catch (error) {
-  //     console.error(error);
-  //     return [];
-  //   }
-  // };
-
-  // useEffect(() => {
-  // }, [datamobil]);
-  const onShowSizeChange = (page, pageSize) => {
-    // console.log(current, pageSize);
-    dataapi(page)
-  };
-  return (
-    <div>
-      <Card>
-        <h5>Data SP List</h5>
-        <Row>
-          <Col>
+      // useEffect(() => {
+      // }, [datamobil]);
+      const onShowSizeChange = (page, pageSize) => {
+        // console.log(current, pageSize);
+        dataapi(page)
+      };
+      return (
+        <div>
+          <Card>
+            <h5>Data SP List</h5>
             <Row>
-              
-              <div className="d-flex justify-content-end">
-                <Col sm={3}>
-                  <Form.Control
-                    type="text"
-                    placeholder="No SP "
-                    onChange={handleFilterChange}
+              <Col>
+                <Row>
 
-                  />
-                </Col>
-              </div>
-            </Row>
-            <style>
-              {`
+                  <div className="d-flex justify-content-end mb-3">
+                    <Col sm={3}>
+                      <Form.Control
+                        type="text"
+                        placeholder="No SP "
+                        onChange={handleFilterChange}
+
+                      />
+                    </Col>
+                  </div>
+                </Row>
+                <style>
+                  {`
           .rdt_TableBody .rdt_TableRow:hover {
             cursor: pointer;
             background-color: #C7E1FB;
           }
           
         `}
-            </style>
-            {loading ? (
-              <img className="d-flex justify-content-center" src={elogGif} width="800px" />
-            ) : (
+                </style>
+                {loading ? (
+                  <img className="d-flex justify-content-center" src={elogGif} width="800px" />
+                ) : (
 
-              <DataTable
-                columns={columns}
-                data={dataApi}
-                paginationTotalRows={totalRows}
-                onRowClicked={buttonarahin}
-              />
-            )}
-            <div className="mt-3 justify-content-end d-flex">
-            <Pagination
-              showSizeChanger
-              onShowSizeChange={onShowSizeChange}
-              onChange={onShowSizeChange}
-              defaultCurrent={1}
-              total={totalRows}
-            />
-            </div>
-          </Col>
-        </Row>
-      </Card>
-    </div>
-  );
-}
+                  <DataTable
+                    columns={columns}
+                    data={dataApi}
+                    paginationTotalRows={totalRows}
+                    onRowClicked={buttonarahin}
+                  />
+                )}
+                <div className="mt-3 justify-content-end d-flex">
+                  <Pagination
+                    showSizeChanger
+                    onShowSizeChange={onShowSizeChange}
+                    onChange={onShowSizeChange}
+                    defaultCurrent={1}
+                    total={totalRows}
+                  />
+                </div>
+              </Col>
+            </Row>
+          </Card>
+        </div>
+      );
+    }
 
-export default SplistAkuntingBaru;
+    export default SplistAkuntingBaru;

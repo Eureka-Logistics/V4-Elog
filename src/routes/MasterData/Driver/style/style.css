@@ -1,0 +1,6 @@
+.card-image {
+    max-width: 100%;
+    max-height: auto;
+    object-fit: cover; /* ini akan memastikan gambar menutupi seluruh area tanpa mengubah rasio aspeknya */
+  }
+  
