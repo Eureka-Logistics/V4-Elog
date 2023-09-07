@@ -295,7 +295,7 @@ const SamplePage = () => {
              New Master Alamat
             </Button>
             <Modal
-              title="Add New Master Alamat"
+              title="ADD NEW ADDRESS"
               open={isModalOpen}
               onOk={handleOk}
               onCancel={handleCancel}

@@ -34,6 +34,7 @@ function NewTarifCustomer() {
   const [KodeID, setKodeID] = useState("");
   const [id_price_eureka, setid_price_eureka] = useState("");
   const [DataIdPriceEureka, setDataPriceIdEureka] = useState("");
+  const [DataDiskonPersen, setDataDiskonPersen] = useState("");
 
   const GetSelectData = async () => {
     try {
@@ -165,6 +166,13 @@ function NewTarifCustomer() {
     const formattedValue = `${parseInt(value).toLocaleString("id-ID")}`;
     return formattedValue;
   };
+  
+  const toRupiah = (angka) => {
+    var rupiah = '';
+    var angkarev = angka.toString().split('').reverse().join('');
+    for (var i = 0; i < angkarev.length; i++) if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + '.';
+    return `${rupiah.split('', rupiah.length - 1).reverse().join('')}`;
+}
 
   const handleChangse = (e) => {
     const value = e.target.value;
@@ -506,15 +514,20 @@ function NewTarifCustomer() {
           <label style={{ fontWeight: "bold" }}>Biaya Muat :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
-            type="number"
+            type="text"
             className="mt-2 mb-2"
             name="biaya_muat"
             // placeholder="-"
-            value={DataBiayaMuat}
+            value={toRupiah(DataBiayaMuat)}
+            // value={DataBiayaMuat}
             onChange={(e) => {
-              console.log(e.target.value);
-              setDataBiayaMuat(e.target.value);
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setDataBiayaMuat(inputAngka); // Set nilai tanpa tanda titik
             }}
+            // onChange={(e) => {
+            //   console.log(e.target.value);
+            //   setDataBiayaMuat(e.target.value);
+            // }}
           />
         </Col>
         <Col span={6}>
@@ -524,59 +537,75 @@ function NewTarifCustomer() {
             type="text"
             className="mt-2 mb-2"
             name="biaya_bongkar"
-            placeholder="-"
+            value={toRupiah(DataBiayaBongkar)}
+            // value={DataBiayaMuat}
+            onChange={(e) => {
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setDataBiayaBongkar(inputAngka); // Set nilai tanpa tanda titik
+            }}
+            // placeholder="-"
             // onChange={(e) => {
             //   console.log(e.target.value);
             //   setDataBiayaBongkar(e.target.value);
             // }}
-            onChange={handleChangse}
-            value={DataBiayaBongkar}
+            // onChange={handleChangse}
+            // value={DataBiayaBongkar}
           />
         </Col>
         <Col span={6}>
           <label style={{ fontWeight: "bold" }}>Biaya Overtonase :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
-            type="number"
+            type="text"
             className="mt-2 mb-2"
             name="biaya_overtonase"
-            // placeholder="-"
-            value={DataBiayaBongkar}
+            value={toRupiah(DataBiayaOvertonase)}
+            // value={DataBiayaMuat}
             onChange={(e) => {
-              console.log(e.target.value);
-              setDataBiayaOvertonase(e.target.value);
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setDataBiayaOvertonase(inputAngka); // Set nilai tanpa tanda titik
             }}
+            // placeholder="-"
+            // value={DataBiayaOvertonase}
+            // onChange={(e) => {
+            //   console.log(e.target.value);
+            //   setDataBiayaOvertonase(e.target.value);
+            // }}
           />
         </Col>
         <Col span={6}>
           <label style={{ fontWeight: "bold" }}>Biaya MultiDrop :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
-            type="number"
+            type="text"
             className="mt-2 mb-2"
             name="biaya_muat"
-            // placeholder="-"
-            value={DataBiayaMultiDrop}
+            value={toRupiah(DataBiayaMultiDrop)}
+            // value={DataBiayaMuat}
             onChange={(e) => {
-              console.log(e.target.value);
-              setDataBiayaMultiDrop(e.target.value);
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setDataBiayaMultiDrop(inputAngka); // Set nilai tanpa tanda titik
             }}
+            // placeholder="-"
+            // value={DataBiayaMultiDrop}
+            // onChange={(e) => {
+            //   console.log(e.target.value);
+            //   setDataBiayaMultiDrop(e.target.value);
+            // }}
           />
         </Col>
       </Row>
       <Row>
         <Col span={6}>
           <label style={{ fontWeight: "bold" }}>Biaya Overtonase :</label>
-          {/* Menghubungkan input tarif dengan state tarif */}
           <Input
-            type="number"
+            type="text"
             className="mt-2 mb-2"
             name="biaya_overtonase"
-            // placeholder="-"
-            value={DataBiayaOvertonase}
+            value={toRupiah(DataBiayaOvertonase)}
             onChange={(e) => {
-              console.log(e.target.value);
-              setDataBiayaOvertonase(e.target.value);
+              const inputAngka = e.target.value.replace(/\D/g, ""); 
+              setDataBiayaOvertonase(inputAngka); 
             }}
           />
         </Col>
@@ -584,58 +613,82 @@ function NewTarifCustomer() {
           <label style={{ fontWeight: "bold" }}>Biaya Tambahan :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
-            type="number"
+            type="text"
             className="mt-2 mb-2"
             name="biaya_tambahan"
-            // placeholder="-"
-            value={DataBiayaTambahan}
+            value={toRupiah(DataBiayaTambahan)}
+            // value={DataBiayaMuat}
             onChange={(e) => {
-              console.log(e.target.value);
-              setDataBiayaTambahan(e.target.value);
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setDataBiayaTambahan(inputAngka); // Set nilai tanpa tanda titik
             }}
+            // placeholder="-"
+            // value={DataBiayaTambahan}
+            // onChange={(e) => {
+            //   console.log(e.target.value);
+            //   setDataBiayaTambahan(e.target.value);
+            // }}
           />
         </Col>
         <Col span={6}>
           <label style={{ fontWeight: "bold" }}>Biaya Mel :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
-            type="number"
+            type="text"
             className="mt-2 mb-2"
             name="biaya_mel"
-            value={DataBiayaMel}
+            value={toRupiah(DataBiayaMel)}
+            // value={DataBiayaMuat}
             onChange={(e) => {
-              console.log(e.target.value);
-              setDataBiayaMel(e.target.value);
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setDataBiayaMel(inputAngka); // Set nilai tanpa tanda titik
             }}
+            // value={DataBiayaMel}
+            // onChange={(e) => {
+            //   console.log(e.target.value);
+            //   setDataBiayaMel(e.target.value);
+            // }}
           />
         </Col>
         <Col span={6}>
           <label style={{ fontWeight: "bold" }}>Biaya Lain :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
-            type="number"
+            type="text"
             className="mt-2 mb-2"
             name="biaya_lain"
-            value={DataBiayaLain}
+            value={toRupiah(DataBiayaLain)}
+            // value={DataBiayaMuat}
             onChange={(e) => {
-              console.log(e.target.value);
-              setDataBiayaLain(e.target.value);
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setDataBiayaLain(inputAngka); // Set nilai tanpa tanda titik
             }}
+            // value={DataBiayaLain}
+            // onChange={(e) => {
+            //   console.log(e.target.value);
+            //   setDataBiayaLain(e.target.value);
+            // }}
           />
         </Col>
         <Col span={6}>
           <label style={{ fontWeight: "bold" }}>Biaya Multimuat :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
-            type="number"
+            type="text"
             className="mt-2 mb-2"
             name="biaya_multimuat
             "
-            value={DataBiayaMultimuat}
+            value={toRupiah(DataBiayaMultimuat)}
+            // value={DataBiayaMuat}
             onChange={(e) => {
-              console.log(e.target.value);
-              setDataBiayaMultimuat(e.target.value);
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setDataBiayaMultimuat(inputAngka); // Set nilai tanpa tanda titik
             }}
+            // value={DataBiayaMultimuat}
+            // onChange={(e) => {
+            //   console.log(e.target.value);
+            //   setDataBiayaMultimuat(e.target.value);
+            // }}
           />
         </Col>
       </Row>

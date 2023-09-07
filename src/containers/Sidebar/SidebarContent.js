@@ -230,14 +230,14 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Invoice Customer">
+                  <Menu.Item key="Alamat Invoice">
                     <Link
                       to="/invoicecustomer"
                       style={{ textDecoration: "none" }}
                     >
                       <FileProtectOutlined style={{ fontSize: "20px" }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
-                        Invoice Customer
+                      Alamat Invoice
                       </span>
                       {/* <span style={{ fontWeight: "bold",  color: 'white' }}>Data Alamat All</span> */}
                     </Link>
@@ -528,7 +528,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </SubMenu> */}
-                  <div
+                  {/* <div
                     className="d-flex justify-content-center"
                     style={{ backgroundColor: "#0c2197", height: "20%" }}
                   >
@@ -590,7 +590,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         Report Pembayaran Customer
                       </span>
                     </Link>
-                  </Menu.Item>
+                  </Menu.Item> */}
 
                   <div
                     className="d-flex justify-content-center"

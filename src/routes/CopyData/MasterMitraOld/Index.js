@@ -1,4 +1,4 @@
-    import { Card, Space, Tag, Pagination, Button } from "antd";
+import { Card, Space, Tag, Pagination, Button, Select } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Modal } from "antd";
@@ -24,10 +24,8 @@ const SamplePage = () => {
   const [DataPagination, setDataPagination] = useState("");
   const [SearchData, setSearchData] = useState("");
   const [PilihTahun, setTahun] = useState("");
-
+  const [StatusMitra, setStatusMitra] = useState("");
   const [filter, setFilter] = useState("");
-
- 
 
   // const ubahPerHalaman = (perhalaman) => {
   //   fetchData(perhalaman);
@@ -41,10 +39,8 @@ const SamplePage = () => {
     },
     {
       name: "Mitra Code",
-      selector: (row) =>
-      <Tag color="blue">{ row.mitraCode}</Tag>,
-      width: "120px",
-     
+      selector: (row) => <Tag color="blue">{row.mitraCode}</Tag>,
+      width: "130px",
     },
     {
       name: "Status",
@@ -68,12 +64,12 @@ const SamplePage = () => {
     {
       name: "Mitra Name",
       selector: (row) => row.mitraName,
-      width: "100px",
+      width: "200px",
     },
     {
       name: "Mitra Address",
       selector: (row) => row.mitraAddress,
-      width: "150px",
+      width: "170px",
     },
     {
       name: "Awal Kontrak",
@@ -162,13 +158,16 @@ const SamplePage = () => {
   const fetchData = async (page = 1, perhalaman = 10) => {
     setLoading(true);
     httpClient
-      .get(`mitra/get-mitra?limit=${perhalaman}&page=${page}`)
+
+      .get(
+        `mitra/get-mitra?limit=${perhalaman}&page=${page}&status=${StatusMitra}`
+      )
       .then(({ data }) => {
         if (data.status.code === 200) {
           const dataawal = data.data.order;
           setDataapiawal(dataawal);
           setDataPagination(data.data.totalData);
-        
+
           setLoading(false);
         }
       })
@@ -209,7 +208,7 @@ const SamplePage = () => {
 
   useEffect(() => {
     fetchData();
-  }, [ filter]);
+  }, [filter, StatusMitra]);
 
   // const handlePageChange = (page) => {
   //   setPageInfo((prevPageInfo) => ({
@@ -225,7 +224,9 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
-        <h5 style={{color: '#113D7F', fontWeight: 'bold'}}>Data Master Mitra</h5>
+        <h5 style={{ color: "#113D7F", fontWeight: "bold" }}>
+          Data Master Mitra
+        </h5>
         <Row>
           <Col>
             {/* <Row className="d-flex justify-content-end">
@@ -236,12 +237,37 @@ const SamplePage = () => {
                 />
               </Col>
             </Row> */}
-           <Row>
-            <Col sm={12} className="d-flex justify-content-end">
-            <CreateMitraModal />
-            </Col>
-           </Row>
+            <Row className="mt-3">
+              <Col sm={2}>
+                <label className="mb-2" htmlFor="StatusMitra" style={{fontWeight: '400', fontFamily: 'NoirPro'}}>
+                  Search Status:
+                </label>
+                <Select
+                  value={StatusMitra}
+                  showSearch
+                  placeholder="Select Status"
+                  style={{
+                    width: "100%",
+                    border: "1px solid #1A5CBF",
+                    borderRadius: "5px",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                  }}
+                  onChange={(e, options) => {
+                    console.log(options);
+                    setStatusMitra(options.value);
+                  }}
+                >
+                  <option value={"0"}>Tidak Aktif</option>
+                  <option value={"1"}>Aktif</option>
+                  <option value={"2"}>Habis Kontrak</option>
+                </Select>
+              </Col>
+              <Col sm={10} className="d-flex justify-content-end mt-3">
+                <CreateMitraModal />
+              </Col>
+            </Row>
             <DataTable
+            className="mt-3"
               columns={columns}
               data={dataapiawal}
               // pagination

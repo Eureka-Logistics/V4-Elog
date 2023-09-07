@@ -87,6 +87,11 @@ const SamplePage = () => {
       key: "customer",
     },
     {
+      title: "Service",
+      dataIndex: "service_type",
+      key: "service_type",
+    },
+    {
       title: "Muat",
       dataIndex: "kotaAsal",
       key: "kotaAsal",

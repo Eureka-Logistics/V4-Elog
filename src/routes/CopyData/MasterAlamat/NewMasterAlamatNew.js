@@ -131,7 +131,7 @@ function NewMasterAlamatNew() {
 
   return (
     <div>
-      <Card>
+      <>
         <Row>
           <Col span={24} style={{ width: "100%" }}>
             <label style={{ fontWeight: "bold" }}>Nama Pelanggan :</label>
@@ -231,7 +231,7 @@ function NewMasterAlamatNew() {
             />
           </Col>
           <Col span={12}>
-            <label style={{ fontWeight: "bold" }}>Email :</label>
+            <label style={{ fontWeight: "bold" }}>Emaillllll :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
               className="mt-2 mb-2"
@@ -303,6 +303,8 @@ function NewMasterAlamatNew() {
               onChange={(e, options) => {
                 console.log(options.key);
                 setDataProvinsi(options.key);
+                setDataKota("");
+                setDataKecamatan("");
               }}
             >
               {DataTambah &&
@@ -322,7 +324,7 @@ function NewMasterAlamatNew() {
             <Select
               className="mt-2"
               showSearch
-              placeholder="Select Kota"
+              value={DataKota}
               optionFilterProp="label"
               style={{ width: "90%" }}
               options={KotaOptions}
@@ -338,7 +340,7 @@ function NewMasterAlamatNew() {
             <Select
               className="mt-2"
               showSearch
-              placeholder="Select Kecamatan"
+              value={DataKecamatan}
               optionFilterProp="label"
               style={{ width: "90%" }}
               options={KecamatanOptions}
@@ -351,10 +353,10 @@ function NewMasterAlamatNew() {
         </Row>
         <Row className="mt-3">
           <Col className="d-flex justify-content-end" span={24}>
-            <Button onClick={TambahData} type="primary">Save</Button>
+            <Button onClick={TambahData} type="primary">SAVE ADDRESS</Button>
           </Col>
         </Row>
-      </Card>
+      </>
     </div>
   );
 }

@@ -314,7 +314,7 @@ function Detail() {
           </Col>
         </Row>
         <Row>
-          <Col className="mt-2" span={12}>
+          {/* <Col className="mt-2" span={12}>
             <label style={{ fontWeight: "bold" }}>Employee Position :</label>
 
             <Select
@@ -339,9 +339,9 @@ function Detail() {
                   </Select.Option>
                 ))}
             </Select>
-          </Col>
+          </Col> */}
 
-          <Col span={12} className="mt-2">
+          <Col span={24} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Job Level :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "0px" }}>

@@ -2,10 +2,12 @@ import { Button, Card, Col, Pagination, Row, Space, Table, Tag, Modal } from 'an
 import React, { useEffect, useState } from 'react'
 import Baseurl from '../../../../Api/BaseUrl';
 import axios from 'axios';
-import { FormOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined, ExclamationCircleOutlined, FormOutlined } from '@ant-design/icons';
 import { useHistory } from "react-router-dom";
 import CreateBUEmployee from '../BUEmployee/CreateBUEmployee';
 import CreateEmployeePosition from './CreateEmployeePosition';
+import AddNewPosition from './AddNewPosition';
+import { httpClient } from '../../../../Api/Api';
 
 function Index() {
   const router = useHistory();
@@ -19,6 +21,11 @@ function Index() {
   const handleView = (id) => {
     router.push(`/DataBuEmployeePositionEditDetail/${id}`);
     console.log("ini id_bu", id);
+  };
+
+  const handleAdds = () => {
+    router.push(`/mastermitraPIC/`);
+    // router.push(`/pelanggantarifcerate/`);
   };
 
   
@@ -65,6 +72,26 @@ function Index() {
       key: "position",
     },
     {
+      title: "Nama Atasan",
+      dataIndex: "name",
+      key: "name",
+      render: (text, record) => {
+        if (text === "" || text === "-") {
+          return (
+            <span>
+              <Tag color='red' onClick={showInformation}>Tambah Nama Atasan</Tag>
+            </span>
+          );
+        } else {
+          return (
+            <span >
+              <Tag color='green' > {text} </Tag> <Tag style={{marginLeft: '2px'}} color='red' onClick={() => showDeleteConfirmationModal(record)}>x</Tag>
+            </span>
+          );
+        }
+      },
+    },
+    {
       title: "Aksi",
       key: "no",
       render: (text, record) => (
@@ -99,12 +126,80 @@ function Index() {
   };
 
   const handleOk = () => {
-    // Place your logic here to handle OK button click
     setIsModalVisible(false);
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
+  };
+
+  const showInformation = () => {
+    const closeModal = () => {
+      Modal.destroyAll();
+    };
+    Modal.info({
+      title: 'Input Nama Atasan',
+      content: (
+        <div>
+          <div
+          type="default"
+          onClick={closeModal}
+          style={{
+            position: 'absolute',
+            top: '10px',
+            right: '30px',
+            zIndex: 1, // Pastikan tombol "X" ada di atas modal
+          }}
+        >
+         <CloseCircleOutlined style={{fontSize: '20px'}}/>
+        </div>
+        <AddNewPosition />
+      </div>
+      ),
+       okButtonProps: { style: { display: 'none' } },
+       
+    });
+  };
+
+  const showDeleteConfirmationModal = (record) => {
+    Modal.confirm({
+      title: 'Konfirmasi Hapus Data',
+      content: `Anda yakin ingin menghapus data employee bernama ${record.name}?`,
+      okText: 'Yakin',
+      okType: 'danger',
+      cancelText: 'Batal',
+      onOk: () => handleDelete(record.employeeId), // Panggil fungsi handleDelete dengan ID employee
+    });
+  };
+
+  const handleDelete = (employeeId) => {
+    Modal.confirm({
+      title: "Klik 'OK' untuk menghapus Data !",
+      icon: <ExclamationCircleOutlined />,
+      content: "Klik 'Cancel' jika tidak jadi untuk menghapus data",
+      onOk() {
+        const datas = {
+          id_employee: employeeId,
+        };
+        httpClient
+          .post(`bu/del-employee-position`, datas)
+          .then(({ data }) => {
+            if (data.status.code === 200) {
+              const newOrder = listData.filter(
+                (item) => item.id_employee !== employeeId
+              );
+              setListData(newOrder);
+              window.location.reload();
+              // Reload the data after successful deletion if necessary
+              // fetchData();
+            }
+          })
+          .catch(function (error) {
+            console.log(error.message);
+          });
+      },
+      onCancel() {},
+    });
   };
 
   return (

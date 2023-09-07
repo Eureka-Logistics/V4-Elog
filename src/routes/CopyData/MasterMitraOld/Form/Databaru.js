@@ -95,6 +95,10 @@ function DataBaru({ mitraId, DataOptions }) {
   const [DataTahunRegister, setDataTahunRegister] = useState("");
   const [DataMemo, setDataMemo] = useState("");
   const [DataType, setDataType] = useState("");
+  const [DataPicId, setDataPicId] = useState("");
+  const [selectMitraPIC, setselectMitraPIC] = useState("");
+  const [DataPic, setDataPic] = useState("");
+  const [DataIDPic, setDataIDPic] = useState("");
 
   const handleView = () => {
     router.push(`/PrintMasterMitra/`);
@@ -207,6 +211,7 @@ function DataBaru({ mitraId, DataOptions }) {
     setDataMemo(data.data.data?.memo || "");
     setDataType(data.data.data?.type || "");
     setDataBlok(data.data.data?.npwp_blok || "");
+    setDataPicId(data.data.data?.pic_id || "")
 
     // console.log("ini detail mitra", data.data.data);
 
@@ -374,6 +379,7 @@ function DataBaru({ mitraId, DataOptions }) {
         memo: DataMemo,
         type: DataType,
         metode_pembayaran: TypeOfPayment,
+        pic_id: DataPicId, 
       };
 
       const response = await axios.post(`${Baseurl}mitra/edit-mitra`, data, {
@@ -428,6 +434,7 @@ function DataBaru({ mitraId, DataOptions }) {
     DetailMitra();
     OptionsData();
     setDataKodeMitraZustand();
+    OptionsDataSelectMitra();
   }, []);
 
   const OptionsData = async () => {
@@ -443,6 +450,21 @@ function DataBaru({ mitraId, DataOptions }) {
     );
     // console.log(data.data, "ini data options");
     setTitleSelect(data.data.jabatan);
+  };
+
+  const OptionsDataSelectMitra = async () => {
+    const respons = await axios.get(
+      `${Baseurl}mitra/get-select-mitra`,
+
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem(`token`),
+        },
+      }
+    );
+    console.log(respons.data, "ini data options");
+    setselectMitraPIC(respons.data);
   };
 
   return (
@@ -643,6 +665,59 @@ function DataBaru({ mitraId, DataOptions }) {
             </Col>
           </Row>
           <Row>
+          {/* <Col sm={4} style={{ padding: "0px" }}>
+              <Form.Item
+                label="PIC Purchasing :"
+                style={{ fontWeight: "bold" }}
+                name="-"
+                rules={[
+                  { required: false, message: "Please input your alamat!" },
+                ]}
+              >
+                <Input  className="mt-2"
+                  value={DataPICPurchasing}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setDataPICPurchasing(e.target.value);
+                  }}/>
+              </Form.Item>
+            </Col> */}
+          <Col sm={4} style={{ padding: "0px" }}>
+              <Form.Item
+                label="PIC Purchasing :"
+                style={{ fontWeight: "bold" }}
+                name="pic_id"
+                rules={[
+                  { required: false, message: "Please input your jenis!" },
+                ]}
+              >
+                <Select
+              showSearch
+              className="mt-2"
+              // placeholder={DetailDataTarif.kendaraanJenis}
+              value={DataPicId}
+              optionFilterProp="value"
+              style={{ width: "90%" }}
+              onChange={(e, options) => {
+                console.log(options.key);
+                setDataPic(options);
+                setDataPicId(options.key);
+              }}
+            >
+              {selectMitraPIC &&
+                selectMitraPIC.marketing.map((i) => (
+                  <Select.Option
+                    key={i.id}
+                    value={i.fullname}
+                  >
+                    {i.fullname}
+                  </Select.Option>
+                ))}
+            </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row>
             <Col sm={12} style={{ padding: "0px" }}>
               <Form.Item
                 label="Alamat :"
@@ -663,23 +738,7 @@ function DataBaru({ mitraId, DataOptions }) {
                 />
               </Form.Item>
             </Col>
-            {/* <Col sm={4} style={{ padding: "0px" }}>
-              <Form.Item
-                label="PIC Purchasing :"
-                style={{ fontWeight: "bold" }}
-                name="-"
-                rules={[
-                  { required: false, message: "Please input your alamat!" },
-                ]}
-              >
-                <Input  className="mt-2"
-                  value={DataPICPurchasing}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                    setDataPICPurchasing(e.target.value);
-                  }}/>
-              </Form.Item>
-            </Col> */}
+           
           </Row>
           <Row>
             <Col sm={4} style={{ padding: "0px" }}>

@@ -9,6 +9,7 @@ import { parseDateTimeSkeleton } from "@formatjs/icu-skeleton-parser";
 import { right } from "@popperjs/core";
 import userEvent from "@testing-library/user-event";
 
+
 const { Option } = Select;
 
 function DetailTarifPelanggan() {
@@ -181,13 +182,16 @@ function DetailTarifPelanggan() {
     setViaData(value);
   };
 
+ 
+  
+
   return (
     <div>
       <Card>
         <h5>Edit dan Detail Tarif Customer</h5>
         <Row>
         <Col className="mt-2" span={6}>
-          <label>Code Tarif :</label>
+          <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Code Tarif :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input
@@ -198,7 +202,7 @@ function DetailTarifPelanggan() {
             </div>
           </Col>
           <Col className="mt-2" span={6}>
-            <label>Customer :</label>
+            <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Customer :</label>
             <Select
               className="mt-2"
               showSearch
@@ -224,7 +228,7 @@ function DetailTarifPelanggan() {
           </Col>
 
           <Col className="mt-2" span={6}>
-            <label>Kota Muat :</label>
+            <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Kota Muat :</label>
             <Select
               className="mt-2"
               showSearch
@@ -249,7 +253,7 @@ function DetailTarifPelanggan() {
             </Select>
           </Col>
           <Col className="mt-2" span={6}>
-            <label>Kota Tujuan :</label>
+            <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Kota Tujuan :</label>
             <Select
               className="mt-2"
               showSearch
@@ -276,7 +280,7 @@ function DetailTarifPelanggan() {
         </Row>
         <Row>
           <Col className="mt-2" span={6}>
-            <label>Jenis Kendaraan :</label>
+            <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Jenis Kendaraan :</label>
             <Select
               className="mt-2"
               showSearch
@@ -301,7 +305,7 @@ function DetailTarifPelanggan() {
           </Col>
 
           <Col className="mt-2" span={6}>
-            <label>Service Type :</label>
+            <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Service Type :</label>
             <Select
               className="mt-2"
               // placeholder={DetailDataTarif.service_type}
@@ -314,7 +318,7 @@ function DetailTarifPelanggan() {
             </Select>
           </Col>
           <Col className="mt-2" span={6}>
-            <label>Jenis Kiriman :</label>
+            <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Jenis Kiriman :</label>
             <Select
               className="mt-2"
               value={Kiriman}
@@ -326,7 +330,7 @@ function DetailTarifPelanggan() {
             </Select>
           </Col>
           <Col className="mt-2" span={6}>
-          <label>Via :</label>
+          <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Via :</label>
             <Select
               className="mt-2"
               value={JenisVia}
@@ -341,7 +345,7 @@ function DetailTarifPelanggan() {
         </Row>
         <Row>
           {/* <Col className="mt-2" span={8}>
-            <label>Discount Type :</label>
+            <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Discount Type :</label>
             <Select
               className="mt-2"
               placeholder={TipeDiskon}
@@ -361,7 +365,7 @@ function DetailTarifPelanggan() {
         <h5>Tarif</h5>
         <Row>
         <Col className="mt-2" span={6}>
-          <label>ID Price Eureka :</label>
+          <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Kode Tarif Eureka :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input
@@ -376,7 +380,7 @@ function DetailTarifPelanggan() {
             </div>
           </Col>
         <Col className="mt-2" span={6}>
-          <label>Tarif Katalog :</label>
+          <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Tarif Katalog :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input
@@ -391,7 +395,7 @@ function DetailTarifPelanggan() {
             </div>
           </Col>
         <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
-            <label>Discount :</label>
+            <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Discount :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input
@@ -406,7 +410,7 @@ function DetailTarifPelanggan() {
             </div>
           </Col>
           <Col className="mt-2" span={6}>
-          <label>Tanggal Pembuatan :</label>
+          <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Tanggal Pembuatan :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input
@@ -428,7 +432,7 @@ function DetailTarifPelanggan() {
         <h5>Biaya Lainnya</h5>
         <Row>
         <Col className="mt-2" span={8}>
-          <label>Biaya Muat :</label>
+          <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Biaya Muat :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input
@@ -442,7 +446,7 @@ function DetailTarifPelanggan() {
             </div>
           </Col>
         <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
-            <label>Biaya Bongkar :</label>
+            <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Biaya Bongkar :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input
@@ -456,7 +460,7 @@ function DetailTarifPelanggan() {
             </div>
           </Col>
         <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
-            <label>Biaya Overtonase :</label>
+            <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Biaya Overtonase :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input
@@ -473,7 +477,7 @@ function DetailTarifPelanggan() {
         </Row>
         <Row>
         <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
-            <label>Biaya MultiDrop :</label>
+            <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Biaya MultiDrop :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input
@@ -487,7 +491,7 @@ function DetailTarifPelanggan() {
             </div>
           </Col> 
         <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
-            <label>Biaya Tambahan :</label>
+            <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Biaya Tambahan :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input
@@ -502,7 +506,7 @@ function DetailTarifPelanggan() {
           </Col>
       
         <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
-            <label>Biaya Multimuat :</label>
+            <label style={{fontFamily: 'NoirPro', fontWeight: 'bold'}}>Biaya Multimuat :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
               <Input

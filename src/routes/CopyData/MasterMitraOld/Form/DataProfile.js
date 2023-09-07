@@ -44,6 +44,7 @@ const SamplePage = () => {
       kode: "",
       title: "",
       nama_mitra: "",
+      pic_id: "",
       jenis: "",
       jenis_usaha: "",
       kepemilikan: "",
@@ -1434,7 +1435,7 @@ const SamplePage = () => {
                   <option value={"elogs"}>ELOGS</option>
                   <option value={"race"}>RACE</option>
                   <option value={"masdis"}>MASDIS</option>
-                  <option value={"katarasa"}>KATARSA</option>
+                  <option value={"katarasa"}>KATARASA</option>
                   <option value={"jaja"}>JAJA</option>
                 </Select>
               </Form.Group>

@@ -37,8 +37,8 @@ const SamplePage = () => {
   const [via, setVia] = useState("");
   const [IdMitra, setIdMitra] = useState("");
   const [Tarif, setTarif] = useState(10000);
-  const [Ritase, setRitase] = useState(0.1);
-  const [UangJalan, setUangJalan] = useState(10000);
+  const [Ritase, setRitase] = useState(0.0);
+  const [UangJalan, setUangJalan] = useState(0);
   const [viaOptions, setViaOptions] = useState([]);
   const [jenisDiskon, setJenisDiskon] = useState("");
   const [KodeID, setKodeID] = useState("");
@@ -297,6 +297,14 @@ const SamplePage = () => {
 
   console.log("ini dia muat kota", jenisLayanan);
 
+  const toRupiah = (angka) => {
+    var rupiah = '';
+    var angkarev = angka.toString().split('').reverse().join('');
+    for (var i = 0; i < angkarev.length; i++) if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + '.';
+    return `${rupiah.split('', rupiah.length - 1).reverse().join('')}`;
+}
+
+
   return (
     <div>
       <Card>
@@ -441,14 +449,25 @@ const SamplePage = () => {
                 <Form.Label style={{fontWeight: `bold`}}>Tarif</Form.Label>
                 <InputGroup>
                   <Form.Control
-                    // name="tarif"
-                    type="number"
-                    step="0.01" // Menambahkan desimal dengan step 0.01
+                    type="text"
+                    value={toRupiah(Tarif)} // Menggunakan fungsi toRupiah
+                    onChange={(e) => {
+                      const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+                      setTarif(inputAngka); // Set nilai tanpa tanda titik
+                    }}
+                    isInvalid={!!formik.errors.tarif}
+                  />
+                </InputGroup>
+                {/* <InputGroup>
+                  <Form.Control
+                  
+                    type="text"
+                    step="0.01" 
                     value={Tarif}
                     onChange={(e) => setTarif(e.target.value)}
                     isInvalid={!!formik.errors.tarif}
                   />
-                </InputGroup>
+                </InputGroup> */}
               </Form.Group>
             </Col>
             <Col span={6}>
@@ -471,9 +490,14 @@ const SamplePage = () => {
                 <InputGroup>
                   <Form.Control
                     // name="uang_jalan"
-                    type="number"
-                    value={UangJalan}
-                    onChange={(e) => setUangJalan(e.target.value)}
+                    type="text"
+                    // value={UangJalan}
+                    value={toRupiah(UangJalan)}
+                    onChange={(e) => {
+                      const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+                      setUangJalan(inputAngka); // Set nilai tanpa tanda titik
+                    }}
+                    // onChange={(e) => setUangJalan(e.target.value)}
                     isInvalid={!!formik.errors.uang_jalan}
                   />
                 </InputGroup>

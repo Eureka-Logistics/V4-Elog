@@ -548,7 +548,7 @@ const SamplePage = () => {
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>
-                  Lead Time
+                  Lead Time (Hari)
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
