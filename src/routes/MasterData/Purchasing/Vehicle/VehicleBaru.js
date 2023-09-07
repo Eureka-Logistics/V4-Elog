@@ -134,7 +134,7 @@ function VehicleBaru() {
             tgl_beli: '',
             kapasitas: '',
             kapasitas_maks: '',
-            kubikasi: '',
+            kubikasi: "",
             location: '',
             id_driver: '',
             id_kendaraan_jenis: ''
@@ -154,12 +154,27 @@ function VehicleBaru() {
             console.log(values);;
         },
     });
+    const perhitunganVolume = () => {
+        const panjang = Number(formik.values.panjang) || 1;
+        const lebar = Number(formik.values.lebar) || 1;
+        const tinggi = Number(formik.values.tinggi) || 1;
 
+        const volume = panjang * lebar * tinggi;
+        console.log(volume);
+
+        // formik.setFieldValue('kubikasi', volume);
+
+        return volume;
+    };
+    console.log(`ini dari kubikasi`, formik.values.kubikasi);
+         
     const showModal = () => {
         setIsModalOpen(true);
         formik.resetForm();
 
     };
+
+
 
     const UploadFoto = async () => {
         try {
@@ -339,7 +354,7 @@ function VehicleBaru() {
         setWarnaPlat()
         setStatusDriverAktif()
         DriverName()
-    }, [CariNoKendaraan, CariJenisKepemilikan, CariDriverAktif])
+    }, [CariNoKendaraan, CariJenisKepemilikan, CariDriverAktif, formik.values.panjang, formik.values.lebar, formik.values.tinggi, perhitunganVolume()])
 
     const EditVehicle = async (values) => {
         try {
@@ -440,6 +455,7 @@ function VehicleBaru() {
             const formData = new FormData();
             Object.keys(values).forEach(key => formData.append(key, values[key]));
             formData.append("cover", FotoDriver);
+            formData.append("kubikasi", perhitunganVolume());
 
             const data = await axios.post(`${Baseurl}vehicle/create-vehicle`, formData,
                 {
@@ -456,20 +472,28 @@ function VehicleBaru() {
             ApiAwal()
             setIsModalOpen(false);
         } catch (error) {
-            error.response.data.errors.forEach((err) => {
-                let customMessage;
+            if (error.response.data.errors) {
+                error.response.data.errors.forEach((err) => {
+                    let customMessage;
 
-                if (err.message === "ID driver Tidak Boleh Kosong") {
-                    customMessage = "Nama Driver Harus Di isi";
-                } else {
-                    customMessage = err.message;
-                }
+                    if (err.message === "ID driver Tidak Boleh Kosong") {
+                        customMessage = "Nama Driver Harus Di isi";
+                    } else {
+                        customMessage = err.message;
+                    }
 
+                    notification.error({
+                        message: 'ADA KESALAHAN DI FORM INPUT',
+                        description: customMessage,
+                    });
+                })
+            } else if (error.response.data.status) {
+                // alert("error else")
                 notification.error({
-                    message: 'ADA KESALAHAN DI FORM INPUT',
-                    description: customMessage,
-                });
-            })
+                    message: error.response.data.status.message
+                })
+            }
+
         }
     }
 
@@ -499,16 +523,6 @@ function VehicleBaru() {
             return "Edit Vehicle";
         }
     }
-
-    const perhitunganVolume = () => {
-        const panjang = Number(formik.values.panjang) || 0;
-        const lebar = Number(formik.values.lebar) || 0;
-        const tinggi = Number(formik.values.tinggi) || 0;
-
-        const volume = panjang * lebar * tinggi;
-
-        return volume;
-    };
 
 
 
@@ -1092,9 +1106,9 @@ function VehicleBaru() {
                                     <AntForm.Item
                                         label={
                                             <span>
-                                              Kubikasi (Penjumlahan Dari <strong>P x L x T</strong>)
+                                                Kubikasi (Penjumlahan Dari <strong>P x L x T</strong>)
                                             </span>
-                                          }
+                                        }
                                         required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
@@ -1185,7 +1199,7 @@ function VehicleBaru() {
                                             onBlur={formik.handleBlur}
                                         />
                                     </AntForm.Item>
-                                   
+
                                     <AntForm.Item
                                         label="Cabang"
                                         required

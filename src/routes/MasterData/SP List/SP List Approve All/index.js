@@ -17,14 +17,12 @@ function Index() {
         {
             name: "SO ID",
             selector: (row) => row.sp,
-            width: "150px",
             wrap: true,
         },
         {
             name: "Perusahaan",
             selector: (row) => row.perusahaan,
             wrap: true,
-            width: "120px",
         },
         {
             name: "Marketing",
@@ -40,31 +38,23 @@ function Index() {
                 {row?.salesName}
               </Tooltip>
             ),
-            width: "100px",
-            wrap: true,
           },
         {
             name: "Service",
             selector: (row) => row.service,
-            width: "80px",
-            wrap: true,
         },
         {
             name: "Vehicle",
             selector: (row) => row.kendaraan,
-            width: "80px",
-            wrap: true,
         },
         {
             name: "Pickup Date",
             selector: (row) => new Date(row.pickupDate).toLocaleDateString("en-CA"),
-            width: "100px",
             wrap: true,
         },
         {
             name: "Destination",
             selector: (row) => row.destination,
-            width: "150px",
             wrap: true,
         },
 
@@ -78,7 +68,6 @@ function Index() {
                     <Tag color="green">{date.toLocaleDateString("en-CA")}</Tag>
                 );
             },
-            width: "160px",
             wrap: true,
         },
 

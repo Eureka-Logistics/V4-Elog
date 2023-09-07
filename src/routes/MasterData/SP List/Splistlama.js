@@ -86,7 +86,7 @@ function SPListlama() {
         }
       });
       console.log(`nin`, data.data.data.id);
-      setCariSalesValue(data?.data?.data?.id)
+      // setCariSalesValue(data?.data?.data?.id)
     } catch (error) {
       console.error(error);
     }
@@ -121,7 +121,6 @@ function SPListlama() {
           });
         });
       }
-
       if (error.response && error.response.status === 401) {
         localStorage.removeItem("token");
         if (localStorage.getItem("token") === null) {
@@ -177,11 +176,11 @@ function SPListlama() {
       name: "Marketing",
       selector: (row) => (
         <Tooltip title={<>
-          {"Kacap: " + row?.kacab} <br />
+          {"Gl: " + row?.gl} <br />
           {"Asm: " + row?.asm} <br />
-          {"gl: " + row?.gl} <br />
-          {"mgr: " + row?.mgr} <br />
-          {"amd: " + row?.amd} <br />
+          {"Mgr: " + row?.mgr} <br />
+          {"Kacab: " + row?.kacab} <br />
+          {"Amd: " + row?.amd} <br />
         </>}
         >
           {row?.salesName}
