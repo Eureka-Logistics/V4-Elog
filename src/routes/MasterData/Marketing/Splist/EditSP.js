@@ -88,8 +88,8 @@ function EditSP({  }) {
           },
         }
       );
-      setDetailData(response.data);
-      const memos = response.data.memo;
+      setDetailData(response?.data);
+      const memos = response?.data?.memo;
       setAsuransiOptionsValue(response.data?.asuransi);
       setMemo(memos);
     } catch (error) {
@@ -605,7 +605,7 @@ function EditSP({  }) {
       <Card>
         <Row>
           <h5>Detail SO</h5>
-          <EditSPNew getDetail={getDetail} />
+          <EditSPNew refreshtable={getDetail} />
           {/* <ModalCreateDetail idmp={idmp} detailData={detailData}/> */}
           <div className="d-flex justify-content-end">
             {jobdesk != "sales" && jobdesk != "operasional" ? (

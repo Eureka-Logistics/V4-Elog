@@ -74,6 +74,31 @@ function SplistAkuntingBaru() {
       width: "150px"
     },
     {
+      name: "Approve By Sales",
+      cell: (row) => {
+        const approveact = row?.approveSales;
+        const dateApproveAct = row?.dateApproveSales;
+        let displayText =
+          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" ? (
+            <Tag color="green">
+              Approve <br /> <small>{dateApproveAct}</small>
+            </Tag>
+          ) : approveact === "N" && dateApproveAct === "Invalid date" || "1970-01-01 07:00:00" ? (
+            <Tag color="red">
+              Diverted <br /> <small>{dateApproveAct}</small>
+            </Tag>
+          ) : (
+            <Tag color="red">
+              Diverted <br /> <small>{dateApproveAct}</small>
+            </Tag>
+          );
+
+        return <>{displayText}</>;
+      },
+      width: "150px",
+    },
+
+    {
       name: "Approve By Akunting",
       cell: (row) => {
         const approveact = row?.approveAct;
@@ -243,7 +268,7 @@ function SplistAkuntingBaru() {
               <Col>
                 <Row>
 
-                  <div className="d-flex justify-content-end">
+                  <div className="d-flex justify-content-end mb-3">
                     <Col sm={3}>
                       <Form.Control
                         type="text"

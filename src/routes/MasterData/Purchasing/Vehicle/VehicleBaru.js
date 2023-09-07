@@ -134,7 +134,7 @@ function VehicleBaru() {
             tgl_beli: '',
             kapasitas: '',
             kapasitas_maks: '',
-            kubikasi: "",
+            // kubikasi: "",
             location: '',
             id_driver: '',
             id_kendaraan_jenis: ''

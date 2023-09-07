@@ -235,6 +235,30 @@ function SPListlama() {
     //   },
     // },
     {
+      name: "Sales",
+      selector: (row) => {
+        const tanggal = row.dateApproveSales;
+        return row?.approveAct === "Y" ? (
+          <Tag color="green">
+            Approved <br /> {tanggal}
+          </Tag>
+        ) : row?.approveAct === "N" && tanggal === "1970-01-01 07:00:00" ? (
+          <Tag color="red">
+            Diverted <br /> {tanggal ? "-" : tanggal}
+          </Tag>
+        ) : row?.approveAct === "N" && tanggal !== "1970-01-01 07:00:00" ? (
+          <Tag color="red">
+            Diverted <br /> {tanggal}
+          </Tag>
+        ) : (
+          <Tag color="blue">
+            Pass <br /> {tanggal}
+          </Tag>
+        );
+      },
+      width: "170px",
+    },
+    {
       name: "Akunting",
       selector: (row) => {
         const tanggal = row.dateApproveAct;

@@ -511,7 +511,7 @@ function DriverTableBaru() {
     validationSchema: Yup.object({
       nik: Yup.string()
         .required("Nik harus diisi")
-        .max(6, "Tidak Boleh Melebihi 6 Karakter")
+        .max(5, "Tidak Boleh Melebihi 5 Karakter")
         .matches(
           /^[A-Z][A-Za-z0-9]*$/,
           "Nik harus dimulai dengan huruf besar dan hanya boleh berupa angka/huruf, tanpa simbol atau spasi"
