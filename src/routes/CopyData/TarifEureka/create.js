@@ -43,6 +43,11 @@ const SamplePage = () => {
   const [jenisDiskon, setJenisDiskon] = useState("");
   const [KodeID, setKodeID] = useState("");
   const [DataLeadTime, setDataLeadTime] = useState("");
+  const [DataMaintenance, setDataMaintenance] = useState(0);
+  const [DataVariableCost, setDataVariableCost] = useState(0);
+  const [DataFixedCost, setDataFixedCost] = useState(0);
+  const [DataAmount, setDataAmount] = useState(0);
+  const [DataPercent, setDataPercent] = useState (0);
 
   const optjenisLayanan = [
     {
@@ -87,6 +92,11 @@ const SamplePage = () => {
       tarif: Tarif,
       ritase: Ritase,
       uang_jalan: UangJalan,
+      maintenance_cost: DataMaintenance,
+      variable_cost: DataVariableCost,
+      fixed_cost: DataFixedCost,
+      amount: DataAmount,
+      percent: DataPercent, 
     },
     validationSchema: Yup.object({
       id_customer: Yup.string().max(30, "Must be 30 characters or less"),
@@ -502,8 +512,94 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
+              
             </Col>
-            <Col span={24} className="d-flex justify-content-end">
+            <Col span={6}>
+              <Form.Group>
+                <Form.Label style={{fontWeight: `bold`}}>Amount</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="amount"
+                    type="number"
+                    value={DataAmount}
+                    onChange={(e) => setDataAmount(e.target.value)}
+                    isInvalid={!!formik.errors.amount}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+           
+           
+          </Row>
+           <Row>
+            <Col span={6}>
+              <Form.Group>
+                <Form.Label style={{fontWeight: `bold`}}>Maintenance Cost</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    // name="uang_jalan"
+                    type="text"
+                    // value={UangJalan}
+                    value={toRupiah(DataMaintenance)}
+                    onChange={(e) => {
+                      const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+                      setDataMaintenance(inputAngka); // Set nilai tanpa tanda titik
+                    }}
+                    // onChange={(e) => setUangJalan(e.target.value)}
+                    isInvalid={!!formik.errors.maintenance_cost}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={6}>
+              <Form.Group>
+                <Form.Label style={{fontWeight: `bold`}}>Variable Cost</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    type="text"
+                    value={toRupiah(DataVariableCost)}
+                    onChange={(e) => {
+                      const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+                      setDataVariableCost(inputAngka); // Set nilai tanpa tanda titik
+                    }}
+                    isInvalid={!!formik.errors.variable_cost}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={6}>
+              <Form.Group>
+                <Form.Label style={{fontWeight: `bold`}}>Fixed Cost</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    type="text"
+                    value={toRupiah(DataFixedCost)}
+                    onChange={(e) => {
+                      const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+                      setDataFixedCost(inputAngka); // Set nilai tanpa tanda titik
+                    }}
+                    isInvalid={!!formik.errors.fixed_cost}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={6}>
+              <Form.Group>
+                <Form.Label style={{fontWeight: `bold`}}>Percent</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="percent"
+                    type="number"
+                    value={DataPercent}
+                    onChange={(e) => setDataPercent(e.target.value)}
+                    isInvalid={!!formik.errors.percent}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            </Row>
+          <Row>
+          <Col span={24} className="d-flex justify-content-end mt-2">
               <Form.Group>
                 <Button type="submit">Simpan Tarif</Button>
               </Form.Group>

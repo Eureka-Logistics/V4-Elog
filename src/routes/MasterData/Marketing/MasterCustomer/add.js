@@ -48,23 +48,23 @@ const SamplePage = () => {
   const optionToP = [
     {
       value: 1,
-      label: "7 Hari",
+      label: "7",
     },
     {
       value: 2,
-      label: "14 Hari",
+      label: "14",
     },
     {
       value: 3,
-      label: "20 Hari",
+      label: "20",
     },
     {
       value: 4,
-      label: "30 Hari",
+      label: "30",
     },
     {
       value: 5,
-      label: "60 Hari",
+      label: "60",
     },
   ];
 

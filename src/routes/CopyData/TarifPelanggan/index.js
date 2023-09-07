@@ -233,7 +233,7 @@ const SamplePage = () => {
             Authorization: localStorage.getItem("token"),
         }
       });
-      console.log(`asu`,data.data.mitra);
+      console.log(`dodol`,data.data.mitra);
       setNamaMitraOptions(data.data?.mitra)
       
     } catch (error) {

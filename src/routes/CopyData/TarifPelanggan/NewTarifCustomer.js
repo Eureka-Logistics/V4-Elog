@@ -35,6 +35,8 @@ function NewTarifCustomer() {
   const [id_price_eureka, setid_price_eureka] = useState("");
   const [DataIdPriceEureka, setDataPriceIdEureka] = useState("");
   const [DataDiskonPersen, setDataDiskonPersen] = useState("");
+  const [DataDiskonRupiah, setDataDiskonRupiah] = useState("");
+  const [NilaiDiskon, setNilaiDiskon] = useState("");
 
   const GetSelectData = async () => {
     try {
@@ -69,8 +71,8 @@ function NewTarifCustomer() {
           id_kendaraan_jenis: parseInt(IDJenisKendaraan),
           service_type: IDServiceType,
           jenis_kiriman: DataJenisKiriman,
-          diskon: DataDiskon,
-          diskon_type: DataDiskonType,
+          diskon: DataDiskonRupiah,
+          diskon_type: "",
           biaya_jalan: TotalBiaya,
           biaya_muat: DataBiayaMuat,
           biaya_bongkar: DataBiayaBongkar,
@@ -81,6 +83,9 @@ function NewTarifCustomer() {
           biaya_mel: DataBiayaMel,
           biaya_lain: DataBiayaLain,
           via: IDVia,
+          total_biaya: TotalBiaya,
+          diskon_percent: DataDiskonPersen,
+          diskon_rupiah: parseInt(DataDiskonRupiah),
         },
         {
           headers: {
@@ -112,6 +117,7 @@ function NewTarifCustomer() {
         }).then(() => {
           // Reload the window after the success message is closed
           // window.location.reload();
+          window.location.href = '/pelanggantarif';
         });
       }
     } catch (error) {
@@ -129,17 +135,17 @@ function NewTarifCustomer() {
   useEffect(() => {
     // fetchData();
     GetSelectData();
-    if (!isNaN(DataTarifKatalog) && !isNaN(DataDiskon)) {
-      if (DataDiskonType === "Presentase") {
-        const diskonPercentage = DataDiskon / 100;
-        const totalBiayaAfterDiskon =
-          DataTarifKatalog - DataTarifKatalog * diskonPercentage;
-        setTotalBiaya(totalBiayaAfterDiskon);
-      } else if (DataDiskonType === "Amount") {
-        const totalBiayaAfterDiskon = DataTarifKatalog - DataDiskon;
-        setTotalBiaya(totalBiayaAfterDiskon);
-      }
-    }
+    // if (!isNaN(DataTarifKatalog) && !isNaN(DataDiskon)) {
+    //   if (DataDiskonType === "Presentase") {
+    //     const diskonPercentage = DataDiskon / 100;
+    //     const totalBiayaAfterDiskon =
+    //       DataTarifKatalog - DataTarifKatalog * diskonPercentage;
+    //     setTotalBiaya(totalBiayaAfterDiskon);
+    //   } else if (DataDiskonType === "Amount") {
+    //     const totalBiayaAfterDiskon = DataTarifKatalog - DataDiskon;
+    //     setTotalBiaya(totalBiayaAfterDiskon);
+    //   }
+    // }
   }, [
     DataTarifKatalog,
     IDJenisKendaraan,
@@ -166,13 +172,17 @@ function NewTarifCustomer() {
     const formattedValue = `${parseInt(value).toLocaleString("id-ID")}`;
     return formattedValue;
   };
-  
+
   const toRupiah = (angka) => {
-    var rupiah = '';
-    var angkarev = angka.toString().split('').reverse().join('');
-    for (var i = 0; i < angkarev.length; i++) if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + '.';
-    return `${rupiah.split('', rupiah.length - 1).reverse().join('')}`;
-}
+    var rupiah = "";
+    var angkarev = angka.toString().split("").reverse().join("");
+    for (var i = 0; i < angkarev.length; i++)
+      if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + ".";
+    return `${rupiah
+      .split("", rupiah.length - 1)
+      .reverse()
+      .join("")}`;
+  };
 
   const handleChangse = (e) => {
     const value = e.target.value;
@@ -180,6 +190,34 @@ function NewTarifCustomer() {
     console.log(formatRupiahs(value)); // Log the formatted value with 'rp' symbol
     console.log(`asdsa`, formatRupiahs(DataBiayaBongkar)); // Log the formatted value with 'rp' symbol
   };
+
+  const handleDiskonChange = (e, isPersen) => {
+  const nilaiDiskon = parseFloat(e.target.value);
+
+  if (isPersen) {
+    // Menghitung Diskon (Rp.) berdasarkan Diskon (%)
+    const nilaiDiskonRupiah = (nilaiDiskon / 100) * DataTarifKatalog;
+    const nilaiDiskonPersen = Math.round(nilaiDiskon * 100) / 100; // Memastikan dua digit di belakang koma
+    setDataDiskonPersen(isNaN(nilaiDiskonPersen) ? '' : nilaiDiskonPersen);
+    setDataDiskonRupiah(nilaiDiskonRupiah || 0);
+
+    // Menghitung total biaya setelah diskon
+    const totalBiaya = DataTarifKatalog - nilaiDiskonRupiah;
+    setTotalBiaya(totalBiaya);
+  } else {
+    setDataDiskonRupiah(nilaiDiskon || 0);
+
+    // Menghitung Diskon (%) berdasarkan Diskon (Rp.)
+    const nilaiDiskonPersen = Math.round((nilaiDiskon / DataTarifKatalog) * 10000) / 100; // Memastikan dua digit di belakang koma
+    setDataDiskonPersen(isNaN(nilaiDiskonPersen) ? '' : nilaiDiskonPersen);
+
+    // Menghitung total biaya setelah diskon
+    const totalBiaya = DataTarifKatalog - nilaiDiskon;
+    setTotalBiaya(totalBiaya);
+  }
+};
+
+
   return (
     <Card>
       <h5 style={{ fontWeight: "bold", color: "#1A5CBF" }}>
@@ -189,9 +227,9 @@ function NewTarifCustomer() {
       <br />
       <Row>
         <Col span={6}>
-          {/* <label style={{ fontWeight: "bold" }}>Kode Tarif Customer:</label> */}
+          {/* <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Kode Tarif Customer:</label> */}
           <Form.Group style={{ marginBottom: "10px" }}>
-            <Form.Label style={{ fontWeight: `bold` }}>
+            <Form.Label style={{ fontWeight: `bold`, fontFamily: 'NoirPro' }}>
               Kode Tarif Customer:
             </Form.Label>
             <Form.Control
@@ -210,7 +248,7 @@ function NewTarifCustomer() {
           /> */}
         </Col>
         <Col span={6} style={{ width: "100%" }}>
-          <label style={{ fontWeight: "bold" }}>Customer :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Customer :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
             className="mt-2 mb-2"
@@ -236,7 +274,7 @@ function NewTarifCustomer() {
           </Select>
         </Col>
         <Col span={6} style={{ width: "100%" }}>
-          <label style={{ fontWeight: "bold" }}>Kota Muat :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Kota Muat :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
             className="mt-2 mb-2"
@@ -263,7 +301,7 @@ function NewTarifCustomer() {
           </Select>
         </Col>
         <Col span={6} style={{ width: "100%" }}>
-          <label style={{ fontWeight: "bold" }}>Kota Tujuan :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Kota Tujuan :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
             className="mt-2 mb-2"
@@ -291,7 +329,7 @@ function NewTarifCustomer() {
       </Row>
       <Row>
         <Col span={6} style={{ width: "100%" }}>
-          <label style={{ fontWeight: "bold" }}>Jenis Kendaraan :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Jenis Kendaraan :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
             className="mt-2 mb-2"
@@ -317,7 +355,7 @@ function NewTarifCustomer() {
           </Select>
         </Col>
         <Col span={6} style={{ width: "100%" }}>
-          <label style={{ fontWeight: "bold" }}>Jenis Layanan :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Jenis Layanan :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
             className="mt-2 mb-2"
@@ -340,7 +378,7 @@ function NewTarifCustomer() {
           </Select>
         </Col>
         <Col span={6} style={{ width: "100%" }}>
-          <label style={{ fontWeight: "bold" }}>Via :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Via :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
             className="mt-2 mb-2"
@@ -363,7 +401,7 @@ function NewTarifCustomer() {
           </Select>
         </Col>
         <Col span={6} style={{ width: "100%" }}>
-          <label style={{ fontWeight: "bold" }}>Jenis Kiriman:</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Jenis Kiriman:</label>
           <Select
             className="mt-2 mb-2"
             showSearch
@@ -388,10 +426,10 @@ function NewTarifCustomer() {
       <br />
       <Row>
         <Col span={4}>
-          <label style={{ fontWeight: "bold" }}>Id Price Eureka</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Kode Tarif Eureka</label>
           <Form.Control
-          className="mt-2"
-          disabled
+            className="mt-2"
+            disabled
             value={DataIdPriceEureka}
             onChange={(e) => {
               console.log(e.target.value);
@@ -402,7 +440,7 @@ function NewTarifCustomer() {
           ></Form.Control>
         </Col>
         <Col span={6}>
-          <label style={{ fontWeight: "bold" }}>Tarif Katalog :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Tarif Katalog :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Form.Control
             className="mt-2"
@@ -432,12 +470,11 @@ function NewTarifCustomer() {
             }}
           /> */}
         </Col>
-        <Col span={6} style={{ width: "100%" }}>
-          <label style={{ fontWeight: "bold" }}>Jenis Diskon :</label>
+        {/* <Col span={6} style={{ width: "100%" }}>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Jenis Diskon :</label>
           <Select
             className="mt-2 mb-2"
             showSearch
-            //   value={DataDetailAddress?.kode_wilayah}
             placeholder="Select Jenis Diskon"
             optionFilterProp="value"
             style={{ width: "100%" }}
@@ -446,14 +483,34 @@ function NewTarifCustomer() {
               setDataDiskonType(value);
             }}
           >
-            {/* Add the options here */}
             <Select.Option value="Amount">Amount</Select.Option>
             <Select.Option value="Presentase">Presentase</Select.Option>
           </Select>
+        </Col> */}
+        <Col span={7}>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Diskon (%) :</label>
+          <Input
+            type="text"
+            className="mt-2 mb-2"
+            name="diskon_percent"
+            placeholder="Input Diskon (%)"
+            value={DataDiskonPersen}
+            onChange={(e) => handleDiskonChange(e, true)}
+          />
         </Col>
-        <Col span={6}>
-          <label style={{ fontWeight: "bold" }}>Diskon :</label>
-          {/* Menghubungkan input tarif dengan state tarif */}
+        <Col span={7}>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Diskon (Rp.) :</label>
+          <Input
+            type="text"
+            className="mt-2 mb-2"
+            name="diskon_rupiah"
+            placeholder="Input Diskon (Rp.)"
+            value={DataDiskonRupiah}
+            onChange={(e) => handleDiskonChange(e, false)}
+          />
+        </Col>
+        {/* <Col span={6}>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Diskon :</label>
           <Input
             type="number"
             className="mt-2 mb-2"
@@ -462,17 +519,16 @@ function NewTarifCustomer() {
             onChange={(e) => {
               console.log(e.target.value);
               setDataDiskon(parseFloat(e.target.value));
-              // setCustomer(options.key);
             }}
-            //   onChange={formik.handleChange}
           />
-        </Col>
+        </Col> */}
         <Col span={10}>
-          <label style={{ fontWeight: "bold" }}>Total Biaya :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Total Biaya :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Form.Control
             className="mt-2"
             disabled
+            name="biaya_jalan"
             placeholder="Total Biaya"
             value={formatRupiah(TotalBiaya)} // Display the calculated total biaya
             // Disable the input because it is calculated automatically
@@ -511,7 +567,7 @@ function NewTarifCustomer() {
       <br />
       <Row>
         <Col span={6}>
-          <label style={{ fontWeight: "bold" }}>Biaya Muat :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Muat :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
             type="text"
@@ -531,7 +587,7 @@ function NewTarifCustomer() {
           />
         </Col>
         <Col span={6}>
-          <label style={{ fontWeight: "bold" }}>Biaya Bongkar :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Bongkar :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
             type="text"
@@ -553,7 +609,7 @@ function NewTarifCustomer() {
           />
         </Col>
         <Col span={6}>
-          <label style={{ fontWeight: "bold" }}>Biaya Overtonase :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Overtonase :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
             type="text"
@@ -574,7 +630,7 @@ function NewTarifCustomer() {
           />
         </Col>
         <Col span={6}>
-          <label style={{ fontWeight: "bold" }}>Biaya MultiDrop :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya MultiDrop :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
             type="text"
@@ -596,21 +652,21 @@ function NewTarifCustomer() {
         </Col>
       </Row>
       <Row>
-        <Col span={6}>
-          <label style={{ fontWeight: "bold" }}>Biaya Overtonase :</label>
+        {/* <Col span={6}>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Jalan :</label>
           <Input
             type="text"
             className="mt-2 mb-2"
-            name="biaya_overtonase"
-            value={toRupiah(DataBiayaOvertonase)}
+            name="biaya_jalan"
+            value={toRupiah(DataBiayaJalan)}
             onChange={(e) => {
-              const inputAngka = e.target.value.replace(/\D/g, ""); 
-              setDataBiayaOvertonase(inputAngka); 
+              const inputAngka = e.target.value.replace(/\D/g, "");
+              setDataBiayaJalan(inputAngka);
             }}
           />
-        </Col>
+        </Col> */}
         <Col span={6}>
-          <label style={{ fontWeight: "bold" }}>Biaya Tambahan :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Tambahan :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
             type="text"
@@ -631,7 +687,7 @@ function NewTarifCustomer() {
           />
         </Col>
         <Col span={6}>
-          <label style={{ fontWeight: "bold" }}>Biaya Mel :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Mel :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
             type="text"
@@ -651,7 +707,7 @@ function NewTarifCustomer() {
           />
         </Col>
         <Col span={6}>
-          <label style={{ fontWeight: "bold" }}>Biaya Lain :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Lain :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
             type="text"
@@ -671,7 +727,7 @@ function NewTarifCustomer() {
           />
         </Col>
         <Col span={6}>
-          <label style={{ fontWeight: "bold" }}>Biaya Multimuat :</label>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Multimuat :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
             type="text"
