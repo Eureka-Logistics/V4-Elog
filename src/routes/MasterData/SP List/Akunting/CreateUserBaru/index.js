@@ -1,16 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Card, Form, Input, notification } from 'antd';
+import { Button, Form, Input, Select, notification } from 'antd';
 import { Col, Container, Row } from 'react-bootstrap';
 import './style.css'
 import axios from 'axios';
 import Baseurl from '../../../../../Api/BaseUrl';
-import { array } from 'prop-types';
+import { useEffect, useState } from 'react';
 
 function CreateUserBaru() {
     const [form1] = Form.useForm();
     const [form2] = Form.useForm();
+    const [selectoptions, setselectoptions] = useState("")
+    const [IDcode_bu, setIDcode_bu] = useState()
+    const [id_bu, setid_bu] = useState("")
+    const [id_bu_brench, setid_bu_brench] = useState("")
+    const [KodeCabang, setKodeCabang] = useState("")
 
 
+
+
+    const handleChange = (value, e) => {
+        console.log("Selected value:", value);
+        setIDcode_bu(value?.code_bu)
+    };
+    const select = async (value) => {
+        try {
+            const data = await axios.get(`${Baseurl}auth/get-select?id_bu=${id_bu}&id_bu_brench=${id_bu_brench}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.getItem("token"),
+                },
+            })
+            console.log(data?.data);
+            setselectoptions(data?.data)
+        } catch (error) {
+
+        }
+    }
+    useEffect(() => {
+        select()
+    }, [id_bu_brench, id_bu])
     const createuser = async (combinedValues) => {
         const payload = {
             ...combinedValues,
@@ -45,13 +72,11 @@ function CreateUserBaru() {
 
     }
 
+
     const onFinish = () => {
         const values1 = form1.getFieldsValue();
         const values2 = form2.getFieldsValue();
         const combinedValues = { ...values1, ...values2 };
-
-        // console.log('Form 1 values:', values1);
-        // console.log('Form 2 values:', values2);
         console.log(combinedValues);
         createuser(combinedValues)
     };
@@ -62,16 +87,16 @@ function CreateUserBaru() {
     };
 
     return (
-        <> 
+        <>
             <div style={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '100vh',
-                backgroundColor: '#b9bfe1'
+                height: '700px',
+                backgroundColor: '#EBECF1'
             }}>
                 <Row>
-                    <Col sm={6} style={{ backgroundColor: 'white', width: "400px", borderTopLeftRadius: '10px', borderBottomLeftRadius: '10px', height: 800 }}>
+                    <Col sm={6} style={{ backgroundColor: 'white', width: "400px", borderTopLeftRadius: '10px', borderBottomLeftRadius: '10px', height: 600 }}>
                         <Container>
                             <h3 style={{ fontSize: 20, fontWeight: 5020, color: "blue", marginTop: "30px", textAlign: "center" }}>Register User Baru</h3>
                             <Col className='mt-3'>
@@ -159,7 +184,7 @@ function CreateUserBaru() {
                                             <Input />
                                         </Form.Item>
 
-                                        <Form.Item
+                                        {/* <Form.Item
                                             label={"Perusahaan"}
                                             name="perusahaan"
                                             rules={[
@@ -170,7 +195,7 @@ function CreateUserBaru() {
                                             ]}
                                         >
                                             <Input />
-                                        </Form.Item>
+                                        </Form.Item> */}
                                         <Form.Item
                                             label={"Divisi"}
                                             name="divisi"
@@ -181,9 +206,17 @@ function CreateUserBaru() {
                                                 },
                                             ]}
                                         >
-                                            <Input />
+                                            <Select placeholder="Pilih Bisnis Unit " showSearch optionFilterProp='children' onChange={(e, label) => {
+                                                setKodeCabang(label?.code_bu_brench)
+                                                setid_bu_brench(label.value)
+                                            }}
+                                            >
+                                                {Array.isArray(selectoptions?.divisi) && selectoptions?.divisi.map((i) => (
+                                                    <option  value={i?.divisi}>{i?.divisi}</option>
+                                                ))}
+                                            </Select>
                                         </Form.Item>
-                                        <Form.Item
+                                        {/* <Form.Item
                                             label={"Level"}
                                             name="level"
                                             rules={[
@@ -193,14 +226,21 @@ function CreateUserBaru() {
                                                 },
                                             ]}
                                         >
-                                            <Input />
-                                        </Form.Item>
+                                            <Select placeholder="Pilih Level " onChange={(e, label) => {
+                                                console.log(label);
+                                            }}
+                                            >
+                                                {selectoptions && selectoptions.userLevel.map((i) => (
+                                                    <option value={i.id}>{i?.level}</option>
+                                                ))}
+                                            </Select>
+                                        </Form.Item> */}
                                     </Form>
                                 </div>
                             </Col>
                         </Container>
                     </Col>
-                    <Col sm={6} style={{ backgroundColor: '#463acc', width: "400px", borderTopRightRadius: '10px', borderBottomRightRadius: '10px', height: 800 }}>
+                    <Col sm={6} style={{ backgroundColor: '#463acc', width: "400px", borderTopRightRadius: '10px', borderBottomRightRadius: '10px', height: 600 }}>
                         <Container>
                             <div style={{ fontSize: 20, fontWeight: 2020, color: "blue", marginTop: "70px" }}></div>
                             <Form
@@ -221,62 +261,12 @@ function CreateUserBaru() {
                                 }}
                                 initialValues={{
                                     remember: false,
+
                                 }}
                                 onFinish={onFinish}
                                 onFinishFailed={onFinishFailed}
                                 autoComplete="off"
                             >
-
-                                <Form.Item
-                                    label={"Cabang"}
-                                    name="id_cabang"
-                                    rules={[
-                                        {
-                                            required: false,
-                                            message: 'Please input your Cabang!',
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
-
-
-                                <Form.Item
-                                    label="Kode Perusahaan"
-                                    name="perusahaan"
-                                    rules={[
-                                        {
-                                            required: false,
-                                            message: 'Please input your perusahaan!',
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
-                                <Form.Item
-                                    label="Nama Lengkap"
-                                    name="username"
-                                    rules={[
-                                        {
-                                            required: false,
-                                            message: 'Please input your username!',
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
-                                <Form.Item
-                                    label="Kode Cabang"
-                                    name="kode_cabang"
-                                    rules={[
-                                        {
-                                            required: false,
-                                            message: 'Please input your Kode Cabang!',
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
                                 <Form.Item
                                     label="Bisnis Unit"
                                     name="id_bu"
@@ -287,20 +277,88 @@ function CreateUserBaru() {
                                         },
                                     ]}
                                 >
-                                    <Input />
+                                    <Select placeholder="Pilih Bisnis Unit " onChange={(e, label) => {
+                                        console.log(label);
+                                        handleChange(label)
+                                        setid_bu(label?.value)
+
+                                    }}
+                                    >
+                                        {selectoptions && selectoptions?.BU.map((i) => (
+                                            <option code_bu={i.code_bu} value={i.id_bu}>{i?.name_bu}</option>
+                                        ))}
+                                    </Select>
                                 </Form.Item>
                                 <Form.Item
-                                    label="ID Bisnis Unit"
-                                    name="id_bu_brench"
+                                    label="Kode Perusahaan"
+                                    // name="perusahaan"
                                     rules={[
                                         {
                                             required: false,
-                                            message: 'Please input your ID Bisnis Unit!',
+                                            message: 'Please input your perusahaan!',
                                         },
                                     ]}
                                 >
-                                    <Input />
+                                    <Input value={IDcode_bu} />
                                 </Form.Item>
+                                <Form.Item
+                                    label={"Cabang"}
+                                    name="id_cabang"
+                                    rules={[
+                                        {
+                                            required: false,
+                                            message: 'Please input your Cabang!',
+                                        },
+                                    ]}
+                                >
+                                    <Select placeholder="Pilih Bisnis Unit " onChange={(e, label) => {
+                                        console.log(`darao cabang`, label);
+                                        setKodeCabang(label?.code_bu_brench)
+                                        setid_bu_brench(label.value)
+                                    }}
+                                    >
+                                        {Array.isArray(selectoptions?.bubrench) && selectoptions?.bubrench.map((i) => (
+                                            <option code_bu_brench={i?.code_bu_brench} value={i?.id_bu_brench}>{i?.code_bu_brench}</option>
+                                        ))}
+                                    </Select>
+                                </Form.Item>
+
+
+
+                                <Form.Item
+                                    label="Karyawan"
+                                    name="karyawan"
+                                    rules={[
+                                        {
+                                            required: false,
+                                            message: 'Please input your Karyawan!',
+                                        },
+                                    ]}
+                                >
+                                    <Select placeholder="Pilih Bisnis Unit " showSearch optionFilterProp='children' onChange={(e, label) => {
+                                        console.log(label);
+
+                                    }}
+                                    >
+                                        {Array.isArray(selectoptions?.karyawan) && selectoptions?.karyawan.map((i) => (
+                                            <option value={i?.idKaryawan}>{i?.nama} - {i.nik}</option>
+                                        ))}
+                                    </Select>
+                                </Form.Item>
+                                {/* <Form.Item
+                                    label="Kode Cabang"
+                                    // name="kode_cabang"
+                                    rules={[
+                                        {
+                                            required: false,
+                                            message: 'Please input your Kode Cabang!',
+                                        },
+                                    ]}
+                                >
+                                    <Input value={KodeCabang} />
+                                </Form.Item> */}
+
+
                                 <Form.Item
                                     label="User Level"
                                     name="user_level"
@@ -311,9 +369,17 @@ function CreateUserBaru() {
                                         },
                                     ]}
                                 >
-                                    <Input />
+                                    <Select placeholder="Pilih UserLevel " showSearch optionFilterProp='children' onChange={(e, label) => {
+                                        console.log(label);
+
+                                    }}
+                                    >
+                                        {Array.isArray(selectoptions?.userLevel) && selectoptions?.userLevel.map((i) => (
+                                            <option value={i?.id}>{i.level}</option>
+                                        ))}
+                                    </Select>
                                 </Form.Item>
-                                <Form.Item
+                                {/* <Form.Item
                                     label="User Group"
                                     name="user_group"
                                     rules={[
@@ -323,9 +389,17 @@ function CreateUserBaru() {
                                         },
                                     ]}
                                 >
-                                    <Input />
-                                </Form.Item>
-                                <Button  style={{ width: "100%"  , backgroundColor:"#0028ff" ,  }} type="primary" htmlType="submit">
+                                    <Select placeholder="Pilih UserLevel " showSearch optionFilterProp='children' onChange={(e, label) => {
+                                        console.log(label);
+
+                                    }}
+                                    >
+                                        {Array.isArray(selectoptions?.userLevel) && selectoptions?.userLevel.map((i) => (
+                                            <option value={i?.id}>{i.level}</option>
+                                        ))}
+                                    </Select>
+                                </Form.Item> */}
+                                <Button style={{ marginTop:"20px", width: "100%", backgroundColor: "#0028ff", }} type="primary" htmlType="submit">
                                     Submit
                                 </Button>
 
@@ -333,7 +407,7 @@ function CreateUserBaru() {
                         </Container>
                     </Col>
                 </Row>
-            </div>
+            </div >
         </>
     );
 }
