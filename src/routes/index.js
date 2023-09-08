@@ -12,7 +12,7 @@ const App = ({ match }) => {
         />
         <Route
           path={`${match.url}akunting/usernew`}
-          component={asyncComponent(() => import("./MasterData/SP List/Akunting/CreateUserBaru/index"))}
+          component={asyncComponent(() => import("./MasterData/SP List/Akunting/CreateUserBaru/TabComponent/index"))}
         />
         <Route
           path={`${match.url}dashboardop`}
