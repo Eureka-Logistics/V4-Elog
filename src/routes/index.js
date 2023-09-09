@@ -757,6 +757,16 @@ const App = ({ match }) => {
             import("./MasterData/Marketing/Splist/createSPBaru/Index")
           )}
         />
+
+
+        {/* INI RACE */}
+        <Route
+          path={`${match.url}race/splist`}
+          component={asyncComponent(() =>
+            import("../routes/Race/WebAdmin/splist/index")
+          )}
+        />
+
       </Switch>
     </div>
   );
