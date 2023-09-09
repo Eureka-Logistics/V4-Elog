@@ -23,8 +23,9 @@ import moment from "moment";
 import { PrinterOutlined } from "@ant-design/icons";
 import PrintZustand from "../../../../zustand/Store/untukPrint/MasterMitra";
 import { parse } from "date-fns";
+import isiDatamasterMitraDetailZustand from "../../../../zustand/Store/IsiDataMasterMitraDetail/Store";
 
-function DataBaru({ mitraId, DataOptions }) {
+function DataBaru({ mitraId, DataOptions ,setActiveTab }) {
   // const [datamiTraProfile, setDataMitraProfile] = useState([]);
   const [form] = Form.useForm();
   const router = useHistory();
@@ -397,7 +398,119 @@ function DataBaru({ mitraId, DataOptions }) {
     });
   };
 
-  const EditMitra = async () => {
+
+  const { setData } = isiDatamasterMitraDetailZustand();
+const EditMitra = ()=>{
+  setActiveTab('profile');
+  const data = {
+    id_mitra: mitraId,
+    jenis: DataJenis,
+    kode_mitra: DataKodeMitra,
+    nama_mitra: DataNamaMitra,
+    kode: DataKodeInisial,
+    qrcode: DataQRKode,
+    title: DataTitle,
+    jenis_usaha: DataJenisUsaha,
+    kepemilikan: DataKepemilikan,
+    jumlah_armada: DataJumlahArmada,
+    jumlah_sdm_operasional: DataJumlahSDMOperasional,
+    cabang: DataCabang,
+    jenis_kiriman: DataJenisKiriman,
+    wilayah: DataWilayah,
+    tujuan: DataTujuan,
+    tahun_awal_kontrak: DataTahunAwalKontrak,
+    awal_kontrak: DataAwalKontrak,
+    akhir_kontrak: DataAkhirKontrak,
+    kontrak: DataKontrak,
+    direktur: DataDirektur,
+    tahun_berdiri: DataTahunBerdiri,
+    npwp_id: DataNPWPID,
+    npwp_name: DataNPWPName,
+    npwp_address: DataNPWPAddress,
+    npwp_jalan: DataNPWPJalan,
+    npwp_blok: DataBlok,
+    npwp_nomor: DataNPWPNomor,
+    npwp_rt: DataNPWPRT,
+    npwp_rw: DataNPWPRW,
+    npwp_kelurahan: DataNPWKelurahan,
+    npwp_kecamatan: DataNPWPKecamatan,
+    npwp_kota: DataNPWPKota,
+    npwp_provinsi: DataNPWPProvinsi,
+    npwp_kodepos: DataNPWPKodePos,
+    is_taxable: DataISTaxAble,
+    telepon: DataTelepon,
+    contact_person: DataContactPerson,
+    telp: DataTelp,
+    fax: DataFax,
+    email: DataEmail,
+    alamat: DataAlamat,
+    homepage: DataHomePage,
+    pembayaran: DataPembayaran,
+    nama_bank: DataNamaBankk,
+    nama_akun: DataNamaAkunBank,
+    no_rek: DataNoRek,
+    currency: DataCurrency,
+    status_usaha: DataStatusUsaha,
+    top: DataTop,
+    memo: DataMemo,
+    type: DataType,
+    metode_pembayaran: TypeOfPayment,
+    pic_id: DataPicId,
+    po_legalitas: PoLegalitas,
+    ktp_legalitas: KTPLegalitas,
+    akta_pendirian: AktaPendirian,
+    akta_perubahan_dasar: AktaPerubahanDasar,
+    akta_susunan_direksi: AktaSusunanDireksi,
+    surat_domisili: SuratDomisili,
+    npwp_legalitas: NPWPLegalitas,
+    skt_legalitas: SktLegalitas,
+    nppkp_legalitas: NppkpLegalitas,
+    siup_legalitas: SiupLegalitas,
+    ijin_pendirian: IjinPenidirian,
+    ppmd_legalitas: PPMDLegalitas,
+    ijin_usaha: IjinUsaha,
+    tdp_legalitas: TDPLegalitas,
+    surat_kuasa: SuratKuasaLegalitas,
+    lama_bekerja: LamaBekerjaLegalitas,
+    jenis_kartu_kredit: JenisKartuKredit,
+    bank_penerbit: BankPenerbit,
+    laporan_keuangan: LaporanKeuangan,
+    status_usaha: StatusUsaha,
+    lama_usaha: LamaUsaha,
+    omset_bulanan: OmsetBulanan,
+    asset_tanah: AssetTanah,
+    asset_bangunan: AssetBangunan,
+    asset_kendaraan: AssetKendaraan,
+    asset_mesin: AssetMesin,
+    affiliasi: Affiliasi,
+    jumlah_unit: JumlahUnit,
+    periode_sewa: PeriodeSewa,
+    nilai_sewa: NilaiSewa,
+    nilai_ruu: NilaiRUU,
+    qty_motor: parseInt(QtyMotor),
+    rp_motor: parseInt(RpMotor),
+    qty_grandmax: parseInt(QtyGrandMax),
+    rp_grandmax: parseInt(RpGrandmax),
+    qty_l300: parseInt(Qty1300),
+    rp_l300: parseInt(Rp1300),
+    qty_traga: parseInt(QtyTraga),
+    rp_traga: parseInt(RpTraga),
+    qty_cde: parseInt(QtyCDE),
+    rp_cde: parseInt(RpCDE),
+    qty_cdd: parseInt(QtyCDD),
+    rp_cdd: parseInt(RpCDD),
+    qty_fuso: parseInt(QtyFuso),
+    rp_fuso: parseInt(RpFuso),
+    qty_wingbox: parseInt(QtyWingbox),
+    rp_wingbox: parseInt(RpWingbox),
+    qty_trailer20: parseInt(QtyTrailer20),
+    rp_trailer20: parseInt(QtyTrailer20),
+    qty_trailer40: parseInt(QtyTrailer40),
+    rp_trailer40: parseInt(RpTrailer40),
+  };
+  setData(data); 
+}
+  const EditMitras = async () => {
     try {
       const data = {
         id_mitra: mitraId,
@@ -505,7 +618,7 @@ function DataBaru({ mitraId, DataOptions }) {
         qty_trailer40: parseInt(QtyTrailer40),
         rp_trailer40: parseInt(RpTrailer40),
       };
-
+      setData(data); 
       const response = await axios.post(`${Baseurl}mitra/edit-mitra`, data, {
         headers: {
           "Content-Type": "application/json",
@@ -593,7 +706,9 @@ function DataBaru({ mitraId, DataOptions }) {
 
   return (
     <>
+
       <Card>
+
         <h3 style={{ color: "#113D7F" }}>Detail Master Mitra</h3>
       </Card>
       <Card>
@@ -646,9 +761,9 @@ function DataBaru({ mitraId, DataOptions }) {
                 label="Title :"
                 style={{ fontWeight: "bold" }}
                 name="title"
-                // rules={[
-                //   { required: false, message: "Please input your jenis!" },
-                // ]}
+              // rules={[
+              //   { required: false, message: "Please input your jenis!" },
+              // ]}
               >
                 <Select
                   className="mt-2"
@@ -681,9 +796,9 @@ function DataBaru({ mitraId, DataOptions }) {
                 label="Mitra Name :"
                 style={{ fontWeight: "bold" }}
                 name="nama_mitra"
-                // rules={[
-                //   { required: false, message: "Please input your nama mitra!" },
-                // ]}
+              // rules={[
+              //   { required: false, message: "Please input your nama mitra!" },
+              // ]}
               >
                 <Input
                   className="mt-2"
@@ -700,12 +815,12 @@ function DataBaru({ mitraId, DataOptions }) {
                 label="Kode Perusahaan (Singkatan Mitra Name)"
                 style={{ fontWeight: "bold" }}
                 name="kode"
-                // rules={[
-                //   {
-                //     required: false,
-                //     message: "Please input your Kode Perusahaan!",
-                //   },
-                // ]}
+              // rules={[
+              //   {
+              //     required: false,
+              //     message: "Please input your Kode Perusahaan!",
+              //   },
+              // ]}
               >
                 <Input
                   className="mt-2"
@@ -1229,9 +1344,9 @@ function DataBaru({ mitraId, DataOptions }) {
                 label="Status Usaha :"
                 style={{ fontWeight: "bold" }}
                 name="status_usaha"
-                // rules={[
-                //   { required: false, message: "Please input your alamat!" },
-                // ]}
+              // rules={[
+              //   { required: false, message: "Please input your alamat!" },
+              // ]}
               >
                 <Select
                   className="mt-2"
@@ -1554,7 +1669,7 @@ function DataBaru({ mitraId, DataOptions }) {
               <Form.Item
                 label="Term of payment (Hari) :"
                 style={{ fontWeight: "bold" }}
-                // name="-"
+              // name="-"
               >
                 <Select
                   className="mt-2"
@@ -1651,7 +1766,7 @@ function DataBaru({ mitraId, DataOptions }) {
               <Form.Item
                 label="Status :"
                 style={{ fontWeight: "bold" }}
-                // name="-"
+              // name="-"
               >
                 <Select
                   className="mt-2"
@@ -1676,7 +1791,7 @@ function DataBaru({ mitraId, DataOptions }) {
             <Row>
               <Col sm={24} className="d-flex justify-content-end">
                 <Button onClick={EditMitra} type="primary" htmlType="submit">
-                  Submit
+                  Data Referensi
                 </Button>
               </Col>
             </Row>
@@ -1684,6 +1799,7 @@ function DataBaru({ mitraId, DataOptions }) {
         </Form>
       </Card>
       {/* <PIC namaMitra={namaMitra}/> */}
+
     </>
   );
 }

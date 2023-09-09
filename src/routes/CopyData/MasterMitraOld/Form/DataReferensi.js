@@ -3,12 +3,18 @@ import React, { useEffect, useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 // import { httpClient } from "../../../util/Api";
 import { httpClient } from "../../../../Api/Api";
+import isiDatamasterMitraDetailZustand from "../../../../zustand/Store/IsiDataMasterMitraDetail/Store";
+import { Button, notification } from "antd";
+import Swal from "sweetalert2";
+import Baseurl from "../../../../Api/BaseUrl";
 
-function DataReferensi({ mitraId }) {
+function DataReferensi({ mitraId, SemuaDataUntukEdit }) {
   const id_mitras = mitraId;
-  const [datareverensis, setDataReference] = useState([]);
-  const [detailmitra, setDetailMitra] = useState({});
+  const [datareverensis, setDataReference] = useState("");
+  const { data, setData } = isiDatamasterMitraDetailZustand();
 
+
+  console.log(`oper bang data`, data);
   useEffect(() => {
     const datareverensi = async () => {
       httpClient
@@ -16,7 +22,7 @@ function DataReferensi({ mitraId }) {
         .then(({ data }) => {
           if (data.status.code === 200) {
             setDataReference(data.data);
-            setDetailMitra(data.data);
+            console.log(`data referensi`,data.data);
           }
         })
         .catch(function (error) {
@@ -25,6 +31,42 @@ function DataReferensi({ mitraId }) {
     };
     datareverensi();
   }, []);
+
+  const EditMitras = async () => {
+    try {
+      const response = await axios.post(`${Baseurl}mitra/edit-mitra`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Data has been Changed",
+        // footer: '<a href="">Why do I have this issue?</a>'
+      })
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.errors) {
+        const errorMessages = error.response.data.errors.map((element) => {
+          return `${element.field}: ${element.message}`;
+        });
+        const errorMessage = errorMessages.join("\n");
+
+        notification.error({
+          description: errorMessage,
+        });
+      } else if (
+        error.response &&
+        error.response.data &&
+        error.response.data.status
+      ) {
+        notification.error({
+          description: error.response.data.status.message,
+        });
+      }
+    }
+  };
 
   return (
     <div>
@@ -35,6 +77,7 @@ function DataReferensi({ mitraId }) {
       <br />
       <hr />
       <br />
+      <Button onClick={EditMitras}>Post</Button>
       <Row>
         <Col sm={6}>
           <Row className="align-items-center mb-2">
