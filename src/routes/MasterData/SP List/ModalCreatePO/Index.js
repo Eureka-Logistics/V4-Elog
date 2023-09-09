@@ -46,25 +46,23 @@ function ModalCreatePO({ show, onHide }) {
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
-                    <Row>
-                    {Array.from({ length: 3 }).map((_, index) => (
+                        {Array.from({ length: 3 }).map((_, index) => (
                             <Col md={4}>
-                            <Form.Item
-                                key={index}
-                                label={`PO number ${index + 1} Mitra Name`}
-                                name={`po_number_${index + 1}`}
-                                rules={[
-                                    {
-                                        required: false,
-                                        message: `Please input PO number ${index + 1}!`,
-                                    },
-                                ]}
-                            >
-                                <Input />
-                            </Form.Item>
+                                <Form.Item
+                                    key={index}
+                                    label={`PO number ${index + 1} Mitra Name`}
+                                    name={`po_number_${index + 1}`}
+                                    rules={[
+                                        {
+                                            required: false,
+                                            message: `Please input PO number ${index + 1}!`,
+                                        },
+                                    ]}
+                                >
+                                    <Input />
+                                </Form.Item>
                             </Col>
-                    ))}
-                    </Row>
+                        ))}
                 </Form>
             </Modal>
             <br />

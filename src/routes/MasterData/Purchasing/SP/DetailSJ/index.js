@@ -434,7 +434,7 @@ function Index() {
 
 
                         </Col>
-                        <Col style={{ width: "75%", marginTop: -85 }} sm={8}>
+                        <Col style={{ width: "75%", marginTop: -60 }} sm={8}>
                             <Form.Item
                                 label="Memo"
                                 name="memo"

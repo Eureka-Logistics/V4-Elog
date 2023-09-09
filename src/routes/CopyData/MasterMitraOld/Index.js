@@ -41,6 +41,10 @@ const SamplePage = () => {
       name: "Mitra Code",
       selector: (row) => <Tag color="blue">{row.mitraCode}</Tag>,
       width: "130px",
+      selector: (row) =>
+      <Tag color="blue">{ row.mitraCode}</Tag>,
+      width: "150px",
+     
     },
     {
       name: "Status",
@@ -65,11 +69,13 @@ const SamplePage = () => {
       name: "Mitra Name",
       selector: (row) => row.mitraName,
       width: "200px",
+      // width: "100px",
     },
     {
       name: "Mitra Address",
       selector: (row) => row.mitraAddress,
       width: "170px",
+      // width: "150px",
     },
     {
       name: "Awal Kontrak",

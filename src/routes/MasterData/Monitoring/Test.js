@@ -47,48 +47,30 @@
 // }
 
 // export default React.memo(MyComponent)
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
+import { Col, Row } from 'react-bootstrap';
+
+
+
 
 export class MapContainer extends Component {
-  componentDidMount() {
-    this.renderDirections();
+  
+  componentDidUpdate(prevProps, prevState) {
+    
+    if (
+      prevState.input1 !== this.state.input1 ||
+      prevState.inputlong1 !== this.state.inputlong1 ||
+      prevState.input2 !== this.state.input2 ||
+      prevState.inputlong2 !== this.state.inputlong2 ||
+      prevState.input3 !== this.state.input3 ||
+      prevState.inputlong3 !== this.state.inputlong3
+    ) {
+      this.renderDirections();
+    }
   }
-
-  renderDirections() {
-    const { google } = this.props;
-    const directionsService = new google.maps.DirectionsService();
-    const directionsRenderer = new google.maps.DirectionsRenderer();
-
-    directionsRenderer.setMap(this.map.map);
-
-    const origin = { lat: -6.325103, lng: 106.8651844 }; /// gor ciracas
-    const destination = { lat: -6.3302836, lng: 106.8707228 }; /// Pasar Jaya Ciracas
-    const waypoint1 = { location: { lat: -6.3210439, lng: 106.8703552 } }; /// Gang Asem No.7
-    const waypoint2 = { location: { lat: -6.3281276, lng: 106.8655332 } }; /// KFC Ciracas
-    // const waypoint3 = { location: { lat: -6.3225555, lng: 106.8688888 } };
-
-    directionsService.route(
-      {
-        origin: origin,
-        destination: destination,
-        waypoints: [waypoint1, waypoint2],
-        optimizeWaypoints: true, // ini akan mengoptimalkan urutan untuk jarak terpendek, opsional
-        travelMode: 'DRIVING',
-      },
-      (response, status) => {
-        if (status === 'OK') {
-          directionsRenderer.setDirections(response);
-        } else {
-          console.error(`Error fetching directions ${response}`);
-        }
-      }
-    );
-  }
-
-
-  render() {
+  constructor(props) {
     const destinasi = [
       {
         name: 'Point A',
@@ -106,23 +88,107 @@ export class MapContainer extends Component {
         lng: 106.869822
       },
     ];
+    super(props);
+    this.state = {
+      origin: {},
+      destination: {},
+      waypoint1: {},
+      waypoint2: {},
+      input1: destinasi[0].lat,
+      inputlong1: destinasi[0].lng,
+      input2: destinasi[1].lat,
+      inputlong2: destinasi[1].lng,
+      input3: destinasi[2].lat,
+      inputlong3: destinasi[2].lng,
+    };
+  }
+  handleInputChange1 = (e) => {
+    this.setState({ input1: e.target.value });
+  };
+  handleInputChangelong1 = (e) => {
+    this.setState({ inputlong1: e.target.value });
+  };
 
-    
-    const origin = { lat: destinasi[0].lat, lng: destinasi[0].lng };
-    const destination = { lat: destinasi[0].lat, lng: destinasi[0].lng  };
-    const waypoint1 = { lat: destinasi[1].lat, lng: destinasi[1].lng  };
-    const waypoint2 = { lat: destinasi[2].lat, lng: destinasi[2].lng  };
-    
-    console.log(`origin`,origin);
+  handleInputChange2 = (e) => {
+    this.setState({ input2: e.target.value });
+  };
+  handleInputChangelong2 = (e) => {
+    this.setState({ inputlong2: e.target.value });
+  };
+  handleInputChange3 = (e) => {
+    this.setState({ input3: e.target.value });
+  };
+  handleInputChangelong3 = (e) => {
+    this.setState({ inputlong3: e.target.value });
+  };
 
 
-    const data = `https://www.google.com/maps/dir/${origin.lat},${origin.lng}/${waypoint1.lat},${waypoint1.lng}/${waypoint2.lat},${waypoint2.lng}/${destination.lat},${destination.lng}/`
-    const link = () => {
+  renderDirections() {
 
+    const { google } = this.props;
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
+
+    directionsRenderer.setMap(this.map.map);
+  
+
+
+    const origin = { lat: parseFloat(this.state.input1), lng: parseFloat(this.state.inputlong1) };
+    const destination = { lat: parseFloat(this.state.input1), lng: parseFloat(this.state.inputlong1) };
+    const waypoint1 = { location: { lat: parseFloat(this.state.input2), lng: parseFloat(this.state.inputlong2) } };
+    const waypoint2 = { location: { lat: parseFloat(this.state.input3), lng: parseFloat(this.state.inputlong3)} };
+    this.setState({ origin, destination, waypoint1, waypoint2 });
+
+    directionsService.route(
+      {
+        origin: origin,
+        destination: destination,
+        waypoints: [waypoint1, waypoint2],
+        optimizeWaypoints: true,
+        travelMode: 'DRIVING',
+      },
+      (response, status) => {
+        if (status === 'OK') {
+          directionsRenderer.setDirections(response);
+        } else {
+          console.error(`Error fetching directions ${response}`);
+        }
+      }
+    );
+  }
+
+
+
+  render() {
+
+    // const [lat1, setlat1] = useState("")
+    // const [lat2, setlat2] = useState("")
+    // const [lat3, setlat3] = useState("")
+    // const { origin, waypoint1, waypoint2, destination } = this.state;
+    const ssss = () => {
+      GoogleApiWrapper()
     }
+
+    // const data = `https://www.google.com/maps/dir/${origin.lat},${origin.lng}/${waypoint1.lat},${waypoint1.lng}/${waypoint2.lat},${waypoint2.lng}/${destination.lat},${destination.lng}/`
     return (
+
       <>
-        <Button color='danger' href={data} target="_blank" rel="noopener noreferrer" onClick={link} >Ambil Link</Button>
+        <Row style={{ paddingBottom: "20px" }}>
+          <Col sm={4}>
+            <Input placeholder='lat1' onChange={this.handleInputChange1} value={this.state.input1} />
+            <Input placeholder='long2' onChange={this.handleInputChangelong1} value={this.state.inputlong1} />
+          </Col>
+          <Col sm={4}>
+            <Input placeholder='lat2' onChange={this.handleInputChange2} value={this.state.input2} />
+            <Input placeholder='long2' onChange={this.handleInputChangelong2} value={this.state.inputlong2} />
+          </Col>
+          <Col sm={4}>
+            <Input placeholder='lat3' onChange={this.handleInputChange3} value={this.state.input3} />
+            <Input placeholder='long2' onChange={this.handleInputChangelong3} value={this.state.inputlong3} />
+          </Col>
+        </Row>
+
+        <Button color='danger' onClick={ssss} >Ambil Link</Button>
         <Map
           google={this.props.google}
           zoom={18}

@@ -31,7 +31,7 @@ const Topbar = () => {
   const width = useSelector(({ common }) => common.width);
   const [searchText, setSearchText] = useState("");
   const dispatch = useDispatch();
-
+  const jobdeks = localStorage.getItem("jobdeks");
   const languageMenu = () => (
     <CustomScrollbars className="gx-popover-lang-scroll">
       <ul className="gx-sub-popover">
@@ -74,16 +74,27 @@ const Topbar = () => {
       </Link>
 
       {/* <div className="gx-d-none gx-d-lg-block d-flex justify-content-end gx-lt-icon-search-bar-lg gx-move-right-to-left">Halo👋 {fullname} || {namaRole} || cabang {cabang}</div> */}
-      <Row style={{ marginLeft: '2%' }}>
-        <Col span={24} >
-          {" "}
-          <Button style={{backgroundColor:"#1a5cbf"}}>
-            <h6 style={{ color: "white" }} className="mt-1">
-              Welcome, {fullname}👋
-            </h6>
-          </Button>
-        </Col>
-      </Row>
+      {jobdeks != "rcadmin" ? (
+        <Row >
+          <Col >
+            {" "}
+            <h5 style={{ color: "blue" , marginLeft : "30px"}} className="mt-1">
+            👋 Halo, Selamat Datang! {fullname} 
+            </h5>
+          </Col>
+        </Row>
+      ) :
+        <Row style={{ marginLeft: '2%' }}>
+          <Col span={24} >
+            {" "}
+            <Button style={{ backgroundColor: "#1a5cbf" }}>
+              <h6 style={{ color: "white" }} className="mt-1">
+                Welcome, {fullname}👋
+              </h6>
+            </Button>
+          </Col>
+        </Row>}
+
       {/* <Col className="ms-3">
         <Button type="primary" onClick={() => setOpen(true)}>
           Buka What'sApp

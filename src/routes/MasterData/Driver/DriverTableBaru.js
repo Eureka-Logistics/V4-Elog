@@ -66,8 +66,22 @@ function DriverTableBaru() {
     },
     {
       name: "NIK Driver",
-      selector: (row) => row.nik,
+      selector: (row) =>
+        <Tag color="blue">
+          {row.nik}
+
+        </Tag>,
       width: "100px",
+    },
+    {
+      name: "Code Driver",
+      selector: (row) => <>
+        <Tag color="red">
+          {row.driverCode}
+
+        </Tag>
+      </>,
+      width: "150px",
     },
     {
       name: "Nama",
@@ -76,7 +90,7 @@ function DriverTableBaru() {
     {
       name: "Image",
       selector: (row) => (
-        <img style={{objectFit : "cover"}} src={row.driverImage} height="108px" width="158px"></img>
+        <img style={{ objectFit: "cover" }} src={row.driverImage} height="108px" width="158px"></img>
       ),
     },
     {
@@ -511,7 +525,7 @@ function DriverTableBaru() {
     validationSchema: Yup.object({
       nik: Yup.string()
         .required("Nik harus diisi")
-        .max(6, "Tidak Boleh Melebihi 6 Karakter")
+        .max(5, "Tidak Boleh Melebihi 5 Karakter")
         .matches(
           /^[A-Z][A-Za-z0-9]*$/,
           "Nik harus dimulai dengan huruf besar dan hanya boleh berupa angka/huruf, tanpa simbol atau spasi"
@@ -835,11 +849,11 @@ function DriverTableBaru() {
                       //     : null
                       // }
                       value={
-                        formik.values.tgllahir 
-                          ? moment(formik.values.tgllahir, "YYYY-MM-DD") 
+                        formik.values.tgllahir
+                          ? moment(formik.values.tgllahir, "YYYY-MM-DD")
                           : null
                       }
-                      
+
                     />
                   </Form.Item>
                 </Col>

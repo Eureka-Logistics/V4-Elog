@@ -134,7 +134,7 @@ function FormTable({
     }
   }
 
-
+  console.log(`idUnit`, idUnit);
 
   useEffect(() => {
     setType(isidetail.map((item) => item?.kendaraan))
@@ -314,8 +314,23 @@ function FormTable({
   const PindahVehicle = () => {
     history.push(`/masterdata/purchasing/vehicle`);
   };
-
+  console.log(`another`, driveranother);
+  console.log(`selectnomor`, selectnomor);
+  console.log(`idUnit`, idUnit);
+  console.log(`selectDriver[0]?.name`, selectDriver[0]?.name);
   ///tombol approve
+  console.log(`selectDriver[0]?.idUnit`, selectDriver[0]?.idUnit);
+  const [NameDriverOperasionalAnother, setNameDriverOperasionalAnother] = useState(selectDriver[0]?.name)
+  const [IDDriverOperasionalAnother, setIdDriverOperasionalAnother] = useState(selectnomor)
+  console.log(`NameDriverOperasionalAnother`, NameDriverOperasionalAnother); /// ambil nama dari another driver
+
+
+  const GantiNamaDriverAnother = (selectedOption) => {
+    setNameDriverOperasionalAnother(selectedOption)
+  }
+  const GantiIDDriverAnother = (selectedOption) => {
+    setIdDriverOperasionalAnother(selectedOption)
+  }
 
   const HandleApproveOPS = (idmpd) => {
     try {
@@ -323,10 +338,12 @@ function FormTable({
       const body = {
         id_mpd: IDMPD,
         id_mp: idmp,
-        id_supir: selectnomor,
+        // id_supir: IDDriverOperasionalAnother || selectnomor,
+        id_supir: IDDriverOperasionalAnother || selectnomor,
         // id_unit: selectnomor,
         id_unit: selectDriver[0]?.idUnit ? selectDriver[0]?.idUnit : idUnit,
-        nama_supir: selectDriver[0]?.name ? selectDriver[0]?.name : idUnit,
+        // nama_supir: selectDriver[0]?.name ? selectDriver[0]?.name : NameDriverOperasionalAnother,
+        nama_supir: NameDriverOperasionalAnother,
         id_mitra: 1,
         id_mitra_pickup: 1,
         id_mitra_2: 1,
@@ -336,9 +353,16 @@ function FormTable({
 
         pickup_kendaraan: NamaMobilDariTable || "",
         pickup_nopol: selectnopol,
-        pickup_supir: selectDriver[0]?.name ? selectDriver[0]?.name : idUnit,
+        pickup_supir: NameDriverOperasionalAnother,
       };
 
+      if (selectnopol === "") {
+        notification.error({
+          message : "Nopol Polisi Harus Diisi"
+        })
+        setLoadingMuterMuter(false);
+        // setLoadingMuterMuter(true);
+      }
       axios
         .post(`${Baseurl}sp/approve-SP`, body, {
           headers: {
@@ -348,7 +372,10 @@ function FormTable({
         })
         .then((response) => {
           const isidata = response.data.status;
+          console.log(`ini adlaah`,isidata);
           setApproved(isidata);
+          setSelectnomor("")
+          setIdDriverOperasionalAnother("")
           datarefresh()
           // Display success alert
           setSpDetailZustand()
@@ -365,12 +392,23 @@ function FormTable({
         })
         .catch((error) => console.error(`Error: ${error}`));
     } catch (error) {
-      notification.error({
-        icon: "error",
-        message: error.response.status.message
-      })
+      console.log(`ini error`);
+      if (error.response.data.status && error.response.data.status.message) {
+        notification.error({
+          icon: "error",
+          message: error.response.data.status.message
+        })
+      } else if (error.response.data.errors && error.response.data.errors.message) {
+        notification.error({
+          icon: "error",
+          message: error.response.data.errors.message
+        })
+      }
+
     }
   };
+
+
 
   // console.log(`VehicleType1:  `, VehicleType1 );
   // console.log(`SelectMitraPertama:  `, SelectMitraPertama);
@@ -578,6 +616,7 @@ function FormTable({
       value: item.id,
       label: item.name + " || " + item?.mitra,
       kd_kendaraan: item.kd_kendaraan,
+      name: item.name
     }))
     : [];
 
@@ -1568,6 +1607,8 @@ function FormTable({
                   </Button>
                 </>
               )}
+
+              {/* Modal Approve Operasional */}
               <Modal show={show} onHide={handleClose} size="md">
                 <Modal.Header closeButton>
                   <Modal.Title>Approve {jobdesk}</Modal.Title>
@@ -1577,8 +1618,7 @@ function FormTable({
                     <>
                       <Row>
                         <Col sm={12}>
-                          <Form.Label>Vehicle Type</Form.Label>
-                          <Form.Label>ini adalah{NamaMobilDariTable}</Form.Label>
+                          <Form.Label>Vehicle Type Operasional</Form.Label>
                           <Form.Select
                             type="text"
                             disabled
@@ -1637,6 +1677,8 @@ function FormTable({
                       </Row>
                     </>
                   )}
+
+
 
                   {/* Bukan operasional */}
                   {jobdesk != "operasional" && (
@@ -1799,6 +1841,7 @@ function FormTable({
                             // placeholder={selectDriver[0]?.id}
                             value={selectDriver[0]?.id}
                             onChange={(e) => {
+                              console.log(e.target.value)
                               setIdunit(e.target.value);
                             }}
                           >
@@ -1829,7 +1872,7 @@ function FormTable({
                       size="sm"
                       onClick={() => handleAnotherDriverClick()}
                     >
-                      another driver
+                      Pilihan Another Driver
                     </Button>
                     <br />
                     {bukaanother && (
@@ -1860,9 +1903,9 @@ function FormTable({
                           </SelectAntd> */}
 
                         {/* </AntForm.Item> */}
-                        <Form.Label>Select Driver</Form.Label>
-                        <Form.Select
-                          onChange={(e) => setIdunit(e.target.value)}
+                        <Form.Label>Select Driver Another</Form.Label>
+                        {/* <Form.Select
+                          onChange={(e) => {console.log(e.target.value); setIdunit(e.target.value)}}
                         >
                           <option>Select Driver</option>
                           {driveranother &&
@@ -1871,7 +1914,18 @@ function FormTable({
                                 {item?.name}
                               </option>
                             ))}
-                        </Form.Select>
+                        </Form.Select> */}
+                        <Select
+                          options={anotneroptionsdriver}
+                          onChange={(selectedOption) => {
+                            setIdunit(selectedOption.value)
+                            GantiIDDriverAnother(selectedOption.value)
+                            setNameDriverOperasionalAnother(selectedOption.name)
+                            GantiNamaDriverAnother(selectedOption.name)
+                            // setSelectnomor(selectedOption.mitra);
+                            // setSelectNopol(selectedOption.no_polisi);
+                          }}
+                        />
                       </>
                     )}
                   </>

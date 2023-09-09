@@ -95,29 +95,6 @@ function SPList() {
 
   const [combinedData, setCombinedData] = useState([]);
 
-  // useEffect(() => {
-  //   if (isiData.length > 0 && destinationData.length > 0) {
-  //     const combined = isiData.map((isiItem) => {
-  //       const destItem = destinationData.find(
-  //         (destinationItem) => destinationItem.idmp === isiItem.idmp
-  //       );
-
-  //       if (destItem) {
-  //         return {
-  //           ...isiItem,
-  //           destination: destItem.destination,
-  //           ...isiItem,
-  //           kendaraan: destItem.kendaraan,
-  //         };
-  //       }
-
-  //       return isiItem;
-  //     });
-
-  //     setCombinedData(combined);
-  //   }
-  // }, [isiData, destinationData]);
-
   let counter = 1;
 
   
@@ -187,6 +164,7 @@ function SPList() {
       name: "Approved/Decline Act",
       selector: (row) => {
         const date = new Date(row.dateApproveAct);
+        
         return isNaN(date.getTime()) ? (
           "-"
         ) : (

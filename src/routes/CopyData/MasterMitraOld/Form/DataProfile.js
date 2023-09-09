@@ -149,17 +149,21 @@ const SamplePage = () => {
           setTimeout(() => router.push("/mastermitra"), 1000);
         })
         .catch(function (error) {
-          notification.error({
-            message: "Error",
-            description: error.response.data.status.message,
-          });
-          error.response.data.errors.forEach((errorItem) => {
+          if (error.response.data.errors && Array.isArray(error.response.data.errors)) {
+            error.response.data.errors.forEach((errorItem) => {
+              notification.error({
+                message: "Error",
+                description: errorItem.message
+              });
+            });
+          } else if (error.response && error.response.data && error.response.data.status && error.response.data.status.message) {
             notification.error({
               message: "Error",
-              description: errorItem.message // Pastikan struktur object ini sesuai dengan data yang Anda miliki
+              description: error.response.data.status.message,
             });
-          });
-
+          } else {
+            console.log("No matching conditions.");
+          }
           console.log(error.message);
         });
     },
@@ -1343,7 +1347,7 @@ const SamplePage = () => {
                   />
 
                 </InputGroup> */}
-                 <Select
+                <Select
                   name="metode_pembayaran"
                   style={{ width: "100%", marginTop: "10px" }}
                   onChange={(value) => {
@@ -1992,9 +1996,9 @@ const SamplePage = () => {
           </Col>
         </Row> */}
         {/* <CreateMitraModal isiValues={isiValues}/> */}
-        <Row > 
-           <Col span={24} className="justify-content-end d-flex">
-           <Button  type="submit">Save</Button></Col>
+        <Row >
+          <Col span={24} className="justify-content-end d-flex">
+            <Button type="submit">Save</Button></Col>
         </Row>
       </Form>
     </div>

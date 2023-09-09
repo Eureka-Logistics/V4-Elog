@@ -11,7 +11,7 @@ import ZustandStore from '../../../../zustand/Store/GetSelectKota';
 import ModalEditSPDetail from './EditModalSPDetail/ModalEditSPDetail';
 import EditDetailSPModal from '../../../../zustand/Store/EditDetailSPModal';
 import useServiceStatusStore from '../../../../zustand/Store/StatusService';
-function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik, detailData, }) {
+function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik, detailData, refreshtable}) {
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
     const [selectVia, setSelectVia] = useState("");
@@ -112,7 +112,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                 }
             )
             DetailSP()
-            // getDetails()
+            // refreshtable()
             message.success('Data berhasil ditambahkan!');
         } catch (error) {
             message.error(error.response.data.status.message)
@@ -187,16 +187,16 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
             biayamuat: DetailSemuaTemp?.harga_muat,
             biayamultidrop: DetailSemuaTemp?.harga_multidrop,
             biayamel: DetailSemuaTemp?.biayamel,
-            total: DetailSemuaTemp?.harga,
+            // total: DetailSemuaTemp?.harga,
             id_kota_muat: DetailSemuaTemp?.id_kota_muat,
             id_kota_bongkar: DetailSemuaTemp?.id_kota_bongkar,
             shipmentID: DetailSemuaTemp?.shipmentID,
             biaya_jalan: DetailSemuaTemp?.biaya_jalan,
-            total: DetailSemuaTemp?.Price,
+            // total: DetailSemuaTemp?.Price,
+            total: DetailSemuaTemp?.totalBiayaRetail,
 
         })
     ), [DetailSemuaTemp])
-
     useEffect(() => {
 
         if (formik.values.via) {
@@ -376,15 +376,18 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         const biayamel = Number(formik.values.biayamel) || 0;
         const berat = Number(formik.values.berat) || 1;
         const HasilTarifNumerik = Number(HasilTarif) || 0;
-
+    
+        const totalBiayaTambahan = biayaBongkar + biayaMuat + biayamultimuat + biayamultidrop + biayamel;
+    
         if (DetailSemua?.service === 'Retail') {
-            return   berat * HasilTarifNumerik + biayaBongkar + biayaMuat + biayamultimuat + biayamultidrop + biayamel  ;
+            return (HasilTarifNumerik + totalBiayaTambahan) * berat;
         } else if (DetailSemua?.service === 'Charter') {
-            return HasilTarifNumerik + biayaBongkar + biayaMuat + biayamultimuat + biayamultidrop + biayamel;
+            return HasilTarifNumerik + totalBiayaTambahan;
         } else {
             return 0; // atau pesan error jika tipe pengiriman tidak dikenal
         }
     };
+    
 
     useEffect(() => {
         const total = calculateTotal(formik.values.shipment, formik.values.berat, HasilTarif);
@@ -801,7 +804,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 label="Service"
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
                                 validateStatus={
-                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                    formik.touched.shipment && formik.errors.shipment
                                         ? 'error'
                                         : 'success'
                                 }
@@ -862,7 +865,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 label="Qty"
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
                                 validateStatus={
-                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                    formik.touched.qyt && formik.errors.qyt
                                         ? 'error'
                                         : 'success'
                                 }
@@ -883,7 +886,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 label="Koli"
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
                                 validateStatus={
-                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                    formik.touched.koli && formik.errors.koli
                                         ? 'error'
                                         : 'success'
                                 }
@@ -904,7 +907,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 label="Nama Barang"
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
                                 validateStatus={
-                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                    formik.touched.namabarang && formik.errors.namabarang
                                         ? 'error'
                                         : 'success'
                                 }
@@ -928,7 +931,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 label="Panjang"
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
                                 validateStatus={
-                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                    formik.touched.panjang && formik.errors.panjang
                                         ? 'error'
                                         : 'success'
                                 }
@@ -949,7 +952,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 label="Lebar"
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
                                 validateStatus={
-                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                    formik.touched.lebar && formik.errors.lebar
                                         ? 'error'
                                         : 'success'
                                 }
@@ -970,7 +973,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 label="Tinggi"
                                 help={formik.touched.alamatmuat && formik.errors.alamatmuat}
                                 validateStatus={
-                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                    formik.touched.tinggi && formik.errors.tinggi
                                         ? 'error'
                                         : 'success'
                                 }
@@ -1055,7 +1058,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         formik.setFieldValue("bongkar", Number(e.target.value.replace(/\D/g, '')))
                                     }}
 
-                                    value={formik.values.bongkar}
+                                    value={formik.values.bongkar === undefined ? 0 : formik.values.bongkar.toLocaleString('id-ID')}
                                     onBlur={formik.handleBlur}
                                 />
                             </Form.Item>
@@ -1099,7 +1102,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
                                         formik.setFieldValue("biayamuat", Number(e.target.value.replace(/\D/g, '')))
                                     }}
-                                    value={formik.values.biayamuat}
+                                    value={formik.values.biayamuat  === undefined ? 0 : formik.values.biayamuat.toLocaleString('id-ID')}
                                     onBlur={formik.handleBlur}
                                 />
                             </Form.Item>
@@ -1127,6 +1130,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         formik.setFieldValue("biayamultimuat", Number(e.target.value.replace(/\D/g, '')))
                                     }}
                                     value={formik.values.biayamultimuat === undefined ? 0 : formik.values.biayamultimuat.toLocaleString('id-ID')}
+                                    // value={formik.values.biayamultimuat }
                                     onBlur={formik.handleBlur}
                                 />
                             </Form.Item>
@@ -1171,6 +1175,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         formik.setFieldValue("biayamultidrop", Number(e.target.value.replace(/\D/g, '')))
                                     }}
                                     value={formik.values.biayamultidrop === undefined ? 0 : formik.values.biayamultidrop.toLocaleString('id-ID')}
+                                    // value={formik.values.biayamultidrop }
                                     onBlur={formik.handleBlur}
                                 />
                             </Form.Item>
@@ -1215,6 +1220,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         formik.setFieldValue("biayamel", Number(e.target.value.replace(/\D/g, '')))
                                     }}
                                     value={formik.values.biayamel === undefined ? 0 : formik.values.biayamel.toLocaleString('id-ID')}
+                                    // value={formik.values.biayamel }
                                     onBlur={formik.handleBlur}
                                 />
                             </Form.Item>
@@ -1705,7 +1711,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             <Form.Item
                                 required
                                 label="Service"
-                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
+                                help={formik.touched.shipment && formik.errors.shipment}
                                 // validateStatus={
                                 //     formik.touched.alamatmuat && formik.errors.alamatmuat
                                 //         ? 'error'
@@ -1834,7 +1840,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                         <Col sm={4}>
                             <Form.Item
                                 label="Panjang"
-                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
+                                help={formik.touched.panjang && formik.errors.panjang}
                                 // validateStatus={
                                 //     formik.touched.alamatmuat && formik.errors.alamatmuat
                                 //         ? 'error'
@@ -1855,7 +1861,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                         <Col sm={4}>
                             <Form.Item
                                 label="Lebar"
-                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
+                                help={formik.touched.lebar && formik.errors.lebar}
                                 // validateStatus={
                                 //     formik.touched.alamatmuat && formik.errors.alamatmuat
                                 //         ? 'error'
@@ -1876,7 +1882,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                         <Col sm={4}>
                             <Form.Item
                                 label="Tinggi"
-                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
+                                help={formik.touched.tinggi && formik.errors.tinggi}
                                 // validateStatus={
                                 //     formik.touched.alamatmuat && formik.errors.alamatmuat
                                 //         ? 'error'
@@ -1901,7 +1907,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             <Form.Item
 
                                 label="Tarif"
-                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
+                                help={formik.touched.tarif && formik.errors.tarif}
                                 // validateStatus={
                                 //     formik.touched.alamatmuat && formik.errors.alamatmuat
                                 //         ? 'error'
