@@ -56,6 +56,7 @@ function DetailMasterCustomer() {
   const [InvoicePositions, setDataInvoicePositions] = useState("");
   const [InvoiceEmail, setDataInvoiceEmail] = useState("");
   const [InvoiceMobile, setDataInvoiceMobile] = useState("");
+  const [invoiceAddress, setInvoiceAddress] = useState("");
   const [InvoicePhoneOffice, setDataInvoicePhoneOffice] = useState(
     DetailDataMasterCustomer?.invoice_phone_office
   );
@@ -65,6 +66,22 @@ function DetailMasterCustomer() {
   const [DataTanggalBergabung, setDataTanggalBergabung] = useState("");
   const [DataTahunBerdiri, setDataTahunBerdiri] = useState("");
   const [Loading, setLoading] = useState(false);
+  const [Direktur, setDirektur] = useState("");
+  const [DirekturDate, setDirekturDate] = useState("");
+  const [DirekturMemo, setDirekturMemo] = useState("");
+  const [Akunting, setAkunting] = useState("");
+  const [AkuntingDate, setAkuntingDate] = useState ("");
+  const [AkuntingMemo, setAkuntingMemo] = useState("");
+  const [Manager, setManager] = useState("");
+  const [ManagerDate, setManagerDate]= useState("");
+  const [ManagerMemo, setManagerMemo] = useState("");
+  const [MataUang, setMataUang] = useState("");
+  const [KTP, setKTP] = useState("");
+  const [HP, setHP] = useState ("");
+  const [Email, setEmail] = useState("");
+  
+
+
 
   const DetailMasterCustomers = async (id_customer) => {
     setLoading(true);
@@ -123,12 +140,22 @@ function DetailMasterCustomer() {
       setDataInvoicePhoneOffice(respons.data.data?.invoice_phone_office || "");
       setDataKodeCustomer(respons.data.data?.kode_customer || "");
       setDataTanggalBergabung(respons.data.data?.tgl_bergabung || "");
-      // setToPValue(respons.data.data?.top || "");
+      setDirektur(respons.data.data?.direktur || "");
+      setDirekturDate(respons.data.data?.direktur_date || "");
+      setDirekturMemo(respons.data.data?.direktur_memo || "");
+      setAkunting(respons.data.data?.akunting || "");
+      setAkuntingDate(respons.data.data?.akunting_date || "");
+      setAkuntingMemo(respons.data.data?.akunting_memo || "");
+      setManager(respons.data.data?.manager || ""); 
+      setManagerDate(respons.data.data?.manager_date || ""); 
+      setManagerMemo(respons.data.data?.manager_memo || ""); 
+      setMataUang(respons.data.data?.mata_uang || ""); 
+      setKTP(respons.data.data?.ktp || ""); 
+      setHP(respons.data.data?.hp || ""); 
+      setEmail(respons.data.data?.email || ""); 
+      setInvoiceAddress(respons.data.data?.invoice_address || ""); 
 
-      //   console.log("responssssscarismid", respons.data.data);
 
-      //   setDataTambah(respons.data);
-      //   setSJList(respons.data?.data?.sj);
       setLoading(false);
     } catch (error) {}
   };
@@ -178,6 +205,20 @@ function DetailMasterCustomer() {
         invoice_email: InvoiceEmail,
         invoice_mobile: parseInt(InvoiceMobile),
         invoice_phone_office: InvoicePhoneOffice,
+        invoice_address: invoiceAddress,
+        manager: Manager,
+        manager_memo: ManagerMemo,
+        manager_date: ManagerDate,
+        direktur: Direktur,
+        direktur_date: DirekturDate,
+        direktur_memo: DirekturMemo,
+        akunting: Akunting,
+        akunting_date: AkuntingDate,
+        akunting_memo: AkuntingMemo,
+        mata_uang: MataUang,
+        ktp: KTP,
+        hp: HP,
+        email: Email,
       };
 
       const response = await axios.post(
@@ -368,6 +409,48 @@ function DetailMasterCustomer() {
         </Row>
         <Row>
           <Col span={12} className="mt-3">
+            <label style={{ fontWeight: "bold" }}>KTP Customer :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2"
+              placeholder={DetailDataMasterCustomer.ktp}
+              value={KTP}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setKTP(e.target.value);
+              }}
+            />
+          </Col>
+          <Col span={12} className="mt-3">
+            <label style={{ fontWeight: "bold" }}>Number Customer :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2"
+              type="number"
+              placeholder={DetailDataMasterCustomer.hp}
+              value={HP}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setHP(e.target.value);
+              }}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={6} className="mt-3">
+            <label style={{ fontWeight: "bold" }}>Email Customer :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2"
+              placeholder={DetailDataMasterCustomer.email}
+              value={Email}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setEmail(e.target.value);
+              }}
+            />
+          </Col>
+          <Col span={6} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Fax Office :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -383,7 +466,7 @@ function DetailMasterCustomer() {
           <Col span={12} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Customer Address :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <Input
+            <Input.TextArea
               className="mt-2"
               placeholder={DetailDataMasterCustomer.alamat_kantor}
               value={AlamatCustomer}
@@ -400,6 +483,7 @@ function DetailMasterCustomer() {
         <h5 style={{ fontWeight: "bold" }}>CONTACT PERSON</h5>
         <hr />
         <br />
+
         <Row>
           <Col span={8}>
             <label style={{ fontWeight: "bold" }}>PIC Office : </label>
@@ -441,7 +525,7 @@ function DetailMasterCustomer() {
             />
           </Col>
         </Row>
-        <Row className="mt-3">
+        <Row className="mt-2">
           <Col span={8}>
             <label style={{ fontWeight: "bold" }}>PIC Phone : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
@@ -491,6 +575,140 @@ function DetailMasterCustomer() {
             />
           </Col>
         </Row>
+        <br />
+        <hr />
+        <h5 style={{ fontWeight: "bold" }}>PIC</h5>
+        <hr />
+        <br />
+        <Row>
+        <Col span={12}  className="mt-2">
+            <label style={{ fontWeight: "bold" }}>Akunting : </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2"
+              placeholder={DetailDataMasterCustomer.akunting}
+              value={Akunting}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setAkunting(e.target.value);
+              }}
+            />
+          </Col>
+        <Col span={12}  className="mt-2">
+            <label style={{ fontWeight: "bold" }}>Akunting Date : </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <DatePicker
+              style={{ width: "100%" }}
+              className="mt-2"
+              value={moment(AkuntingDate)} // Konversi nilai TanggalBerdiri ke objek Moment
+              onChange={(date, dateString) => {
+                console.log(dateString);
+                setAkuntingDate(dateString);
+              }}
+            />
+          </Col>
+        <Col span={24}  className="mt-2">
+            <label style={{ fontWeight: "bold" }}>Akunting Memo : </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input.TextArea
+              className="mt-2"
+              placeholder={DetailDataMasterCustomer.akunting_memo}
+              value={AkuntingMemo}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setAkuntingMemo(e.target.value);
+              }}
+            />
+          </Col>
+        </Row>
+       
+
+        {/* Manager */}
+
+        <Row className="mt-2">
+        <Col span={12}  className="mt-2">
+            <label style={{ fontWeight: "bold" }}>Manager : </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2"
+              placeholder={DetailDataMasterCustomer.manager}
+              value={Manager}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setManager(e.target.value);
+              }}
+            />
+          </Col>
+        <Col span={12}  className="mt-2">
+            <label style={{ fontWeight: "bold" }}>Manager Date : </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <DatePicker
+              style={{ width: "100%" }}
+              className="mt-2"
+              value={moment(ManagerDate)} // Konversi nilai TanggalBerdiri ke objek Moment
+              onChange={(date, dateString) => {
+                console.log(dateString);
+                setManagerDate(dateString);
+              }}
+            />
+          </Col>
+        <Col span={24}  className="mt-2">
+            <label style={{ fontWeight: "bold" }}>Manager Memo : </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input.TextArea
+              className="mt-2"
+              placeholder={DetailDataMasterCustomer.manager_memo}
+              value={ManagerMemo}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setManagerMemo(e.target.value);
+              }}
+            />
+          </Col>
+        </Row>
+         {/* DIREKTUR */}
+         <Row>
+        <Col span={12} className="mt-2">
+            <label style={{ fontWeight: "bold" }}>Direktur : </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2"
+              placeholder={DetailDataMasterCustomer.direktur}
+              value={Direktur}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDirektur(e.target.value);
+              }}
+            />
+          </Col>
+        <Col span={12}  className="mt-2">
+            <label style={{ fontWeight: "bold" }}>Direktur Date : </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <DatePicker
+              style={{ width: "100%" }}
+              className="mt-2"
+              value={moment(DirekturDate)} // Konversi nilai TanggalBerdiri ke objek Moment
+              onChange={(date, dateString) => {
+                console.log(dateString);
+                setDirekturDate(dateString);
+              }}
+            />
+          </Col>
+        <Col span={24}  className="mt-2">
+            <label style={{ fontWeight: "bold" }}>Direktur Memo : </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input.TextArea
+              className="mt-2"
+              placeholder={DetailDataMasterCustomer.direktur_memo}
+              value={DirekturMemo}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDirekturMemo(e.target.value);
+              }}
+            />
+          </Col>
+        </Row>
+
         <br />
         <hr />
         <h5 style={{ fontWeight: "bold" }}>TAX</h5>
@@ -718,8 +936,8 @@ function DetailMasterCustomer() {
               <Option value="Credit">Credit</Option>
             </Select>
           </Col>
-          <Col className="mt-2" span={8}>
-            <label style={{ fontWeight: "bold" }}>ToP : </label>
+          <Col className="mt-2" span={4}>
+            <label style={{ fontWeight: "bold" }}>Term of payment : </label>
             <Select
               className="mt-2"
               // placeholder={DetailDataMasterCustomer.jenis_pembayaran}
@@ -732,6 +950,20 @@ function DetailMasterCustomer() {
               <Option value="20">20</Option>
               <Option value="30">30</Option>
               <Option value="60">60</Option>
+            </Select>
+          </Col>
+
+          <Col className="mt-2" span={4}>
+            <label style={{ fontWeight: "bold" }}>Currency : </label>
+            <Select
+              className="mt-2"
+              // placeholder={DetailDataMasterCustomer.jenis_pembayaran}
+              value={MataUang}
+              style={{ width: "100%" }}
+              onChange={(e) => setMataUang(e)}
+            >
+              <Option value="Rupiha (Rp.)">Rupiha (Rp.)</Option>
+             
             </Select>
           </Col>
 
@@ -894,6 +1126,20 @@ function DetailMasterCustomer() {
               onChange={(e) => {
                 console.log(e.target.value);
                 setDataInvoiceMobile(e.target.value);
+              }}
+            />
+          </Col>
+          <Col span={8}>
+            <label style={{ fontWeight: "bold" }}>INV Address: </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input.TextArea
+              type="text"
+              className="mt-2"
+              placeholder={DetailDataMasterCustomer.invoice_address}
+              value={invoiceAddress}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setInvoiceAddress(e.target.value);
               }}
             />
           </Col>

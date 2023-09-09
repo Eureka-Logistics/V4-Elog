@@ -79,13 +79,13 @@ function Index() {
         if (text === "" || text === "-") {
           return (
             <span>
-              <Tag color='red' onClick={showInformation}>Tambah Nama Atasan</Tag>
+              <Tag color='red' onClick={()=>showInformation(record?.code)}>Tambah Nama Atasan</Tag>
             </span>
           );
         } else {
           return (
             <span >
-              <Tag color='green' > {text} </Tag> <Tag style={{marginLeft: '2px'}} color='red' onClick={() => showDeleteConfirmationModal(record)}>x</Tag>
+              <Tag color='green' > {text} </Tag> <Tag style={{marginLeft: '2px'}} color='red' onClick={() => handleDelete(record.employeeId)}>x</Tag>
             </span>
           );
         }
@@ -133,7 +133,8 @@ function Index() {
     setIsModalVisible(false);
   };
 
-  const showInformation = () => {
+  const showInformation = (record) => {
+    console.log(`test`,record);
     const closeModal = () => {
       Modal.destroyAll();
     };
@@ -153,7 +154,7 @@ function Index() {
         >
          <CloseCircleOutlined style={{fontSize: '20px'}}/>
         </div>
-        <AddNewPosition />
+        <AddNewPosition fetchData={fetchData} closeModal={closeModal} record={record} />
       </div>
       ),
        okButtonProps: { style: { display: 'none' } },
@@ -189,7 +190,7 @@ function Index() {
                 (item) => item.id_employee !== employeeId
               );
               setListData(newOrder);
-              window.location.reload();
+              fetchData()
               // Reload the data after successful deletion if necessary
               // fetchData();
             }

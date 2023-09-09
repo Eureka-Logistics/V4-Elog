@@ -672,6 +672,15 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </h6>
                   </div>
 
+                  <Menu.Item key="Cari Tarifs">
+                    <Link to="/CariTarif" style={{ textDecoration: "none" }}>
+                      {/* <i className="icon icon-widgets" /> */}
+                      <DollarOutlined style={{ fontSize: "20px" }} />
+                      <span style={{ fontWeight: "bold", color: "white" }}>
+                       Cari Tarif
+                      </span>
+                    </Link>
+                  </Menu.Item>
                   <Menu.Item key="Tarif Eureka">
                     <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" /> */}

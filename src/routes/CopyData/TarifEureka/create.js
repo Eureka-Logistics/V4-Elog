@@ -7,6 +7,8 @@ import * as Yup from "yup";
 import { httpClient } from "../../../Api/Api";
 import { InputGroup, Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { PercentageOutlined } from "@ant-design/icons";
+import { number } from "prop-types";
 
 const { RangePicker } = DatePicker;
 
@@ -36,7 +38,7 @@ const SamplePage = () => {
   const [jenisKiriman, setJenisKiriman] = useState("");
   const [via, setVia] = useState("");
   const [IdMitra, setIdMitra] = useState("");
-  const [Tarif, setTarif] = useState(10000);
+  const [Tarif, setTarif] = useState("");
   const [Ritase, setRitase] = useState(0.0);
   const [UangJalan, setUangJalan] = useState(0);
   const [viaOptions, setViaOptions] = useState([]);
@@ -47,7 +49,7 @@ const SamplePage = () => {
   const [DataVariableCost, setDataVariableCost] = useState(0);
   const [DataFixedCost, setDataFixedCost] = useState(0);
   const [DataAmount, setDataAmount] = useState(0);
-  const [DataPercent, setDataPercent] = useState (0);
+  const [DataPercent, setDataPercent] = useState("0");
 
   const optjenisLayanan = [
     {
@@ -96,7 +98,8 @@ const SamplePage = () => {
       variable_cost: DataVariableCost,
       fixed_cost: DataFixedCost,
       amount: DataAmount,
-      percent: DataPercent, 
+      percent: DataPercent,
+      lead_time: DataLeadTime,
     },
     validationSchema: Yup.object({
       id_customer: Yup.string().max(30, "Must be 30 characters or less"),
@@ -112,6 +115,12 @@ const SamplePage = () => {
             tarif: Tarif,
             ritase: Ritase,
             uang_jalan: UangJalan,
+            maintenance_cost: DataMaintenance,
+            percent: DataPercent,
+            variable_cost: DataVariableCost,
+            fixed_cost: DataFixedCost,
+            amount: DataAmount,
+            lead_time: DataLeadTime,
           }
           // values,
           // service_type: jenisLayanan,
@@ -135,19 +144,77 @@ const SamplePage = () => {
   });
 
   useEffect(() => {
-    // const url = window.location.href;
-    // const idMpFix = url.substring(url.lastIndexOf("/") + 1);
     // httpClient
-    //   .get(`sp/get-SP-massage?id_mp=${idMpFix}`)
+    //   .get("wilayah/get-kota")
     //   .then(({ data }) => {
     //     if (data.status.code === 200) {
-    //       setData(data.data);
+    //       setKotaOptions(
+    //         data.data.order.map((x) => ({
+    //           label: x.kotaName,
+    //           value: x.idKota,
+    //         }))
+    //       );
     //     }
     //   })
     //   .catch(function (error) {
     //     console.log(error.message);
     //   });
-    // // Fetch province options
+    // httpClient
+    //   .get("vehicle/get-type?keyword=")
+    //   .then(({ data }) => {
+    //     if (data.status.code === 200) {
+    //       setJenisKendaraanOptions(
+    //         data.data.order.map((x) => ({
+    //           label: x.type,
+    //           value: x.id,
+    //         }))
+    //       );
+    //     }
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error.message);
+    //   });
+
+    // httpClient
+    //   .get(
+    //     "tarif/get-select?idMuat=&idBogkar=&idJenisKendaraan=&service_type=Reguler"
+    //   )
+    //   .then(({ data }) => {
+    //     if (data.status.code === 200) {
+    //       console.log("customer", data.kodeTarif);
+    //       setKodeID(data.kodeTarif);
+    //       setCustomerOptions(
+    //         data.customer.map((x) => ({
+    //           label: x.Customer,
+    //           value: x.idCustomer,
+    //         }))
+    //       );
+    //     }
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error.message);
+    //   });
+
+    // httpClient
+    //   .get("sp/get-SP-select-detail?keyword=&companyId=")
+    //   .then(({ data }) => {
+    //     if (data.status.code === 200) {
+    //       setViaOptions(
+    //         data.data.via.map((x) => ({
+    //           label: x.via,
+    //           value: x.id,
+    //         }))
+    //       );
+    //     }
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error.message);
+    //   });
+    fetchDataAndSetOptions();
+  }, []);
+
+  const fetchDataAndSetOptions = () => {
+    // Fetch data for "kota" options
     httpClient
       .get("wilayah/get-kota")
       .then(({ data }) => {
@@ -163,6 +230,8 @@ const SamplePage = () => {
       .catch(function (error) {
         console.log(error.message);
       });
+
+    // Fetch data for "jenis kendaraan" options
     httpClient
       .get("vehicle/get-type?keyword=")
       .then(({ data }) => {
@@ -179,6 +248,7 @@ const SamplePage = () => {
         console.log(error.message);
       });
 
+    // Fetch data for other options (customer, kodeTarif, via)
     httpClient
       .get(
         "tarif/get-select?idMuat=&idBogkar=&idJenisKendaraan=&service_type=Reguler"
@@ -214,7 +284,7 @@ const SamplePage = () => {
       .catch(function (error) {
         console.log(error.message);
       });
-  }, []);
+  };
 
   const customStylesReactSelect = {
     container: (provided) => ({
@@ -303,17 +373,59 @@ const SamplePage = () => {
       // setIdMitra(value);
       formik.setFieldValue("ritase", value);
     }
+     else if (e.name === "percent") {
+      // setIdMitra(value);
+      formik.setFieldValue("percent", value);
+    }
   };
 
   console.log("ini dia muat kota", jenisLayanan);
 
   const toRupiah = (angka) => {
-    var rupiah = '';
-    var angkarev = angka.toString().split('').reverse().join('');
-    for (var i = 0; i < angkarev.length; i++) if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + '.';
-    return `${rupiah.split('', rupiah.length - 1).reverse().join('')}`;
-}
+    var rupiah = "";
+    var angkarev = angka.toString().split("").reverse().join("");
+    for (var i = 0; i < angkarev.length; i++)
+      if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + ".";
+    return `${rupiah
+      .split("", rupiah.length - 1)
+      .reverse()
+      .join("")}`;
+  };
 
+  const calculateAmount = () => {
+    const maintenanceCost = parseFloat(DataMaintenance);
+    const variableCost = parseFloat(DataVariableCost);
+    const fixedCost = parseFloat(DataFixedCost);
+    const uangJalan = parseFloat(UangJalan);
+
+    if (
+      !isNaN(maintenanceCost) &&
+      !isNaN(variableCost) &&
+      !isNaN(fixedCost) &&
+      !isNaN(uangJalan)
+    ) {
+      const amount = maintenanceCost + variableCost + fixedCost + uangJalan;
+      setDataAmount(amount); // Set the calculated amount with 2 decimal places
+    } else {
+      setDataAmount(""); // Clear the amount if any of the input fields are invalid
+    }
+  };
+  const [parsedAmount, setParsedAmount] = useState(0);
+  const [parsedPercent, setParsedPercent] = useState(0);
+
+  const calculateTarif = (amount, percent) => {
+    setParsedAmount(Number(amount));
+    setParsedPercent(Number(percent));
+  };
+  console.log(parsedPercent);
+  useEffect(() => {
+    if (!isNaN(DataAmount) && !isNaN(parsedPercent)) {
+      const calculatedTarif = DataAmount + DataAmount * (parsedPercent / 100);
+      setTarif(calculatedTarif.toString());
+    } else {
+      setTarif("");
+    }
+  }, [parsedAmount, parsedPercent, Tarif, DataPercent, DataAmount]);
 
   return (
     <div>
@@ -321,7 +433,7 @@ const SamplePage = () => {
         <Form onSubmit={formik.handleSubmit}>
           <Row style={{ marginBottom: "10px" }}>
             <Col span={8}>
-              <h4 style={{color: '#1A5CBF'}}>Buat Tarif Eureka Baru</h4>
+              <h5 style={{ color: "#1A5CBF" }}>Buat Tarif Eureka Baru</h5>
             </Col>
             <Col span={3}></Col>
             <Col span={3}></Col>
@@ -329,13 +441,17 @@ const SamplePage = () => {
           <Row style={{ marginBottom: "10px" }}>
             <Col span={4}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Kode Tarif Eureka</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Kode Tarif Eureka
+                </Form.Label>
                 <Form.Control disabled value={KodeID.kodeTarifEureka} />
               </Form.Group>
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Kota Muat</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Kota Muat
+                </Form.Label>
                 <InputGroup>
                   <Select
                     options={kotaOptions}
@@ -351,7 +467,9 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Kota Tujuan</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Kota Tujuan
+                </Form.Label>
                 <InputGroup>
                   <Select
                     options={kotaOptions}
@@ -368,7 +486,9 @@ const SamplePage = () => {
 
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Jenis kendaraan </Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Jenis kendaraan{" "}
+                </Form.Label>
                 <InputGroup>
                   <Select
                     options={jenisKendaraanOptions}
@@ -384,9 +504,9 @@ const SamplePage = () => {
             </Col>
           </Row>
           <Row>
-          <Col span={4}>
+            <Col span={4}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Via</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>Via</Form.Label>
                 <InputGroup>
                   <Select
                     options={viaOptions}
@@ -402,7 +522,9 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Jenis Kiriman</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Jenis Kiriman
+                </Form.Label>
                 <InputGroup>
                   <Select
                     options={optjenisKiriman}
@@ -417,7 +539,9 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Jenis Layanan</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Jenis Layanan
+                </Form.Label>
                 <InputGroup>
                   <Select
                     options={optjenisLayanan}
@@ -431,58 +555,26 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
 
-            <Col span={6}>
+            <Col span={4}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Lead Time</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Lead Time
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
-                    // name="tarif"
+                    name="lead_time"
                     type="number"
                     // Menambahkan desimal dengan step 0.01
-                    // value={Tarif}
-                    // onChange={(e) => setTarif(e.target.value)}
+                    value={DataLeadTime}
+                    onChange={(e) => setDataLeadTime(e.target.value)}
                     // isInvalid={!!formik.errors.tarif}
                   />
                 </InputGroup>
               </Form.Group>
             </Col>
-           
-          </Row>
-        
-          <br />
-          <hr />
-          <h4 style={{color: '#1A5CBF'}}>Biaya Penanganan</h4>
-          <br />
-          <Row>
-            <Col span={6}>
+            <Col span={4}>
               <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Tarif</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    type="text"
-                    value={toRupiah(Tarif)} // Menggunakan fungsi toRupiah
-                    onChange={(e) => {
-                      const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
-                      setTarif(inputAngka); // Set nilai tanpa tanda titik
-                    }}
-                    isInvalid={!!formik.errors.tarif}
-                  />
-                </InputGroup>
-                {/* <InputGroup>
-                  <Form.Control
-                  
-                    type="text"
-                    step="0.01" 
-                    value={Tarif}
-                    onChange={(e) => setTarif(e.target.value)}
-                    isInvalid={!!formik.errors.tarif}
-                  />
-                </InputGroup> */}
-              </Form.Group>
-            </Col>
-            <Col span={6}>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{fontWeight: `bold`}}>Ritase</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>Ritase</Form.Label>
                 <InputGroup>
                   <Form.Control
                     name="ritase"
@@ -494,74 +586,69 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
+          </Row>
+          <br />
+          <hr />
+          <h5 style={{ color: "#1A5CBF" }}>Biaya Penangan</h5>
+          <hr />
+          <Row>
             <Col span={6}>
               <Form.Group>
-                <Form.Label style={{fontWeight: `bold`}}>Uang Jalan</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Uang Jalan
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
-                    // name="uang_jalan"
                     type="text"
-                    // value={UangJalan}
                     value={toRupiah(UangJalan)}
-                    onChange={(e) => {
+                    onInput={(e) => {
                       const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
-                      setUangJalan(inputAngka); // Set nilai tanpa tanda titik
+                      setUangJalan(inputAngka);
+                      calculateAmount(); // Set nilai tanpa tanda titik
                     }}
+                    onBlur={calculateAmount}
                     // onChange={(e) => setUangJalan(e.target.value)}
                     isInvalid={!!formik.errors.uang_jalan}
                   />
                 </InputGroup>
               </Form.Group>
-              
             </Col>
             <Col span={6}>
               <Form.Group>
-                <Form.Label style={{fontWeight: `bold`}}>Amount</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Maintenance Cost
+                </Form.Label>
                 <InputGroup>
-                  <Form.Control
-                    name="amount"
-                    type="number"
-                    value={DataAmount}
-                    onChange={(e) => setDataAmount(e.target.value)}
-                    isInvalid={!!formik.errors.amount}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-           
-           
-          </Row>
-           <Row>
-            <Col span={6}>
-              <Form.Group>
-                <Form.Label style={{fontWeight: `bold`}}>Maintenance Cost</Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    // name="uang_jalan"
+                <Form.Control
                     type="text"
-                    // value={UangJalan}
                     value={toRupiah(DataMaintenance)}
-                    onChange={(e) => {
+                    onInput={(e) => {
                       const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
-                      setDataMaintenance(inputAngka); // Set nilai tanpa tanda titik
+                      setDataMaintenance(inputAngka);
+                      calculateAmount(); // Set nilai tanpa tanda titik
                     }}
+                    onBlur={calculateAmount}
                     // onChange={(e) => setUangJalan(e.target.value)}
-                    isInvalid={!!formik.errors.maintenance_cost}
+                    isInvalid={!!formik.errors.uang_jalan}
                   />
                 </InputGroup>
               </Form.Group>
             </Col>
             <Col span={6}>
               <Form.Group>
-                <Form.Label style={{fontWeight: `bold`}}>Variable Cost</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Variable Cost
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
                     type="text"
                     value={toRupiah(DataVariableCost)}
-                    onChange={(e) => {
+                    onInput={(e) => {
                       const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
-                      setDataVariableCost(inputAngka); // Set nilai tanpa tanda titik
+                      setDataVariableCost(inputAngka);
+                      calculateAmount();
                     }}
+                    onBlur={calculateAmount}
                     isInvalid={!!formik.errors.variable_cost}
                   />
                 </InputGroup>
@@ -569,37 +656,86 @@ const SamplePage = () => {
             </Col>
             <Col span={6}>
               <Form.Group>
-                <Form.Label style={{fontWeight: `bold`}}>Fixed Cost</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Fixed Cost
+                </Form.Label>
                 <InputGroup>
                   <Form.Control
                     type="text"
                     value={toRupiah(DataFixedCost)}
-                    onChange={(e) => {
+                    onInput={(e) => {
                       const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
-                      setDataFixedCost(inputAngka); // Set nilai tanpa tanda titik
+                      setDataFixedCost(inputAngka);
+                      calculateAmount(); // Set nilai tanpa tanda titik
                     }}
+                    onBlur={calculateAmount}
                     isInvalid={!!formik.errors.fixed_cost}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          <br />
+          <hr />
+          <Row>
+            <Col span={6}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: `bold` }}>Amount</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                  disabled
+                    name="amount"
+                    type="text"
+                    value={toRupiah(DataAmount)}
+                    onInput={(e) => {
+                      setDataAmount(e.target.value);
+                      calculateTarif(e.target.value, DataPercent); // Calculate Tarif when Amount changes
+                    }}
+                    onBlur={calculateAmount}
+                    isInvalid={!!formik.errors.amount}
                   />
                 </InputGroup>
               </Form.Group>
             </Col>
             <Col span={6}>
               <Form.Group>
-                <Form.Label style={{fontWeight: `bold`}}>Percent</Form.Label>
+                <Form.Label style={{ fontWeight: `bold` }}>Percent</Form.Label>
                 <InputGroup>
-                  <Form.Control
+                  <Input
+                    style={{ width: "80%", height: "39px" }}
                     name="percent"
                     type="number"
                     value={DataPercent}
-                    onChange={(e) => setDataPercent(e.target.value)}
+                    onInput={(e) => {
+                      console.log(e.target.value);
+                      setDataPercent(e.target.value);
+                      calculateTarif(DataAmount, e.target.value); // Calculate Tarif when Percent changes
+                    }}
                     isInvalid={!!formik.errors.percent}
+                  />
+                  <Button style={{ width: "20%", height: "38px" }}>%</Button>
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={6}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label style={{ fontWeight: `bold` }}>Tarif</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    type="text"
+                    value={toRupiah(Tarif)} // Display the calculated Tarif
+                    onInput={(e) => {
+                     setTarif(e.target.value);
+                    }}
+                    isInvalid={!!formik.errors.tarif}
                   />
                 </InputGroup>
               </Form.Group>
             </Col>
-            </Row>
+          </Row>
+          <Row></Row>
           <Row>
-          <Col span={24} className="d-flex justify-content-end mt-2">
+            <Col span={24} className="d-flex justify-content-end mt-2">
               <Form.Group>
                 <Button type="submit">Simpan Tarif</Button>
               </Form.Group>

@@ -507,6 +507,12 @@ const App = ({ match }) => {
           )}
         />
         <Route
+          path={`${match.url}CariTarif`}
+          component={asyncComponent(() =>
+            import("./CopyData/Tarif")
+          )}
+        />
+        <Route
           path={`${match.url}DataBUIndex`}
           component={asyncComponent(() => import("./MasterData/BU/BU/IndexBU"))}
         />

@@ -4,7 +4,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Button, Col, Input, Row, Select } from 'antd';
 
-function AddNewPosition() {
+function AddNewPosition({record,closeModal , fetchData}) {
     const [IDTambahData, setIDTambahData] = useState("");
     const [IDEmployee, setIDEmployee] = useState("");
     const [DataEmployee, setDataEmployee] = useState("");
@@ -17,7 +17,7 @@ function AddNewPosition() {
             `${Baseurl}bu/add-employee-position`,
             {
                 id_employee: parseInt(IDEmployee),
-                code_employee_position: DataCodeBuEmployeePosition,
+                code_employee_position:  record,
               
             },
             {
@@ -36,8 +36,10 @@ function AddNewPosition() {
             title: "Success",
             text: "Data has been added successfully!",
           }).then(() => {
+            fetchData()
+            closeModal()
             // Reload the window after the success message is closed
-            window.location.reload();
+            // window.location.reload();
           });
         } catch (error) {
           // Handle error if needed
@@ -63,9 +65,27 @@ function AddNewPosition() {
 useEffect(() => {
   fetchDataSelect();
 }, []);
+if (!record) {
+ return <p>Loading</p>
+}
 
   return (
     <div>
+       <Row>
+      <Col span={24}>
+          <label style={{ fontWeight: "bold" }}>Kode Employee :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            className="mt-2 mb-2"
+            name="code_employee_position"
+            value={record}
+            onChange={(e) => {
+              console.log(e.target.value);
+              setDataCodeBuEmployeePosition(e.target.value);
+            }}
+          />
+        </Col>
+      </Row>
       <Row>
         <Col span={24}>
         <label style={{ fontWeight: "bold" }}>Employee Name :</label>
@@ -95,21 +115,7 @@ useEffect(() => {
           </Select>
         </Col>
       </Row>
-      <Row>
-      <Col span={24}>
-          <label style={{ fontWeight: "bold" }}>Kode Employee :</label>
-          {/* Menghubungkan input tarif dengan state tarif */}
-          <Input
-            className="mt-2 mb-2"
-            name="code_employee_position"
-            placeholder="Exp: G1002"
-            onChange={(e) => {
-              console.log(e.target.value);
-              setDataCodeBuEmployeePosition(e.target.value);
-            }}
-          />
-        </Col>
-      </Row>
+     
 
       <Row>
         <Col span={24} className="d-flex justify-content-end mt-2">

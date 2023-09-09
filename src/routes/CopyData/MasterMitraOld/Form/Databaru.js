@@ -22,6 +22,7 @@ import { Data } from "@react-google-maps/api";
 import moment from "moment";
 import { PrinterOutlined } from "@ant-design/icons";
 import PrintZustand from "../../../../zustand/Store/untukPrint/MasterMitra";
+import { parse } from "date-fns";
 
 function DataBaru({ mitraId, DataOptions }) {
   // const [datamiTraProfile, setDataMitraProfile] = useState([]);
@@ -99,6 +100,57 @@ function DataBaru({ mitraId, DataOptions }) {
   const [selectMitraPIC, setselectMitraPIC] = useState("");
   const [DataPic, setDataPic] = useState("");
   const [DataIDPic, setDataIDPic] = useState("");
+  const [PoLegalitas, setPoLegalitas] = useState("");
+  const [KTPLegalitas, setKTPLegalitas] = useState("");
+  const [AktaPendirian, setAktaPendirian] = useState("");
+  const [AktaPerubahanDasar, setAktaPerubahanDasar] = useState("");
+  const [AktaSusunanDireksi, setAktaSusunanDireksi] = useState("");
+  const [SuratDomisili, setSuratDomisili] = useState("");
+  const [NPWPLegalitas, setNPWPLegalitas] = useState("");
+  const [SktLegalitas, setSktLegalitas] = useState("");
+  const [NppkpLegalitas, setNppkpLegalitas] = useState("");
+  const [SiupLegalitas, setSiupLegalitas] = useState("");
+  const [IjinPenidirian, setIjinPendirian] = useState("");
+  const [PPMDLegalitas, setPPMDLegalitas] = useState("");
+  const [IjinUsaha, setIjinUsaha] = useState("");
+  const [TDPLegalitas, setTDPLegalitas] = useState("");
+  const [SuratKuasaLegalitas, setSuratKuasaLegalitas] = useState("");
+  const [LamaBekerjaLegalitas, setLamaBekerjaLegalitas] = useState("");
+  const [JenisKartuKredit, setJenisKartuKredit] = useState("");
+  const [StatusUsaha, setStatusUsaha] = useState("");
+  const [LamaUsaha, setLamaUsaha] = useState("");
+  const [OmsetBulanan, setOmsetBulanan] = useState("");
+  const [AssetTanah, setAssetTanah] = useState("");
+  const [AssetBangunan, setAssetBangunan] = useState("");
+  const [AssetKendaraan, setAssetKendaran] = useState("");
+  const [AssetMesin, setAssetMesin] = useState("");
+  const [Affiliasi, setAffiliasi] = useState("");
+  const [JumlahUnit, setJumlahUnit] = useState("");
+  const [PeriodeSewa, setPeriodeSewa] = useState("");
+  const [NilaiSewa, setNilaiSewa] = useState("");
+  const [NilaiRUU, setNilaiRUU] = useState("");
+  const [QtyMotor, setQtyMotor] = useState("");
+  const [RpMotor, setRpMotor] = useState("");
+  const [QtyGrandMax, setQtyGrandMax] = useState("");
+  const [RpGrandmax, setRpGrandmax] = useState("");
+  const [Qty1300, setQty1300] = useState("");
+  const [Rp1300, setRp1300] = useState("");
+  const [QtyTraga, setQtyTraga] = useState("");
+  const [RpTraga, setRpTraga] = useState("");
+  const [QtyCDE, setQtyCDE] = useState("");
+  const [RpCDE, setRpCDE] = useState("");
+  const [QtyCDD, setQtyCDD] = useState("");
+  const [RpCDD, setRpCDD] = useState("");
+  const [QtyFuso, setQtyFuso] = useState("");
+  const [RpFuso, setRpFuso] = useState("");
+  const [QtyWingbox, setQtyWingbox] = useState("");
+  const [RpWingbox, setRpWingbox] = useState("");
+  const [QtyTrailer20, setQtyTrailer20] = useState("");
+  const [RpTrailer20, setRpTrailer20] = useState("");
+  const [QtyTrailer40, setQtyTrailer40] = useState("");
+  const [RpTrailer40, setRpTrailer40] = useState("");
+  const [BankPenerbit, setBankPenerbit] = useState("");
+  const [LaporanKeuangan, setLaporankeuanga] = useState("");
 
   const handleView = () => {
     router.push(`/PrintMasterMitra/`);
@@ -211,9 +263,30 @@ function DataBaru({ mitraId, DataOptions }) {
     setDataMemo(data.data.data?.memo || "");
     setDataType(data.data.data?.type || "");
     setDataBlok(data.data.data?.npwp_blok || "");
-    setDataPicId(data.data.data?.pic_id || "")
-
-    // console.log("ini detail mitra", data.data.data);
+    setDataPicId(data.data.data?.pic_id || "");
+    setPoLegalitas(data.data.data?.po_legalitas || "");
+    setKTPLegalitas(data.data.data?.ktp_legalitas || "");
+    setAktaPendirian(data.data.data?.akta_pendirian || "");
+    setAktaPerubahanDasar(data.data.data?.akta_perubahan_dasar || "");
+    setAktaSusunanDireksi(data.data.data?.akta_susunan_direksi || "");
+    setSuratDomisili(data.data.data?.surat_domisili || "");
+    setNPWPLegalitas(data.data.data?.npwp_legalitas || "");
+    setSktLegalitas(data.data.data?.skt_legalitas || "");
+    setNppkpLegalitas(data.data.data?.nppkp_legalitas || "");
+    setSiupLegalitas(data.data.data?.siup_legalitas || "");
+    setIjinPendirian(data.data.data?.ijin_pendirian || "");
+    setPPMDLegalitas(data.data.data?.ppmd_legalitas || "");
+    setIjinUsaha(data.data.data?.ijin_usaha || "");
+    setTDPLegalitas(data.data.data?.tdp_legalitas || "");
+    setSuratKuasaLegalitas(data.data.data?.surat_kuasa || "");
+    setLamaBekerjaLegalitas(data.data.data?.lama_bekerja || "");
+    setJenisKartuKredit(data.data.data?.jenis_kartu_kredit || "");
+    setStatusUsaha(data.data.data?.status_usaha || "");
+    setLamaUsaha(data.data.data?.lama_usaha || "");
+    setOmsetBulanan(data.data.data?.omset_bulanan || "");
+    setAssetTanah(data.data.data?.asset_tanah || "");
+    setAssetBangunan(data.data.data?.asset_bangunan || "");
+    setAssetKendaran(data.data.data?.asset_kendaraan || "");
 
     form.setFieldsValue({
       id_mitra: mitraId,
@@ -379,7 +452,58 @@ function DataBaru({ mitraId, DataOptions }) {
         memo: DataMemo,
         type: DataType,
         metode_pembayaran: TypeOfPayment,
-        pic_id: DataPicId, 
+        pic_id: DataPicId,
+        po_legalitas: PoLegalitas,
+        ktp_legalitas: KTPLegalitas,
+        akta_pendirian: AktaPendirian,
+        akta_perubahan_dasar: AktaPerubahanDasar,
+        akta_susunan_direksi: AktaSusunanDireksi,
+        surat_domisili: SuratDomisili,
+        npwp_legalitas: NPWPLegalitas,
+        skt_legalitas: SktLegalitas,
+        nppkp_legalitas: NppkpLegalitas,
+        siup_legalitas: SiupLegalitas,
+        ijin_pendirian: IjinPenidirian,
+        ppmd_legalitas: PPMDLegalitas,
+        ijin_usaha: IjinUsaha,
+        tdp_legalitas: TDPLegalitas,
+        surat_kuasa: SuratKuasaLegalitas,
+        lama_bekerja: LamaBekerjaLegalitas,
+        jenis_kartu_kredit: JenisKartuKredit,
+        bank_penerbit: BankPenerbit,
+        laporan_keuangan: LaporanKeuangan,
+        status_usaha: StatusUsaha,
+        lama_usaha: LamaUsaha,
+        omset_bulanan: OmsetBulanan,
+        asset_tanah: AssetTanah,
+        asset_bangunan: AssetBangunan,
+        asset_kendaraan: AssetKendaraan,
+        asset_mesin: AssetMesin,
+        affiliasi: Affiliasi,
+        jumlah_unit: JumlahUnit,
+        periode_sewa: PeriodeSewa,
+        nilai_sewa: NilaiSewa,
+        nilai_ruu: NilaiRUU,
+        qty_motor: parseInt(QtyMotor),
+        rp_motor: parseInt(RpMotor),
+        qty_grandmax: parseInt(QtyGrandMax),
+        rp_grandmax: parseInt(RpGrandmax),
+        qty_l300: parseInt(Qty1300),
+        rp_l300: parseInt(Rp1300),
+        qty_traga: parseInt(QtyTraga),
+        rp_traga: parseInt(RpTraga),
+        qty_cde: parseInt(QtyCDE),
+        rp_cde: parseInt(RpCDE),
+        qty_cdd: parseInt(QtyCDD),
+        rp_cdd: parseInt(RpCDD),
+        qty_fuso: parseInt(QtyFuso),
+        rp_fuso: parseInt(RpFuso),
+        qty_wingbox: parseInt(QtyWingbox),
+        rp_wingbox: parseInt(RpWingbox),
+        qty_trailer20: parseInt(QtyTrailer20),
+        rp_trailer20: parseInt(QtyTrailer20),
+        qty_trailer40: parseInt(QtyTrailer40),
+        rp_trailer40: parseInt(RpTrailer40),
       };
 
       const response = await axios.post(`${Baseurl}mitra/edit-mitra`, data, {
@@ -665,7 +789,7 @@ function DataBaru({ mitraId, DataOptions }) {
             </Col>
           </Row>
           <Row>
-          {/* <Col sm={4} style={{ padding: "0px" }}>
+            {/* <Col sm={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="PIC Purchasing :"
                 style={{ fontWeight: "bold" }}
@@ -682,7 +806,7 @@ function DataBaru({ mitraId, DataOptions }) {
                   }}/>
               </Form.Item>
             </Col> */}
-          <Col sm={4} style={{ padding: "0px" }}>
+            <Col sm={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="PIC Purchasing :"
                 style={{ fontWeight: "bold" }}
@@ -692,28 +816,25 @@ function DataBaru({ mitraId, DataOptions }) {
                 ]}
               >
                 <Select
-              showSearch
-              className="mt-2"
-              // placeholder={DetailDataTarif.kendaraanJenis}
-              value={DataPicId}
-              optionFilterProp="value"
-              style={{ width: "90%" }}
-              onChange={(e, options) => {
-                console.log(options.key);
-                setDataPic(options);
-                setDataPicId(options.key);
-              }}
-            >
-              {selectMitraPIC &&
-                selectMitraPIC.marketing.map((i) => (
-                  <Select.Option
-                    key={i.id}
-                    value={i.fullname}
-                  >
-                    {i.fullname}
-                  </Select.Option>
-                ))}
-            </Select>
+                  showSearch
+                  className="mt-2"
+                  // placeholder={DetailDataTarif.kendaraanJenis}
+                  value={DataPicId}
+                  optionFilterProp="value"
+                  style={{ width: "90%" }}
+                  onChange={(e, options) => {
+                    console.log(options.key);
+                    setDataPic(options);
+                    setDataPicId(options.key);
+                  }}
+                >
+                  {selectMitraPIC &&
+                    selectMitraPIC.marketing.map((i) => (
+                      <Select.Option key={i.id} value={i.fullname}>
+                        {i.fullname}
+                      </Select.Option>
+                    ))}
+                </Select>
               </Form.Item>
             </Col>
           </Row>
@@ -738,7 +859,6 @@ function DataBaru({ mitraId, DataOptions }) {
                 />
               </Form.Item>
             </Col>
-           
           </Row>
           <Row>
             <Col sm={4} style={{ padding: "0px" }}>

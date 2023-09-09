@@ -34,6 +34,8 @@ const SamplePage = () => {
   const [isiValues, setIsiValues] = useState("");
   const [jenisPembayaran, setJenisPembayaran] = useState("");
   const [TOP, setTOP] = useState("");
+  const [JenisKiriman, setJenisKiriman] = useState("");
+  const [Currency, setCurrency] = useState("");
 
   const optjenisPembayaran = [
     {
@@ -65,6 +67,22 @@ const SamplePage = () => {
     {
       value: 5,
       label: "60",
+    },
+  ];
+  const optionCurrency = [
+    {
+      value: 1,
+      label: "Rupiah (Rp.)",
+    },
+  ];
+  const optionJenisKiriman = [
+    {
+      value: 1,
+      label: "Retail",
+    },
+    {
+      value: 2,
+      label: "Charter",
     },
   ];
 
@@ -229,7 +247,7 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
-        <h5>New Master Customer test</h5>
+        <h5>New Master Customer</h5>
         <Form onSubmit={formik.handleSubmit}>
           <Row style={{ marginBottom: "10px" }}>
             <Col span={8}></Col>
@@ -268,13 +286,28 @@ const SamplePage = () => {
                   Date Register :
                 </Form.Label>
                 <InputGroup>
-                  <Form.Control
+                  <DatePicker
+                   style={{width: "100%"}}
                     name="tgl_bergabung"
-                    placeholder="Tanggal Bergabung"
-                    value={formik.values.tgl_bergabung}
-                    onChange={formik.handleChange}
+                    placeholder="YYYY-MM-DD"
+                    selected={
+                      formik.values.tgl_bergabung
+                        ? moment(formik.values.tgl_bergabung).toDate()
+                        : null
+                    }
+                    onChange={(date) =>
+                      formik.setFieldValue(
+                        "tgl_bergabung",
+                        moment(date).format("YYYY-MM-DD")
+                      )
+                    }
                     isInvalid={!!formik.errors.tgl_bergabung}
                   />
+                  {formik.errors.tgl_bergabung && (
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.tgl_bergabung}
+                    </Form.Control.Feedback>
+                  )}
                 </InputGroup>
               </Form.Group>
             </Col>
@@ -285,6 +318,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <DatePicker
+                   style={{width: "100%"}}
                     name="tgl_berdiri"
                     placeholder="YYYY-MM-DD"
                     selected={
@@ -326,7 +360,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={12}>
+            <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Business :
@@ -342,6 +376,31 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
+            <Col span={6}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Jenis Kiriman :
+                </Form.Label>
+                <InputGroup>
+                  <Select
+                    style={{ width: "100%" }}
+                    options={optionJenisKiriman}
+                    name="jenis_angkutan"
+                    // value={TOP}
+
+                    placeholder="Select Jenis Kiriman"
+                    onChange={(value, label) => {
+                      setJenisKiriman(label.label);
+                      formik.setFieldValue(`jenis_angkutan`, label.label);
+                      console.log(label.label);
+                    }}
+                    isInvalid={!!formik.errors.jenis_angkutan}
+                    // styles={customStylesReactSelect}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+
           </Row>
           <Row>
             <Col span={12}>
@@ -351,6 +410,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    as="textarea"
                     name="alamat_kantor"
                     placeholder="Alamat Kantor"
                     value={formik.values.alamat_kantor}
@@ -400,6 +460,7 @@ const SamplePage = () => {
                 <InputGroup>
                   <Form.Control
                     name="telepon"
+                    type="number"
                     placeholder="Telepon Office"
                     value={formik.values.telepon}
                     onChange={formik.handleChange}
@@ -416,10 +477,47 @@ const SamplePage = () => {
                 <InputGroup>
                   <Form.Control
                     name="fax"
+                    type="number"
                     placeholder="Fax Office"
                     value={formik.values.fax}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.fax}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="mt-2">
+          <Col span={12}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Email Customer :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="email"
+                    type="text"
+                    placeholder="Email Customer"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.email}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          <Col span={12}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  HP Customer :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="hp"
+                    type="text"
+                    placeholder="HP Customer"
+                    value={formik.values.hp}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.hp}
                   />
                 </InputGroup>
               </Form.Group>
@@ -498,6 +596,23 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  PIC Number :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    type="number"
+                    name="pic_number"
+                    placeholder="PIC Number"
+                    value={formik.values.pic_number}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.pic_number}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
 
             <Col span={8}>
               <Form.Group>
@@ -505,18 +620,32 @@ const SamplePage = () => {
                   PIC Birth :
                 </Form.Label>
                 <InputGroup>
-                  <Form.Control
-                    type="number"
+                  <DatePicker
+                   style={{width: "100%"}}
                     name="pic_birth"
-                    placeholder="PIC Birth"
-                    value={formik.values.pic_birth}
-                    onChange={formik.handleChange}
+                    placeholder="YYYY-MM-DD"
+                    selected={
+                      formik.values.pic_birth
+                        ? moment(formik.values.pic_birth).toDate()
+                        : null
+                    }
+                    onChange={(date) =>
+                      formik.setFieldValue(
+                        "pic_birth",
+                        moment(date).format("YYYY-MM-DD")
+                      )
+                    }
                     isInvalid={!!formik.errors.pic_birth}
                   />
+                  {formik.errors.pic_birth && (
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.pic_birth}
+                    </Form.Control.Feedback>
+                  )}
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col span={8} className="mt-2">
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   PIC Fax :
@@ -533,6 +662,220 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
           </Row>
+          <br />
+          <hr />
+          <h5 style={{ fontWeight: "bold" }}>DATA PIC</h5>
+          <hr />
+          <br />
+         <Row>
+         <Col span={12}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                Manager Name :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="manager"
+                    placeholder="Manager Name"
+                    value={formik.values.manager}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.manager}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={12}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Manager Date :
+                </Form.Label>
+                <InputGroup>
+                  <DatePicker
+                   style={{width: "100%"}}
+                    name="manager_date"
+                    placeholder="YYYY-MM-DD"
+                    selected={
+                      formik.values.manager_date
+                        ? moment(formik.values.manager_date).toDate()
+                        : null
+                    }
+                    onChange={(date) =>
+                      formik.setFieldValue(
+                        "manager_date",
+                        moment(date).format("YYYY-MM-DD")
+                      )
+                    }
+                    isInvalid={!!formik.errors.manager_date}
+                  />
+                  {formik.errors.manager_date && (
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.manager_date}
+                    </Form.Control.Feedback>
+                  )}
+                </InputGroup>
+              </Form.Group>
+            </Col>
+         </Row>
+
+         <Row>
+          <Col span={24}>
+          <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                Manager Memo :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    as="textarea"
+                    name="manager_memo"
+                    placeholder="Memo Manager if you need"
+                    value={formik.values.manager_memo}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.manager_memo}
+                  />
+                </InputGroup>
+              </Form.Group>
+          </Col>
+         </Row>
+         {/* Akunting */}
+         <Row className="mt-3">
+         <Col span={12}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                Akunting Name :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="akunting"
+                    placeholder="Akunting Name"
+                    value={formik.values.akunting}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.akunting}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={12}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Akunting Date :
+                </Form.Label>
+                <InputGroup>
+                  <DatePicker
+                   style={{width: "100%"}}
+                
+                    name="akunting_date"
+                    placeholder="YYYY-MM-DD"
+                    selected={
+                      formik.values.akunting_date
+                        ? moment(formik.values.akunting_date).toDate()
+                        : null
+                    }
+                    onChange={(date) =>
+                      formik.setFieldValue(
+                        "akunting_date",
+                        moment(date).format("YYYY-MM-DD")
+                      )
+                    }
+                    isInvalid={!!formik.errors.akunting_date}
+                  />
+                  {formik.errors.akunting_date && (
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.akunting_date}
+                    </Form.Control.Feedback>
+                  )}
+                </InputGroup>
+              </Form.Group>
+            </Col>
+         </Row>
+         <Row>
+          <Col span={24}>
+          <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                Akunting Memo :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    as="textarea"
+                    name="akunting_memo"
+                    placeholder="Memo Akunting if you need"
+                    value={formik.values.akunting_memo}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.akunting_memo}
+                  />
+                </InputGroup>
+              </Form.Group>
+          </Col>
+         </Row>
+         {/* Direktur */}
+         <Row className="mt-3">
+         <Col span={12}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+              Direktur Name :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    name="direktur"
+                    placeholder="Direktur Name"
+                    value={formik.values.direktur}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.direktur}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={12}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Direktur Date :
+                </Form.Label>
+                <InputGroup>
+                  <DatePicker
+                   style={{width: "100%"}}
+                    name="direktur_date"
+                    placeholder="YYYY-MM-DD"
+                    selected={
+                      formik.values.direktur_date
+                        ? moment(formik.values.direktur_date).toDate()
+                        : null
+                    }
+                    onChange={(date) =>
+                      formik.setFieldValue(
+                        "direktur_date",
+                        moment(date).format("YYYY-MM-DD")
+                      )
+                    }
+                    isInvalid={!!formik.errors.direktur_date}
+                  />
+                  {formik.errors.direktur_date && (
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.direktur_date}
+                    </Form.Control.Feedback>
+                  )}
+                </InputGroup>
+              </Form.Group>
+            </Col>
+         </Row>
+         <Row>
+          <Col span={24}>
+          <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+            Direktur Memo :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    as="textarea"
+                    name="direktur_memo"
+                    placeholder="Memo Direktur if you need"
+                    value={formik.values.direktur_memo}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.direktur_memo}
+                  />
+                </InputGroup>
+              </Form.Group>
+          </Col>
+         </Row>
+
           <br />
           <hr />
           <h5 style={{ fontWeight: "bold" }}>TAX</h5>
@@ -563,6 +906,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    as="textarea"
                     name="alamat_npwp"
                     placeholder="Alamat NPWP"
                     value={formik.values.alamat_npwp}
@@ -598,6 +942,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
+                    as="textarea"
                     name="tdp"
                     placeholder="TDP Address"
                     value={formik.values.tdp}
@@ -777,10 +1122,10 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col span={4}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <label style={{ fontWeight: "bold", marginBottom: "10px" }}>
-                  ToP:{" "}
+                  Term Of Payment :{" "}
                 </label>
                 <InputGroup>
                   <Select
@@ -796,6 +1141,29 @@ const SamplePage = () => {
                       console.log(label.label);
                     }}
                     isInvalid={!!formik.errors.top}
+                    // styles={customStylesReactSelect}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={4}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <label style={{ fontWeight: "bold", marginBottom: "10px" }}>
+                  Currency:{" "}
+                </label>
+                <InputGroup>
+                  <Select
+                    style={{ width: "100%" }}
+                    options={optionCurrency}
+                    name="mata_uang "
+
+                    placeholder="Select Currency"
+                    onChange={(value, label) => {
+                      setCurrency(label.label);
+                      formik.setFieldValue(`mata_uang`, label.label);
+                      console.log(label.label);
+                    }}
+                    isInvalid={!!formik.errors.mata_uang}
                     // styles={customStylesReactSelect}
                   />
                 </InputGroup>
@@ -992,18 +1360,36 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
+            <Col span={8}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Inv Address :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    type="text"
+                    as="textarea"
+                    name="invoice_address"
+                    placeholder="Invoice Address"
+                    value={formik.values.invoice_address}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.invoice_address}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
           </Row>
 
           <Col span={24} className="d-flex justify-content-end mt-5">
             <Button
               onClick={formik.handleSubmit}
               style={{
-                backgroundColor: "#00a65a",
+                backgroundColor: "#1a5cbf",
                 color: "white",
-                borderColor: "#008d4c",
+                borderColor: "#1a5cbf",
               }}
             >
-              Save and load photo customer
+              Save Customer
             </Button>
           </Col>
         </Form>
