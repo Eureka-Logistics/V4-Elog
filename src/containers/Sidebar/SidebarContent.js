@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Col, Menu, Row } from "antd";
 import { Link, useHistory } from "react-router-dom";
 import CustomScrollbars from "util/CustomScrollbars";
@@ -14,6 +14,13 @@ import {
 } from "../../constants/ThemeSetting";
 import IntlMessages from "../../util/IntlMessages";
 import { useSelector } from "react-redux";
+import logorace from "../../assets/img/locorace.png"
+import logodashboard from "../../assets/img/icondashoardrace.png"
+import historyrace from "../../assets/img/historyrace.png"
+import splistrace from "../../assets/img/sprace.png"
+import perbaikanrace from "../../assets/img/perbaikanrace.png"
+import vehiclerace from "../../assets/img/vehicle.png"
+import emergencyrace from "../../assets/img/emergencyrace.png"
 import { Button } from "react-bootstrap";
 import {
   CarTwoTone,
@@ -40,6 +47,7 @@ import {
   AppstoreTwoTone,
   HourglassTwoTone,
 } from "@ant-design/icons";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 const { SubMenu } = Menu;
 
 const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
@@ -77,7 +85,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
   const createuserbaru = () => {
     history.push(`/akunting/usernew`);
   };
+  const menuBackgroundColor = jobdesk === "rcadmin" ? "#F05423" : "#1a5cbf";
+  const location = useLocation();
+  const [activeMenu, setActiveMenu] = useState(location.pathname);
 
+  useEffect(() => {
+    setActiveMenu(location.pathname);
+  }, [location]);
   return (
     <>
       <SidebarLogo
@@ -88,28 +102,40 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
         <div
           className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
         >
-
           <Row>
-            <Col span={24} className="d-flex justify-content-center">
-              <Avatar
-                src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
-                className="gx-size-60 gx-pointer gx-mr-3"
-                alt=""
-              />
-            </Col>
-            <Col span={24} className="d-flex justify-content-center">
-              <b style={{ color: "white" }} className="mt-3">
-                {" "}
-                {jobdesk} , {fullname}
-              </b>
-            </Col>
+            {jobdesk != "rcadmin" ? (
+              <Col span={24} className="d-flex justify-content-center">
+                <Avatar
+                  src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
+                  className="gx-size-60 gx-pointer gx-mr-3"
+                  alt=""
+                />
+              </Col>
+            ) :
+              <Col span={24} className="d-flex justify-content-center">
+                <img
+                  src={logorace}
+                  // style={{ width: '100%' }}
+                  className=" gx-pointer gx-mr-3"
+                  alt=""
+                />
+              </Col>}
+            {jobdesk != "rcadmin" && (
+              <Col span={24} className="d-flex justify-content-center">
+                <b style={{ color: "white" }} className="mt-3">
+                  {" "}
+                  {jobdesk} , {fullname}
+                </b>
+              </Col>
+            )}
           </Row>
+
         </div>
         <CustomScrollbars className="gx-layout-sider-scrollbar">
           <Menu
             defaultOpenKeys={[defaultOpenKeys]}
             selectedKeys={[selectedKeys]}
-            style={{ backgroundColor: "#1a5cbf" }}
+            style={{ backgroundColor: menuBackgroundColor }}
             theme={themeType === LIGHT_PURPLE ? "lite" : "dark"}
             mode="inline"
           >
@@ -284,7 +310,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Tarif Mitra" disabled>
-                    
+
                     <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" />
                        */}
@@ -696,7 +722,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Tarif Mitra" disabled>
-                    
+
                     <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" />
                        */}
@@ -928,23 +954,93 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                        */}
                     <AppstoreOutlined style={{ fontSize: "20px" }} />
                     <span style={{ fontWeight: "bold", color: "white" }}>
-                    Dashboard
+                      Dashboard
                     </span>
                   </Link>
                 </Menu.Item>
               )}
               {/* ////Login Race///// */}
               {jobdesk == "rcadmin" && (
-                <Menu.Item key="Dashboard">
-                  <Link to="/admin/race" style={{ textDecoration: "none" }}>
-                    {/* <i className="icon icon-widgets" />
+                <>
+                  <div className="mt-3">
+                  <Menu.Item className={activeMenu === "/Dashboard" ? "menu-item-active menu-item-hover" : "menu-item-hover"} key="Dashboard">
+                      <Link to="/Dashboard" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" />
                        */}
-                    <AppstoreOutlined style={{ fontSize: "20px" }} />
-                    <span style={{ fontWeight: "bold", color: "white" }}>
-                    Dashboard 
-                    </span>
-                  </Link>
-                </Menu.Item>
+
+                        <img src={logodashboard} style={{ fontSize: "20px" }} />
+                        <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
+                          Dashboard
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="mt-4"  >
+                  <Menu.Item className={activeMenu === "/race/splist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} key="SPList">
+                      <Link to="/race/splist" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" />
+                       */}
+
+                        <img src={splistrace} style={{ fontSize: "20px" }} />
+                        <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
+                          SP List
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="mt-4" >
+                    <Menu.Item key="History">
+                      <Link to="/Dashboard" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" />
+                       */}
+
+                        <img src={historyrace} style={{ fontSize: "20px" }} />
+                        <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
+                          History
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="mt-4" >
+                    <Menu.Item key="Perbaikan">
+                      <Link to="/Dashboard" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" />
+                       */}
+
+                        <img src={perbaikanrace} style={{ fontSize: "20px" }} />
+                        <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
+                          Perbaikan
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="mt-4" >
+                    <Menu.Item key="Vehicle">
+                      <Link to="/Dashboard" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" />
+                       */}
+
+                        <img src={vehiclerace} style={{ fontSize: "20px" }} />
+                        <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
+                          Vehicle
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="mt-4" >
+                    <Menu.Item key="Emergency">
+                      <Link to="/Dashboard" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" />
+                       */}
+
+                        <img src={emergencyrace} style={{ fontSize: "20px" }} />
+                        <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
+                          Emergency
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                </>
               )}
             </MenuItemGroup>
           </Menu>
