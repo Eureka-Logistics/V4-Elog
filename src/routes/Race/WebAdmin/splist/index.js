@@ -8,6 +8,9 @@ import map from "../../../../assets/img/peta.png"
 import icondriver from "../../../../assets/img/drivericon.png"
 import telponicon from "../../../../assets/img/telponicon.png"
 import whatsappicon from "../../../../assets/img/whatsappicon.png"
+import truck from "../../../../assets/img/Truck Illu 1.png"
+import vespa from "../../../../assets/img/vesva.png"
+import ListPengiriman from './ListPengirimanCardComponent';
 
 function SpListRace() {
     const [open, setOpen] = useState(false);
@@ -21,9 +24,6 @@ function SpListRace() {
 
     return (
         <div>
-            <Button type="primary" onClick={showDefaultDrawer}>
-                Open Default Size (378px)
-            </Button>
             <Drawer
                 title="Tracking Pengiriman"
                 width={3220}
@@ -99,10 +99,9 @@ function SpListRace() {
 
 
             </Drawer>
-
             <Row>
                 <Col sm={12}>
-                    <Card>
+                    <Card >
                         <Row>
                             <Col sm={8}>
                                 <Row>
@@ -132,91 +131,7 @@ function SpListRace() {
                     <Input style={{ Width: "400px", height: "50px" }} addonBefore={<SearchOutlined />} placeholder='Cari Disini' />
                 </Col>
             </Row>
-            <div className='mt-2'>
-                <Row >
-                    <Col sm={6} >
-                        <Card onClick={() => showDefaultDrawer()} style={{ height: 217 }}>
-                            <Container>
-                                <Row>
-                                    <Col sm={10}>
-                                        <h3>JKT23-007583</h3>
-                                    </Col>
-                                    <Col sm={2}>
-                                        <Button style={{ backgroundColor: "#dfdfdf", color: "#a2a2a2" }}>Waiting</Button>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col sm={8}>
-                                        <p style={{ marginBottom: "0px" }}>Pelanggan</p>
-                                    </Col>
-                                    <Col sm={4}>
-                                        <p style={{ marginBottom: "0px" }}>Tanggal Pick Up</p>
-                                    </Col>
-                                    <Col sm={8}>
-                                        <p style={{ marginTop: "0px", marginBottom: "0px", fontWeight: "bold" }}>PT Mulia Boga Raya TBK</p>
-                                    </Col>
-                                    <Col sm={4}>
-                                        <p style={{ marginBottom: "20px", fontWeight: "bold" }}>-</p>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col sm={4}>
-                                        <p style={{ marginBottom: "0px" }}>Asal Muatan</p>
-                                    </Col>
-                                    <Col sm={8}>
-                                        <p style={{ marginBottom: "0px" }}>Tujuan Muatan</p>
-                                    </Col>
-                                </Row>
-                                <Row>
-
-                                    <Col sm={4}>
-                                        <p style={{ marginTop: "0px", marginBottom: "0px", fontWeight: "bold" }}>Kabupaten Bekasi</p>
-                                    </Col>
-                                    <Col sm={8}>
-                                        <p style={{ marginBottom: "0px", fontWeight: "bold" }}>Jakarta Selatan</p>
-                                    </Col>
-                                </Row>
-
-                            </Container>
-                        </Card>
-                    </Col>
-                    <Col sm={6} >
-                        <Card style={{ height: 217 }}></Card>
-                    </Col>
-                </Row>
-                <Row >
-                    <Col sm={6} >
-                        <Card style={{ height: 217 }}></Card>
-                    </Col>
-                    <Col sm={6} >
-                        <Card style={{ height: 217 }}></Card>
-                    </Col>
-                </Row>
-                <Row >
-                    <Col sm={6} >
-                        <Card style={{ height: 217 }}></Card>
-                    </Col>
-                    <Col sm={6} >
-                        <Card style={{ height: 217 }}></Card>
-                    </Col>
-                </Row>
-                <Row >
-                    <Col sm={6} >
-                        <Card style={{ height: 217 }}></Card>
-                    </Col>
-                    <Col sm={6} >
-                        <Card style={{ height: 217 }}></Card>
-                    </Col>
-                </Row>
-                <Row >
-                    <Col sm={6} >
-                        <Card style={{ height: 217 }}></Card>
-                    </Col>
-                    <Col sm={6} >
-                        <Card style={{ height: 217 }}></Card>
-                    </Col>
-                </Row>
-            </div>
+            <ListPengiriman setOpen={setOpen}/>
         </div>
     )
 }
