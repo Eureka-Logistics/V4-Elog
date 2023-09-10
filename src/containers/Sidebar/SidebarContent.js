@@ -366,7 +366,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="DriverMap" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item disabled key="DriverMap" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}
@@ -377,7 +377,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="DriverEmc" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item disabled key="DriverEmc" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}
@@ -397,7 +397,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       Menu SP
                     </h6>
                   </div>
-                  <Menu.Item key="waiting SP List" className={activeMenu === "/masterdata/newsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item disabled key="waiting SP List" className={activeMenu === "/masterdata/newsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/newsplist"
                       style={{ textDecoration: "none" }}
@@ -408,7 +408,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="New SP" className={activeMenu === "/masterdata/newsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  {/* <Menu.Item key="New SP" className={activeMenu === "/masterdata/newsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/newsplist"
                       style={{ textDecoration: "none" }}
@@ -418,8 +418,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         <IntlMessages id="Approve SP" />
                       </span>
                     </Link>
-                  </Menu.Item>
-                  <Menu.Item key="SP List" className={activeMenu === "/masterdata/splist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  </Menu.Item> */}
+                  <Menu.Item disabled key="SP List" className={activeMenu === "/masterdata/splist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/splist"
                       style={{ textDecoration: "none" }}
@@ -439,7 +439,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </h6>
                   </div>
 
-                  <Menu.Item key="VehicleMap" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item disabled key="VehicleMap" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}
@@ -462,7 +462,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="monitoringVehicle" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item disabled key="monitoringVehicle" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}
