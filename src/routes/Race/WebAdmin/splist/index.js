@@ -135,30 +135,48 @@ function SpListRace() {
             <div className='mt-2'>
                 <Row >
                     <Col sm={6} >
-                        <Card style={{ height: 217 }}>
+                        <Card onClick={() => showDefaultDrawer()} style={{ height: 217 }}>
                             <Container>
                                 <Row>
                                     <Col sm={10}>
                                         <h3>JKT23-007583</h3>
                                     </Col>
                                     <Col sm={2}>
-                                        <Button style={{backgroundColor: "#dfdfdf" , color : "#a2a2a2" }}>Waiting</Button>
+                                        <Button style={{ backgroundColor: "#dfdfdf", color: "#a2a2a2" }}>Waiting</Button>
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col sm={8}>
-                                        <p>Pelanggan</p>
+                                        <p style={{ marginBottom: "0px" }}>Pelanggan</p>
                                     </Col>
                                     <Col sm={4}>
-                                        <p>Tanggal Pick Up</p>
+                                        <p style={{ marginBottom: "0px" }}>Tanggal Pick Up</p>
                                     </Col>
                                     <Col sm={8}>
-                                        <p>PT Mulia Boga Raya TBK</p>
+                                        <p style={{ marginTop: "0px", marginBottom: "0px", fontWeight: "bold" }}>PT Mulia Boga Raya TBK</p>
                                     </Col>
                                     <Col sm={4}>
-                                        <p>-</p>
+                                        <p style={{ marginBottom: "20px", fontWeight: "bold" }}>-</p>
                                     </Col>
                                 </Row>
+                                <Row>
+                                    <Col sm={4}>
+                                        <p style={{ marginBottom: "0px" }}>Asal Muatan</p>
+                                    </Col>
+                                    <Col sm={8}>
+                                        <p style={{ marginBottom: "0px" }}>Tujuan Muatan</p>
+                                    </Col>
+                                </Row>
+                                <Row>
+
+                                    <Col sm={4}>
+                                        <p style={{ marginTop: "0px", marginBottom: "0px", fontWeight: "bold" }}>Kabupaten Bekasi</p>
+                                    </Col>
+                                    <Col sm={8}>
+                                        <p style={{ marginBottom: "0px", fontWeight: "bold" }}>Jakarta Selatan</p>
+                                    </Col>
+                                </Row>
+
                             </Container>
                         </Card>
                     </Col>
