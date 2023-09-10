@@ -277,8 +277,8 @@ console.log(response.data.status.message);
               const newOrder = DataCabang.filter((item) => item.id !== id);
               setDataCabang(newOrder);
               // Reload the data after successful deletion if necessary
-              // fetchData();
-              window.location.reload();
+              fetchDataDetail();
+              // window.location.reload();
             }
           })
           .catch(function (error) {

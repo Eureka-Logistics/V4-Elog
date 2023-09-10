@@ -87,6 +87,11 @@ const SamplePage = () => {
       key: "customer",
     },
     {
+      title: "Service",
+      dataIndex: "service_type",
+      key: "service_type",
+    },
+    {
       title: "Muat",
       dataIndex: "kotaAsal",
       key: "kotaAsal",
@@ -228,7 +233,7 @@ const SamplePage = () => {
             Authorization: localStorage.getItem("token"),
         }
       });
-      console.log(`asu`,data.data.mitra);
+      console.log(`dodol`,data.data.mitra);
       setNamaMitraOptions(data.data?.mitra)
       
     } catch (error) {
@@ -257,8 +262,8 @@ const SamplePage = () => {
               const newOrder = listData.filter((item) => item.id_price !== id);
               setListData(newOrder);
               // Reload the data after successful deletion if necessary
-              // fetchData();
-              window.location.reload();
+              fetchData();
+              // window.location.reload();
             }
           })
           .catch(function (error) {

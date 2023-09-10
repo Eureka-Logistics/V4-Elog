@@ -114,7 +114,8 @@ const SamplePage = () => {
                 (item) => item.custId !== custId
               );
               setCustomerAddresses(newOrder);
-              window.location.reload(); // Menambahkan reload windows setelah pembaruan daftar pelanggan
+              fetchData();
+              // window.location.reload(); // Menambahkan reload windows setelah pembaruan daftar pelanggan
             }
           })
           .catch(function (error) {

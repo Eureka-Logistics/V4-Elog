@@ -1,0 +1,15 @@
+.my-custom-button {
+    background-color: #F05423 !important; 
+  }
+
+
+.my-custom-table .ant-table-thead > tr > th {
+    background-color: #d5e2fe !important;
+    color: #1A3368; 
+  }
+  
+  .my-custom-table .ant-table-tbody > tr:hover {
+    background-color: #B9CAEE !important;
+   cursor: pointer; 
+  }
+  

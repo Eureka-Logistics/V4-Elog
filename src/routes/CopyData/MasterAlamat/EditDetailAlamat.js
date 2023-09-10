@@ -54,7 +54,7 @@ function EditDetailAlamat() {
       setDataLat(respons.data?.data[0].lat || "");
       setDataRitase(respons.data?.data[0].ritase || "");
       setDataProvinsi(respons.data?.data[0].provinsi || "");
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const GetSelectData = async () => {
@@ -69,7 +69,7 @@ function EditDetailAlamat() {
         }
       );
       setDataTambah(respons.data);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const EditAddress = async () => {
@@ -132,18 +132,22 @@ function EditDetailAlamat() {
       console.log(`ini error`);
       console.log(`ini errorr response`, error.response.data.status.message);
       console.error(`ini errorr`, error);
-      if (error.response && error.response.data && Array.isArray(error.response.data.status)) {
-        error.response.data.status.forEach(element => {
+      if (
+        error.response &&
+        error.response.data &&
+        Array.isArray(error.response.data.status)
+      ) {
+        error.response.data.status.forEach((element) => {
           if (element && element.message) {
             notification.error({
-              message: error.response.data.status.message
+              message: error.response.data.status.message,
             });
           }
         });
       } else {
         // Handle unexpected structure
         notification.error({
-          message: error.response.data.status.message
+          message: error.response.data.status.message,
         });
       }
     }
@@ -152,29 +156,34 @@ function EditDetailAlamat() {
   useEffect(() => {
     fetchData();
     GetSelectData();
-  }, [customerAddressId, DataKodeWilayah, DataKecamatan, DataKota, IDDataKodeWilayah]);
+  }, [
+    customerAddressId,
+    DataKodeWilayah,
+    DataKecamatan,
+    DataKota,
+    IDDataKodeWilayah,
+  ]);
 
   const KotaOptions =
     DataTambah?.kota && Array.isArray(DataTambah?.kota)
       ? DataTambah?.kota.map((item) => ({
-        label: item.kotaName,
-        value: item.id,
-      }))
+          label: item.kotaName,
+          value: item.id,
+        }))
       : [];
 
   const KecamatanOptions =
     DataTambah && Array.isArray(DataTambah?.kecamatan)
       ? DataTambah?.kecamatan.map((item) => ({
-        label: item.kecamatanName,
-        value: item.id,
-      }))
+          label: item.kecamatanName,
+          value: item.id,
+        }))
       : [];
-
 
   return (
     <div>
       <Card>
-        <h4 style={{ fontWeight: "bold" }}>Data Detail Address Customer</h4>
+        <h5 style={{ fontWeight: "bold" }}>Data Detail Address Customer</h5>
         <Row>
           <Col span={24}>
             <label className="mt-2" style={{ fontWeight: "bold" }}>
@@ -189,7 +198,48 @@ function EditDetailAlamat() {
                 setDataPIC(e.target.value);
               }}
             />
-            <label style={{ fontWeight: "bold" }}>Alamat : </label>
+          </Col>
+          <Col span={8}>
+          <label style={{ fontWeight: "bold" }}>Jabatan :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2 mb-2"
+              placeholder={DataDetailAddress?.jabatan}
+              value={DataJabatan}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDataJabatan(e.target.value);
+              }}
+            />
+          </Col>
+          <Col span={8} > <label style={{ fontWeight: "bold" }}>Tlp/HP :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2 mb-2"
+              placeholder={DataDetailAddress?.hp}
+              value={DataHP}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDataHP(e.target.value);
+              }}
+            /></Col>
+          <Col span={8}>
+          <label style={{ fontWeight: "bold" }}>Email :</label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <Input
+              className="mt-2 mb-2"
+              placeholder={DataDetailAddress?.email}
+              value={DataEmail}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDataEmail(e.target.value);
+              }}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+          <label style={{ fontWeight: "bold" }}>Alamat : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
               className="mt-2 mb-2"
@@ -212,48 +262,7 @@ function EditDetailAlamat() {
           </Col>
         </Row>
         <Row>
-
-          <Col span={24}>
-            <label style={{ fontWeight: "bold" }}>Jabatan :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <Input
-              className="mt-2 mb-2"
-              placeholder={DataDetailAddress?.jabatan}
-              value={DataJabatan}
-              onChange={(e) => {
-                console.log(e.target.value);
-                setDataJabatan(e.target.value);
-              }}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12}>
-            <label style={{ fontWeight: "bold" }}>Tlp/HP :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <Input
-              className="mt-2 mb-2"
-              placeholder={DataDetailAddress?.hp}
-              value={DataHP}
-              onChange={(e) => {
-                console.log(e.target.value);
-                setDataHP(e.target.value);
-              }}
-            />
-          </Col>
-          <Col span={12}>
-            <label style={{ fontWeight: "bold" }}>Email :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
-            <Input
-              className="mt-2 mb-2"
-              placeholder={DataDetailAddress?.email}
-              value={DataEmail}
-              onChange={(e) => {
-                console.log(e.target.value);
-                setDataEmail(e.target.value);
-              }}
-            />
-          </Col>
+         
           {/* <Col span={8}>
             <label style={{ fontWeight: "bold" }}>Ritase :</label>
            
@@ -293,7 +302,6 @@ function EditDetailAlamat() {
               }}
             />
           </Col>
-
         </Row>
         <Row>
           <Col span={8}>
@@ -305,7 +313,7 @@ function EditDetailAlamat() {
               //   value={DataDetailAddress?.kode_wilayah}
               placeholder={DataKodeWilayah}
               optionFilterProp="value"
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               onChange={(e, options) => {
                 console.log(options.value, "ini kode wilayah");
                 setDataKodeWilayahValue(options.value);
@@ -332,7 +340,7 @@ function EditDetailAlamat() {
               showSearch
               placeholder={DataDetailAddress?.kota}
               optionFilterProp="value"
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               options={KotaOptions}
               onChange={(e, options) => {
                 console.log(options);
@@ -348,7 +356,7 @@ function EditDetailAlamat() {
               showSearch
               placeholder={DataDetailAddress?.kecamatan}
               optionFilterProp="value"
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               options={KecamatanOptions}
               onChange={(e, options) => {
                 console.log(options);
@@ -360,7 +368,7 @@ function EditDetailAlamat() {
         <Row className="mt-4">
           <Col span={24} className="d-flex justify-content-end">
             <Button type="primary">
-              <span onClick={EditAddress}>Save</span>
+              <span onClick={EditAddress}>SAVE ADDRESS</span>
             </Button>
           </Col>
         </Row>

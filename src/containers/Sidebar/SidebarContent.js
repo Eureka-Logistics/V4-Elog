@@ -200,11 +200,11 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               )}
 
               {jobdesk == "sales" && (
-                <MenuItemGroup key="main">
-                  <Menu.Item key="Dashboard">
+                <MenuItemGroup key="main" >
+                  <Menu.Item key="Dashboard" className={activeMenu === "/dashboard" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link to="/dashboard" style={{ textDecoration: "none" }}>
 
-                      <AppstoreOutlined style={{ fontSize: "20px" }} />
+                      <AppstoreOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '8px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="Dashboard" />
                       </span>
@@ -212,29 +212,31 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                       Pesanan
                     </h6>
                   </div>
-                  <Menu.Item key="SP List">
+                  <Menu.Item key="SP List" className={activeMenu === "/masterdata/marketing/splist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
+                    disabled
                       to="/masterdata/marketing/splist"
                       style={{ textDecoration: "none" }}
                     >
-                      <FileTextOutlined style={{ fontSize: "20px" }} />
+                      <FileTextOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '8px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="SP List" />
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Cancel SP List">
+                  <Menu.Item key="Cancel SP List" className={activeMenu === "/masterdata/marketing/cancelsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
+                    disabled
                       to="/masterdata/marketing/cancelsplist"
                       style={{ textDecoration: "none" }}
                     >
-                      <FileExcelOutlined style={{ fontSize: "20px" }} />
+                      <FileExcelOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '8px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="Cancel SP List" />
                       </span>
@@ -242,68 +244,69 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                       Master
                     </h6>
                   </div>
-                  <Menu.Item key="Data Wilayah">
+                  <Menu.Item key="Data Wilayah" className={activeMenu === "/mastercustomersss" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/mastercustomersss"
                       style={{ textDecoration: "none" }}
                     >
-                      <UserOutlined style={{ fontSize: "20px" }} />
+                      <UserOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '8px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Customer
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Alamat Customer">
+                  <Menu.Item key="Alamat Customer" className={activeMenu === "/alamatcustomer" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/alamatcustomer"
                       style={{ textDecoration: "none" }}
                     >
-                      <ProfileOutlined style={{ fontSize: "20px" }} />
+                      <ProfileOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '8px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Alamat Customer
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Invoice Customer">
+                  <Menu.Item key="Alamat Invoice" className={activeMenu === "/invoicecustomer" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/invoicecustomer"
                       style={{ textDecoration: "none" }}
                     >
-                      <FileProtectOutlined style={{ fontSize: "20px" }} />
+                      <FileProtectOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '8px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
-                        Invoice Customer
+                      Alamat Invoice
                       </span>
                       {/* <span style={{ fontWeight: "bold",  color: 'white' }}>Data Alamat All</span> */}
                     </Link>
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                       Tarif
                     </h6>
                   </div>
-                  <Menu.Item key="Tarif Customer">
+                  <Menu.Item key="Tarif Customer" className={activeMenu === "/pelanggantarif" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/pelanggantarif"
                       style={{ textDecoration: "none" }}
                     >
-                      <DollarOutlined style={{ fontSize: "20px" }} />
+                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '8px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Tarif Customer
                       </span>
                     </Link>
-                  </Menu.Item> <Menu.Item key="Tarif Eureka" disabled>
+                  </Menu.Item> 
+                  <Menu.Item key="Tarif Eureka" disabled>
                     <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" /> */}
-                      <DollarOutlined style={{ fontSize: "20px" }} />
+                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Tarif Eureka
                       </span>
@@ -314,7 +317,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" />
                        */}
-                      <DollarOutlined style={{ fontSize: "20px" }} />
+                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Tarif Mitra
                       </span>
@@ -322,18 +325,18 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                       Lain - Lain
                     </h6>
                   </div>
-                  <Menu.Item key="monitoringVehicle" >
+                  <Menu.Item disabled key="monitoringVehicle"  className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}
                     >
-                      <VideoCameraOutlined style={{ fontSize: "20px" }} />
+                      <VideoCameraOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="Monitoring Vehicle" />
                       </span>
@@ -343,46 +346,57 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               )}
               {jobdesk == "operasional" && (
                 <Menu.ItemGroup key="master">
+                  <Menu.Item key="Dashboard" className={activeMenu === "/dashboard" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                      <Link to="/dashboard" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" />
+                         */}
+                        <AppstoreOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
+                        {/* <AppstoreTwoTone style={{ fontSize: '20px' }} /> */}
+                        <span style={{ fontWeight: "bold", color: "white" }}>
+                          <IntlMessages id="Dashboard" />
+                        </span>
+                      </Link>
+                    </Menu.Item>
                   <div
                     className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white", }} className="mt-3 mb-3" >
                       Driver
                     </h6>
                   </div>
-                  <Menu.Item key="driver">
+                  <Menu.Item key="driver" className={activeMenu === "/masterdata/purchasing/driver" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/purchasing/driver"
                       style={{ textDecoration: "none" }}
                     >
                       {/* <i className="icon icon-widgets" /> */}
                       <SmileTwoTone
-                        style={{ fontSize: "20px", color: "white" }}
+                        style={{ fontSize: "30px", color: "white" }}
                       />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="sidebar.driver" />
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="DriverMap">
+                  <Menu.Item disabled key="DriverMap" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}
                     >
-                      <CarTwoTone style={{ fontSize: "20px" }} />
+                      <CarTwoTone style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="Driver Map" />
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="DriverEmc">
+                  <Menu.Item disabled key="DriverEmc" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}
                     >
                       {/* <i className="icon icon-widgets" /> */}
-                      <CarTwoTone style={{ fontSize: "20px" }} />
+                      <CarTwoTone style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="Driver Emc" />
                       </span>
@@ -390,40 +404,40 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                       Menu SP
                     </h6>
                   </div>
-                  <Menu.Item key="waiting SP List">
+                  <Menu.Item disabled key="waiting SP List" className={activeMenu === "/masterdata/newsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/newsplist"
                       style={{ textDecoration: "none" }}
                     >
-                      <ProfileTwoTone style={{ fontSize: "20px" }} />
+                      <ProfileTwoTone style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="Waiting SP" />
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="New SP">
+                  {/* <Menu.Item key="New SP" className={activeMenu === "/masterdata/newsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/newsplist"
                       style={{ textDecoration: "none" }}
                     >
-                      <CheckSquareTwoTone style={{ fontSize: "20px" }} />
+                      <CheckSquareTwoTone style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="Approve SP" />
                       </span>
                     </Link>
-                  </Menu.Item>
-                  <Menu.Item key="SP List">
+                  </Menu.Item> */}
+                  <Menu.Item disabled key="SP List" className={activeMenu === "/masterdata/splist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/splist"
                       style={{ textDecoration: "none" }}
                     >
-                      <ProfileTwoTone style={{ fontSize: "20px" }} />
+                      <ProfileTwoTone style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="SP List" />
                       </span>
@@ -431,42 +445,42 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                       Vehicle
                     </h6>
                   </div>
 
-                  <Menu.Item key="VehicleMap">
+                  <Menu.Item disabled key="VehicleMap" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}
                     >
                       {/* <i className="icon icon-widgets" /> */}
-                      <EnvironmentTwoTone style={{ fontSize: "20px" }} />
+                      <EnvironmentTwoTone style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="Vehicle Map" />
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="vehicle">
+                  <Menu.Item key="vehicle" className={activeMenu === "/masterdata/vehicle" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/vehicle"
                       style={{ textDecoration: "none" }}
                     >
-                      <CarTwoTone style={{ fontSize: "20px" }} />
+                      <CarTwoTone style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="sidebar.vehicle" />
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="monitoringVehicle">
+                  <Menu.Item disabled key="monitoringVehicle" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}
                     >
-                      <ScheduleTwoTone style={{ fontSize: "20px" }} />
+                      <ScheduleTwoTone style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="Monitoring Vehicle" />
                       </span>
@@ -504,12 +518,12 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               )} */}
               {jobdesk.toLowerCase() === "akunting" ? (
                 <>
-                  <Menu.ItemGroup key="akuntingg">
-                    <Menu.Item key="Dashboard">
+                  <Menu.ItemGroup key="akuntingg" >
+                    <Menu.Item key="Dashboard" className={activeMenu === "/dashboard" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                       <Link to="/dashboard" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
                          */}
-                        <AppstoreOutlined style={{ fontSize: "20px" }} />
+                        <AppstoreOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                         {/* <AppstoreTwoTone style={{ fontSize: '20px' }} /> */}
                         <span style={{ fontWeight: "bold", color: "white" }}>
                           <IntlMessages id="Dashboard" />
@@ -518,42 +532,42 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Menu.Item>
                     <div
                       className="d-flex justify-content-center"
-                      style={{ backgroundColor: "#0c2197", height: "20%" }}
+                      style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                     >
-                      <h6 style={{ color: "white" }} className="mt-1">
+                      <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                         Menu SP
                       </h6>
                     </div>
-                    <Menu.Item key="SP Lists">
+                    <Menu.Item disabled key="SP Lists" className={activeMenu === "/akunting/splistwaitingakunting" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                       <Link
                         to="/akunting/splistwaitingakunting"
                         style={{ textDecoration: "none" }}
                       >
-                        <FileProtectOutlined style={{ fontSize: "20px" }} />
+                        <FileProtectOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                         {/* <HourglassTwoTone style={{ fontSize: '20px' }} /> */}
                         <span style={{ fontWeight: "bold", color: "white" }}>
                           Waiting Approve SP
                         </span>
                       </Link>
                     </Menu.Item>
-                    <Menu.Item key="SP Lists All">
+                    <Menu.Item disabled key="SP Lists All" className={activeMenu === "/akunting/splistakuntingbaru" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                       <Link
                         to="/akunting/splistakuntingbaru"
                         style={{ textDecoration: "none" }}
                       >
-                        <FileProtectOutlined style={{ fontSize: "20px" }} />
+                        <FileProtectOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                         <span style={{ fontWeight: "bold", color: "white" }}>
                           SP List All
                         </span>
                       </Link>
                     </Menu.Item>
 
-                    <Menu.Item key="Approve SP">
+                    <Menu.Item disabled key="Approve SP" className={activeMenu === "/approvesplistall" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                       <Link
                         to="/approvesplistall"
                         style={{ textDecoration: "none" }}
                       >
-                        <FileProtectOutlined style={{ fontSize: "20px" }} />
+                        <FileProtectOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                         <span style={{ fontWeight: "bold", color: "white" }}>
                           List Approve All SP
                         </span>
@@ -568,11 +582,11 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </SubMenu> */}
-                  <div
+                  {/* <div
                     className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                       Menu AR
                     </h6>
                   </div>
@@ -630,18 +644,18 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         Report Pembayaran Customer
                       </span>
                     </Link>
-                  </Menu.Item>
+                  </Menu.Item> */}
 
                   <div
                     className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                       Payment
                     </h6>
                   </div>
 
-                  <Menu.Item key="Penerimaan INV">
+                  <Menu.Item disabled key="Penerimaan INV" className={activeMenu === "/akunting/ar/reportpartners/reportpenerimaaninvoice" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/akunting/ar/reportpartners/reportpenerimaaninvoice"
                       style={{ textDecoration: "none" }}
@@ -655,14 +669,14 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
 
                   <div
                     className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                       Data Wilayah
                     </h6>
                   </div>
 
-                  <Menu.Item key="Master Kecamatan">
+                  <Menu.Item key="Master Kecamatan" className={activeMenu === "/masterkecamatan" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterkecamatan"
                       style={{ textDecoration: "none" }}
@@ -673,7 +687,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Master Kota">
+                  <Menu.Item key="Master Kota" className={activeMenu === "/masterkota" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link to="/masterkota" style={{ textDecoration: "none" }}>
                       <i className="icon icon-widgets" />
                       <span style={{ fontWeight: "bold", color: "white" }}>
@@ -681,7 +695,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Master Provinsi">
+                  <Menu.Item key="Master Provinsi" className={activeMenu === "/masterprovinsi" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterprovinsi"
                       style={{ textDecoration: "none" }}
@@ -705,17 +719,26 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </SubMenu> */}
                   <div
                     className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                       Data Tarif
                     </h6>
                   </div>
 
-                  <Menu.Item key="Tarif Eureka">
+                  <Menu.Item key="Cari Tarif" className={activeMenu === "/CariTarif" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Link to="/CariTarif" style={{ textDecoration: "none" }}>
+                      {/* <i className="icon icon-widgets" /> */}
+                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
+                      <span style={{ fontWeight: "bold", color: "white" }}>
+                       Cari Tarif
+                      </span>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="Tarif Eureka" className={activeMenu === "/tarif_eureka" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" /> */}
-                      <DollarOutlined style={{ fontSize: "20px" }} />
+                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Tarif Eureka
                       </span>
@@ -726,7 +749,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" />
                        */}
-                      <DollarOutlined style={{ fontSize: "20px" }} />
+                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Tarif Mitra
                       </span>
@@ -737,7 +760,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       to="/pelanggantarif"
                       style={{ textDecoration: "none" }}
                     >
-                      <DollarOutlined style={{ fontSize: "20px" }} />
+                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Tarif Customer
                       </span>
@@ -746,14 +769,14 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
 
                   <div
                     className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                       Bisnis Employee
                     </h6>
                   </div>
 
-                  <Menu.Item key="Data BU">
+                  <Menu.Item key="Data BU" className={activeMenu === "/DataBUIndex" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link to="/DataBUIndex" style={{ textDecoration: "none" }}>
                       <i className="icon icon-widgets" />
                       <span style={{ fontWeight: "bold", color: "white" }}>
@@ -761,7 +784,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Data BU Employee">
+                  <Menu.Item key="Data BU Employee" className={activeMenu === "/DataBuEmployee" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/DataBuEmployee"
                       style={{ textDecoration: "none" }}
@@ -772,7 +795,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Data BU Brench">
+                  <Menu.Item key="Data BU Brench" className={activeMenu === "/DataBuBrench" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link to="/DataBuBrench" style={{ textDecoration: "none" }}>
                       <i className="icon icon-widgets" />
                       <span style={{ fontWeight: "bold", color: "white" }}>
@@ -780,7 +803,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Data Employee Position">
+                  <Menu.Item key="Data Employee Position" className={activeMenu === "/DataBuEmployeePosition" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/DataBuEmployeePosition"
                       style={{ textDecoration: "none" }}
@@ -796,136 +819,134 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
 
               {jobdesk === "purchasing" ? (
                 <Menu.ItemGroup key="monitorings">
-                  <Menu.Item key="Dashboard">
+                  <Menu.Item key="Dashboard" className={activeMenu === "/dashboard" ? "menu-item-active menu-item-hover" : "menu-item-hover" } >
                     <Link to="/dashboard" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" />
                        */}
-                      <AppstoreOutlined style={{ fontSize: "20px" }} />
+                      <AppstoreOutlined style={{ fontSize: "30px", color: 'white', color: 'white', marginBottom: '7px'}} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="Dashboard" />
                       </span>
                     </Link>
                   </Menu.Item>
                   <div
-                    className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    className="d-flex justify-content-start"
+                    style={{ backgroundColor: "#0c2197", height: "30%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px'  }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                       Menu SP
                     </h6>
                   </div>
-                  <Menu.Item key="New SP">
+                  <Menu.Item disabled key="New SP" className={activeMenu === "/purchasing/newsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/purchasing/newsplist"
                       style={{ textDecoration: "none" }}
                     >
-                      {/* <i className="icon icon-widgets" />
-                       */}
-                      <FileProtectOutlined style={{ fontSize: "20px" }} />
+                     
+                      <FileProtectOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="Approve SP" />
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="SP List">
+                  <Menu.Item disabled key="SP List" className={activeMenu === "/masterdata/splist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterdata/splist"
                       style={{ textDecoration: "none" }}
                     >
-                      {/* <i className="icon icon-widgets" />
-                       */}
-                      <FileTextOutlined style={{ fontSize: "20px" }} />
+                      
+                      <FileTextOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="SP List" />
                       </span>
                     </Link>
                   </Menu.Item>
                   <div
-                    className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    className="d-flex justify-content-start"
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                       Menu SJ
                     </h6>
                   </div>
-                  <Menu.Item key="SJ List">
+                  <Menu.Item disabled key="SJ List" className={activeMenu === "/masterdata/sjlist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterdata/sjlist"
                       style={{ textDecoration: "none" }}
                     >
                       {/* <i className="icon icon-widgets" />
                        */}
-                      <FolderOpenOutlined style={{ fontSize: "20px" }} />
+                      <FolderOpenOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="SJ List" />
                       </span>
                     </Link>
                   </Menu.Item>
                   <div
-                    className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    className="d-flex justify-content-start"
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                       Master
                     </h6>
                   </div>
-                  <Menu.Item key="driverpurch">
+                  <Menu.Item disabled key="driverpurch" className={activeMenu === "/masterdata/purchasing/driver" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterdata/purchasing/driver"
                       style={{ textDecoration: "none" }}
                     >
                       {/* <i className="icon icon-widgets" />
                        */}
-                      <CarOutlined style={{ fontSize: "20px" }} />
+                      <CarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="Master Driver" />
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Master Mitra">
+                  <Menu.Item key="Master Mitra" className={activeMenu === "/mastermitra" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link to="/mastermitra" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" />
                        */}
-                      <ShopOutlined style={{ fontSize: "20px" }} />
+                      <ShopOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Master Mitra
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="vehiclepurch">
+                  <Menu.Item disabled key="vehiclepurch" className={activeMenu === "/masterdata/purchasing/vehicle" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterdata/purchasing/vehicle"
                       style={{ textDecoration: "none" }}
                     >
                       {/* <i className="icon icon-heart" /> */}
-                      <FundViewOutlined style={{ fontSize: "20px" }} />
+                      <FundViewOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="Master Vehicle" />
                       </span>
                     </Link>
                   </Menu.Item>
                   <div
-                    className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%" }}
+                    className="d-flex justify-content-start"
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-1">
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
                       Tarif
                     </h6>
                   </div>
-                  <Menu.Item key="Tarif Mitra">
+                  <Menu.Item key="Tarif Mitra" className={activeMenu === "/tarifmitra" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" />
                        */}
-                      <DollarOutlined style={{ fontSize: "20px" }} />
+                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Tarif Mitra
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Tarif Eureka" disabled>
+                  <Menu.Item key="Tarif Eureka" disabled >
                     <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" /> */}
-                      <DollarOutlined style={{ fontSize: "20px" }} />
+                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Tarif Eureka
                       </span>
@@ -936,7 +957,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       to="/pelanggantarif"
                       style={{ textDecoration: "none" }}
                     >
-                      <DollarOutlined style={{ fontSize: "20px" }} />
+                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Tarif Customer
                       </span>
@@ -948,11 +969,11 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
 
               {/* ////Login Race///// */}
               {jobdesk == "emc" && (
-                <Menu.Item key="Dashboard">
+                <Menu.Item key="Dashboard" >
                   <Link to="/admin/race" style={{ textDecoration: "none" }}>
                     {/* <i className="icon icon-widgets" />
                        */}
-                    <AppstoreOutlined style={{ fontSize: "20px" }} />
+                    <AppstoreOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                     <span style={{ fontWeight: "bold", color: "white" }}>
                       Dashboard
                     </span>
@@ -968,7 +989,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         {/* <i className="icon icon-widgets" />
                        */}
 
-                        <img src={logodashboard} style={{ fontSize: "20px" }} />
+                        <img src={logodashboard} style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                         <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
                           Dashboard
                         </span>
@@ -981,7 +1002,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         {/* <i className="icon icon-widgets" />
                        */}
 
-                        <img src={splistrace} style={{ fontSize: "20px" }} />
+                        <img src={splistrace} style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                         <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
                           SP List
                         </span>
@@ -994,22 +1015,22 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         {/* <i className="icon icon-widgets" />
                        */}
 
-                        <img src={historyrace} style={{ fontSize: "20px" }} />
+                        <img src={historyrace} style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                         <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
-                          History
+                          Map Pengiriman
                         </span>
                       </Link>
                     </Menu.Item>
                   </div>
                   <div className="mt-4" >
-                    <Menu.Item key="Perbaikan">
-                      <Link to="/Dashboard" style={{ textDecoration: "none" }}>
+                  <Menu.Item className={activeMenu === "/race/cod" ? "menu-item-active menu-item-hover" : "menu-item-hover"} key="cod">
+                      <Link to="/race/cod" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
                        */}
 
-                        <img src={perbaikanrace} style={{ fontSize: "20px" }} />
+                        <img src={perbaikanrace} style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                         <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
-                          Perbaikan
+                        Cash On Delivery
                         </span>
                       </Link>
                     </Menu.Item>
@@ -1020,7 +1041,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         {/* <i className="icon icon-widgets" />
                        */}
 
-                        <img src={vehiclerace} style={{ fontSize: "20px" }} />
+                        <img src={vehiclerace} style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                         <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
                           Vehicle
                         </span>
@@ -1033,7 +1054,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         {/* <i className="icon icon-widgets" />
                        */}
 
-                        <img src={emergencyrace} style={{ fontSize: "20px" }} />
+                        <img src={emergencyrace} style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                         <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
                           Emergency
                         </span>

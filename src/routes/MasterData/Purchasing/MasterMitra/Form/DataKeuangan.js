@@ -13,9 +13,9 @@ function DataKeuangan({mitraId}) {
 
   return (
     <div>
-      <b>DATA KEUANGAN (Accounting Information)</b>
+      <h5>DATA KEUANGAN (Accounting Information)</h5>
       <br />
-      <br />
+      <hr/>
       <b>A. PERORANGAN</b>
       <br />
       <br />

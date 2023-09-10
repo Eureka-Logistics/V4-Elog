@@ -511,6 +511,12 @@ const App = ({ match }) => {
           )}
         />
         <Route
+          path={`${match.url}CariTarif`}
+          component={asyncComponent(() =>
+            import("./CopyData/Tarif")
+          )}
+        />
+        <Route
           path={`${match.url}DataBUIndex`}
           component={asyncComponent(() => import("./MasterData/BU/BU/IndexBU"))}
         />
@@ -568,6 +574,13 @@ const App = ({ match }) => {
             import("./MasterData/BU/BUEmployeePosition/Index")
           )}
         />
+        <Route
+          path={`${match.url}AddNewPositions/:`}
+          component={asyncComponent(() =>
+            import("./MasterData/BU/BUEmployeePosition/Index")
+          )}
+        />
+
         <Route
           path={`${match.url}DataBuEmployeePositionEditDetail/:id`}
           component={asyncComponent(() =>
@@ -764,6 +777,12 @@ const App = ({ match }) => {
           path={`${match.url}race/splist`}
           component={asyncComponent(() =>
             import("../routes/Race/WebAdmin/splist/index")
+          )}
+        />
+        <Route
+          path={`${match.url}race/cod`}
+          component={asyncComponent(() =>
+            import("../routes/Race/WebAdmin/Cash On Delivery/CashOnDelivery")
           )}
         />
 

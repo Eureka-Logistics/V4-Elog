@@ -221,7 +221,6 @@ function CreateBUEmployee() {
         </Col>
         <Col span={6}>
           <label style={{ fontWeight: "bold" }}>BU Brench :</label>
-          {/* Menghubungkan input tarif dengan state tarif */}
           <Select
             className="mt-2"
             showSearch
@@ -247,9 +246,8 @@ function CreateBUEmployee() {
           </Select>
         </Col>
 
-        <Col span={12}>
+        {/* <Col span={12}>
           <label style={{ fontWeight: "bold" }}>Employee Position :</label>
-          {/* Menghubungkan input tarif dengan state tarif */}
           <Select
             className="mt-2"
             showSearch
@@ -272,10 +270,10 @@ function CreateBUEmployee() {
                 </Select.Option>
               ))}
           </Select>
-        </Col>
+        </Col> */}
         {/* <label style={{ fontWeight: "bold" }}>Job Level :</label> */}
         {/* Menghubungkan input tarif dengan state tarif */}
-        <Col span={12}>
+        <Col span={24}>
           <label style={{ fontWeight: "bold" }}>Job Level:</label>
           <Input
             className={`mt-2 mb-2 ${isInputValid ? "" : "invalid-input"}`}

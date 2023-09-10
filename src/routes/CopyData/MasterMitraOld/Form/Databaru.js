@@ -22,8 +22,10 @@ import { Data } from "@react-google-maps/api";
 import moment from "moment";
 import { PrinterOutlined } from "@ant-design/icons";
 import PrintZustand from "../../../../zustand/Store/untukPrint/MasterMitra";
+import { parse } from "date-fns";
+import isiDatamasterMitraDetailZustand from "../../../../zustand/Store/IsiDataMasterMitraDetail/Store";
 
-function DataBaru({ mitraId, DataOptions }) {
+function DataBaru({ mitraId, DataOptions, setActiveTab }) {
   // const [datamiTraProfile, setDataMitraProfile] = useState([]);
   const [form] = Form.useForm();
   const router = useHistory();
@@ -43,8 +45,8 @@ function DataBaru({ mitraId, DataOptions }) {
       setDataKodeMitraZustand: state.setDataKodeMitraZustand,
     })
   );
+  console.log(`DataKodeMitraZustand`,DataKodeMitraZustand);
   const [DataKodeMitra, setDataKodeMitra] = useState("");
-  console.log(`DataKodeMitraZustand`, DataKodeMitraZustand);
   const [DataKodeInisial, setDataKodeInisial] = useState("");
   const [DataQRKode, setDataQRKode] = useState("");
   const [DataNamaMitra, setDataNamaMitra] = useState("");
@@ -95,6 +97,61 @@ function DataBaru({ mitraId, DataOptions }) {
   const [DataTahunRegister, setDataTahunRegister] = useState("");
   const [DataMemo, setDataMemo] = useState("");
   const [DataType, setDataType] = useState("");
+  const [DataPicId, setDataPicId] = useState("");
+  const [selectMitraPIC, setselectMitraPIC] = useState("");
+  const [DataPic, setDataPic] = useState("");
+  const [DataIDPic, setDataIDPic] = useState("");
+  const [PoLegalitas, setPoLegalitas] = useState("");
+  const [KTPLegalitas, setKTPLegalitas] = useState("");
+  const [AktaPendirian, setAktaPendirian] = useState("");
+  const [AktaPerubahanDasar, setAktaPerubahanDasar] = useState("");
+  const [AktaSusunanDireksi, setAktaSusunanDireksi] = useState("");
+  const [SuratDomisili, setSuratDomisili] = useState("");
+  const [NPWPLegalitas, setNPWPLegalitas] = useState("");
+  const [SktLegalitas, setSktLegalitas] = useState("");
+  const [NppkpLegalitas, setNppkpLegalitas] = useState("");
+  const [SiupLegalitas, setSiupLegalitas] = useState("");
+  const [IjinPenidirian, setIjinPendirian] = useState("");
+  const [PPMDLegalitas, setPPMDLegalitas] = useState("");
+  const [IjinUsaha, setIjinUsaha] = useState("");
+  const [TDPLegalitas, setTDPLegalitas] = useState("");
+  const [SuratKuasaLegalitas, setSuratKuasaLegalitas] = useState("");
+  const [LamaBekerjaLegalitas, setLamaBekerjaLegalitas] = useState("");
+  const [JenisKartuKredit, setJenisKartuKredit] = useState("");
+  const [StatusUsaha, setStatusUsaha] = useState("");
+  const [LamaUsaha, setLamaUsaha] = useState("");
+  const [OmsetBulanan, setOmsetBulanan] = useState("");
+  const [AssetTanah, setAssetTanah] = useState("");
+  const [AssetBangunan, setAssetBangunan] = useState("");
+  const [AssetKendaraan, setAssetKendaran] = useState("");
+  const [AssetMesin, setAssetMesin] = useState("");
+  const [Affiliasi, setAffiliasi] = useState("");
+  const [JumlahUnit, setJumlahUnit] = useState("");
+  const [PeriodeSewa, setPeriodeSewa] = useState("");
+  const [NilaiSewa, setNilaiSewa] = useState("");
+  const [NilaiRUU, setNilaiRUU] = useState("");
+  const [QtyMotor, setQtyMotor] = useState("");
+  const [RpMotor, setRpMotor] = useState("");
+  const [QtyGrandMax, setQtyGrandMax] = useState("");
+  const [RpGrandmax, setRpGrandmax] = useState("");
+  const [Qty1300, setQty1300] = useState("");
+  const [Rp1300, setRp1300] = useState("");
+  const [QtyTraga, setQtyTraga] = useState("");
+  const [RpTraga, setRpTraga] = useState("");
+  const [QtyCDE, setQtyCDE] = useState("");
+  const [RpCDE, setRpCDE] = useState("");
+  const [QtyCDD, setQtyCDD] = useState("");
+  const [RpCDD, setRpCDD] = useState("");
+  const [QtyFuso, setQtyFuso] = useState("");
+  const [RpFuso, setRpFuso] = useState("");
+  const [QtyWingbox, setQtyWingbox] = useState("");
+  const [RpWingbox, setRpWingbox] = useState("");
+  const [QtyTrailer20, setQtyTrailer20] = useState("");
+  const [RpTrailer20, setRpTrailer20] = useState("");
+  const [QtyTrailer40, setQtyTrailer40] = useState("");
+  const [RpTrailer40, setRpTrailer40] = useState("");
+  const [BankPenerbit, setBankPenerbit] = useState("");
+  const [LaporanKeuangan, setLaporankeuanga] = useState("");
 
   const handleView = () => {
     router.push(`/PrintMasterMitra/`);
@@ -138,6 +195,9 @@ function DataBaru({ mitraId, DataOptions }) {
     // console.log(date, dateString);
   };
 
+  const [mitraData1state, setMitraData1state] = useState("");
+  const { data, setData } = isiDatamasterMitraDetailZustand();
+
   const DetailMitra = async () => {
     const data = await axios.get(
       `${Baseurl}mitra/get-detail-mitra?id_mitra=${mitraId}`,
@@ -149,6 +209,86 @@ function DataBaru({ mitraId, DataOptions }) {
         },
       }
     );
+    setMitraData1state({
+      namaMitra: data.data.data?.nama_mitra,
+      typeOfPayment: data.data.data?.metode_pembayaran,
+      status: data.data.data?.status,
+      title: data.data.data?.title,
+      dataDetailMitra: data.data.data?.data,
+      kodeMitra: data.data.data?.kode_mitra,
+      kodeMitraZustand: data.data.data,
+      jenis: data.data.data?.jenis,
+      kodeInisial: data.data.data?.kode,
+      qrcode: data.data.data?.qrcode,
+      jenisUsaha: data.data.data?.jenis_usaha,
+      kepemilikan: data.data.data?.kepemilikan,
+      jumlahArmada: data.data.data?.jumlah_armada,
+      jumlahSDMOperasional: data.data.data?.jumlah_sdm_operasional,
+      cabang: data.data.data?.cabang,
+      jenisKiriman: data.data.data?.jenis_kiriman,
+      wilayah: data.data.data?.wilayah,
+      tujuan: data.data.data?.tujuan,
+      tahunAwalKontrak: data.data.data?.tahun_awal_kontrak,
+      awalKontrak: data.data.data?.awal_kontrak,
+      akhirKontrak: data.data.data?.akhir_kontrak,
+      kontrak: data.data.data?.kontrak,
+      direktur: data.data.data?.direktur,
+      tahunBerdiri: data.data.data?.tahun_berdiri,
+      npwp_id: data.data.data?.npwp_id,
+      npwp_name: data.data.data?.npwp_name,
+      npwp_address: data.data.data?.npwp_address,
+      npwp_jalan: data.data.data?.npwp_jalan,
+      blok: data.data.data?.blok,
+      npwp_nomor: data.data.data?.npwp_nomor,
+      npwp_rt: data.data.data?.npwp_rt,
+      npwp_rw: data.data.data?.npwp_rw,
+      npwp_kelurahan: data.data.data?.npwp_kelurahan,
+      npwp_kecamatan: data.data.data?.npwp_kecamatan,
+      npwp_kota: data.data.data?.npwp_kota,
+      npwp_provinsi: data.data.data?.npwp_provinsi,
+      npwp_kodepos: data.data.data?.npwp_kodepos,
+      is_taxable: data.data.data?.is_taxable,
+      telepon: data.data.data?.telepon,
+      contact_person: data.data.data?.contact_person,
+      telp: data.data.data?.telp,
+      fax: data.data.data?.fax,
+      email: data.data.data?.email,
+      alamat: data.data.data?.alamat,
+      homepage: data.data.data?.homepage,
+      pembayaran: data.data.data?.pembayaran,
+      nama_bank: data.data.data?.nama_bank,
+      nama_akun: data.data.data?.nama_akun,
+      no_rek: data.data.data?.no_rek,
+      currency: data.data.data?.currency,
+      status_usaha: data.data.data?.status_usaha,
+      top: data.data.data?.top,
+      memo: data.data.data?.memo,
+      type: data.data.data?.type,
+      pic_id: data.data.data?.pic_id,
+      po_legalitas: data.data.data?.po_legalitas,
+      ktp_legalitas: data.data.data?.ktp_legalitas,
+      akta_pendirian: data.data.data?.akta_pendirian,
+      akta_perubahan_dasar: data.data.data?.akta_perubahan_dasar,
+      akta_susunan_direksi: data.data.data?.akta_susunan_direksi,
+      surat_domisili: data.data.data?.surat_domisili,
+      npwp_legalitas: data.data.data?.npwp_legalitas,
+      skt_legalitas: data.data.data?.skt_legalitas,
+      nppkp_legalitas: data.data.data?.nppkp_legalitas,
+      siup_legalitas: data.data.data?.siup_legalitas,
+      ijin_pendirian: data.data.data?.ijin_pendirian,
+      ppmd_legalitas: data.data.data?.ppmd_legalitas,
+      ijin_usaha: data.data.data?.ijin_usaha,
+      tdp_legalitas: data.data.data?.tdp_legalitas,
+      surat_kuasa: data.data.data?.surat_kuasa,
+      lama_bekerja: data.data.data?.lama_bekerja,
+      jenis_kartu_kredit: data.data.data?.jenis_kartu_kredit,
+      lama_usaha: data.data.data?.lama_usaha,
+      omsetBulanan: data.data.data?.omset_bulanan,
+      assetTanah: data.data.data?.asset_tanah,
+      assetBangunan: data.data.data?.asset_bangunan,
+      assetKendaran: data.data.data?.asset_kendaraan
+    });
+
     await setnamaMitra(data.data.data?.nama_mitra);
     // console.log(data.data.data.jenis);
     setTypeOfPayment(data.data.data?.metode_pembayaran);
@@ -207,8 +347,30 @@ function DataBaru({ mitraId, DataOptions }) {
     setDataMemo(data.data.data?.memo || "");
     setDataType(data.data.data?.type || "");
     setDataBlok(data.data.data?.npwp_blok || "");
-
-    // console.log("ini detail mitra", data.data.data);
+    setDataPicId(data.data.data?.pic_id || "");
+    setPoLegalitas(data.data.data?.po_legalitas || "");
+    setKTPLegalitas(data.data.data?.ktp_legalitas || "");
+    setAktaPendirian(data.data.data?.akta_pendirian || "");
+    setAktaPerubahanDasar(data.data.data?.akta_perubahan_dasar || "");
+    setAktaSusunanDireksi(data.data.data?.akta_susunan_direksi || "");
+    setSuratDomisili(data.data.data?.surat_domisili || "");
+    setNPWPLegalitas(data.data.data?.npwp_legalitas || "");
+    setSktLegalitas(data.data.data?.skt_legalitas || "");
+    setNppkpLegalitas(data.data.data?.nppkp_legalitas || "");
+    setSiupLegalitas(data.data.data?.siup_legalitas || "");
+    setIjinPendirian(data.data.data?.ijin_pendirian || "");
+    setPPMDLegalitas(data.data.data?.ppmd_legalitas || "");
+    setIjinUsaha(data.data.data?.ijin_usaha || "");
+    setTDPLegalitas(data.data.data?.tdp_legalitas || "");
+    setSuratKuasaLegalitas(data.data.data?.surat_kuasa || "");
+    setLamaBekerjaLegalitas(data.data.data?.lama_bekerja || "");
+    setJenisKartuKredit(data.data.data?.jenis_kartu_kredit || "");
+    setStatusUsaha(data.data.data?.status_usaha || "");
+    setLamaUsaha(data.data.data?.lama_usaha || "");
+    setOmsetBulanan(data.data.data?.omset_bulanan || "");
+    setAssetTanah(data.data.data?.asset_tanah || "");
+    setAssetBangunan(data.data.data?.asset_bangunan || "");
+    setAssetKendaran(data.data.data?.asset_kendaraan || "");
 
     form.setFieldsValue({
       id_mitra: mitraId,
@@ -319,7 +481,119 @@ function DataBaru({ mitraId, DataOptions }) {
     });
   };
 
-  const EditMitra = async () => {
+
+  const EditMitra = () => {
+    setActiveTab('profile');
+    const data = {
+      id_mitra: mitraId,
+      jenis: DataJenis,
+      kode_mitra: DataKodeMitra,
+      nama_mitra: DataNamaMitra,
+      kode: DataKodeInisial,
+      qrcode: DataQRKode,
+      title: DataTitle,
+      jenis_usaha: DataJenisUsaha,
+      kepemilikan: DataKepemilikan,
+      jumlah_armada: DataJumlahArmada,
+      jumlah_sdm_operasional: DataJumlahSDMOperasional,
+      cabang: DataCabang,
+      jenis_kiriman: DataJenisKiriman,
+      wilayah: DataWilayah,
+      tujuan: DataTujuan,
+      tahun_awal_kontrak: DataTahunAwalKontrak,
+      awal_kontrak: DataAwalKontrak,
+      akhir_kontrak: DataAkhirKontrak,
+      kontrak: DataKontrak,
+      direktur: DataDirektur,
+      tahun_berdiri: DataTahunBerdiri,
+      npwp_id: DataNPWPID,
+      npwp_name: DataNPWPName,
+      npwp_address: DataNPWPAddress,
+      npwp_jalan: DataNPWPJalan,
+      npwp_blok: DataBlok,
+      npwp_nomor: DataNPWPNomor,
+      npwp_rt: DataNPWPRT,
+      npwp_rw: DataNPWPRW,
+      npwp_kelurahan: DataNPWKelurahan,
+      npwp_kecamatan: DataNPWPKecamatan,
+      npwp_kota: DataNPWPKota,
+      npwp_provinsi: DataNPWPProvinsi,
+      npwp_kodepos: DataNPWPKodePos,
+      is_taxable: DataISTaxAble,
+      telepon: DataTelepon,
+      contact_person: DataContactPerson,
+      telp: DataTelp,
+      fax: DataFax,
+      email: DataEmail,
+      alamat: DataAlamat,
+      homepage: DataHomePage,
+      pembayaran: DataPembayaran,
+      nama_bank: DataNamaBankk,
+      nama_akun: DataNamaAkunBank,
+      no_rek: DataNoRek,
+      currency: DataCurrency,
+      status_usaha: DataStatusUsaha,
+      top: DataTop,
+      memo: DataMemo,
+      type: DataType,
+      metode_pembayaran: TypeOfPayment,
+      pic_id: DataPicId,
+      po_legalitas: PoLegalitas,
+      ktp_legalitas: KTPLegalitas,
+      akta_pendirian: AktaPendirian,
+      akta_perubahan_dasar: AktaPerubahanDasar,
+      akta_susunan_direksi: AktaSusunanDireksi,
+      surat_domisili: SuratDomisili,
+      npwp_legalitas: NPWPLegalitas,
+      skt_legalitas: SktLegalitas,
+      nppkp_legalitas: NppkpLegalitas,
+      siup_legalitas: SiupLegalitas,
+      ijin_pendirian: IjinPenidirian,
+      ppmd_legalitas: PPMDLegalitas,
+      ijin_usaha: IjinUsaha,
+      tdp_legalitas: TDPLegalitas,
+      surat_kuasa: SuratKuasaLegalitas,
+      lama_bekerja: LamaBekerjaLegalitas,
+      jenis_kartu_kredit: JenisKartuKredit,
+      bank_penerbit: BankPenerbit,
+      laporan_keuangan: LaporanKeuangan,
+      status_usaha: StatusUsaha,
+      lama_usaha: LamaUsaha,
+      omset_bulanan: OmsetBulanan,
+      asset_tanah: AssetTanah,
+      asset_bangunan: AssetBangunan,
+      asset_kendaraan: AssetKendaraan,
+      asset_mesin: AssetMesin,
+      affiliasi: Affiliasi,
+      jumlah_unit: JumlahUnit,
+      periode_sewa: PeriodeSewa,
+      nilai_sewa: NilaiSewa,
+      nilai_ruu: NilaiRUU,
+      qty_motor: parseInt(QtyMotor),
+      rp_motor: parseInt(RpMotor),
+      qty_grandmax: parseInt(QtyGrandMax),
+      rp_grandmax: parseInt(RpGrandmax),
+      qty_l300: parseInt(Qty1300),
+      rp_l300: parseInt(Rp1300),
+      qty_traga: parseInt(QtyTraga),
+      rp_traga: parseInt(RpTraga),
+      qty_cde: parseInt(QtyCDE),
+      rp_cde: parseInt(RpCDE),
+      qty_cdd: parseInt(QtyCDD),
+      rp_cdd: parseInt(RpCDD),
+      qty_fuso: parseInt(QtyFuso),
+      rp_fuso: parseInt(RpFuso),
+      qty_wingbox: parseInt(QtyWingbox),
+      rp_wingbox: parseInt(RpWingbox),
+      qty_trailer20: parseInt(QtyTrailer20),
+      rp_trailer20: parseInt(QtyTrailer20),
+      qty_trailer40: parseInt(QtyTrailer40),
+      rp_trailer40: parseInt(RpTrailer40),
+    };
+    setData(data);
+  }
+  const EditMitras = async () => {
+    // setActiveTab('profile');
     try {
       const data = {
         id_mitra: mitraId,
@@ -374,8 +648,60 @@ function DataBaru({ mitraId, DataOptions }) {
         memo: DataMemo,
         type: DataType,
         metode_pembayaran: TypeOfPayment,
+        pic_id: DataPicId,
+        po_legalitas: PoLegalitas,
+        ktp_legalitas: KTPLegalitas,
+        akta_pendirian: AktaPendirian,
+        akta_perubahan_dasar: AktaPerubahanDasar,
+        akta_susunan_direksi: AktaSusunanDireksi,
+        surat_domisili: SuratDomisili,
+        npwp_legalitas: NPWPLegalitas,
+        skt_legalitas: SktLegalitas,
+        nppkp_legalitas: NppkpLegalitas,
+        siup_legalitas: SiupLegalitas,
+        ijin_pendirian: IjinPenidirian,
+        ppmd_legalitas: PPMDLegalitas,
+        ijin_usaha: IjinUsaha,
+        tdp_legalitas: TDPLegalitas,
+        surat_kuasa: SuratKuasaLegalitas,
+        lama_bekerja: LamaBekerjaLegalitas,
+        jenis_kartu_kredit: JenisKartuKredit,
+        bank_penerbit: BankPenerbit,
+        laporan_keuangan: LaporanKeuangan,
+        status_usaha: StatusUsaha,
+        lama_usaha: LamaUsaha,
+        omset_bulanan: OmsetBulanan,
+        asset_tanah: AssetTanah,
+        asset_bangunan: AssetBangunan,
+        asset_kendaraan: AssetKendaraan,
+        asset_mesin: AssetMesin,
+        affiliasi: Affiliasi,
+        jumlah_unit: JumlahUnit,
+        periode_sewa: PeriodeSewa,
+        nilai_sewa: NilaiSewa,
+        nilai_ruu: NilaiRUU,
+        qty_motor: parseInt(QtyMotor),
+        rp_motor: parseInt(RpMotor),
+        qty_grandmax: parseInt(QtyGrandMax),
+        rp_grandmax: parseInt(RpGrandmax),
+        qty_l300: parseInt(Qty1300),
+        rp_l300: parseInt(Rp1300),
+        qty_traga: parseInt(QtyTraga),
+        rp_traga: parseInt(RpTraga),
+        qty_cde: parseInt(QtyCDE),
+        rp_cde: parseInt(RpCDE),
+        qty_cdd: parseInt(QtyCDD),
+        rp_cdd: parseInt(RpCDD),
+        qty_fuso: parseInt(QtyFuso),
+        rp_fuso: parseInt(RpFuso),
+        qty_wingbox: parseInt(QtyWingbox),
+        rp_wingbox: parseInt(RpWingbox),
+        qty_trailer20: parseInt(QtyTrailer20),
+        rp_trailer20: parseInt(QtyTrailer20),
+        qty_trailer40: parseInt(QtyTrailer40),
+        rp_trailer40: parseInt(RpTrailer40),
       };
-
+      setData(data);
       const response = await axios.post(`${Baseurl}mitra/edit-mitra`, data, {
         headers: {
           "Content-Type": "application/json",
@@ -428,6 +754,7 @@ function DataBaru({ mitraId, DataOptions }) {
     DetailMitra();
     OptionsData();
     setDataKodeMitraZustand();
+    OptionsDataSelectMitra();
   }, []);
 
   const OptionsData = async () => {
@@ -445,9 +772,26 @@ function DataBaru({ mitraId, DataOptions }) {
     setTitleSelect(data.data.jabatan);
   };
 
+  const OptionsDataSelectMitra = async () => {
+    const respons = await axios.get(
+      `${Baseurl}mitra/get-select-mitra`,
+
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem(`token`),
+        },
+      }
+    );
+    console.log(respons.data, "ini data options");
+    setselectMitraPIC(respons.data);
+  };
+
   return (
     <>
+
       <Card>
+
         <h3 style={{ color: "#113D7F" }}>Detail Master Mitra</h3>
       </Card>
       <Card>
@@ -500,9 +844,9 @@ function DataBaru({ mitraId, DataOptions }) {
                 label="Title :"
                 style={{ fontWeight: "bold" }}
                 name="title"
-                // rules={[
-                //   { required: false, message: "Please input your jenis!" },
-                // ]}
+              // rules={[
+              //   { required: false, message: "Please input your jenis!" },
+              // ]}
               >
                 <Select
                   className="mt-2"
@@ -535,9 +879,9 @@ function DataBaru({ mitraId, DataOptions }) {
                 label="Mitra Name :"
                 style={{ fontWeight: "bold" }}
                 name="nama_mitra"
-                // rules={[
-                //   { required: false, message: "Please input your nama mitra!" },
-                // ]}
+              // rules={[
+              //   { required: false, message: "Please input your nama mitra!" },
+              // ]}
               >
                 <Input
                   className="mt-2"
@@ -554,12 +898,12 @@ function DataBaru({ mitraId, DataOptions }) {
                 label="Kode Perusahaan (Singkatan Mitra Name)"
                 style={{ fontWeight: "bold" }}
                 name="kode"
-                // rules={[
-                //   {
-                //     required: false,
-                //     message: "Please input your Kode Perusahaan!",
-                //   },
-                // ]}
+              // rules={[
+              //   {
+              //     required: false,
+              //     message: "Please input your Kode Perusahaan!",
+              //   },
+              // ]}
               >
                 <Input
                   className="mt-2"
@@ -643,6 +987,56 @@ function DataBaru({ mitraId, DataOptions }) {
             </Col>
           </Row>
           <Row>
+            {/* <Col sm={4} style={{ padding: "0px" }}>
+              <Form.Item
+                label="PIC Purchasing :"
+                style={{ fontWeight: "bold" }}
+                name="-"
+                rules={[
+                  { required: false, message: "Please input your alamat!" },
+                ]}
+              >
+                <Input  className="mt-2"
+                  value={DataPICPurchasing}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setDataPICPurchasing(e.target.value);
+                  }}/>
+              </Form.Item>
+            </Col> */}
+            <Col sm={4} style={{ padding: "0px" }}>
+              <Form.Item
+                label="PIC Purchasing :"
+                style={{ fontWeight: "bold" }}
+                name="pic_id"
+                rules={[
+                  { required: false, message: "Please input your jenis!" },
+                ]}
+              >
+                <Select
+                  showSearch
+                  className="mt-2"
+                  // placeholder={DetailDataTarif.kendaraanJenis}
+                  value={DataPicId}
+                  optionFilterProp="value"
+                  style={{ width: "90%" }}
+                  onChange={(e, options) => {
+                    console.log(options.key);
+                    setDataPic(options);
+                    setDataPicId(options.key);
+                  }}
+                >
+                  {selectMitraPIC &&
+                    selectMitraPIC.marketing.map((i) => (
+                      <Select.Option key={i.id} value={i.fullname}>
+                        {i.fullname}
+                      </Select.Option>
+                    ))}
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row>
             <Col sm={12} style={{ padding: "0px" }}>
               <Form.Item
                 label="Alamat :"
@@ -663,23 +1057,6 @@ function DataBaru({ mitraId, DataOptions }) {
                 />
               </Form.Item>
             </Col>
-            {/* <Col sm={4} style={{ padding: "0px" }}>
-              <Form.Item
-                label="PIC Purchasing :"
-                style={{ fontWeight: "bold" }}
-                name="-"
-                rules={[
-                  { required: false, message: "Please input your alamat!" },
-                ]}
-              >
-                <Input  className="mt-2"
-                  value={DataPICPurchasing}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                    setDataPICPurchasing(e.target.value);
-                  }}/>
-              </Form.Item>
-            </Col> */}
           </Row>
           <Row>
             <Col sm={4} style={{ padding: "0px" }}>
@@ -1050,9 +1427,9 @@ function DataBaru({ mitraId, DataOptions }) {
                 label="Status Usaha :"
                 style={{ fontWeight: "bold" }}
                 name="status_usaha"
-                // rules={[
-                //   { required: false, message: "Please input your alamat!" },
-                // ]}
+              // rules={[
+              //   { required: false, message: "Please input your alamat!" },
+              // ]}
               >
                 <Select
                   className="mt-2"
@@ -1375,7 +1752,7 @@ function DataBaru({ mitraId, DataOptions }) {
               <Form.Item
                 label="Term of payment (Hari) :"
                 style={{ fontWeight: "bold" }}
-                // name="-"
+              // name="-"
               >
                 <Select
                   className="mt-2"
@@ -1472,7 +1849,7 @@ function DataBaru({ mitraId, DataOptions }) {
               <Form.Item
                 label="Status :"
                 style={{ fontWeight: "bold" }}
-                // name="-"
+              // name="-"
               >
                 <Select
                   className="mt-2"
@@ -1497,7 +1874,7 @@ function DataBaru({ mitraId, DataOptions }) {
             <Row>
               <Col sm={24} className="d-flex justify-content-end">
                 <Button onClick={EditMitra} type="primary" htmlType="submit">
-                  Submit
+                  Data Referensi
                 </Button>
               </Col>
             </Row>
@@ -1505,6 +1882,7 @@ function DataBaru({ mitraId, DataOptions }) {
         </Form>
       </Card>
       {/* <PIC namaMitra={namaMitra}/> */}
+
     </>
   );
 }

@@ -1,8 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row, Form } from "react-bootstrap";
+import isiDatamasterMitraDetailZustand from "../../../../zustand/Store/IsiDataMasterMitraDetail/Store";
+import PrintZustand from "../../../../zustand/Store/untukPrint/MasterMitra";
+
 function SamplePage({ mitraId }) {
   const mitra_id = mitraId;
   const [detailmitra, setDetailMitra] = useState({});
+  const { data, setData } = isiDatamasterMitraDetailZustand();
+
+  const { DataKodeMitraZustand, setDataKodeMitraZustand } = PrintZustand(
+    (state) => ({
+      DataKodeMitraZustand: state.DataKodeMitraZustand,
+      setDataKodeMitraZustand: state.setDataKodeMitraZustand,
+    })
+  );
+  console.log(`ada gak`, DataKodeMitraZustand)
+
+  useEffect(() => {
+    setDataKodeMitraZustand();
+  }, []);
 
   return (
     <div>
