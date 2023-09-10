@@ -60,7 +60,7 @@ function VehicleBaru() {
         label: item.jenis,
     }))
     const [CodeVehicle, setCodeVehicle] = useState("")
-
+    const [Loading, setLoading] = useState(false)
     const validationSchema = Yup.object().shape({
         kode_kendaraan: Yup.string()
             .required('Kode Kendaraan wajib diisi')
@@ -166,8 +166,7 @@ function VehicleBaru() {
 
         return volume;
     };
-    console.log(`ini dari kubikasi`, formik.values.kubikasi);
-         
+
     const showModal = () => {
         setIsModalOpen(true);
         formik.resetForm();
@@ -332,6 +331,7 @@ function VehicleBaru() {
 
     const ApiAwal = async (page = 1) => {
         try {
+            setLoading(true)
             const data = await axios.get(`${Baseurl}vehicle/get-vehicle?limit=10&page=${page}&keyword=${CariNoKendaraan}&jenisKepemilikan=${CariJenisKepemilikan}&status=${CariDriverAktif}`, {
                 headers: {
                     "Content-Type": "application/json",
@@ -340,6 +340,7 @@ function VehicleBaru() {
             });
             setDataAwal(data.data.data.order)
             setTotalPage(data.data.data?.totalData)
+            setLoading(false)
         } catch (error) {
 
         }
@@ -357,6 +358,7 @@ function VehicleBaru() {
     }, [CariNoKendaraan, CariJenisKepemilikan, CariDriverAktif, formik.values.panjang, formik.values.lebar, formik.values.tinggi, perhitunganVolume()])
 
     const EditVehicle = async (values) => {
+        setLoading(true)
         try {
             const data = await axios.post(`${Baseurl}vehicle/edit-vehicle`,
                 {
@@ -380,7 +382,7 @@ function VehicleBaru() {
             });
             ApiAwal()
             setIsModalOpen(false);
-
+            setLoading(false)
         } catch (error) {
             // Tampilkan SweetAlert untuk error
             Swal.fire({
@@ -451,6 +453,7 @@ function VehicleBaru() {
     }
 
     const BuatVehicle = async (values, newFileList) => {
+        setLoading(true)
         try {
             const formData = new FormData();
             Object.keys(values).forEach(key => formData.append(key, values[key]));
@@ -470,6 +473,7 @@ function VehicleBaru() {
                 text: 'Data kendaraan berhasil ditambahkan',
             });
             ApiAwal()
+            setLoading(false)
             setIsModalOpen(false);
         } catch (error) {
             if (error.response.data.errors) {
@@ -615,8 +619,8 @@ function VehicleBaru() {
                     <Modal
                         title={title()} style={{ top: 10 }} visible={isModalOpen} onOk={formik.handleSubmit}
                         width={1000}
+                        confirmLoading={Loading}
                         onCancel={handleCancel}>
-
                         <AntForm>
                             <Row>
                                 <Col sm={4}>

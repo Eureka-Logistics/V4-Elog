@@ -387,6 +387,7 @@ function DriverTableBaru() {
   };
 
   const BuatDriver = async () => {
+    setLoading(true)
     try {
       const formData = new FormData();
       formData.append("cover", formik.values.cover);
@@ -429,6 +430,7 @@ function DriverTableBaru() {
       });
       UploadFoto(formik.values.cover);
       ApiAwal();
+      setLoading(false)
       setModalOpen(false);
       console.log(response.data);
     } catch (error) {
@@ -690,6 +692,7 @@ function DriverTableBaru() {
             visible={modalOpen}
             onOk={formik.handleSubmit}
             onCancel={() => setModalOpen(false)}
+            confirmLoading={loading}
           >
             <Form layout="vertical" onSubmitCapture={formik.handleSubmit}>
               <Row>
