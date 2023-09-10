@@ -15,9 +15,9 @@ function Tarif() {
     useState("");
   const [DataTarifMitra, setDataTarifMitra] = useState("");
   const [DataTarifCustomer, setDataTarifCustomer] = useState("");
-  const [eurekaPagination, setEurekaPagination] = useState({ current: 1, pageSize: 5 });
-  const [mitraPagination, setMitraPagination] = useState({ current: 1, pageSize: 5 });
-  const [customerPagination, setCustomerPagination] = useState({ current: 1, pageSize: 5 });
+  const [eurekaPagination, setEurekaPagination] = useState({ current: 1, pageSize: 10 });
+  const [mitraPagination, setMitraPagination] = useState({ current: 1, pageSize: 10 });
+  const [customerPagination, setCustomerPagination] = useState({ current: 1, pageSize: 10 });
   const [totalDataEureka, settotalDataEureka] = useState("");
   const [totalDataMitra, settotalDataMitra] = useState("");
   const [totalDataCustomer, settotalDataCustomer] = useState("");
@@ -49,15 +49,18 @@ function Tarif() {
     }
   };
 
-  const fetchDataTarifEureka = async (limit = 5, currentPage = 1) => {
+  const [currnt, setcurrnt] = useState(1)
+  const [currnt2, setcurrnt2] = useState(1)
+  const [currnt3, setcurrnt3] = useState(1)
+  const fetchDataTarifEureka = async (pagination = 1) => {
     try {
       const response = await httpClient.get(
-        `tarif/get-tarifeureka?limit=${limit}&page=${currentPage}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=${JenisKendaraan}`
+        `tarif/get-tarifeureka?limit=10&page=${currnt}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=${JenisKendaraan}`
       );
       const data = response.data;
 
       if (data.status.code === 200) {
-        console.log(response.data.data.order, "respons");
+        console.log(response.data.data, "respons");
         setListData(data.data.order);
         settotalDataEureka(data.data.totalData);
       } else {
@@ -68,10 +71,10 @@ function Tarif() {
     }
   };
 
-  const fetchDataTarifMitra = async (limit = 5, pageSize = 1) => {
+  const fetchDataTarifMitra = async (limit = 10, pageSize = 1) => {
     try {
       const response = await httpClient.get(
-        `tarif/get-tarifMitra?limit=${limit}&page=${pageSize}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=${JenisKendaraan}`
+        `tarif/get-tarifMitra?limit=${limit}&page=${currnt2}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=${JenisKendaraan}`
       );
       const data = response.data;
 
@@ -87,10 +90,10 @@ function Tarif() {
     }
   };
 
-  const fetchDataTarifCustomer = async (limit = 5, pageSize = 1) => {
+  const fetchDataTarifCustomer = async (limit = 10, pageSize = 1) => {
     try {
       const response = await httpClient.get(
-        `tarif/get-tarifCustomer?limit=${limit}&page=${pageSize}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=${JenisKendaraan}`
+        `tarif/get-tarifCustomer?limit=${limit}&page=${currnt3}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=${JenisKendaraan}`
       );
       const data = response.data;
 
@@ -107,16 +110,19 @@ function Tarif() {
   };
 
   const handleEurekaTableChange = (pagination) => {
-    console.log('Eureka Pagination Change:', pagination);
-    setEurekaPagination(pagination);
+    // setEurekaPagination(pagination);
+    fetchDataTarifEureka(pagination)
+    setcurrnt(pagination)
   };
 
   const handleMitraTableChange = (pagination) => {
     setMitraPagination(pagination);
+    setcurrnt2(pagination)
   };
 
   const handleCustomerTableChange = (pagination) => {
     setCustomerPagination(pagination);
+    setcurrnt3(pagination)
   };
 
   useEffect(() => {
@@ -125,7 +131,7 @@ function Tarif() {
     fetchDataTarifCustomer(customerPagination.pageSize, customerPagination.current);
     getDataSelectt();
 
-  }, [muatKota, kotaTujuan, JenisKendaraan]);
+  }, [muatKota, kotaTujuan, JenisKendaraan, eurekaPagination, currnt, currnt2, currnt3]);
 
   const Eureka = [
     {
@@ -404,8 +410,8 @@ function Tarif() {
             x: 800,
           }}
           pagination={{
-            current: eurekaPagination.current,
-            pageSize: eurekaPagination.pageSize,
+            // current: eurekaPagination.current,
+            // pageSize: eurekaPagination.pageSize,
             total: totalDataEureka, // Set the total number of items here
             onChange: handleEurekaTableChange,
           }}
@@ -422,8 +428,8 @@ function Tarif() {
             x: 800,
           }}
           pagination={{
-            current: mitraPagination.current,
-            pageSize: mitraPagination.pageSize,
+            // current: mitraPagination.current,
+            // pageSize: mitraPagination.pageSize,
             total: totalDataMitra, // Set the total number of items here
             onChange: handleMitraTableChange,
           }}
@@ -440,8 +446,8 @@ function Tarif() {
             x: 800,
           }}
           pagination={{
-            current: customerPagination.current,
-            pageSize: customerPagination.pageSize,
+            // current: customerPagination.current,
+            // pageSize: customerPagination.pageSize,
             total: totalDataCustomer, // Set the total number of items here
             onChange: handleCustomerTableChange,
           }}
