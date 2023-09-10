@@ -11,6 +11,10 @@ const App = ({ match }) => {
           component={asyncComponent(() => import("./Dashboard"))}
         />
         <Route
+          path={`${match.url}akunting/usernew`}
+          component={asyncComponent(() => import("./MasterData/SP List/Akunting/CreateUserBaru/TabComponent/index"))}
+        />
+        <Route
           path={`${match.url}dashboardop`}
           component={asyncComponent(() =>
             import("./Dashboard/DashboardOperasional/index")
@@ -766,6 +770,16 @@ const App = ({ match }) => {
             import("./MasterData/Marketing/Splist/createSPBaru/Index")
           )}
         />
+
+
+        {/* INI RACE */}
+        <Route
+          path={`${match.url}race/splist`}
+          component={asyncComponent(() =>
+            import("../routes/Race/WebAdmin/splist/index")
+          )}
+        />
+
       </Switch>
     </div>
   );

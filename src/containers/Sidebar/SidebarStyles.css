@@ -43,3 +43,12 @@
 /* Change the color of icons or other elements inside the menu item on hover or when selected */
 /* .ant-menu-item:hover .anticon, .ant-menu-item-selected .anticon {
     color: #000; } */
+/* styles.css */
+.menu-item-hover:hover {
+    background-color: #fcddd3 !important;
+    color: white;
+  }
+  .menu-item-active {
+    background-color: #fcddd3 !important; 
+    color: white !important; 
+  }

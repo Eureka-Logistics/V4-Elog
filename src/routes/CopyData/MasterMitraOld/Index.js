@@ -39,8 +39,15 @@ const SamplePage = () => {
     },
     {
       name: "Mitra Code",
+<<<<<<< HEAD
       selector: (row) => <Tag color="blue">{row.mitraCode}</Tag>,
       width: "130px",
+=======
+      selector: (row) =>
+      <Tag color="blue">{ row.mitraCode}</Tag>,
+      width: "150px",
+     
+>>>>>>> ridwan
     },
     {
       name: "Status",
@@ -64,12 +71,20 @@ const SamplePage = () => {
     {
       name: "Mitra Name",
       selector: (row) => row.mitraName,
+<<<<<<< HEAD
       width: "200px",
+=======
+      // width: "100px",
+>>>>>>> ridwan
     },
     {
       name: "Mitra Address",
       selector: (row) => row.mitraAddress,
+<<<<<<< HEAD
       width: "170px",
+=======
+      // width: "150px",
+>>>>>>> ridwan
     },
     {
       name: "Awal Kontrak",
