@@ -5,7 +5,7 @@ import './style.css';
 function Index() {
     return (
         <>
-            <div style={{ fontSize: 25, display: "flex", justifyContent: "start" }}>Halaman Utama</div>
+            <div style={{ fontSize: 25, display: "flex", justifyContent: "start" }}>Halaman Utamas</div>
             <Row className='mt-3'>
                 <Col sm={6}>
                     <Card style={{ backgroundColor: "#dd4b39", height: 120, padding: 0 }}>
