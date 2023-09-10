@@ -45,6 +45,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
       setDataKodeMitraZustand: state.setDataKodeMitraZustand,
     })
   );
+  console.log(`DataKodeMitraZustand`,DataKodeMitraZustand);
   const [DataKodeMitra, setDataKodeMitra] = useState("");
   const [DataKodeInisial, setDataKodeInisial] = useState("");
   const [DataQRKode, setDataQRKode] = useState("");
