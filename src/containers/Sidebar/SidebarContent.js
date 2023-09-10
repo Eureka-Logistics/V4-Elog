@@ -996,20 +996,20 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
 
                         <img src={historyrace} style={{ fontSize: "20px" }} />
                         <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
-                          History
+                          Map Pengiriman
                         </span>
                       </Link>
                     </Menu.Item>
                   </div>
                   <div className="mt-4" >
-                    <Menu.Item key="Perbaikan">
-                      <Link to="/Dashboard" style={{ textDecoration: "none" }}>
+                  <Menu.Item className={activeMenu === "/race/cod" ? "menu-item-active menu-item-hover" : "menu-item-hover"} key="cod">
+                      <Link to="/race/cod" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
                        */}
 
                         <img src={perbaikanrace} style={{ fontSize: "20px" }} />
                         <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
-                          Perbaikan
+                        Cash On Delivery
                         </span>
                       </Link>
                     </Menu.Item>

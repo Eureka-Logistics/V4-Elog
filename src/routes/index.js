@@ -766,6 +766,12 @@ const App = ({ match }) => {
             import("../routes/Race/WebAdmin/splist/index")
           )}
         />
+        <Route
+          path={`${match.url}race/cod`}
+          component={asyncComponent(() =>
+            import("../routes/Race/WebAdmin/Cash On Delivery/CashOnDelivery")
+          )}
+        />
 
       </Switch>
     </div>
