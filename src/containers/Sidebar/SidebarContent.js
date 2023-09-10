@@ -220,6 +220,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </div>
                   <Menu.Item key="SP List" className={activeMenu === "/masterdata/marketing/splist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
+                    disabled
                       to="/masterdata/marketing/splist"
                       style={{ textDecoration: "none" }}
                     >
@@ -231,6 +232,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <Menu.Item key="Cancel SP List" className={activeMenu === "/masterdata/marketing/cancelsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
+                    disabled
                       to="/masterdata/marketing/cancelsplist"
                       style={{ textDecoration: "none" }}
                     >
@@ -329,7 +331,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       Lain - Lain
                     </h6>
                   </div>
-                  <Menu.Item key="monitoringVehicle"  className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item disabled key="monitoringVehicle"  className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}
@@ -344,6 +346,17 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               )}
               {jobdesk == "operasional" && (
                 <Menu.ItemGroup key="master">
+                  <Menu.Item key="Dashboard" className={activeMenu === "/dashboard" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                      <Link to="/dashboard" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" />
+                         */}
+                        <AppstoreOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
+                        {/* <AppstoreTwoTone style={{ fontSize: '20px' }} /> */}
+                        <span style={{ fontWeight: "bold", color: "white" }}>
+                          <IntlMessages id="Dashboard" />
+                        </span>
+                      </Link>
+                    </Menu.Item>
                   <div
                     className="d-flex justify-content-center"
                     style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
@@ -525,7 +538,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         Menu SP
                       </h6>
                     </div>
-                    <Menu.Item key="SP Lists" className={activeMenu === "/akunting/splistwaitingakunting" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Menu.Item disabled key="SP Lists" className={activeMenu === "/akunting/splistwaitingakunting" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                       <Link
                         to="/akunting/splistwaitingakunting"
                         style={{ textDecoration: "none" }}
@@ -537,7 +550,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         </span>
                       </Link>
                     </Menu.Item>
-                    <Menu.Item key="SP Lists All" className={activeMenu === "/akunting/splistakuntingbaru" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Menu.Item disabled key="SP Lists All" className={activeMenu === "/akunting/splistakuntingbaru" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                       <Link
                         to="/akunting/splistakuntingbaru"
                         style={{ textDecoration: "none" }}
@@ -549,7 +562,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
 
-                    <Menu.Item key="Approve SP" className={activeMenu === "/approvesplistall" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Menu.Item disabled key="Approve SP" className={activeMenu === "/approvesplistall" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                       <Link
                         to="/approvesplistall"
                         style={{ textDecoration: "none" }}
@@ -642,7 +655,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </h6>
                   </div>
 
-                  <Menu.Item key="Penerimaan INV" className={activeMenu === "/akunting/ar/reportpartners/reportpenerimaaninvoice" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item disabled key="Penerimaan INV" className={activeMenu === "/akunting/ar/reportpartners/reportpenerimaaninvoice" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/akunting/ar/reportpartners/reportpenerimaaninvoice"
                       style={{ textDecoration: "none" }}
@@ -824,26 +837,24 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       Menu SP
                     </h6>
                   </div>
-                  <Menu.Item key="New SP" className={activeMenu === "/purchasing/newsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item disabled key="New SP" className={activeMenu === "/purchasing/newsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/purchasing/newsplist"
                       style={{ textDecoration: "none" }}
                     >
-                      {/* <i className="icon icon-widgets" />
-                       */}
+                     
                       <FileProtectOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="Approve SP" />
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="SP List" className={activeMenu === "/masterdata/splist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item disabled key="SP List" className={activeMenu === "/masterdata/splist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterdata/splist"
                       style={{ textDecoration: "none" }}
                     >
-                      {/* <i className="icon icon-widgets" />
-                       */}
+                      
                       <FileTextOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         <IntlMessages id="SP List" />
@@ -858,7 +869,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       Menu SJ
                     </h6>
                   </div>
-                  <Menu.Item key="SJ List" className={activeMenu === "/masterdata/sjlist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item disabled key="SJ List" className={activeMenu === "/masterdata/sjlist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterdata/sjlist"
                       style={{ textDecoration: "none" }}
@@ -879,7 +890,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       Master
                     </h6>
                   </div>
-                  <Menu.Item key="driverpurch" className={activeMenu === "/masterdata/purchasing/driver" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item disabled key="driverpurch" className={activeMenu === "/masterdata/purchasing/driver" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterdata/purchasing/driver"
                       style={{ textDecoration: "none" }}
@@ -902,7 +913,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="vehiclepurch" className={activeMenu === "/masterdata/purchasing/vehicle" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item disabled key="vehiclepurch" className={activeMenu === "/masterdata/purchasing/vehicle" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterdata/purchasing/vehicle"
                       style={{ textDecoration: "none" }}
