@@ -36,9 +36,9 @@ export default function DetailMitra() {
               <Tab eventKey="profile" title="DATA REFERENSI">
                 <DataReferensi setActiveTab={setActiveTab} mitraId={mitraId} />
               </Tab>
-              <Tab eventKey="keuangan" title="DATA KEUANGAN">
-                <DataKeuangan mitraId={mitraId} />
-              </Tab>
+              {/* <Tab eventKey="keuangan" title="DATA KEUANGAN">
+                <DataKeuangan setActiveTab={setActiveTab} mitraId={mitraId} />
+              </Tab> */}
               <Tab eventKey="longer-tab" title="DATA CABANG">
                 <GetMitraCabang mitraId={mitraId} />
               </Tab>
