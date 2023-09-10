@@ -262,8 +262,8 @@ const SamplePage = () => {
               const newOrder = listData.filter((item) => item.id_price !== id);
               setListData(newOrder);
               // Reload the data after successful deletion if necessary
-              // fetchData();
-              window.location.reload();
+              fetchData();
+              // window.location.reload();
             }
           })
           .catch(function (error) {
