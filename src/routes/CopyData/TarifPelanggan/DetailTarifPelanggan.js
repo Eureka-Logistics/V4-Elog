@@ -57,7 +57,7 @@ function DetailTarifPelanggan() {
           Authorization: localStorage.getItem("token"),
         },
       });
-        console.log("responssssscarismid", respons.data);
+        console.log("responssssscarismid", respons.data.getPrice);
 
       setDataTambah(respons.data);
       setDataTarifKatalog(respons.data.getPrice);
