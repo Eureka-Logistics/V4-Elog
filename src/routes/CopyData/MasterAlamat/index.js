@@ -197,12 +197,6 @@ const SamplePage = () => {
       key: "no",
       render: (text, record) => (
         <Space size="middle">
-          {/* <Button onClick={() => handleDetail(record.custId)} type="secondary">
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <EyeFilled />
-            </span>
-          </Button> */}
-
           <Button
             onClick={() =>
               handleDetail(record.customerAddressId, record.customerId)
@@ -213,12 +207,6 @@ const SamplePage = () => {
               <FormOutlined />
             </span>
           </Button>
-
-          {/* <Button danger onClick={() => handleDelete(record.custId)}>
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <DeleteOutlined />
-            </span>
-          </Button> */}
         </Space>
       ),
     },

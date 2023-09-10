@@ -37,15 +37,15 @@ function EditDetail() {
   const [tarif, setTarif] = useState(null); // State untuk menyimpan nilai tarif yang akan diubah
   const [ritase, setRitase] = useState(null); // State untuk menyimpan nilai ritase yang akan diubah
   const [uangJalan, setUangJalan] = useState(""); // State untuk menyimpan nilai uang jalan yang akan diubah
-  const [IDMuat, setIDMuat] =  useState("");
+  const [IDMuat, setIDMuat] = useState("");
   const [IDTujuan, setIDTujuan] = useState("");
   const [IDJenisKendaraan, setIDJenisKendaraan] = useState("");
   const [DataMaintenance, setDataMaintenance] = useState("");
   const [DataVariableCost, setDataVariableCost] = useState("");
   const [DataFixedCost, setDataFixedCost] = useState("");
   const [DataAmount, setDataAmount] = useState("");
-  const [DataPercent, setDataPercent] = useState ("");
-  const [DataDate, setDataDate] = useState ("");
+  const [DataPercent, setDataPercent] = useState("");
+  const [DataDate, setDataDate] = useState("");
 
   const fetchData = async () => {
     try {
@@ -114,7 +114,7 @@ function EditDetail() {
         variable_cost: DataVariableCost,
         fixed_cost: DataFixedCost,
         amount: DataAmount,
-        percent: DataPercent, 
+        percent: DataPercent,
         // via: viaData,
       };
 
@@ -169,7 +169,7 @@ function EditDetail() {
   useEffect(() => {
     fetchData();
     DetailTarifEureka(id_price);
-  }, [ ritase]);
+  }, [ritase]);
   // viaData
 
   const handleChange = (value) => {
@@ -177,16 +177,60 @@ function EditDetail() {
     setViaData(value);
   };
 
+  useEffect(() => {
+    const uangJalanValue = parseFloat(uangJalan);
+    const variableCostValue = parseFloat(DataVariableCost);
+    const fixedCostValue = parseFloat(DataFixedCost);
+    const maintenanceCostValue = parseFloat(DataMaintenance);
+
+    if (
+      !isNaN(uangJalanValue) &&
+      !isNaN(variableCostValue) &&
+      !isNaN(fixedCostValue) &&
+      !isNaN(maintenanceCostValue)
+    ) {
+      const amount =
+        uangJalanValue +
+        variableCostValue +
+        fixedCostValue +
+        maintenanceCostValue;
+      setDataAmount(amount); // Set 'amount' in the state
+    }
+  }, [uangJalan, DataVariableCost, DataFixedCost, DataMaintenance]);
+
+  // Calculate 'tarif' whenever 'amount' or 'percent' changes
+  useEffect(() => {
+    const amountValue = parseFloat(DataAmount);
+    const percentValue = parseFloat(DataPercent);
+
+    if (!isNaN(amountValue) && !isNaN(percentValue)) {
+      const tarifValue = amountValue + amountValue * (percentValue / 100);
+      setTarif(tarifValue); // Set 'tarif' in the state
+    }
+  }, [DataAmount, DataPercent]);
+
+  const toRupiah = (angka) => {
+    var rupiah = "";
+    var angkarev = angka.toString().split("").reverse().join("");
+    for (var i = 0; i < angkarev.length; i++)
+      if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + ".";
+    return `${rupiah
+      .split("", rupiah.length - 1)
+      .reverse()
+      .join("")}`;
+  };
 
   return (
     <div>
       <Card>
-        <h5 style={{color: '#113D7F', fontWeight: 'bold'}}>Edit dan Detail Tarif Eureka</h5>
+        <h5 style={{ color: "#113D7F", fontWeight: "bold" }}>
+          Edit dan Detail Tarif Eureka
+        </h5>
         <Row>
           <Col className="mt-2" span={8}>
-            <label style={{fontWeight: 'bold'}}>Kota Muat :</label>
+            <label style={{ fontWeight: "bold" }}>Kota Muat :</label>
             <Select
-            className="mt-2"
+              className="mt-2"
               showSearch
               // placeholder={DetailDataTarif.kotaAsal}
               value={mitraId}
@@ -210,7 +254,7 @@ function EditDetail() {
             </Select>
           </Col>
           <Col className="mt-2" span={8}>
-            <label style={{fontWeight: 'bold'}}>Kota Tujuan :</label>
+            <label style={{ fontWeight: "bold" }}>Kota Tujuan :</label>
             <Select
               showSearch
               className="mt-2"
@@ -236,7 +280,7 @@ function EditDetail() {
             </Select>
           </Col>
           <Col className="mt-2" span={8}>
-            <label style={{fontWeight: 'bold'}}>Jenis Kendaraan :</label>
+            <label style={{ fontWeight: "bold" }}>Jenis Kendaraan :</label>
             <Select
               showSearch
               className="mt-2"
@@ -264,7 +308,7 @@ function EditDetail() {
         </Row>
         <Row>
           <Col className="mt-2" span={4}>
-            <label style={{fontWeight: 'bold'}}>Service Type :</label>
+            <label style={{ fontWeight: "bold" }}>Service Type :</label>
             <Select
               className="mt-2"
               // placeholder={DetailDataTarif.service_type}
@@ -277,7 +321,7 @@ function EditDetail() {
             </Select>
           </Col>
           <Col className="mt-2" span={4}>
-            <label style={{fontWeight: 'bold'}}>Jenis Kiriman :</label>
+            <label style={{ fontWeight: "bold" }}>Jenis Kiriman :</label>
             <Select
               className="mt-2"
               // placeholder={DetailDataTarif.jenis_kiriman}
@@ -290,10 +334,10 @@ function EditDetail() {
             </Select>
           </Col>
           <Col className="mt-2" span={8}>
-            <label style={{fontWeight: 'bold'}}>Ritase :</label>
+            <label style={{ fontWeight: "bold" }}>Ritase :</label>
             {/* Menghubungkan input ritase dengan state ritase */}
             <Input
-             className="mt-2"
+              className="mt-2"
               // placeholder={DetailDataTarif.ritase}
               value={ritase}
               onChange={(e) => {
@@ -304,12 +348,11 @@ function EditDetail() {
           </Col>
 
           <Col className="mt-2" span={8}>
-            <label
-             style={{fontWeight: 'bold'}}>Date Created :</label>
+            <label style={{ fontWeight: "bold" }}>Date Created :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
-            disabled
-             className="mt-2"
+              disabled
+              className="mt-2"
               // placeholder={DetailDataTarif.uang_jalan}
               value={DataDate}
               onChange={(e) => setDataDate(e.target.value)}
@@ -331,99 +374,93 @@ function EditDetail() {
                     {ViaItem.via}
                   </Select.Option>
                 ))} */}
-              {/* {viaData.map((viaItem, index) => (
+          {/* {viaData.map((viaItem, index) => (
                 <Option key={index} value={viaItem.via}>
                   {viaItem.via}
                 </Option>
               ))} */}
-            {/* </Select>
+          {/* </Select>
           </Col> */}
         </Row>
 
         <br />
         <hr />
-        <h5  style={{color: '#113D7F'}}>Biaya Penanganan</h5>
-        <hr/>
+        <h5 style={{ color: "#113D7F" }}>Biaya Penanganan</h5>
+        <hr />
         <Row>
-        <Col className="mt-2" span={6}>
-            <label
-             style={{fontWeight: 'bold'}}>Uang Jalan :</label>
+          <Col className="mt-2" span={6}>
+            <label style={{ fontWeight: "bold" }}>Uang Jalan :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
-             className="mt-2"
+            type="text"
+              className="mt-2"
               // placeholder={DetailDataTarif.uang_jalan}
               value={uangJalan}
               onChange={(e) => setUangJalan(e.target.value)}
             />
           </Col>
           <Col className="mt-2" span={6}>
-            <label
-             style={{fontWeight: 'bold'}}>Variable Cost :</label>
+            <label style={{ fontWeight: "bold" }}>Variable Cost :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
-             className="mt-2"
+              className="mt-2"
               // placeholder={DetailDataTarif.uang_jalan}
               value={DataVariableCost}
               onChange={(e) => setDataVariableCost(e.target.value)}
             />
           </Col>
-        <Col className="mt-2" span={6}>
-            <label
-             style={{fontWeight: 'bold'}}>Fixed Cost :</label>
+          <Col className="mt-2" span={6}>
+            <label style={{ fontWeight: "bold" }}>Fixed Cost :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
-             className="mt-2"
+              className="mt-2"
               // placeholder={DetailDataTarif.uang_jalan}
               value={DataFixedCost}
               onChange={(e) => setDataFixedCost(e.target.value)}
             />
           </Col>
           <Col className="mt-2" span={6}>
-            <label
-             style={{fontWeight: 'bold'}}>Maintenance Cost :</label>
+            <label style={{ fontWeight: "bold" }}>Maintenance Cost :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
-             className="mt-2"
+              className="mt-2"
               // placeholder={DetailDataTarif.uang_jalan}
               value={DataMaintenance}
               onChange={(e) => setDataMaintenance(e.target.value)}
             />
           </Col>
         </Row>
-        <br/>
-        <hr/>
+        <br />
+        <hr />
         <Row>
-        <Col className="mt-2" span={6}>
-            <label
-             style={{fontWeight: 'bold'}}>Amount :</label>
+          <Col className="mt-2" span={6}>
+            <label style={{ fontWeight: "bold" }}>Amount :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
-            disabled
-             className="mt-2"
+              disabled
+              className="mt-2"
               // placeholder={DetailDataTarif.uang_jalan}
-              value={DataAmount}
+              value={toRupiah(DataAmount)}
               onChange={(e) => setDataAmount(e.target.value)}
             />
           </Col>
           <Col className="mt-2" span={6}>
-            <label
-             style={{fontWeight: 'bold'}}>Percent :</label>
+            <label style={{ fontWeight: "bold" }}>Percent :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
-             className="mt-2"
+              className="mt-2"
               // placeholder={DetailDataTarif.uang_jalan}
               value={DataPercent}
               onChange={(e) => setDataPercent(e.target.value)}
             />
           </Col>
+
           <Col className="mt-2" span={6}>
-            <label style={{fontWeight: 'bold'}}>Tarif :</label>
+            <label style={{ fontWeight: "bold" }}>Tarif :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
-             className="mt-2"
-             disabled
-              // placeholder={DetailDataTarif.tarif}
-              value={tarif}
+              className="mt-2"
+              value={`${new Intl.NumberFormat("id-ID").format(tarif)}`}
               onChange={(e) => {
                 console.log(e.target.value);
                 setTarif(e.target.value);

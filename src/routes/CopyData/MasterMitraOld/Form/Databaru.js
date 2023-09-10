@@ -592,6 +592,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
     setData(data);
   }
   const EditMitras = async () => {
+    // setActiveTab('profile');
     try {
       const data = {
         id_mitra: mitraId,
