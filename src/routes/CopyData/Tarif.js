@@ -227,7 +227,7 @@ function Tarif() {
     {
       title: "Mitra",
       dataIndex: "mitra",
-      key: "mitra",
+      key: "mitra9",
       width: "20%",
     },
     {

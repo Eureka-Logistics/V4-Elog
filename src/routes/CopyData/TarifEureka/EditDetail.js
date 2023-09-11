@@ -316,8 +316,9 @@ function EditDetail() {
               style={{ width: "100%" }}
               onChange={(e) => setServiceType(e)}
             >
-              <Option value="Expres">Expres</Option>
-              <Option value="Reguler">Reguler</Option>
+               <Option value="Retail">Retail</Option>
+              <Option value="Charter">Charter</Option>
+             
             </Select>
           </Col>
           <Col className="mt-2" span={4}>
@@ -329,8 +330,8 @@ function EditDetail() {
               style={{ width: "100%" }}
               onChange={(e) => setJenisKiriman(e)}
             >
-              <Option value="Retail">Retail</Option>
-              <Option value="Charter">Charter</Option>
+              <Option value="Expres">Expres</Option>
+              <Option value="Reguler">Reguler</Option>
             </Select>
           </Col>
           <Col className="mt-2" span={8}>
