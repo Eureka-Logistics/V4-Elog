@@ -1,4 +1,4 @@
-import { Card, Col, Row, Select, Tag, Table } from "antd";
+import { Card, Col, Row, Select, Tag, Table, Alert } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Baseurl from "../../Api/BaseUrl";
@@ -15,9 +15,18 @@ function Tarif() {
     useState("");
   const [DataTarifMitra, setDataTarifMitra] = useState("");
   const [DataTarifCustomer, setDataTarifCustomer] = useState("");
-  const [eurekaPagination, setEurekaPagination] = useState({ current: 1, pageSize: 10 });
-  const [mitraPagination, setMitraPagination] = useState({ current: 1, pageSize: 10 });
-  const [customerPagination, setCustomerPagination] = useState({ current: 1, pageSize: 10 });
+  const [eurekaPagination, setEurekaPagination] = useState({
+    current: 1,
+    pageSize: 10,
+  });
+  const [mitraPagination, setMitraPagination] = useState({
+    current: 1,
+    pageSize: 10,
+  });
+  const [customerPagination, setCustomerPagination] = useState({
+    current: 1,
+    pageSize: 10,
+  });
   const [totalDataEureka, settotalDataEureka] = useState("");
   const [totalDataMitra, settotalDataMitra] = useState("");
   const [totalDataCustomer, settotalDataCustomer] = useState("");
@@ -49,9 +58,9 @@ function Tarif() {
     }
   };
 
-  const [currnt, setcurrnt] = useState(1)
-  const [currnt2, setcurrnt2] = useState(1)
-  const [currnt3, setcurrnt3] = useState(1)
+  const [currnt, setcurrnt] = useState(1);
+  const [currnt2, setcurrnt2] = useState(1);
+  const [currnt3, setcurrnt3] = useState(1);
   const fetchDataTarifEureka = async (pagination = 1) => {
     try {
       const response = await httpClient.get(
@@ -111,27 +120,37 @@ function Tarif() {
 
   const handleEurekaTableChange = (pagination) => {
     // setEurekaPagination(pagination);
-    fetchDataTarifEureka(pagination)
-    setcurrnt(pagination)
+    fetchDataTarifEureka(pagination);
+    setcurrnt(pagination);
   };
 
   const handleMitraTableChange = (pagination) => {
     setMitraPagination(pagination);
-    setcurrnt2(pagination)
+    setcurrnt2(pagination);
   };
 
   const handleCustomerTableChange = (pagination) => {
     setCustomerPagination(pagination);
-    setcurrnt3(pagination)
+    setcurrnt3(pagination);
   };
 
   useEffect(() => {
     fetchDataTarifEureka(eurekaPagination.pageSize, eurekaPagination.current);
     fetchDataTarifMitra(mitraPagination.pageSize, mitraPagination.current);
-    fetchDataTarifCustomer(customerPagination.pageSize, customerPagination.current);
+    fetchDataTarifCustomer(
+      customerPagination.pageSize,
+      customerPagination.current
+    );
     getDataSelectt();
-
-  }, [muatKota, kotaTujuan, JenisKendaraan, eurekaPagination, currnt, currnt2, currnt3]);
+  }, [
+    muatKota,
+    kotaTujuan,
+    JenisKendaraan,
+    eurekaPagination,
+    currnt,
+    currnt2,
+    currnt3,
+  ]);
 
   const Eureka = [
     {
@@ -206,6 +225,12 @@ function Tarif() {
       },
     },
     {
+      title: "Mitra",
+      dataIndex: "mitra",
+      key: "mitra",
+      width: "20%",
+    },
+    {
       title: "Muat",
       dataIndex: "kotaAsal",
       key: "kotaAsal",
@@ -254,6 +279,12 @@ function Tarif() {
       },
     },
     {
+      title: "Customer",
+      dataIndex: "customer",
+      key: "customer",
+      width: "20%",
+    },
+    {
       title: "Muat",
       dataIndex: "kotaAsal",
       key: "kotaAsal",
@@ -277,13 +308,19 @@ function Tarif() {
     },
   ];
 
-
   const formatRupiah = (angka) => {
     const formatter = new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
     });
     return formatter.format(angka);
+  };
+
+  const alertStyle = {
+    fontFamily: "Arial, sans-serif", // Replace this with your desired font-family
+    fontSize: "16px", // Replace this with your desired font size
+    fontWeight: "bold", // Replace this with your desired font weight
+    color: "black", // Replace this with your desired text color
   };
 
   return (
@@ -400,59 +437,77 @@ function Tarif() {
         </Row>
       </Card>
       {/* Tarif Eureka */}
-      <Card>
-        <h5>Data Tarif Eureka</h5>
-        <hr />
-        <Table
-          dataSource={listData}
-          columns={Eureka}
-          scroll={{
-            x: 800,
-          }}
-          pagination={{
-            // current: eurekaPagination.current,
-            // pageSize: eurekaPagination.pageSize,
-            total: totalDataEureka, // Set the total number of items here
-            onChange: handleEurekaTableChange,
-          }}
-        />
-      </Card>
+      {muatKota && kotaTujuan && JenisKendaraan ? (
+        // Display the table when all conditions are met
+        <div>
+          <Card>
+            <h5>Data Tarif Eureka</h5>
+            <hr />
+            <Table
+              dataSource={listData}
+              columns={Eureka}
+              scroll={{
+                x: 800,
+              }}
+              pagination={{
+                total: totalDataEureka,
+                onChange: handleEurekaTableChange,
+              }}
+            />
+          </Card>
+        </div>
+      ) : (
+        // Display the alert when any of the conditions is not met
+        <div style={alertStyle}>
+          <Alert
+            message="Pilih terlebih dahulu filter Muat, Bongkar & Jenis Kendaraan!"
+            type="info"
+            showIcon
+          />
+        </div>
+      )}
       {/* Tarif Mitra */}
-      <Card>
-        <h5>Data Tarif Mitra</h5>
-        <hr />
-        <Table
-          dataSource={DataTarifMitra}
-          columns={Mitra}
-          scroll={{
-            x: 800,
-          }}
-          pagination={{
-            // current: mitraPagination.current,
-            // pageSize: mitraPagination.pageSize,
-            total: totalDataMitra, // Set the total number of items here
-            onChange: handleMitraTableChange,
-          }}
-        />
-      </Card>
+      {muatKota && kotaTujuan && JenisKendaraan && (
+        <Card>
+          <h5>Data Tarif Mitra</h5>
+          <hr />
+          <Table
+            dataSource={DataTarifMitra}
+            columns={Mitra}
+            scroll={{
+              x: 800,
+            }}
+            pagination={{
+              // current: mitraPagination.current,
+              // pageSize: mitraPagination.pageSize,
+              total: totalDataMitra, // Set the total number of items here
+              onChange: handleMitraTableChange,
+            }}
+          />
+        </Card>
+      )}
+
       {/* Tarif Customer */}
-      <Card>
-        <h5>Data Tarif Customer</h5>
-        <hr />
-        <Table
-          dataSource={DataTarifCustomer}
-          columns={Customer}
-          scroll={{
-            x: 800,
-          }}
-          pagination={{
-            // current: customerPagination.current,
-            // pageSize: customerPagination.pageSize,
-            total: totalDataCustomer, // Set the total number of items here
-            onChange: handleCustomerTableChange,
-          }}
-        />
-      </Card>
+
+      {muatKota && kotaTujuan && JenisKendaraan && (
+        <Card>
+          <h5>Data Tarif Customer</h5>
+          <hr />
+          <Table
+            dataSource={DataTarifCustomer}
+            columns={Customer}
+            scroll={{
+              x: 800,
+            }}
+            pagination={{
+              // current: customerPagination.current,
+              // pageSize: customerPagination.pageSize,
+              total: totalDataCustomer, // Set the total number of items here
+              onChange: handleCustomerTableChange,
+            }}
+          />
+        </Card>
+      )}
     </div>
   );
 }
