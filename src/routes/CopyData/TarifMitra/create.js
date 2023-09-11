@@ -545,22 +545,22 @@ const SamplePage = () => {
 
           <h4 style={{ color: "#1A5CBF" }}>Biaya Penanganan</h4>
           <Row className="mt-4">
-            <Col span={6}>
+            {/* <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Lead Time (Hari)
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                    // name="tarif"
+                    name="tarif"
                     type="number"
-                    // value={Tarif}
-                    // onChange={(e) => setTarif(e.target.value)}
-                    // isInvalid={!!formik.errors.tarif}
+                    value={Tarif}
+                    onChange={(e) => setTarif(e.target.value)}
+                    isInvalid={!!formik.errors.tarif}
                   />
                 </InputGroup>
               </Form.Group>
-            </Col>
+            </Col> */}
             <Col span={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>Tarif</Form.Label>

@@ -90,6 +90,7 @@ const SamplePage = () => {
           setTimeout(() => {
            
                     formik.setFieldValue("order_date", data.data.order_date);
+                    formik.setFieldValue("pic", data.data.pic);
                     formik.setFieldValue("pickupDate", data.data.pickup_date);
                     formik.setFieldValue("kode_mitra", data.data.kode_mitra);
                     formik.setFieldValue("kode", data.data.kode);
