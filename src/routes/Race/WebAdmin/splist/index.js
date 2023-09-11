@@ -11,8 +11,10 @@ import whatsappicon from "../../../../assets/img/whatsappicon.png"
 import truck from "../../../../assets/img/Truck Illu 1.png"
 import vespa from "../../../../assets/img/vesva.png"
 import ListPengiriman from './ListPengirimanCardComponent';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function SpListRace() {
+    const history = useHistory()
     const [open, setOpen] = useState(false);
     const showDefaultDrawer = () => {
         setOpen(true);
@@ -21,6 +23,9 @@ function SpListRace() {
         setOpen(false);
     };
 
+    const pindahdetailsp = ()=>{
+        history.push(`/race/detailsplistrace/:idmp`)
+    }
 
     return (
         <div>
@@ -56,17 +61,19 @@ function SpListRace() {
                                 <div style={{ fontWeight: "bold", fontSize: 20 }}>Informasi Perjalanan</div>
                             </Col>
                             <Col className='d-flex justify-content-end'>
-                                <a
+                                <Button
+                                onClick={pindahdetailsp}
                                     style={{
+                                        backgroundColor:"blue",
                                         fontWeight: "bold",
                                         fontSize: 20,
-                                        color: 'blue',
+                                        color: 'white',
                                         cursor: 'pointer',
                                         textDecoration: 'none'
                                     }}
                                 >
                                     Cek Detail
-                                </a>
+                                </Button>
                             </Col>
                         </Row>
                         <Col>
@@ -131,7 +138,7 @@ function SpListRace() {
                     <Input style={{ Width: "400px", height: "50px" }} addonBefore={<SearchOutlined />} placeholder='Cari Disini' />
                 </Col>
             </Row>
-            <ListPengiriman setOpen={setOpen}/>
+            <ListPengiriman setOpen={setOpen} />
         </div>
     )
 }
