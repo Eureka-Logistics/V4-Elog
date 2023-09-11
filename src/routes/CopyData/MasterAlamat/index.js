@@ -324,11 +324,11 @@ const SamplePage = () => {
           />
         ) : (
           <div style={alertStyle}>
-            <Alert
-              message="Pilih terlebih dahulu filter customer-nya !"
-              type="info"
-              showIcon
-            />
+              <Alert
+                message="Pilih terlebih dahulu filter customer-nya !"
+                type="info"
+                showIcon
+              />
           </div>
         )}
       </Card>
