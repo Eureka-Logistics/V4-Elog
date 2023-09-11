@@ -38,7 +38,7 @@ function DetailSPListRace() {
                     <div style={{ fontWeight: "bold" }}>-</div>
                     <br />
                     <div>Items</div>
-                    <div style={{ fontWeight: "Biscuit" }}>-</div>
+                    <div style={{ fontWeight: "bold" }}>-</div>
                 </Col>
                 <Col style={{
                     backgroundColor: "#1A3368",
