@@ -619,7 +619,7 @@ function VehicleBaru() {
                     <Modal
                         title={title()} style={{ top: 10 }} visible={isModalOpen} onOk={formik.handleSubmit}
                         width={1000}
-                        confirmLoading={Loading}
+                        // confirmLoading={Loading}
                         onCancel={handleCancel}>
                         <AntForm>
                             <Row>

@@ -692,7 +692,7 @@ function DriverTableBaru() {
             visible={modalOpen}
             onOk={formik.handleSubmit}
             onCancel={() => setModalOpen(false)}
-            confirmLoading={loading}
+            // confirmLoading={loading}
           >
             <Form layout="vertical" onSubmitCapture={formik.handleSubmit}>
               <Row>
