@@ -245,9 +245,9 @@ function DetailMasterCustomer() {
           // footer: '<a href="">Why do I have this issue?</a>'
         });
 
-        // setTimeout(() => {
-        //   window.location.href = "/mastercustomersss"; // Replace with the actual path to the "tarif_eureka" page
-        // }, 1000); // 1000 milliseconds (1 seconds) delay
+        setTimeout(() => {
+          window.location.href = "/mastercustomersss"; // Replace with the actual path to the "tarif_eureka" page
+        }, 2000); // 1000 milliseconds (1 seconds) delay
       } else if (response.status === 500) {
         // Swal.fire({
         //     icon: 'error',

@@ -334,9 +334,9 @@ const SamplePage = () => {
                 (item) => item.id_price_mitra !== id
               );
               setListData(newOrder);
-              window.location.reload();
+              // window.location.reload();
               // Reload the data after successful deletion if necessary
-              // fetchData();
+              fetchData();
             }
           })
           .catch(function (error) {

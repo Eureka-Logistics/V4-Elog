@@ -154,6 +154,7 @@ const SamplePage = () => {
             if (data.status.code === 200) {
               const newOrder = order.filter((item) => item.custId !== custId);
               setOrder(newOrder);
+              window.location.reload();
             }
           })
           .catch(function (error) {

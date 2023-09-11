@@ -286,7 +286,9 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
       omsetBulanan: data.data.data?.omset_bulanan,
       assetTanah: data.data.data?.asset_tanah,
       assetBangunan: data.data.data?.asset_bangunan,
-      assetKendaran: data.data.data?.asset_kendaraan
+      assetKendaran: data.data.data?.asset_kendaraan,
+    jumlah_unit: data.data.data?.jumlah_unit,
+      
     });
 
     await setnamaMitra(data.data.data?.nama_mitra);
@@ -371,6 +373,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
     setAssetTanah(data.data.data?.asset_tanah || "");
     setAssetBangunan(data.data.data?.asset_bangunan || "");
     setAssetKendaran(data.data.data?.asset_kendaraan || "");
+    setJumlahUnit(data.data.data?.jumlah_unit || "");
 
     form.setFieldsValue({
       id_mitra: mitraId,
@@ -478,6 +481,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
       pic_id: data.data.data?.pic_id,
       type: data.data.data?.type,
       memo: data.data.data?.memo,
+      jumlah_unit: data.data.data?.jumlah_unit,
     });
   };
 
@@ -589,9 +593,11 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
       rp_trailer20: parseInt(QtyTrailer20),
       qty_trailer40: parseInt(QtyTrailer40),
       rp_trailer40: parseInt(RpTrailer40),
+      jumlah_unit: JumlahUnit
     };
     setData(data);
   }
+
   const EditMitras = async () => {
     // setActiveTab('profile');
     try {
@@ -1033,6 +1039,25 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                       </Select.Option>
                     ))}
                 </Select>
+              </Form.Item>
+            </Col>
+            <Col sm={4} style={{ padding: "0px" }}>
+              <Form.Item
+                label="Jumlah Unit :"
+                style={{ fontWeight: "bold" }}
+                name="jumlah_unit"
+                rules={[
+                  { required: false, message: "Please input your jenis!" },
+                ]}
+              >
+               <Input
+               value={JumlahUnit}
+               className="mt-2"
+               onChange={(e) => {
+                 console.log(e.target.value);
+                 setJumlahUnit(e.target.value);
+               }}
+               />
               </Form.Item>
             </Col>
           </Row>

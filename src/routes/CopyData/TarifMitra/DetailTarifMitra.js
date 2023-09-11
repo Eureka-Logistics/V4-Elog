@@ -145,7 +145,9 @@ function DetailTarifMitra() {
           text: "Data has been saved",
           // footer: '<a href="">Why do I have this issue?</a>'
         });
-
+        setTimeout(() => {
+          window.location.href = "/tarifmitra";
+        }, 1000);
      
       } else if (response.status === 500) {
         // Swal.fire({
@@ -275,6 +277,7 @@ function DetailTarifMitra() {
               style={{ width: "90%" }}
               onChange={(e, options) => {
                 console.log(options.key);
+                console.log(options);
                 setJenisKendaraan(options);
                 setIDJenisKendaraan(options.key);
               }}
@@ -282,7 +285,7 @@ function DetailTarifMitra() {
               {DataTambah &&
                 DataTambah.jenisKendaraan.map((KendaraanItem) => (
                   <Select.Option
-                    key={KendaraanItem.idjenis}
+                    key={KendaraanItem.idjenisKendaraan}
                     value={KendaraanItem.jenisKendaraan}
                   >
                     {KendaraanItem.jenisKendaraan}
