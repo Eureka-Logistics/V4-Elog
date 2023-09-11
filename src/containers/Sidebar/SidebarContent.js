@@ -230,7 +230,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Cancel SP List" className={activeMenu === "/masterdata/marketing/cancelsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item disabled key="Cancel SP List" className={activeMenu === "/masterdata/marketing/cancelsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                     disabled
                       to="/masterdata/marketing/cancelsplist"
@@ -989,7 +989,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         {/* <i className="icon icon-widgets" />
                        */}
 
-                        <img src={logodashboard} style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
+                        <img src={logodashboard} style={{ fontSize: "30px", color: 'white',  marginTop: '7px' }} />
                         <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
                           Dashboard
                         </span>
@@ -1002,7 +1002,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         {/* <i className="icon icon-widgets" />
                        */}
 
-                        <img src={splistrace} style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
+                        <img src={splistrace} style={{ fontSize: "30px", color: 'white',  marginTop: '7px' }} />
                         <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
                           SP List
                         </span>
@@ -1015,7 +1015,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         {/* <i className="icon icon-widgets" />
                        */}
 
-                        <img src={historyrace} style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
+                        <img src={historyrace} style={{ fontSize: "30px", color: 'white',  marginTop: '7px' }} />
                         <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
                           Map Pengiriman
                         </span>
@@ -1028,7 +1028,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         {/* <i className="icon icon-widgets" />
                        */}
 
-                        <img src={perbaikanrace} style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
+                        <img src={perbaikanrace} style={{ fontSize: "30px", color: 'white',  marginTop: '7px' }} />
                         <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
                         Cash On Delivery
                         </span>
@@ -1041,7 +1041,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         {/* <i className="icon icon-widgets" />
                        */}
 
-                        <img src={vehiclerace} style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
+                        <img src={vehiclerace} style={{ fontSize: "30px", color: 'white',  marginTop: '7px' }} />
                         <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
                           Vehicle
                         </span>
@@ -1054,7 +1054,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         {/* <i className="icon icon-widgets" />
                        */}
 
-                        <img src={emergencyrace} style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
+                        <img src={emergencyrace} style={{ fontSize: "30px", color: 'white',  marginTop: '7px' }} />
                         <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
                           Emergency
                         </span>

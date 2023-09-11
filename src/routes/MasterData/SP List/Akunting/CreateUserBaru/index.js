@@ -38,9 +38,23 @@ function CreateUserBaru() {
     useEffect(() => {
         select()
     }, [id_bu_brench, id_bu])
+
+    const [selectedIdKaryawan, setSelectedIdKaryawan] = useState(null); // State untuk menyimpan idKaryawan
+
     const createuser = async (combinedValues) => {
         const payload = {
             ...combinedValues,
+            id_karyawan: selectedIdKaryawan,
+            // id_cabang: "",
+            id_bu_brench:id_bu_brench,
+            no_telp: parseInt(combinedValues.no_telp),
+            perusahaan: IDcode_bu,
+            kode_cabang: combinedValues?.id_cabang,
+            // id_bu: "",
+            // id_bu_brench: "",
+            level: combinedValues?.user_level,
+            // user_level: "",
+            // user_group: ""
         };
         try {
             const data = await axios.post(`${Baseurl}auth/register-user`, payload, {
@@ -71,14 +85,12 @@ function CreateUserBaru() {
         }
 
     }
-
-
     const onFinish = () => {
         const values1 = form1.getFieldsValue();
         const values2 = form2.getFieldsValue();
-        const combinedValues = { ...values1, ...values2 };
+        const combinedValues = { ...values1, ...values2, id_karyawan: selectedIdKaryawan };
         console.log(combinedValues);
-        createuser(combinedValues)
+        createuser(combinedValues);
     };
 
 
@@ -212,7 +224,7 @@ function CreateUserBaru() {
                                             }}
                                             >
                                                 {Array.isArray(selectoptions?.divisi) && selectoptions?.divisi.map((i) => (
-                                                    <option  value={i?.divisi}>{i?.divisi}</option>
+                                                    <option value={i?.divisi}>{i?.divisi}</option>
                                                 ))}
                                             </Select>
                                         </Form.Item>
@@ -327,7 +339,7 @@ function CreateUserBaru() {
 
                                 <Form.Item
                                     label="Karyawan"
-                                    name="karyawan"
+                                    name="id_karyawan"
                                     rules={[
                                         {
                                             required: false,
@@ -337,8 +349,9 @@ function CreateUserBaru() {
                                 >
                                     <Select placeholder="Pilih Bisnis Unit " showSearch optionFilterProp='children' onChange={(e, label) => {
                                         console.log(label);
-
+                                        setSelectedIdKaryawan(label.value); // asumsikan label.value adalah idKaryawan
                                     }}
+
                                     >
                                         {Array.isArray(selectoptions?.karyawan) && selectoptions?.karyawan.map((i) => (
                                             <option value={i?.idKaryawan}>{i?.nama} - {i.nik}</option>
@@ -399,7 +412,7 @@ function CreateUserBaru() {
                                         ))}
                                     </Select>
                                 </Form.Item> */}
-                                <Button style={{ marginTop:"20px", width: "100%", backgroundColor: "#0028ff", }} type="primary" htmlType="submit">
+                                <Button style={{ marginTop: "20px", width: "100%", backgroundColor: "#0028ff", }} type="primary" htmlType="submit">
                                     Submit
                                 </Button>
 

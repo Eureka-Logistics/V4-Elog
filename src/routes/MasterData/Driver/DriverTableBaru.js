@@ -442,11 +442,27 @@ function DriverTableBaru() {
 
       let errorMessage;
       if (error.response && error.response.data && error.response.data.errors) {
-        errorMessage = error.response.data.errors.map(err => err.message).join(', ');
+        let errorMessage = '';
+        error.response.data.errors.forEach((err, index) => {
+          errorMessage += err.message;
+          if (index !== error.response.data.errors.length - 1) {
+            errorMessage += ', ';
+          }
+        });
+        notification.error({
+          message: 'Error',
+          description: errorMessage
+        });
       } else if (error.response && error.response.data && error.response.data.status && error.response.data.status.message) {
-        errorMessage = error.response.data.status.message;
+        notification.error({
+          message: 'Error',
+          description: error.response.data.status.message
+        });
       } else {
-        errorMessage = 'Terjadi kesalahan! Silakan coba lagi.';
+        notification.error({
+          message: 'Error',
+          description: 'Terjadi kesalahan! Silakan coba lagi.'
+        });
       }
 
       Swal.fire({
@@ -542,7 +558,7 @@ function DriverTableBaru() {
         .required("Nama Driver harus diisi"),
       email: Yup.string().email("Format email tidak valid"),
       // .required('Email harus diisi'),
-      divisi: Yup.string().required("Divisi Driver harus diisi"),
+      // divisi: Yup.string().required("Divisi Driver harus diisi"),
       nosim: Yup.number().required('No SIM harus diisi').integer('Nik harus berupa angka'),
       // jenissim: Yup.string().required('Jenis SIM harus diisi'),
       // alamat: Yup.string().required('Alamat harus diisi'),
@@ -692,7 +708,7 @@ function DriverTableBaru() {
             visible={modalOpen}
             onOk={formik.handleSubmit}
             onCancel={() => setModalOpen(false)}
-            confirmLoading={loading}
+          // confirmLoading={loading}
           >
             <Form layout="vertical" onSubmitCapture={formik.handleSubmit}>
               <Row>
@@ -920,7 +936,7 @@ function DriverTableBaru() {
                       value={formik.values.namadriver}
                     />
                   </Form.Item>
-                  <Form.Item
+                  {/* <Form.Item
                     style={{ fontWeight: "bold" }}
                     label="Divisi"
                     help={
@@ -945,7 +961,7 @@ function DriverTableBaru() {
                       onBlur={formik.handleBlur}
                       value={formik.values.divisi}
                     />
-                  </Form.Item>
+                  </Form.Item> */}
 
                   <Form.Item
                     style={{ fontWeight: "bold" }}
