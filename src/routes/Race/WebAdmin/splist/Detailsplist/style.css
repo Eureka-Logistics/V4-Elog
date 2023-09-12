@@ -1,0 +1,9 @@
+.ant-steps-item-description {
+    color: #FFFFFF !important; /* Ganti dengan warna yang Anda inginkan */
+  }
+.ant-steps-item-title {
+    color: #FFFFFF !important; 
+    font-weight: bold;
+    font-size: 20px !important; 
+    
+  }
