@@ -3,6 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 import bk from "../../../../../assets/img/Group 18.png"
 import { Card, Divider, Steps } from 'antd'
 import drivericon from "../../../../../assets/img/drivericon.png"
+import './style.css'
 function DetailSPListRace() {
     const description = 'This is a description.';
     return (
@@ -54,38 +55,39 @@ function DetailSPListRace() {
                     <Container>
                         <Row style={{ height: "432px" }}>
                             <Col style={{ backgroundColor: "" }}>
-                                    <Steps
-                                        direction="vertical"
-                                        size="small"
-                                        current={1}
-                                        style={{ padding: '20px' , width : 400 , height : 500 } }
-                                        items={[
-                                            {
-                                                title: 'Selesai',
-                                                description : "Raja Cepat Warehouse, Pasar Minggu Pengiriman Selesai pada : 11:30"
-                                            },
-                                            {
-                                                title: 'Sampai Tujuan',
-                                                description : "Raja Cepat Warehouse, Pasar Minggu Perkiraan sampai 11:00 WIB"
-                                            },
-                                            {
-                                                title: 'Berangkat',
-                                                description : "Raja Cepat Warehouse, Pasar Minggu 10:15 WIB"
-                                            },
-                                            {
-                                                title: 'Selesai Muat',
-                                                description : "Ciracas, Jakarta Timur 10:00 WIB, 14 Agustus 2023"
-                                            },
-                                            {
-                                                title: 'Sampai Gudang',
-                                                description : "Ciracas, Jakarta Timur 09:40 WIB, 14 Agustus 2023"
-                                            },
-                                        ]}
-                                    />
+                                <Steps
+                                  className="my-custom-steps"
+                                    direction="vertical"
+                                    size="small"
+                                    current={1}
+                                    style={{ padding: '20px', width: 400, height: 500 }}
+                                    items={[
+                                        {
+                                            title: 'Selesai',
+                                            description: "Raja Cepat Warehouse, Pasar Minggu Pengiriman Selesai pada : 11:30"
+                                        },
+                                        {
+                                            title: 'Sampai Tujuan',
+                                            description: "Raja Cepat Warehouse, Pasar Minggu Perkiraan sampai 11:00 WIB"
+                                        },
+                                        {
+                                            title: 'Berangkat',
+                                            description: "Raja Cepat Warehouse, Pasar Minggu 10:15 WIB"
+                                        },
+                                        {
+                                            title: 'Selesai Muat',
+                                            description: "Ciracas, Jakarta Timur 10:00 WIB, 14 Agustus 2023"
+                                        },
+                                        {
+                                            title: 'Sampai Gudang',
+                                            description: "Ciracas, Jakarta Timur 09:40 WIB, 14 Agustus 2023"
+                                        },
+                                    ]}
+                                />
                             </Col>
                         </Row>
                     </Container>
-                    <Row style={{ marginTop: 20 }}>
+                    <Row style={{ marginTop: 80 }}>
                         <Container style={{ display: "flex", justifyContent: "center" }}>
                             <Card style={{ borderRadius: 15, width: 700 }} >
                                 <Row>

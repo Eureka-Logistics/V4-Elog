@@ -791,6 +791,12 @@ const App = ({ match }) => {
             import("../routes/Race/WebAdmin/Cash On Delivery/CashOnDelivery")
           )}
         />
+        <Route
+          path={`${match.url}mapping`}
+          component={asyncComponent(() =>
+            import("../routes/Race/WebAdmin/Map Pengiriman/index")
+          )}
+        />
 
       </Switch>
     </div>

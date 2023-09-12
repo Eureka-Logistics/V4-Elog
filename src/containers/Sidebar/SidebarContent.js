@@ -1010,8 +1010,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Menu.Item>
                   </div>
                   <div className="mt-4" >
-                    <Menu.Item key="History">
-                      <Link to="/Dashboard" style={{ textDecoration: "none" }}>
+                  <Menu.Item className={activeMenu === "/mapping" ? "menu-item-active menu-item-hover" : "menu-item-hover"} key="mapping">
+                      <Link to="/mapping" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
                        */}
 
