@@ -136,9 +136,9 @@ const SamplePage = () => {
         .catch(function (error) {
           notification.error({
             message: "Error",
-            description: error.message,
+            description: error.response.data.status.message,
           });
-          console.log(error.message);
+          console.log(error.response.data.status.message);
         });
     },
   });
@@ -592,7 +592,7 @@ const SamplePage = () => {
           <h5 style={{ color: "#1A5CBF" }}>Biaya Penangan</h5>
           <hr />
           <Row>
-            <Col span={6}>
+            <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Uang Jalan
@@ -613,7 +613,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Maintenance Cost
@@ -634,7 +634,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            {/* <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Variable Cost
@@ -644,7 +644,7 @@ const SamplePage = () => {
                     type="text"
                     value={toRupiah(DataVariableCost)}
                     onInput={(e) => {
-                      const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+                      const inputAngka = e.target.value.replace(/\D/g, ""); 
                       setDataVariableCost(inputAngka);
                       calculateAmount();
                     }}
@@ -653,8 +653,8 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-            </Col>
-            <Col span={6}>
+            </Col> */}
+            <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Fixed Cost
@@ -678,7 +678,7 @@ const SamplePage = () => {
           <br />
           <hr />
           <Row>
-            <Col span={6}>
+            <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: `bold` }}>Amount</Form.Label>
                 <InputGroup>
@@ -697,7 +697,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col span={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: `bold` }}>Percent</Form.Label>
                 <InputGroup>
@@ -717,7 +717,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col span={8}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>Tarif</Form.Label>
                 <InputGroup>
