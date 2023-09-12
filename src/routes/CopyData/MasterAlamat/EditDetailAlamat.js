@@ -49,12 +49,12 @@ function EditDetailAlamat() {
       setDataJabatan(respons.data?.data[0].jabatan || "");
       setDataHP(respons.data?.data[0].hp || "");
       setDataEmail(respons.data?.data[0].email || "");
-      setDataKodeWilayah(respons.data?.data[0].kode_wilayah || "");
+      setDataKodeWilayah(respons.data?.data[0].provinsi || respons.data?.data[0].kode_wilayah);
       setDataLon(respons.data?.data[0].lon || "");
       setDataLat(respons.data?.data[0].lat || "");
       setDataRitase(respons.data?.data[0].ritase || "");
       setDataProvinsi(respons.data?.data[0].provinsi || "");
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const GetSelectData = async () => {
@@ -69,7 +69,7 @@ function EditDetailAlamat() {
         }
       );
       setDataTambah(respons.data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const EditAddress = async () => {
@@ -167,18 +167,21 @@ function EditDetailAlamat() {
   const KotaOptions =
     DataTambah?.kota && Array.isArray(DataTambah?.kota)
       ? DataTambah?.kota.map((item) => ({
-          label: item.kotaName,
-          value: item.id,
-        }))
+        label: item.kotaName,
+        value: item.id,
+      }))
       : [];
 
   const KecamatanOptions =
     DataTambah && Array.isArray(DataTambah?.kecamatan)
       ? DataTambah?.kecamatan.map((item) => ({
-          label: item.kecamatanName,
-          value: item.id,
-        }))
+        label: item.kecamatanName,
+        value: item.id,
+      }))
       : [];
+
+
+
 
   return (
     <div>
@@ -200,7 +203,7 @@ function EditDetailAlamat() {
             />
           </Col>
           <Col span={8}>
-          <label style={{ fontWeight: "bold" }}>Jabatan :</label>
+            <label style={{ fontWeight: "bold" }}>Jabatan :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
               className="mt-2 mb-2"
@@ -224,7 +227,7 @@ function EditDetailAlamat() {
               }}
             /></Col>
           <Col span={8}>
-          <label style={{ fontWeight: "bold" }}>Email :</label>
+            <label style={{ fontWeight: "bold" }}>Email :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
               className="mt-2 mb-2"
@@ -239,7 +242,7 @@ function EditDetailAlamat() {
         </Row>
         <Row>
           <Col span={24}>
-          <label style={{ fontWeight: "bold" }}>Alamat : </label>
+            <label style={{ fontWeight: "bold" }}>Alamat : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
               className="mt-2 mb-2"
@@ -262,7 +265,7 @@ function EditDetailAlamat() {
           </Col>
         </Row>
         <Row>
-         
+
           {/* <Col span={8}>
             <label style={{ fontWeight: "bold" }}>Ritase :</label>
            
@@ -319,6 +322,8 @@ function EditDetailAlamat() {
                 setDataKodeWilayahValue(options.value);
                 // setDataKodeWilayah(options.value);
                 setIDDataKodeWilayah(options.key);
+                setDataKota("")
+                setDataTambah(null)
               }}
             >
               {DataTambah &&
