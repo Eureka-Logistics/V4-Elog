@@ -1777,7 +1777,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
               <Form.Item
                 label="Term of payment (Hari) :"
                 style={{ fontWeight: "bold" }}
-              // name="-"
+              name="top"
               >
                 <Select
                   className="mt-2"

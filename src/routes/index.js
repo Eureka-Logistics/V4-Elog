@@ -85,6 +85,12 @@ const App = ({ match }) => {
           )}
         />
         <Route
+          path={`${match.url}ReportCustomer`}
+          component={asyncComponent(() =>
+            import("./CopyData/MasterCustomer/ReportCustomer")
+          )}
+        />
+        <Route
           path={`${match.url}MastersCustomersDetails/:id_customer`}
           component={asyncComponent(() =>
             import("./MasterData/Marketing/MasterCustomer/DetailMasterCustomer")

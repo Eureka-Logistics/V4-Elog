@@ -250,6 +250,17 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       Master
                     </h6>
                   </div>
+                  <Menu.Item key="MasterCustomer" className={activeMenu === "/ReportCustomer" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Link
+                      to="/ReportCustomer"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <UserOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '8px' }} />
+                      <span style={{ fontWeight: "bold", color: "white" }}>
+                        Report Customer
+                      </span>
+                    </Link>
+                  </Menu.Item>
                   <Menu.Item key="Data Wilayah" className={activeMenu === "/mastercustomersss" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/mastercustomersss"
@@ -890,7 +901,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       Master
                     </h6>
                   </div>
-                  <Menu.Item disabled key="driverpurch" className={activeMenu === "/masterdata/purchasing/driver" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item  key="driverpurch" className={activeMenu === "/masterdata/purchasing/driver" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterdata/purchasing/driver"
                       style={{ textDecoration: "none" }}
@@ -913,7 +924,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item disabled key="vehiclepurch" className={activeMenu === "/masterdata/purchasing/vehicle" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item  key="vehiclepurch" className={activeMenu === "/masterdata/purchasing/vehicle" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterdata/purchasing/vehicle"
                       style={{ textDecoration: "none" }}
