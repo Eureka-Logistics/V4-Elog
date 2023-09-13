@@ -596,6 +596,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 }}
               >
                <option>{datareverensis?.jenis_kartu_kredit}</option>
+                <option>TIDAK ADA</option>
                 <option>VISA</option>
                 <option>MASTER CARD</option>
                 <option>AMERICAN STANDARD</option>
@@ -646,20 +647,13 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               <Form.Label>
                 <b>LAMA USAHA (TAHUN/YEAR) :</b>
               </Form.Label>
-              <Select
-                style={{ width: "100%" }}
-                value={datareverensis.lama_usaha}
-                onChange={(e) => {
-                  handleInputChange(e, "lama_usaha");
-                  console.log(e);
-                }}
-              >
-                <option>{datareverensis?.lama_usaha}</option>
-                <option>TIDAK ADA</option>
-                <option>VISA</option>
-                <option>MASTER CARD</option>
-                <option>AMERICAN STANDARD</option>
-              </Select>
+              <Input 
+              value={datareverensis?.lama_usaha}
+              onChange={(e) => {
+                handleInputChange(e.target.value, "lama_usaha");
+                console.log(e.target.value);
+              }}
+              />
             </Col>
             <Col sm={3}>
               <Form.Label>
