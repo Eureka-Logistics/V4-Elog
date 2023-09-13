@@ -331,7 +331,7 @@ function DriverTableBaru() {
           alamat: formik.values.alamat,
           tgl_lahir: formik.values.tgllahir,
           agama: formik.values.agama,
-          notelp: formik.values.notelp1,
+          notelp: "62"+formik.values.notelp1,
           notelp2: formik.values.notelp2,
           email: formik.values.email,
           tgl_masuk: formik.values.tglmasuk,
@@ -392,7 +392,7 @@ function DriverTableBaru() {
       const formData = new FormData();
       formData.append("cover", formik.values.cover);
       formData.append("id", DetailId);
-      formData.append("nik", formik.values.nik);
+      formData.append("nik", formik.values.nik || formik.values.niknotvalidasi);
       formData.append("divisi", formik.values.divisi);
       formData.append("nama", formik.values.namadriver);
       formData.append("no_ktp", formik.values.noktp);
@@ -402,7 +402,7 @@ function DriverTableBaru() {
       formData.append("alamat", formik.values.alamat);
       formData.append("tgl_lahir", formik.values.tgllahir);
       formData.append("agama", formik.values.agama);
-      formData.append("notelp", formik.values.notelp1);
+      formData.append("notelp", "62"+ formik.values.notelp1);
       formData.append("notelp2", formik.values.notelp2);
       formData.append("email", formik.values.email);
       formData.append("tgl_masuk", formik.values.tglmasuk);
@@ -516,7 +516,7 @@ function DriverTableBaru() {
     label: item.tipe,
     value: item.mitraId,
   }));
-
+  const role = localStorage.getItem("jobdesk");
   const formik = useFormik({
     initialValues: {
       nik: "",
@@ -532,6 +532,7 @@ function DriverTableBaru() {
       nosim: "",
       jenissim: "",
       alamat: "",
+      niknotvalidasi: "",
       agama: "",
       notelp1: "",
       vehicletype: "",
@@ -541,7 +542,7 @@ function DriverTableBaru() {
       norekening: "",
     },
     validationSchema: Yup.object({
-      nik: Yup.string()
+      nik: (role === 'operasional') ? Yup.string()
         .required("Nik harus diisi")
         .max(5, "Tidak Boleh Melebihi 5 Karakter")
         .matches(
@@ -550,7 +551,8 @@ function DriverTableBaru() {
         )
         .transform((value) =>
           value ? value.charAt(0).toUpperCase() + value.slice(1) : ""
-        ),
+        ) : null
+          ,
 
       // noktp: Yup.number().max(16,"Tidak Boleh Melebihi 16 angka").required('No KTP harus diisi').integer('Nik harus berupa angka'),
       namadriver: Yup.string()
@@ -614,6 +616,12 @@ function DriverTableBaru() {
     }
   };
 
+  const validateStatusValue = (role === "operasional") ?
+    (formik.touched.nik && formik.errors.nik ? "error" : undefined) :
+    formik.touched.nik && formik.errors.nik ? "error" : undefined;
+
+  const helpValue = role === "operasional" ? (formik.touched.nik && formik.errors.nik ? formik.errors.nik : null) : (formik.touched.niknotvalidasi && formik.errors.niknotvalidasi ? formik.errors.niknotvalidasi : null)
+  const validasinik = formik.values.nik === "" ? "nik" : "nik";
   return (
     <div>
       <Card>
@@ -879,35 +887,52 @@ function DriverTableBaru() {
                 <Col sm={4}>
                   <Form.Item
                     style={{ fontWeight: "bold" }}
-                    label="NIK"
-                    help={
-                      formik.touched.nik && formik.errors.nik
-                        ? formik.errors.nik
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.nik && formik.errors.nik
-                        ? "error"
-                        : undefined
-                    }
+                    label={`Nik`+validasinik}
+                    help={helpValue}
+                    // validateStatus={
+                    //   formik.touched.nik && formik.errors.nik
+                    //     ? "error"
+                    //     : undefined
+                    // }
+                    validateStatus={validateStatusValue}
                   >
-                    <Input
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      placeholder="input nik"
-                      name="nik"
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        formik.setFieldValue(
-                          "nik",
-                          val ? val.charAt(0).toUpperCase() + val.slice(1) : ""
-                        );
-                      }}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.nik}
-                    />
+                    {role === "operasional" ?
+                      <Input
+                        style={{
+                          border: "1px solid #1A5CBF",
+                          borderRadius: "5px",
+                        }}
+                        placeholder="input nik"
+                        name={validasinik} // Sekarang, ini akan menjadi "nik" atau "niknotvalidasi" berdasarkan kondisi
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          const newVal = val ? val.charAt(0).toUpperCase() + val.slice(1) : "";
+
+                          // Jika formik.values.nik kosong, gunakan "niknotvalidasi", sebaliknya gunakan "nik"
+                          formik.setFieldValue(validasinik, newVal);
+                        }}
+                        onBlur={formik.handleBlur}
+                        value={formik.values[validasinik]} // Dinamis berdasarkan validasinik
+                      />
+                      : <Input
+                        disabled
+                        style={{
+                          border: "1px solid #1A5CBF",
+                          borderRadius: "5px",
+                        }}
+                        placeholder="input nik"
+                        name={validasinik} // Sekarang, ini akan menjadi "nik" atau "niknotvalidasi" berdasarkan kondisi
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          const newVal = val ? val.charAt(0).toUpperCase() + val.slice(1) : "";
+
+                          // Jika formik.values.nik kosong, gunakan "niknotvalidasi", sebaliknya gunakan "nik"
+                          formik.setFieldValue(validasinik, newVal);
+                        }}
+                        onBlur={formik.handleBlur}
+                        value={formik.values[validasinik]} // Dinamis berdasarkan validasinik
+                      />}
+
                   </Form.Item>
 
                   <Form.Item
@@ -1214,18 +1239,20 @@ function DriverTableBaru() {
                         : undefined
                     }
                   >
-                    <Input
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      type="number"
-                      placeholder="input notelp1"
-                      name="notelp1"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.notelp1}
-                    />
+                    <Input.Group>
+                      <Input addonBefore="+62" 
+                        style={{
+                          border: "1px solid #1A5CBF",
+                          borderRadius: "5px",
+                        }}
+                        type="number"
+                        placeholder="input notelp1"
+                        name="notelp1"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.notelp1}
+                      />
+                    </Input.Group>
                   </Form.Item>
                   <Form.Item
                     style={{ fontWeight: "bold" }}
@@ -1241,7 +1268,7 @@ function DriverTableBaru() {
                         : undefined
                     }
                   >
-                    <Input
+                   <Input addonBefore="+62"
                       style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",

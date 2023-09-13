@@ -16,7 +16,7 @@ function MapPengiriman() {
                             <h5>Mapping Otomatis</h5>
                         </Col>
                     </Row>
-                    <div className="div-no-scrollbar" style={{ padding: "0px", height: "100vh", backgroundColor: "", overflow: "auto" }}>
+                    <div className="div-no-scrollbar" style={{ padding: "0px", height: "800px", backgroundColor: "", overflow: "auto" }}>
                         <CardMapping />
                         <CardMapping />
                         <CardMapping />
