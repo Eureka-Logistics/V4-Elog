@@ -39,7 +39,7 @@ function ReportCustomer() {
     },
     
   ];
-
+ 
   const columns = [
     {
       title: "No.",
