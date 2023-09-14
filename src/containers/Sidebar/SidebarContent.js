@@ -463,7 +463,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </h6>
                   </div>
 
-                  <Menu.Item disabled key="VehicleMap" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item  key="VehicleMap" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}

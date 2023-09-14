@@ -59,7 +59,7 @@ function DetailSPListRace() {
                                   className="my-custom-steps"
                                     direction="vertical"
                                     size="small"
-                                    current={1}
+                                    current={5}
                                     style={{ padding: '20px', width: 400, height: 500 }}
                                     items={[
                                         {
