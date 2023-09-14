@@ -140,6 +140,17 @@ const SamplePage = () => {
       key: "kendaraanJenis",
     },
     {
+      title: "Max Tonase(kg/koli)",
+      dataIndex: "max_tonase",
+      key: "max_tonase",
+    },
+    {
+      title: "Harga",
+      dataIndex: "harga_selanjutnya",
+      key: "harga_selanjutnya",
+    },
+
+    {
       title: "Action",
       key: "no",
       render: (text, record) => (
@@ -387,6 +398,8 @@ const SamplePage = () => {
               <th>Tujuan</th>
               <th>Jenis Kendaraan</th>
               <th>Tarif</th>
+              <th>Max Tonase(kg/koli)</th>
+              <th>Harga</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -417,6 +430,14 @@ const SamplePage = () => {
                     currency: "IDR",
                   }).format(record.tarif)}`}
                 </td>
+                <td>{record.max_tonase}</td>
+                <td>
+                  {`${new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  }).format(record.harga_selanjutnya)}`}
+                </td>
+               
                 <td>
                   <Button
                     onClick={() => handleView(record.id_price)}

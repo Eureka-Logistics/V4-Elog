@@ -39,22 +39,30 @@ const SamplePage = () => {
   const { banks } = useBanksStore();
   const [DataSelect, setDataSelect] = useState("");
   const [DataWilayah, setDataWilayah] = useState("");
+  const [KodeProvinsi, setKodeProvinsi] = useState(1);
+  const [KodeKota, setKodeKota] = useState([]);
+  const [SelectNPWP, setSelectNPWP] = useState("");
+  const [IDProvinsiNPWP, setIDProvinsiNPWP] = useState(1);
+  const [IDKecamatanNPWP, setIDKecamatanNPWP] = useState("");
+  const [IDKotaNPWP, setIDKotaNPWP] = useState("");
+  const [PicID, setPicID] = useState("");
+  const [DataPIC, setDataPIC] = useState("");
 
   const formik = useFormik({
     initialValues: {
       kode: "",
       title: "",
       nama_mitra: "",
-      pic_id: "",
+      pic_id: PicID,
       jenis: "",
       jenis_usaha: "",
       kepemilikan: "",
       jumlah_armada: "",
       jumlah_sdm_operasional: "",
       cabang: "",
-      jenis_kiriman:" ",
-      wilayah: "",
-      tujuan: "",
+      jenis_kiriman: "",
+      wilayah: KodeProvinsi,
+      tujuan: KodeKota,
       kontrak: "",
       awal_kontrak: "",
       akhir_kontrak: "",
@@ -70,8 +78,8 @@ const SamplePage = () => {
       npwp_rw: "",
       npwp_kelurahan: "",
       npwp_kecamatan: "",
-      npwp_kota: "",
-      npwp_provinsi: "",
+      npwp_kota: IDKotaNPWP,
+      npwp_provinsi: IDProvinsiNPWP,
       npwp_kodepos: "",
       is_taxable: "",
       telepon: "",
@@ -118,9 +126,9 @@ const SamplePage = () => {
       affiliasi: "",
       jumlah_unit: "",
       periode_sewa: "",
-      nilai_sewa: "",
+      nilai_sewa: 0,
       nilai_ruu: "",
-     
+
       metode_pembayaran: "",
       qty_motor: 0,
       rp_motor: 0,
@@ -159,21 +167,21 @@ const SamplePage = () => {
               ? "Jalan" +
                 " " +
                 formik.values.npwp_jalan +
+                ", Provinsi" +
+                " " +
+                formik.values.npwp_provinsi +
+                " " +
                 ", Kota" +
                 " " +
                 formik.values.npwp_kota +
-                " " +
-                ", Kelurahan" +
-                " " +
-                formik.values.npwp_kelurahan +
                 " " +
                 ", Kecamatan" +
                 " " +
                 formik.values.npwp_kecamatan +
                 " " +
-                ", Provinsi" +
+                ", Kelurahan" +
                 " " +
-                formik.values.npwp_provinsi +
+                formik.values.npwp_kelurahan +
                 " " +
                 ", Blok" +
                 " " +
@@ -234,7 +242,7 @@ const SamplePage = () => {
 
   const url = window.location.href;
   const idMpFix = url.substring(url.lastIndexOf("/") + 1);
-  
+
   const OptionsData = async () => {
     const data = await axios.get(
       `${Baseurl}mitra/get-select-mitraPic`,
@@ -267,7 +275,7 @@ const SamplePage = () => {
 
   const GetSelectWilayah = async () => {
     const data = await axios.get(
-      `${Baseurl}customer/get-select-create-address?idProv=11&idKota=1101`,
+      `${Baseurl}customer/get-select-create-address?idProv=${KodeProvinsi}&idKota=${KodeProvinsi}`,
 
       {
         headers: {
@@ -280,11 +288,27 @@ const SamplePage = () => {
     setDataWilayah(data.data);
   };
 
+  const GetSelectNPWP = async () => {
+    const data = await axios.get(
+      `${Baseurl}customer/get-select-create-address?idProv=${IDProvinsiNPWP}&idKota=${IDKotaNPWP}`,
+
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem(`token`),
+        },
+      }
+    );
+    console.log(data.data, "ini data wilayah");
+    setSelectNPWP(data.data);
+  };
+
   useEffect(() => {
     OptionsData();
     GetSelectMitra();
     GetSelectWilayah();
-  }, []);
+    GetSelectNPWP();
+  }, [KodeProvinsi, IDProvinsiNPWP, IDKotaNPWP]);
 
   const formatNpwp = (value) => {
     // Remove all non-numeric characters
@@ -326,6 +350,13 @@ const SamplePage = () => {
     return capitalizedWords.join(" ");
   }
 
+  const jenisKirimanOptions = [
+    { label: "RETAIL", value: "RETAIL" },
+    { label: "CHARTER", value: "CHARTER" },
+    { label: "FCL", value: "FCL" },
+    { label: "LCL", value: "LCL" },
+  ];
+
   return (
     <div>
       <Form onSubmit={formik.handleSubmit}>
@@ -359,10 +390,18 @@ const SamplePage = () => {
           </Col>
           <Col span={4}>
             <div style={{ marginBottom: "10px" }}>
-              <label style={{ fontWeight: "bold", display: "block" }}>
+              <label
+                style={{
+                  fontWeight: "bold",
+                  display: "block",
+                  color: "black",
+                  fontFamily: "NoirPro",
+                }}
+              >
                 Title:
               </label>
               <Select
+              showSearch
                 className="mt-2"
                 value={formik.values.title}
                 style={{ width: "100%" }}
@@ -383,7 +422,6 @@ const SamplePage = () => {
                 <option value="Mr.">Mr. </option>
                 <option value="Mrs.">Mrs. </option>
                 <option value="Miss.">Miss. </option>
-                
               </Select>
               {/* <Select
                   name="title"
@@ -533,10 +571,16 @@ const SamplePage = () => {
                 PIC Purchasing :
               </Form.Label>
               <Select
+              showSearch
+               optionFilterProp="value"
                 name="pic_id"
                 style={{ width: "100%", marginTop: "10px" }}
-                onChange={(value) => {
-                  formik.setFieldValue("pic_id", value);
+                onChange={(value, e) => {
+                  formik.setFieldValue("pic_id", e.key);
+                  console.log(e.key);
+                  console.log(e.value);
+                  setPicID(e.key);
+                  setDataPIC(e.value);
                 }}
               >
                 {DataSelect &&
@@ -662,28 +706,24 @@ const SamplePage = () => {
                 Jenis Kiriman :
               </Form.Label>
               <Select
-              style={{ width: "100%" }}
+                style={{ width: "100%" }}
                 name="jenis_kiriman"
                 placeholder="Pilih Jenis Kiriman"
-                mode="multiple" // Mengaktifkan mode multi-select
+                mode="multiple" 
                 value={formik.values.jenis_kiriman}
                 onChange={(selectedValues) => {
-                  formik.setFieldValue("jenis_kiriman", selectedValues);
+                  const formattedValue = selectedValues
+                    .map((value) => value.toString())
+                    .join(",");
+                  formik.setFieldValue("jenis_kiriman", formattedValue);
                 }}
               >
-                <Select.Option value="RETAIL">RETAIL</Select.Option>
-                <Select.Option value="CHARTER">CHARTER</Select.Option>
-                <Select.Option value="FCL">FCL</Select.Option>
-                <Select.Option value="LCL">LCL</Select.Option>
+                {jenisKirimanOptions.map((option) => (
+                  <Select.Option key={option.value} value={option.value}>
+                    {option.label}
+                  </Select.Option>
+                ))}
               </Select>
-              {/* <InputGroup>
-                  <Form.Control
-                    name="jenis_kiriman"
-                    value={formik.values.jenis_kiriman}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.jenis_kiriman}
-                  />
-                </InputGroup> */}
             </Form.Group>
           </Col>
           <Col span={8}>
@@ -702,11 +742,11 @@ const SamplePage = () => {
                 <option value="Vendor Darat">Vendor Darat</option>
                 <option value="Vendor Laut">Vendor Laut</option>
                 <option value="Vendor Udara">Vendor Udara</option>
-                <option value="Vendor Udara">Vendor Darat dan Laut</option>
-                <option value="Vendor Udara">Vendor Darat dan Udara</option>
-                <option value="Vendor Udara">Vendor Kirim Mobil</option>
-                <option value="Vendor Udara">Vendor Internasional</option>
-                <option value="Vendor Udara">Vendor Dokumney dan Paket</option>
+                <option value="Vendor Darat dan Laut">Vendor Darat dan Laut</option>
+                <option value="Vendor Darat dan Udara">Vendor Darat dan Udara</option>
+                <option value="Vendor Kirim Mobil">Vendor Kirim Mobil</option>
+                <option value="Vendor Internasional">Vendor Internasional</option>
+                <option value="Vendor Dokumney dan Paket">Vendor Dokumney dan Paket</option>
               </Select>
               {/* <InputGroup>
                   <Form.Control
@@ -727,13 +767,18 @@ const SamplePage = () => {
                 Wilayah (Operasional):
               </Form.Label>
               <Select
-                mode="multiple"
+              showSearch  // Aktifkan fitur pencarian
                 placeholder="Silahkan Pilih Wilayah"
                 name="wilayah"
                 style={{ width: "100%" }}
-                onChange={(value) => {
+                onChange={(value, e, options) => {
                   formik.setFieldValue("wilayah", value);
+                  setKodeProvinsi(e.key);
+                  console.log(e.key);
                 }}
+                filterOption={(inputValue, option) =>
+                  option.props.children.toLowerCase().includes(inputValue.toLowerCase())
+                }
               >
                 {DataWilayah &&
                   DataWilayah.provinsi.map((i) => (
@@ -752,14 +797,22 @@ const SamplePage = () => {
                 placeholder="Silahkan Pilih Tujuan"
                 name="tujuan"
                 style={{ width: "100%" }}
-                onChange={(value) => {
-                  formik.setFieldValue("tujuan", value);
+                onChange={(value, e) => {
+                  // Mengubah value menjadi string dengan koma sebagai pemisah
+                  const formattedValue = value.join(",");
+                  formik.setFieldValue("tujuan", formattedValue);
+
+                  // Mengambil key dari elemen pertama dalam array e
+                  if (e.length > 0) {
+                    setKodeKota(e[0].key);
+                    console.log(e[0].key);
+                  }
                 }}
               >
                 {DataWilayah &&
-                  DataWilayah.provinsi.map((i) => (
-                    <option key={i.id} value={i.provName}>
-                      {i.provName}
+                  DataWilayah.kota.map((i) => (
+                    <option key={i.id} value={i.kotaName}>
+                      {i.kotaName}
                     </option>
                   ))}
               </Select>
@@ -797,6 +850,7 @@ const SamplePage = () => {
                   />
                 </InputGroup> */}
               <DatePicker
+            
                 style={{ width: "100%" }}
                 value={
                   formik.values.awal_kontrak
@@ -921,22 +975,7 @@ const SamplePage = () => {
               </InputGroup>
             </Form.Group>
           </Col>
-          {/* <Col span={8}>
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  Jumlah Unit :
-                </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    type="number"
-                    name="jumlah_unit"
-                    value={formik.values.jumlah_unit}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.jumlah_unit}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col> */}
+         
         </Row>
         <br />
         <hr />
@@ -1037,14 +1076,85 @@ const SamplePage = () => {
           </Col>
           <Col span={4}>
             <Form.Group>
+              <Form.Label style={{ fontWeight: "bold" }}>
+                Provinsi :{" "}
+              </Form.Label>
+              <Select
+              showSearch
+                // mode="multiple"
+                placeholder="Pilih Provinsi"
+                name="npwp_provinsi"
+                style={{ width: "100%" }}
+                onChange={(value, e, options) => {
+                  formik.setFieldValue("npwp_provinsi", value);
+                  setIDProvinsiNPWP(e.key);
+                  console.log(e.key);
+                }}
+              >
+                {SelectNPWP &&
+                  SelectNPWP.provinsi.map((i) => (
+                    <option key={i.id} value={i.provName}>
+                      {i.provName}
+                    </option>
+                  ))}
+              </Select>
+              {/* <InputGroup>
+                <Form.Control
+                  placeholder="Nama Provinsi"
+                  name="npwp_provinsi"
+                  value={formik.values.npwp_provinsi}
+                  onChange={formik.handleChange}
+                  isInvalid={!!formik.errors.npwp_provinsi}
+                />
+              </InputGroup> */}
+            </Form.Group>
+          </Col>
+          <Col span={4}>
+            <Form.Group>
               <Form.Label style={{ fontWeight: "bold" }}>Kota : </Form.Label>
-              <InputGroup>
+              <Select
+              showSearch
+                // mode="multiple"
+                placeholder="Pilih Kota"
+                name="npwp_kota"
+                style={{ width: "100%" }}
+                onChange={(value, e, options) => {
+                  formik.setFieldValue("npwp_kota", value);
+                  setIDKotaNPWP(e.key);
+                  console.log(e.key);
+                }}
+              >
+                {SelectNPWP &&
+                  SelectNPWP.kota.map((i) => (
+                    <option key={i.id} value={i.kotaName}>
+                      {i.kotaName}
+                    </option>
+                  ))}
+              </Select>
+              {/* <InputGroup>
                 <Form.Control
                   placeholder="Nama Kota"
                   name="npwp_kota"
                   value={formik.values.npwp_kota}
                   onChange={formik.handleChange}
                   isInvalid={!!formik.errors.npwp_kota}
+                />
+              </InputGroup> */}
+            </Form.Group>
+          </Col>
+          <Col span={4}>
+            <Form.Group>
+              <Form.Label style={{ fontWeight: "bold" }}>
+                Kecamatan :{" "}
+              </Form.Label>
+
+              <InputGroup>
+                <Form.Control
+                  placeholder="Nama Kecamatan"
+                  name="npwp_kecamatan"
+                  value={formik.values.npwp_kecamatan}
+                  onChange={formik.handleChange}
+                  isInvalid={!!formik.errors.npwp_kecamatan}
                 />
               </InputGroup>
             </Form.Group>
@@ -1061,39 +1171,6 @@ const SamplePage = () => {
                   value={formik.values.npwp_kelurahan}
                   onChange={formik.handleChange}
                   isInvalid={!!formik.errors.npwp_kelurahan}
-                />
-              </InputGroup>
-            </Form.Group>
-          </Col>
-          <Col span={4}>
-            <Form.Group>
-              <Form.Label style={{ fontWeight: "bold" }}>
-                Kecamatan :{" "}
-              </Form.Label>
-              <InputGroup>
-                <Form.Control
-                  placeholder="Nama Kecamatan"
-                  name="npwp_kecamatan"
-                  value={formik.values.npwp_kecamatan}
-                  onChange={formik.handleChange}
-                  isInvalid={!!formik.errors.npwp_kecamatan}
-                />
-              </InputGroup>
-            </Form.Group>
-          </Col>
-          <Col span={4}>
-            <Form.Group>
-              <Form.Label style={{ fontWeight: "bold" }}>
-                Provinsi :{" "}
-              </Form.Label>
-                
-              <InputGroup>
-                <Form.Control
-                  placeholder="Nama Provinsi"
-                  name="npwp_provinsi"
-                  value={formik.values.npwp_provinsi}
-                  onChange={formik.handleChange}
-                  isInvalid={!!formik.errors.npwp_provinsi}
                 />
               </InputGroup>
             </Form.Group>
@@ -1201,21 +1278,21 @@ const SamplePage = () => {
                       ? "Jalan" +
                         " " +
                         formik.values.npwp_jalan +
+                        ", Provinsi" +
+                        " " +
+                        formik.values.npwp_provinsi +
+                        " " +
                         ", Kota" +
                         " " +
                         formik.values.npwp_kota +
-                        " " +
-                        ", Kelurahan" +
-                        " " +
-                        formik.values.npwp_kelurahan +
                         " " +
                         ", Kecamatan" +
                         " " +
                         formik.values.npwp_kecamatan +
                         " " +
-                        ", Provinsi" +
+                        ", Kelurahan" +
                         " " +
-                        formik.values.npwp_provinsi +
+                        formik.values.npwp_kelurahan +
                         " " +
                         ", Blok" +
                         " " +
@@ -1393,7 +1470,7 @@ const SamplePage = () => {
                 </InputGroup> */}
               <Select
                 name="metode_pembayaran"
-                style={{ width: "100%"}}
+                style={{ width: "100%" }}
                 onChange={(value) => {
                   formik.setFieldValue("metode_pembayaran", value);
                 }}
@@ -1471,7 +1548,7 @@ const SamplePage = () => {
         <Row>
           <Col span={8} className="mt-2">
             <Form.Group>
-              <Form.Label style={{ fontWeight: "bold" }}>Status : </Form.Label>
+              <Form.Label style={{ fontWeight: "bold" }}>Tipe : </Form.Label>
               <Select
                 style={{ width: "100%" }}
                 onChange={(label) => {
@@ -1486,6 +1563,22 @@ const SamplePage = () => {
               </Select>
             </Form.Group>
           </Col>
+          <Col span={8} className="mt-2">
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Jumlah Unit :
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    type="number"
+                    name="jumlah_unit"
+                    value={formik.values.jumlah_unit}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.jumlah_unit}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
         </Row>
 
         {/* DATA REFERENSI */}
@@ -1506,9 +1599,29 @@ const SamplePage = () => {
             </Col>
             <Col span={8} className="mt-2">
               <Select
+             
                 style={{ width: "100%" }}
                 onChange={(label) => {
                   formik.setFieldValue("po_legalitas", label);
+                }}
+              >
+                <option value={"ADA"}>ADA</option>
+                <option value={"TIDAK"}>TIDAK</option>
+              </Select>
+            </Col>
+            <Col span={3} className="mt-2">
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  {" "}
+                  NPPKP / SPPKP{" "}
+                </Form.Label>
+              </Form.Group>
+            </Col>
+            <Col span={10} className="mt-2">
+              <Select
+                style={{ width: "100%" }}
+                onChange={(label) => {
+                  formik.setFieldValue("nppkp_legalitas", label);
                 }}
               >
                 <option value={"ADA"}>ADA</option>
@@ -1529,6 +1642,25 @@ const SamplePage = () => {
                 style={{ width: "100%" }}
                 onChange={(label) => {
                   formik.setFieldValue("ktp_legalitas", label);
+                }}
+              >
+                <option value={"ADA"}>ADA</option>
+                <option value={"TIDAK"}>TIDAK</option>
+              </Select>
+            </Col>
+            <Col span={3} className="mt-2">
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  {" "}
+                  NIB (SIUP/SIUB/SIUJK/SIUPAL){" "}
+                </Form.Label>
+              </Form.Group>
+            </Col>
+            <Col span={10} className="mt-2">
+              <Select
+                style={{ width: "100%" }}
+                onChange={(label) => {
+                  formik.setFieldValue("siup_legalitas", label);
                 }}
               >
                 <option value={"ADA"}>ADA</option>
@@ -1556,6 +1688,25 @@ const SamplePage = () => {
                 <option value={"TIDAK"}>TIDAK</option>
               </Select>
             </Col>
+            <Col span={3} className="mt-2">
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  {" "}
+                  Ijin Pendirian KPPA{" "}
+                </Form.Label>
+              </Form.Group>
+            </Col>
+            <Col span={10} className="mt-2">
+              <Select
+                style={{ width: "100%" }}
+                onChange={(label) => {
+                  formik.setFieldValue("ijin_pendirian", label);
+                }}
+              >
+                <option value={"ADA"}>ADA</option>
+                <option value={"TIDAK"}>TIDAK</option>
+              </Select>
+            </Col>
           </Row>
           <Row>
             <Col span={3} className="mt-2">
@@ -1571,6 +1722,25 @@ const SamplePage = () => {
                 style={{ width: "100%" }}
                 onChange={(label) => {
                   formik.setFieldValue("akta_perubahan_dasar", label);
+                }}
+              >
+                <option value={"ADA"}>ADA</option>
+                <option value={"TIDAK"}>TIDAK</option>
+              </Select>
+            </Col>
+            <Col span={3} className="mt-2">
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  {" "}
+                  Persetujuan Penanaman Modal{" "}
+                </Form.Label>
+              </Form.Group>
+            </Col>
+            <Col span={10} className="mt-2">
+              <Select
+                style={{ width: "100%" }}
+                onChange={(label) => {
+                  formik.setFieldValue("ppmd_legalitas", label);
                 }}
               >
                 <option value={"ADA"}>ADA</option>
@@ -1598,6 +1768,25 @@ const SamplePage = () => {
                 <option value={"TIDAK"}>TIDAK</option>
               </Select>
             </Col>
+            <Col span={3} className="mt-2">
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  {" "}
+                  Ijin Usaha Tetap dari BPKM{" "}
+                </Form.Label>
+              </Form.Group>
+            </Col>
+            <Col span={10} className="mt-2">
+              <Select
+                style={{ width: "100%" }}
+                onChange={(label) => {
+                  formik.setFieldValue("ijin_usaha", label);
+                }}
+              >
+                <option value={"ADA"}>ADA</option>
+                <option value={"TIDAK"}>TIDAK</option>
+              </Select>
+            </Col>
           </Row>
           <Row>
             <Col span={3} className="mt-2">
@@ -1613,6 +1802,22 @@ const SamplePage = () => {
                 style={{ width: "100%" }}
                 onChange={(label) => {
                   formik.setFieldValue("surat_domisili", label);
+                }}
+              >
+                <option value={"ADA"}>ADA</option>
+                <option value={"TIDAK"}>TIDAK</option>
+              </Select>
+            </Col>
+            <Col span={3} className="mt-2">
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}> TDP </Form.Label>
+              </Form.Group>
+            </Col>
+            <Col span={10} className="mt-2">
+              <Select
+                style={{ width: "100%" }}
+                onChange={(label) => {
+                  formik.setFieldValue("tdp_legalitas", label);
                 }}
               >
                 <option value={"ADA"}>ADA</option>
@@ -1637,6 +1842,25 @@ const SamplePage = () => {
                 <option value={"TIDAK"}>TIDAK</option>
               </Select>
             </Col>
+            <Col span={3} className="mt-2">
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  {" "}
+                  Surat Kuasa{" "}
+                </Form.Label>
+              </Form.Group>
+            </Col>
+            <Col span={10} className="mt-2">
+              <Select
+                style={{ width: "100%" }}
+                onChange={(label) => {
+                  formik.setFieldValue("surat_kuasa", label);
+                }}
+              >
+                <option value={"ADA"}>ADA</option>
+                <option value={"TIDAK"}>TIDAK</option>
+              </Select>
+            </Col>
           </Row>
           <Row>
             <Col span={3} className="mt-2">
@@ -1649,171 +1873,6 @@ const SamplePage = () => {
                 style={{ width: "100%" }}
                 onChange={(label) => {
                   formik.setFieldValue("skt_legalitas", label);
-                }}
-              >
-                <option value={"ADA"}>ADA</option>
-                <option value={"TIDAK"}>TIDAK</option>
-              </Select>
-            </Col>
-          </Row>
-          <Row>
-            <Col span={3} className="mt-2">
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  {" "}
-                  NPPKP / SPPKP{" "}
-                </Form.Label>
-              </Form.Group>
-            </Col>
-            <Col span={8} className="mt-2">
-              <Select
-                style={{ width: "100%" }}
-                onChange={(label) => {
-                  formik.setFieldValue("nppkp_legalitas", label);
-                }}
-              >
-                <option value={"ADA"}>ADA</option>
-                <option value={"TIDAK"}>TIDAK</option>
-              </Select>
-            </Col>
-          </Row>
-          <Row>
-            <Col span={3} className="mt-2">
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  {" "}
-                  NIB (SIUP/SIUB/SIUJK/SIUPAL){" "}
-                </Form.Label>
-              </Form.Group>
-            </Col>
-            <Col span={8} className="mt-2">
-              <Select
-                style={{ width: "100%" }}
-                onChange={(label) => {
-                  formik.setFieldValue("siup_legalitas", label);
-                }}
-              >
-                <option value={"ADA"}>ADA</option>
-                <option value={"TIDAK"}>TIDAK</option>
-              </Select>
-            </Col>
-          </Row>
-          <Row>
-            <Col span={3} className="mt-2">
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  {" "}
-                  Ijin Pendirian KPPA{" "}
-                </Form.Label>
-              </Form.Group>
-            </Col>
-            <Col span={8} className="mt-2">
-              <Select
-                style={{ width: "100%" }}
-                onChange={(label) => {
-                  formik.setFieldValue("ijin_pendirian", label);
-                }}
-              >
-                <option value={"ADA"}>ADA</option>
-                <option value={"TIDAK"}>TIDAK</option>
-              </Select>
-            </Col>
-          </Row>
-          <Row>
-            <Col span={3} className="mt-2">
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  {" "}
-                  Persetujuan Penanaman Modal{" "}
-                </Form.Label>
-              </Form.Group>
-            </Col>
-            <Col span={8} className="mt-2">
-              <Select
-                style={{ width: "100%" }}
-                onChange={(label) => {
-                  formik.setFieldValue("ppmd_legalitas", label);
-                }}
-              >
-                <option value={"ADA"}>ADA</option>
-                <option value={"TIDAK"}>TIDAK</option>
-              </Select>
-            </Col>
-          </Row>
-          <Row>
-            <Col span={3} className="mt-2">
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  {" "}
-                  Persetujuan Penanaman Modal{" "}
-                </Form.Label>
-              </Form.Group>
-            </Col>
-            <Col span={8} className="mt-2">
-              <Select
-                style={{ width: "100%" }}
-                onChange={(label) => {
-                  formik.setFieldValue("ppmd_legalitas", label);
-                }}
-              >
-                <option value={"ADA"}>ADA</option>
-                <option value={"TIDAK"}>TIDAK</option>
-              </Select>
-            </Col>
-          </Row>
-          <Row>
-            <Col span={3} className="mt-2">
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  {" "}
-                  Ijin Usaha Tetap dari BPKM{" "}
-                </Form.Label>
-              </Form.Group>
-            </Col>
-            <Col span={8} className="mt-2">
-              <Select
-                style={{ width: "100%" }}
-                onChange={(label) => {
-                  formik.setFieldValue("ijin_usaha", label);
-                }}
-              >
-                <option value={"ADA"}>ADA</option>
-                <option value={"TIDAK"}>TIDAK</option>
-              </Select>
-            </Col>
-          </Row>
-          <Row>
-            <Col span={3} className="mt-2">
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}> TDP </Form.Label>
-              </Form.Group>
-            </Col>
-            <Col span={8} className="mt-2">
-              <Select
-                style={{ width: "100%" }}
-                onChange={(label) => {
-                  formik.setFieldValue("tdp_legalitas", label);
-                }}
-              >
-                <option value={"ADA"}>ADA</option>
-                <option value={"TIDAK"}>TIDAK</option>
-              </Select>
-            </Col>
-          </Row>
-          <Row>
-            <Col span={3} className="mt-2">
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  {" "}
-                  Surat Kuasa{" "}
-                </Form.Label>
-              </Form.Group>
-            </Col>
-            <Col span={8} className="mt-2">
-              <Select
-                style={{ width: "100%" }}
-                onChange={(label) => {
-                  formik.setFieldValue("surat_kuasa", label);
                 }}
               >
                 <option value={"ADA"}>ADA</option>
@@ -2434,7 +2493,23 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-           
+            <Col span={6}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  NILAI SEWA {" "}
+                </Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    // placeholder="Exp: Januar S."
+                    name="nilai_sewa"
+                    value={formik.values.nilai_sewa}
+                    onChange={formik.handleChange}
+                    isInvalid={!!formik.errors.nilai_sewa}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+
             <Col span={6}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
@@ -2502,7 +2577,6 @@ const SamplePage = () => {
         </>
 
         {/* DATA LAMA */}
-
 
         <Row>
           <Col span={24} className="justify-content-end d-flex mt-3">

@@ -74,6 +74,13 @@
 
 }
 
+.form-label {
+  color: black;
+  margin-bottom: 0.5rem;
+  font-family: 'NoirPro';
+}
+
+
 .ant-input[disabled] {
   color: black;
   background-color: aliceblue;

@@ -10,6 +10,7 @@ import Baseurl from "../../../../Api/BaseUrl";
 
 function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
   const id_mitras = mitraId;
+  const [metodePembayaran, setMetodePembayaran] = useState("");
   const [datareverensis, setDataReference] = useState({
     akta_pendirian: null,
     akta_perubahan_dasar: null,
@@ -596,10 +597,10 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 }}
               >
                <option>{datareverensis?.jenis_kartu_kredit}</option>
-                <option>TIDAK ADA</option>
-                <option>VISA</option>
-                <option>MASTER CARD</option>
-                <option>AMERICAN STANDARD</option>
+                <option value={"TIDAK ADA"}>TIDAK ADA</option>
+                <option value={"VISA"}>VISA</option>
+                <option value={"MASTER CARD"}>MASTER CARD</option>
+                <option value={"AMERICAN STANDARD"}>AMERICAN STANDARD</option>
               </Select>
             </Col>
             <Col sm={4}>
@@ -615,11 +616,11 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 }}
               >
                <option>{datareverensis?.bank_penerbit}</option>
-                <option>BCA</option>
-                <option>BRI</option>
-                <option>BNI</option>
-                <option>MANDIRI</option>
-                <option>PERMATA</option>
+                <option value={"BCA"}>BCA</option>
+                <option value={"BRI"}>BRI</option>
+                <option value={"BNI"}>BNI</option>
+                <option value={"MANDIRI"}>MANDIRI</option>
+                <option value={"PERMATA"}>PERMATA</option>
               </Select>
               
             </Col>
@@ -668,34 +669,23 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 }}
               >
                 <option>{datareverensis?.status_usaha}</option>
-                <option>TIDAK ADA</option>
-                <option>BCA</option>
-                <option>BRI</option>
-                <option>BNI</option>
-                <option>MANDIRI</option>
-                <option>PERMATA</option>
+                <option value={"BESAR"}>BESAR</option>
+                <option value={"MENENGAH"}>MENENGAH</option>
+                <option value={"KECIL"}>KECIL</option>
+               
               </Select>
             </Col>
             <Col sm={3}>
               <Form.Label>
                 <b>OMSET BULANAN :</b>
               </Form.Label>
-              <Select
-                style={{ width: "100%" }}
-                value={datareverensis.omset_bulanan}
-                onChange={(e) => {
-                  handleInputChange(e, "omset_bulanan");
-                  console.log(e);
-                }}
-              >
-               <option>{datareverensis?.omset_bulanan}</option>
-                <option>TIDAK ADA</option>
-                <option>BCA</option>
-                <option>BRI</option>
-                <option>BNI</option>
-                <option>MANDIRI</option>
-                <option>PERMATA</option>
-              </Select>
+              <Input 
+              value={datareverensis?.omset_bulanan}
+              onChange={(e) => {
+                handleInputChange(e.target.value, "omset_bulanan");
+                console.log(e.target.value);
+              }}
+              />
             
             </Col>
           </Row>
@@ -1021,19 +1011,21 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               <Form.Label>
                 <b>METODE PEMBAYARAN</b>
               </Form.Label>
+              
               <Select
                 style={{ width: "100%" }}
                 value={datareverensis.metode_pembayaran}
                 onChange={(e) => {
                   handleInputChange(e, "metode_pembayaran");
                   console.log(e);
+                  setMetodePembayaran(e.value)
                 }}
               >
-                <option>TRANSFER</option>
-                <option>TUNAI MUKA</option>
-                <option>TUNAI / CASH</option>
-                <option>CHECK / GIRO</option>
-                <option>CREDIT CARD</option>
+                <option value={"TRANSFER"}>TRANSFER</option>
+                <option value={"TUNAI MUKA"}>TUNAI MUKA</option>
+                <option value={"TUNAI"}>TUNAI / CASH</option>
+                <option value={"CHECK"}>CHECK / GIRO</option>
+                <option value={"CREDIT CARD"}>CREDIT CARD</option>
               </Select>
           
             </Col>
