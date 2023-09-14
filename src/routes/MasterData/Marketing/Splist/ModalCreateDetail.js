@@ -11,7 +11,7 @@ import ZustandStore from '../../../../zustand/Store/GetSelectKota';
 import ModalEditSPDetail from './EditModalSPDetail/ModalEditSPDetail';
 import EditDetailSPModal from '../../../../zustand/Store/EditDetailSPModal';
 import useServiceStatusStore from '../../../../zustand/Store/StatusService';
-function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik, detailData, refreshtable}) {
+function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, JenisBarangFormik, detailData, refreshtable }) {
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
     const [selectVia, setSelectVia] = useState("");
@@ -376,9 +376,9 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         const biayamel = Number(formik.values.biayamel) || 0;
         const berat = Number(formik.values.berat) || 1;
         const HasilTarifNumerik = Number(HasilTarif) || 0;
-    
+
         const totalBiayaTambahan = biayaBongkar + biayaMuat + biayamultimuat + biayamultidrop + biayamel;
-    
+
         if (DetailSemua?.service === 'Retail') {
             return (HasilTarifNumerik + totalBiayaTambahan) * berat;
         } else if (DetailSemua?.service === 'Charter') {
@@ -387,7 +387,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
             return 0; // atau pesan error jika tipe pengiriman tidak dikenal
         }
     };
-    
+
 
     useEffect(() => {
         const total = calculateTotal(formik.values.shipment, formik.values.berat, HasilTarif);
@@ -992,7 +992,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     </Row>
                     <hr />
                     <Row>
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <Form.Item
 
                                 label="Tarif"
@@ -1019,26 +1019,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 {/* <Button onClick={tarifalamat} className='mt-2' type='primary'>Cek Tarif</Button> */}
                             </Form.Item>
                         </Col>
-                        <Col sm={4}>
-                            {/* <Form.Item
-                                label="Bongkar"
-                                help={formik.touched.tarif && formik.errors.tarif}
-                                validateStatus={
-                                    formik.touched.tarif && formik.errors.tarif
-                                        ? 'error'
-                                        : 'success'
-                                }
-                                style={{ marginBottom: 2 }}
-                            >
-                                <Input
-                                    id="bongkar"
-                                    name="bongkar"
-                                    type="number"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.bongkar === undefined ? '0' : formik.values.bongkar}
-                                    onBlur={formik.handleBlur}
-                                />
-                            </Form.Item> */}
+                        <Col sm={3}>
+
                             <Form.Item
                                 label="Biaya Bongkar"
                                 help={formik.touched.bongkar && formik.errors.bongkar}
@@ -1064,26 +1046,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             </Form.Item>
 
                         </Col>
-                        <Col sm={4}>
-                            {/* <Form.Item
-                                label="Biaya Muat"
-                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
-                                validateStatus={
-                                    formik.touched.alamatmuat && formik.errors.alamatmuat
-                                        ? 'error'
-                                        : 'success'
-                                }
-                                style={{ marginBottom: 2 }}
-                            >
-                                <Input
-                                    id="biayamuat"
-                                    name="biayamuat"
-                                    type="number"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.biayamuat}
-                                    onBlur={formik.handleBlur}
-                                />
-                            </Form.Item> */}
+                        <Col sm={3}>
+
                             <Form.Item
                                 label="Biaya Muat"
                                 help={formik.touched.biayamuat && formik.errors.biayamuat}
@@ -1102,15 +1066,38 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
                                         formik.setFieldValue("biayamuat", Number(e.target.value.replace(/\D/g, '')))
                                     }}
-                                    value={formik.values.biayamuat  === undefined ? 0 : formik.values.biayamuat.toLocaleString('id-ID')}
+                                    value={formik.values.biayamuat === undefined ? 0 : formik.values.biayamuat.toLocaleString('id-ID')}
                                     onBlur={formik.handleBlur}
                                 />
                             </Form.Item>
-
                         </Col>
+                        <Col sm={3}>
+                                <Form.Item
+                                    label="Max Tonase"
+                                    help={formik.touched.biayamuat && formik.errors.biayamuat}
+                                    validateStatus={
+                                        formik.touched.biayamuat && formik.errors.biayamuat
+                                            ? 'error'
+                                            : 'success'
+                                    }
+                                    style={{ marginBottom: 2 }}
+                                >
+                                    <Input
+                                        id="biayamuat"
+                                        name="biayamuat"
+                                        type="text"
+                                        onChange={e => {
+                                            // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
+                                            formik.setFieldValue("biayamuat", Number(e.target.value.replace(/\D/g, '')))
+                                        }}
+                                        value={formik.values.biayamuat === undefined ? 0 : formik.values.biayamuat.toLocaleString('id-ID')}
+                                        onBlur={formik.handleBlur}
+                                    />
+                                </Form.Item>
+                            </Col>
                     </Row>
                     <Row>
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <Form.Item
                                 label="Biaya Multimuat"
                                 help={formik.touched.biayamultimuat && formik.errors.biayamultimuat}
@@ -1136,26 +1123,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             </Form.Item>
 
                         </Col>
-                        <Col sm={4}>
-                            {/* <Form.Item
-                                label="Biaya Multidrop"
-                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
-                                validateStatus={
-                                    formik.touched.alamatmuat && formik.errors.alamatmuat
-                                        ? 'error'
-                                        : 'success'
-                                }
-                                style={{ marginBottom: 2 }}
-                            >
-                                <Input
-                                    id="noSP"
-                                    name="biayamultidrop"
-                                    type="number"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.biayamultidrop === undefined ? 0 : formik.values.biayamultidrop}
-                                    onBlur={formik.handleBlur}
-                                />
-                            </Form.Item> */}
+                        <Col sm={3}>
                             <Form.Item
                                 label="Biaya Multidrop"
                                 help={formik.touched.biayamultidrop && formik.errors.biayamultidrop}
@@ -1181,28 +1149,35 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             </Form.Item>
 
                         </Col>
-                        <Col sm={4}>
-                            {/* <Form.Item
+                        <Col sm={3}>
+                            <Form.Item
                                 label="Biaya Mel"
-                                help={formik.touched.alamatmuat && formik.errors.alamatmuat}
+                                help={formik.touched.biayamel && formik.errors.biayamel}
                                 validateStatus={
-                                    formik.touched.alamatmuat && formik.errors.alamatmuat
+                                    formik.touched.biayamel && formik.errors.biayamel
                                         ? 'error'
                                         : 'success'
                                 }
                                 style={{ marginBottom: 2 }}
                             >
                                 <Input
-                                    id="noSP"
+                                    id="biayamel"
                                     name="biayamel"
-                                    type="number"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.biayamel === undefined ? 0 : formik.values.biayamel}
+                                    type="text"
+                                    onChange={e => {
+                                        // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
+                                        formik.setFieldValue("biayamel", Number(e.target.value.replace(/\D/g, '')))
+                                    }}
+                                    value={formik.values.biayamel === undefined ? 0 : formik.values.biayamel.toLocaleString('id-ID')}
+                                    // value={formik.values.biayamel }
                                     onBlur={formik.handleBlur}
                                 />
-                            </Form.Item> */}
+                            </Form.Item>
+
+                        </Col>
+                        <Col sm={3}>
                             <Form.Item
-                                label="Biaya Mel"
+                                label="Harga Selanjutnya"
                                 help={formik.touched.biayamel && formik.errors.biayamel}
                                 validateStatus={
                                     formik.touched.biayamel && formik.errors.biayamel
@@ -1903,7 +1878,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     </Row>
                     <hr />
                     <Row>
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <Form.Item
 
                                 label="Tarif"
@@ -1926,7 +1901,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 />
                             </Form.Item>
                         </Col>
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <Form.Item
                                 label="Biaya Bongkar"
                                 help={formik.touched.bongkar && formik.errors.bongkar}
@@ -1951,7 +1926,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             </Form.Item>
 
                         </Col>
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <Form.Item
                                 label="Biaya Muat"
                                 help={formik.touched.biayamuat && formik.errors.biayamuat}
@@ -1975,9 +1950,33 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             </Form.Item>
 
                         </Col>
+                        <Col sm={3}>
+                            <Form.Item
+                                label="Max Tonase"
+                                help={formik.touched.biayamuat && formik.errors.biayamuat}
+                                validateStatus={
+                                    formik.touched.biayamuat && formik.errors.biayamuat
+                                        ? 'error'
+                                        : 'success'
+                                }
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Input
+                                    id="biayamuat"
+                                    name="biayamuat"
+                                    type="text"
+                                    onChange={e => {
+                                        formik.setFieldValue("biayamuat", Number(e.target.value.replace(/\D/g, '')))
+                                    }}
+                                    value={formatToIDR(formik.values.biayamuat)}
+                                    onBlur={formik.handleBlur}
+                                />
+                            </Form.Item>
+
+                        </Col>
                     </Row>
                     <Row>
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <Form.Item
                                 label="Biaya Multimuat"
                                 help={formik.touched.biayamultimuat && formik.errors.biayamultimuat}
@@ -2001,7 +2000,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             </Form.Item>
 
                         </Col>
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <Form.Item
                                 label="Biaya Multidrop"
                                 help={formik.touched.biayamultidrop && formik.errors.biayamultidrop}
@@ -2026,9 +2025,56 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             </Form.Item>
 
                         </Col>
-                        <Col sm={4}>
+                        <Col sm={3}>
                             <Form.Item
                                 label="Biaya Mel"
+                                help={formik.touched.biayamel && formik.errors.biayamel}
+
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Input
+                                    id="biayamel"
+                                    name="biayamel"
+                                    type="text"
+                                    onChange={e => {
+                                        // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
+                                        formik.setFieldValue("biayamel", Number(e.target.value.replace(/\D/g, '')))
+                                    }}
+                                    value={(formik.values.biayamel) === null ? 0 : (formik.values.biayamel)}
+                                    onBlur={formik.handleBlur}
+                                />
+                            </Form.Item>
+
+                        </Col>
+                        <Col>
+                            <Form.Item
+                                label={`TOTAL ${DetailSemua?.service?.toUpperCase()}`}
+                                help={formik.touched.total && formik.errors.total}
+                                validateStatus={
+                                    formik.touched.total && formik.errors.total
+                                        ? 'error'
+                                        : 'success'
+                                }
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Input
+                                    id="total"
+                                    name="total"
+                                    disabled
+                                    type="text"  // Change type from "number" to "text" since formatted values will contain non-numeric characters.
+                                    onChange={e => {
+                                        const value = e.target.value.replace(/[^0-9]/g, ""); // Remove all non-numeric characters
+                                        formik.handleChange(e);
+                                        formik.setFieldValue("total", Number(value));
+                                    }}
+                                    value={formatToIDR(formik.values.total)}
+                                    onBlur={formik.handleBlur}
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col sm={3}>
+                            <Form.Item
+                                label="Harga Selanjutnya"
                                 help={formik.touched.biayamel && formik.errors.biayamel}
 
                                 style={{ marginBottom: 2 }}
