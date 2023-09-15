@@ -1,4 +1,4 @@
-import { Card, Table, Tag } from "antd";
+import { Card, Col, Row, Select, Table, Tag } from "antd";
 import React from "react";
 
 function ReportCustomer() {
@@ -141,7 +141,68 @@ function ReportCustomer() {
       <Card>
         <h5>Report Customer</h5>
         <hr />
-        <Table pagination={false} style={{overflowX: 'auto'}} dataSource={dataSource} columns={columns} />;
+        <Row>
+          <Col span={6}>
+          <label
+              className="mb-2"
+              htmlFor="muatKotaSelect"
+              style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}
+            >
+              Search Nama Perushaan :
+            </label>
+            <Select  
+            showSearch
+            style={{
+                width: "100%",
+
+                border: "1px solid #1A5CBF",
+                borderRadius: "5px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+              }}>
+
+            </Select>
+          </Col>
+          <Col span={6}>
+          <label
+              className="mb-2"
+              htmlFor="muatKotaSelect"
+              style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}
+            >
+              Search Tanggal Mulai :
+            </label>
+            <Select  
+            showSearch
+            style={{
+                width: "100%",
+
+                border: "1px solid #1A5CBF",
+                borderRadius: "5px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+              }}>
+
+            </Select>
+          </Col>
+          <Col span={6}>
+          <label
+              className="mb-2"
+              htmlFor="muatKotaSelect"
+              style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}
+            >
+              Search Tanggal Selesai :
+            </label>
+            <Select
+            showSearch
+            style={{
+                width: "100%",
+                border: "1px solid #1A5CBF",
+                borderRadius: "5px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+              }}>
+
+            </Select>
+          </Col>
+        </Row>
+        <Table className="mt-3" pagination={false} style={{overflowX: 'auto'}} dataSource={dataSource} columns={columns} />;
       </Card>
     </div>
   );

@@ -124,28 +124,16 @@ const SamplePage = () => {
       ),
     },
 
-    // {
-    //   title: "Keterangan",
-    //   dataIndex: "status",
-    //   key: "status",
-    // },
+    
   ];
   const columns = [
-    // {
-    //   name: "No ID",
-    //   selector: "id_customer",
-    //   key: "id_customer",
-    // },
+    
     {
       name: "No.",
       selector: (row) => row.no,
       width: "8%",
     },
-    // {
-    //   name: "Kode Mitra",
-    //   selector: (row) => row.id_mitra,
-    //   width: "10%",
-    // },
+   
     {
       name: "Nama Mitra",
       selector: (row) => row.mitra,
@@ -161,12 +149,7 @@ const SamplePage = () => {
       selector: (row) => row.kotaTujuan,
       key: "kotaTujuan",
     },
-    // {
-    //   name: "Jenis Kendaraan",
-    //   selector: "kendaraanJenis",
-    //   key: "kendaraanJenis",
-    //   width: "150px",
-    // },
+   
     {
       name: "Biaya Kirim",
       selector: "tarif",
@@ -187,31 +170,12 @@ const SamplePage = () => {
           ""
         ),
     },
-    // {
-    //   name: "Keterangan",
-    //   selector: "service_type",
-    //   key: "service_type",
-
-    // },
+    
     {
       name: "Action",
       selector: (record) => (
         <>
-          {/* <Button
-            onClick={() => handleView(record.id_price_mitra)}
-            type="primary"
-          >
-            <EditOutlined />
-          </Button> */}
-          {/* <Button
-            className="mt-2"
-            type="primary"
-            onClick={() => handleView(record.id_price_mitra)}
-          >
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <FormOutlined />
-            </span>
-          </Button> */}
+         
 
           <Button
             danger
@@ -346,39 +310,74 @@ const SamplePage = () => {
       onCancel() {},
     });
   };
-
-  const exportToExcel = () => {
-    const dataToExport = listData.map((item) => ({
-      "No.": item.no,
-      "Nama Mitra": item.mitra,
-      Muat: item.kotaAsal,
-      Bongkar: item.kotaTujuan,
-      "Biaya Kirim": formatRupiah(item.tarif),
-      Keterangan:
-        item.service_type === "Retail"
-          ? "Retail"
-          : item.service_type === "Charter"
-          ? "Charter"
-          : "",
-    }));
   
-    const ws = XLSX.utils.json_to_sheet(dataToExport);
-
-    // Menentukan range sel yang akan diwarnai (misalnya, A1 sampai F1)
-    const range = XLSX.utils.decode_range(ws["!ref"]);
-    for (let C = range.s.c; C <= range.e.c; ++C) {
-      const cellAddress = XLSX.utils.encode_cell({ r: 0, c: C }); // Baris pertama, kolom C
-      ws[cellAddress].s = { fill: { fgColor: { rgb: "0000FF" } } }; // Mengubah warna latar belakang ke biru (0000FF)
+  const exportData = listData.map((item) => ({
+    'No': item.no,
+    'Nama Mitra': item.mitra,
+    Muat: item.kotaAsal,
+    Bongkar: item.kotaTujuan,
+    'Biaya Kirim': formatRupiah(item.tarif),
+    Keterangan: item.service_type,
+  }));
+  
+  const exportToExcel = () => {
+    const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const fileExtension = '.xlsx';
+    const fileName = 'exported-data';
+  
+    // Create a worksheet
+    const ws = XLSX.utils.json_to_sheet(exportData);
+  
+    // Set column widths for specific columns
+    const columnWidths = [
+      { wch: 5 }, // 'No'
+      { wch: 30 }, // 'Nama Mitra'
+      { wch: 30 }, // 'Muat'
+      { wch: 30 }, // 'Bongkar'
+      { wch: 30 }, // 'Biaya Kirim'
+      { wch: 30 }, // 'Keterangan'
+    ];
+  
+    // Apply column widths to the worksheet
+    ws['!cols'] = columnWidths;
+  
+    // Apply blue background color to specific header cells
+    const blueBackgroundColor = { fgColor: { rgb: '0000FF' } }; // '0000FF' represents blue
+    const headerCells = ['A1', 'B1', 'C1', 'D1', 'E1', 'F1']; // Adjust cell references as needed
+  
+    headerCells.forEach((cellRef) => {
+      ws[cellRef].s = { ...ws[cellRef].s, ...blueBackgroundColor };
+    });
+  
+    // Center content in 'No' and 'Keterangan' cells
+    const centerStyle = { alignment: { vertical: 'center', horizontal: 'center' } };
+    ws['B1'].s = { ...ws['B1'].s, ...centerStyle }; // Center 'No'
+    ws['F1'].s = { ...ws['F1'].s, ...centerStyle }; // Center 'Keterangan'
+  
+    // Apply borders to all cells (including header)
+    const borderStyle = { style: 'thin', color: { rgb: '000000' } }; // '000000' represents black
+    for (let cellRef in ws) {
+      if (cellRef[0] === '!') continue; // Skip metadata
+  
+      ws[cellRef].s = { ...ws[cellRef].s, ...borderStyle };
     }
   
-    // Menambahkan header row ke dalam worksheet
-    XLSX.utils.sheet_add_aoa(ws, [["No.", "Nama Mitra", "Muat", "Bongkar", "Biaya Kirim", "Keterangan"]], { origin: "A1" });
-  
+    // Create a workbook
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Data Tarif Mitra");
+    XLSX.utils.book_append_sheet(wb, ws, 'data');
   
-    XLSX.writeFile(wb, "tarif_mitra.xlsx"); // Nama file Excel yang dihasilkan
+    // Generate Excel buffer
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  
+    // Create a Blob and download the Excel file
+    const blob = new Blob([excelBuffer], { type: fileType });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = fileName + fileExtension;
+    anchor.click();
   };
+  
   
 
   return (
