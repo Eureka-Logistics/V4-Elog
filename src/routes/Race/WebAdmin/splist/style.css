@@ -1,0 +1,86 @@
+.ant-drawer-right .ant-drawer-content-wrapper {
+  width: 820px !important;
+  padding: 15px;
+  background: #1a3368;
+}
+
+.ant-drawer-header {
+  display: flex;
+  flex: 0 1;
+  align-items: center;
+  padding: 16px 24px;
+  font-size: 16px;
+  background-color: #1a3368;
+  line-height: 22px;
+  border-bottom: 1px solid #1a3368;
+}
+.ant-drawer-title {
+  flex: 1 1;
+  margin: 0;
+  color: white;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 22px;
+}
+
+.ant-drawer-body {
+  flex: 1 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 24px;
+  overflow: auto;
+  background-color: #1a3368;
+}
+
+.card-top {
+  height: 55px;
+  margin-bottom: 150px;
+}
+.card-bottom {
+  margin-top: 200px;
+  height: 270px;
+}
+
+
+
+/* untuk tme line di bawah  */
+
+.timeline-container {
+  margin-top: 20px;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 10px; 
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #ccc;
+  z-index: 0;
+}
+
+.timeline-item {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.timeline-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: red;
+  margin: 0 auto;
+}
+
+.timeline-label {
+  margin-top: 8px;
+}
+
+
