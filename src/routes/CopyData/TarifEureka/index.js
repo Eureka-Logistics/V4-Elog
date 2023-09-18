@@ -23,6 +23,7 @@ import {
 import Baseurl from "../../../Api/BaseUrl";
 import axios from "axios";
 import { Table } from "react-bootstrap";
+import XLSX from "xlsx";
 
 const SamplePage = () => {
   const router = useHistory();
@@ -33,48 +34,29 @@ const SamplePage = () => {
   let nomor = 1;
 
   const columns = [
-    // {
-    //   title: "id_price",
-    //   dataIndex: "id_price",
-    //   key: "id_price",
-    // },
-    // {
-    //   title: "id_muat_kota",
-    //   dataIndex: "id_muat_kota",
-    //   key: "id_muat_kota",
-    // },
-    // {
-    //   title: "id_tujuan_kota",
-    //   dataIndex: "id_tujuan_kota",
-    //   key: "id_tujuan_kota",
-    // },
-    // {
-    //   title: "id_kendaraan_jenis",
-    //   dataIndex: "id_kendaraan_jenis",
-    //   key: "id_kendaraan_jenis",
-    // },
+    
     {
       title: "No.",
       dataIndex: "no",
       key: "no",
     },
 
-    // {
-    //   title: "Jenis Pelayanan",
-    //   dataIndex: "service_type",
-    //   key: "service_type",
-    //   render: (text) => {
-    //     let tagColor = "";
-    //     if (text === "Retail") {
-    //       tagColor = "lime";
-    //     } else if (text === "Charter") {
-    //       tagColor = "orange";
-    //     } else if (text === "reguler") {
-    //       tagColor = "blue";
-    //     }
-    //     return <Tag color={tagColor}>{text}</Tag>;
-    //   },
-    // },
+      // {
+      //   title: "Jenis Pelayanan",
+      //   dataIndex: "service_type",
+      //   key: "service_type",
+      //   render: (text) => {
+      //     let tagColor = "";
+      //     if (text === "Retail") {
+      //       tagColor = "lime";
+      //     } else if (text === "Charter") {
+      //       tagColor = "orange";
+      //     } else if (text === "reguler") {
+      //       tagColor = "blue";
+      //     }
+      //     return <Tag color={tagColor}>{text}</Tag>;
+      //   },
+      // },
     {
       title: "Jenis Kiriman",
       dataIndex: "jenis_kiriman",
@@ -273,6 +255,41 @@ const SamplePage = () => {
   const onShowSizeChange = (current, pageSize) => {
     fetchData(current, pageSize);
   };
+ 
+
+  const exportToExcel = () => {
+    const dataToExport = listData.map((record) => ({
+      // Sesuaikan dengan kolom-kolom yang ingin diekspor
+      "No.": record.no,
+      "Jenis Kiriman": record.jenis_kiriman,
+      "Muat": record.kotaAsal,
+      "Tujuan": record.kotaTujuan,
+      "Jenis Kendaraan": record.kendaraanJenis,
+      "Max Tonase(kg/koli)": record.max_tonase,
+      "Harga": record.harga_selanjutnya,
+    }));
+  
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+  
+    // Set lebar kolom sesuai kebutuhan
+    ws['!cols'] = [
+      { wch: 5 }, // Lebar kolom No.
+      { wch: 15 }, // Lebar kolom Jenis Kiriman
+      { wch: 30 }, // Lebar kolom Muat
+      { wch: 30 }, // Lebar kolom Tujuan
+      { wch: 20 }, // Lebar kolom Jenis Kendaraan
+      { wch: 20 }, // Lebar kolom Max Tonase(kg/koli)
+      { wch: 20 }, // Lebar kolom Harga
+    ];
+    
+  
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Data Tarif");
+  
+    // Simpan file Excel
+    XLSX.writeFile(wb, "data_tarif.xlsx");
+  };
+  
 
   return (
     <div>
@@ -360,6 +377,12 @@ const SamplePage = () => {
           </Col>
 
           <Col sm={12} className="d-flex justify-content-end mt-4">
+            <Button
+              style={{ backgroundColor: "green", color: "white" }}
+              onClick={exportToExcel}
+            >
+             Export Excel
+            </Button>
             <Button
               style={{ backgroundColor: "#1A5CBF", color: "white" }}
               onClick={handleAdd}

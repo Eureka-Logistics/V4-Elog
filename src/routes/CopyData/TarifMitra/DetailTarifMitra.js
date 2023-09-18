@@ -386,7 +386,7 @@ function DetailTarifMitra() {
             Menghubungkan input ritase dengan state ritase
             <Input
               placeholder={DetailDataTarif.ritase}
-              value={ritase}
+              value={ritase}   
               onChange={(e) => {
                 console.log(e.target.value);
                 setRitase(e.target.value);

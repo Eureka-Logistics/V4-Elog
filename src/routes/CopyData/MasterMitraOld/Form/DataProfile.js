@@ -1113,7 +1113,7 @@ const SamplePage = () => {
             <Form.Group>
               <Form.Label style={{ fontWeight: "bold" }}>Kota : </Form.Label>
               <Select
-              showSearch
+              showSearch  
                 // mode="multiple"
                 placeholder="Pilih Kota"
                 name="npwp_kota"
