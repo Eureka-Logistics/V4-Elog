@@ -94,6 +94,10 @@ const SamplePage = () => {
       Value: "2",
       label: "Koli",
     },
+    {
+      Value: "3",
+      label: "Pcs",
+    },
   ];
 
   const formik = useFormik({

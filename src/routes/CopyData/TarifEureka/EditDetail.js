@@ -339,6 +339,7 @@ function EditDetail() {
             >
               <Option value="Kg">Kg</Option>
               <Option value="Koli">Koli</Option>
+              <Option value="Pcs">Pcs</Option>
             </Select>
           </Col>
           <Col className="mt-2" span={4}>
