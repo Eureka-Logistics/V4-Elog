@@ -434,11 +434,11 @@ function Tarif() {
                 ))}
             </Select>
           </Col>
-          <Col span={6} className="justify-content-end d-flex">
+          {/* <Col span={6} className="justify-content-end d-flex">
             <Button style={{backgroundColor: 'green', color: 'white'}} className="mt-4">
               Export Excel
             </Button>
-          </Col>
+          </Col> */}
         </Row>
       </Card>
       {/* Tarif Eureka */}

@@ -14,6 +14,7 @@ import {
   EyeOutlined,
   FormOutlined,
 } from "@ant-design/icons";
+import XLSX from "xlsx";
 
 const SamplePage = () => {
   const history = useHistory();
@@ -123,11 +124,7 @@ const SamplePage = () => {
           ""
         ),
     },
-    // {
-    //   name: "Code",
-    //   selector: (row) => row.mitraCode,
-    //   width: "100px",
-    // },
+    
     {
       name: "Mitra Name",
       selector: (row) => row.mitraName,
@@ -260,6 +257,78 @@ const SamplePage = () => {
     setFilter(event.target.value);
   };
 
+  const exportToExcel = () => {
+    // Map your table data to the format expected by XLSX
+    const dataToExport = dataapiawal.map((item, index) => ({
+      No: { t: "s", v: index + 1, s: { alignment: { horizontal: "center", vertical: 'center' }, color: { rgb: "6495ED" } } },
+      "Mitra Code": {  t: "s",
+      v: item.mitraCode,
+      s: { alignment: { horizontal: "center" } },},
+      "Mitra Name": {  t: "s",
+      v: item.mitraName,
+      s: { alignment: { horizontal: "center" } },},
+      "Status": {  t: "s",
+      v: item.status,
+      s: { alignment: { horizontal: "center" } },},
+     
+      "Awal Kontrak": {  t: "s",
+      v: item.awalKontrak,
+      s: { alignment: { horizontal: "center" } },},
+      "Akhir Kontrak": {  t: "s",
+      v: item.akhirKontrak,
+      s: { alignment: { horizontal: "center" } },},
+      "PIC": {  t: "s",
+      v: item.pic,
+      s: { alignment: { horizontal: "center" } },},
+      // Add other columns here as needed
+    }));
+  
+    // Convert the data to a worksheet
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+  
+    // Set column widths
+    ws["!cols"] = [
+      { wch: 5 },
+      { wch: 15 },
+      { wch: 25 },
+      { wch: 11 },
+      { wch: 25 },
+      { wch: 25 },
+      { wch: 16 },
+    ];
+  
+    // Create a new workbook and add the worksheet
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Table Data");
+  
+    // Write the workbook to a buffer
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+  
+    // Create a Blob from the buffer
+    const blob = new Blob([excelBuffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+  
+    // Define the file name
+    const fileName = "table_data.xlsx";
+  
+    // Check if the browser supports saving files
+    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+      // For IE
+      window.navigator.msSaveOrOpenBlob(blob, fileName);
+    } else {
+      // For other browsers, create a download link and trigger a click event
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }
+  };
+
   return (
     <div>
       <Card>
@@ -306,13 +375,16 @@ const SamplePage = () => {
                 </Select>
               </Col>
               <Col sm={10} className="d-flex justify-content-end mt-3">
+                <Button style={{color: 'white', backgroundColor: 'green', fontFamily: 'NoirPro'}} onClick={exportToExcel}>
+                  Export Excel
+                </Button>
                 <CreateMitraModal />
               </Col>
             </Row>
 
             <Table
             style={{ overflow: "auto"}}
-            className="mt-2"
+            className="mt-3"
               columns={columnss}
               dataSource={dataapiawal}
               pagination={false}
