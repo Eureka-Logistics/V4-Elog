@@ -47,7 +47,8 @@ const SamplePage = () => {
   const [IDKotaNPWP, setIDKotaNPWP] = useState("");
   const [PicID, setPicID] = useState("");
   const [DataPIC, setDataPIC] = useState("");
-
+  const [DataJenisKiriman, setDataJenisKiriman] = useState("");
+  
   const formik = useFormik({
     initialValues: {
       kode: "",
@@ -711,6 +712,7 @@ const SamplePage = () => {
                 placeholder="Pilih Jenis Kiriman"
                 mode="multiple" 
                 value={formik.values.jenis_kiriman}
+               
                 onChange={(selectedValues) => {
                   const formattedValue = selectedValues
                     .map((value) => value.toString())
