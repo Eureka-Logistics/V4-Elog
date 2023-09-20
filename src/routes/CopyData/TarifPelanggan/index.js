@@ -348,7 +348,7 @@ const SamplePage = () => {
       a.href = url;
       a.download = fileName;
       document.body.appendChild(a);
-      a.click();
+      a.click(); 
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     }

@@ -48,7 +48,7 @@ const SamplePage = () => {
   const [PicID, setPicID] = useState("");
   const [DataPIC, setDataPIC] = useState("");
   const [DataJenisKiriman, setDataJenisKiriman] = useState("");
-  
+
   const formik = useFormik({
     initialValues: {
       kode: "",
@@ -61,7 +61,7 @@ const SamplePage = () => {
       jumlah_armada: "",
       jumlah_sdm_operasional: "",
       cabang: "",
-      jenis_kiriman: "",
+      jenis_kiriman: DataJenisKiriman,
       wilayah: KodeProvinsi,
       tujuan: KodeKota,
       kontrak: "",
@@ -172,7 +172,7 @@ const SamplePage = () => {
                 " " +
                 formik.values.npwp_provinsi +
                 " " +
-                ", Kota" +
+                ", " +
                 " " +
                 formik.values.npwp_kota +
                 " " +
@@ -358,6 +358,27 @@ const SamplePage = () => {
     { label: "LCL", value: "LCL" },
   ];
 
+  const options = [
+    {
+      value: "RETAIL",
+    },
+    {
+      value: "CHARTER",
+    },
+    {
+      value: "FCL",
+    },
+    {
+      value: "LCL",
+    },
+  ];
+
+  // const { label, value, closable, onClose } = props;
+  // const onPreventMouseDown = (event) => {
+  //   event.preventDefault();
+  //   event.stopPropagation();
+  // };
+
   return (
     <div>
       <Form onSubmit={formik.handleSubmit}>
@@ -370,6 +391,7 @@ const SamplePage = () => {
         <h5 style={{ color: "#1A5CBF" }}>
           NAMA DAN ALAMAT PERUSAHAAN(Sold to Party )
         </h5>
+
         <hr />
         <Row>
           <Col span={4}>
@@ -402,7 +424,7 @@ const SamplePage = () => {
                 Title:
               </label>
               <Select
-              showSearch
+                showSearch
                 className="mt-2"
                 value={formik.values.title}
                 style={{ width: "100%" }}
@@ -572,8 +594,8 @@ const SamplePage = () => {
                 PIC Purchasing :
               </Form.Label>
               <Select
-              showSearch
-               optionFilterProp="value"
+                showSearch
+                optionFilterProp="value"
                 name="pic_id"
                 style={{ width: "100%", marginTop: "10px" }}
                 onChange={(value, e) => {
@@ -706,18 +728,42 @@ const SamplePage = () => {
               <Form.Label style={{ fontWeight: "bold" }}>
                 Jenis Kiriman :
               </Form.Label>
+              {/* <Select
+                mode="multiple"
+                name="jenis_kiriman"
+                placeholder="Pilih Jenis Kiriman"
+                style={{
+                  width: "100%",
+                }}
+                options={options}
+                onChange={(e) => {
+                  console.log(e);
+                  setDataJenisKiriman(e);
+                }}
+              /> */}
               <Select
                 style={{ width: "100%" }}
                 name="jenis_kiriman"
                 placeholder="Pilih Jenis Kiriman"
-                mode="multiple" 
-                value={formik.values.jenis_kiriman}
-               
+                mode="multiple"
                 onChange={(selectedValues) => {
-                  const formattedValue = selectedValues
-                    .map((value) => value.toString())
-                    .join(",");
-                  formik.setFieldValue("jenis_kiriman", formattedValue);
+                  
+                  const nonEmptyValues = selectedValues.filter(
+                    (value) => value !== ""
+                  );
+
+                 
+                  if (nonEmptyValues.length > 0) {
+                    const formattedValue = nonEmptyValues
+                      .map((value) => value.toString())
+                      .join(",");
+                    formik.setFieldValue("jenis_kiriman", formattedValue);
+                  } else {
+                   
+                    formik.setFieldValue("jenis_kiriman", "");
+                  }
+
+                  console.log(selectedValues);
                 }}
               >
                 {jenisKirimanOptions.map((option) => (
@@ -744,11 +790,19 @@ const SamplePage = () => {
                 <option value="Vendor Darat">Vendor Darat</option>
                 <option value="Vendor Laut">Vendor Laut</option>
                 <option value="Vendor Udara">Vendor Udara</option>
-                <option value="Vendor Darat dan Laut">Vendor Darat dan Laut</option>
-                <option value="Vendor Darat dan Udara">Vendor Darat dan Udara</option>
+                <option value="Vendor Darat dan Laut">
+                  Vendor Darat dan Laut
+                </option>
+                <option value="Vendor Darat dan Udara">
+                  Vendor Darat dan Udara
+                </option>
                 <option value="Vendor Kirim Mobil">Vendor Kirim Mobil</option>
-                <option value="Vendor Internasional">Vendor Internasional</option>
-                <option value="Vendor Dokumney dan Paket">Vendor Dokumney dan Paket</option>
+                <option value="Vendor Internasional">
+                  Vendor Internasional
+                </option>
+                <option value="Vendor Dokumney dan Paket">
+                  Vendor Dokumney dan Paket
+                </option>
               </Select>
               {/* <InputGroup>
                   <Form.Control
@@ -769,7 +823,7 @@ const SamplePage = () => {
                 Wilayah (Operasional):
               </Form.Label>
               <Select
-              showSearch  // Aktifkan fitur pencarian
+                showSearch // Aktifkan fitur pencarian
                 placeholder="Silahkan Pilih Wilayah"
                 name="wilayah"
                 style={{ width: "100%" }}
@@ -779,7 +833,9 @@ const SamplePage = () => {
                   console.log(e.key);
                 }}
                 filterOption={(inputValue, option) =>
-                  option.props.children.toLowerCase().includes(inputValue.toLowerCase())
+                  option.props.children
+                    .toLowerCase()
+                    .includes(inputValue.toLowerCase())
                 }
               >
                 {DataWilayah &&
@@ -850,17 +906,33 @@ const SamplePage = () => {
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.awal_kontrak}
                   />
+
                 </InputGroup> */}
+
+              {/* <DatePicker
+                placeholder="Tanggal Berapa"
+                required
+                format={"DD-MM-YYYY"}
+                style={{ width: "100%" }}
+                onChange={(date) =>
+                  handlechangeAmbilBensin(
+                    "TanggalBerapa",
+                    date && date.format("DD-MM-YYYY"),
+                    formik.setFieldValue("awal_kontrak", date)
+
+                  )
+                }
+              ></DatePicker> */}
               <DatePicker
-            
                 style={{ width: "100%" }}
                 value={
                   formik.values.awal_kontrak
-                    ? moment(formik.values.awal_kontrak)
+                    ? moment(formik.values.awal_kontrak, "DD-MM-YYYY")
                     : null
                 }
-                onChange={(date, dateString) => {
-                  formik.setFieldValue("awal_kontrak", dateString);
+                format="DD-MM-YYYY" // Format "tanggal bulan tahun"
+                onChange={(date) => {
+                  formik.setFieldValue("awal_kontrak", date);
                 }}
               />
             </Form.Group>
@@ -882,9 +954,10 @@ const SamplePage = () => {
                 style={{ width: "100%" }}
                 value={
                   formik.values.akhir_kontrak
-                    ? moment(formik.values.akhir_kontrak)
+                    ? moment(formik.values.akhir_kontrak, "DD-MM-YYYY")
                     : null
                 }
+                format="DD-MM-YYYY" // Format "tanggal bulan tahun"
                 onChange={(date, dateString) => {
                   formik.setFieldValue("akhir_kontrak", dateString);
                 }}
@@ -977,7 +1050,6 @@ const SamplePage = () => {
               </InputGroup>
             </Form.Group>
           </Col>
-         
         </Row>
         <br />
         <hr />
@@ -1082,7 +1154,7 @@ const SamplePage = () => {
                 Provinsi :{" "}
               </Form.Label>
               <Select
-              showSearch
+                showSearch
                 // mode="multiple"
                 placeholder="Pilih Provinsi"
                 name="npwp_provinsi"
@@ -1115,7 +1187,7 @@ const SamplePage = () => {
             <Form.Group>
               <Form.Label style={{ fontWeight: "bold" }}>Kota : </Form.Label>
               <Select
-              showSearch  
+                showSearch
                 // mode="multiple"
                 placeholder="Pilih Kota"
                 name="npwp_kota"
@@ -1284,7 +1356,7 @@ const SamplePage = () => {
                         " " +
                         formik.values.npwp_provinsi +
                         " " +
-                        ", Kota" +
+                        "," +
                         " " +
                         formik.values.npwp_kota +
                         " " +
@@ -1566,21 +1638,21 @@ const SamplePage = () => {
             </Form.Group>
           </Col>
           <Col span={8} className="mt-2">
-              <Form.Group>
-                <Form.Label style={{ fontWeight: "bold" }}>
-                  Jumlah Unit :
-                </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    type="number"
-                    name="jumlah_unit"
-                    value={formik.values.jumlah_unit}
-                    onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.jumlah_unit}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
+            <Form.Group>
+              <Form.Label style={{ fontWeight: "bold" }}>
+                Jumlah Unit :
+              </Form.Label>
+              <InputGroup>
+                <Form.Control
+                  type="number"
+                  name="jumlah_unit"
+                  value={formik.values.jumlah_unit}
+                  onChange={formik.handleChange}
+                  isInvalid={!!formik.errors.jumlah_unit}
+                />
+              </InputGroup>
+            </Form.Group>
+          </Col>
         </Row>
 
         {/* DATA REFERENSI */}
@@ -1601,7 +1673,6 @@ const SamplePage = () => {
             </Col>
             <Col span={8} className="mt-2">
               <Select
-             
                 style={{ width: "100%" }}
                 onChange={(label) => {
                   formik.setFieldValue("po_legalitas", label);
@@ -2498,7 +2569,7 @@ const SamplePage = () => {
             <Col span={6}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
-                  NILAI SEWA {" "}
+                  NILAI SEWA{" "}
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
