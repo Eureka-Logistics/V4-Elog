@@ -271,7 +271,14 @@ const SamplePage = () => {
 
   const exportToExcel = () => {
     const dataToExport = listData.map((item, index) => ({
-      No: { t: "s", v: index + 1, s: { alignment: { horizontal: "center" , vertical: 'center' }, color: { rgb: "6495ED" } } },
+      No: {
+        t: "s",
+        v: index + 1,
+        s: {
+          alignment: { horizontal: "center", vertical: "center" },
+          color: { rgb: "6495ED" },
+        },
+      },
       "Kode Tarif": {
         t: "s",
         v: item.kode_tarif,
@@ -348,7 +355,7 @@ const SamplePage = () => {
       a.href = url;
       a.download = fileName;
       document.body.appendChild(a);
-      a.click(); 
+      a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     }

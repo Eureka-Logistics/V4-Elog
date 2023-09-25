@@ -1360,7 +1360,7 @@ const SamplePage = () => {
                         " " +
                         formik.values.npwp_kota +
                         " " +
-                        ", Kecamatan" +
+                        ", Kecamatan" + 
                         " " +
                         formik.values.npwp_kecamatan +
                         " " +
@@ -1401,7 +1401,7 @@ const SamplePage = () => {
         <h5 style={{ color: "#1A5CBF" }}>
           DATA ACCOUNTING (Accounting Information)
         </h5>
-        <br />
+        <br />  
         <Row>
           <Col span={8}>
             <Form.Group>
