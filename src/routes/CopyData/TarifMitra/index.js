@@ -76,6 +76,11 @@ const SamplePage = () => {
       key: "kotaTujuan",
     },
     {
+      title: "Jenis Kendaraan",
+      dataIndex: "kendaraanJenis",
+      key: "kendaraanJenis",
+    },
+    {
       title: "Biaya Kirim",
       dataIndex: "tarif",
       key: "tarif",
