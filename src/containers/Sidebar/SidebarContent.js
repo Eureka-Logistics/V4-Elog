@@ -158,7 +158,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               {jobdesk === "akunting" ? (
                 <>
                   <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
-                    <Button
+                    {/* <Button
                       size="lg"
                       style={{
                         width: 180,
@@ -192,7 +192,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       variant="danger"
                     >
                       ADD USER BARU
-                    </Button>
+                    </Button> */}
                   </div>
                 </>
               ) : (
@@ -295,14 +295,6 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       {/* <span style={{ fontWeight: "bold",  color: 'white' }}>Data Alamat All</span> */}
                     </Link>
                   </Menu.Item>
-                  <div
-                    className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
-                  >
-                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
-                      Tarif
-                    </h6>
-                  </div>
                   <Menu.Item key="Tarif Customer" className={activeMenu === "/pelanggantarif" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/pelanggantarif"
@@ -314,26 +306,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item> 
-                  <Menu.Item key="Tarif Eureka" disabled>
-                    <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
-                      {/* <i className="icon icon-widgets" /> */}
-                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "white" }}>
-                        Tarif Eureka
-                      </span>
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="Tarif Mitra" disabled>
-
-                    <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
-                      {/* <i className="icon icon-widgets" />
-                       */}
-                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "white" }}>
-                        Tarif Mitra
-                      </span>
-                    </Link>
-                  </Menu.Item>
+                 
                   <div
                     className="d-flex justify-content-center"
                     style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
@@ -549,7 +522,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         Menu SP
                       </h6>
                     </div>
-                    <Menu.Item disabled key="SP Lists" className={activeMenu === "/akunting/splistwaitingakunting" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Menu.Item  key="SP Lists" className={activeMenu === "/akunting/splistwaitingakunting" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                       <Link
                         to="/akunting/splistwaitingakunting"
                         style={{ textDecoration: "none" }}
@@ -561,7 +534,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         </span>
                       </Link>
                     </Menu.Item>
-                    <Menu.Item disabled key="SP Lists All" className={activeMenu === "/akunting/splistakuntingbaru" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Menu.Item  key="SP Lists All" className={activeMenu === "/akunting/splistakuntingbaru" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                       <Link
                         to="/akunting/splistakuntingbaru"
                         style={{ textDecoration: "none" }}
@@ -573,7 +546,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
 
-                    <Menu.Item disabled key="Approve SP" className={activeMenu === "/approvesplistall" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Menu.Item  key="Approve SP" className={activeMenu === "/approvesplistall" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                       <Link
                         to="/approvesplistall"
                         style={{ textDecoration: "none" }}
@@ -585,6 +558,45 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </Menu.ItemGroup>
+                  <div
+                    className="d-flex justify-content-center"
+                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
+                  >
+                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
+                      Tarif
+                    </h6>
+                  </div>
+                  <Menu.Item key="Tarif Customer" className={activeMenu === "/pelanggantarif" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Link
+                      to="/pelanggantarif"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '8px' }} />
+                      <span style={{ fontWeight: "bold", color: "white" }}>
+                        Tarif Customer
+                      </span>
+                    </Link>
+                  </Menu.Item> 
+                  <Menu.Item key="Tarif Eureka" >
+                    <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
+                      {/* <i className="icon icon-widgets" /> */}
+                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
+                      <span style={{ fontWeight: "bold", color: "white" }}>
+                        Tarif Eureka
+                      </span>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="Tarif Mitra" disabled>
+
+                    <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
+                      {/* <i className="icon icon-widgets" />
+                       */}
+                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
+                      <span style={{ fontWeight: "bold", color: "white" }}>
+                        Tarif Mitra
+                      </span>
+                    </Link>
+                  </Menu.Item>
                   {/* <SubMenu key="monitoring" title="Monitoring">
                     <Menu.Item key="Data Pesanan Customer">
                       <Link to="/akunting/detaildatacustomer" style={{ textDecoration: "none" }}>

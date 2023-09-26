@@ -121,9 +121,9 @@ function EditDetailPosition() {
               />
             </div>
           </Col>
-          <Col span={24} className='mt-3'>
+          {/* <Col span={24} className='mt-3'>
           <label style={{fontWeight: 'bold'}}>ID Bisnis Unit Employee :</label>
-            {/* Menghubungkan input tarif dengan state tarif */}
+           
             <div style={{ paddingRight: "30px" }}>
               <Input
                 className="mt-2"
@@ -134,7 +134,7 @@ function EditDetailPosition() {
                 }}
               />
             </div>
-          </Col>
+          </Col> */}
         </Row>
         <Row>
           <Col span={24} className="d-flex justify-content-end mt-2">

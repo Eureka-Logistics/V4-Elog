@@ -297,7 +297,7 @@ function Index() {
             >
               {filter.map((item) => (
                 <Select.Option key={item.value} value={item.value}>
-                  {item.value}
+                  {item.position}
                 </Select.Option>
               ))}
             </Select>

@@ -30,33 +30,33 @@ const SamplePage = () => {
   const [limit, setLimit] = useState(10);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
+  const [exporting, setExporting] = useState(false);
 
   let nomor = 1;
 
   const columns = [
-    
     {
       title: "No.",
       dataIndex: "no",
       key: "no",
     },
 
-      // {
-      //   title: "Jenis Pelayanan",
-      //   dataIndex: "service_type",
-      //   key: "service_type",
-      //   render: (text) => {
-      //     let tagColor = "";
-      //     if (text === "Retail") {
-      //       tagColor = "lime";
-      //     } else if (text === "Charter") {
-      //       tagColor = "orange";
-      //     } else if (text === "reguler") {
-      //       tagColor = "blue";
-      //     }
-      //     return <Tag color={tagColor}>{text}</Tag>;
-      //   },
-      // },
+    // {
+    //   title: "Jenis Pelayanan",
+    //   dataIndex: "service_type",
+    //   key: "service_type",
+    //   render: (text) => {
+    //     let tagColor = "";
+    //     if (text === "Retail") {
+    //       tagColor = "lime";
+    //     } else if (text === "Charter") {
+    //       tagColor = "orange";
+    //     } else if (text === "reguler") {
+    //       tagColor = "blue";
+    //     }
+    //     return <Tag color={tagColor}>{text}</Tag>;
+    //   },
+    // },
     {
       title: "Jenis Kiriman",
       dataIndex: "jenis_kiriman",
@@ -255,41 +255,111 @@ const SamplePage = () => {
   const onShowSizeChange = (current, pageSize) => {
     fetchData(current, pageSize);
   };
- 
 
-  const exportToExcel = () => {
-    const dataToExport = listData.map((record) => ({
-      // Sesuaikan dengan kolom-kolom yang ingin diekspor
-      "No.": record.no,
-      "Jenis Kiriman": record.jenis_kiriman,
-      "Muat": record.kotaAsal,
-      "Tujuan": record.kotaTujuan,
-      "Jenis Kendaraan": record.kendaraanJenis,
-      "Max Tonase(kg/koli)": record.max_tonase,
-      "Harga": record.harga_selanjutnya,
-    }));
-  
-    const ws = XLSX.utils.json_to_sheet(dataToExport);
-  
-    // Set lebar kolom sesuai kebutuhan
-    ws['!cols'] = [
-      { wch: 5 }, // Lebar kolom No.
-      { wch: 15 }, // Lebar kolom Jenis Kiriman
-      { wch: 30 }, // Lebar kolom Muat
-      { wch: 30 }, // Lebar kolom Tujuan
-      { wch: 20 }, // Lebar kolom Jenis Kendaraan
-      { wch: 20 }, // Lebar kolom Max Tonase(kg/koli)
-      { wch: 20 }, // Lebar kolom Harga
-    ];
-    
-  
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Data Tarif");
-  
-    // Simpan file Excel
-    XLSX.writeFile(wb, "data_tarif.xlsx");
+  const exportToExcel = async () => {
+    // Set the exporting flag to true
+    setExporting(true);
+
+    // Fetch all data before exporting
+    try {
+      const response = await httpClient.get(
+        `tarif/get-tarifeureka?limit=${total}&page=1&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=`
+      );
+      const data = response.data;
+
+      if (data.status.code === 200) {
+        const allData = data.data.order;
+
+        const dataToExport = allData.map((record) => ({
+          // Sesuaikan dengan kolom-kolom yang ingin diekspor
+          "No.": record.no,
+          "Jenis Kiriman": record.jenis_kiriman,
+          "Service Type": record.service_type,
+          Muat: record.kotaAsal,
+          Tujuan: record.kotaTujuan,
+          "Jenis Kendaraan": record.kendaraanJenis,
+          Satuan: record.satuan,
+          "Uang Jalan": {
+            v:  record.uang_jalan,
+            s: { alignment: { horizontal: "left" } },
+          },
+          "Maintenance Cost": {
+            v: record.maintenance_cost,
+            s: { alignment: { horizontal: "left" } },
+          },
+          "Fixed Cost": {
+            v: record.fixed_cost,
+            s: { alignment: { horizontal: "left" } },
+          },
+          "Max Tonase(kg/koli)": { 
+            v: record.max_tonase , 
+            s: { alignment: { horizontal: 'left' } },
+          },
+          Amount: { 
+            v: record.amount, 
+            s: { alignment: { horizontal: 'left' } },
+          }, 
+          Percent: { 
+            v: `${record.percent} %`, 
+            s: { alignment: { horizontal: 'left' } },
+          },
+          Tarif: { 
+            v: record.tarif, 
+            s: { alignment: { horizontal: 'left' } },
+          },
+          Harga: { 
+            v: record.harga_selanjutnya, 
+            s: { alignment: { horizontal: 'left' } },
+          }, 
+          "Date Create": record.date_created,
+        }));
+
+        const ws = XLSX.utils.json_to_sheet(dataToExport);
+
+        // Set lebar kolom sesuai kebutuhan
+        ws["!cols"] = [
+          { wch: 5 }, // Lebar kolom No.
+          { wch: 15 }, // Lebar kolom Jenis Kiriman
+          { wch: 15 }, // Lebar kolom Jenis Kiriman
+          { wch: 30 }, // Lebar kolom Muat
+          { wch: 30 }, // Lebar kolom Tujuan
+          { wch: 20 }, // Lebar kolom Jenis Kendaraan
+          { wch: 15 }, // Lebar kolom Max Tonase(kg/koli)
+          { wch: 20 }, // Lebar kolom Harga
+          { wch: 20 }, // Lebar kolom Harga
+          { wch: 20 }, // Lebar kolom Harga
+          { wch: 20 }, // Lebar kolom Harga
+          { wch: 20 }, // Lebar kolom Harga
+          { wch: 20 }, // Lebar kolom Harga
+          { wch: 20 }, // Lebar kolom Harga
+          { wch: 20 }, // Lebar kolom Harga
+          { wch: 30 }, // Lebar kolom Harga
+        ];
+
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Data Tarif");
+
+        // Simpan file Excel
+        XLSX.writeFile(wb, "data_tarif.xlsx");
+      } else {
+        console.log("Error: ", data.status.message);
+      }
+    } catch (error) {
+      console.log("Error: ", error.message);
+    } finally {
+      // Set the exporting flag back to false after export is complete
+      setExporting(false);
+    }
   };
-  
+
+  function formatToRupiah(angka) {
+    const formatter = new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    });
+    return formatter.format(angka);
+  }
 
   return (
     <div>
@@ -380,8 +450,9 @@ const SamplePage = () => {
             <Button
               style={{ backgroundColor: "green", color: "white" }}
               onClick={exportToExcel}
+              disabled={exporting} // Disable the export button during export
             >
-             Export Excel
+              {exporting ? "Exporting..." : "Export Excel"}
             </Button>
             <Button
               style={{ backgroundColor: "#1A5CBF", color: "white" }}
@@ -429,9 +500,9 @@ const SamplePage = () => {
           <tbody>
             {listData.map((record, index) => (
               <tr key={record.id}>
-                <td>{index + 1}</td>
+                <td style={{ paddingTop: "20px" }}>{index + 1}</td>
 
-                <td>
+                <td style={{ paddingTop: "20px" }}>
                   <Tag
                     color={
                       record.jenis_kiriman === "Reguler"
@@ -444,38 +515,42 @@ const SamplePage = () => {
                     {record.jenis_kiriman}
                   </Tag>
                 </td>
-                <td>{record.kotaAsal}</td>
-                <td>{record.kotaTujuan}</td>
-                <td>{record.kendaraanJenis}</td>
-                <td>
+                <td style={{ paddingTop: "20px" }}>{record.kotaAsal}</td>
+                <td style={{ paddingTop: "20px" }}>{record.kotaTujuan}</td>
+                <td style={{ paddingTop: "20px" }}>{record.kendaraanJenis}</td>
+                <td style={{ paddingTop: "20px" }}>
                   {`${new Intl.NumberFormat("id-ID", {
                     style: "currency",
                     currency: "IDR",
                   }).format(record.tarif)}`}
                 </td>
-                <td>{record.max_tonase}</td>
-                <td>
+                <td style={{ paddingTop: "20px" }}>{record.max_tonase}</td>
+                <td style={{ paddingTop: "20px" }}>
                   {`${new Intl.NumberFormat("id-ID", {
                     style: "currency",
                     currency: "IDR",
                   }).format(record.harga_selanjutnya)}`}
                 </td>
-               
-                <td>
-                  <Button
-                    onClick={() => handleView(record.id_price)}
-                    type="primary"
-                  >
-                    <span style={{ display: "flex", alignItems: "center" }}>
-                      <FormOutlined />
-                    </span>
-                  </Button>
-                  <Button danger onClick={() => handleDelete(record.id_price)}>
-                    <span style={{ display: "flex", alignItems: "center" }}>
-                      <DeleteOutlined />
-                    </span>
-                    {/* <DeleteOutlined /> */}
-                  </Button>
+
+                <td style={{ paddingTop: "20px" }}>
+                  <Button.Group>
+                    <Button
+                      onClick={() => handleView(record.id_price)}
+                      type="primary"
+                    >
+                      <span style={{ display: "flex", alignItems: "center" }}>
+                        <FormOutlined />
+                      </span>
+                    </Button>
+                    <Button
+                      danger
+                      onClick={() => handleDelete(record.id_price)}
+                    >
+                      <span style={{ display: "flex", alignItems: "center" }}>
+                        <DeleteOutlined />
+                      </span>
+                    </Button>
+                  </Button.Group>
                 </td>
               </tr>
             ))}

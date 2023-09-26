@@ -1,7 +1,9 @@
-import { Card, Col, Row, Select, Table, Tag } from "antd";
+import { Button, Card, Col, Row, Select, Table, Tag } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Baseurl from "../../../Api/BaseUrl";
+import { BookOutlined } from "@ant-design/icons";
+import XLSX from "xlsx";
 
 function ReportCustomer() {
   const [DataReportCust, setDataReportCust] = useState("");
@@ -15,6 +17,7 @@ function ReportCustomer() {
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [total, setTotal] = useState(0);
+  
 
   const fetchData = async () => {
     try {
@@ -130,11 +133,11 @@ function ReportCustomer() {
       dataIndex: "service",
       key: "service",
     },
-    // {
-    //   title: "Jenis Barang",
-    //   dataIndex: "jenis_barang",
-    //   key: "jenis_barang",
-    // },
+    {
+      title: "Jenis Barang",
+      dataIndex: "jenisBarang",
+      key: "jenisBarang",
+    },
     // {
     //   title: "Via",
     //   dataIndex: "via",
@@ -145,16 +148,14 @@ function ReportCustomer() {
       dataIndex: "kendaraan",
       key: "kendaraan",
     },
-    // {
-    //     title: "Status",
-    //     dataIndex: "status",
-    //     key: "status",
-    //     render: (status) => (
-    //       <Tag color={status === "Aktif" ? "green" : "red"}>
-    //         {status}
-    //       </Tag>
-    //     ),
-    //   },
+    {
+      title: "Status",
+      dataIndex: "starus",
+      key: "starus",
+      render: (starus) => (
+        <Tag color={starus === "Aktif" ? "green" : "red"}>{starus}</Tag>
+      ),
+    },
     {
       title: "Nama Perusahaan",
       dataIndex: "perusahaan",
@@ -174,7 +175,49 @@ function ReportCustomer() {
       title: "Tgl Pickup",
       dataIndex: "pickupDate",
       key: "pickupDate",
-      render: (pickupDate) => <Tag color="magenta">{pickupDate}</Tag>,
+      render: (pickupDate) => {
+        // Mengubah format tgl pickup menjadi "YYYY-MM-DD HH:mm:ss" dengan zona waktu Indonesia
+        const formattedPickUp = new Date(pickupDate).toLocaleString("id-ID", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+    
+        // Ganti karakter '/' dengan karakter '-'
+        const formattedPickUpWithHyphen = formattedPickUp.replace(/\//g, "-");
+    
+        // Ganti karakter titik (.) dengan karakter titik dua (:)
+        const formattedPickUpWithColon = formattedPickUpWithHyphen.replace(/\./g, ":");
+    
+        return <Tag color="magenta">{formattedPickUpWithColon}</Tag>;
+      },
+    },
+    {
+      title: "Tgl Pesanan",
+      dataIndex: "orderDate",
+      key: "orderDate",
+      render: (orderDate) => {
+        // Mengubah format tgl pesanan menjadi "YYYY-MM-DD HH:mm:ss"
+        const formattedOrderDate = new Date(orderDate).toLocaleString("id-ID", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+
+        const formattedOrderDateWithHyphen = formattedOrderDate.replace(
+          /\//g,
+          "-"
+        );
+        const formattedOrderDateWithColon = formattedOrderDateWithHyphen.replace(/\./g, ":");
+
+        return <Tag color="purple">{formattedOrderDateWithColon}</Tag>;
+      },
     },
     {
       title: "Biaya",
@@ -191,6 +234,88 @@ function ReportCustomer() {
     },
   ];
 
+  const exportToExcel = () => {
+    const workbook = XLSX.utils.book_new();
+    const sheetData = DataReportCust.map((item, index) => ({
+      "No.": index + 1,
+      "No SP": item.sp,
+      "No SPK": item.spk,
+      "Nama Sales": item.salesName,
+      Service: item.service,
+      "Jenis Barang": item.jenisBarang,
+      "Jenis Kendaraan": item.kendaraan,
+      Status: item.starus,
+      "Nama Perusahaan": item.perusahaan,
+      "Nama Penginput": item.adminName,
+      Destination: item.destination,
+      "Tgl Pickup": formatPickUpForExport(item.pickupDate),
+      "Tgl Pesanan": formatOrderDateForExport(item.orderDate),
+      Biaya: item.biaya,
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(sheetData);
+
+    // Set column widths
+    worksheet["!cols"] = [
+      { width: 5 }, // No.
+      { width: 20 }, // No SP
+      { width: 20 }, // No SPK
+      { width: 20 }, // Nama Sales
+      { width: 15 }, // Service
+      { width: 15 }, // Jenis Barang
+      { width: 16 }, // Jenis Kendaraan
+      { width: 12 }, // Status
+      { width: 27 }, // Nama Perusahaan
+      { width: 17 }, // Nama Penginput
+      { width: 32 }, // Destination
+      { width: 30 }, // Tgl Pickup
+      { width: 30 }, // Tgl Pesanan
+      { width: 13 }, // Biaya
+    ];
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Report");
+
+    // Export the workbook to an Excel file
+    XLSX.writeFile(workbook, "report.xlsx");
+  };
+
+  function formatOrderDateForExport(orderDate) {
+    const formattedOrderDate = new Date(orderDate).toLocaleString("id-ID", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+  
+    // Ganti karakter '/' dengan karakter '-'
+    const formattedOrderDateWithHyphen = formattedOrderDate.replace(/\//g, "-");
+  
+    // Ganti karakter titik (.) dengan karakter titik dua (:)
+    const formattedOrderDateWithColon = formattedOrderDateWithHyphen.replace(/\./g, ":");
+  
+    return formattedOrderDateWithColon;
+  }
+  
+  function formatPickUpForExport(pickupDate) {
+    const formattedPickUp = new Date(pickupDate).toLocaleString("id-ID", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+  
+    // Ganti karakter '/' dengan karakter '-'
+    const formattedPickUpWithHyphen = formattedPickUp.replace(/\//g, "-");
+  
+    // Ganti karakter titik (.) dengan karakter titik dua (:)
+    const formattedPickUpWithColon = formattedPickUpWithHyphen.replace(/\./g, ":");
+  
+    return formattedPickUpWithColon;
+  }
   return (
     <div>
       <Card>
@@ -267,6 +392,16 @@ function ReportCustomer() {
               }}
             ></Select>
           </Col>
+          <Col span={6} className="d-flex justify-content-end mt-4">
+            <Button
+              style={{ backgroundColor: "green", color: "white" }}
+              onClick={exportToExcel}
+            >
+              <span style={{ display: "flex", alignItems: "center" }}>
+                Export Excel
+              </span>
+            </Button>
+          </Col>
         </Row>
         <Table
           className="mt-3"
@@ -277,7 +412,7 @@ function ReportCustomer() {
           pagination={{
             current: currentPage,
             pageSize: limit,
-           total,
+            total,
             onChange: (page) => setCurrentPage(page),
           }}
           onChange={(pagination) => {

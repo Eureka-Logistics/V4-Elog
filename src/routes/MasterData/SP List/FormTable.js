@@ -25,7 +25,7 @@ import { Alert, Space } from "antd";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import ZustandStore from "../../../zustand/Store/JenisKepemilikanOptions";
 import moment from "moment";
-import { UploadOutlined } from "@ant-design/icons";
+import { PrinterOutlined, UploadOutlined } from "@ant-design/icons";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import useMitraStore from "../../../zustand/Store/MitraStore";
@@ -1991,6 +1991,16 @@ function FormTable({
               {/* {(StatusApproveAct === 'Y' || Kendaraan_operasionalStatus === "Y" && StatusPurchasing === "Y") &&
                 <Alert type="success" message="SP Telah di Approve" banner />
               } */}
+              {StatusApproveAct === "Y" && (
+                <>
+                <Button type="primary">
+                <span style={{ display: "flex", alignItems: "center" }}>
+                  <PrinterOutlined />
+                </span>
+              </Button>
+                </>  
+
+              )}
               {StatusApproveAct === "Y" && TanggalACT3 != null ? (
                 <Alert type="success" message="Approve Akunting" banner />
               ) : StatusApproveAct === "N" && TanggalACT3 === "1970-01-01T00:00:00.000Z" ? (

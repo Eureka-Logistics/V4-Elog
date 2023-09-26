@@ -49,6 +49,7 @@ function EditDetail() {
   const [DataMaxTonase, setDataMaxTonase] = useState("");
   const [DataSatuan, setDataSatuan] = useState("");
   const [HargaSelanjutnya, setHargaSelanjutnya] = useState("");
+  const [KodeTarif, setKodeTarif] = useState("")
 
   const fetchData = async () => {
     try {
@@ -58,7 +59,7 @@ function EditDetail() {
           Authorization: localStorage.getItem("token"),
         },
       });
-      console.log("response", respons.data);
+      console.log("responses", respons.data.kodeTarif.kodeTarifEureka);
       //   console.log("responssssscarismid", respons.data.data);
 
       setDataTambah(respons.data);
