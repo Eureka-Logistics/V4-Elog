@@ -1,2 +1,2 @@
-const ApiGoogleMap = "AIzaSyBTC_hd8vE2VSkhLaz7TCwQxvb5ZXO_uso"
+const ApiGoogleMap = "AIzaSyCMl-ppZQiP5YTKGQanpSub0oghNck7w_M"
 export default ApiGoogleMap

@@ -1,59 +1,59 @@
 import { DownOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons'
-import { Card, Dropdown, Input, Space, Table, message } from 'antd'
-import React from 'react'
+import { Card, Dropdown, Input, Space, Table, Tag, message } from 'antd'
+import React, { useState } from 'react'
 import { Button, Col, Row } from 'react-bootstrap'
 import "./style.css"
 
 function CashOnDelivery() {
-
+    const [InputValid, setInputValid] = useState(false)
     const dataSource = [
         {
             key: '1',
             name: '1',
             age: 32,
-            address: 'JKT23-007583',
+            address: 'Success',
         },
         {
             key: '2',
             name: '2',
             age: 42,
-            address: 'JKT23-007583',
+            address: 'Success',
         },
         {
             key: '1',
             name: '3',
             age: 32,
-            address: 'JKT23-007583',
+            address: 'Unloading',
         },
         {
             key: '2',
             name: '4',
             age: 42,
-            address: 'JKT23-007583',
+            address: 'Unloading',
         },
         {
             key: '1',
             name: '5',
             age: 32,
-            address: 'JKT23-007583',
+            address: 'Delivery',
         },
         {
             key: '2',
             name: '6',
             age: 42,
-            address: 'JKT23-007583',
+            address: 'Delivery',
         },
         {
             key: '1',
             name: '7',
             age: 32,
-            address: 'JKT23-007583',
+            address: 'Pick Up',
         },
         {
             key: '2',
             name: '8',
             age: 42,
-            address: 'JKT23-007583',
+            address: 'Pick Up',
         },
     ];
 
@@ -93,6 +93,7 @@ function CashOnDelivery() {
             dataIndex: 'name',
             key: 'name',
         },
+
         {
             title: 'Biaya',
             dataIndex: 'age',
@@ -102,43 +103,87 @@ function CashOnDelivery() {
             title: 'Status',
             dataIndex: 'address',
             key: 'address',
+            render: (text) => {
+                let color = '';
+                if (text === 'Success') {
+                    color = 'success';
+                } else if (text === "Unloading") {
+                    color = 'yellow';
+                } else if (text === "Delivery") {
+                    color = 'red';
+                } else if (text === "Pick Up") {
+                    color = 'blue';
+                }
+                return (
+                    <Tag color={color} key={text}>
+                        {text.toUpperCase()}
+                    </Tag>
+                );
+            },
+        },
+        {
+            title: 'Input',
+            dataIndex: 'age',
+            key: 'age',
+            render: (text, record) => {
+                return (
+                    <Input
+                        onChange={() => setInputValid(true)}
+                        type="text" defaultValue={text} />
+                )
+            }
+        },
+
+        {
+            title: 'Aksi',
+            dataIndex: 'age',
+            key: 'age',
+            render: () => {
+                return (
+                    InputValid ? (
+                        <Button variant='danger'>Edit Input</Button>
+                    ) : (
+                        <Button type="primary">Ubah Input</Button>
+                    )
+                )
+            }
         },
     ];
 
     const handleMenuClick = (e) => {
         message.info('Click on menu item.');
         console.log('click', e);
-      };
+    };
 
-      const items = [
+    const items = [
         {
-          label: '1st menu item',
-          key: '1',
-          icon: <UserOutlined />,
+            label: '1st menu item',
+            key: '1',
+            icon: <UserOutlined />,
         },
         {
-          label: '2nd menu item',
-          key: '2',
-          icon: <UserOutlined />,
+            label: '2nd menu item',
+            key: '2',
+            icon: <UserOutlined />,
         },
         {
-          label: '3rd menu item',
-          key: '3',
-          icon: <UserOutlined />,
-          danger: true,
+            label: '3rd menu item',
+            key: '3',
+            icon: <UserOutlined />,
+            danger: true,
         },
         {
-          label: '4rd menu item',
-          key: '4',
-          icon: <UserOutlined />,
-          danger: true,
-          disabled: true,
+            label: '4rd menu item',
+            key: '4',
+            icon: <UserOutlined />,
+            danger: true,
+            disabled: true,
         },
-      ];
-      const menuProps = {
+    ];
+    const menuProps = {
         items,
         onClick: handleMenuClick,
-      };
+    };
     return (
         <div>
 
@@ -169,7 +214,7 @@ function CashOnDelivery() {
                     <h5 style={{ fontSize: 30 }}>List Pengiriman</h5>
                 </Col>
                 <Col sm={4} className="d-flex align-items-center">
-                    <Input  style={{ width: 300, height: "50px" }} addonBefore={<SearchOutlined />} placeholder='Cari Disini' className="mr-3" />
+                    <Input style={{ width: 300, height: "50px" }} addonBefore={<SearchOutlined />} placeholder='Cari Disini' className="mr-3" />
                     <Dropdown menu={menuProps}>
                         <Button className="my-custom-button ms-2" style={{ width: 200, backgroundColor: "#F05423" }}>
                             <Space>

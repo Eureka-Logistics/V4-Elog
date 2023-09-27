@@ -12,7 +12,7 @@ import truck from "../../../../assets/img/Truck Illu 1.png"
 import vespa from "../../../../assets/img/vesva.png"
 import ListPengiriman from './ListPengirimanCardComponent';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-
+import MapContainer from "../../../MasterData/Monitoring/Test"
 function SpListRace() {
     const history = useHistory()
     const [open, setOpen] = useState(false);
@@ -23,8 +23,24 @@ function SpListRace() {
         setOpen(false);
     };
 
-    const pindahdetailsp = ()=>{
+    const pindahdetailsp = () => {
         history.push(`/race/detailsplistrace/:idmp`)
+    }
+
+    function sendMessage() {
+        const phoneNumber = "6281221871961";
+        const name = "Bapak Budiawan Suprapto";
+        const message = `Halo ${name},
+        
+        Semoga Anda dalam keadaan baik-baik saja. Saya ingin menanyakan bagaimana keadaan Anda selama melakukan perjalanan dan proses pengangkutan barang. Apakah semuanya berjalan lancar atau ada kendala tertentu yang perlu kami ketahui? Apabila ada masalah atau hambatan, tolong beritahu kami agar kami bisa memberikan bantuan atau solusi secepatnya. Terima kasih atas perhatian dan kerja keras Anda. Kami menghargai dedikasi Anda dalam menjalankan tugas ini.
+   
+        
+Salam hangat,
+[Tim Race]`;
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappURL = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+
+        window.open(whatsappURL, '_blank');
     }
 
     return (
@@ -37,7 +53,7 @@ function SpListRace() {
                 open={open}
             >
                 <Card bodyStyle={{ padding: 0 }} style={{ height: 455, overflow: 'hidden' }}>
-                    <img src={map} style={{ width: '100%', height: "100%", objectFit: 'cover' }} />
+                    <MapContainer />
                 </Card>
                 <Card bodyStyle={{ padding: 0 }} style={{ height: 270 }}>
                     <Container>
@@ -53,7 +69,7 @@ function SpListRace() {
                             </Col>
                             <Col sm={4} className='d-flex justify-content-end align-items-center'>
                                 <img src={telponicon} style={{ height: "80px", width: "93px", borderRadius: "10px" }}></img>
-                                <img src={whatsappicon} style={{ height: "80px", width: "93px", borderRadius: "10px" }}></img>
+                                <img onClick={sendMessage} src={whatsappicon} style={{ height: "80px", width: "93px", borderRadius: "10px", cursor: "pointer" }}></img>
                             </Col>
                         </Row>
                         <Row className="align-items-center">
@@ -62,9 +78,9 @@ function SpListRace() {
                             </Col>
                             <Col className='d-flex justify-content-end'>
                                 <Button
-                                onClick={pindahdetailsp}
+                                    onClick={pindahdetailsp}
                                     style={{
-                                        backgroundColor:"blue",
+                                        backgroundColor: "blue",
                                         fontWeight: "bold",
                                         fontSize: 20,
                                         color: 'white',
