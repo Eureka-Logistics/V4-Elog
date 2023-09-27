@@ -209,6 +209,8 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
         },
       }
     );
+    console.log(data.data.pic, 'data pic');
+    
     setMitraData1state({
       namaMitra: data.data.data?.nama_mitra,
       typeOfPayment: data.data.data?.metode_pembayaran,
@@ -265,6 +267,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
       memo: data.data.data?.memo,
       type: data.data.data?.type,
       pic_id: data.data.data?.pic_id,
+      pic: data.data.pic,
       po_legalitas: data.data.data?.po_legalitas,
       ktp_legalitas: data.data.data?.ktp_legalitas,
       akta_pendirian: data.data.data?.akta_pendirian,
@@ -293,6 +296,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
 
     await setnamaMitra(data.data.data?.nama_mitra);
     // console.log(data.data.data.jenis);
+    setDataPICPurchasing(data.data.pic)
     setTypeOfPayment(data.data.data?.metode_pembayaran);
     setStatus(data.data.data?.status);
     setTitle(data.data.data?.title);
@@ -350,6 +354,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
     setDataType(data.data.data?.type || "");
     setDataBlok(data.data.data?.npwp_blok || "");
     setDataPicId(data.data.data?.pic_id || "");
+    setDataPICPurchasing(data.data.pic || "" );
     setPoLegalitas(data.data.data?.po_legalitas || "");
     setKTPLegalitas(data.data.data?.ktp_legalitas || "");
     setAktaPendirian(data.data.data?.akta_pendirian || "");
@@ -479,6 +484,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
       qty_trailer40: data.data.data?.qty_trailer40,
       rp_trailer40: data.data.data?.rp_trailer40,
       pic_id: data.data.data?.pic_id,
+      pic: data.data?.pic,
       type: data.data.data?.type,
       memo: data.data.data?.memo,
       jumlah_unit: data.data.data?.jumlah_unit,
@@ -1014,7 +1020,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
               <Form.Item
                 label="PIC Purchasing :"
                 style={{ fontWeight: "bold" }}
-                name="pic_id"
+                name="pic"
                 rules={[
                   { required: false, message: "Please input your jenis!" },
                 ]}
@@ -1022,8 +1028,8 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 <Select
                   showSearch
                   className="mt-2"
-                  // placeholder={DetailDataTarif.kendaraanJenis}
-                  value={DataPicId}
+                  placeholder={DataPICPurchasing.pic}
+                  // value={DataPICPurchasing.pic}
                   optionFilterProp="value"
                   style={{ width: "90%" }}
                   onChange={(e, options) => {
@@ -1777,16 +1783,17 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
               <Form.Item
                 label="Term of payment (Hari) :"
                 style={{ fontWeight: "bold" }}
-              // name="-"
+              name="top"
               >
                 <Select
                   className="mt-2"
-                  value={DataPembayaran}
+                  value={DataTop}
                   onChange={(e) => {
                     console.log(e);
-                    setDataPembayaran(e);
+                    setDataTop(e);
                   }}
                 >
+                  <option value={0}>0</option>
                   <option value={7}>7</option>
                   <option value={14}>14</option>
                   <option value={20}>20</option>

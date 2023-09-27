@@ -85,6 +85,12 @@ const App = ({ match }) => {
           )}
         />
         <Route
+          path={`${match.url}ReportCustomer`}
+          component={asyncComponent(() =>
+            import("./CopyData/MasterCustomer/ReportCustomer")
+          )}
+        />
+        <Route
           path={`${match.url}MastersCustomersDetails/:id_customer`}
           component={asyncComponent(() =>
             import("./MasterData/Marketing/MasterCustomer/DetailMasterCustomer")
@@ -789,6 +795,24 @@ const App = ({ match }) => {
           path={`${match.url}race/cod`}
           component={asyncComponent(() =>
             import("../routes/Race/WebAdmin/Cash On Delivery/CashOnDelivery")
+          )}
+        />
+        <Route
+          path={`${match.url}mapping`}
+          component={asyncComponent(() =>
+            import("../routes/Race/WebAdmin/Map Pengiriman/index")
+          )}
+        />
+        <Route
+          path={`${match.url}listdriver`}
+          component={asyncComponent(() =>
+            import("../routes/Race/WebAdmin/ListDriver/index")
+          )}
+        />
+        <Route
+          path={`${match.url}testdnd`}
+          component={asyncComponent(() =>
+            import("../routes/Race/WebAdmin/Map Pengiriman/TestDND")
           )}
         />
 

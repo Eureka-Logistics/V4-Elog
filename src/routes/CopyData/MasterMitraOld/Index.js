@@ -1,4 +1,4 @@
-import { Card, Space, Tag, Pagination, Button, Select } from "antd";
+import { Card, Space, Tag, Pagination, Button, Select, Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Modal } from "antd";
@@ -31,18 +31,84 @@ const SamplePage = () => {
   //   fetchData(perhalaman);
   // };
 
+  const columnss = [
+    {
+      title: "No.",
+      dataIndex: "no",
+      key: "no",
+    },
+    {
+      title: "Mitra Code",
+      dataIndex: "mitraCode",
+      key: "mitraCode",
+      render: (text) => <Tag color="blue">{text}</Tag>,
+    },
+    
+      {
+        title: "Status",
+        dataIndex: "status",
+        key: "status",
+        render: (text) => (
+          <Tag
+            color={
+              text === "aktif" ? "green" : text === "tidak aktif" ? "red" : "red"
+            }
+            title={text === "tidak aktif" ? "Status tidak aktif" : ""}
+          >
+            {text}
+          </Tag>
+        ),
+      },
+    {
+      title: "Mitra Name",
+      dataIndex: "mitraName",
+      key: "mitraName",
+    },
+    {
+      title: "Awal Kontrak",
+      dataIndex: "awalKontrak",
+      key: "awalKontrak",
+      render: (text) => <Tag color="blue">{text}</Tag>,
+    },
+    {
+      title: "Akhir Kontrak",
+      dataIndex: "akhirKontrak",
+      key: "akhirKontrak",
+      render: (text) => <Tag color="red">{text}</Tag>,
+    },
+    {
+      title: "PIC",
+      dataIndex: "pic",
+      key: "pic",
+    },
+    {
+      title: "Aksi",
+      key: "no",
+      render: (row) => (
+        <Space size="middle">
+          <Button onClick={() => buttondetailMitra(row.mitraId)} type="primary">
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <FormOutlined />
+            </span>
+          </Button>
+          <Button danger onClick={() => handleDelete(row.mitraId)}>
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <DeleteOutlined />
+            </span>
+          </Button>
+        </Space>
+      ),
+    },
+  ];
+
   const columns = [
     {
       name: "No.",
       selector: (row) => row.no,
-      width: "80px",
     },
     {
       name: "Mitra Code",
-      selector: (row) =>
-      <Tag color="blue">{ row.mitraCode}</Tag>,
-      width: "150px",
-  
+      selector: (row) => <Tag color="blue">{row.mitraCode}</Tag>,
     },
     {
       name: "Status",
@@ -56,7 +122,6 @@ const SamplePage = () => {
         ) : (
           ""
         ),
-      width: "125px",
     },
     // {
     //   name: "Code",
@@ -66,63 +131,30 @@ const SamplePage = () => {
     {
       name: "Mitra Name",
       selector: (row) => row.mitraName,
-      width: "200px",
+
       // width: "100px",
     },
     {
       name: "Mitra Address",
       selector: (row) => row.mitraAddress,
-
-      width: "170px",
-      // width: "150px",
-
     },
     {
       name: "Awal Kontrak",
       selector: (row) => row.awalKontrak,
-      width: "120px",
     },
     {
       name: "Akhir Kontrak",
       selector: (row) => row.akhirKontrak,
-      width: "120px",
     },
-    // {
-    //   name: "Kontrak",
-    //   selector: (row) => row.kontrak,
-    //   width: "100px",
-    // },
-    // {
-    //   name: " Berlaku Perpanjangan Otomatis",
-    //   // selector: (row) => row.perpanjangOtomatis
-    //   width: "250px",
-    //   selector: (row) =>
-    //   row.perpanjangOtomatis === "iya" ? (
-    //     <Tag color="green">Iya</Tag>
-    //   ) : row.perpanjangOtomatis === "tidak" ? (
-    //     <Tag color="red">Tidak</Tag>
-    //   )  : (
-    //     ""
-    //   ),
-    // },
+
     {
       name: "Pic",
       selector: (row) => row.pic,
       width: "150px",
     },
-    // {
-    //   name: "Telepon",
-    //   selector: (row) => row.mitraTelephone,
-    //   width: "151px",
-    // },
-    // {
-    //   name: " Memo",
-    //   selector: (row) => `-`,
-    //   width: "100px",
-    // },
+
     {
       name: " Opsi",
-      width: "200px",
       selector: (row) => (
         <>
           <Space size="middle">
@@ -201,7 +233,8 @@ const SamplePage = () => {
             if (data.status.code === 200) {
               const newOrder = order.filter((item) => item.mitraId !== mitraId);
               setOrder(newOrder);
-              window.location.reload();
+              // window.location.reload();
+              fetchData();
             }
           })
           .catch(function (error) {
@@ -245,7 +278,11 @@ const SamplePage = () => {
             </Row> */}
             <Row className="mt-3">
               <Col sm={2}>
-                <label className="mb-2" htmlFor="StatusMitra" style={{fontWeight: '400', fontFamily: 'NoirPro'}}>
+                <label
+                  className="mb-2"
+                  htmlFor="StatusMitra"
+                  style={{ fontWeight: "400", fontFamily: "NoirPro" }}
+                >
                   Search Status:
                 </label>
                 <Select
@@ -272,16 +309,20 @@ const SamplePage = () => {
                 <CreateMitraModal />
               </Col>
             </Row>
-            <DataTable
-            className="mt-3"
+
+            <Table
+            style={{ overflow: "auto"}}
+            className="mt-2"
+              columns={columnss}
+              dataSource={dataapiawal}
+              pagination={false}
+            />
+            {/* <DataTable
+              className="mt-3"
               columns={columns}
               data={dataapiawal}
-              // pagination
-              // paginationServer
-              // paginationTotalRows={pageInfo.totalData}
-              // onChangePage={handlePageChange}
-              // progressPending={loading}
-            />
+             
+            /> */}
             <div className="mt-5 d-flex justify-content-end">
               <Pagination
                 onChange={ubahHalaman}

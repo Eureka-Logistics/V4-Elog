@@ -174,12 +174,34 @@ function DetailTarifMitra() {
     fetchData();
     fetchSelectMitra();
     DetailTarifMitra(id_price);
+    
   }, [ritase]);
 
   const handleChange = (value) => {
     console.log(`Selected option: ${value}`);
     setViaData(value);
   };
+
+
+  const formatTarif = (value) => {
+    // Menghapus semua karakter selain angka
+    const numericValue = value.replace(/[^0-9]/g, '');
+
+    // Menambahkan titik setiap 3 digit dari belakang
+    const formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+    return formattedValue;
+  };
+
+  const handleTarifChange = (e) => {
+    const inputValue = e.target.value;
+    const formattedValue = formatTarif(inputValue);
+
+    setTarif(formattedValue);
+  };
+
+
+  
 
   return (
     <div>
@@ -352,13 +374,11 @@ function DetailTarifMitra() {
           <Col className="mt-2" span={8}>
             <label style={{fontWeight: 'bold'}}>Tarif :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <Input
+            <Input className="mt-2"
+            type="text"
               placeholder={DetailDataTarif.tarif}
               value={tarif}
-              onChange={(e) => {
-                console.log(e.target.value);
-                setTarif(e.target.value);
-              }}
+              onChange={handleTarifChange}
             />
           </Col>
           {/* <Col className="mt-2" span={8}>

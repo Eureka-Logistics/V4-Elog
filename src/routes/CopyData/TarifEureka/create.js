@@ -44,23 +44,27 @@ const SamplePage = () => {
   const [viaOptions, setViaOptions] = useState([]);
   const [jenisDiskon, setJenisDiskon] = useState("");
   const [KodeID, setKodeID] = useState("");
-  const [DataLeadTime, setDataLeadTime] = useState("");
+  const [DataLeadTime, setDataLeadTime] = useState(0);
   const [DataMaintenance, setDataMaintenance] = useState(0);
   const [DataVariableCost, setDataVariableCost] = useState(0);
   const [DataFixedCost, setDataFixedCost] = useState(0);
   const [DataAmount, setDataAmount] = useState(0);
   const [DataPercent, setDataPercent] = useState("0");
+  const [DataSatuan, setDataSatuan] = useState("");
+  const [DataMaxTonase, setMaxTonase] = useState(0);
+  const [DataHargaSelanjutnya, setHargaSelanjutnya] = useState(0);
 
   const optjenisLayanan = [
     {
-      value: 1,
+      value: "1", // Ubah value ke 'retail'
       label: "Retail",
     },
     {
-      Value: 2,
+      value: "2", // Ubah value ke 'charter' (jika diperlukan)
       label: "Charter",
     },
   ];
+
   const optjenisKiriman = [
     {
       value: 1,
@@ -81,6 +85,16 @@ const SamplePage = () => {
       label: "Persen",
     },
   ];
+  const optionSatuan = [
+    {
+      value: "1",
+      label: "Kg",
+    },
+    {
+      Value: "2",
+      label: "Koli",
+    },
+  ];
 
   const formik = useFormik({
     initialValues: {
@@ -88,8 +102,8 @@ const SamplePage = () => {
       id_tujuan_kota: kotaTujuan?.value,
       id_kendaraan_jenis: jenisKendaraan?.value,
       id_mitra: IdMitra?.value,
-      service_type: jenisLayanan,
-      jenis_kiriman: jenisKiriman,
+      service_type: jenisLayanan?.label,
+      jenis_kiriman: jenisKiriman?.label,
       via: via?.label,
       tarif: Tarif,
       ritase: Ritase,
@@ -100,6 +114,9 @@ const SamplePage = () => {
       amount: DataAmount,
       percent: DataPercent,
       lead_time: DataLeadTime,
+      satuan: DataSatuan?.label,
+      max_tonase: DataMaxTonase,
+      harga_selanjutnya: DataHargaSelanjutnya,
     },
     validationSchema: Yup.object({
       id_customer: Yup.string().max(30, "Must be 30 characters or less"),
@@ -110,8 +127,8 @@ const SamplePage = () => {
           "tarif/create-tarifEureka",
           {
             ...values,
-            service_type: jenisLayanan,
-            jenis_kiriman: jenisKiriman.label,
+            service_type: jenisLayanan?.label,
+            jenis_kiriman: jenisKiriman?.label,
             tarif: Tarif,
             ritase: Ritase,
             uang_jalan: UangJalan,
@@ -121,6 +138,9 @@ const SamplePage = () => {
             fixed_cost: DataFixedCost,
             amount: DataAmount,
             lead_time: DataLeadTime,
+            satuan: DataSatuan?.label,
+            max_tonase: DataMaxTonase,
+            harga_selanjutnya: DataHargaSelanjutnya,
           }
           // values,
           // service_type: jenisLayanan,
@@ -136,9 +156,9 @@ const SamplePage = () => {
         .catch(function (error) {
           notification.error({
             message: "Error",
-            description: error.message,
+            description: error.response.data.status.message,
           });
-          console.log(error.message);
+          console.log(error.response.data.status.message);
         });
     },
   });
@@ -372,8 +392,7 @@ const SamplePage = () => {
     } else if (e.name === "ritase") {
       // setIdMitra(value);
       formik.setFieldValue("ritase", value);
-    }
-     else if (e.name === "percent") {
+    } else if (e.name === "percent") {
       // setIdMitra(value);
       formik.setFieldValue("percent", value);
     }
@@ -427,6 +446,8 @@ const SamplePage = () => {
     }
   }, [parsedAmount, parsedPercent, Tarif, DataPercent, DataAmount]);
 
+  
+
   return (
     <div>
       <Card>
@@ -435,9 +456,9 @@ const SamplePage = () => {
             <Col span={8}>
               <h5 style={{ color: "#1A5CBF" }}>Buat Tarif Eureka Baru</h5>
             </Col>
-            <Col span={3}></Col>
-            <Col span={3}></Col>
+           
           </Row>
+          <hr/>
           <Row style={{ marginBottom: "10px" }}>
             <Col span={4}>
               <Form.Group style={{ marginBottom: "10px" }}>
@@ -447,7 +468,7 @@ const SamplePage = () => {
                 <Form.Control disabled value={KodeID.kodeTarifEureka} />
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col span={5}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Kota Muat
@@ -465,7 +486,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col span={5}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Kota Tujuan
@@ -484,7 +505,7 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
 
-            <Col span={6}>
+            <Col span={5}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Jenis kendaraan{" "}
@@ -502,9 +523,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-          </Row>
-          <Row>
-            <Col span={4}>
+            <Col span={5}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>Via</Form.Label>
                 <InputGroup>
@@ -520,42 +539,9 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{ fontWeight: `bold` }}>
-                  Jenis Kiriman
-                </Form.Label>
-                <InputGroup>
-                  <Select
-                    options={optjenisKiriman}
-                    name="jenis_kiriman"
-                    value={jenisKiriman}
-                    onChange={(e) => setJenisKiriman(e)}
-                    isInvalid={!!formik.errors.jenis_kiriman}
-                    styles={customStylesReactSelect}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col span={6}>
-              <Form.Group style={{ marginBottom: "10px" }}>
-                <Form.Label style={{ fontWeight: `bold` }}>
-                  Jenis Layanan
-                </Form.Label>
-                <InputGroup>
-                  <Select
-                    options={optjenisLayanan}
-                    name="service_type"
-                    // value={jenisLayanan}
-                    onChange={(e) => setJenisLayanan(e.label)}
-                    isInvalid={!!formik.errors.service_type}
-                    styles={customStylesReactSelect}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-
-            <Col span={4}>
+          </Row>
+          <Row>
+          <Col span={4}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Lead Time
@@ -572,7 +558,59 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={4}>
+            <Col span={5}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Jenis Kiriman
+                </Form.Label>
+                <InputGroup>
+                  <Select
+                    options={optjenisKiriman}
+                    name="jenis_kiriman"
+                    value={jenisKiriman}
+                    onChange={(e) => setJenisKiriman(e)}
+                    isInvalid={!!formik.errors.jenis_kiriman}
+                    styles={customStylesReactSelect}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+
+            <Col span={5}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label style={{ fontWeight: "bold" }}>
+                  Jenis Layanan
+                </Form.Label>
+                <InputGroup>
+                  <Select
+                    options={optjenisLayanan}
+                    name="service_type"
+                    value={jenisLayanan}
+                    onChange={(e) => setJenisLayanan(e)}
+                    isInvalid={!!formik.errors.service_type}
+                    styles={customStylesReactSelect}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={5}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label style={{ fontWeight: "bold" }}>Satuan</Form.Label>
+                <InputGroup>
+                  <Select
+                    options={optionSatuan}
+                    name="satuan"
+                    value={DataSatuan}
+                    onChange={(e) => setDataSatuan(e)}
+                    isInvalid={!!formik.errors.satuan}
+                    styles={customStylesReactSelect}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+
+            
+            <Col span={5}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>Ritase</Form.Label>
                 <InputGroup>
@@ -619,7 +657,7 @@ const SamplePage = () => {
                   Maintenance Cost
                 </Form.Label>
                 <InputGroup>
-                <Form.Control
+                  <Form.Control
                     type="text"
                     value={toRupiah(DataMaintenance)}
                     onInput={(e) => {
@@ -634,7 +672,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            {/* <Col span={6}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Variable Cost
@@ -644,7 +682,7 @@ const SamplePage = () => {
                     type="text"
                     value={toRupiah(DataVariableCost)}
                     onInput={(e) => {
-                      const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+                      const inputAngka = e.target.value.replace(/\D/g, ""); 
                       setDataVariableCost(inputAngka);
                       calculateAmount();
                     }}
@@ -653,7 +691,7 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-            </Col>
+            </Col> */}
             <Col span={6}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: `bold` }}>
@@ -674,6 +712,25 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
+            <Col span={6}>
+              <Form.Group>
+                <Form.Label style={{ fontWeight: `bold` }}>
+                  Max Tonase
+                </Form.Label>
+                <InputGroup>
+                <Form.Control
+                    type="text"
+                    value={toRupiah(DataMaxTonase)}
+                    onInput={(e) => {
+                      const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+                      setMaxTonase(inputAngka);
+                    }}
+                    // onChange={(e) => setUangJalan(e.target.value)}
+                    isInvalid={!!formik.errors.max_tonase}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
           </Row>
           <br />
           <hr />
@@ -683,7 +740,7 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: `bold` }}>Amount</Form.Label>
                 <InputGroup>
                   <Form.Control
-                  disabled
+                    disabled
                     name="amount"
                     type="text"
                     value={toRupiah(DataAmount)}
@@ -722,10 +779,28 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: `bold` }}>Tarif</Form.Label>
                 <InputGroup>
                   <Form.Control
+                  disabled
                     type="text"
                     value={toRupiah(Tarif)} // Display the calculated Tarif
                     onInput={(e) => {
-                     setTarif(e.target.value);
+                      setTarif(e.target.value);
+                    }}
+                    isInvalid={!!formik.errors.tarif}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col span={6}>
+              <Form.Group style={{ marginBottom: "10px" }}>
+                <Form.Label style={{ fontWeight: `bold` }}>Harga Selanjutnya</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                 
+                    type="text"
+                    value={toRupiah(DataHargaSelanjutnya)} // Display the calculated Tarif
+                    onInput={(e) => {
+                      const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+                      setHargaSelanjutnya(inputAngka);
                     }}
                     isInvalid={!!formik.errors.tarif}
                   />
@@ -733,7 +808,7 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
           </Row>
-          <Row></Row>
+         
           <Row>
             <Col span={24} className="d-flex justify-content-end mt-2">
               <Form.Group>

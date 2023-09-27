@@ -46,6 +46,9 @@ function EditDetail() {
   const [DataAmount, setDataAmount] = useState("");
   const [DataPercent, setDataPercent] = useState("");
   const [DataDate, setDataDate] = useState("");
+  const [DataMaxTonase, setDataMaxTonase] = useState("");
+  const [DataSatuan, setDataSatuan] = useState("");
+  const [HargaSelanjutnya, setHargaSelanjutnya] = useState("");
 
   const fetchData = async () => {
     try {
@@ -93,7 +96,9 @@ function EditDetail() {
       setDataAmount(respons.data.data[0].amount);
       setDataPercent(respons.data.data[0].percent);
       setDataDate(respons.data.data[0].date_created);
-
+      setDataMaxTonase(respons.data.data[0].max_tonase);
+      setDataSatuan(respons.data.data[0].satuan);
+      setHargaSelanjutnya(respons.data.data[0].harga_selanjutnya);
       setDataVia(respons.data);
     } catch (error) {}
   };
@@ -115,6 +120,9 @@ function EditDetail() {
         fixed_cost: DataFixedCost,
         amount: DataAmount,
         percent: DataPercent,
+        satuan: DataSatuan,
+        max_tonase: DataMaxTonase,
+        harga_selanjutnya: HargaSelanjutnya,
         // via: viaData,
       };
 
@@ -143,7 +151,7 @@ function EditDetail() {
         });
 
         setTimeout(() => {
-          window.location.href = "/tarif_eureka"; // Replace with the actual path to the "tarif_eureka" page
+          window.location.href = "/tarif_eureka"; 
         }, 1000); // 1000 milliseconds (1 seconds) delay
       } else if (response.status === 500) {
         // Swal.fire({
@@ -316,8 +324,21 @@ function EditDetail() {
               style={{ width: "100%" }}
               onChange={(e) => setServiceType(e)}
             >
-              <Option value="Expres">Expres</Option>
-              <Option value="Reguler">Reguler</Option>
+              <Option value="Retail">Retail</Option>
+              <Option value="Charter">Charter</Option>
+            </Select>
+          </Col>
+          <Col className="mt-2" span={4}>
+            <label style={{ fontWeight: "bold" }}>Satuan :</label>
+            <Select
+              className="mt-2"
+              // placeholder={DetailDataTarif.service_type}
+              value={DataSatuan}
+              style={{ width: "100%" }}
+              onChange={(e) => setDataSatuan(e)}
+            >
+              <Option value="Kg">Kg</Option>
+              <Option value="Koli">Koli</Option>
             </Select>
           </Col>
           <Col className="mt-2" span={4}>
@@ -329,11 +350,11 @@ function EditDetail() {
               style={{ width: "100%" }}
               onChange={(e) => setJenisKiriman(e)}
             >
-              <Option value="Retail">Retail</Option>
-              <Option value="Charter">Charter</Option>
+              <Option value="Expres">Expres</Option>
+              <Option value="Reguler">Reguler</Option>
             </Select>
           </Col>
-          <Col className="mt-2" span={8}>
+          <Col className="mt-2" span={4}>
             <label style={{ fontWeight: "bold" }}>Ritase :</label>
             {/* Menghubungkan input ritase dengan state ritase */}
             <Input
@@ -392,7 +413,7 @@ function EditDetail() {
             <label style={{ fontWeight: "bold" }}>Uang Jalan :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
-            type="text"
+              type="text"
               className="mt-2"
               // placeholder={DetailDataTarif.uang_jalan}
               value={uangJalan}
@@ -400,15 +421,24 @@ function EditDetail() {
             />
           </Col>
           <Col className="mt-2" span={6}>
-            <label style={{ fontWeight: "bold" }}>Variable Cost :</label>
+            <label style={{ fontWeight: "bold" }}>Maintenance Cost :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
               className="mt-2"
               // placeholder={DetailDataTarif.uang_jalan}
+              value={DataMaintenance}
+              onChange={(e) => setDataMaintenance(e.target.value)}
+            />
+          </Col>
+          {/* <Col className="mt-2" span={6}>
+            <label style={{ fontWeight: "bold" }}>Variable Cost :</label>
+            <Input
+              className="mt-2"
               value={DataVariableCost}
               onChange={(e) => setDataVariableCost(e.target.value)}
             />
-          </Col>
+          </Col> */}
+
           <Col className="mt-2" span={6}>
             <label style={{ fontWeight: "bold" }}>Fixed Cost :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
@@ -420,13 +450,12 @@ function EditDetail() {
             />
           </Col>
           <Col className="mt-2" span={6}>
-            <label style={{ fontWeight: "bold" }}>Maintenance Cost :</label>
+            <label style={{ fontWeight: "bold" }}>Max Tonase :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
               className="mt-2"
-              // placeholder={DetailDataTarif.uang_jalan}
-              value={DataMaintenance}
-              onChange={(e) => setDataMaintenance(e.target.value)}
+              value={DataMaxTonase}
+              onChange={(e) => setDataMaxTonase(e.target.value)}
             />
           </Col>
         </Row>
@@ -459,12 +488,22 @@ function EditDetail() {
             <label style={{ fontWeight: "bold" }}>Tarif :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
+            disabled
               className="mt-2"
               value={`${new Intl.NumberFormat("id-ID").format(tarif)}`}
               onChange={(e) => {
                 console.log(e.target.value);
                 setTarif(e.target.value);
               }}
+            />
+          </Col>
+          <Col className="mt-2" span={6}>
+            <label style={{ fontWeight: "bold" }}>Harga Selanjutnya :</label>
+            {/* Menghubungkan input uang jalan dengan state uangJalan */}
+            <Input
+              className="mt-2"
+              value={HargaSelanjutnya}
+              onChange={(e) => setHargaSelanjutnya(e.target.value)}
             />
           </Col>
         </Row>
