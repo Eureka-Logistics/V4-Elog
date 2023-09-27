@@ -43,6 +43,7 @@ function FormTable({
   messagedetail,
   datarefresh
 }) {
+  const router = useHistory();
   const [modal1Open, setModal1Open] = useState(false);
   const [jobdesk, setJobdesk] = useState(localStorage.getItem("jobdesk"));
   const [mitraVehicle, setMitraVehicle] = useState([]);
@@ -903,6 +904,10 @@ function FormTable({
 
   const [ShowModalCreatePO, setShowModalCreatePO] = useState(false);
 
+  const handleView = () => {
+    router.push(`/PrintSPNew/`);
+    // console.log("ini id_bu", idEmploye);
+  };
 
   return (
     <>
@@ -1993,7 +1998,7 @@ function FormTable({
               } */}
               {StatusApproveAct === "Y" && (
                 <>
-                <Button type="primary">
+                <Button onClick={() => handleView()} type="primary">
                 <span style={{ display: "flex", alignItems: "center" }}>
                   <PrinterOutlined />
                 </span>

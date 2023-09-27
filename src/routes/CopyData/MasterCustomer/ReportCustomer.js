@@ -316,6 +316,7 @@ function ReportCustomer() {
   
     return formattedPickUpWithColon;
   }
+  
   return (
     <div>
       <Card>
