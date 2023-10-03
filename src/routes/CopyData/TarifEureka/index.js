@@ -127,6 +127,11 @@ const SamplePage = () => {
       key: "max_tonase",
     },
     {
+      title: "Satuan",
+      dataIndex: "satuan",
+      key: "satuan",
+    },
+    {
       title: "Harga",
       dataIndex: "harga_selanjutnya",
       key: "harga_selanjutnya",
@@ -493,6 +498,7 @@ const SamplePage = () => {
               <th>Jenis Kendaraan</th>
               <th>Tarif</th>
               <th>Max Tonase(kg/koli)</th>
+              <th>Satuan</th>
               <th>Harga</th>
               <th>Action</th>
             </tr>
@@ -524,7 +530,8 @@ const SamplePage = () => {
                     currency: "IDR",
                   }).format(record.tarif)}`}
                 </td>
-                <td style={{ paddingTop: "20px" }}>{record.max_tonase}</td>
+                <td style={{ paddingTop: "20px", textAlign: 'center' }} className="justify-content-center">{record.max_tonase}</td>
+                <td style={{ paddingTop: "20px" }}>{record.satuan}</td>
                 <td style={{ paddingTop: "20px" }}>
                   {`${new Intl.NumberFormat("id-ID", {
                     style: "currency",

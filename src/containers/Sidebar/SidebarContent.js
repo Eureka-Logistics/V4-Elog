@@ -46,6 +46,7 @@ import {
   AppstoreOutlined,
   AppstoreTwoTone,
   HourglassTwoTone,
+  UsergroupAddOutlined,
 } from "@ant-design/icons";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 const { SubMenu } = Menu;
@@ -199,6 +200,38 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 <></>
               )}
 
+              {jobdesk == "webmaster" && (
+                <MenuItemGroup key="main" >
+                  <Menu.Item key="Dashboard" className={activeMenu === "/dashboard" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Link to="/dashboard" style={{ textDecoration: "none" }}>
+
+                      <AppstoreOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '8px' }} />
+                      <span style={{ fontWeight: "bold", color: "white" }}>
+                        <IntlMessages id="Dashboard" />
+                      </span>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="List User" className={activeMenu === "/ListDataUsersss" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Link to="/ListDataUsersss" style={{ textDecoration: "none" }}>
+                    
+                      <UsergroupAddOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '8px' }} />
+                      <span style={{ fontWeight: "bold", color: "white" }}>
+                        <IntlMessages id="List User" />
+                      </span>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="Data User" className={activeMenu === "/DataMenu" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Link to="/DataMenu" style={{ textDecoration: "none" }}>
+                 
+                      <UserOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '8px' }} />
+                      <span style={{ fontWeight: "bold", color: "white" }}>
+                        <IntlMessages id="Data User" />
+                      </span>
+                    </Link>
+                  </Menu.Item>
+                </MenuItemGroup>
+              )}
+
               {jobdesk == "sales" && (
                 <MenuItemGroup key="main" >
                   <Menu.Item key="Dashboard" className={activeMenu === "/dashboard" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
@@ -295,6 +328,15 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       {/* <span style={{ fontWeight: "bold",  color: 'white' }}>Data Alamat All</span> */}
                     </Link>
                   </Menu.Item>
+                  <Menu.Item key="Cari Tarif" className={activeMenu === "/CariTarif" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Link to="/CariTarif" style={{ textDecoration: "none" }}>
+                      {/* <i className="icon icon-widgets" /> */}
+                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
+                      <span style={{ fontWeight: "bold", color: "white" }}>
+                       Cari Tarif
+                      </span>
+                    </Link>
+                  </Menu.Item>
                   <Menu.Item key="Tarif Customer" className={activeMenu === "/pelanggantarif" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/pelanggantarif"
@@ -306,7 +348,6 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item> 
-                 
                   <div
                     className="d-flex justify-content-center"
                     style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
@@ -470,6 +511,17 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
+                  <Menu.Item key="monitoring" className={activeMenu === "/monitoringSJ" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                    <Link
+                      to="/monitoringSJ"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <ScheduleTwoTone style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
+                      <span style={{ fontWeight: "bold", color: "white" }}>
+                        <IntlMessages id="Monitoring SJ" />
+                      </span>
+                    </Link>
+                  </Menu.Item>
                 </Menu.ItemGroup>
               )}
               {/* {jobdesk == "operasional" && (
@@ -558,7 +610,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </Menu.ItemGroup>
-                  <div
+                  {/* <div
                     className="d-flex justify-content-center"
                     style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
@@ -577,9 +629,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item> 
-                  <Menu.Item key="Tarif Eureka" >
+                  <Menu.Item disabled key="Tarif Eureka" >
                     <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
-                      {/* <i className="icon icon-widgets" /> */}
                       <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Tarif Eureka
@@ -589,14 +640,12 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <Menu.Item key="Tarif Mitra" disabled>
 
                     <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
-                      {/* <i className="icon icon-widgets" />
-                       */}
                       <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
                         Tarif Mitra
                       </span>
                     </Link>
-                  </Menu.Item>
+                  </Menu.Item> */}
                   {/* <SubMenu key="monitoring" title="Monitoring">
                     <Menu.Item key="Data Pesanan Customer">
                       <Link to="/akunting/detaildatacustomer" style={{ textDecoration: "none" }}>
@@ -956,6 +1005,15 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       Tarif
                     </h6>
                   </div>
+                  <Menu.Item key="Cari Tarif" className={activeMenu === "/CariTarif" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Link to="/CariTarif" style={{ textDecoration: "none" }}>
+                      {/* <i className="icon icon-widgets" /> */}
+                      <DollarOutlined style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
+                      <span style={{ fontWeight: "bold", color: "white" }}>
+                       Cari Tarif
+                      </span>
+                    </Link>
+                  </Menu.Item>
                   <Menu.Item key="Tarif Mitra" className={activeMenu === "/tarifmitra" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" />

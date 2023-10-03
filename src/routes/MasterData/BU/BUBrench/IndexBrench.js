@@ -57,6 +57,16 @@ function IndexBrench() {
       key: "buCode",
     },
     {
+      title: "Alamat",
+      dataIndex: "alamat",
+      key: "alamat",
+    },
+    {
+      title: "No Telp",
+      dataIndex: "noTelp",
+      key: "noTelp",
+    },
+    {
       title: "Status",
       dataIndex: "status",
       key: "status",

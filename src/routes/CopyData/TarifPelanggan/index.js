@@ -418,6 +418,7 @@ const SamplePage = () => {
                 setMuatKota(options.value);
               }}
             >
+              <Select.Option value="">-</Select.Option>
               {muatKotaOptionSelect &&
                 muatKotaOptionSelect.muatKota.map((item, index) => (
                   <Select.Option value={item.idKota}>
@@ -451,6 +452,7 @@ const SamplePage = () => {
                 setKotaTujuan(options.value);
               }}
             >
+              <Select.Option value="">-</Select.Option>
               {kotaTujuannOptionSelect &&
                 kotaTujuannOptionSelect.tujuanKota.map((item, index) => (
                   <Select.Option value={item.idKota}>
@@ -484,6 +486,7 @@ const SamplePage = () => {
                 setNamaMitraa(options.value);
               }}
             >
+              <Select.Option value="">-</Select.Option>
               {NamaMitraOptions &&
                 NamaMitraOptions.customer.map((item, index) => (
                   <Select.Option value={item.idCustomer}>
