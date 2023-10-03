@@ -1,5 +1,5 @@
 import React from 'react'
-import ListUser from '../ListUser';
+import ListUser from '../../../../../MasterData/masterUser/ListUser';
 import CreateUserBaru from '../index';
 import { Card, Tabs } from 'antd';
 

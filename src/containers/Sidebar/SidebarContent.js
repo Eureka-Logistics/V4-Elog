@@ -159,7 +159,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               {jobdesk === "akunting" ? (
                 <>
                   <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
-                    {/* <Button
+                    <Button
                       size="lg"
                       style={{
                         width: 180,
@@ -193,7 +193,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       variant="danger"
                     >
                       ADD USER BARU
-                    </Button> */}
+                    </Button>
+                    
                   </div>
                 </>
               ) : (

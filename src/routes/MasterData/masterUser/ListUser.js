@@ -309,7 +309,6 @@ function ListUser() {
           <Col span={6}>
             <label
               className="mb-3"
-              // htmlFor="muatKotaSelect"
               style={{ fontWeight: "bold", fontFamily: "NoirPro" }}
             >
               Search Divisi :
@@ -340,14 +339,14 @@ function ListUser() {
             </Select>
           </Col>
 
-          <Col span={18} className="d-flex justify-content-end mt-4">
+          {/* <Col span={18} className="d-flex justify-content-end mt-4">
             <Button
               style={{ backgroundColor: "#1A5CBF", color: "white" }}
               onClick={handleAdd}
             >
               New User
             </Button>
-          </Col>
+          </Col> */}
         </Row>
 
         <Table
