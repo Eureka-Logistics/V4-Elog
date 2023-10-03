@@ -48,8 +48,10 @@ function MonitoringSJ() {
     {
       key: '1',
       sm: ['SMG23-002664', 'SP01718/10/23/SMG'],
-      age: 32,
-      address: '10 Downing Street',
+      rute: ['PT. Macrosentra Niagaboga',
+        'Semarang-Bogor'],
+      pickUp:['PT. EUREKA LOGISTICS (EL)',
+      'B 9056 TEV - Kambali'],
     },
   ];
   
@@ -71,15 +73,28 @@ function MonitoringSJ() {
       ),
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+      title: 'RUTE',
+      dataIndex: 'rute',
+      key: 'rute',
+      render: (text, record) => (
+        <div>
+          <div style={{ fontWeight: 'bold' }}>{record.rute[0]}</div>
+          <div>{record.rute[1]}</div>
+        </div>
+      ),
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+      title: 'PICK UP',
+      dataIndex: 'rute',
+      key: 'rute',
+      render: (text, record) => (
+        <div>
+          <div style={{ fontWeight: 'bold' }}>{record.rute[0]}</div>
+          <div>{record.rute[1]}</div>
+        </div>
+      ),
     },
+   
   ];
 
   return (
