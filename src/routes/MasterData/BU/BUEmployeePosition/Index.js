@@ -297,7 +297,11 @@ function Index() {
             >
               {filter.map((item) => (
                 <Select.Option key={item.value} value={item.value}>
+<<<<<<< HEAD
                   {item.value}
+=======
+                  {item.position}
+>>>>>>> maya
                 </Select.Option>
               ))}
             </Select>

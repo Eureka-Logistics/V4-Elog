@@ -11,7 +11,10 @@ import Swal from "sweetalert2";
 import { Pagination } from "antd";
 import SpStore from "../../../zustand/Store/FilterSP";
 import DetailUserLoginZustand from "../../../zustand/Store/DetailUserLogin/Index";
+<<<<<<< HEAD
 import { array } from "prop-types";
+=======
+>>>>>>> maya
 
 function SPListlama() {
   const DetailUserLoginZustandState = DetailUserLoginZustand((i) => i?.DetailUserLoginZustandState)
@@ -235,6 +238,7 @@ function SPListlama() {
     //     return data
     //   },
     // },
+<<<<<<< HEAD
     // {
     //   name: "Sales",
     //   selector: (row) => {
@@ -259,6 +263,32 @@ function SPListlama() {
     //   },
     //   width: "170px",
     // },
+=======
+    {
+      name: "Sales",
+      selector: (row) => {
+        const tanggal = row.dateApproveSales;
+        return row?.approveAct === "Y" ? (
+          <Tag color="green">
+            Approved <br /> {tanggal}
+          </Tag>
+        ) : row?.approveAct === "N" && tanggal === "1970-01-01 07:00:00" ? (
+          <Tag color="red">
+            Reject <br /> {tanggal ? "-" : tanggal}
+          </Tag>
+        ) : row?.approveAct === "N" && tanggal !== "1970-01-01 07:00:00" ? (
+          <Tag color="red">
+            Reject <br /> {tanggal}
+          </Tag>
+        ) : (
+          <Tag color="blue">
+            Pass <br /> {tanggal}
+          </Tag>
+        );
+      },
+      width: "170px",
+    },
+>>>>>>> maya
     {
       name: "Akunting",
       selector: (row) => {
@@ -373,8 +403,11 @@ function SPListlama() {
     setSearch(e.target.value);
   };
 
+<<<<<<< HEAD
   
 
+=======
+>>>>>>> maya
 
   return (
     <div>

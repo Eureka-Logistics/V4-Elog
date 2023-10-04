@@ -1483,7 +1483,11 @@ function EditSP({  }) {
                     <td style={{ paddingRight: "20px" }}>TOTAL KESELURUHAN</td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="130px" style={{ paddingLeft: "10px" }}>
+<<<<<<< HEAD
                       {detailData?.totalFix?.toLocaleString("id-ID", {
+=======
+                      {detailData?.Totalprice?.toLocaleString("id-ID", {
+>>>>>>> maya
                         style: "currency",
                         currency: "IDR",
                       })}

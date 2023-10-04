@@ -12,7 +12,11 @@ import truck from "../../../../assets/img/Truck Illu 1.png"
 import vespa from "../../../../assets/img/vesva.png"
 import ListPengiriman from './ListPengirimanCardComponent';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+<<<<<<< HEAD
 import MapContainer from "../../../MasterData/Monitoring/Test"
+=======
+
+>>>>>>> maya
 function SpListRace() {
     const history = useHistory()
     const [open, setOpen] = useState(false);
@@ -23,6 +27,7 @@ function SpListRace() {
         setOpen(false);
     };
 
+<<<<<<< HEAD
     const pindahdetailsp = () => {
         history.push(`/race/detailsplistrace/:idmp`)
     }
@@ -43,6 +48,12 @@ Salam hangat,
         window.open(whatsappURL, '_blank');
     }
 
+=======
+    const pindahdetailsp = ()=>{
+        history.push(`/race/detailsplistrace/:idmp`)
+    }
+
+>>>>>>> maya
     return (
         <div>
             <Drawer
@@ -53,7 +64,11 @@ Salam hangat,
                 open={open}
             >
                 <Card bodyStyle={{ padding: 0 }} style={{ height: 455, overflow: 'hidden' }}>
+<<<<<<< HEAD
                     <MapContainer />
+=======
+                    <img src={map} style={{ width: '100%', height: "100%", objectFit: 'cover' }} />
+>>>>>>> maya
                 </Card>
                 <Card bodyStyle={{ padding: 0 }} style={{ height: 270 }}>
                     <Container>
@@ -69,7 +84,11 @@ Salam hangat,
                             </Col>
                             <Col sm={4} className='d-flex justify-content-end align-items-center'>
                                 <img src={telponicon} style={{ height: "80px", width: "93px", borderRadius: "10px" }}></img>
+<<<<<<< HEAD
                                 <img onClick={sendMessage} src={whatsappicon} style={{ height: "80px", width: "93px", borderRadius: "10px", cursor: "pointer" }}></img>
+=======
+                                <img src={whatsappicon} style={{ height: "80px", width: "93px", borderRadius: "10px" }}></img>
+>>>>>>> maya
                             </Col>
                         </Row>
                         <Row className="align-items-center">
@@ -78,9 +97,15 @@ Salam hangat,
                             </Col>
                             <Col className='d-flex justify-content-end'>
                                 <Button
+<<<<<<< HEAD
                                     onClick={pindahdetailsp}
                                     style={{
                                         backgroundColor: "blue",
+=======
+                                onClick={pindahdetailsp}
+                                    style={{
+                                        backgroundColor:"blue",
+>>>>>>> maya
                                         fontWeight: "bold",
                                         fontSize: 20,
                                         color: 'white',

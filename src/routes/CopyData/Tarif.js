@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Card, Col, Row, Select, Tag, Table, Alert } from "antd";
+=======
+import { Card, Col, Row, Select, Tag, Table, Alert, Button } from "antd";
+>>>>>>> maya
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Baseurl from "../../Api/BaseUrl";
@@ -434,6 +438,14 @@ function Tarif() {
                 ))}
             </Select>
           </Col>
+<<<<<<< HEAD
+=======
+          {/* <Col span={6} className="justify-content-end d-flex">
+            <Button style={{backgroundColor: 'green', color: 'white'}} className="mt-4">
+              Export Excel
+            </Button>
+          </Col> */}
+>>>>>>> maya
         </Row>
       </Card>
       {/* Tarif Eureka */}

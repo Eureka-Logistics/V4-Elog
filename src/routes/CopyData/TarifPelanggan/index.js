@@ -18,14 +18,22 @@ import {
   EditOutlined,
   DeleteOutlined,
   EyeOutlined,
+<<<<<<< HEAD
   
   FormOutlined,
 
+=======
+  FormOutlined,
+>>>>>>> maya
 } from "@ant-design/icons";
 import axios from "axios";
 import Baseurl from "../../../Api/BaseUrl";
 import { Row } from "react-bootstrap";
 import "../../../assets/style.css";
+<<<<<<< HEAD
+=======
+import XLSX from "xlsx";
+>>>>>>> maya
 
 const SamplePage = () => {
   const router = useHistory();
@@ -36,7 +44,11 @@ const SamplePage = () => {
   const [total, setTotal] = useState(0);
   const [loadingState, setLoadingState] = useState(false);
   const [limit, setLimit] = useState(10);
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> maya
   const handleView = (id) => {
     router.push(`/detailTarifPelanggan/${id}`);
   };
@@ -167,7 +179,11 @@ const SamplePage = () => {
   const [NamaMitraa, setNamaMitraa] = useState("");
   const [kotaTujuannOptionSelect, setKotaTujuanOpionSelect] = useState("");
   const [muatKotaOptionSelect, setMuatKotaOptionsSelect] = useState("");
+<<<<<<< HEAD
   const [NamaMitraOptions , setNamaMitraOptions] = useState("")
+=======
+  const [NamaMitraOptions, setNamaMitraOptions] = useState("");
+>>>>>>> maya
 
   const IniRowClick = (record) => {
     handleView(record.id_price_mitra);
@@ -222,6 +238,7 @@ const SamplePage = () => {
   useEffect(() => {
     fetchData();
     getDataSelectt();
+<<<<<<< HEAD
    
   }, [currentPage, limit, muatKota, kotaTujuan, NamaMitraa]);
 
@@ -240,6 +257,22 @@ const SamplePage = () => {
       
     }
   }
+=======
+  }, [currentPage, limit, muatKota, kotaTujuan, NamaMitraa]);
+
+  const NamaMitraOptionsAPI = async () => {
+    try {
+      const data = await axios.get(`${Baseurl}mitra/get-select-mitraPic`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      console.log(`dodol`, data.data.mitra);
+      setNamaMitraOptions(data.data?.mitra);
+    } catch (error) {}
+  };
+>>>>>>> maya
 
   const handleAdd = (id) => {
     router.push(`/NewTarifCustomer/`);
@@ -274,12 +307,110 @@ const SamplePage = () => {
     });
   };
 
+<<<<<<< HEAD
   
+=======
+  const exportToExcel = () => {
+    const dataToExport = listData.map((item, index) => ({
+      No: {
+        t: "s",
+        v: index + 1,
+        s: {
+          alignment: { horizontal: "center", vertical: "center" },
+          color: { rgb: "6495ED" },
+        },
+      },
+      "Kode Tarif": {
+        t: "s",
+        v: item.kode_tarif,
+        s: { alignment: { horizontal: "center" } },
+      },
+      Pelanggan: {
+        t: "s",
+        v: item.customer,
+        s: { alignment: { horizontal: "center" } },
+      },
+      Service: {
+        t: "s",
+        v: item.service_type,
+        s: { alignment: { horizontal: "center" } },
+      },
+      Muat: {
+        t: "s",
+        v: item.kotaAsal,
+        s: { alignment: { horizontal: "center" } },
+      },
+      Bongkar: {
+        t: "s",
+        v: item.kotaTujuan,
+        s: { alignment: { horizontal: "center" } },
+      },
+      "Jenis Kendaraan": {
+        t: "s",
+        v: item.kendaraanJenis,
+        s: { alignment: { horizontal: "center" } },
+      },
+      "Date Created": {
+        t: "s",
+        v: item.date_created,
+        s: { alignment: { horizontal: "center" } },
+      },
+      "Biaya Kirim": {
+        t: "s",
+        v: formatRupiah(item.biaya_jalan),
+        s: { alignment: { horizontal: "center" } },
+      },
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+
+    // Mengatur lebar kolom untuk kolom "Kode Tarif" dengan lebar 15
+    ws["!cols"] = [
+      { wch: 5 },
+      { wch: 15 },
+      { wch: 30 },
+      { wch: 11 },
+      { wch: 25 },
+      { wch: 25 },
+      { wch: 16 },
+      { wch: 22 },
+      { wch: 30 },
+    ];
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Table Data");
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+
+    const blob = new Blob([excelBuffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+    const fileName = "table_data.xlsx";
+
+    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+      // For IE
+      window.navigator.msSaveOrOpenBlob(blob, fileName);
+    } else {
+      // For other browsers
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }
+  };
+>>>>>>> maya
 
   return (
     <div>
       <Card>
+<<<<<<< HEAD
         <h3 style={{color: '#1A5CBF'}}>Data Tarif Customer</h3>
+=======
+        <h3 style={{ color: "#1A5CBF" }}>Data Tarif Customer</h3>
+>>>>>>> maya
         <div
           style={{
             display: "flex",
@@ -308,7 +439,11 @@ const SamplePage = () => {
         `}
         </style>
         <Row>
+<<<<<<< HEAD
           <Col sm={6}>
+=======
+          <Col sm={5}>
+>>>>>>> maya
             <label
               className="mb-2"
               htmlFor="muatKotaSelect"
@@ -333,6 +468,10 @@ const SamplePage = () => {
                 setMuatKota(options.value);
               }}
             >
+<<<<<<< HEAD
+=======
+              <Select.Option value="">-</Select.Option>
+>>>>>>> maya
               {muatKotaOptionSelect &&
                 muatKotaOptionSelect.muatKota.map((item, index) => (
                   <Select.Option value={item.idKota}>
@@ -341,7 +480,11 @@ const SamplePage = () => {
                 ))}
             </Select>
           </Col>
+<<<<<<< HEAD
           <Col sm={6}>
+=======
+          <Col sm={5}>
+>>>>>>> maya
             <label
               className="mb-2"
               htmlFor="muatKotaSelect"
@@ -366,6 +509,10 @@ const SamplePage = () => {
                 setKotaTujuan(options.value);
               }}
             >
+<<<<<<< HEAD
+=======
+              <Select.Option value="">-</Select.Option>
+>>>>>>> maya
               {kotaTujuannOptionSelect &&
                 kotaTujuannOptionSelect.tujuanKota.map((item, index) => (
                   <Select.Option value={item.idKota}>
@@ -374,11 +521,23 @@ const SamplePage = () => {
                 ))}
             </Select>
           </Col>
+<<<<<<< HEAD
           <Col sm={6}>
               <label className="mb-2" htmlFor="MitraSelect" style={{ fontWeight: "bold" }}>
                 Search Nama Customer :
               </label>
               <Select
+=======
+          <Col sm={5}>
+            <label
+              className="mb-2"
+              htmlFor="MitraSelect"
+              style={{ fontWeight: "bold" }}
+            >
+              Search Nama Customer :
+            </label>
+            <Select
+>>>>>>> maya
               value={NamaMitraa}
               name="mitra"
               showSearch
@@ -395,6 +554,10 @@ const SamplePage = () => {
                 setNamaMitraa(options.value);
               }}
             >
+<<<<<<< HEAD
+=======
+              <Select.Option value="">-</Select.Option>
+>>>>>>> maya
               {NamaMitraOptions &&
                 NamaMitraOptions.customer.map((item, index) => (
                   <Select.Option value={item.idCustomer}>
@@ -402,6 +565,7 @@ const SamplePage = () => {
                   </Select.Option>
                 ))}
             </Select>
+<<<<<<< HEAD
             </Col>
           <Col sm={6} className="d-flex justify-content-end mt-3">
             <Button style={{backgroundColor: '#1A5CBF', color: 'white'}} onClick={handleAdd}>
@@ -428,6 +592,43 @@ const SamplePage = () => {
           
         />
        </div>
+=======
+          </Col>
+          <Col sm={9} className="d-flex justify-content-end mt-4">
+            <Button
+              style={{ backgroundColor: "green", color: "white" }}
+              onClick={exportToExcel}
+            >
+              Export Excel (XLSX)
+            </Button>
+
+            <Button
+              style={{ backgroundColor: "#1A5CBF", color: "white" }}
+              onClick={handleAdd}
+            >
+              New Tarif
+            </Button>
+          </Col>
+        </Row>
+        <div style={{ overflowX: "auto" }}>
+          <Table
+            className="mt-5"
+            onRowClicked={IniRowClick}
+            dataSource={listData}
+            columns={columns}
+            pagination={{
+              current: currentPage,
+              pageSize: limit,
+              total,
+              onChange: (page) => setCurrentPage(page),
+            }}
+            onChange={(pagination) => {
+              setCurrentPage(pagination.current);
+              setLimit(pagination.pageSize);
+            }}
+          />
+        </div>
+>>>>>>> maya
       </Card>
     </div>
   );

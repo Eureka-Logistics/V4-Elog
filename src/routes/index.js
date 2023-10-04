@@ -41,6 +41,15 @@ const App = ({ match }) => {
             import("./MasterData/Monitoring/DriverMap")
           )}
         />
+<<<<<<< HEAD
+=======
+        <Route
+          path={`${match.url}monitoringSJ`}
+          component={asyncComponent(() =>
+            import("./MasterData/SJ/MonitoringSJ")
+          )}
+        />
+>>>>>>> maya
 
         <Route
           path={`${match.url}masterdata/driver`}
@@ -613,6 +622,28 @@ const App = ({ match }) => {
           )}
         />
         <Route
+<<<<<<< HEAD
+=======
+          path={`${match.url}ListDataUsersss`}
+          component={asyncComponent(() =>
+            import("./MasterData/masterUser/ListUser")
+          )}
+        />
+        <Route
+          path={`${match.url}NewListDataUsers`}
+          component={asyncComponent(() =>
+            import("./MasterData/masterUser/NewListUser")
+          )}
+        />
+        <Route
+          path={`${match.url}DataMenu`}
+          component={asyncComponent(() =>
+            import("./MasterData/masterUser/DataMenu")
+          )}
+        />
+        
+        <Route
+>>>>>>> maya
           path={`${match.url}pelanggantarifedit`}
           component={asyncComponent(() =>
             import("./CopyData/TarifPelanggan/edit")
@@ -803,6 +834,7 @@ const App = ({ match }) => {
             import("../routes/Race/WebAdmin/Map Pengiriman/index")
           )}
         />
+<<<<<<< HEAD
         <Route
           path={`${match.url}listdriver`}
           component={asyncComponent(() =>
@@ -815,6 +847,9 @@ const App = ({ match }) => {
             import("../routes/Race/WebAdmin/Map Pengiriman/TestDND")
           )}
         />
+=======
+       
+>>>>>>> maya
 
       </Switch>
     </div>

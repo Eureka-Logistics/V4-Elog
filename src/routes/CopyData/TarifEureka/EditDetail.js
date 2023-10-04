@@ -49,6 +49,10 @@ function EditDetail() {
   const [DataMaxTonase, setDataMaxTonase] = useState("");
   const [DataSatuan, setDataSatuan] = useState("");
   const [HargaSelanjutnya, setHargaSelanjutnya] = useState("");
+<<<<<<< HEAD
+=======
+  const [KodeTarif, setKodeTarif] = useState("")
+>>>>>>> maya
 
   const fetchData = async () => {
     try {
@@ -58,7 +62,11 @@ function EditDetail() {
           Authorization: localStorage.getItem("token"),
         },
       });
+<<<<<<< HEAD
       console.log("response", respons.data);
+=======
+      console.log("responses", respons.data.kodeTarif.kodeTarifEureka);
+>>>>>>> maya
       //   console.log("responssssscarismid", respons.data.data);
 
       setDataTambah(respons.data);
@@ -339,6 +347,10 @@ function EditDetail() {
             >
               <Option value="Kg">Kg</Option>
               <Option value="Koli">Koli</Option>
+<<<<<<< HEAD
+=======
+              <Option value="Pcs">Pcs</Option>
+>>>>>>> maya
             </Select>
           </Col>
           <Col className="mt-2" span={4}>

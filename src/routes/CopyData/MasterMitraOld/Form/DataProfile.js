@@ -47,6 +47,10 @@ const SamplePage = () => {
   const [IDKotaNPWP, setIDKotaNPWP] = useState("");
   const [PicID, setPicID] = useState("");
   const [DataPIC, setDataPIC] = useState("");
+<<<<<<< HEAD
+=======
+  const [DataJenisKiriman, setDataJenisKiriman] = useState("");
+>>>>>>> maya
 
   const formik = useFormik({
     initialValues: {
@@ -60,7 +64,11 @@ const SamplePage = () => {
       jumlah_armada: "",
       jumlah_sdm_operasional: "",
       cabang: "",
+<<<<<<< HEAD
       jenis_kiriman: "",
+=======
+      jenis_kiriman: DataJenisKiriman,
+>>>>>>> maya
       wilayah: KodeProvinsi,
       tujuan: KodeKota,
       kontrak: "",
@@ -171,7 +179,11 @@ const SamplePage = () => {
                 " " +
                 formik.values.npwp_provinsi +
                 " " +
+<<<<<<< HEAD
                 ", Kota" +
+=======
+                ", " +
+>>>>>>> maya
                 " " +
                 formik.values.npwp_kota +
                 " " +
@@ -357,6 +369,30 @@ const SamplePage = () => {
     { label: "LCL", value: "LCL" },
   ];
 
+<<<<<<< HEAD
+=======
+  const options = [
+    {
+      value: "RETAIL",
+    },
+    {
+      value: "CHARTER",
+    },
+    {
+      value: "FCL",
+    },
+    {
+      value: "LCL",
+    },
+  ];
+
+  // const { label, value, closable, onClose } = props;
+  // const onPreventMouseDown = (event) => {
+  //   event.preventDefault();
+  //   event.stopPropagation();
+  // };
+
+>>>>>>> maya
   return (
     <div>
       <Form onSubmit={formik.handleSubmit}>
@@ -369,6 +405,10 @@ const SamplePage = () => {
         <h5 style={{ color: "#1A5CBF" }}>
           NAMA DAN ALAMAT PERUSAHAAN(Sold to Party )
         </h5>
+<<<<<<< HEAD
+=======
+
+>>>>>>> maya
         <hr />
         <Row>
           <Col span={4}>
@@ -401,7 +441,11 @@ const SamplePage = () => {
                 Title:
               </label>
               <Select
+<<<<<<< HEAD
               showSearch
+=======
+                showSearch
+>>>>>>> maya
                 className="mt-2"
                 value={formik.values.title}
                 style={{ width: "100%" }}
@@ -571,8 +615,13 @@ const SamplePage = () => {
                 PIC Purchasing :
               </Form.Label>
               <Select
+<<<<<<< HEAD
               showSearch
                optionFilterProp="value"
+=======
+                showSearch
+                optionFilterProp="value"
+>>>>>>> maya
                 name="pic_id"
                 style={{ width: "100%", marginTop: "10px" }}
                 onChange={(value, e) => {
@@ -705,10 +754,27 @@ const SamplePage = () => {
               <Form.Label style={{ fontWeight: "bold" }}>
                 Jenis Kiriman :
               </Form.Label>
+<<<<<<< HEAD
+=======
+              {/* <Select
+                mode="multiple"
+                name="jenis_kiriman"
+                placeholder="Pilih Jenis Kiriman"
+                style={{
+                  width: "100%",
+                }}
+                options={options}
+                onChange={(e) => {
+                  console.log(e);
+                  setDataJenisKiriman(e);
+                }}
+              /> */}
+>>>>>>> maya
               <Select
                 style={{ width: "100%" }}
                 name="jenis_kiriman"
                 placeholder="Pilih Jenis Kiriman"
+<<<<<<< HEAD
                 mode="multiple" 
                 value={formik.values.jenis_kiriman}
                 onChange={(selectedValues) => {
@@ -716,6 +782,27 @@ const SamplePage = () => {
                     .map((value) => value.toString())
                     .join(",");
                   formik.setFieldValue("jenis_kiriman", formattedValue);
+=======
+                mode="multiple"
+                onChange={(selectedValues) => {
+                  
+                  const nonEmptyValues = selectedValues.filter(
+                    (value) => value !== ""
+                  );
+
+                 
+                  if (nonEmptyValues.length > 0) {
+                    const formattedValue = nonEmptyValues
+                      .map((value) => value.toString())
+                      .join(",");
+                    formik.setFieldValue("jenis_kiriman", formattedValue);
+                  } else {
+                   
+                    formik.setFieldValue("jenis_kiriman", "");
+                  }
+
+                  console.log(selectedValues);
+>>>>>>> maya
                 }}
               >
                 {jenisKirimanOptions.map((option) => (
@@ -742,11 +829,27 @@ const SamplePage = () => {
                 <option value="Vendor Darat">Vendor Darat</option>
                 <option value="Vendor Laut">Vendor Laut</option>
                 <option value="Vendor Udara">Vendor Udara</option>
+<<<<<<< HEAD
                 <option value="Vendor Darat dan Laut">Vendor Darat dan Laut</option>
                 <option value="Vendor Darat dan Udara">Vendor Darat dan Udara</option>
                 <option value="Vendor Kirim Mobil">Vendor Kirim Mobil</option>
                 <option value="Vendor Internasional">Vendor Internasional</option>
                 <option value="Vendor Dokumney dan Paket">Vendor Dokumney dan Paket</option>
+=======
+                <option value="Vendor Darat dan Laut">
+                  Vendor Darat dan Laut
+                </option>
+                <option value="Vendor Darat dan Udara">
+                  Vendor Darat dan Udara
+                </option>
+                <option value="Vendor Kirim Mobil">Vendor Kirim Mobil</option>
+                <option value="Vendor Internasional">
+                  Vendor Internasional
+                </option>
+                <option value="Vendor Dokumney dan Paket">
+                  Vendor Dokumney dan Paket
+                </option>
+>>>>>>> maya
               </Select>
               {/* <InputGroup>
                   <Form.Control
@@ -767,7 +870,11 @@ const SamplePage = () => {
                 Wilayah (Operasional):
               </Form.Label>
               <Select
+<<<<<<< HEAD
               showSearch  // Aktifkan fitur pencarian
+=======
+                showSearch // Aktifkan fitur pencarian
+>>>>>>> maya
                 placeholder="Silahkan Pilih Wilayah"
                 name="wilayah"
                 style={{ width: "100%" }}
@@ -777,7 +884,13 @@ const SamplePage = () => {
                   console.log(e.key);
                 }}
                 filterOption={(inputValue, option) =>
+<<<<<<< HEAD
                   option.props.children.toLowerCase().includes(inputValue.toLowerCase())
+=======
+                  option.props.children
+                    .toLowerCase()
+                    .includes(inputValue.toLowerCase())
+>>>>>>> maya
                 }
               >
                 {DataWilayah &&
@@ -848,6 +961,7 @@ const SamplePage = () => {
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.awal_kontrak}
                   />
+<<<<<<< HEAD
                 </InputGroup> */}
               <DatePicker
             
@@ -859,6 +973,35 @@ const SamplePage = () => {
                 }
                 onChange={(date, dateString) => {
                   formik.setFieldValue("awal_kontrak", dateString);
+=======
+
+                </InputGroup> */}
+
+              {/* <DatePicker
+                placeholder="Tanggal Berapa"
+                required
+                format={"DD-MM-YYYY"}
+                style={{ width: "100%" }}
+                onChange={(date) =>
+                  handlechangeAmbilBensin(
+                    "TanggalBerapa",
+                    date && date.format("DD-MM-YYYY"),
+                    formik.setFieldValue("awal_kontrak", date)
+
+                  )
+                }
+              ></DatePicker> */}
+              <DatePicker
+                style={{ width: "100%" }}
+                value={
+                  formik.values.awal_kontrak
+                    ? moment(formik.values.awal_kontrak, "DD-MM-YYYY")
+                    : null
+                }
+                format="DD-MM-YYYY" // Format "tanggal bulan tahun"
+                onChange={(date) => {
+                  formik.setFieldValue("awal_kontrak", date);
+>>>>>>> maya
                 }}
               />
             </Form.Group>
@@ -880,9 +1023,16 @@ const SamplePage = () => {
                 style={{ width: "100%" }}
                 value={
                   formik.values.akhir_kontrak
+<<<<<<< HEAD
                     ? moment(formik.values.akhir_kontrak)
                     : null
                 }
+=======
+                    ? moment(formik.values.akhir_kontrak, "DD-MM-YYYY")
+                    : null
+                }
+                format="DD-MM-YYYY" // Format "tanggal bulan tahun"
+>>>>>>> maya
                 onChange={(date, dateString) => {
                   formik.setFieldValue("akhir_kontrak", dateString);
                 }}
@@ -975,7 +1125,10 @@ const SamplePage = () => {
               </InputGroup>
             </Form.Group>
           </Col>
+<<<<<<< HEAD
          
+=======
+>>>>>>> maya
         </Row>
         <br />
         <hr />
@@ -1080,7 +1233,11 @@ const SamplePage = () => {
                 Provinsi :{" "}
               </Form.Label>
               <Select
+<<<<<<< HEAD
               showSearch
+=======
+                showSearch
+>>>>>>> maya
                 // mode="multiple"
                 placeholder="Pilih Provinsi"
                 name="npwp_provinsi"
@@ -1113,7 +1270,11 @@ const SamplePage = () => {
             <Form.Group>
               <Form.Label style={{ fontWeight: "bold" }}>Kota : </Form.Label>
               <Select
+<<<<<<< HEAD
               showSearch
+=======
+                showSearch
+>>>>>>> maya
                 // mode="multiple"
                 placeholder="Pilih Kota"
                 name="npwp_kota"
@@ -1282,11 +1443,19 @@ const SamplePage = () => {
                         " " +
                         formik.values.npwp_provinsi +
                         " " +
+<<<<<<< HEAD
                         ", Kota" +
                         " " +
                         formik.values.npwp_kota +
                         " " +
                         ", Kecamatan" +
+=======
+                        "," +
+                        " " +
+                        formik.values.npwp_kota +
+                        " " +
+                        ", Kecamatan" + 
+>>>>>>> maya
                         " " +
                         formik.values.npwp_kecamatan +
                         " " +
@@ -1327,7 +1496,11 @@ const SamplePage = () => {
         <h5 style={{ color: "#1A5CBF" }}>
           DATA ACCOUNTING (Accounting Information)
         </h5>
+<<<<<<< HEAD
         <br />
+=======
+        <br />  
+>>>>>>> maya
         <Row>
           <Col span={8}>
             <Form.Group>
@@ -1564,6 +1737,7 @@ const SamplePage = () => {
             </Form.Group>
           </Col>
           <Col span={8} className="mt-2">
+<<<<<<< HEAD
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Jumlah Unit :
@@ -1579,6 +1753,23 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
+=======
+            <Form.Group>
+              <Form.Label style={{ fontWeight: "bold" }}>
+                Jumlah Unit :
+              </Form.Label>
+              <InputGroup>
+                <Form.Control
+                  type="number"
+                  name="jumlah_unit"
+                  value={formik.values.jumlah_unit}
+                  onChange={formik.handleChange}
+                  isInvalid={!!formik.errors.jumlah_unit}
+                />
+              </InputGroup>
+            </Form.Group>
+          </Col>
+>>>>>>> maya
         </Row>
 
         {/* DATA REFERENSI */}
@@ -1599,7 +1790,10 @@ const SamplePage = () => {
             </Col>
             <Col span={8} className="mt-2">
               <Select
+<<<<<<< HEAD
              
+=======
+>>>>>>> maya
                 style={{ width: "100%" }}
                 onChange={(label) => {
                   formik.setFieldValue("po_legalitas", label);
@@ -2496,7 +2690,11 @@ const SamplePage = () => {
             <Col span={6}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
+<<<<<<< HEAD
                   NILAI SEWA {" "}
+=======
+                  NILAI SEWA{" "}
+>>>>>>> maya
                 </Form.Label>
                 <InputGroup>
                   <Form.Control

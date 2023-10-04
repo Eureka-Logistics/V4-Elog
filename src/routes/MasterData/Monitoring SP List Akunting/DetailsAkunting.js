@@ -746,17 +746,24 @@ function DetailsAkunting() {
                                     })}
                                   </td>
                                   <td>
+<<<<<<< HEAD
                                     {data.total?.toLocaleString("id-ID", {
                                       style: "currency",
                                       currency: "IDR",
                                     })}
                                   </td>
                                   {/* <td>
+=======
+>>>>>>> maya
                                     {data.totalBiayaRetail?.toLocaleString("id-ID", {
                                       style: "currency",
                                       currency: "IDR",
                                     })}
+<<<<<<< HEAD
                                   </td> */}
+=======
+                                  </td>
+>>>>>>> maya
                                 </>
                               }
                             </tr>

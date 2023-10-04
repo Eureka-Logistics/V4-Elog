@@ -68,7 +68,11 @@ function Index() {
     setNamaMarketing(data.data.data.marketing);
     setnamaPerusahaan(data.data.data.company);
     setAlamatInvoice(data.data.data.address);
+<<<<<<< HEAD
     setAlamatInvoiceBaru(data.data.data.invoiceAddress?.[0]?.invoiceAddress || data.data.data.invoiceAddress?.[0]?.invoiceAddress?.[0]?.adddress );
+=======
+    setAlamatInvoiceBaru(data.data.data.invoiceAddress?.[0]?.invoiceAddress);
+>>>>>>> maya
     setDiskonSelect(data.data.data.discount);
     setServiceSelect(data.data.data.service);
     setInsuranceSelect(data.data.data.insurance);
@@ -214,8 +218,12 @@ function Index() {
                   placeholder="Select Nama Pelanggan"
                   options={namaPerusahaan && namaPerusahaan.map(item => ({ label: item.companyName, value: item.id, item }))}
                   onChange={selectedOption => {
+<<<<<<< HEAD
                     // dapetinnosp(selectedOption.value);
                     // dapetinnosp(selectedOption.value);
+=======
+                    dapetinnosp(selectedOption.value);
+>>>>>>> maya
                     setCompanyID(selectedOption.value);
                     setJenisBarang(selectedOption.item.companyStuff);
                     console.log(selectedOption.value);

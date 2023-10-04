@@ -57,6 +57,19 @@ function IndexBrench() {
       key: "buCode",
     },
     {
+<<<<<<< HEAD
+=======
+      title: "Alamat",
+      dataIndex: "alamat",
+      key: "alamat",
+    },
+    {
+      title: "No Telp",
+      dataIndex: "noTelp",
+      key: "noTelp",
+    },
+    {
+>>>>>>> maya
       title: "Status",
       dataIndex: "status",
       key: "status",

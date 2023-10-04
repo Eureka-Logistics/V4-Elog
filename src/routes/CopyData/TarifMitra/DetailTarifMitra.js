@@ -386,7 +386,11 @@ function DetailTarifMitra() {
             Menghubungkan input ritase dengan state ritase
             <Input
               placeholder={DetailDataTarif.ritase}
+<<<<<<< HEAD
               value={ritase}
+=======
+              value={ritase}   
+>>>>>>> maya
               onChange={(e) => {
                 console.log(e.target.value);
                 setRitase(e.target.value);

@@ -121,9 +121,15 @@ function EditDetailPosition() {
               />
             </div>
           </Col>
+<<<<<<< HEAD
           <Col span={24} className='mt-3'>
           <label style={{fontWeight: 'bold'}}>ID Bisnis Unit Employee :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
+=======
+          {/* <Col span={24} className='mt-3'>
+          <label style={{fontWeight: 'bold'}}>ID Bisnis Unit Employee :</label>
+           
+>>>>>>> maya
             <div style={{ paddingRight: "30px" }}>
               <Input
                 className="mt-2"
@@ -134,7 +140,11 @@ function EditDetailPosition() {
                 }}
               />
             </div>
+<<<<<<< HEAD
           </Col>
+=======
+          </Col> */}
+>>>>>>> maya
         </Row>
         <Row>
           <Col span={24} className="d-flex justify-content-end mt-2">
