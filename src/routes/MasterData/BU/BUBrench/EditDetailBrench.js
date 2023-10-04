@@ -14,11 +14,8 @@ function EditDetailBrench() {
   const [DataEdit, setDataEdit] = useState("");
   const [DataSelect, setDataSelect] = useState("");
   const [IDBuCode, setIDBuCode] = useState("");
-<<<<<<< HEAD
-=======
   const [Alamat, setAlamat] = useState("");
   const [NomorTelepon, setNomorTelepon] = useState("");
->>>>>>> maya
 
   const DetailBrench = async (bubrenchId) => {
     try {
@@ -36,11 +33,8 @@ function EditDetailBrench() {
       setNamaBrench(respons.data.data.name_bu_brench || "");
       setIDBuCode(respons.data.data.code_bu_brench || "");
       setIDBuBrench(respons.data.data.id_bu || "");
-<<<<<<< HEAD
-=======
       setAlamat(respons.data.data.alamat || "");
       setNomorTelepon(respons.data.data.no_telp | "");
->>>>>>> maya
     } catch (error) {}
   };
 
@@ -64,12 +58,9 @@ function EditDetailBrench() {
         code_bu_brench: IDBuCode,
         id_bu: IDBuBrench,
         name_bu_brench: NamaBrench,
-<<<<<<< HEAD
-=======
         alamat: Alamat,
         no_telp: NomorTelepon,
 
->>>>>>> maya
       };
 
       const response = await axios.post(`${Baseurl}bu/edit-bu-brench`, data, {
@@ -118,11 +109,7 @@ function EditDetailBrench() {
         <h5>Data Detail Bisnis Unit Brench</h5>
         <hr />
         <Row>
-<<<<<<< HEAD
-          <Col span={24} className="mt-3">
-=======
           <Col span={12} className="mt-3">
->>>>>>> maya
             <label style={{ fontWeight: "bold" }}>Nama BU Brench :</label>
             <div style={{ paddingRight: "30px" }}>
               <Input
@@ -135,9 +122,6 @@ function EditDetailBrench() {
               />
             </div>
           </Col>
-<<<<<<< HEAD
-          <Col span={24} className="mt-3">
-=======
           <Col span={12} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Nomor Telepon :</label>
             <div style={{ paddingRight: "30px" }}>
@@ -153,7 +137,6 @@ function EditDetailBrench() {
             </div>
           </Col>
           <Col span={12} className="mt-3">
->>>>>>> maya
             <label style={{ fontWeight: "bold" }}>Code BU Brench :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div style={{ paddingRight: "30px" }}>
@@ -189,14 +172,9 @@ function EditDetailBrench() {
             </Select> */}
             </div>
           </Col>
-<<<<<<< HEAD
-          <Col className="mt-2" span={24}>
-            <label style={{fontWeight: "bold"}}>ID BU Brench :</label>
-=======
           <Col className="mt-2" span={12}>
             <label style={{fontWeight: "bold"}}>ID BU Brench :</label>
             <div style={{ paddingRight: "30px" }}>
->>>>>>> maya
             <Input
                 className="mt-2"
                 value={IDBuBrench}
@@ -205,10 +183,7 @@ function EditDetailBrench() {
                   setIDBuBrench(e.target.value);
                 }}
               />
-<<<<<<< HEAD
-=======
             </div>
->>>>>>> maya
             {/* <Select
               className="mt-2"
               showSearch
@@ -232,8 +207,6 @@ function EditDetailBrench() {
                 ))}
             </Select> */}
           </Col>
-<<<<<<< HEAD
-=======
           <Col span={24} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Alamat :</label>
             <div style={{ paddingRight: "30px" }}>
@@ -249,7 +222,6 @@ function EditDetailBrench() {
           </Col>
           
          
->>>>>>> maya
         </Row>
         <Row>
           <Col span={24} className="d-flex justify-content-end mt-2">

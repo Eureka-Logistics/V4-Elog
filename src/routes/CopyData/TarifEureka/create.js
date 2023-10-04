@@ -94,13 +94,10 @@ const SamplePage = () => {
       Value: "2",
       label: "Koli",
     },
-<<<<<<< HEAD
-=======
     {
       Value: "3",
       label: "Pcs",
     },
->>>>>>> maya
   ];
 
   const formik = useFormik({

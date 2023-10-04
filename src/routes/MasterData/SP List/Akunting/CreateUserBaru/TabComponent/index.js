@@ -1,9 +1,5 @@
 import React from 'react'
-<<<<<<< HEAD
 import ListUser from '../ListUser';
-=======
-import ListUser from '../../../../../MasterData/masterUser/ListUser';
->>>>>>> maya
 import CreateUserBaru from '../index';
 import { Card, Tabs } from 'antd';
 

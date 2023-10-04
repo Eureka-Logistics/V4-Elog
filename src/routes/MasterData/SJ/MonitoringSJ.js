@@ -1,8 +1,10 @@
 import {
   Button,
   Card,
+  Checkbox,
   Col,
   DatePicker,
+  Input,
   Modal,
   Row,
   Select,
@@ -13,7 +15,9 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import Baseurl from "../../../Api/BaseUrl";
 import axios from "axios";
+import { style } from "d3-selection";
 
+const CheckboxGroup = Checkbox.Group;
 
 function MonitoringSJ() {
   const jobdesk = localStorage.getItem("jobdesk");
@@ -22,6 +26,14 @@ function MonitoringSJ() {
   const [DataBU, setDataBU] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
+
+  // const checkboxLabels = ["Rekap Distribusi Barang", "SPO Angkut"];
+  const checkboxLabels = [
+    "Rekap Distribusi Barang",
+    "SPO Angkut",
+    "SPO Kuli",
+    "Packing List",
+  ];
 
   const SelectCustomerss = async () => {
     try {
@@ -142,6 +154,13 @@ function MonitoringSJ() {
         </Button>
       ),
     },
+  ];
+
+  const checkboxData = [
+    ["Rekap Distribusi Barang", "SPO Angkut"],
+    ["SPO Kuli", "Packing List"],
+    ["Surat muat asli", "Surat jalan Asli"],
+    // Add more rows as needed
   ];
 
   return (
@@ -380,8 +399,14 @@ function MonitoringSJ() {
           </Col>
         </Row>
         <hr />
-        <Table style={{overflowX : 'auto'}} dataSource={dataSource} columns={columns} />;
+        <Table
+          style={{ overflowX: "auto" }}
+          dataSource={dataSource}
+          columns={columns}
+        />
+        ;
         <Modal
+          width={800}
           title={
             <div>
               <span style={{ marginRight: "8px" }}>Terima SJ</span>
@@ -390,6 +415,7 @@ function MonitoringSJ() {
                 {" "}
                 {`${selectedRecord ? selectedRecord.sm[0] : ""}`}
               </Tag>
+              <span>Role anda : {jobdesk}</span>
             </div>
           }
           visible={isModalVisible}
@@ -397,13 +423,45 @@ function MonitoringSJ() {
           onCancel={handleCancel}
         >
           {/* Render the details of the selected record inside the modal */}
-          {selectedRecord && (
-            <div>
-              <p>SM: {selectedRecord.sm[0]}</p>
-              <p>Rute: {selectedRecord.rute[0]}</p>
-              {/* Add more details as needed */}
-            </div>
-          )}
+          <Row>
+            <Col span={12}>
+              <label className="mt-2" style={{ fontWeight: "bold" }}>
+                No Invoice
+              </label>
+              <Input className="mt-2" placeholder="No Invoice Vendor"></Input>
+            </Col>
+            <Col span={12}>
+              <label className="mt-2" style={{ fontWeight: "bold" }}>
+                No Invoice
+              </label>
+              <DatePicker
+                className="mt-2"
+                style={{ width: "100%" }}
+                format="DD-MM-YYYY"
+                placeholder="dd-mm-yyy"
+              />
+            </Col>
+          </Row>
+          <>
+            {checkboxData.map((row, rowIndex) => (
+              <Row key={rowIndex} className="mt-2">
+                {row.map((label, colIndex) => (
+                  <Col key={colIndex} span={12}>
+                    <Checkbox>{label}</Checkbox>
+                  </Col>
+                ))}
+              </Row>
+            ))}
+          </>
+          <Row className="mt-2">
+           <Col span={24}>
+            <label style={{fontWeight: 'bold'}}>
+              Keterangan
+            </label>
+            <Input.TextArea className="mt-2">
+            </Input.TextArea>
+           </Col>
+          </Row>
         </Modal>
       </Card>
     </div>

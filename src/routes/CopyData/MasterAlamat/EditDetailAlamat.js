@@ -314,11 +314,7 @@ function EditDetailAlamat() {
               className="mt-2"
               showSearch
               //   value={DataDetailAddress?.kode_wilayah}
-<<<<<<< HEAD
               placeholder={DataKodeWilayah}
-=======
-              placeholder={<span style={{ color: 'black' }}>{DataKodeWilayah}</span>}
->>>>>>> maya
               optionFilterProp="value"
               style={{ width: "100%" }}
               onChange={(e, options) => {
@@ -347,11 +343,7 @@ function EditDetailAlamat() {
             <Select
               className="mt-2"
               showSearch
-<<<<<<< HEAD
               placeholder={DataDetailAddress?.kota}
-=======
-              placeholder={<span style={{ color: 'black' }}>{DataDetailAddress?.kota}</span>}
->>>>>>> maya
               optionFilterProp="value"
               style={{ width: "100%" }}
               options={KotaOptions}
@@ -367,11 +359,7 @@ function EditDetailAlamat() {
             <Select
               className="mt-2"
               showSearch
-<<<<<<< HEAD
               placeholder={DataDetailAddress?.kecamatan}
-=======
-              placeholder={<span style={{ color: 'black' }}>{DataDetailAddress?.kecamatan} </span>}
->>>>>>> maya
               optionFilterProp="value"
               style={{ width: "100%" }}
               options={KecamatanOptions}

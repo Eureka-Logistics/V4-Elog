@@ -1,100 +1,59 @@
 import { DownOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons'
-<<<<<<< HEAD
 import { Card, Dropdown, Input, Space, Table, Tag, message } from 'antd'
 import React, { useState } from 'react'
-=======
-import { Card, Dropdown, Input, Space, Table, message } from 'antd'
-import React from 'react'
->>>>>>> maya
 import { Button, Col, Row } from 'react-bootstrap'
 import "./style.css"
 
 function CashOnDelivery() {
-<<<<<<< HEAD
     const [InputValid, setInputValid] = useState(false)
-=======
-
->>>>>>> maya
     const dataSource = [
         {
             key: '1',
             name: '1',
             age: 32,
-<<<<<<< HEAD
             address: 'Success',
-=======
-            address: 'JKT23-007583',
->>>>>>> maya
         },
         {
             key: '2',
             name: '2',
             age: 42,
-<<<<<<< HEAD
             address: 'Success',
-=======
-            address: 'JKT23-007583',
->>>>>>> maya
         },
         {
             key: '1',
             name: '3',
             age: 32,
-<<<<<<< HEAD
             address: 'Unloading',
-=======
-            address: 'JKT23-007583',
->>>>>>> maya
         },
         {
             key: '2',
             name: '4',
             age: 42,
-<<<<<<< HEAD
             address: 'Unloading',
-=======
-            address: 'JKT23-007583',
->>>>>>> maya
         },
         {
             key: '1',
             name: '5',
             age: 32,
-<<<<<<< HEAD
             address: 'Delivery',
-=======
-            address: 'JKT23-007583',
->>>>>>> maya
         },
         {
             key: '2',
             name: '6',
             age: 42,
-<<<<<<< HEAD
             address: 'Delivery',
-=======
-            address: 'JKT23-007583',
->>>>>>> maya
         },
         {
             key: '1',
             name: '7',
             age: 32,
-<<<<<<< HEAD
             address: 'Pick Up',
-=======
-            address: 'JKT23-007583',
->>>>>>> maya
         },
         {
             key: '2',
             name: '8',
             age: 42,
-<<<<<<< HEAD
             address: 'Pick Up',
-=======
-            address: 'JKT23-007583',
->>>>>>> maya
         },
     ];
 
@@ -134,10 +93,7 @@ function CashOnDelivery() {
             dataIndex: 'name',
             key: 'name',
         },
-<<<<<<< HEAD
 
-=======
->>>>>>> maya
         {
             title: 'Biaya',
             dataIndex: 'age',
@@ -147,7 +103,6 @@ function CashOnDelivery() {
             title: 'Status',
             dataIndex: 'address',
             key: 'address',
-<<<<<<< HEAD
             render: (text) => {
                 let color = '';
                 if (text === 'Success') {
@@ -192,15 +147,12 @@ function CashOnDelivery() {
                     )
                 )
             }
-=======
->>>>>>> maya
         },
     ];
 
     const handleMenuClick = (e) => {
         message.info('Click on menu item.');
         console.log('click', e);
-<<<<<<< HEAD
     };
 
     const items = [
@@ -232,39 +184,6 @@ function CashOnDelivery() {
         items,
         onClick: handleMenuClick,
     };
-=======
-      };
-
-      const items = [
-        {
-          label: '1st menu item',
-          key: '1',
-          icon: <UserOutlined />,
-        },
-        {
-          label: '2nd menu item',
-          key: '2',
-          icon: <UserOutlined />,
-        },
-        {
-          label: '3rd menu item',
-          key: '3',
-          icon: <UserOutlined />,
-          danger: true,
-        },
-        {
-          label: '4rd menu item',
-          key: '4',
-          icon: <UserOutlined />,
-          danger: true,
-          disabled: true,
-        },
-      ];
-      const menuProps = {
-        items,
-        onClick: handleMenuClick,
-      };
->>>>>>> maya
     return (
         <div>
 
@@ -295,11 +214,7 @@ function CashOnDelivery() {
                     <h5 style={{ fontSize: 30 }}>List Pengiriman</h5>
                 </Col>
                 <Col sm={4} className="d-flex align-items-center">
-<<<<<<< HEAD
                     <Input style={{ width: 300, height: "50px" }} addonBefore={<SearchOutlined />} placeholder='Cari Disini' className="mr-3" />
-=======
-                    <Input  style={{ width: 300, height: "50px" }} addonBefore={<SearchOutlined />} placeholder='Cari Disini' className="mr-3" />
->>>>>>> maya
                     <Dropdown menu={menuProps}>
                         <Button className="my-custom-button ms-2" style={{ width: 200, backgroundColor: "#F05423" }}>
                             <Space>

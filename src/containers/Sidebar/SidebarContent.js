@@ -514,6 +514,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <Menu.Item key="monitoring" className={activeMenu === "/monitoringSJ" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
+                      to="/monitoringSJ"
+                      style={{ textDecoration: "none" }}
                     >
                       <ScheduleTwoTone style={{ fontSize: "30px", color: 'white',  marginBottom: '7px' }} />
                       <span style={{ fontWeight: "bold", color: "white" }}>
@@ -524,6 +526,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 </Menu.ItemGroup>
               )}
               {/* {jobdesk == "operasional" && (
+                <Menu.ItemGroup key="monitorings">
                   <Menu.Item key="monitoringVehicle" >
                     <Link to="/masterdata/monitoring">
                       <i className="icon icon-widgets" />
@@ -1140,6 +1143,19 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
+                </>
+              )}
+               {jobdesk == "monitoring" && (
+                <>
+                 <Menu.Item key="List User" className={activeMenu === "/monitoring/report-kiriman" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Link to="/monitoring/report-kiriman" style={{ textDecoration: "none" }}>
+
+                      <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
+                          Report Kiriman
+                        </span>
+                    </Link>
+                  </Menu.Item>
+
                 </>
               )}
             </MenuItemGroup>

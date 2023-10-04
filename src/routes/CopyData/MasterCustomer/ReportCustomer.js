@@ -1,67 +1,3 @@
-<<<<<<< HEAD
-import { Card, Col, Row, Select, Table, Tag } from "antd";
-import React from "react";
-
-function ReportCustomer() {
-
-
-  const dataSource = [
-    {
-      key: "1",
-      no_sp: "SP00013/01/23/JKT",
-      no_spk: "JKT23-000010",
-      sales: "M. Iqbal",
-      service: "Charter",
-      jenis_barang: "Buku", 
-      via: "Darat",
-      kendaraan: "Wingbox",
-      status: "Batal",
-      nama_perusahaan: "Sari Agrotama Persada,PT",
-      penginput: "Amelia D. N.",
-      tgl_pickup: "01/01/2023 16:19:00",
-      tgl_pesan: "01/01/2023 16:20:00",
-      biaya: "4025000",
-    },
-    {
-      key: "2",
-      no_sp: "SP00014/01/23/JKT",
-      no_spk: "JKT23-000009",
-      sales: "M. Iqbal",
-      service: "Charter",
-      jenis_barang: "Buku", 
-      via: "Darat",
-      kendaraan: "Wingbox",
-      status: "Aktif",
-      nama_perusahaan: "PT. Wilmar Cahaya Indonesia Tbk",
-      penginput: "Amelia D. N.",
-      tgl_pickup: "01/01/2023 16:23:00",
-      tgl_pesan: "02/01/2023 16:23:00",
-      biaya: "2875000",
-    },
-    
-  ];
- 
-  const columns = [
-    {
-      title: "No.",
-      dataIndex: "key",
-      key: "key",
-    },
-    {
-      title: "No SP",
-      dataIndex: "no_sp",
-      key: "no_sp",
-    },
-    {
-      title: "No SPK",
-      dataIndex: "no_spk",
-      key: "no_spk",
-    },
-    {
-      title: "Nama Sales",
-      dataIndex: "sales",
-      key: "sales",
-=======
 import { Button, Card, Col, Row, Select, Table, Tag } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -191,7 +127,6 @@ function ReportCustomer() {
       title: "Nama Sales",
       dataIndex: "salesName",
       key: "salesName",
->>>>>>> maya
     },
     {
       title: "Service",
@@ -200,16 +135,6 @@ function ReportCustomer() {
     },
     {
       title: "Jenis Barang",
-<<<<<<< HEAD
-      dataIndex: "jenis_barang",
-      key: "jenis_barang",
-    },
-    {
-      title: "Via",
-      dataIndex: "via",
-      key: "via",
-    },
-=======
       dataIndex: "jenisBarang",
       key: "jenisBarang",
     },
@@ -218,53 +143,12 @@ function ReportCustomer() {
     //   dataIndex: "via",
     //   key: "via",
     // },
->>>>>>> maya
     {
       title: "Jenis Kendaraan",
       dataIndex: "kendaraan",
       key: "kendaraan",
     },
     {
-<<<<<<< HEAD
-        title: "Status",
-        dataIndex: "status",
-        key: "status",
-        render: (status) => (
-          <Tag color={status === "Aktif" ? "green" : "red"}>
-            {status}
-          </Tag>
-        ),
-      },
-    {
-      title: "Nama Perusahaan",
-      dataIndex: "nama_perusahaan",
-      key: "nama_perusahaan",
-    },
-    {
-      title: "Nama Penginput",
-      dataIndex: "penginput",
-      key: "penginput",
-    },
-    {
-      title: "Tgl Pickup",
-      dataIndex: "tgl_pickup",
-      key: "tgl_pickup",
-      render: (tgl_pickup) => (
-        <Tag color="magenta">
-          {tgl_pickup}
-        </Tag>
-      ),
-    },
-    {
-      title: "Tgl Pesanan",
-      dataIndex: "tgl_pesan",
-      key: "tgl_pesan",
-      render: (tgl_pesan) => (
-        <Tag color="blue">
-          {tgl_pesan}
-        </Tag>
-      ),
-=======
       title: "Status",
       dataIndex: "starus",
       key: "starus",
@@ -334,7 +218,6 @@ function ReportCustomer() {
 
         return <Tag color="purple">{formattedOrderDateWithColon}</Tag>;
       },
->>>>>>> maya
     },
     {
       title: "Biaya",
@@ -342,23 +225,15 @@ function ReportCustomer() {
       key: "biaya",
       render: (biaya) => (
         <span>
-<<<<<<< HEAD
-          {new Intl.NumberFormat('id-ID', {
-            style: 'currency',
-            currency: 'IDR',
-=======
           {new Intl.NumberFormat("id-ID", {
             style: "currency",
             currency: "IDR",
->>>>>>> maya
           }).format(biaya)}
         </span>
       ),
     },
   ];
 
-<<<<<<< HEAD
-=======
   const exportToExcel = () => {
     const workbook = XLSX.utils.book_new();
     const sheetData = DataReportCust.map((item, index) => ({
@@ -442,7 +317,6 @@ function ReportCustomer() {
     return formattedPickUpWithColon;
   }
   
->>>>>>> maya
   return (
     <div>
       <Card>
@@ -450,38 +324,6 @@ function ReportCustomer() {
         <hr />
         <Row>
           <Col span={6}>
-<<<<<<< HEAD
-          <label
-              className="mb-2"
-              htmlFor="muatKotaSelect"
-              style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}
-            >
-              Search Nama Perushaan :
-            </label>
-            <Select  
-            showSearch
-            style={{
-                width: "100%",
-
-                border: "1px solid #1A5CBF",
-                borderRadius: "5px",
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
-              }}>
-
-            </Select>
-          </Col>
-          <Col span={6}>
-          <label
-              className="mb-2"
-              htmlFor="muatKotaSelect"
-              style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}
-            >
-              Search Tanggal Mulai :
-            </label>
-            <Select  
-            showSearch
-            style={{
-=======
             <label
               className="mb-2"
               // htmlFor="muatKotaSelect"
@@ -525,23 +367,11 @@ function ReportCustomer() {
             <Select
               showSearch
               style={{
->>>>>>> maya
                 width: "100%",
 
                 border: "1px solid #1A5CBF",
                 borderRadius: "5px",
                 boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
-<<<<<<< HEAD
-              }}>
-
-            </Select>
-          </Col>
-          <Col span={6}>
-          <label
-              className="mb-2"
-              htmlFor="muatKotaSelect"
-              style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}
-=======
               }}
             ></Select>
           </Col>
@@ -550,30 +380,16 @@ function ReportCustomer() {
               className="mb-2"
               htmlFor="muatKotaSelect"
               style={{ fontWeight: "bold", fontFamily: "NoirPro" }}
->>>>>>> maya
             >
               Search Tanggal Selesai :
             </label>
             <Select
-<<<<<<< HEAD
-            showSearch
-            style={{
-=======
               showSearch
               style={{
->>>>>>> maya
                 width: "100%",
                 border: "1px solid #1A5CBF",
                 borderRadius: "5px",
                 boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
-<<<<<<< HEAD
-              }}>
-
-            </Select>
-          </Col>
-        </Row>
-        <Table className="mt-3" pagination={false} style={{overflowX: 'auto'}} dataSource={dataSource} columns={columns} />;
-=======
               }}
             ></Select>
           </Col>
@@ -606,7 +422,6 @@ function ReportCustomer() {
           }}
         />
         ;
->>>>>>> maya
       </Card>
     </div>
   );

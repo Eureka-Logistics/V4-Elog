@@ -23,47 +23,18 @@ import {
 import Baseurl from "../../../Api/BaseUrl";
 import axios from "axios";
 import { Table } from "react-bootstrap";
-<<<<<<< HEAD
-=======
 import XLSX from "xlsx";
->>>>>>> maya
 
 const SamplePage = () => {
   const router = useHistory();
   const [limit, setLimit] = useState(10);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
-<<<<<<< HEAD
-=======
   const [exporting, setExporting] = useState(false);
->>>>>>> maya
 
   let nomor = 1;
 
   const columns = [
-<<<<<<< HEAD
-    // {
-    //   title: "id_price",
-    //   dataIndex: "id_price",
-    //   key: "id_price",
-    // },
-    // {
-    //   title: "id_muat_kota",
-    //   dataIndex: "id_muat_kota",
-    //   key: "id_muat_kota",
-    // },
-    // {
-    //   title: "id_tujuan_kota",
-    //   dataIndex: "id_tujuan_kota",
-    //   key: "id_tujuan_kota",
-    // },
-    // {
-    //   title: "id_kendaraan_jenis",
-    //   dataIndex: "id_kendaraan_jenis",
-    //   key: "id_kendaraan_jenis",
-    // },
-=======
->>>>>>> maya
     {
       title: "No.",
       dataIndex: "no",
@@ -156,14 +127,11 @@ const SamplePage = () => {
       key: "max_tonase",
     },
     {
-<<<<<<< HEAD
-=======
       title: "Satuan",
       dataIndex: "satuan",
       key: "satuan",
     },
     {
->>>>>>> maya
       title: "Harga",
       dataIndex: "harga_selanjutnya",
       key: "harga_selanjutnya",
@@ -293,8 +261,6 @@ const SamplePage = () => {
     fetchData(current, pageSize);
   };
 
-<<<<<<< HEAD
-=======
   const exportToExcel = async () => {
     // Set the exporting flag to true
     setExporting(true);
@@ -400,7 +366,6 @@ const SamplePage = () => {
     return formatter.format(angka);
   }
 
->>>>>>> maya
   return (
     <div>
       <Card>
@@ -488,8 +453,6 @@ const SamplePage = () => {
 
           <Col sm={12} className="d-flex justify-content-end mt-4">
             <Button
-<<<<<<< HEAD
-=======
               style={{ backgroundColor: "green", color: "white" }}
               onClick={exportToExcel}
               disabled={exporting} // Disable the export button during export
@@ -497,7 +460,6 @@ const SamplePage = () => {
               {exporting ? "Exporting..." : "Export Excel"}
             </Button>
             <Button
->>>>>>> maya
               style={{ backgroundColor: "#1A5CBF", color: "white" }}
               onClick={handleAdd}
             >
@@ -536,10 +498,7 @@ const SamplePage = () => {
               <th>Jenis Kendaraan</th>
               <th>Tarif</th>
               <th>Max Tonase(kg/koli)</th>
-<<<<<<< HEAD
-=======
               <th>Satuan</th>
->>>>>>> maya
               <th>Harga</th>
               <th>Action</th>
             </tr>
@@ -547,15 +506,9 @@ const SamplePage = () => {
           <tbody>
             {listData.map((record, index) => (
               <tr key={record.id}>
-<<<<<<< HEAD
-                <td>{index + 1}</td>
-
-                <td>
-=======
                 <td style={{ paddingTop: "20px" }}>{index + 1}</td>
 
                 <td style={{ paddingTop: "20px" }}>
->>>>>>> maya
                   <Tag
                     color={
                       record.jenis_kiriman === "Reguler"
@@ -568,53 +521,23 @@ const SamplePage = () => {
                     {record.jenis_kiriman}
                   </Tag>
                 </td>
-<<<<<<< HEAD
-                <td>{record.kotaAsal}</td>
-                <td>{record.kotaTujuan}</td>
-                <td>{record.kendaraanJenis}</td>
-                <td>
-=======
                 <td style={{ paddingTop: "20px" }}>{record.kotaAsal}</td>
                 <td style={{ paddingTop: "20px" }}>{record.kotaTujuan}</td>
                 <td style={{ paddingTop: "20px" }}>{record.kendaraanJenis}</td>
                 <td style={{ paddingTop: "20px" }}>
->>>>>>> maya
                   {`${new Intl.NumberFormat("id-ID", {
                     style: "currency",
                     currency: "IDR",
                   }).format(record.tarif)}`}
                 </td>
-<<<<<<< HEAD
-                <td>{record.max_tonase}</td>
-                <td>
-=======
                 <td style={{ paddingTop: "20px", textAlign: 'center' }} className="justify-content-center">{record.max_tonase}</td>
                 <td style={{ paddingTop: "20px" }}>{record.satuan}</td>
                 <td style={{ paddingTop: "20px" }}>
->>>>>>> maya
                   {`${new Intl.NumberFormat("id-ID", {
                     style: "currency",
                     currency: "IDR",
                   }).format(record.harga_selanjutnya)}`}
                 </td>
-<<<<<<< HEAD
-               
-                <td>
-                  <Button
-                    onClick={() => handleView(record.id_price)}
-                    type="primary"
-                  >
-                    <span style={{ display: "flex", alignItems: "center" }}>
-                      <FormOutlined />
-                    </span>
-                  </Button>
-                  <Button danger onClick={() => handleDelete(record.id_price)}>
-                    <span style={{ display: "flex", alignItems: "center" }}>
-                      <DeleteOutlined />
-                    </span>
-                    {/* <DeleteOutlined /> */}
-                  </Button>
-=======
 
                 <td style={{ paddingTop: "20px" }}>
                   <Button.Group>
@@ -635,7 +558,6 @@ const SamplePage = () => {
                       </span>
                     </Button>
                   </Button.Group>
->>>>>>> maya
                 </td>
               </tr>
             ))}

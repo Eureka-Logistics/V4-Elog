@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { Button, Card, Tag } from 'antd'
-=======
-import { Button, Card } from 'antd'
->>>>>>> maya
 import React from 'react'
 import './style.css';
 import btnLihat from "../../../assets/img/buttonLihat.png"
@@ -11,7 +7,6 @@ import card2 from "../../../assets/img/dashboard race/card2.png"
 import card3 from "../../../assets/img/dashboard race/card3.png"
 import card4 from "../../../assets/img/dashboard race/card4.png"
 import { Container, Row, Col } from 'react-bootstrap';
-<<<<<<< HEAD
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import graph1 from "../../../assets/img/graph1.png"
 import graph2 from "../../../assets/img/graph2.png"
@@ -22,9 +17,6 @@ function Index() {
     const spklist = () => {
         pindah.push(`race/splist`)
     }
-=======
-function Index() {
->>>>>>> maya
     return (
         <>
             <Container>
@@ -37,11 +29,7 @@ function Index() {
                                 Surat Perjalanan Kantor
                             </div>
                             <div style={{ color: "white", fontWeight: 500, fontSize: 30, marginLeft: "-10px", marginTop: 15 }}>SPK List</div>
-<<<<<<< HEAD
                             <Button onClick={spklist} style={{ width: "100%", marginTop: 25 }}><img src={btnLihat}></img> </Button>
-=======
-                            <Button style={{ width: "100%", marginTop: 25 }}><img src={btnLihat}></img> </Button>
->>>>>>> maya
                         </Card>
                     </Col>
                     <Col sm={3}>
@@ -76,7 +64,6 @@ function Index() {
 
                 <div style={{ position: 'relative' }}>  {/* Position relative disini agar elemen absolut lainnya berpatokan pada elemen ini */}
                     <Row>
-<<<<<<< HEAD
                         <Col sm={8} style={{ backgroundImage: `url(${graph1})`, backgroundColor: '', margin: '5px', height: '328px' }}>
                             <div>
                                 {/* <img src={graph1} /> */}
@@ -185,36 +172,6 @@ function Index() {
 
                         </div>
                     </Row>
-=======
-                        <Col sm={8} style={{ backgroundColor: 'lightblue', margin: '5px', height: '328px' }}>
-                            <div>
-                                Pengiriman Anda
-                            </div>
-                        </Col>
-                        <Col sm={3} style={{ backgroundColor: 'lightcoral', margin: '5px', height: '600px' }}>
-                            <div>
-                                Pengiriman saya
-                            </div>
-                        </Col>
-
-                    {/* Row for Data Driver and Score Bulanan */}
-                    <div style={{ position: 'absolute', top: '350px', }}> {/* Posisi absolut */}
-                        <Row>
-                            <Col sm={4} style={{ backgroundColor: 'lightgreen', margin: '5px', height: '240px' }}>
-                                <div>
-                                    Data Driver
-                                </div>
-                            </Col>
-                            <Col sm={4} style={{ backgroundColor: 'lightyellow', margin: '5px', height: '240px' }}>
-                                <div>
-                                    Score Bulanan
-                                </div>
-                            </Col>
-                    </Row>
-
-                    </div>
-                        </Row>
->>>>>>> maya
                 </div>
             </Container>
 

@@ -14,10 +14,7 @@ import {
   EyeOutlined,
   FormOutlined,
 } from "@ant-design/icons";
-<<<<<<< HEAD
-=======
 import XLSX from "xlsx";
->>>>>>> maya
 
 const SamplePage = () => {
   const history = useHistory();
@@ -127,15 +124,7 @@ const SamplePage = () => {
           ""
         ),
     },
-<<<<<<< HEAD
-    // {
-    //   name: "Code",
-    //   selector: (row) => row.mitraCode,
-    //   width: "100px",
-    // },
-=======
     
->>>>>>> maya
     {
       name: "Mitra Name",
       selector: (row) => row.mitraName,
@@ -268,8 +257,6 @@ const SamplePage = () => {
     setFilter(event.target.value);
   };
 
-<<<<<<< HEAD
-=======
   const exportToExcel = () => {
     // Map your table data to the format expected by XLSX
     const dataToExport = dataapiawal.map((item, index) => ({
@@ -342,7 +329,6 @@ const SamplePage = () => {
     }
   };
 
->>>>>>> maya
   return (
     <div>
       <Card>
@@ -389,23 +375,16 @@ const SamplePage = () => {
                 </Select>
               </Col>
               <Col sm={10} className="d-flex justify-content-end mt-3">
-<<<<<<< HEAD
-=======
                 <Button style={{color: 'white', backgroundColor: 'green', fontFamily: 'NoirPro'}} onClick={exportToExcel}>
                   Export Excel
                 </Button>
->>>>>>> maya
                 <CreateMitraModal />
               </Col>
             </Row>
 
             <Table
             style={{ overflow: "auto"}}
-<<<<<<< HEAD
-            className="mt-2"
-=======
             className="mt-3"
->>>>>>> maya
               columns={columnss}
               dataSource={dataapiawal}
               pagination={false}

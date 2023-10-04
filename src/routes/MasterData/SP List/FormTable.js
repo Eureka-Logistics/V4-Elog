@@ -25,11 +25,7 @@ import { Alert, Space } from "antd";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import ZustandStore from "../../../zustand/Store/JenisKepemilikanOptions";
 import moment from "moment";
-<<<<<<< HEAD
 import { UploadOutlined } from "@ant-design/icons";
-=======
-import { PrinterOutlined, UploadOutlined } from "@ant-design/icons";
->>>>>>> maya
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import useMitraStore from "../../../zustand/Store/MitraStore";
@@ -47,10 +43,6 @@ function FormTable({
   messagedetail,
   datarefresh
 }) {
-<<<<<<< HEAD
-=======
-  const router = useHistory();
->>>>>>> maya
   const [modal1Open, setModal1Open] = useState(false);
   const [jobdesk, setJobdesk] = useState(localStorage.getItem("jobdesk"));
   const [mitraVehicle, setMitraVehicle] = useState([]);
@@ -366,11 +358,7 @@ function FormTable({
 
       if (selectnopol === "") {
         notification.error({
-<<<<<<< HEAD
           message: "Nopol Polisi Harus Diisi"
-=======
-          message : "Nopol Polisi Harus Diisi"
->>>>>>> maya
         })
         setLoadingMuterMuter(false);
         // setLoadingMuterMuter(true);
@@ -384,11 +372,7 @@ function FormTable({
         })
         .then((response) => {
           const isidata = response.data.status;
-<<<<<<< HEAD
           console.log(`ini adlaah`, isidata);
-=======
-          console.log(`ini adlaah`,isidata);
->>>>>>> maya
           setApproved(isidata);
           setSelectnomor("")
           setIdDriverOperasionalAnother("")
@@ -919,13 +903,6 @@ function FormTable({
 
   const [ShowModalCreatePO, setShowModalCreatePO] = useState(false);
 
-<<<<<<< HEAD
-=======
-  const handleView = () => {
-    router.push(`/PrintSPNew/`);
-    // console.log("ini id_bu", idEmploye);
-  };
->>>>>>> maya
 
   return (
     <>
@@ -1671,18 +1648,12 @@ function FormTable({
                             }}
                           />
                           <a
-<<<<<<< HEAD
                             href="/masterdata/purchasing/driver" 
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => {
                               // setModal1Open(true);
                               // setShow(false);
-=======
-                            onClick={() => {
-                              setModal1Open(true);
-                              setShow(false);
->>>>>>> maya
                             }}
                             style={{ color: "blue" }}
                           >
@@ -2023,19 +1994,6 @@ function FormTable({
               {/* {(StatusApproveAct === 'Y' || Kendaraan_operasionalStatus === "Y" && StatusPurchasing === "Y") &&
                 <Alert type="success" message="SP Telah di Approve" banner />
               } */}
-<<<<<<< HEAD
-=======
-              {StatusApproveAct === "Y" && (
-                <>
-                <Button onClick={() => handleView()} type="primary">
-                <span style={{ display: "flex", alignItems: "center" }}>
-                  <PrinterOutlined />
-                </span>
-              </Button>
-                </>  
-
-              )}
->>>>>>> maya
               {StatusApproveAct === "Y" && TanggalACT3 != null ? (
                 <Alert type="success" message="Approve Akunting" banner />
               ) : StatusApproveAct === "N" && TanggalACT3 === "1970-01-01T00:00:00.000Z" ? (
@@ -2210,11 +2168,7 @@ function FormTable({
                         </Select>
                       </Col>
                       <Col sm={3}>
-<<<<<<< HEAD
                         <Form.Label>Select Drivers</Form.Label>
-=======
-                        <Form.Label>Select Driversss</Form.Label>
->>>>>>> maya
                         <Select
                           placeholder={Mitra1Multi?.driverName || ""}
                           onChange={(e) => {
@@ -2764,24 +2718,17 @@ function FormTable({
                                 </td>
                               </> : <>
                                 <td>
-<<<<<<< HEAD
                                   {data.total?.toLocaleString("id-ID", {
                                     style: "currency",
                                     currency: "IDR",
                                   })}
                                 </td>
                                 {/* <td>
-=======
->>>>>>> maya
                                   {data.totalBiayaRetail?.toLocaleString("id-ID", {
                                     style: "currency",
                                     currency: "IDR",
                                   })}
-<<<<<<< HEAD
                                 </td> */}
-=======
-                                </td>
->>>>>>> maya
                               </>}
 
                             <td>

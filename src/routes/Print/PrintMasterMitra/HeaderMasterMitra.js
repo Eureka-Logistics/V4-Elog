@@ -842,12 +842,8 @@ function HeaderMasterMitra() {
                 colSpan={4}
               >
                 {" "}
-<<<<<<< HEAD
-                ADA LENGKAP
-=======
                 {DataKodeMitraZustand.po_legalitas} LENGKAP
                 
->>>>>>> maya
               </td>
             </tr>
             <tr>
@@ -864,11 +860,7 @@ function HeaderMasterMitra() {
                 colSpan={4}
               >
                 {" "}
-<<<<<<< HEAD
-                ADA LENGKAP
-=======
                 {DataKodeMitraZustand.ktp_legalitas} LENGKAP
->>>>>>> maya
               </td>
             </tr>
             <tr>
@@ -893,11 +885,7 @@ function HeaderMasterMitra() {
                 colSpan={4}
               >
                 {" "}
-<<<<<<< HEAD
-                ADA LENGKAP
-=======
                 {DataKodeMitraZustand.akta_pendirian} LENGKAP
->>>>>>> maya
               </td>
             </tr>
             <tr>
@@ -915,11 +903,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-<<<<<<< HEAD
-                ADA LENGKAP
-=======
                 {DataKodeMitraZustand.akta_perubahan_dasar} LENGKAP
->>>>>>> maya
               </td>
             </tr>
             <tr>
@@ -937,11 +921,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-<<<<<<< HEAD
-                TIDAK LENGKAP
-=======
                 {DataKodeMitraZustand.akta_susunan_direksi} LENGKAP
->>>>>>> maya
               </td>
             </tr>
 
@@ -959,11 +939,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-<<<<<<< HEAD
-                ADA LENGKAP
-=======
                 {DataKodeMitraZustand.surat_domisili} LENGKAP
->>>>>>> maya
               </td>
             </tr>
 
@@ -989,11 +965,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-<<<<<<< HEAD
-                ADA LENGKAP
-=======
                 {DataKodeMitraZustand.npwp_legalitas} LENGKAP
->>>>>>> maya
               </td>
             </tr>
             <tr>
@@ -1011,11 +983,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-<<<<<<< HEAD
-                ADA LENGKAP
-=======
                 {DataKodeMitraZustand.skt_legalitas} 
->>>>>>> maya
               </td>
             </tr>
             <tr>
@@ -1033,11 +1001,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-<<<<<<< HEAD
-                ADA LENGKAP
-=======
                 {DataKodeMitraZustand.nppkp_legalitas} LENGKAP
->>>>>>> maya
               </td>
             </tr>
 
@@ -1063,11 +1027,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-<<<<<<< HEAD
-                TIDAK LENGKAP
-=======
                 {DataKodeMitraZustand.siup_legalitas} LENGKAP
->>>>>>> maya
               </td>
             </tr>
             <tr>
@@ -1085,11 +1045,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-<<<<<<< HEAD
-                TIDAK LENGKAP
-=======
                 {DataKodeMitraZustand.ijin_pendirian} LENGKAP
->>>>>>> maya
               </td>
             </tr>
             <tr>
@@ -1107,11 +1063,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-<<<<<<< HEAD
-                TIDAK LENGKAP
-=======
                 {DataKodeMitraZustand.ppmd_legalitas} LENGKAP
->>>>>>> maya
               </td>
             </tr>
             <tr>
@@ -1128,11 +1080,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-<<<<<<< HEAD
-                TIDAK LENGKAP
-=======
                 {DataKodeMitraZustand.ijin_usaha} LENGKAP
->>>>>>> maya
               </td>
             </tr>
             <tr>
@@ -1149,11 +1097,7 @@ function HeaderMasterMitra() {
                 style={{ border: "1px solid black", padding: "10px" }}
               >
                 {" "}
-<<<<<<< HEAD
-                ADA LENGKAP
-=======
                 {DataKodeMitraZustand.tdp_legalitas} LENGKAP
->>>>>>> maya
               </td>
             </tr>
            
@@ -1187,20 +1131,12 @@ function HeaderMasterMitra() {
               </td>
             </tr>
             <tr>
-<<<<<<< HEAD
-        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>LAMANYA BEKERJA </td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}> 0 TAHUN</td> 
-        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>JENIS KARTU KREDIT</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }} colSpan={3}> TIDAK ADA</td> 
-      </tr> 
-      <tr>
-        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}> BANK PENERBIT </td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}> TIDAK ADA</td>  
-=======
         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>LAMANYA BEKERJA </td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}>  {DataKodeMitraZustand.lama_bekerja} TAHUN</td> 
         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>JENIS KARTU KREDIT</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }} colSpan={3}>  {DataKodeMitraZustand.jenis_kartu_kredit
 }</td> 
       </tr> 
       <tr>
         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}> BANK PENERBIT </td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}>  {DataKodeMitraZustand.bank_penerbit}</td>  
->>>>>>> maya
       </tr> 
       <tr>
               <td
@@ -1216,22 +1152,6 @@ function HeaderMasterMitra() {
               </td>
             </tr>
             <tr>
-<<<<<<< HEAD
-        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>LAPORAN KEUANGAN </td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}> TIDAK</td> 
-        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>LAMA USAHA (TAHUN/YEAR)</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }} colSpan={3}> 0 TAHUN</td>  
-      </tr> 
-      <tr>
-        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>STATUS USAHA</td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}> BESAR</td> 
-        <td  width="100px"  style={{ border: "1px solid black", padding: "10px" }}>OMSET BULANAN</td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }} colSpan={3}> 0</td>   
-      </tr> 
-      <tr> 
-        <td  width="100px"  style={{ border: "1px solid black", padding: "10px" }}>ASSET TANAH</td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}> MILIK SENDIRI</td>  
-        <td  width="100px"  style={{ border: "1px solid black", padding: "10px" }}>ASSET BANGUNAN</td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }} colSpan={3}> MILIK SENDIRI</td>
-      </tr> 
-      <tr> 
-        <td  width="100px"  style={{ border: "1px solid black", padding: "10px" }}>ASSET KENDARAAN</td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}> MILIK SENDIRI</td>  
-        <td  width="100px"  style={{ border: "1px solid black", padding: "10px" }}>ASSET MESIN</td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }} colSpan={3}> MILIK SENDIRI</td>
-=======
         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>LAPORAN KEUANGAN </td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}>   {DataKodeMitraZustand.laporan_keuangan}</td> 
         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }}>LAMA USAHA (TAHUN/YEAR)</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }} colSpan={3}> {DataKodeMitraZustand.lama_usaha} TAHUN</td>  
       </tr> 
@@ -1246,7 +1166,6 @@ function HeaderMasterMitra() {
       <tr> 
         <td  width="100px"  style={{ border: "1px solid black", padding: "10px" }}>ASSET KENDARAAN</td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }}> {DataKodeMitraZustand.asset_kendaraan}</td>  
         <td  width="100px"  style={{ border: "1px solid black", padding: "10px" }}>ASSET MESIN</td>  <td align="left"  style={{ border: "1px solid black", padding: "10px" }} colSpan={3}> {DataKodeMitraZustand.asset_mesin}</td>
->>>>>>> maya
       </tr> 
        
     	<tr><td colspan="2"  width="100px"> <b> PERUSAHAAN AFFILIASI YANG PERNAH MENYEWA DI EUREKA</b></td><td align="left"  colspan="4" style={{ border: "1px solid black", padding: "10px" }}> </td>
@@ -1265,19 +1184,6 @@ function HeaderMasterMitra() {
               </td>
             </tr>
             <tr> 
-<<<<<<< HEAD
-        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >JENIS MITRA</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  > VENDOR DARAT  </td>   
-        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >JENIS KIRIMAN</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  colSpan={3}> ["TRUCKING"] </td>   
-      </tr> 
-      <tr> 
-        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >PERIODE SEWA (BULAN/MONTH)</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  > 0 BULAN</td>   
-        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >NILAI RUU (%)</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  colSpan={3}> 0 %</td>   
-      </tr> 
-    <tr><td colspan="6"> <b> PEMBAYARAN (Payment Policy) </b></td></tr> 
-      <tr> 
-        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >JUMLAH WAKTU PEMBAYARAN (ToP)</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  > 30</td>  
-        <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >METODE PEMBAYARAN</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  colSpan={3}> TRANSFER</td>
-=======
         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >JENIS MITRA</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  > {DataKodeMitraZustand.jenis} </td>   
         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >JENIS KIRIMAN</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  colSpan={3}> {DataKodeMitraZustand.jenis_kiriman}</td>   
       </tr> 
@@ -1289,7 +1195,6 @@ function HeaderMasterMitra() {
       <tr> 
         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >JUMLAH WAKTU PEMBAYARAN (ToP)</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  > {DataKodeMitraZustand.top}</td>  
         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >METODE PEMBAYARAN</td>  <td align="left" style={{ border: "1px solid black", padding: "10px" }}  colSpan={3}> {DataKodeMitraZustand.metode_pembayaran}</td>
->>>>>>> maya
       </tr> 
           </>
           {/* DATA UNIT */}
@@ -1326,33 +1231,6 @@ function HeaderMasterMitra() {
       </tr> 
       <tr>
          <td  width="70px" style={{ border: "1px solid black", padding: "10px" }}>QTY</td>  
-<<<<<<< HEAD
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td>  
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >15</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >19</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >45</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td>  
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >79</td>  
-      </tr> 
-      <tr>
-         <td  width="70px" style={{ border: "1px solid black", padding: "10px" }}>DISEWA</td>  
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td>  
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
-         <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >0</td> 
-=======
          <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >{DataKodeMitraZustand.qty_motor}</td>  
          <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >{DataKodeMitraZustand.qty_grandmax}</td> 
          <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >{DataKodeMitraZustand.qty_l300}</td> 
@@ -1378,7 +1256,6 @@ function HeaderMasterMitra() {
          <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >{DataKodeMitraZustand.rp_trailer20}</td> 
          <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} >{DataKodeMitraZustand.rp_trailer40}</td> 
          <td  width="100px" style={{ border: "1px solid black", padding: "10px" }} > </td> 
->>>>>>> maya
       </tr> 
         </table>
         <table width="100%">

@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import { Button } from 'antd';
->>>>>>> maya
 import React from 'react';
 
 const MarketingApprovalBox = () => {
@@ -12,18 +9,6 @@ const MarketingApprovalBox = () => {
 
   return (
     
-<<<<<<< HEAD
-    <div className="col-md-2 text-center" style={{ textAlign: 'center', border: '2px dashed #000000', fontSize: '10pt', padding: '6px', fontWeight: 'bold' }}>
-      <div className="form-group">
-        <label>( <u>&nbsp;&nbsp; Marketing &nbsp;&nbsp;</u>)</label>
-        <br /> <br /> <br />
-        <button className="btn bg-green" onClick={() => handleClick('154805')}>
-          Approve & Create SPK
-        </button>
-        <br />
-      </div>
-    </div>
-=======
     <div className="row">
       <div className="col-md-3 text-center" style={{ textAlign: 'center', border: '2px dashed #000000', fontSize: '10pt', padding: '6px', fontWeight: 'bold' }}>
         <div className="form-group">
@@ -74,7 +59,6 @@ const MarketingApprovalBox = () => {
       {/* end Akunting */}
     </div>
     
->>>>>>> maya
   );
 };
 

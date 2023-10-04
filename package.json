@@ -27,11 +27,7 @@
     "d3-scale": "^3.2.3",
     "date-fns": "^2.30.0",
     "draftjs-to-html": "^0.9.1",
-<<<<<<< HEAD
     "firebase": "^10.4.0",
-=======
-    "firebase": "^8.2.3",
->>>>>>> maya
     "formik": "^2.4.2",
     "google-maps-react": "^2.0.6",
     "instantsearch.css": "^7.4.5",
@@ -61,10 +57,7 @@
     "react-excel-export": "^1.0.6",
     "react-flip-move": "^3.0.4",
     "react-google-maps": "^9.4.5",
-<<<<<<< HEAD
     "react-google-recaptcha": "^3.1.0",
-=======
->>>>>>> maya
     "react-instantsearch": "^6.8.2",
     "react-instantsearch-dom": "^6.10.3",
     "react-intl": "^5.10.16",
@@ -122,10 +115,6 @@
   "devDependencies": {
     "babel-plugin-import": "^1.13.0",
     "customize-cra": "^0.9.1",
-<<<<<<< HEAD
     "react-app-rewired": "^2.2.1"
-=======
-    "react-app-rewired": "^2.1.5"
->>>>>>> maya
   }
 }

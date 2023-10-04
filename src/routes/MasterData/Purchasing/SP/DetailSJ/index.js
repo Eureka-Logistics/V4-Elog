@@ -9,11 +9,8 @@ import Baseurl from '../../../../../Api/BaseUrl';
 import ZustandStore from '../../../../../zustand/Store/JenisKepemilikanOptions';
 import useMitraStore from '../../../../../zustand/Store/MitraStore';
 import AnotherDriverZustand from '../../../../../zustand/Store/NamaAnotherDriver';
-<<<<<<< HEAD
 import ModalMapsSJ from './modalmapdetailsj';
 import MapsDetailSM from '../../../../../zustand/Store/DataUntukMapDetailSM';
-=======
->>>>>>> maya
 
 function Index() {
     const { id } = useParams()
@@ -31,13 +28,10 @@ function Index() {
     const [KendaraanMitra1, setKendaraanMitra1] = useState("")
     const [KendaraanMitra2, setKendaraanMitra2] = useState(DataDetail.mitra1)
     const [KendaraanMitra3, setKendaraanMitra3] = useState(DataDetail.mitra2)
-<<<<<<< HEAD
     const { setData } = MapsDetailSM(state => state);
     useEffect(() => {
         setData(id);
     }, [id, setData]);
-=======
->>>>>>> maya
     // const { NamaAnotherZustand, SetnamaAnotherZustand } = AnotherDriverZustand((state) => ({
     //     NamaAnotherZustand: state.NamaAnotherZustand,
     //     SetnamaAnotherZustand: state.SetnamaAnotherZustand
@@ -156,20 +150,12 @@ function Index() {
             console.log(response);
             fetchDataDetail()
             notification.success({
-<<<<<<< HEAD
                 message: response.data.status.message
-=======
-                message : response.data.status.message
->>>>>>> maya
             })
         } catch (error) {
             console.error(error);
             notification.error({
-<<<<<<< HEAD
                 message: error.response.data.status.message
-=======
-                message : error.response.data.status.message
->>>>>>> maya
             })
         }
     }
@@ -203,22 +189,12 @@ function Index() {
         fetchMitra()
         select()
         setKendaraan()
-<<<<<<< HEAD
     }, [kendaraan, NoPol1])
 
-=======
-        // SetnamaAnotherZustand()
-
-    }, [kendaraan, NoPol1])
->>>>>>> maya
     if (!DataDetail) {
         return "Memuat data...";
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> maya
     return (
         <>
             <Card>
@@ -249,11 +225,7 @@ function Index() {
                             style={{ textAlign: 'end' }}
                         >
                             <div className="tombol">
-<<<<<<< HEAD
                                 <Button style={{ backgroundColor: "#00a65a", color: "white" }} htmlType="submit">
-=======
-                                <Button  style={{ backgroundColor: "#00a65a", color: "white" }} htmlType="submit">
->>>>>>> maya
                                     Submit
                                 </Button>
                                 <Button onClick={handlePrint} type="primary" >
@@ -491,10 +463,7 @@ function Index() {
                             >
                                 <Select disabled />
                             </Form.Item>
-<<<<<<< HEAD
                             <ModalMapsSJ />
-=======
->>>>>>> maya
                         </Col>
                     </Row>
 

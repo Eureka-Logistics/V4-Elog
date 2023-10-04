@@ -18,22 +18,13 @@ import {
   EditOutlined,
   DeleteOutlined,
   EyeOutlined,
-<<<<<<< HEAD
-  
   FormOutlined,
-
-=======
-  FormOutlined,
->>>>>>> maya
 } from "@ant-design/icons";
 import axios from "axios";
 import Baseurl from "../../../Api/BaseUrl";
 import { Row } from "react-bootstrap";
 import "../../../assets/style.css";
-<<<<<<< HEAD
-=======
 import XLSX from "xlsx";
->>>>>>> maya
 
 const SamplePage = () => {
   const router = useHistory();
@@ -44,11 +35,7 @@ const SamplePage = () => {
   const [total, setTotal] = useState(0);
   const [loadingState, setLoadingState] = useState(false);
   const [limit, setLimit] = useState(10);
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> maya
   const handleView = (id) => {
     router.push(`/detailTarifPelanggan/${id}`);
   };
@@ -179,11 +166,7 @@ const SamplePage = () => {
   const [NamaMitraa, setNamaMitraa] = useState("");
   const [kotaTujuannOptionSelect, setKotaTujuanOpionSelect] = useState("");
   const [muatKotaOptionSelect, setMuatKotaOptionsSelect] = useState("");
-<<<<<<< HEAD
-  const [NamaMitraOptions , setNamaMitraOptions] = useState("")
-=======
   const [NamaMitraOptions, setNamaMitraOptions] = useState("");
->>>>>>> maya
 
   const IniRowClick = (record) => {
     handleView(record.id_price_mitra);
@@ -238,26 +221,6 @@ const SamplePage = () => {
   useEffect(() => {
     fetchData();
     getDataSelectt();
-<<<<<<< HEAD
-   
-  }, [currentPage, limit, muatKota, kotaTujuan, NamaMitraa]);
-
-  const NamaMitraOptionsAPI =async ()=>{
-    try {
-      const data = await axios.get(`${Baseurl}mitra/get-select-mitraPic`, {
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-        }
-      });
-      console.log(`dodol`,data.data.mitra);
-      setNamaMitraOptions(data.data?.mitra)
-      
-    } catch (error) {
-      
-    }
-  }
-=======
   }, [currentPage, limit, muatKota, kotaTujuan, NamaMitraa]);
 
   const NamaMitraOptionsAPI = async () => {
@@ -272,7 +235,6 @@ const SamplePage = () => {
       setNamaMitraOptions(data.data?.mitra);
     } catch (error) {}
   };
->>>>>>> maya
 
   const handleAdd = (id) => {
     router.push(`/NewTarifCustomer/`);
@@ -307,9 +269,6 @@ const SamplePage = () => {
     });
   };
 
-<<<<<<< HEAD
-  
-=======
   const exportToExcel = () => {
     const dataToExport = listData.map((item, index) => ({
       No: {
@@ -401,16 +360,11 @@ const SamplePage = () => {
       document.body.removeChild(a);
     }
   };
->>>>>>> maya
 
   return (
     <div>
       <Card>
-<<<<<<< HEAD
-        <h3 style={{color: '#1A5CBF'}}>Data Tarif Customer</h3>
-=======
         <h3 style={{ color: "#1A5CBF" }}>Data Tarif Customer</h3>
->>>>>>> maya
         <div
           style={{
             display: "flex",
@@ -439,11 +393,7 @@ const SamplePage = () => {
         `}
         </style>
         <Row>
-<<<<<<< HEAD
-          <Col sm={6}>
-=======
           <Col sm={5}>
->>>>>>> maya
             <label
               className="mb-2"
               htmlFor="muatKotaSelect"
@@ -468,10 +418,7 @@ const SamplePage = () => {
                 setMuatKota(options.value);
               }}
             >
-<<<<<<< HEAD
-=======
               <Select.Option value="">-</Select.Option>
->>>>>>> maya
               {muatKotaOptionSelect &&
                 muatKotaOptionSelect.muatKota.map((item, index) => (
                   <Select.Option value={item.idKota}>
@@ -480,11 +427,7 @@ const SamplePage = () => {
                 ))}
             </Select>
           </Col>
-<<<<<<< HEAD
-          <Col sm={6}>
-=======
           <Col sm={5}>
->>>>>>> maya
             <label
               className="mb-2"
               htmlFor="muatKotaSelect"
@@ -509,10 +452,7 @@ const SamplePage = () => {
                 setKotaTujuan(options.value);
               }}
             >
-<<<<<<< HEAD
-=======
               <Select.Option value="">-</Select.Option>
->>>>>>> maya
               {kotaTujuannOptionSelect &&
                 kotaTujuannOptionSelect.tujuanKota.map((item, index) => (
                   <Select.Option value={item.idKota}>
@@ -521,13 +461,6 @@ const SamplePage = () => {
                 ))}
             </Select>
           </Col>
-<<<<<<< HEAD
-          <Col sm={6}>
-              <label className="mb-2" htmlFor="MitraSelect" style={{ fontWeight: "bold" }}>
-                Search Nama Customer :
-              </label>
-              <Select
-=======
           <Col sm={5}>
             <label
               className="mb-2"
@@ -537,7 +470,6 @@ const SamplePage = () => {
               Search Nama Customer :
             </label>
             <Select
->>>>>>> maya
               value={NamaMitraa}
               name="mitra"
               showSearch
@@ -554,10 +486,7 @@ const SamplePage = () => {
                 setNamaMitraa(options.value);
               }}
             >
-<<<<<<< HEAD
-=======
               <Select.Option value="">-</Select.Option>
->>>>>>> maya
               {NamaMitraOptions &&
                 NamaMitraOptions.customer.map((item, index) => (
                   <Select.Option value={item.idCustomer}>
@@ -565,34 +494,6 @@ const SamplePage = () => {
                   </Select.Option>
                 ))}
             </Select>
-<<<<<<< HEAD
-            </Col>
-          <Col sm={6} className="d-flex justify-content-end mt-3">
-            <Button style={{backgroundColor: '#1A5CBF', color: 'white'}} onClick={handleAdd}>
-              Tambah Tarif Baru
-            </Button>
-          </Col>
-        </Row>
-       <div style={{ overflowX: 'auto' }}>
-       <Table
-          className="mt-5"
-          onRowClicked={IniRowClick}
-          dataSource={listData}
-          columns={columns}
-          pagination={{
-            current: currentPage,
-            pageSize: limit,
-            total,
-            onChange: (page) => setCurrentPage(page),
-          }}
-          onChange={(pagination) => {
-            setCurrentPage(pagination.current);
-            setLimit(pagination.pageSize);
-          }}
-          
-        />
-       </div>
-=======
           </Col>
           <Col sm={9} className="d-flex justify-content-end mt-4">
             <Button
@@ -628,7 +529,6 @@ const SamplePage = () => {
             }}
           />
         </div>
->>>>>>> maya
       </Card>
     </div>
   );
