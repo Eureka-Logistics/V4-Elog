@@ -3,6 +3,7 @@ import { Button, Checkbox, Col, Form, Image, Input, Row, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import backgroundImage from "../assets/img/BackGround_Login.png";
+import loginPage from "../assets/img/LoginPage.jpg";
 import LogoEureka from "../assets/img/LogoEureka.png";
 import "../../src/assets/style.css";
 
@@ -47,18 +48,24 @@ const SignIn = () => {
       className="gx-app-login-wrap"
       style={{
         width : "100%",
-        backgroundImage: `url(${backgroundImage})`,
+        // backgroundImage: `url(${loginPage})`,
         backgroundSize: "cover", // Adjust the background size based on your requirement
         backgroundRepeat: "no-repeat", // Adjust the repeat property based on your requirement
         backgroundPosition: "center", // Adjust the position property based on your requirement
       }}
     >
       <Row>
-        <Col span={8}></Col>
-        <Col span={8}></Col>
+        <Col span={16} className="d-flex justify-content-center align-items-center">
+        <Image width={"90%"} src={loginPage}  />
+        </Col>
         <Col span={8}>
           <div
-            style={{ backgroundColor: "white", width: "100%", height: "100vh" }}
+            style={{
+              backgroundColor: "white",
+              width: "100%",
+              height: "100vh",
+              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)", // Atur sesuai preferensi Anda
+            }}
             className="gx-app-login-container"
           >
             <div className="gx-app-login">
