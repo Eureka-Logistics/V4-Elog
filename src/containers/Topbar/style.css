@@ -1,0 +1,11 @@
+@keyframes moveRightToLeft {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-30%); }
+  }
+  
+  .gx-move-right-to-left {
+    animation: moveRightToLeft 15s linear infinite;
+    /* white-space: nowrap; Jika teks Anda memiliki banyak kata dan Anda tidak ingin mereka melompat ke baris baru */
+    /* position: absolute; Untuk memastikan elemen benar-benar muncul dari kanan */
+  }
+  
