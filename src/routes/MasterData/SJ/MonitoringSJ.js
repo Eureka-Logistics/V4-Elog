@@ -1,12 +1,27 @@
-import { Card, Col, DatePicker, Row, Select, Table } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  DatePicker,
+  Modal,
+  Row,
+  Select,
+  Table,
+  Tag,
+} from "antd";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import Baseurl from "../../../Api/BaseUrl";
 import axios from "axios";
 
+
 function MonitoringSJ() {
+  const jobdesk = localStorage.getItem("jobdesk");
+  console.log(`jobdeks`, jobdesk);
   const [Customers, setCustomers] = useState("");
   const [DataBU, setDataBU] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
 
   const SelectCustomerss = async () => {
     try {
@@ -43,58 +58,90 @@ function MonitoringSJ() {
     SelectBU();
   }, []);
 
+  const showModal = (record) => {
+    setSelectedRecord(record);
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   const dataSource = [
     {
-      key: '1',
-      sm: ['SMG23-002664', 'SP01718/10/23/SMG'],
-      rute: ['PT. Macrosentra Niagaboga',
-        'Semarang-Bogor'],
-      pickUp:['PT. EUREKA LOGISTICS (EL)',
-      'B 9056 TEV - Kambali'],
+      key: "1",
+      sm: ["SMG23-002664", "SP01718/10/23/SMG"],
+      rute: ["PT. Macrosentra Niagaboga", "Semarang-Bogor"],
+      pickUp: ["PT. EUREKA LOGISTICS (EL)", "B 9056 TEV - Kambali"],
+      tglMuat: "01 Oct 23",
+      suksesKirim: "03 Oct 23",
     },
   ];
-  
+
   const columns = [
     {
-      title: 'No.',
-      dataIndex: 'key',
-      key: 'key',
+      title: "No.",
+      dataIndex: "key",
+      key: "key",
     },
     {
-      title: 'SM/SP',
-      dataIndex: 'sm',
-      key: 'sm',
+      title: "SM/SP",
+      dataIndex: "sm",
+      key: "sm",
       render: (text, record) => (
         <div>
-          <div style={{ fontWeight: 'bold' }}>{record.sm[0]}</div>
+          <div style={{ fontWeight: "bold" }}>{record.sm[0]}</div>
           <div>{record.sm[1]}</div>
         </div>
       ),
     },
     {
-      title: 'RUTE',
-      dataIndex: 'rute',
-      key: 'rute',
+      title: "RUTE",
+      dataIndex: "rute",
+      key: "rute",
       render: (text, record) => (
         <div>
-          <div style={{ fontWeight: 'bold' }}>{record.rute[0]}</div>
+          <div style={{ fontWeight: "bold" }}>{record.rute[0]}</div>
           <div>{record.rute[1]}</div>
         </div>
       ),
     },
     {
-      title: 'PICK UP',
-      dataIndex: 'rute',
-      key: 'rute',
+      title: "PICK UP",
+      dataIndex: "rute",
+      key: "rute",
       render: (text, record) => (
         <div>
-          <div style={{ fontWeight: 'bold' }}>{record.rute[0]}</div>
+          <div style={{ fontWeight: "bold" }}>{record.rute[0]}</div>
           <div>{record.rute[1]}</div>
         </div>
       ),
     },
-   
+    {
+      title: "TglMuat",
+      dataIndex: "tglMuat",
+      key: "tglMuat",
+      render: (text, record) => <Tag color="green">{record.tglMuat}</Tag>,
+    },
+    {
+      title: "SuksesKirim",
+      dataIndex: "suksesKirim",
+      key: "suksesKirim",
+    },
+    {
+      title: "Receive SJ",
+      dataIndex: "receiveSJ",
+      key: "receiveSJ",
+      render: (text, record) => (
+        <Button type="primary" onClick={() => showModal(record)}>
+          Terima
+        </Button>
+      ),
+    },
   ];
 
   return (
@@ -120,14 +167,9 @@ function MonitoringSJ() {
                 // setIDBu(options.key)
               }}
             >
-             
-
               {DataBU &&
                 DataBU.bu.map((item) => (
-                  <Select.Option
-                    key={item.id_bu}
-                    value={item.name_bu}
-                  >
+                  <Select.Option key={item.id_bu} value={item.name_bu}>
                     {item.name_bu}
                   </Select.Option>
                 ))}
@@ -148,12 +190,9 @@ function MonitoringSJ() {
                 // setIDBu(options.key)
               }}
             >
-             {DataBU &&
+              {DataBU &&
                 DataBU.buBrench.map((item) => (
-                  <Select.Option
-                    key={item.id_bu}
-                    value={item.name_bu_brench}
-                  >
+                  <Select.Option key={item.id_bu} value={item.name_bu_brench}>
                     {item.name_bu_brench}
                   </Select.Option>
                 ))}
@@ -340,8 +379,32 @@ function MonitoringSJ() {
             </Select>
           </Col>
         </Row>
-        <hr/>
-        <Table dataSource={dataSource} columns={columns} />;
+        <hr />
+        <Table style={{overflowX : 'auto'}} dataSource={dataSource} columns={columns} />;
+        <Modal
+          title={
+            <div>
+              <span style={{ marginRight: "8px" }}>Terima SJ</span>
+
+              <Tag color="green">
+                {" "}
+                {`${selectedRecord ? selectedRecord.sm[0] : ""}`}
+              </Tag>
+            </div>
+          }
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          {/* Render the details of the selected record inside the modal */}
+          {selectedRecord && (
+            <div>
+              <p>SM: {selectedRecord.sm[0]}</p>
+              <p>Rute: {selectedRecord.rute[0]}</p>
+              {/* Add more details as needed */}
+            </div>
+          )}
+        </Modal>
       </Card>
     </div>
   );
