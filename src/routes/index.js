@@ -828,6 +828,10 @@ const App = ({ match }) => {
             import("../routes/MasterData/Monitoring/ReportKiriman/index")
           )}
         />
+          <Route
+          path={`${match.url}admin/user/menu`}
+          component={asyncComponent(() => import("./MasterData/SP List/Akunting/CreateUserBaru/TabComponent/index"))}
+        />
       </Switch>
     </div>
   );

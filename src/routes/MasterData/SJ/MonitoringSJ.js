@@ -26,6 +26,10 @@ function MonitoringSJ() {
   const [DataBU, setDataBU] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
+  const [isModalVisible1, setIsModalVisible1] = useState(false);
+  const [selectedRecord1, setSelectedRecord1] = useState(null);
+  const [isModalVisible2, setIsModalVisible2] = useState(false);
+  const [selectedRecord2, setSelectedRecord2] = useState(null);
 
   // const checkboxLabels = ["Rekap Distribusi Barang", "SPO Angkut"];
   const checkboxLabels = [
@@ -83,6 +87,32 @@ function MonitoringSJ() {
     setIsModalVisible(false);
   };
 
+  const showModal1 = (record) => {
+    setSelectedRecord1(record);
+    setIsModalVisible1(true);
+  };
+
+  const handleOk1 = () => {
+    setIsModalVisible1(false);
+  };
+
+  const handleCancel1 = () => {
+    setIsModalVisible1(false);
+  };
+
+  const showModal2 = (record) => {
+    setSelectedRecord2(record);
+    setIsModalVisible2(true);
+  };
+
+  const handleOk2 = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel2 = () => {
+    setIsModalVisible2(false);
+  };
+
   const dataSource = [
     {
       key: "1",
@@ -91,6 +121,9 @@ function MonitoringSJ() {
       pickUp: ["PT. EUREKA LOGISTICS (EL)", "B 9056 TEV - Kambali"],
       tglMuat: "01 Oct 23",
       suksesKirim: "03 Oct 23",
+      diserahkan : "0",
+      ap : 'Belum Tersedia',
+      invoice : 'Belum Tersedia'
     },
   ];
 
@@ -154,6 +187,41 @@ function MonitoringSJ() {
         </Button>
       ),
     },
+    {
+      title: "Diserahkan",
+      dataIndex: "diserahkan",
+      key: "diserahkan",
+    },
+    {
+      title: "SJonAP",
+      dataIndex: "sj_onAP",
+      key: "sj_onAP",
+      render: (text, record) => (
+        <Button type="primary" onClick={() => showModal1(record)}>
+          Terima
+        </Button>
+      ),
+    },
+    {
+      title: "AP",
+      dataIndex: "ap",
+      key: "ap",
+    },
+    {
+      title: "SJonAR",
+      dataIndex: "sj_onAP",
+      key: "sj_onAP",
+      render: (text, record) => (
+        <Button type="primary" onClick={() => showModal2(record)}>
+          Terima
+        </Button>
+      ),
+    },
+    {
+      title: "Invoice",
+      dataIndex: "invoice",
+      key: "invoice",
+    },
   ];
 
   const checkboxData = [
@@ -161,6 +229,36 @@ function MonitoringSJ() {
     ["SPO Kuli", "Packing List"],
     ["Surat muat asli", "Surat jalan Asli"],
     // Add more rows as needed
+  ];
+
+  const dataModal = [
+    {
+      key: '1',
+      tgl: '2023-10-03 09:07:44',
+      role: 'Aji Prasetyo',
+      action: 'Diterima',
+    },
+   
+  ];
+  
+  const columnsModal = [
+    {
+      title: 'Tgl',
+      dataIndex: 'tgl',
+      key: 'tgl',
+    },
+    {
+      title: 'Role',
+      dataIndex: 'role',
+      key: 'role',
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      key: 'action',
+      render: (text, record) => <Tag color="blue">{record.action}</Tag>,
+
+    },
   ];
 
   return (
@@ -462,7 +560,174 @@ function MonitoringSJ() {
             </Input.TextArea>
            </Col>
           </Row>
+          <Row className="mt-2">
+            <Col span={24}>
+            <Button type="primary">
+              Submit Terima Surat Jalan
+            </Button>
+            </Col>
+          </Row>
+          <Row >
+            <Col span={24}>
+              <label style={{fontWeight: 'bold'}}>
+                History
+              </label>
+              <Table className="mt-2" pagination={false} style={{overflowX: 'auto'}} dataSource={dataModal} columns={columnsModal} />;
+            </Col>
+          </Row>
         </Modal>
+        {/* 2 */}
+        <>
+        <Modal
+          width={800}
+          title={
+            <div>
+              <span style={{ marginRight: "8px" }}>Terima SJJ</span>
+
+              <Tag color="green">
+                {" "}
+                {`${selectedRecord ? selectedRecord.sm[0] : ""}`}
+              </Tag>
+              <span>Role anda : {jobdesk}</span>
+            </div>
+          }
+          visible={isModalVisible1}
+          onOk={handleOk1}
+          onCancel={handleCancel1}
+        >
+          {/* Render the details of the selected record inside the modal */}
+          <Row>
+            <Col span={12}>
+              <label className="mt-2" style={{ fontWeight: "bold" }}>
+                No Invoice
+              </label>
+              <Input className="mt-2" placeholder="No Invoice Vendor"></Input>
+            </Col>
+            <Col span={12}>
+              <label className="mt-2" style={{ fontWeight: "bold" }}>
+                No Invoice
+              </label>
+              <DatePicker
+                className="mt-2"
+                style={{ width: "100%" }}
+                format="DD-MM-YYYY"
+                placeholder="dd-mm-yyy"
+              />
+            </Col>
+          </Row>
+          <>
+            {checkboxData.map((row, rowIndex) => (
+              <Row key={rowIndex} className="mt-2">
+                {row.map((label, colIndex) => (
+                  <Col key={colIndex} span={12}>
+                    <Checkbox>{label}</Checkbox>
+                  </Col>
+                ))}
+              </Row>
+            ))}
+          </>
+          <Row className="mt-2">
+           <Col span={24}>
+            <label style={{fontWeight: 'bold'}}>
+              Keterangan
+            </label>
+            <Input.TextArea className="mt-2">
+            </Input.TextArea>
+           </Col>
+          </Row>
+          <Row className="mt-2">
+            <Col span={24}>
+            <Button type="primary">
+              Submit Terima Surat Jalan
+            </Button>
+            </Col>
+          </Row>
+          <Row >
+            <Col span={24}>
+              <label style={{fontWeight: 'bold'}}>
+                History
+              </label>
+              <Table className="mt-2" pagination={false} style={{overflowX: 'auto'}} dataSource={dataModal} columns={columnsModal} />;
+            </Col>
+          </Row>
+        </Modal>
+        </>
+        {/* 3 */}
+        <>
+        <Modal
+          width={800}
+          title={
+            <div>
+              <span style={{ marginRight: "8px" }}>Terima SJJJ</span>
+
+              <Tag color="green">
+                {" "}
+                {`${selectedRecord ? selectedRecord.sm[0] : ""}`}
+              </Tag>
+              <span>Role anda : {jobdesk}</span>
+            </div>
+          }
+          visible={isModalVisible2}
+          onOk={handleOk2}
+          onCancel={handleCancel2}
+        >
+          {/* Render the details of the selected record inside the modal */}
+          <Row>
+            <Col span={12}>
+              <label className="mt-2" style={{ fontWeight: "bold" }}>
+                No Invoice
+              </label>
+              <Input className="mt-2" placeholder="No Invoice Vendor"></Input>
+            </Col>
+            <Col span={12}>
+              <label className="mt-2" style={{ fontWeight: "bold" }}>
+                No Invoice
+              </label>
+              <DatePicker
+                className="mt-2"
+                style={{ width: "100%" }}
+                format="DD-MM-YYYY"
+                placeholder="dd-mm-yyy"
+              />
+            </Col>
+          </Row>
+          <>
+            {checkboxData.map((row, rowIndex) => (
+              <Row key={rowIndex} className="mt-2">
+                {row.map((label, colIndex) => (
+                  <Col key={colIndex} span={12}>
+                    <Checkbox>{label}</Checkbox>
+                  </Col>
+                ))}
+              </Row>
+            ))}
+          </>
+          <Row className="mt-2">
+           <Col span={24}>
+            <label style={{fontWeight: 'bold'}}>
+              Keterangan
+            </label>
+            <Input.TextArea className="mt-2">
+            </Input.TextArea>
+           </Col>
+          </Row>
+          <Row className="mt-2">
+            <Col span={24}>
+            <Button type="primary">
+              Submit Terima Surat Jalan
+            </Button>
+            </Col>
+          </Row>
+          <Row >
+            <Col span={24}>
+              <label style={{fontWeight: 'bold'}}>
+                History
+              </label>
+              <Table className="mt-2" pagination={false} style={{overflowX: 'auto'}} dataSource={dataModal} columns={columnsModal} />;
+            </Col>
+          </Row>
+        </Modal>
+        </>
       </Card>
     </div>
   );

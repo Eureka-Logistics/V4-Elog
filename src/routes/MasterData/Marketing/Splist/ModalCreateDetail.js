@@ -102,17 +102,25 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     id_albongkar: formik.values.IDalamatbongkar,
                     // nama_barang: formik.values.namabarang,
                     nama_barang: JenisBarangFormik,
-                    berat: parseInt(formik.values.berat),
+                    berat: formik.values.berat || 1,
                     qty: formik.values.qty,
                     koli: formik.values.koli,
                     id_price_customer: id_price_customer,
                     // harga: formik.values.totalCreate,
-                    harga: TarifAsli,
+                    harga: formik.values.biayajalan,
                     total: formik.values.totalCreate,
                     harga_bongkar: formik.values.bongkar,
                     harga_muat: formik.values.biayamuat,
                     id_kota_muat: IDMuatKota,
-                    id_kota_bongkar: IDKotaBongkar
+                    id_kota_bongkar: IDKotaBongkar,
+                    biaya_overtonase: formik.values.overtonase,
+                    biaya_multimuat: formik.values.biayamultimuat,
+                    biaya_multidrop: formik.values.biayamultidrop,
+                    biaya_mel: formik.values.biayamel,
+                    biaya_tambahan: formik.values.tambahan,
+                    biaya_lain: formik.values.lain,
+                    max_tonase: formik.values.biayamaxtonase === undefined ? 0 : formik.values.biayamaxtonase,
+                    harga_selanjutnya: formik.values.biayaselanjutnya === undefined ? 0 : formik.values.biayaselanjutnya,
                 },
                 {
                     headers: {
@@ -132,7 +140,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         }
     }
 
-
+    console.log(`biaya TarifAsli`, TarifAsli);
+    console.log(`biaya formik.values.biayajalan`, formik.values.biayajalan);
 
 
     const apidetailidmpd = async (idmpd) => {
@@ -340,7 +349,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     const service = GetTarifOptions.map((i) => (
         i.service_type
     ))
-    console.log(`GetTarifOptions`, service);
+    // console.log(`DetailSemua?.service`, DetailSemua?.service);
 
     const formatToIDR = (value) => {
         return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(value);
@@ -385,15 +394,16 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         const biayamultidrop = Number(formik.values.biayamultidrop) || 0;
         const biayamel = Number(formik.values.biayamel) || 0;
         const berat = Number(formik.values.berat) || 1;
-        const HasilTarifNumerik = Number(HasilTarif) || 0;
+        // const HasilTarifNumerik =Number(formik.values.biayajalan) ||  Number(HasilTarif) ;
+        const HasilTarifNumerik = Number(formik.values.biayajalan);
         const overtonase = Number(formik.values.overtonase) || 0;
         const tambahan = Number(formik.values.tambahan) || 0;
-        const jalan = Number(formik.values.jalan) || 0;
+        const biayajalan = Number(formik.values.biayajalan) || 0;
         const lain = Number(formik.values.lain) || 0;
         const biayamaxtonase = Number(formik.values.biayamaxtonase) || 0;
         const biayaselanjutnya = Number(formik.values.biayaselanjutnya) || 0;
 
-        const totalBiayaTambahan = biayaBongkar + biayaMuat + biayamultimuat + biayamultidrop + biayamel + overtonase + tambahan + lain + biayamaxtonase + biayaselanjutnya;
+        const totalBiayaTambahan =  biayaBongkar + biayaMuat + biayamultimuat + biayamultidrop + biayamel + overtonase + tambahan + lain + biayamaxtonase + biayaselanjutnya;
 
         if (DetailSemua?.service === 'Retail') {
             return (HasilTarifNumerik * berat) + totalBiayaTambahan;
@@ -405,12 +415,12 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     };
 
     useEffect(() => {
-        const total = calculateTotal(formik.values.shipment, formik.values.berat, HasilTarif);
+        const total = calculateTotal(formik.values.shipment, formik.values.berat, formik.values.biayajalan);
         formik.setFieldValue("total", total);
 
-        const totalCreate = calculateTotal(formik.values.shipment, formik.values.berat, HasilTarif);
+        const totalCreate = calculateTotal(formik.values.shipment, formik.values.berat, formik.values.biayajalan);
         formik.setFieldValue("totalCreate", totalCreate);
-    }, [HasilTarif, formik.values.lain, formik.values.biayaselanjutnya, formik.values.biayamaxtonase, formik.values.jalan, formik.values.tambahan, formik.values.overtonase, formik.values.totalCreate, formik.values.shipment, formik.values.berat, formik.values.bongkar, formik.values.biayamuat, formik.values.biayamultimuat, formik.values.biayamultidrop, formik.values.biayamel]);
+    }, [HasilTarif, formik.values.lain, formik.values.biayaselanjutnya, formik.values.biayamaxtonase, formik.values.biayajalan, formik.values.tambahan, formik.values.overtonase, formik.values.totalCreate, formik.values.shipment, formik.values.berat, formik.values.bongkar, formik.values.biayamuat, formik.values.biayamultimuat, formik.values.biayamultidrop, formik.values.biayamel]);
 
 
     console.log(`GetTarifOptions`, GetTarifOptions);
@@ -571,7 +581,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         formik.setFieldValue("biayamel", option.biaya_mel)
                                         formik.setFieldValue("overtonase", option.biaya_overtonase)
                                         formik.setFieldValue("tambahan", option.biaya_tambahan)
-                                        formik.setFieldValue("jalan", option.biaya_jalan)
+                                        formik.setFieldValue("biayajalan", option.biaya_jalan)
                                         formik.setFieldValue("lain", option.biaya_lain)
                                         setid_price_customer(value)
                                         console.log(`id_price`, option);
@@ -858,7 +868,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             </Form.Item>
                         </Col>
 
-                       
+
                         <Col >
                             <Form.Item
                                 required
@@ -895,7 +905,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                         </Col>
                     </Row>
                     <Row>
-                    <Col sm={3}>
+                        <Col sm={3}>
                             <Form.Item
                                 // label={"Berat (KG)"}
                                 label={labelpilihan() || "Satuan yang di pilih"}
@@ -914,10 +924,12 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     name="berat"
                                     type="number"
                                     onChange={(e) => {
-                                        formik.setFieldValue('berat', e.target.value)
-                                        console.log(e.target.value);
+                                        formik.setFieldValue('berat', Number(e.target.value));
+                                        console.log(`berat`,e.target.value);
                                     }}
-                                    value={formik.values.berat}
+
+                                    value={formik.values.berat || 1}
+
                                     onBlur={formik.handleBlur}
                                 />
                             </Form.Item>
@@ -1297,9 +1309,9 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             <Col sm={6}>
                                 <Form.Item
                                     label="Biaya jalan"
-                                    help={formik.touched.jalan && formik.errors.jalan}
+                                    help={formik.touched.biayajalan && formik.errors.biayajalan}
                                     validateStatus={
-                                        formik.touched.jalan && formik.errors.jalan
+                                        formik.touched.biayajalan && formik.errors.biayajalan
                                             ? 'error'
                                             : 'success'
                                     }
@@ -1307,15 +1319,18 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 >
                                     <Input
                                         disabled={!HasilTarif}
-                                        id="jalan"
-                                        name="jalan"
+                                        id="biayajalan"
+                                        name="biayajalan"
                                         type="text"
                                         onChange={e => {
                                             // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
-                                            formik.setFieldValue("jalan", Number(e.target.value.replace(/\D/g, '')))
+                                            formik.setFieldValue("biayajalan", Number(e.target.value.replace(/\D/g, '')))
                                         }}
-                                        // value={formik.values.jalan === undefined ? 0 : formik.values.jalan.toLocaleString('id-ID')}
-                                        value={formik.values.jalan === undefined ? 0 : 0}
+
+                                        // value={formik.values.biayajalan === undefined ? 0 : formik.values.biayajalan.toLocaleString('id-ID')}
+                                        value={formik.values.biayajalan}
+
+                                        // value={formik.values.biayajalan === undefined ? HasilTarif : 0}
                                         // value={formik.values.biayamultimuat }
                                         onBlur={formik.handleBlur}
                                     />
