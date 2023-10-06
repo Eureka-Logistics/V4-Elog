@@ -14,13 +14,13 @@ import {
 } from "../../constants/ThemeSetting";
 import IntlMessages from "../../util/IntlMessages";
 import { useSelector } from "react-redux";
-import logorace from "../../assets/img/locorace.png"
-import logodashboard from "../../assets/img/icondashoardrace.png"
-import historyrace from "../../assets/img/historyrace.png"
-import splistrace from "../../assets/img/sprace.png"
-import perbaikanrace from "../../assets/img/perbaikanrace.png"
-import vehiclerace from "../../assets/img/vehicle.png"
-import emergencyrace from "../../assets/img/emergencyrace.png"
+import logorace from "../../assets/img/locorace.png";
+import logodashboard from "../../assets/img/icondashoardrace.png";
+import historyrace from "../../assets/img/historyrace.png";
+import splistrace from "../../assets/img/sprace.png";
+import perbaikanrace from "../../assets/img/perbaikanrace.png";
+import vehiclerace from "../../assets/img/vehicle.png";
+import emergencyrace from "../../assets/img/emergencyrace.png";
 import { Button } from "react-bootstrap";
 import {
   CarTwoTone,
@@ -47,6 +47,8 @@ import {
   AppstoreTwoTone,
   HourglassTwoTone,
   UsergroupAddOutlined,
+  UserSwitchOutlined,
+  UserAddOutlined,
 } from "@ant-design/icons";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 const { SubMenu } = Menu;
@@ -112,7 +114,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   alt=""
                 />
               </Col>
-            ) :
+            ) : (
               <Col span={24} className="d-flex justify-content-center">
                 <img
                   src={logorace}
@@ -120,17 +122,17 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   className=" gx-pointer gx-mr-3"
                   alt=""
                 />
-              </Col>}
+              </Col>
+            )}
             {jobdesk != "rcadmin" && (
               <Col span={24} className="d-flex justify-content-center">
-                <b style={{ color: "white" }} className="mt-3">
+                <b style={{ color: "black" }} className="mt-3">
                   {" "}
                   {jobdesk} , {fullname}
                 </b>
               </Col>
             )}
           </Row>
-
         </div>
         <CustomScrollbars className="gx-layout-sider-scrollbar">
           <Menu
@@ -145,10 +147,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
                   <Button
                     size="lg"
-                    style={{ width: 180 }}
+                    style={{
+                      width: 180,
+                      backgroundColor: "#113D7F",
+                      color: "white",
+                    }}
                     className="d-flex align-items-center justify-content-center"
                     onClick={() => createsp()}
-                    variant="danger"
                   >
                     Tambah SP
                   </Button>
@@ -158,7 +163,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               )}
               {jobdesk === "akunting" ? (
                 <>
-                  <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
+                  {/* <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
                     <Button
                       size="lg"
                       style={{
@@ -183,18 +188,22 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     >
                       ADD AP
                     </Button>
-                  </div>
+                  </div> */}
                   <div className="d-flex justify-content-center gx-sidebar-content w-100 mt-5 text-center ">
                     <Button
                       size="lg"
-                      style={{ width: 180, color: "white", marginTop: "-35px" }}
+                      style={{
+                        width: 180,
+                        color: "white",
+                        marginTop: "-35px",
+                        backgroundColor: "#113D7F",
+                        color: "white",
+                      }}
                       className="d-flex align-items-center justify-content-center"
                       onClick={() => createuserbaru()}
-                      variant="danger"
                     >
                       ADD USER BARU
                     </Button>
-
                   </div>
                 </>
               ) : (
@@ -234,217 +243,599 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               )} */}
 
               {jobdesk == "sales" && (
-                <MenuItemGroup key="main" >
-                  <Menu.Item key="Dashboard" className={activeMenu === "/dashboard" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                <MenuItemGroup key="main">
+                  <Menu.Item
+                    key="Dashboard"
+                    className={
+                      activeMenu === "/dashboard"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link to="/dashboard" style={{ textDecoration: "none" }}>
-
-                      <AppstoreOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '8px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="Dashboard" />
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <AppstoreOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="Dashboard" />
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
                   <div
-                    className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
+                    className="d-flex justify-content-start"
+                    // style={{
+                    //   backgroundColor: "#0c2197",
+                    //   height: "20%",
+                    //   marginRight: "20px",
+                    //   marginLeft: "20px",
+                    //   borderRadius: "10px",
+                    // }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
+                    <h6
+                      style={{
+                        color: "#0c2197",
+                        textDecoration: "underline",
+                        paddingLeft: "40px",
+                      }}
+                      className="mt-3 mb-3"
+                    >
                       Pesanan
                     </h6>
                   </div>
-                  <Menu.Item key="SP List" className={activeMenu === "/masterdata/marketing/splist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="SP List"
+                    className={
+                      activeMenu === "/masterdata/marketing/splist"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       disabled
                       to="/masterdata/marketing/splist"
                       style={{ textDecoration: "none" }}
                     >
-                      <FileTextOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '8px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="SP List" />
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <FileTextOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="SP List" />
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item disabled key="Cancel SP List" className={activeMenu === "/masterdata/marketing/cancelsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Cancel SP List"
+                    className={
+                      activeMenu === "/masterdata/marketing/cancelsplist"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
-                      disabled
                       to="/masterdata/marketing/cancelsplist"
                       style={{ textDecoration: "none" }}
                     >
-                      <FileExcelOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '8px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="Cancel SP List" />
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <FileExcelOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="Cancel SP List" />
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
                   <div
-                    className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
+                    className="d-flex justify-content-start"
+                    // style={{
+                    //   backgroundColor: "#0c2197",
+                    //   height: "20%",
+                    //   marginRight: "20px",
+                    //   marginLeft: "20px",
+                    //   borderRadius: "10px",
+                    // }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
+                    <h6
+                      style={{
+                        color: "#0c2197",
+                        textDecoration: "underline",
+                        paddingLeft: "40px",
+                      }}
+                      className="mt-3 mb-3 "
+                    >
                       Master
                     </h6>
                   </div>
-                  <Menu.Item key="MasterCustomer" className={activeMenu === "/ReportCustomer" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="MasterCustomer"
+                    className={
+                      activeMenu === "/ReportCustomer"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/ReportCustomer"
                       style={{ textDecoration: "none" }}
                     >
-                      <UserOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '8px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Report Customer
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <UserSwitchOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Report Customer
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Data Wilayah" className={activeMenu === "/mastercustomersss" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Data Wilayah"
+                    className={
+                      activeMenu === "/mastercustomersss"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/mastercustomersss"
                       style={{ textDecoration: "none" }}
                     >
-                      <UserOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '8px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Customer
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <UserOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Customer
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Alamat Customer" className={activeMenu === "/alamatcustomer" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Alamat Customer"
+                    className={
+                      activeMenu === "/alamatcustomer"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/alamatcustomer"
                       style={{ textDecoration: "none" }}
                     >
-                      <ProfileOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '8px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Alamat Customer
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <ProfileOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Alamat Customer
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Alamat Invoice" className={activeMenu === "/invoicecustomer" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Alamat Invoice"
+                    className={
+                      activeMenu === "/invoicecustomer"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/invoicecustomer"
                       style={{ textDecoration: "none" }}
                     >
-                      <FileProtectOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '8px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Alamat Invoice
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <FileProtectOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Alamat Invoice
+                        </span>
+                      </div>
                       {/* <span style={{ fontWeight: "bold",  color: 'white' }}>Data Alamat All</span> */}
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Cari Tarif" className={activeMenu === "/CariTarif" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Cari Tarif"
+                    className={
+                      activeMenu === "/CariTarif"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link to="/CariTarif" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" /> */}
-                      <DollarOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Cari Tarif
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <DollarOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Cari Tarif
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Tarif Customer" className={activeMenu === "/pelanggantarif" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Tarif Customer"
+                    className={
+                      activeMenu === "/pelanggantarif"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/pelanggantarif"
                       style={{ textDecoration: "none" }}
                     >
-                      <DollarOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '8px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Tarif Customer
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <DollarOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Tarif Customer
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
                   <div
-                    className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
+                    className="d-flex justify-content-start"
+                    // style={{
+                    //   backgroundColor: "#0c2197",
+                    //   height: "20%",
+                    //   marginRight: "20px",
+                    //   marginLeft: "20px",
+                    //   borderRadius: "10px",
+                    // }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
+                    <h6
+                      style={{
+                        color: "#0c2197",
+                        textDecoration: "underline",
+                        paddingLeft: "40px",
+                      }}
+                      className="mt-3 mb-3 "
+                    >
                       Lain - Lain
                     </h6>
                   </div>
-                  <Menu.Item disabled key="monitoringVehicle" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    disabled
+                    key="monitoringVehicle"
+                    className={
+                      activeMenu === "/masterdata/monitoring"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}
                     >
-                      <VideoCameraOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="Monitoring Vehicle" />
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <VideoCameraOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="Monitoring Vehicle" />
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
                 </MenuItemGroup>
               )}
               {jobdesk == "operasional" && (
                 <Menu.ItemGroup key="master">
-                  <Menu.Item key="Dashboard" className={activeMenu === "/dashboard" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Dashboard"
+                    className={
+                      activeMenu === "/dashboard"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link to="/dashboard" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" />
-                         */}
-                      <AppstoreOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      {/* <AppstoreTwoTone style={{ fontSize: '20px' }} /> */}
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="Dashboard" />
-                      </span>
+                       */}
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <AppstoreOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="Dashboard" />
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
                   <div
-                    className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
+                    className="d-flex justify-content-start"
+                    style={{
+                      height: "20%",
+                      marginRight: "20px",
+                      marginLeft: "40px",
+                      borderRadius: "10px",
+                    }}
                   >
-                    <h6 style={{ color: "white", }} className="mt-3 mb-3" >
+                    <h6 style={{ color: "#0c2197", textDecoration: 'underline'}} className="mt-3 mb-3">
                       Driver
                     </h6>
                   </div>
-                  <Menu.Item key="driver" className={activeMenu === "/masterdata/purchasing/driver" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item
+                    key="driver"
+                    className={
+                      activeMenu === "/masterdata/purchasing/driver"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/masterdata/purchasing/driver"
                       style={{ textDecoration: "none" }}
                     >
-                      {/* <i className="icon icon-widgets" /> */}
-                      <SmileTwoTone
-                        style={{ fontSize: "30px", color: "white" }}
-                      />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="sidebar.driver" />
-                      </span>
+                       <div style={{ display: "flex", alignItems: "center" }}>
+                        <SmileTwoTone
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                         <IntlMessages id="sidebar.driver" />
+                        </span>
+                      </div>
+                     
                     </Link>
                   </Menu.Item>
-                  <Menu.Item disabled key="DriverMap" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item
+                    disabled
+                    key="DriverMap"
+                    className={
+                      activeMenu === "/masterdata/monitoring"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}
                     >
-                      <CarTwoTone style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="Driver Map" />
-                      </span>
+                       <div style={{ display: "flex", alignItems: "center" }}>
+                        <CarTwoTone
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                           <IntlMessages id="Driver Map" />
+                        </span>
+                      </div>
+                      
                     </Link>
                   </Menu.Item>
-                  <Menu.Item disabled key="DriverEmc" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item
+                    disabled
+                    key="DriverEmc"
+                    className={
+                      activeMenu === "/masterdata/monitoring"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}
                     >
+                       <div style={{ display: "flex", alignItems: "center" }}>
+                        <CarTwoTone
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                           <IntlMessages id="Driver Emc" />
+                        </span>
+                      </div>
                       {/* <i className="icon icon-widgets" /> */}
-                      <CarTwoTone style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="Driver Emc" />
-                      </span>
+                     
                     </Link>
                   </Menu.Item>
                   <div
-                    className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
+                    className="d-flex justify-content-start"
+                    style={{
+                      
+                      height: "20%",
+                      marginRight: "20px",
+                      marginLeft: "20px",
+                      borderRadius: "10px",
+                    }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
+                    <h6 style={{ color: "#0c2197", textDecoration: 'underline' }} className="mt-3 mb-3 mx-4">
                       Menu SP
                     </h6>
                   </div>
-                  <Menu.Item disabled key="waiting SP List" className={activeMenu === "/masterdata/newsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item
+                    disabled
+                    key="waiting SP List"
+                    className={
+                      activeMenu === "/masterdata/newsplist"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/masterdata/newsplist"
                       style={{ textDecoration: "none" }}
                     >
-                      <ProfileTwoTone style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="Waiting SP" />
-                      </span>
+                       <div style={{ display: "flex", alignItems: "center" }}>
+                        <ProfileTwoTone
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="Waiting SP" />
+                        </span>
+                      </div>
+                     
                     </Link>
                   </Menu.Item>
                   {/* <Menu.Item key="New SP" className={activeMenu === "/masterdata/newsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
@@ -458,69 +849,189 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item> */}
-                  <Menu.Item disabled key="SP List" className={activeMenu === "/masterdata/splist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item
+                    disabled
+                    key="SP List"
+                    className={
+                      activeMenu === "/masterdata/splist"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/masterdata/splist"
                       style={{ textDecoration: "none" }}
                     >
-                      <ProfileTwoTone style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="SP List" />
-                      </span>
+                       <div style={{ display: "flex", alignItems: "center" }}>
+                        <ProfileTwoTone
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                         <IntlMessages id="SP List" />
+                        </span>
+                      </div>
+                      
                     </Link>
                   </Menu.Item>
                   <div
-                    className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
+                    className="d-flex justify-content-start"
+                    style={{
+
+                      height: "20%",
+                      marginRight: "20px",
+                      marginLeft: "20px",
+                      borderRadius: "10px",
+                    }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
+                    <h6 style={{ color: "#0c2197", textDecoration: 'underline'}} className="mt-3 mb-3 mx-4">
                       Vehicle
                     </h6>
                   </div>
 
-                  <Menu.Item key="VehicleMap" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item
+                    key="VehicleMap"
+                    className={
+                      activeMenu === "/masterdata/monitoring"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}
                     >
                       {/* <i className="icon icon-widgets" /> */}
-                      <EnvironmentTwoTone style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="Vehicle Map" />
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <EnvironmentTwoTone
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                           <IntlMessages id="Vehicle Map" />
+                        </span>
+                      </div>
+                     
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="vehicle" className={activeMenu === "/masterdata/vehicle" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item
+                    key="vehicle"
+                    className={
+                      activeMenu === "/masterdata/vehicle"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/masterdata/vehicle"
                       style={{ textDecoration: "none" }}
                     >
-                      <CarTwoTone style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="sidebar.vehicle" />
-                      </span>
+                       <div style={{ display: "flex", alignItems: "center" }}>
+                        <CarTwoTone
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="sidebar.vehicle" />
+                        </span>
+                      </div>
+                      
                     </Link>
                   </Menu.Item>
-                  <Menu.Item disabled key="monitoringVehicle" className={activeMenu === "/masterdata/monitoring" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item
+                    disabled
+                    key="monitoringVehicle"
+                    className={
+                      activeMenu === "/masterdata/monitoring"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/masterdata/monitoring"
                       style={{ textDecoration: "none" }}
                     >
-                      <ScheduleTwoTone style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="Monitoring Vehicle" />
-                      </span>
+                       <div style={{ display: "flex", alignItems: "center" }}>
+                        <ScheduleTwoTone
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="Monitoring Vehicle" />
+                        </span>
+                      </div>
+                      
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="monitoring" className={activeMenu === "/monitoringSJ" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
-                    <Link
-                      to="/monitoringSJ"
-                      style={{ textDecoration: "none" }}
-                    >
-                      <ScheduleTwoTone style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="Monitoring SJ" />
-                      </span>
+                  <Menu.Item
+                    key="monitoring"
+                    className={
+                      activeMenu === "/monitoringSJ"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
+                    <Link to="/monitoringSJ" style={{ textDecoration: "none" }}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                        <ScheduleTwoTone
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                           <IntlMessages id="Monitoring SJ" />
+                        </span>
+                      </div>
+                      
                     </Link>
                   </Menu.Item>
                 </Menu.ItemGroup>
@@ -555,64 +1066,162 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               )} */}
               {jobdesk.toLowerCase() === "akunting" ? (
                 <>
-                  <Menu.ItemGroup key="akuntingg" >
-                    <Menu.Item key="Dashboard" className={activeMenu === "/dashboard" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.ItemGroup key="akuntingg">
+                    <Menu.Item
+                      key="Dashboard"
+                      className={
+                        activeMenu === "/dashboard"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                    >
                       <Link to="/dashboard" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
                          */}
-                        <AppstoreOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                        {/* <AppstoreTwoTone style={{ fontSize: '20px' }} /> */}
-                        <span style={{ fontWeight: "bold", color: "black" }}>
-                          <IntlMessages id="Dashboard" />
-                        </span>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <AppstoreOutlined
+                            style={{
+                              fontSize: "30px",
+                              color: "black",
+                              marginBottom: "8px",
+                              marginTop: "10px",
+                            }}
+                          />
+                          <span
+                            style={{
+                              fontWeight: "bold",
+                              color: "black",
+                              marginLeft: "8px",
+                            }}
+                          >
+                            <IntlMessages id="Dashboard" />
+                          </span>
+                        </div>
                       </Link>
                     </Menu.Item>
                     <div
-                      className="d-flex justify-content-center"
-                      style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
+                      className="d-flex justify-content-start"
+                      style={{
+                        height: "20%",
+                        marginRight: "20px",
+                        marginLeft: "20px",
+                        borderRadius: "10px",
+                      }}
                     >
-                      <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
+                      <h6
+                        style={{
+                          color: "#0c2197",
+                          textDecoration: "underline",
+                        }}
+                        className="mt-3 mb-3 mx-4"
+                      >
                         Menu SP
                       </h6>
                     </div>
-                    <Menu.Item key="SP Lists" className={activeMenu === "/akunting/splistwaitingakunting" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Menu.Item
+                      key="SP Lists"
+                      className={
+                        activeMenu === "/akunting/splistwaitingakunting"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                    >
                       <Link
                         to="/akunting/splistwaitingakunting"
                         style={{ textDecoration: "none" }}
                       >
-                        <FileProtectOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                        {/* <HourglassTwoTone style={{ fontSize: '20px' }} /> */}
-                        <span style={{ fontWeight: "bold", color: "black" }}>
-                          Waiting Approve SP
-                        </span>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <FileProtectOutlined
+                            style={{
+                              fontSize: "30px",
+                              color: "black",
+                              marginBottom: "8px",
+                              marginTop: "10px",
+                            }}
+                          />
+                          <span
+                            style={{
+                              fontWeight: "bold",
+                              color: "black",
+                              marginLeft: "8px",
+                            }}
+                          >
+                            Waiting Approve SP
+                          </span>
+                        </div>
                       </Link>
                     </Menu.Item>
-                    <Menu.Item key="SP Lists All" className={activeMenu === "/akunting/splistakuntingbaru" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Menu.Item
+                      key="SP Lists All"
+                      className={
+                        activeMenu === "/akunting/splistakuntingbaru"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                    >
                       <Link
                         to="/akunting/splistakuntingbaru"
                         style={{ textDecoration: "none" }}
                       >
-                        <FileProtectOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                        <span style={{ fontWeight: "bold", color: "black" }}>
-                          SP List All
-                        </span>
+                        {" "}
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <FileProtectOutlined
+                            style={{
+                              fontSize: "30px",
+                              color: "black",
+                              marginBottom: "8px",
+                              marginTop: "10px",
+                            }}
+                          />
+                          <span
+                            style={{
+                              fontWeight: "bold",
+                              color: "black",
+                              marginLeft: "8px",
+                            }}
+                          >
+                            SP List All
+                          </span>
+                        </div>
                       </Link>
                     </Menu.Item>
 
-                    <Menu.Item key="Approve SP" className={activeMenu === "/approvesplistall" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Menu.Item
+                      key="Approve SP"
+                      className={
+                        activeMenu === "/approvesplistall"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                    >
                       <Link
                         to="/approvesplistall"
                         style={{ textDecoration: "none" }}
                       >
-                        <FileProtectOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                        <span style={{ fontWeight: "bold", color: "black" }}>
-                          List Approve All SP
-                        </span>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <FileProtectOutlined
+                            style={{
+                              fontSize: "30px",
+                              color: "black",
+                              marginBottom: "8px",
+                              marginTop: "10px",
+                            }}
+                          />
+                          <span
+                            style={{
+                              fontWeight: "bold",
+                              color: "black",
+                              marginLeft: "8px",
+                            }}
+                          >
+                            List Approve All SP
+                          </span>
+                        </div>
                       </Link>
                     </Menu.Item>
                   </Menu.ItemGroup>
                   {/* <div
-                    className="d-flex justify-content-center"
+                    className="d-flex justify-content-start"
                     style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px' , borderRadius: '10px' }}
                   >
                     <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
@@ -720,63 +1329,170 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item> */}
 
                   <div
-                    className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
+                    className="d-flex justify-content-start"
+                    style={{
+                      height: "20%",
+                      marginRight: "20px",
+                      marginLeft: "20px",
+                      borderRadius: "10px",
+                    }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
+                    <h6
+                      style={{ color: "#0c2197", textDecoration: "underline" }}
+                      className="mt-3 mb-3 mx-4"
+                    >
                       Payment
                     </h6>
                   </div>
 
-                  <Menu.Item disabled key="Penerimaan INV" className={activeMenu === "/akunting/ar/reportpartners/reportpenerimaaninvoice" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    disabled
+                    key="Penerimaan INV"
+                    className={
+                      activeMenu ===
+                      "/akunting/ar/reportpartners/reportpenerimaaninvoice"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/akunting/ar/reportpartners/reportpenerimaaninvoice"
                       style={{ textDecoration: "none" }}
                     >
-                      <i className="icon icon-widgets" />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Penerimaan INV
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <AppstoreOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Penerimaan INV
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
 
                   <div
-                    className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
+                    className="d-flex justify-content-start"
+                    style={{
+                      backgroundColor: "",
+                      height: "20%",
+                      marginRight: "20px",
+                      marginLeft: "20px",
+                      borderRadius: "10px",
+                    }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
+                    <h6
+                      style={{ color: "#0c2197", textDecoration: "underline" }}
+                      className="mt-3 mb-3 mx-4"
+                    >
                       Data Wilayah
                     </h6>
                   </div>
 
-                  <Menu.Item key="Master Kecamatan" className={activeMenu === "/masterkecamatan" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Master Kecamatan"
+                    className={
+                      activeMenu === "/masterkecamatan"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/masterkecamatan"
                       style={{ textDecoration: "none" }}
                     >
-                      <i className="icon icon-widgets" />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Data Kecamatan
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <AppstoreOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Data Kecamatan
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Master Kota" className={activeMenu === "/masterkota" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Master Kota"
+                    className={
+                      activeMenu === "/masterkota"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link to="/masterkota" style={{ textDecoration: "none" }}>
-                      <i className="icon icon-widgets" />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Data Kota
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <AppstoreOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Data Kota
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Master Provinsi" className={activeMenu === "/masterprovinsi" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Master Provinsi"
+                    className={
+                      activeMenu === "/masterprovinsi"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/masterprovinsi"
                       style={{ textDecoration: "none" }}
                     >
-                      <i className="icon icon-widgets" />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Data Provinsi
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <AppstoreOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Data Provinsi
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
 
@@ -791,41 +1507,107 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
 
                     </SubMenu> */}
                   <div
-                    className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
+                    className="d-flex justify-content-start"
+                    style={{
+                      height: "20%",
+                      marginRight: "20px",
+                      marginLeft: "20px",
+                      borderRadius: "10px",
+                    }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
+                    <h6
+                      style={{ color: "#0c2197", textDecoration: "underline" }}
+                      className="mt-3 mb-3 mx-4"
+                    >
                       Data Tarif
                     </h6>
                   </div>
 
-                  <Menu.Item key="Cari Tarif" className={activeMenu === "/CariTarif" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Cari Tarif"
+                    className={
+                      activeMenu === "/CariTarif"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link to="/CariTarif" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" /> */}
-                      <DollarOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Cari Tarif
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <DollarOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Cari Tarif
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Tarif Eureka" className={activeMenu === "/tarif_eureka" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Tarif Eureka"
+                    className={
+                      activeMenu === "/tarif_eureka"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" /> */}
-                      <DollarOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Tarif Eureka
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <DollarOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Tarif Eureka
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Tarif Mitra" disabled>
-
                     <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" />
                        */}
-                      <DollarOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Tarif Mitra
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <DollarOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Tarif Mitra
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Tarif Customer" disabled>
@@ -833,58 +1615,170 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       to="/pelanggantarif"
                       style={{ textDecoration: "none" }}
                     >
-                      <DollarOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Tarif Customer
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <DollarOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Tarif Customer
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
 
                   <div
-                    className="d-flex justify-content-center"
-                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
+                    className="d-flex justify-content-start"
+                    style={{
+                      height: "20%",
+                      marginRight: "20px",
+                      marginLeft: "20px",
+                      borderRadius: "10px",
+                    }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
+                    <h6
+                      style={{ color: "#0c2197", textDecoration: "underline" }}
+                      className="mt-3 mb-3 mx-4"
+                    >
                       Bisnis Employee
                     </h6>
                   </div>
 
-                  <Menu.Item key="Data BU" className={activeMenu === "/DataBUIndex" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Data BU"
+                    className={
+                      activeMenu === "/DataBUIndex"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link to="/DataBUIndex" style={{ textDecoration: "none" }}>
-                      <i className="icon icon-widgets" />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Data BU
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <UsergroupAddOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Data BU
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Data BU Employee" className={activeMenu === "/DataBuEmployee" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Data BU Employee"
+                    className={
+                      activeMenu === "/DataBuEmployee"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/DataBuEmployee"
                       style={{ textDecoration: "none" }}
                     >
-                      <i className="icon icon-widgets" />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Data BU Employee
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <UserSwitchOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Data BU Employee
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Data BU Brench" className={activeMenu === "/DataBuBrench" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Data BU Brench"
+                    className={
+                      activeMenu === "/DataBuBrench"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link to="/DataBuBrench" style={{ textDecoration: "none" }}>
-                      <i className="icon icon-widgets" />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Data BU Brench
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <UserAddOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Data BU Brench
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Data Employee Position" className={activeMenu === "/DataBuEmployeePosition" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Data Employee Position"
+                    className={
+                      activeMenu === "/DataBuEmployeePosition"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/DataBuEmployeePosition"
                       style={{ textDecoration: "none" }}
                     >
-                      <i className="icon icon-widgets" />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Data Employee Position
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <UserOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Data Employee Position
+                        </span>
+                      </div>
+                      
                     </Link>
                   </Menu.Item>
                 </>
@@ -892,146 +1786,392 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
 
               {jobdesk === "purchasing" ? (
                 <Menu.ItemGroup key="monitorings">
-                  <Menu.Item key="Dashboard" className={activeMenu === "/dashboard" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item
+                    key="Dashboard"
+                    className={
+                      activeMenu === "/dashboard"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link to="/dashboard" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" />
                        */}
-                      <AppstoreOutlined style={{ fontSize: "30px", color: 'white', color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="Dashboard" />
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <AppstoreOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="Dashboard" />
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                    style={{ backgroundColor: "#0c2197", height: "30%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
+                    style={{
+                      height: "30%",
+                      marginRight: "20px",
+                      marginLeft: "20px",
+                      borderRadius: "10px",
+                    }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
+                    <h6
+                      style={{ color: "#0c2197", textDecoration: "underline" }}
+                      className="mt-3 mb-3 mx-4"
+                    >
                       Menu SP
                     </h6>
                   </div>
-                  <Menu.Item disabled key="New SP" className={activeMenu === "/purchasing/newsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item
+                    disabled
+                    key="New SP"
+                    className={
+                      activeMenu === "/purchasing/newsplist"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/purchasing/newsplist"
                       style={{ textDecoration: "none" }}
                     >
-
-                      <FileProtectOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="Approve SP" />
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <FileProtectOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="Approve SP" />
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item disabled key="SP List" className={activeMenu === "/masterdata/splist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    disabled
+                    key="SP List"
+                    className={
+                      activeMenu === "/masterdata/splist"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/masterdata/splist"
                       style={{ textDecoration: "none" }}
                     >
-
-                      <FileTextOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="SP List" />
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <FileTextOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="SP List" />
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
+                    style={{
+                      height: "20%",
+                      marginRight: "20px",
+                      marginLeft: "20px",
+                      borderRadius: "10px",
+                    }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
+                    <h6
+                      style={{ color: "#0c2197", textDecoration: "underline" }}
+                      className="mt-3 mb-3 mx-4"
+                    >
                       Menu SJ
                     </h6>
                   </div>
-                  <Menu.Item disabled key="SJ List" className={activeMenu === "/masterdata/sjlist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    disabled
+                    key="SJ List"
+                    className={
+                      activeMenu === "/masterdata/sjlist"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/masterdata/sjlist"
                       style={{ textDecoration: "none" }}
                     >
                       {/* <i className="icon icon-widgets" />
                        */}
-                      <FolderOpenOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="SJ List" />
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <FolderOpenOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="SJ List" />
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
+                    style={{
+                      height: "20%",
+                      marginRight: "20px",
+                      marginLeft: "20px",
+                      borderRadius: "10px",
+                    }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
+                    <h6
+                      style={{ color: "#0c2197", textDecoration: "underline" }}
+                      className="mt-3 mb-3 mx-4"
+                    >
                       Master
                     </h6>
                   </div>
-                  <Menu.Item key="driverpurch" className={activeMenu === "/masterdata/purchasing/driver" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="driverpurch"
+                    className={
+                      activeMenu === "/masterdata/purchasing/driver"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/masterdata/purchasing/driver"
                       style={{ textDecoration: "none" }}
                     >
                       {/* <i className="icon icon-widgets" />
                        */}
-                      <CarOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="Master Driver" />
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <CarOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="Master Driver" />
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Master Mitra" className={activeMenu === "/mastermitra" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Master Mitra"
+                    className={
+                      activeMenu === "/mastermitra"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link to="/mastermitra" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" />
                        */}
-                      <ShopOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Master Mitra
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <ShopOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Master Mitra
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="vehiclepurch" className={activeMenu === "/masterdata/purchasing/vehicle" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="vehiclepurch"
+                    className={
+                      activeMenu === "/masterdata/purchasing/vehicle"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/masterdata/purchasing/vehicle"
                       style={{ textDecoration: "none" }}
                     >
                       {/* <i className="icon icon-heart" /> */}
-                      <FundViewOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        <IntlMessages id="Master Vehicle" />
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <FundViewOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="Master Vehicle" />
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                    style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
+                    style={{
+                      height: "20%",
+                      marginRight: "20px",
+                      marginLeft: "20px",
+                      borderRadius: "10px",
+                    }}
                   >
-                    <h6 style={{ color: "white" }} className="mt-3 mb-3 mx-4" >
+                    <h6
+                      style={{ color: "#0c2197", textDecoration: "underline" }}
+                      className="mt-3 mb-3 mx-4"
+                    >
                       Tarif
                     </h6>
                   </div>
-                  <Menu.Item key="Cari Tarif" className={activeMenu === "/CariTarif" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Cari Tarif"
+                    className={
+                      activeMenu === "/CariTarif"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link to="/CariTarif" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" /> */}
-                      <DollarOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Cari Tarif
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <DollarOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Cari Tarif
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Tarif Mitra" className={activeMenu === "/tarifmitra" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Tarif Mitra"
+                    className={
+                      activeMenu === "/tarifmitra"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" />
                        */}
-                      <DollarOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Tarif Mitra
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <DollarOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Tarif Mitra
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Tarif Eureka" disabled >
+                  <Menu.Item key="Tarif Eureka" disabled>
                     <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
                       {/* <i className="icon icon-widgets" /> */}
-                      <DollarOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Tarif Eureka
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <DollarOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Tarif Eureka
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="Tarif Customer" disabled>
@@ -1039,23 +2179,43 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       to="/pelanggantarif"
                       style={{ textDecoration: "none" }}
                     >
-                      <DollarOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "black" }}>
-                        Tarif Customer
-                      </span>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <DollarOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Tarif Customer
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
                 </Menu.ItemGroup>
               ) : null}
 
-
               {/* ////Login Race///// */}
               {jobdesk == "emc" && (
-                <Menu.Item key="Dashboard" >
+                <Menu.Item key="Dashboard">
                   <Link to="/admin/race" style={{ textDecoration: "none" }}>
                     {/* <i className="icon icon-widgets" />
-                       */}
-                    <AppstoreOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
+                     */}
+                    <AppstoreOutlined
+                      style={{
+                        fontSize: "30px",
+                        color: "white",
+                        marginBottom: "7px",
+                      }}
+                    />
                     <span style={{ fontWeight: "bold", color: "black" }}>
                       Dashboard
                     </span>
@@ -1066,78 +2226,169 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               {jobdesk == "rcadmin" && (
                 <>
                   <div className="mt-3">
-                    <Menu.Item className={activeMenu === "/Dashboard" ? "menu-item-active menu-item-hover" : "menu-item-hover"} key="Dashboard">
+                    <Menu.Item
+                      className={
+                        activeMenu === "/Dashboard"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="Dashboard"
+                    >
                       <Link to="/Dashboard" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
-                       */}
+                         */}
 
-                        <img src={logodashboard} style={{ fontSize: "30px", color: 'white', marginTop: '7px' }} />
-                        <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
+                        <img
+                          src={logodashboard}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
                           Dashboard
                         </span>
                       </Link>
                     </Menu.Item>
                   </div>
-                  <div className="mt-4"  >
-                    <Menu.Item className={activeMenu === "/race/splist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} key="SPList">
-                      <Link to="/race/splist" style={{ textDecoration: "none" }}>
+                  <div className="mt-4">
+                    <Menu.Item
+                      className={
+                        activeMenu === "/race/splist"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="SPList"
+                    >
+                      <Link
+                        to="/race/splist"
+                        style={{ textDecoration: "none" }}
+                      >
                         {/* <i className="icon icon-widgets" />
-                       */}
+                         */}
 
-                        <img src={splistrace} style={{ fontSize: "30px", color: 'white', marginTop: '7px' }} />
-                        <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
+                        <img
+                          src={splistrace}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
                           SP List
                         </span>
                       </Link>
                     </Menu.Item>
                   </div>
-                  <div className="mt-4" >
-                    <Menu.Item className={activeMenu === "/mapping" ? "menu-item-active menu-item-hover" : "menu-item-hover"} key="mapping">
+                  <div className="mt-4">
+                    <Menu.Item
+                      className={
+                        activeMenu === "/mapping"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="mapping"
+                    >
                       <Link to="/mapping" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
-                       */}
+                         */}
 
-                        <img src={historyrace} style={{ fontSize: "30px", color: 'white', marginTop: '7px' }} />
-                        <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
+                        <img
+                          src={historyrace}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
                           Map Pengiriman
                         </span>
                       </Link>
                     </Menu.Item>
                   </div>
-                  <div className="mt-4" >
-                    <Menu.Item className={activeMenu === "/race/cod" ? "menu-item-active menu-item-hover" : "menu-item-hover"} key="cod">
+                  <div className="mt-4">
+                    <Menu.Item
+                      className={
+                        activeMenu === "/race/cod"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="cod"
+                    >
                       <Link to="/race/cod" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
-                       */}
+                         */}
 
-                        <img src={perbaikanrace} style={{ fontSize: "30px", color: 'white', marginTop: '7px' }} />
-                        <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
+                        <img
+                          src={perbaikanrace}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
                           Cash On Delivery
                         </span>
                       </Link>
                     </Menu.Item>
                   </div>
-                  <div className="mt-4" >
+                  <div className="mt-4">
                     <Menu.Item key="Vehicle">
                       <Link to="/Dashboard" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
-                       */}
+                         */}
 
-                        <img src={vehiclerace} style={{ fontSize: "30px", color: 'white', marginTop: '7px' }} />
-                        <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
+                        <img
+                          src={vehiclerace}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
                           Vehicle
                         </span>
                       </Link>
                     </Menu.Item>
                   </div>
-                  <div className="mt-4" >
+                  <div className="mt-4">
                     <Menu.Item key="Emergency">
                       <Link to="/Dashboard" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
-                       */}
+                         */}
 
-                        <img src={emergencyrace} style={{ fontSize: "30px", color: 'white', marginTop: '7px' }} />
-                        <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
+                        <img
+                          src={emergencyrace}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
                           Emergency
                         </span>
                       </Link>
@@ -1147,29 +2398,68 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               )}
 
               {jobdesk == "webmaster" && (
-                <MenuItemGroup key="main" >
-                  <Menu.Item key="Dashboard" className={activeMenu === "/dashboard" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                <MenuItemGroup key="main">
+                  <Menu.Item
+                    key="Dashboard"
+                    className={
+                      activeMenu === "/dashboard"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link to="/dashboard" style={{ textDecoration: "none" }}>
-
-                      <AppstoreOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '8px' }} />
+                      <AppstoreOutlined
+                        style={{
+                          fontSize: "30px",
+                          color: "white",
+                          marginBottom: "8px",
+                        }}
+                      />
                       <span style={{ fontWeight: "bold", color: "black" }}>
                         <IntlMessages id="Dashboard" />
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="List User" className={activeMenu === "/admin/user/menu" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
-                    <Link to="/admin/user/menu" style={{ textDecoration: "none" }}>
-
-                      <UsergroupAddOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '8px' }} />
+                  <Menu.Item
+                    key="List User"
+                    className={
+                      activeMenu === "/admin/user/menu"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
+                    <Link
+                      to="/admin/user/menu"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <UsergroupAddOutlined
+                        style={{
+                          fontSize: "30px",
+                          color: "white",
+                          marginBottom: "8px",
+                        }}
+                      />
                       <span style={{ fontWeight: "bold", color: "black" }}>
                         <IntlMessages id="List User" />
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="Data User" className={activeMenu === "/DataMenu" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item
+                    key="Data User"
+                    className={
+                      activeMenu === "/DataMenu"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link to="/DataMenu" style={{ textDecoration: "none" }}>
-
-                      <UserOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '8px' }} />
+                      <UserOutlined
+                        style={{
+                          fontSize: "30px",
+                          color: "white",
+                          marginBottom: "8px",
+                        }}
+                      />
                       <span style={{ fontWeight: "bold", color: "black" }}>
                         <IntlMessages id="Data User" />
                       </span>
@@ -1180,15 +2470,26 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
 
               {jobdesk == "monitoring" && (
                 <>
-                  <Menu.Item key="List User" className={activeMenu === "/monitoring/report-kiriman" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
-                    <Link to="/monitoring/report-kiriman" style={{ textDecoration: "none" }}>
-
-                      <span className="mx-3" style={{ fontWeight: "bold", color: "white" }}>
+                  <Menu.Item
+                    key="List User"
+                    className={
+                      activeMenu === "/monitoring/report-kiriman"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
+                    <Link
+                      to="/monitoring/report-kiriman"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <span
+                        className="mx-3"
+                        style={{ fontWeight: "bold", color: "white" }}
+                      >
                         Report Kiriman
                       </span>
                     </Link>
                   </Menu.Item>
-
                 </>
               )}
             </MenuItemGroup>
