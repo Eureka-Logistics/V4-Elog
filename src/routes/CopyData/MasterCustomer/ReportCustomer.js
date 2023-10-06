@@ -22,7 +22,7 @@ function ReportCustomer() {
   const fetchData = async () => {
     try {
       const respons = await axios.get(
-        `${Baseurl}customer/get-report-customer?limit=${limit}&page=${currentPage}&keyword=&statusSP=&customerId=${Customers}&cabang=&sales=&buId=`,
+        `${Baseurl}customer/get-report-customer?limit=${limit}&page=${currentPage}&keyword=&statusSP=&customerId=${Customers}&cabang=&sales=&buId=&tgl_pickup=&tgl_bongkar`,
         {
           headers: {
             "Content-Type": "application/json",

@@ -821,6 +821,12 @@ const App = ({ match }) => {
             import("./MasterData/SJ/MonitoringSJ")
           )}
         />
+         <Route
+          path={`${match.url}monitoringReportKiriman`}
+          component={asyncComponent(() =>
+            import("./MasterData/Monitoring/ReportKiriman/index")
+          )}
+        />
         {/* Monitoring */}
         <Route
           path={`${match.url}monitoring/report-kiriman`}

@@ -1034,6 +1034,37 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       
                     </Link>
                   </Menu.Item>
+                  <Menu.Item
+                    key="monitoringKiriman"
+                    className={
+                      activeMenu === "/monitoringReportKiriman"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
+                    <Link to="/monitoringReportKiriman" style={{ textDecoration: "none" }}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                        <ScheduleTwoTone
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                           <IntlMessages id="Report Kiriman" />
+                        </span>
+                      </div>
+                      
+                    </Link>
+                  </Menu.Item>
                 </Menu.ItemGroup>
               )}
               {/* {jobdesk == "operasional" && (
