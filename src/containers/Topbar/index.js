@@ -192,7 +192,7 @@ const Topbar = () => {
         </iframe>
       </Modal> */}
 
-      <Row className="mt-1">
+      <Row className="mt-2">
         <Col span={24}>
           {" "}
           <UserProfile />

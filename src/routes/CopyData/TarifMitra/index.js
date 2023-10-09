@@ -525,6 +525,7 @@ const SamplePage = () => {
         `}
         </style>
         <Table
+        style={{overflowX: "auto"}}
           className="mt-5"
           onRowClicked={IniRowClick}
           dataSource={listData}
