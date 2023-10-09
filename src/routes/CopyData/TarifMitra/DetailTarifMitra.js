@@ -183,23 +183,35 @@ function DetailTarifMitra() {
   };
 
 
-  const formatTarif = (value) => {
-    // Menghapus semua karakter selain angka
-    const numericValue = value.replace(/[^0-9]/g, '');
-
-    // Menambahkan titik setiap 3 digit dari belakang
-    const formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-
-    return formattedValue;
+  const toRupiah = (angka) => {
+    var rupiah = "";
+    var angkarev = angka.toString().split("").reverse().join("");
+    for (var i = 0; i < angkarev.length; i++)
+      if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + ".";
+    return `${rupiah
+      .split("", rupiah.length - 1)
+      .reverse()
+      .join("")}`;
   };
 
-  const handleTarifChange = (e) => {
-    const inputValue = e.target.value;
-    const formattedValue = formatTarif(inputValue);
+    const formatTarif = (value) => {
+      // Menghapus semua karakter selain angka
+      const numericValue = value.replace(/[^0-9]/g, '');
 
-    setTarif(formattedValue);
-  };
+      // Menambahkan titik setiap 3 digit dari belakang
+      const formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
+      return formattedValue;
+    };
+
+    const handleTarifChange = (e) => {
+      const inputValue = e.target.value;
+      const formattedValue = formatTarif(inputValue);
+
+      setTarif(formattedValue);
+    };
+
+    
 
   
 
@@ -377,8 +389,11 @@ function DetailTarifMitra() {
             <Input className="mt-2"
             type="text"
               placeholder={DetailDataTarif.tarif}
-              value={tarif}
-              onChange={handleTarifChange}
+              value={tarif} 
+              onChange={(e) => {
+                console.log(e.target.value);
+                setTarif(e.target.value);
+              }}
             />
           </Col>
           {/* <Col className="mt-2" span={8}>

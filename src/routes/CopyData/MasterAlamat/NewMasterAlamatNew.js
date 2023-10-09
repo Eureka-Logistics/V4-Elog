@@ -231,7 +231,7 @@ function NewMasterAlamatNew() {
             />
           </Col>
           <Col span={12}>
-            <label style={{ fontWeight: "bold" }}>Emaillllll :</label>
+            <label style={{ fontWeight: "bold" }}>Email :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
               className="mt-2 mb-2"
