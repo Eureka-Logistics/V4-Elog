@@ -70,16 +70,16 @@ function DetailMasterCustomer() {
   const [DirekturDate, setDirekturDate] = useState("");
   const [DirekturMemo, setDirekturMemo] = useState("");
   const [Akunting, setAkunting] = useState("");
-  const [AkuntingDate, setAkuntingDate] = useState ("");
+  const [AkuntingDate, setAkuntingDate] = useState("");
   const [AkuntingMemo, setAkuntingMemo] = useState("");
   const [Manager, setManager] = useState("");
-  const [ManagerDate, setManagerDate]= useState("");
+  const [ManagerDate, setManagerDate] = useState("");
   const [ManagerMemo, setManagerMemo] = useState("");
   const [MataUang, setMataUang] = useState("");
   const [KTP, setKTP] = useState("");
-  const [HP, setHP] = useState ("");
+  const [HP, setHP] = useState("");
   const [Email, setEmail] = useState("");
-  
+
 
 
 
@@ -146,18 +146,18 @@ function DetailMasterCustomer() {
       setAkunting(respons.data.data?.akunting || "");
       setAkuntingDate(respons.data.data?.akunting_date || "");
       setAkuntingMemo(respons.data.data?.akunting_memo || "");
-      setManager(respons.data.data?.manager || ""); 
-      setManagerDate(respons.data.data?.manager_date || ""); 
-      setManagerMemo(respons.data.data?.manager_memo || ""); 
-      setMataUang(respons.data.data?.mata_uang || ""); 
-      setKTP(respons.data.data?.ktp || ""); 
-      setHP(respons.data.data?.hp || ""); 
-      setEmail(respons.data.data?.email || ""); 
-      setInvoiceAddress(respons.data.data?.invoice_address || ""); 
+      setManager(respons.data.data?.manager || "");
+      setManagerDate(respons.data.data?.manager_date || "");
+      setManagerMemo(respons.data.data?.manager_memo || "");
+      setMataUang(respons.data.data?.mata_uang || "");
+      setKTP(respons.data.data?.ktp || "");
+      setHP(respons.data.data?.hp || "");
+      setEmail(respons.data.data?.email || "");
+      setInvoiceAddress(respons.data.data?.invoice_address || "");
 
 
       setLoading(false);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const EditMasterCustomer = async () => {
@@ -277,8 +277,24 @@ function DetailMasterCustomer() {
   //   setToPValue(options.children);
   // };
 
-  
 
+  useEffect(() => {
+    const date = new Date(DetailDataMasterCustomer.tgl_bergabung);
+    const formattedDate = date;
+    console.log(date.toLocaleDateString());
+    setDataTanggalBergabung(formattedDate);
+  }, [DetailDataMasterCustomer.tgl_bergabung]);
+
+
+  const formattanggal = (props) => {
+    if (!props) return ""; 
+    const date = new Date(props);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+  }
   return (
     <div>
       <Card>
@@ -322,7 +338,7 @@ function DetailMasterCustomer() {
               disabled
               className="mt-2"
               placeholder={DetailDataMasterCustomer.tgl_bergabung}
-              value={DataTanggalBergabung}
+              value={formattanggal(DataTanggalBergabung)}
               onChange={(e) => {
                 console.log(e.target.value);
                 setDataTanggalBergabung(e.target.value);
@@ -583,7 +599,7 @@ function DetailMasterCustomer() {
         <hr />
         <br />
         <Row>
-        <Col span={12}  className="mt-2">
+          <Col span={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Akunting : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -596,7 +612,7 @@ function DetailMasterCustomer() {
               }}
             />
           </Col>
-        <Col span={12}  className="mt-2">
+          <Col span={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Akunting Date : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <DatePicker
@@ -609,7 +625,7 @@ function DetailMasterCustomer() {
               }}
             />
           </Col>
-        <Col span={24}  className="mt-2">
+          <Col span={24} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Akunting Memo : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input.TextArea
@@ -623,12 +639,12 @@ function DetailMasterCustomer() {
             />
           </Col>
         </Row>
-       
+
 
         {/* Manager */}
 
         <Row className="mt-2">
-        <Col span={12}  className="mt-2">
+          <Col span={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Manager : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -641,7 +657,7 @@ function DetailMasterCustomer() {
               }}
             />
           </Col>
-        <Col span={12}  className="mt-2">
+          <Col span={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Manager Date : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <DatePicker
@@ -654,7 +670,7 @@ function DetailMasterCustomer() {
               }}
             />
           </Col>
-        <Col span={24}  className="mt-2">
+          <Col span={24} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Manager Memo : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input.TextArea
@@ -668,9 +684,9 @@ function DetailMasterCustomer() {
             />
           </Col>
         </Row>
-         {/* DIREKTUR */}
-         <Row>
-        <Col span={12} className="mt-2">
+        {/* DIREKTUR */}
+        <Row>
+          <Col span={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Direktur : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -683,7 +699,7 @@ function DetailMasterCustomer() {
               }}
             />
           </Col>
-        <Col span={12}  className="mt-2">
+          <Col span={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Direktur Date : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <DatePicker
@@ -696,7 +712,7 @@ function DetailMasterCustomer() {
               }}
             />
           </Col>
-        <Col span={24}  className="mt-2">
+          <Col span={24} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Direktur Memo : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input.TextArea
@@ -965,7 +981,7 @@ function DetailMasterCustomer() {
               onChange={(e) => setMataUang(e)}
             >
               <Option value="Rupiha (Rp.)">Rupiha (Rp.)</Option>
-             
+
             </Select>
           </Col>
 
