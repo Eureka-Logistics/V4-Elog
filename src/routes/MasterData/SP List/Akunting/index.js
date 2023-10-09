@@ -5,7 +5,7 @@ import Baseurl from '../../../../Api/BaseUrl';
 import { Card, Tag, Pagination } from 'antd';
 import { Button, Row, Form, Col, Table } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-
+import "../../Monitoring SP List Akunting/style.css"
 function Index() {
     const [DataAwal, setDataAwal] = useState([]);
     const [Loading, Isloading] = useState(false)

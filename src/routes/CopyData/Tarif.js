@@ -474,11 +474,11 @@ function Tarif() {
         </div>
       )}
       {/* Tarif Mitra */}
-      {muatKota && kotaTujuan && JenisKendaraan && (
-        <Card>
-          <h5>Data Tarif Mitra</h5>
-          <hr />
-          {jobdesk !== "sales" && (
+      {muatKota && kotaTujuan && JenisKendaraan && jobdesk !== "sales" && (
+        <>
+          <Card>
+            <h5>Data Tarif Mitra</h5>
+            <hr />
             <Table
               dataSource={DataTarifMitra}
               columns={Mitra}
@@ -492,8 +492,8 @@ function Tarif() {
                 onChange: handleMitraTableChange,
               }}
             />
-          )}
-        </Card>
+          </Card>
+        </>
       )}
 
       {/* Tarif Customer */}

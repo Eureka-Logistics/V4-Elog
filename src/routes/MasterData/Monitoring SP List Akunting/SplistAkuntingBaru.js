@@ -6,6 +6,7 @@ import DataTable from "react-data-table-component";
 import Baseurl from "../../../Api/BaseUrl";
 import { useHistory } from "react-router-dom";
 import elogGif from "../../../assets/Loader_Elogs1.gif"
+import "./style.css"
 function SplistAkuntingBaru() {
   const [dataApi, setdataapi] = useState([]);
   const [combinedData, setCombinedData] = useState([]);
@@ -21,7 +22,7 @@ function SplistAkuntingBaru() {
   const columns = [
     {
       name: "No",
-      selector: (row , index) => (TotalCurrentPage.currentPage -1) * 10 + index + 1,
+      selector: (row, index) => (TotalCurrentPage.currentPage - 1) * 10 + index + 1,
       width: "70px",
     },
     {
@@ -39,7 +40,7 @@ function SplistAkuntingBaru() {
       name: "Marketing",
       selector: (row) => (
         <Tooltip title={<>
-         {"Gl: " + row?.gl} <br />
+          {"Gl: " + row?.gl} <br />
           {"Asm: " + row?.asm} <br />
           {"Mgr: " + row?.mgr} <br />
           {"Kacab: " + row?.kacab} <br />
@@ -49,7 +50,7 @@ function SplistAkuntingBaru() {
           {row?.salesName}
         </Tooltip>
       ),
-    
+
     },
     {
       name: "Service",
@@ -211,7 +212,7 @@ function SplistAkuntingBaru() {
           },
         }
       );
-    
+
       setdataapi(data.data?.data?.order)
       setTotalRows(data.data.data.totalPage);
       setTotalCurrentPage(data.data.data);
@@ -223,96 +224,97 @@ function SplistAkuntingBaru() {
         message: 'Error!',
         description: error.response.data.status.message
       });
-    }}
-      useEffect(() => {
-        dataapi();
-      }, [filter, page]);
+    }
+  }
+  useEffect(() => {
+    dataapi();
+  }, [filter, page]);
 
-      // console.log();
-      const handleFilterChange = (e) => {
-        setFilter(e.target.value);
-      };
+  // console.log();
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
+  };
 
-      // const detailSP = async (idmp) => {
-      //   try {
-      //     const response = await axios.get(
-      //       `${Baseurl}sp/get-SP-all-detail?idmp=${idmp}`,
-      //       {
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //           Authorization: localStorage.getItem("token"),
-      //         },
-      //       }
-      //     );
-      //     return response.data.detail.map((item) => ({
-      //       kendaraan: item?.kendaraan,
-      //       destination: item?.destination
-      //     }));
-      //   } catch (error) {
-      //     console.error(error);
-      //     return [];
-      //   }
-      // };
+  // const detailSP = async (idmp) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${Baseurl}sp/get-SP-all-detail?idmp=${idmp}`,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: localStorage.getItem("token"),
+  //         },
+  //       }
+  //     );
+  //     return response.data.detail.map((item) => ({
+  //       kendaraan: item?.kendaraan,
+  //       destination: item?.destination
+  //     }));
+  //   } catch (error) {
+  //     console.error(error);
+  //     return [];
+  //   }
+  // };
 
-      // useEffect(() => {
-      // }, [datamobil]);
-      const onShowSizeChange = (page, pageSize) => {
-        // console.log(current, pageSize);
-        dataapi(page)
-      };
-      return (
-        <div>
-          <Card>
-            <h5>Data SP List</h5>
+  // useEffect(() => {
+  // }, [datamobil]);
+  const onShowSizeChange = (page, pageSize) => {
+    // console.log(current, pageSize);
+    dataapi(page)
+  };
+  return (
+    <div>
+      <Card>
+        <h5>Data SP List</h5>
+        <Row>
+          <Col>
             <Row>
-              <Col>
-                <Row>
 
-                  <div className="d-flex justify-content-end mb-3">
-                    <Col sm={3}>
-                      <Form.Control
-                        type="text"
-                        placeholder="No SP "
-                        onChange={handleFilterChange}
+              <div className="d-flex justify-content-end mb-3">
+                <Col sm={3}>
+                  <Form.Control
+                    type="text"
+                    placeholder="No SP "
+                    onChange={handleFilterChange}
 
-                      />
-                    </Col>
-                  </div>
-                </Row>
-                <style>
-                  {`
+                  />
+                </Col>
+              </div>
+            </Row>
+            <style>
+              {`
           .rdt_TableBody .rdt_TableRow:hover {
             cursor: pointer;
             background-color: #C7E1FB;
           }
           
         `}
-                </style>
-                {loading ? (
-                  <img className="d-flex justify-content-center" src={elogGif} width="800px" />
-                ) : (
+            </style>
+            {loading ? (
+              <img className="d-flex justify-content-center" src={elogGif} width="800px" />
+            ) : (
 
-                  <DataTable
-                    columns={columns}
-                    data={dataApi}
-                    paginationTotalRows={totalRows}
-                    onRowClicked={buttonarahin}
-                  />
-                )}
-                <div className="mt-3 justify-content-end d-flex">
-                  <Pagination
-                    showSizeChanger
-                    onShowSizeChange={onShowSizeChange}
-                    onChange={onShowSizeChange}
-                    defaultCurrent={1}
-                    total={totalRows}
-                  />
-                </div>
-              </Col>
-            </Row>
-          </Card>
-        </div>
-      );
-    }
+              <DataTable
+                columns={columns}
+                data={dataApi}
+                paginationTotalRows={totalRows}
+                onRowClicked={buttonarahin}
+              />
+            )}
+            <div className="mt-3 justify-content-end d-flex">
+              <Pagination
+                showSizeChanger
+                onShowSizeChange={onShowSizeChange}
+                onChange={onShowSizeChange}
+                defaultCurrent={1}
+                total={totalRows}
+              />
+            </div>
+          </Col>
+        </Row>
+      </Card>
+    </div>
+  );
+}
 
-    export default SplistAkuntingBaru;
+export default SplistAkuntingBaru;

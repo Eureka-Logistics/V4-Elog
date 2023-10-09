@@ -6,7 +6,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Baseurl from "../../../Api/BaseUrl";
 import mobil from "../../redux toolkit/store/ZustandStore";
-
+import "./style.css"
 function SPList() {
   const [isiData, setIsiData] = useState([]);
   const [destinationData, setDestinationData] = useState([]);

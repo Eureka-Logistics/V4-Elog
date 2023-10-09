@@ -12,7 +12,7 @@ import { Pagination } from "antd";
 import SpStore from "../../../zustand/Store/FilterSP";
 import DetailUserLoginZustand from "../../../zustand/Store/DetailUserLogin/Index";
 import { array } from "prop-types";
-
+import "../Monitoring SP List Akunting/style.css"
 function SPListlama() {
   const DetailUserLoginZustandState = DetailUserLoginZustand((i) => i?.DetailUserLoginZustandState)
 

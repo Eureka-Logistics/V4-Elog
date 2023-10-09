@@ -1,0 +1,11 @@
+.fEnJOm {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    color: white !important;
+    background-color: #1a5cbf !important;
+    min-height: 52px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(0,0,0,.12);
+    border-bottom-style: solid;
+}

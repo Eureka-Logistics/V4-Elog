@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import DataTable from "react-data-table-component";
 import Baseurl from '../../../../Api/BaseUrl';
-
+import '../../Monitoring SP List Akunting/style.css'
 function Index() {
     const [DataAwalASP, setDataAwalASP] = useState("")
     const [TotalCurrentPage, setTotalCurrentPage] = useState("")

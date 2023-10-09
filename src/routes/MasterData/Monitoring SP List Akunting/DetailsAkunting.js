@@ -12,6 +12,7 @@ import { CheckCircleOutlined } from "@ant-design/icons";
 import useServiceStatusStore from "../../../zustand/Store/StatusService";
 import ModalDetailMarketing from "../Marketing/Splist/ModalDetailMarketing/Index";
 import DetailKendaraanSOdiSemuaSO from "../DetailKendaraanDiSemuaSO/Index";
+import "./style.css"
 function DetailsAkunting() {
   const history = useHistory();
   const [detailData, setDetailData] = useState([]);
@@ -427,17 +428,17 @@ function DetailsAkunting() {
                   {Kendaraan_operasional === "Y" && tgl_act_4 != null ? (
                     <Alert type="success" message="Approve Operasional" banner />
                   ) : Kendaraan_operasional === "N" && tgl_act_4 != "1970-01-01T00:00:00.000Z" ? (
-                    <Alert type="error" message="Diverted Operasional" banner />
-                  ) : Kendaraan_operasional === "N" && tgl_act_4 === "1970-01-01T00:00:00.000Z" ? (
                     <Alert type="info" message="Waiting Operasional" banner />
+                  ) : Kendaraan_operasional === "N" && tgl_act_4 === "1970-01-01T00:00:00.000Z" ? (
+                    <Alert type="error" message="Diverted Operasional" banner />
                   ) : null}
 
                   {Kendaraan_purchasing === "Y" && tgl_act_5 !== null ? (
                     <Alert type="success" message="Approve Purchasing" banner />
                   ) : Kendaraan_purchasing === "N" && tgl_act_5 !== "1970-01-01T00:00:00.000Z" ? (
-                    <Alert type="error" message="Diverted Purchasing" banner />
-                  ) : Kendaraan_purchasing === "N" && tgl_act_5 === "1970-01-01T00:00:00.000Z" ? (
                     <Alert type="info" message="Waiting Purchasing" banner />
+                  ) : Kendaraan_purchasing === "N" && tgl_act_5 === "1970-01-01T00:00:00.000Z" ? (
+                    <Alert type="error" message="Diverted Purchasing" banner />
                   ) : null}
                 </>
               )}
