@@ -384,12 +384,20 @@ function VehicleBaru() {
             setIsModalOpen(false);
             setLoading(false)
         } catch (error) {
+            if (error.response.data.status) {
+                error.response.data.errors.forEach((i) => {
+                    let errrrr = i.message
+                    notification.error({
+                        message: 'ADA KESALAHAN DI FORM INPUT',
+                        description: errrrr,
+                    })
+
+                })
+            }
+
             // Tampilkan SweetAlert untuk error
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal',
-                text: 'Terjadi kesalahan saat edit data kendaraan',
-            });
+            console.log(error.response.data.status.message);
+           
 
         }
     }
