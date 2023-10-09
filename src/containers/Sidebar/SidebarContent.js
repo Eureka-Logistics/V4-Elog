@@ -804,7 +804,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </h6>
                   </div>
                   <Menu.Item
-                    disabled
+                    
                     key="waiting SP List"
                     className={
                       activeMenu === "/masterdata/newsplist"
@@ -850,7 +850,6 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Link>
                   </Menu.Item> */}
                   <Menu.Item
-                    disabled
                     key="SP List"
                     className={
                       activeMenu === "/masterdata/splist"
