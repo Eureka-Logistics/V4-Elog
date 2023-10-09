@@ -207,11 +207,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Link to="/dashboard" style={{ textDecoration: "none" }}>
 
                       <AppstoreOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '8px' }} />
-<<<<<<< HEAD
-                      <span style={{ fontWeight: "bold", color: "white" }}>
-=======
                       <span style={{ fontWeight: "bold", color: "black" }}>
->>>>>>> maya_fix
                         <IntlMessages id="Dashboard" />
                       </span>
                     </Link>
@@ -220,11 +216,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Link to="/ListDataUsersss" style={{ textDecoration: "none" }}>
 
                       <UsergroupAddOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '8px' }} />
-<<<<<<< HEAD
-                      <span style={{ fontWeight: "bold", color: "white" }}>
-=======
                       <span style={{ fontWeight: "bold", color: "black" }}>
->>>>>>> maya_fix
                         <IntlMessages id="List User" />
                       </span>
                     </Link>
@@ -233,11 +225,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     <Link to="/DataMenu" style={{ textDecoration: "none" }}>
 
                       <UserOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '8px' }} />
-<<<<<<< HEAD
-                      <span style={{ fontWeight: "bold", color: "white" }}>
-=======
                       <span style={{ fontWeight: "bold", color: "black" }}>
->>>>>>> maya_fix
                         <IntlMessages id="Data User" />
                       </span>
                     </Link>
