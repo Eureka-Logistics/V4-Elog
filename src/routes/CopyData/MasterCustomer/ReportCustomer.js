@@ -17,6 +17,8 @@ function ReportCustomer() {
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [total, setTotal] = useState(0);
+  const [DataTglMuat, setDataTglMuat] = useState();
+  
   
 
   const fetchData = async () => {
