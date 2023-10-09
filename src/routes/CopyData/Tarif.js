@@ -200,6 +200,8 @@ function Tarif() {
     },
   ];
 
+  const jobdesk = localStorage.getItem("jobdesk");
+  console.log(`jobdesk`, jobdesk);
   const Mitra = [
     {
       title: "No.",
@@ -476,19 +478,21 @@ function Tarif() {
         <Card>
           <h5>Data Tarif Mitra</h5>
           <hr />
-          <Table
-            dataSource={DataTarifMitra}
-            columns={Mitra}
-            scroll={{
-              x: 800,
-            }}
-            pagination={{
-              // current: mitraPagination.current,
-              // pageSize: mitraPagination.pageSize,
-              total: totalDataMitra, // Set the total number of items here
-              onChange: handleMitraTableChange,
-            }}
-          />
+          {jobdesk !== "sales" && (
+            <Table
+              dataSource={DataTarifMitra}
+              columns={Mitra}
+              scroll={{
+                x: 800,
+              }}
+              pagination={{
+                // current: mitraPagination.current,
+                // pageSize: mitraPagination.pageSize,
+                total: totalDataMitra, // Set the total number of items here
+                onChange: handleMitraTableChange,
+              }}
+            />
+          )}
         </Card>
       )}
 
