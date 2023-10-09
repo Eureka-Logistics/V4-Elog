@@ -1938,11 +1938,27 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       to="/purchasing/solist"
                       style={{ textDecoration: "none" }}
                     >
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <FileTextOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                           <IntlMessages id="PO List" />
+                        </span>
+                      </div>
 
-                      <FileTextOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
-                      <span style={{ fontWeight: "bold", color: "white" }}>
-                        <IntlMessages id="PO List" />
-                      </span>
+                     
                     </Link>
                   </Menu.Item>
                   <div
