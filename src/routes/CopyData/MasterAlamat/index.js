@@ -187,11 +187,11 @@ const SamplePage = () => {
       dataIndex: "alamat",
       key: "alamat",
     },
-    {
-      title: "City",
-      dataIndex: "kota",
-      key: "kota",
-    },
+    // {
+    //   title: "City",
+    //   dataIndex: "kota",
+    //   key: "kota",
+    // },
     {
       title: "Action",
       key: "no",
