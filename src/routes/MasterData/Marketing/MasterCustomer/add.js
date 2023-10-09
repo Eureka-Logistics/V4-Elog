@@ -36,6 +36,9 @@ const SamplePage = () => {
   const [TOP, setTOP] = useState("");
   const [JenisKiriman, setJenisKiriman] = useState("");
   const [Currency, setCurrency] = useState("");
+  const [Manager, setManager] = useState("");
+  const [Direktur, setDirektur] = useState("");
+  const [Akunting, setAkunting] = useState("");
 
   const optjenisPembayaran = [
     {
@@ -83,6 +86,16 @@ const SamplePage = () => {
     {
       value: 2,
       label: "Charter",
+    },
+  ];
+  const OptionsDireksi = [
+    {
+      value: "Y",
+      label: "ADA",
+    },
+    {
+      value: "N",
+      label: "TIDAK ADA",
     },
   ];
 
@@ -671,16 +684,33 @@ const SamplePage = () => {
          <Col span={12}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
-                Manager Name :
+                Manager :
                 </Form.Label>
                 <InputGroup>
-                  <Form.Control
+                <Select
+                    style={{ width: "100%" }}
+                    options={OptionsDireksi}
+                    name="manager"
+                    // value={TOP}
+
+                    placeholder="Ada atau Tidak Ada"
+                    onChange={(value, label) => {
+
+                      setManager(label.value);
+                      formik.setFieldValue(`manager`, label.value);
+                      // console.log(label.label);
+                      console.log(label.value);
+                    }}
+                    isInvalid={!!formik.errors.manager}
+                    // styles={customStylesReactSelect}
+                  />
+                  {/* <Form.Control
                     name="manager"
                     placeholder="Manager Name"
                     value={formik.values.manager}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.manager}
-                  />
+                  /> */}
                 </InputGroup>
               </Form.Group>
             </Col>
@@ -741,16 +771,33 @@ const SamplePage = () => {
          <Col span={12}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
-                Akunting Name :
+                Akunting  :
                 </Form.Label>
                 <InputGroup>
-                  <Form.Control
+                <Select
+                    style={{ width: "100%" }}
+                    options={OptionsDireksi}
+                    name="akunting"
+                    // value={TOP}
+
+                    placeholder="Ada atau Tidak Ada"
+                    onChange={(value, label) => {
+
+                      setAkunting(label.value);
+                      formik.setFieldValue(`akunting`, label.value);
+                      // console.log(label.label);
+                      console.log(label.value);
+                    }}
+                    isInvalid={!!formik.errors.akunting}
+                    // styles={customStylesReactSelect}
+                  />
+                  {/* <Form.Control
                     name="akunting"
                     placeholder="Akunting Name"
                     value={formik.values.akunting}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.akunting}
-                  />
+                  /> */}
                 </InputGroup>
               </Form.Group>
             </Col>
@@ -811,16 +858,33 @@ const SamplePage = () => {
          <Col span={12}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
-              Direktur Name :
+              Direktur :
                 </Form.Label>
                 <InputGroup>
-                  <Form.Control
+                <Select
+                    style={{ width: "100%" }}
+                    options={OptionsDireksi}
+                    name="direktur"
+                    // value={TOP}
+
+                    placeholder="Ada atau Tidak Ada"
+                    onChange={(value, label) => {
+
+                      setDirektur(label.value);
+                      formik.setFieldValue(`direktur`, label.value);
+                      // console.log(label.label);
+                      console.log(label.value);
+                    }}
+                    isInvalid={!!formik.errors.direktur}
+                    // styles={customStylesReactSelect}
+                  />
+                  {/* <Form.Control
                     name="direktur"
                     placeholder="Direktur Name"
                     value={formik.values.direktur}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.direktur}
-                  />
+                  /> */}
                 </InputGroup>
               </Form.Group>
             </Col>

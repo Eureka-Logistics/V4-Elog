@@ -602,7 +602,17 @@ function DetailMasterCustomer() {
           <Col span={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Akunting : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <Input
+            <Select
+              className="mt-2"
+              // placeholder={DetailDataMasterCustomer.jenis_pembayaran}
+              value={Akunting}
+              style={{ width: "100%" }}
+              onChange={(e) => setAkunting(e)}
+            >
+              <Option value="Y">ADA</Option>
+              <Option value="N">TIDAK ADA</Option>
+            </Select>
+            {/* <Input
               className="mt-2"
               placeholder={DetailDataMasterCustomer.akunting}
               value={Akunting}
@@ -610,7 +620,7 @@ function DetailMasterCustomer() {
                 console.log(e.target.value);
                 setAkunting(e.target.value);
               }}
-            />
+            /> */}
           </Col>
           <Col span={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Akunting Date : </label>
@@ -647,7 +657,17 @@ function DetailMasterCustomer() {
           <Col span={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Manager : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <Input
+            <Select
+              className="mt-2"
+              // placeholder={DetailDataMasterCustomer.jenis_pembayaran}
+              value={Manager}
+              style={{ width: "100%" }}
+              onChange={(e) => setManager(e)}
+            >
+              <Option value="Y">ADA</Option>
+              <Option value="N">TIDAK ADA</Option>
+            </Select>
+            {/* <Input
               className="mt-2"
               placeholder={DetailDataMasterCustomer.manager}
               value={Manager}
@@ -655,7 +675,7 @@ function DetailMasterCustomer() {
                 console.log(e.target.value);
                 setManager(e.target.value);
               }}
-            />
+            /> */}
           </Col>
           <Col span={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Manager Date : </label>
@@ -689,7 +709,17 @@ function DetailMasterCustomer() {
           <Col span={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Direktur : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <Input
+            <Select
+              className="mt-2"
+              // placeholder={DetailDataMasterCustomer.jenis_pembayaran}
+              value={Direktur}
+              style={{ width: "100%" }}
+              onChange={(e) => setDirektur(e)}
+            >
+              <Option value="Y">ADA</Option>
+              <Option value="N">TIDAK ADA</Option>
+            </Select>
+            {/* <Input
               className="mt-2"
               placeholder={DetailDataMasterCustomer.direktur}
               value={Direktur}
@@ -697,7 +727,7 @@ function DetailMasterCustomer() {
                 console.log(e.target.value);
                 setDirektur(e.target.value);
               }}
-            />
+            /> */}
           </Col>
           <Col span={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Direktur Date : </label>
