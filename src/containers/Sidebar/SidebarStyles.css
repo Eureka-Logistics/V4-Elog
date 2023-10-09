@@ -52,18 +52,26 @@
 
 .menu-item-hover:hover span {
   color: white !important;
+  height: 100% !important;
 }
 .menu-item-active span {
   color: white !important;
+  height: 100% !important;
 }
 
 .menu-item-active {
   background-color: #113D7F !important; 
-  
   height: 100% !important;
   margin-top: 10px !important;
+  
 }
 
+.ant-menu-item a::before{
+  display: flex;
+  align-items: center;
+  height: 100% !important;
+
+}
 
 .untuk-div {
   display: flex !important;
@@ -82,4 +90,23 @@
   color: black;
   margin-bottom: 10px !important;
   margin-left: 8px !important;
+}
+
+
+.ant-menu-item-selected::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 5px;
+  background-color: #000; 
+height: 30px !important;
+}
+
+.ant-menu-item {
+  /* transition: background-color 0.3s ease, border 0.3s ease; */
+  border: 2px solid transparent; 
+  border-radius: 8px;
+  height: 100% !important;
 }
