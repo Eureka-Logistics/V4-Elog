@@ -269,8 +269,13 @@ const SamplePage = () => {
     });
   };
 
-  const exportToExcel = () => {
-    const dataToExport = listData.map((item, index) => ({
+  const exportToExcel = async () => {
+  try {
+    const response = await httpClient.get(
+      `tarif/get-tarifCustomer?limit=${total}&page=1&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_price=&id_customer=${NamaMitraa}`
+    );
+
+    const dataToExport = response.data.data.order.map((item, index) => ({
       No: {
         t: "s",
         v: index + 1,
@@ -338,10 +343,14 @@ const SamplePage = () => {
 
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Table Data");
-    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const excelBuffer = XLSX.write(wb, {
+      bookType: "xlsx",
+      type: "array",
+    });
 
     const blob = new Blob([excelBuffer], {
-      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      type:
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     });
     const fileName = "table_data.xlsx";
 
@@ -359,7 +368,10 @@ const SamplePage = () => {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     }
-  };
+  } catch (error) {
+    console.error("Error exporting data:", error);
+  }
+};
 
   return (
     <div>

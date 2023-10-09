@@ -125,6 +125,50 @@ function MonitoringSJ() {
       ap : 'Belum Tersedia',
       invoice : 'Belum Tersedia'
     },
+    {
+      key: "2",
+      sm: ["SMG23-002664", "SP01718/10/23/SMG"],
+      rute: ["PT. Macrosentra Niagaboga", "Semarang-Bogor"],
+      pickUp: ["PT. EUREKA LOGISTICS (EL)", "B 9056 TEV - Kambali"],
+      tglMuat: "01 Oct 23",
+      suksesKirim: "03 Oct 23",
+      diserahkan : "0",
+      ap : 'Belum Tersedia',
+      invoice : 'Belum Tersedia'
+    },
+    {
+      key: "3",
+      sm: ["SMG23-002664", "SP01718/10/23/SMG"],
+      rute: ["PT. Macrosentra Niagaboga", "Semarang-Bogor"],
+      pickUp: ["PT. EUREKA LOGISTICS (EL)", "B 9056 TEV - Kambali"],
+      tglMuat: "01 Oct 23",
+      suksesKirim: "03 Oct 23",
+      diserahkan : "0",
+      ap : 'Belum Tersedia',
+      invoice : 'Belum Tersedia'
+    },
+    {
+      key: "4",
+      sm: ["SMG23-002664", "SP01718/10/23/SMG"],
+      rute: ["PT. Macrosentra Niagaboga", "Semarang-Bogor"],
+      pickUp: ["PT. EUREKA LOGISTICS (EL)", "B 9056 TEV - Kambali"],
+      tglMuat: "01 Oct 23",
+      suksesKirim: "03 Oct 23",
+      diserahkan : "0",
+      ap : 'Belum Tersedia',
+      invoice : 'Belum Tersedia'
+    },
+    {
+      key: "5",
+      sm: ["SMG23-002664", "SP01718/10/23/SMG"],
+      rute: ["PT. Macrosentra Niagaboga", "Semarang-Bogor"],
+      pickUp: ["PT. EUREKA LOGISTICS (EL)", "B 9056 TEV - Kambali"],
+      tglMuat: "01 Oct 23",
+      suksesKirim: "03 Oct 23",
+      diserahkan : "0",
+      ap : 'Belum Tersedia',
+      invoice : 'Belum Tersedia'
+    },
   ];
 
   const columns = [
@@ -265,7 +309,7 @@ function MonitoringSJ() {
     <div>
       <Card>
         <h5>
-          Monitoring (<i>operasional</i>)
+          MonitoringSJ (<i>operasional</i>)
         </h5>
         <hr />
         <Row>
@@ -502,7 +546,7 @@ function MonitoringSJ() {
           dataSource={dataSource}
           columns={columns}
         />
-        ;
+        
         <Modal
           width={800}
           title={
@@ -730,7 +774,7 @@ function MonitoringSJ() {
         </>
       </Card>
     </div>
-  );
+  )
 }
 
 export default MonitoringSJ;

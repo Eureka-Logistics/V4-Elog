@@ -61,16 +61,17 @@
 }
 
 .menu-item-hover:hover {
-  background-color: #6692D4 !important;
-  color: white;
+  background-color: #1a5cbf !important;
+  color: white !important;
   border-radius: 10px !important;
-  width: 92% !important; 
+  width: 90% !important; 
 }
 .menu-item-active {
-  background-color: #6692D4 !important; 
+  background-color: #1a5cbf !important; 
   color: white !important; 
   border-radius: 10px !important;
-  width: 92% !important;
+  width: 90% !important;
+
 
 }
 
@@ -347,6 +348,6 @@
   @media screen and (max-width: 991px){
     .gx-layout-sider-scrollbar {
     height: calc(100vh - 72px) !important;
-    background-color: #1a5cbf;}
+    background-color: #BAD6FF;}
 
 }
