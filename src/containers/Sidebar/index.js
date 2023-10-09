@@ -49,7 +49,7 @@ const Sidebar = () => {
     drawerStyle = "gx-collapsed-sidebar"
   }
   const jobdesk = localStorage.getItem("jobdesk");
-  const menuBackgroundColor = jobdesk === "rcadmin" ? "#F05423" : "#1a5cbf";
+  const menuBackgroundColor = jobdesk === "rcadmin" ? "#F05423" : "#BAD6FF";
   return (
     <Sider
       // className={`gx-app-sidebar ${drawerStyle} ${themeType !== THEME_TYPE_LITE ? 'gx-layout-sider-dark' : null}`}
@@ -62,7 +62,7 @@ const Sidebar = () => {
       {
         navStyle === NAV_STYLE_DRAWER || width < TAB_SIZE ?
           <Drawer
-            className={`gx-drawer-sidebar ${themeType !== THEME_TYPE_LITE ? '#1a5cbf' : null}`}
+            className={`gx-drawer-sidebar ${themeType !== THEME_TYPE_LITE ? '#BAD6FF' : null}`}
             
             placement="left"
             closable={false}

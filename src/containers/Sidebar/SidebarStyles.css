@@ -45,10 +45,19 @@
     color: #000; } */
 /* styles.css */
 .menu-item-hover:hover {
+<<<<<<< HEAD
     background-color: #fcddd3 !important;
     color: white;
   }
   .menu-item-active {
     background-color: #fcddd3 !important; 
     color: white !important; 
+=======
+    background-color: #113D7F !important;
+    color: #113D7F;
+  }
+  .menu-item-active {
+    background-color: #113D7F !important; 
+    color: #113D7F !important; 
+>>>>>>> maya_fix
   }
