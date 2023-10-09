@@ -314,15 +314,15 @@ function FormTable({
   const PindahVehicle = () => {
     history.push(`/masterdata/purchasing/vehicle`);
   };
-  console.log(`another`, driveranother);
-  console.log(`selectnomor`, selectnomor);
-  console.log(`idUnit`, idUnit);
-  console.log(`selectDriver[0]?.name`, selectDriver[0]?.name);
-  ///tombol approve
-  console.log(`selectDriver[0]?.idUnit`, selectDriver[0]?.idUnit);
+  // console.log(`another`, driveranother);
+  // console.log(`selectnomor`, selectnomor);
+  // console.log(`idUnit`, idUnit);
+  // console.log(`selectDriver[0]?.name`, selectDriver[0]?.name);
+  // ///tombol approve
+  // console.log(`selectDriver[0]?.idUnit`, selectDriver[0]?.idUnit);
   const [NameDriverOperasionalAnother, setNameDriverOperasionalAnother] = useState(selectDriver[0]?.name)
   const [IDDriverOperasionalAnother, setIdDriverOperasionalAnother] = useState(selectnomor)
-  console.log(`NameDriverOperasionalAnother`, NameDriverOperasionalAnother); /// ambil nama dari another driver
+  // console.log(`NameDriverOperasionalAnother`, NameDriverOperasionalAnother); /// ambil nama dari another driver
 
 
   const GantiNamaDriverAnother = (selectedOption) => {
@@ -902,7 +902,7 @@ function FormTable({
   };
 
   const [ShowModalCreatePO, setShowModalCreatePO] = useState(false);
-
+console.log(`StatusApproveOpt`,StatusApproveOpt);
 
   return (
     <>
@@ -1993,29 +1993,30 @@ function FormTable({
 
               {/* {(StatusApproveAct === 'Y' || Kendaraan_operasionalStatus === "Y" && StatusPurchasing === "Y") &&
                 <Alert type="success" message="SP Telah di Approve" banner />
-              } */}
+              log} */}
+
               {StatusApproveAct === "Y" && TanggalACT3 != null ? (
                 <Alert type="success" message="Approve Akunting" banner />
-              ) : StatusApproveAct === "N" && TanggalACT3 === "1970-01-01T00:00:00.000Z" ? (
-                <Alert type="info" message="Waiting Akunting" banner />
-              ) : StatusApproveAct === "N" && TanggalACT3 !== "1970-01-01T00:00:00.000Z" ? (
+              ) : StatusApproveAct === "N" && TanggalACT3 === "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z"? (
                 <Alert type="error" message="Reject Akunting" banner />
+              ) : StatusApproveAct === "N" && TanggalACT3 !== "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z"? (
+                <Alert type="info" message="Waiting Akunting" banner />
               ) : null}
 
               {Kendaraan_operasionalStatus === "Y" && TanggalACT4 != null ? (
                 <Alert type="success" message="Approve Operasional" banner />
-              ) : StatusApproveOpt === "N" && TanggalACT4 === "1970-01-01T00:00:00.000Z" ? (
-                <Alert type="info" message="Waiting Operasional" banner />
-              ) : StatusApproveOpt === "N" && TanggalACT4 !== "1970-01-01T00:00:00.000Z" ? (
+              ) : StatusApproveOpt === "N" && TanggalACT4 === "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z"? (
                 <Alert type="error" message="Reject Operasional" banner />
+              ) : StatusApproveOpt === "N" && TanggalACT4 !== "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z"? (
+                <Alert type="info" message="Waiting Operasional" banner />
               ) : null}
 
               {StatusPurchasing === "Y" && TanggalACT5 != null ? (
                 <Alert type="success" message="Approve Purchasing" banner />
-              ) : StatusPurchasing === "N" && TanggalACT5 === "1970-01-01T00:00:00.000Z" ? (
-                <Alert type="info" message="Waiting Purchasing" banner />
-              ) : StatusPurchasing === "N" && TanggalACT5 !== "1970-01-01T00:00:00.000Z" ? (
+              ) : StatusPurchasing === "N" && TanggalACT5 === "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z"? (
                 <Alert type="error" message="Reject Purchasing" banner />
+              ) : StatusPurchasing === "N" && TanggalACT5 !== "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z"? (
+                <Alert type="info" message="Waiting Purchasing" banner />
               ) : null}
 
               {jobdesk === "operasional" && (

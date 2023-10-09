@@ -68,6 +68,7 @@ function Index() {
                     <Tag color="green">{date.toLocaleDateString("en-CA")}</Tag>
                 );
             },
+            width: "200px",
             wrap: true,
         },
 

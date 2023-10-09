@@ -73,30 +73,30 @@ function SplistAkuntingBaru() {
       },
       width: "150px"
     },
-    {
-      name: "Approve By Sales",
-      cell: (row) => {
-        const approveact = row?.approveSales;
-        const dateApproveAct = row?.dateApproveSales;
-        let displayText =
-          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" ? (
-            <Tag color="green">
-              Approve <br /> <small>{dateApproveAct}</small>
-            </Tag>
-          ) : approveact === "N" && dateApproveAct === "Invalid date" || "1970-01-01 07:00:00" ? (
-            <Tag color="red">
-              Reject <br /> <small>{dateApproveAct}</small>
-            </Tag>
-          ) : (
-            <Tag color="red">
-              Reject <br /> <small>{dateApproveAct}</small>
-            </Tag>
-          );
+    // {
+    //   name: "Approve By Sales",
+    //   cell: (row) => {
+    //     const approveact = row?.approveSales;
+    //     const dateApproveAct = row?.dateApproveSales;
+    //     let displayText =
+    //       approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" ? (
+    //         <Tag color="green">
+    //           Approve <br /> <small>{dateApproveAct}</small>
+    //         </Tag>
+    //       ) : approveact === "N" && dateApproveAct === "Invalid date" || "1970-01-01 07:00:00" ? (
+    //         <Tag color="red">
+    //           Reject <br /> <small>{dateApproveAct}</small>
+    //         </Tag>
+    //       ) : (
+    //         <Tag color="red">
+    //           Reject <br /> <small>{dateApproveAct}</small>
+    //         </Tag>
+    //       );
 
-        return <>{displayText}</>;
-      },
-      width: "150px",
-    },
+    //     return <>{displayText}</>;
+    //   },
+    //   width: "150px",
+    // },
 
     {
       name: "Approve By Akunting",

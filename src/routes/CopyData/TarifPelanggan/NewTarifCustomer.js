@@ -366,7 +366,8 @@ function NewTarifCustomer() {
             style={{ width: "100%" }}
             onChange={(e, options) => {
               console.log(options.children  === "Retail" ? "Reguler" : options.children );
-              setIDServiceType(options.children  === "Retail" ? "Reguler" : options.children);
+              // setIDServiceType(options.children  === "Retail" ? "Reguler" : options.children);
+              setIDServiceType(options.children)
             }}
           >
             {IDTambahData &&

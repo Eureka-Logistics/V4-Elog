@@ -304,7 +304,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     }
                   >
                     <Link
-                      disabled
+                      
                       to="/masterdata/marketing/splist"
                       style={{ textDecoration: "none" }}
                     >

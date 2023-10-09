@@ -296,13 +296,13 @@ function SPListlama() {
               Approved <br /> {data}
             </Tag>
           );
-        } else if (row?.approveOps === "N" && (dateApproveOps === "1970-01-01 07:00:00")) {
+        } else if (row?.approveOps === "N" && (dateApproveOps === "1970-01-01 07:00:00" || "Invalid date")) {
           return (
             <Tag color="yellow">
               Waiting <br />  -
             </Tag>
           );
-        } else if (row?.approveOps === "N" && (dateApproveOps !== "1970-01-01 07:00:00")) {
+        } else if (row?.approveOps === "N" && (dateApproveOps !== "1970-01-01 07:00:00" || "Invalid date")) {
           return (
             <Tag color="red">
               Diverted <br /> {data}
@@ -330,11 +330,11 @@ function SPListlama() {
               <Tag color="green">
                 Approved <br /> {date}
               </Tag>
-            ) : row.approvePurch === "N" && date === "1970-01-01 07:00:00" ? (
+            ) : row.approvePurch === "N" && date === "1970-01-01 07:00:00" || "Invalid date"? (
               <Tag color="yellow">
                 Waiting <br /> {date ? "-" : date}
               </Tag>
-            ) : row.approvePurch === "N" && date != "1970-01-01 07:00:00" ? (
+            ) : row.approvePurch === "N" && date != "1970-01-01 07:00:00" || "Invalid date" ? (
               <Tag color="red">
                 Diverted <br /> {date}
               </Tag>
