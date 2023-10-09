@@ -27,6 +27,7 @@
     "d3-scale": "^3.2.3",
     "date-fns": "^2.30.0",
     "draftjs-to-html": "^0.9.1",
+    "env-cmd": "^10.1.0",
     "firebase": "^10.4.0",
     "formik": "^2.4.2",
     "google-maps-react": "^2.0.6",
@@ -94,6 +95,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
+    "build:staging": "env-cmd -f .env.staging react-app-rewired build",
     "test": "react-app-rewired --env=jsdom",
     "less": "lessc --js src/styles/wieldy.less public/css/style.css && lessc --js src/styles/wieldy.less public/css/style.min.css --compress -x"
   },

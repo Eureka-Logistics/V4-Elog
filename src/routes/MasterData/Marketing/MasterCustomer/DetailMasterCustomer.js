@@ -276,18 +276,10 @@ function DetailMasterCustomer() {
   // const handleToPChange = (options) => {
   //   setToPValue(options.children);
   // };
-
-
-  useEffect(() => {
-    const date = new Date(DetailDataMasterCustomer.tgl_bergabung);
-    const formattedDate = date;
-    console.log(date.toLocaleDateString());
-    setDataTanggalBergabung(formattedDate);
-  }, [DetailDataMasterCustomer.tgl_bergabung]);
-
+console.log(`PicBirth`,PicBirth);
 
   const formattanggal = (props) => {
-    if (!props) return ""; 
+    if (!props) return "";
     const date = new Date(props);
     return date.toLocaleDateString("en-US", {
       year: "numeric",
@@ -351,11 +343,12 @@ function DetailMasterCustomer() {
             <DatePicker
               style={{ width: "100%" }}
               className="mt-2"
-              value={moment(TanggalBerdiri)} // Konversi nilai TanggalBerdiri ke objek Moment
+              value={TanggalBerdiri === "0000-00-00" ?null :  moment(TanggalBerdiri)  } // Konversi nilai TanggalBerdiri ke objek Moment
               onChange={(date, dateString) => {
                 console.log(dateString);
                 setTanggalBerdiri(dateString);
               }}
+              placeholder={TanggalBerdiri === "0000-00-00" ? "-" : TanggalBerdiri}
             />
             {/* <Input
               className="mt-2"
@@ -563,11 +556,12 @@ function DetailMasterCustomer() {
             <DatePicker
               style={{ width: "100%" }}
               className="mt-2"
-              value={moment(PicBirth)} // Konversi nilai TanggalBerdiri ke objek Moment
+              value={PicBirth === "0000-00-00" ? null : moment(PicBirth)} // Konversi nilai TanggalBerdiri ke objek Moment
               onChange={(date, dateStrings) => {
                 console.log(dateStrings);
                 setDataPicBirth(dateStrings);
               }}
+              placeholder={PicBirth == "0000-00-00" && "-"}
             />
             {/* <Input
               className="mt-2"
@@ -628,12 +622,14 @@ function DetailMasterCustomer() {
             <DatePicker
               style={{ width: "100%" }}
               className="mt-2"
-              value={moment(AkuntingDate)} // Konversi nilai TanggalBerdiri ke objek Moment
+              value={AkuntingDate ? moment(AkuntingDate) : null} // Jika AkuntingDate ada, konversi ke objek Moment. Jika tidak, berikan nilai null.
               onChange={(date, dateString) => {
                 console.log(dateString);
                 setAkuntingDate(dateString);
               }}
+              placeholder={AkuntingDate ? "" : "-"} // Jika AkuntingDate tidak ada, tampilkan placeholder '-'
             />
+
           </Col>
           <Col span={24} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Akunting Memo : </label>
@@ -683,11 +679,12 @@ function DetailMasterCustomer() {
             <DatePicker
               style={{ width: "100%" }}
               className="mt-2"
-              value={moment(ManagerDate)} // Konversi nilai TanggalBerdiri ke objek Moment
+              value={ManagerDate ? moment(ManagerDate) : null} // Konversi nilai TanggalBerdiri ke objek Moment
               onChange={(date, dateString) => {
                 console.log(dateString);
                 setManagerDate(dateString);
               }}
+              placeholder={ManagerDate || "-"}
             />
           </Col>
           <Col span={24} className="mt-2">
@@ -735,11 +732,12 @@ function DetailMasterCustomer() {
             <DatePicker
               style={{ width: "100%" }}
               className="mt-2"
-              value={moment(DirekturDate)} // Konversi nilai TanggalBerdiri ke objek Moment
+              value={DirekturDate ? moment(DirekturDate) : null} // Konversi nilai TanggalBerdiri ke objek Moment
               onChange={(date, dateString) => {
                 console.log(dateString);
                 setDirekturDate(dateString);
               }}
+              placeholder={DirekturDate || "-"}
             />
           </Col>
           <Col span={24} className="mt-2">
