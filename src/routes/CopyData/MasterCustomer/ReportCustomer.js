@@ -1,4 +1,4 @@
- import { Button, Card, Col, Row, Select, Table, Tag } from "antd";
+import { Button, Card, Col, DatePicker, Row, Select, Table, Tag } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Baseurl from "../../../Api/BaseUrl";
@@ -17,12 +17,17 @@ function ReportCustomer() {
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [total, setTotal] = useState(0);
-  
+  const [CariTanggal, setCariTanggal] = useState({
+    tgl_pickup: "",
+    tgl_bongkar: ""
+  })
+
+  console.log(`CariTanggal`, CariTanggal);
 
   const fetchData = async () => {
     try {
       const respons = await axios.get(
-        `${Baseurl}customer/get-report-customer?limit=${limit}&page=${currentPage}&keyword=&statusSP=&customerId=${Customers}&cabang=&sales=&buId=&tgl_pickup=&tgl_bongkar`,
+        `${Baseurl}customer/get-report-customer?limit=${limit}&page=${currentPage}&keyword=&statusSP=&customerId=${Customers}&cabang=&sales=&buId=&tgl_pickup=${CariTanggal?.tgl_pickup}&tgl_bongkar=${CariTanggal?.tgl_bongkar}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -34,7 +39,7 @@ function ReportCustomer() {
       setDataReportCust(respons.data.data.order);
       setTotal(respons.data.data.totalData);
       // setCurrentPage(respons.data.data.setCurrentPage)
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const getDataSelectt = async () => {
@@ -68,7 +73,7 @@ function ReportCustomer() {
   useEffect(() => {
     fetchData();
     getDataSelectt();
-  }, [Customers, currentPage, limit]);
+  }, [Customers, currentPage, limit,CariTanggal]);
 
   const dataSource = [
     // {
@@ -185,13 +190,13 @@ function ReportCustomer() {
           minute: "2-digit",
           second: "2-digit",
         });
-    
+
         // Ganti karakter '/' dengan karakter '-'
         const formattedPickUpWithHyphen = formattedPickUp.replace(/\//g, "-");
-    
+
         // Ganti karakter titik (.) dengan karakter titik dua (:)
         const formattedPickUpWithColon = formattedPickUpWithHyphen.replace(/\./g, ":");
-    
+
         return <Tag color="magenta">{formattedPickUpWithColon}</Tag>;
       },
     },
@@ -288,16 +293,16 @@ function ReportCustomer() {
       minute: "2-digit",
       second: "2-digit",
     });
-  
+
     // Ganti karakter '/' dengan karakter '-'
     const formattedOrderDateWithHyphen = formattedOrderDate.replace(/\//g, "-");
-  
+
     // Ganti karakter titik (.) dengan karakter titik dua (:)
     const formattedOrderDateWithColon = formattedOrderDateWithHyphen.replace(/\./g, ":");
-  
+
     return formattedOrderDateWithColon;
   }
-  
+
   function formatPickUpForExport(pickupDate) {
     const formattedPickUp = new Date(pickupDate).toLocaleString("id-ID", {
       year: "numeric",
@@ -307,16 +312,16 @@ function ReportCustomer() {
       minute: "2-digit",
       second: "2-digit",
     });
-  
+
     // Ganti karakter '/' dengan karakter '-'
     const formattedPickUpWithHyphen = formattedPickUp.replace(/\//g, "-");
-  
+
     // Ganti karakter titik (.) dengan karakter titik dua (:)
     const formattedPickUpWithColon = formattedPickUpWithHyphen.replace(/\./g, ":");
-  
+
     return formattedPickUpWithColon;
   }
-  
+
   return (
     <div>
       <Card>
@@ -364,16 +369,22 @@ function ReportCustomer() {
             >
               Search Tanggal Mulai :
             </label>
-            <Select
+            <DatePicker
+              onChange={(date, dateString) => {
+                setCariTanggal(prevState => ({
+                  ...prevState,
+                  tgl_pickup: dateString
+                }));
+              }}
               showSearch
               style={{
                 width: "100%",
-
                 border: "1px solid #1A5CBF",
                 borderRadius: "5px",
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)"
               }}
-            ></Select>
+            />
+
           </Col>
           <Col span={6}>
             <label
@@ -383,7 +394,13 @@ function ReportCustomer() {
             >
               Search Tanggal Selesai :
             </label>
-            <Select
+            <DatePicker
+             onChange={(date, dateString) => {
+              setCariTanggal(prevState => ({
+                ...prevState,
+                tgl_bongkar: dateString
+              }));
+            }}
               showSearch
               style={{
                 width: "100%",
@@ -391,7 +408,7 @@ function ReportCustomer() {
                 borderRadius: "5px",
                 boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
               }}
-            ></Select>
+            ></DatePicker>
           </Col>
           <Col span={6} className="d-flex justify-content-end mt-4">
             <Button

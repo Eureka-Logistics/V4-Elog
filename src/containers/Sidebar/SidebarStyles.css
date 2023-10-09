@@ -45,55 +45,41 @@
     color: #000; } */
 /* styles.css */
 .menu-item-hover:hover {
-<<<<<<< HEAD
-    background-color: #fcddd3 !important;
-    color: white;
-  }
-  .menu-item-active {
-    background-color: #fcddd3 !important; 
-    color: white !important; 
-=======
-    background-color: #113D7F !important;
-    height: 100% !important;
-    
-  }
+  background-color: #113D7F !important;
+  height: 100% !important;
+  
+}
 
-  .menu-item-hover:hover span {
-    color: white !important;
-  }
-  .menu-item-active span {
-    color: white !important;
-  }
+.menu-item-hover:hover span {
+  color: white !important;
+}
+.menu-item-active span {
+  color: white !important;
+}
 
-  .menu-item-active {
-    background-color: #113D7F !important; 
-<<<<<<< HEAD
-    color: #113D7F !important; 
->>>>>>> maya_fix
-  }
-=======
-    
-    height: 100% !important;
-    margin-top: 10px !important;
-  }
- 
+.menu-item-active {
+  background-color: #113D7F !important; 
+  
+  height: 100% !important;
+  margin-top: 10px !important;
+}
 
-  .untuk-div {
-    display: flex !important;
-    align-items: center !important;
-  }
 
-  .untuk-icons {
-    font-size: 30px !important;
-    color: white;
-    margin-bottom: 8px !important;
-    margin-top: 10px !important;
-  }
+.untuk-div {
+  display: flex !important;
+  align-items: center !important;
+}
 
-  .untuk-span {
-    font-weight: bold;
-    color: black;
-    margin-bottom: 10px !important;
-    margin-left: 8px !important;
-  }
->>>>>>> df19ad0c619f848daf3a6b0c0bb0203212370094
+.untuk-icons {
+  font-size: 30px !important;
+  color: white;
+  margin-bottom: 8px !important;
+  margin-top: 10px !important;
+}
+
+.untuk-span {
+  font-weight: bold;
+  color: black;
+  margin-bottom: 10px !important;
+  margin-left: 8px !important;
+}
