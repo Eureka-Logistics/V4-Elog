@@ -1978,7 +1978,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </h6>
                   </div>
                   <Menu.Item
-                    disabled
+                    
                     key="SJ List"
                     className={
                       activeMenu === "/masterdata/sjlist"

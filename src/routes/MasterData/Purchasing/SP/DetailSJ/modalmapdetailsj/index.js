@@ -14,7 +14,6 @@ function ModalMapsSJ() {
     const [Hide, setHide] = useState(false)
     const [datalokasi, setdatalokasi] = useState([])
     const NamaDestinasi = "Kota"
-    const [isVerified, setIsVerified] = useState(false);
     const [Coordinates, setCoordinates] = useState((i) => ({
         label: NamaDestinasi,
         origin: null,
@@ -81,9 +80,7 @@ function ModalMapsSJ() {
         },
     ];
 
-    const onRecaptchaSuccess = () => {
-        setIsVerified(true);
-    };
+  
     useEffect(() => {
         const fetchCoordinates = async () => {
             const pickup = await getCoordinates(dataapi?.pickupAddress);
@@ -101,23 +98,13 @@ function ModalMapsSJ() {
     return (
         <div>
             <Button type="primary" onClick={() => {
-                if (isVerified) {
+              
                     setModalMapsSJOpen(true);
-                } else {
-                    setModalMapsSJOpen(true);
-                    notification.error({
-                        message :"Harap verifikasi reCAPTCHA terlebih dahulu."
-                    })
-                }
+              
             }}>
                 Cek Lokasi Kendaraan
             </Button>
-            {!isVerified && (
-                <ReCAPTCHA
-                    sitekey="6LcBGmEoAAAAAP-XAvRQN2q3CbrGyzu28GMkcMOL"
-                    onChange={onRecaptchaSuccess}
-                />
-            )}
+            
             <Modal
                 title={`Lokasi Kendaraan`}
                 width={1000}
