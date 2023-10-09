@@ -264,9 +264,9 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item disabled key="Cancel SP List" className={activeMenu === "/masterdata/marketing/cancelsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item key="Cancel SP List" className={activeMenu === "/masterdata/marketing/cancelsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
-                      disabled
+
                       to="/masterdata/marketing/cancelsplist"
                       style={{ textDecoration: "none" }}
                     >
@@ -910,7 +910,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       Menu SP
                     </h6>
                   </div>
-                  <Menu.Item disabled key="New SP" className={activeMenu === "/purchasing/newsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
+                  <Menu.Item key="New SP" className={activeMenu === "/purchasing/newsplist" ? "menu-item-active menu-item-hover" : "menu-item-hover"} >
                     <Link
                       to="/purchasing/newsplist"
                       style={{ textDecoration: "none" }}
@@ -922,7 +922,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item disabled key="SP List" className={activeMenu === "/masterdata/splist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item key="SP List" className={activeMenu === "/masterdata/splist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterdata/splist"
                       style={{ textDecoration: "none" }}
@@ -934,6 +934,18 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
+                  <Menu.Item key="SO List" className={activeMenu === "/purchasing/solist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                    <Link
+                      to="/purchasing/solist"
+                      style={{ textDecoration: "none" }}
+                    >
+
+                      <FileTextOutlined style={{ fontSize: "30px", color: 'white', marginBottom: '7px' }} />
+                      <span style={{ fontWeight: "bold", color: "white" }}>
+                        <IntlMessages id="PO List" />
+                      </span>
+                    </Link>
+                  </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
                     style={{ backgroundColor: "#0c2197", height: "20%", marginRight: '20px', marginLeft: '20px', borderRadius: '10px' }}
@@ -942,7 +954,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       Menu SJ
                     </h6>
                   </div>
-                  <Menu.Item disabled key="SJ List" className={activeMenu === "/masterdata/sjlist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
+                  <Menu.Item key="SJ List" className={activeMenu === "/masterdata/sjlist" ? "menu-item-active menu-item-hover" : "menu-item-hover"}>
                     <Link
                       to="/masterdata/sjlist"
                       style={{ textDecoration: "none" }}

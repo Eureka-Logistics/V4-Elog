@@ -403,7 +403,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         const biayamaxtonase = Number(formik.values.biayamaxtonase) || 0;
         const biayaselanjutnya = Number(formik.values.biayaselanjutnya) || 0;
 
-        const totalBiayaTambahan =  biayaBongkar + biayaMuat + biayamultimuat + biayamultidrop + biayamel + overtonase + tambahan + lain + biayamaxtonase + biayaselanjutnya;
+        const totalBiayaTambahan = biayaBongkar + biayaMuat + biayamultimuat + biayamultidrop + biayamel + overtonase + tambahan + lain + biayamaxtonase + biayaselanjutnya;
 
         if (DetailSemua?.service === 'Retail') {
             return (HasilTarifNumerik * berat) + totalBiayaTambahan;
@@ -424,18 +424,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
 
 
     console.log(`GetTarifOptions`, GetTarifOptions);
-    // const calculateTotalCreate = (shipmentType, kilogram, tarif) => {
-    //     const biayaBongkar = Number(formik.values.bongkar);
-    //     const biayaMuat = Number(formik.values.biayamuat);
 
-    //     if (DetailSemua?.service === 'Retailer') {
-    //         return Number(formik.values.berat) * Number(HasilTarif) + biayaBongkar + biayaMuat;
-    //     } else if (DetailSemua?.service === 'Charter') {
-    //         return Number(tarif) + biayaBongkar + biayaMuat;
-    //     } else {
-    //         return 0; // atau pesan error jika tipe pengiriman tidak dikenal
-    //     }
-    // }
 
     const labelpilihan = () => {
         if (formik.values.pilihanberat === 1) {
@@ -602,7 +591,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             </Form.Item>
 
                         </Col>
-                        <Col sm={8}>
+                        <Col sm={12}>
                             <Form.Item
                                 required
                                 label="Alamat Muat"
@@ -667,7 +656,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 </Select>
                             </Form.Item>
                         </Col> */}
-                        <Col sm={8}>
+                        <Col sm={12}>
                             <Form.Item
                                 required
                                 label="Alamat Bongkar"
@@ -925,7 +914,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     type="number"
                                     onChange={(e) => {
                                         formik.setFieldValue('berat', Number(e.target.value));
-                                        console.log(`berat`,e.target.value);
+                                        console.log(`berat`, e.target.value);
                                     }}
 
                                     value={formik.values.berat || 1}

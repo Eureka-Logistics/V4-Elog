@@ -68,7 +68,7 @@ function Index() {
     setNamaMarketing(data.data.data.marketing);
     setnamaPerusahaan(data.data.data.company);
     setAlamatInvoice(data.data.data.address);
-    setAlamatInvoiceBaru(data.data.data.invoiceAddress?.[0]?.invoiceAddress || data.data.data.invoiceAddress?.[0]?.invoiceAddress?.[0]?.adddress );
+    setAlamatInvoiceBaru(data.data.data.invoiceAddress?.[0]?.invoiceAddress || data.data.data.invoiceAddress?.[0]?.invoiceAddress?.[0]?.adddress);
     setDiskonSelect(data.data.data.discount);
     setServiceSelect(data.data.data.service);
     setInsuranceSelect(data.data.data.insurance);
@@ -319,23 +319,13 @@ function Index() {
                   placeholder="Pilih Packing"
                   onChange={(e) => { console.log(e); setpackingValues(e) }}
                 >
-                  {packingValue &&
-                    packingValue.map((item) => (
-                      <option value={item.id}>{item.packing}</option>
-                    ))}
+                  {packingValue && [...packingValue].reverse().map((item) => (
+                    <option key={item.id} value={item.id}>{item.packing}</option>
+                  ))}
                 </SelectAntd>
-                {/* <Form.Select
-                  onChange={(e) => setpackingValues(e.target.value)}
-                  type="text"
-                >
-                  <option>Pilih Packing</option>
-                  {packingValue &&
-                    packingValue.map((item) => (
-                      <option value={item.id}>{item.packing}</option>
-                    ))}
-                </Form.Select> */}
               </FormGroup>
             </Col>
+
             <Col sm={3}>
               <FormGroup>
                 <Form.Label>Multi Drop</Form.Label>

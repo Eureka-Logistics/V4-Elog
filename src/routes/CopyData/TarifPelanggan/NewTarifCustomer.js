@@ -365,13 +365,13 @@ function NewTarifCustomer() {
             optionFilterProp="value"
             style={{ width: "100%" }}
             onChange={(e, options) => {
-              console.log(options.children);
-              setIDServiceType(options.children);
+              console.log(options.children  === "Retail" ? "Reguler" : options.children );
+              setIDServiceType(options.children  === "Retail" ? "Reguler" : options.children);
             }}
           >
             {IDTambahData &&
               IDTambahData?.serviceType?.map((CustomerItem) => (
-                <Select.Option value={CustomerItem?.serviceType}>
+                <Select.Option value={CustomerItem?.serviceType  }>
                   {CustomerItem?.serviceType}
                 </Select.Option>
               ))}
