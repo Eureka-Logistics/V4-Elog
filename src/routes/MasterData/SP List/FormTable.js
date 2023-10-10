@@ -2555,8 +2555,8 @@ console.log(`StatusApproveOpt`,StatusApproveOpt);
                         backgroundColor: "#dff0d8",
                       }}
                     >
-                      <td>{index + 1}.</td>
-                      <td colSpan={12}>Alamat Muat</td>
+                      <td style={{backgroundColor :"transparent"}}>{index + 1}.</td>
+                      <td style={{backgroundColor :"transparent"}} colSpan={12}>Alamat Muat</td>
                     </tr>
 
                     <tr key={index}>
@@ -2573,21 +2573,19 @@ console.log(`StatusApproveOpt`,StatusApproveOpt);
                               backgroundColor: "#b7d1f8",
                             }}
                           >
-                            <td>{index + 1}. </td>
-
-                            <td>Alamat Bongkar</td>
-
-                            <td width="100px">SJ ID</td>
-                            <td>Kendaraan</td>
-                            <td>Via</td>
-                            <td>Service</td>
-                            <td>Item</td>
-                            <td>Berat</td>
-                            <td >Qty</td>
-                            <td >Tarif</td>
-                            <td width="50px">Biaya Muat</td>
-                            <td width="50px">Biaya Bongkar</td>
-                            <td width="50px">Total</td>
+                            <td style={{backgroundColor :"transparent"}}>{index + 1}. </td>
+                            <td style={{backgroundColor :"transparent"}}>Alamat Bongkar</td>
+                            <td style={{backgroundColor :"transparent"}} width="100px">SJ ID</td>
+                            <td style={{backgroundColor :"transparent"}}>Kendaraan</td>
+                            <td style={{backgroundColor :"transparent"}}>Via</td>
+                            <td style={{backgroundColor :"transparent"}}>Service</td>
+                            <td style={{backgroundColor :"transparent"}}>Item</td>
+                            <td style={{backgroundColor :"transparent"}}>Berat</td>
+                            <td style={{backgroundColor :"transparent"}}>Qty</td>
+                            <td style={{backgroundColor :"transparent"}} >Tarif</td>
+                            <td style={{backgroundColor :"transparent"}} width="50px">Biaya Muat</td>
+                            <td style={{backgroundColor :"transparent"}} width="50px">Biaya Bongkar</td>
+                            <td style={{backgroundColor :"transparent"}} width="50px">Total</td>
                             {jobdesk != "akunting" ? (
                               <td colSpan={2}>Aksi</td>
                             ) : (

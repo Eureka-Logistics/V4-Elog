@@ -61,6 +61,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         validationSchema: Yup.object({
             alamatmuat: Yup.string().required('Alamat Muat Harus Di Isi'),
             alamatbongkar: Yup.string().required('Alamat Bongkar Harus Di Isi'),
+            pilihrute: Yup.string().required('Pilih Rute Harus Di Isi'),
             kendaraan: Yup.string().required('Kendaraan Harus Di Isi'),
             via: Yup.string().required('Via Harus Di Isi'),
 
@@ -542,9 +543,9 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             <Form.Item
                                 required
                                 label={"Pilih Rute " + DetailSemua?.service}
-                                help={formik.touched.alamatbongkar && formik.errors.alamatbongkar}
+                                help={formik.touched.pilihrute && formik.errors.pilihrute}
                                 validateStatus={
-                                    formik.touched.alamatbongkar && formik.errors.alamatbongkar
+                                    formik.touched.pilihrute && formik.errors.pilihrute
                                         ? 'error'
                                         : 'success'
                                 }
@@ -1558,11 +1559,11 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                         DetailSemua.detail.map((data, index) => (
                             <>
                                 <tr style={{ fontWeight: "bold" }}>
-                                    <td colSpan={10}>
+                                    {/* <td colSpan={10}> */}
                                         {/* <hr />
                                         <br />{" "} */}
-                                        <br />
-                                    </td>
+                                        {/* <br /> */}
+                                    {/* </td> */}
                                 </tr>
                                 <tr
                                     style={{
@@ -1570,12 +1571,12 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         backgroundColor: "#dff0d8",
                                     }}
                                 >
-                                    <td>No. {index + 1} </td>
-                                    <td colSpan={12}>Alamat Muat</td>
+                                    <td style={{backgroundColor :"transparent"}}>No. {index + 1} </td>
+                                    <td style={{backgroundColor :"transparent"}} colSpan={13}>Alamat Muat</td>
                                 </tr>
 
                                 <tr key={index}>
-                                    <td>
+                                    <td >
                                         {/* {index + 1}
                             <span>
                               <Button
@@ -1600,20 +1601,20 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                     backgroundColor: "#b7d1f8",
                                                 }}
                                             >
-                                                <td>No. {index + 1}</td>
-                                                <td>Alamat Bongkar</td>
-                                                <td width="100px">NO SJ</td>
-                                                <td>Kendaraan</td>
-                                                <td>Service</td>
-                                                <td>Via</td>
-                                                <td>Item</td>
-                                                <td>Shipment</td>
-                                                <td>Berat</td>
-                                                <td>Qty</td>
-                                                <td width="150px">Tarif</td>
-                                                <td width="150px">Biaya Muat</td>
-                                                <td width="150px">Biaya Bongkar</td>
-                                                <td width="150px">Total</td>
+                                                <td style={{backgroundColor :"transparent"}}>No. {index + 1}</td>
+                                                <td style={{backgroundColor :"transparent"}}>Alamat Bongkar</td>
+                                                <td style={{backgroundColor :"transparent"}} width="100px">NO SJ</td>
+                                                <td style={{backgroundColor :"transparent"}}>Kendaraan</td>
+                                                <td style={{backgroundColor :"transparent"}}>Service</td>
+                                                <td style={{backgroundColor :"transparent"}}>Via</td>
+                                                <td style={{backgroundColor :"transparent"}}>Item</td>
+                                                <td style={{backgroundColor :"transparent"}}>Shipment</td>
+                                                <td style={{backgroundColor :"transparent"}}>Berat</td>
+                                                <td style={{backgroundColor :"transparent"}}>Qty</td>
+                                                <td style={{backgroundColor :"transparent"}} width="150px">Tarif</td>
+                                                <td style={{backgroundColor :"transparent"}} width="150px">Biaya Muat</td>
+                                                <td style={{backgroundColor :"transparent"}} width="150px">Biaya Bongkar</td>
+                                                <td style={{backgroundColor :"transparent"}} width="150px">Total</td>
                                             </tr>
 
                                             <tr key={index}>

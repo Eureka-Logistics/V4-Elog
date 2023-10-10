@@ -16,8 +16,9 @@ function SPList() {
   const history = useHistory();
   const [spId, setSpId] = useState("");
   const [pageSize, setPageSize] = useState(10);
-
+  const [loading, setloading] = useState(false)
   const dataapi = async (page = 1) => {
+    setloading(true)
     try {
       const isi = await axios.get(
         `${Baseurl}sp/get-SP?limit=${pageSize}&page=${page}&keyword=${spId}`,
@@ -28,14 +29,13 @@ function SPList() {
           },
         }
       );
-  
       const isidata = isi.data.data.order;
       setTotalPage(isi.data.data.totalData);
       setPagination({
         currentPage: isi.data.data.currentPage,
         limit: isi.data.data.limit,
       });
-  
+
       setIsiData(isidata);
     } catch (error) {
       console.log(error.response.data.status.message);
@@ -43,8 +43,10 @@ function SPList() {
         message: "Error",
         description: error.response.data.status.message,
       })
+    } finally {
+      setloading(false)
     }
-   
+
   };
   useEffect(() => {
     dataapi(pagination.currentPage, spId);
@@ -61,13 +63,6 @@ function SPList() {
     // dataapi(pagination.currentPage, spId);
   }, [pagination.currentPage, spId, TotalPage]);
 
-  // useEffect(() => {
-  //   if (isiData && isiData.length > 0) {
-  //     isiData.forEach((item) => {
-  //       getDestinationData(item.idmp);
-  //     });
-  //   }
-  // }, [isiData]);
 
   const getDestinationData = async (idmp) => {
     const isi = await axios.get(`${Baseurl}sp/get-SP-detail?idmp=${idmp}`, {
@@ -93,11 +88,9 @@ function SPList() {
     setDestinationData((prevData) => [...prevData, ...isis]);
   };
 
-  const [combinedData, setCombinedData] = useState([]);
 
-  let counter = 1;
 
-  
+
 
   const columns = [
     {
@@ -164,7 +157,7 @@ function SPList() {
       name: "Approved/Decline Act",
       selector: (row) => {
         const date = new Date(row.dateApproveAct);
-        
+
         return isNaN(date.getTime()) ? (
           "-"
         ) : (
@@ -175,42 +168,9 @@ function SPList() {
       wrap: true,
     },
 
-    // {
-    //   name: "OPS",
-    //   selector: (row) => {
-    //     return row.approveOps === "Y" ? (
-    //       <Tag color="green">
-    //         Approved <br />
-    //         {row.dateApproveOps}
-    //       </Tag>
-    //     ) : row.dateApproveOps === "Invalid date" || "1970-01-01 07:00:00" ? (
-    //       <Tag color="orange">
-    //         Waiting <br /> {row.dateApproveOps}
-    //       </Tag>
-    //     ) : (
-    //       <Tag color="red">
-    //         Reject <br /> {row.dateApproveOps}
-    //       </Tag>
-    //     );
-    //   },
-    //   width: "150px",
-    // },
-
-    // {
-    //   name: "Opsi",
-    //   selector: (row) => (
-    //     <Button
-    //       size="sm"
-    //       variant="primary"
-    //       onClick={() => buttonarahin(row.idmp)}
-    //     >
-    //       Detail
-    //     </Button>
-    //   ),
-    // },
   ];
 
-  
+
 
   const RowClick = (row) => {
     console.log("RowClick", row);
@@ -221,7 +181,7 @@ function SPList() {
     dataapi(page);
     // history.push(`/masterdata/splistdetailakunting/${idmp}`);
   };
-  
+
 
 
   return (
@@ -229,7 +189,7 @@ function SPList() {
       <Card>
         <Row>
           <Col>
-            <h5 style={{color: `#1A5CBF`, fontWeight: 'bold'}}>Approve SO</h5>
+            <h5 style={{ color: `#1A5CBF`, fontWeight: 'bold' }}>Approve SO</h5>
             <div className="d-flex justify-content-end">
               <Col sm={3}>
                 <Form.Group controlId="spId">
@@ -252,20 +212,27 @@ function SPList() {
           
         `}
             </style>
-            <DataTable
-              columns={columns}
-              data={isiData}
-              onRowClicked={RowClick}
-            />
-            <div className="d-flex justify-content-end mt-3">
-              <Pagination
-                showSizeChanger
-                onChange={buttonarahin}
-                size="default"
-                total={TotalPage}
-                defaultCurrent={1}
-              />
-            </div>
+            {loading ? (
+              <div className="d-flex justify-content-center align-items-center">Loading</div>
+            ) : (
+              <>
+                <DataTable
+                  columns={columns}
+                  data={isiData}
+                  onRowClicked={RowClick}
+                />
+                <div className="d-flex justify-content-end mt-3">
+                  <Pagination
+                    showSizeChanger
+                    onChange={buttonarahin}
+                    size="default"
+                    total={TotalPage}
+                    defaultCurrent={1}
+                  />
+                </div>
+              </>
+            )}
+
           </Col>
         </Row>
       </Card>

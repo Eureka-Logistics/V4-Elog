@@ -72,6 +72,7 @@ function SOListTable() {
             })
         } catch (error) {
             console.log(error);
+            
         }
     }
     const getDetaillist = async (idMpo) => {
@@ -110,7 +111,7 @@ function SOListTable() {
                 onRow={(record) => ({
                     onClick: () => handleRowClick(record),
                 })} />
-            <ModalSOList getlist={getlist}setDetailData={setDetailData} DetailData={DetailData} setModal1Open={setModal1Open} modal1Open={modal1Open} />
+            <ModalSOList getlist={getlist} setDetailData={setDetailData} DetailData={DetailData} setModal1Open={setModal1Open} modal1Open={modal1Open} />
 
         </div>
     )
