@@ -110,7 +110,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               <Col span={24} className="d-flex justify-content-center">
                 <Avatar
                   src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
-                  className="gx-size-60 gx-pointer gx-mr-4"
+                  className="gx-size-50 gx-pointer gx-mr-4"
                   alt=""
                   style={{width: '100%'}}
                 />

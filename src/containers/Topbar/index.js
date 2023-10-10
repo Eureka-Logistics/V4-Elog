@@ -194,7 +194,7 @@ const Topbar = () => {
 
       <Row className="mt-2">
         <Col span={24}>
-          {" "}
+          
           <UserProfile />
         </Col>
       </Row>
