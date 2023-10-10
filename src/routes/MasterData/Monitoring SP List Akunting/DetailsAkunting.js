@@ -624,11 +624,14 @@ function DetailsAkunting() {
                       <tr
                         style={{
                           fontWeight: "bold",
-                          backgroundColor: "#dff0d8",
+                          backgroundColor: '#1a5cbf' ,
+                          
                         }}
                       >
-                        <td>{index + 1}.</td>
-                        <td colSpan={14}>Alamat Muat</td>
+                       
+                        <td style={{backgroundColor: 'transparent', color: 'white'}}>{index + 1}.</td>
+                        <td colSpan={14}  style={{backgroundColor: 'transparent', color: 'white'}}>Alamat Muat</td>
+                        
                       </tr>
                       <tr key={index}>
                         <td>
@@ -654,23 +657,24 @@ function DetailsAkunting() {
                               style={{
                                 fontWeight: "bold",
                                 backgroundColor: "#B7D1F8",
+
                               }}
                             >
-                              <td> {index + 1}. </td>
-                              <td>Alamat Bongkar</td>
-                              <td width="100px">NO SM</td>
-                              <td>Kendaraan</td>
-                              <td>Service</td>
-                              <td>Via</td>
-                              <td>Item</td>
-                              <td>Berat</td>
-                              <td>Qty</td>
+                              <td style={{backgroundColor: 'transparent'}}> {index + 1}. </td>
+                              <td style={{backgroundColor: 'transparent'}}>Alamat Bongkar</td>
+                              <td style={{backgroundColor: 'transparent'}} width="100px">NO SM</td>
+                              <td style={{backgroundColor: 'transparent'}}>Kendaraan</td>
+                              <td style={{backgroundColor: 'transparent'}}>Service</td>
+                              <td style={{backgroundColor: 'transparent'}}>Via</td>
+                              <td style={{backgroundColor: 'transparent'}}>Item</td>
+                              <td style={{backgroundColor: 'transparent'}}>Berat</td>
+                              <td style={{backgroundColor: 'transparent'}}>Qty</td>
                               {jobdesk !== "operasional" && (
                                 <>
-                                  <td width="150px">Tarif</td>
-                                  <td width="150px">Biaya Muat</td>
-                                  <td width="150px">Biaya Bongkar</td>
-                                  <td width="150px">Total</td>
+                                  <td style={{backgroundColor: 'transparent'}} width="150px">Tarif</td>
+                                  <td style={{backgroundColor: 'transparent'}} width="150px">Biaya Muat</td>
+                                  <td style={{backgroundColor: 'transparent'}} width="150px">Biaya Bongkar</td>
+                                  <td style={{backgroundColor: 'transparent'}} width="150px">Total</td>
                                 </>
                               )}
                             </tr>
@@ -1088,10 +1092,10 @@ function DetailsAkunting() {
             <Table responsive>
               <thead>
                 <tr style={{ fontWeight: "bold", backgroundColor: "#f4dddd" }}>
-                  <td>No</td>
-                  <td>Comment</td>
-                  <td>User</td>
-                  <td>Tgl Comment</td>
+                  <td style={{backgroundColor: 'transparent'}}>No</td>
+                  <td style={{backgroundColor: 'transparent'}}>Comment</td>
+                  <td style={{backgroundColor: 'transparent'}}>User</td>
+                  <td style={{backgroundColor: 'transparent'}}>Tgl Comment</td>
                 </tr>
               </thead>
               <tbody>

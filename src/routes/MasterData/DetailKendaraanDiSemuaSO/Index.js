@@ -37,8 +37,8 @@ function DetailKendaraanSOdiSemuaSO({ idmpd }) {
                     <tr style={{ fontWeight: "bold", backgroundColor: "#dff0d8" }}>
                         <td style={{ backgroundColor: "#b7d1f8" }}>Mitra 1</td>
                         <td style={{ backgroundColor: "#b7d1f8" }}>Driver 1</td>
-                        <td>Mitra 2</td>
-                        <td>Driver 2</td>
+                        <td style={{ backgroundColor: "#9BF1B5" }}>Mitra 2</td>
+                        <td style={{ backgroundColor: "#9BF1B5" }}>Driver 2</td>
                         <td style={{ backgroundColor: "#BBF6EE" }}>Mitra 3</td>
                         <td style={{ backgroundColor: "#BBF6EE" }}>Driver 3</td>
                     </tr>
