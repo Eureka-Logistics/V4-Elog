@@ -1591,10 +1591,10 @@ function EditSP({  }) {
             <Table responsive>
               <thead>
                 <tr style={{ fontWeight: "bold", backgroundColor: "#f4dddd" }}>
-                  <td>No</td>
-                  <td>Comment</td>
-                  <td>User</td>
-                  <td>Tgl Comment</td>
+                  <td style={{backgroundColor :"transparent"}}>No</td>
+                  <td style={{backgroundColor :"transparent"}}>Comment</td>
+                  <td style={{backgroundColor :"transparent"}}>User</td>
+                  <td style={{backgroundColor :"transparent"}}>Tgl Comment</td>
                 </tr>
               </thead>
               <tbody>

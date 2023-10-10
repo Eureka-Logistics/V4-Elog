@@ -121,7 +121,7 @@
   color: white;
   font-weight: 500;
   text-align: left;
-  background: #1A5CBF;
+  background: #1A5CBF !;
   border-bottom: 1px solid #e8e8e8;
   font-family: 'NoirPro';
   /* transition: background 0.3s ease; */

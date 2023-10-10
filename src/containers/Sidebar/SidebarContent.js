@@ -107,7 +107,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
         >
           <Row>
             {jobdesk != "rcadmin" ? (
-              <Col span={24}  className="d-flex justify-content-center">
+              <Col span={24} className="d-flex justify-content-center">
                 <Avatar
                   src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
                   className="gx-size-60 gx-pointer gx-mr-3"
@@ -282,13 +282,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                    // style={{
-                    //   backgroundColor: "#0c2197",
-                    //   height: "20%",
-                    //   marginRight: "20px",
-                    //   marginLeft: "20px",
-                    //   borderRadius: "10px",
-                    // }}
+                  // style={{
+                  //   backgroundColor: "#0c2197",
+                  //   height: "20%",
+                  //   marginRight: "20px",
+                  //   marginLeft: "20px",
+                  //   borderRadius: "10px",
+                  // }}
                   >
                     <h6
                       style={{
@@ -310,7 +310,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     }
                   >
                     <Link
-                      
+
                       to="/masterdata/marketing/splist"
                       style={{ textDecoration: "none" }}
                     >
@@ -370,13 +370,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                    // style={{
-                    //   backgroundColor: "#0c2197",
-                    //   height: "20%",
-                    //   marginRight: "20px",
-                    //   marginLeft: "20px",
-                    //   borderRadius: "10px",
-                    // }}
+                  // style={{
+                  //   backgroundColor: "#0c2197",
+                  //   height: "20%",
+                  //   marginRight: "20px",
+                  //   marginLeft: "20px",
+                  //   borderRadius: "10px",
+                  // }}
                   >
                     <h6
                       style={{
@@ -588,13 +588,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                    // style={{
-                    //   backgroundColor: "#0c2197",
-                    //   height: "20%",
-                    //   marginRight: "20px",
-                    //   marginLeft: "20px",
-                    //   borderRadius: "10px",
-                    // }}
+                  // style={{
+                  //   backgroundColor: "#0c2197",
+                  //   height: "20%",
+                  //   marginRight: "20px",
+                  //   marginLeft: "20px",
+                  //   borderRadius: "10px",
+                  // }}
                   >
                     <h6
                       style={{
@@ -812,7 +812,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </h6>
                   </div>
                   <Menu.Item
-                    
+
                     key="waiting SP List"
                     className={
                       activeMenu === "/masterdata/newsplist"
@@ -908,6 +908,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
 
                   <Menu.Item
                     key="VehicleMap"
+                    disabled
                     className={
                       activeMenu === "/masterdata/monitoring"
                         ? "menu-item-active menu-item-hover"
@@ -1386,7 +1387,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     key="Penerimaan INV"
                     className={
                       activeMenu ===
-                      "/akunting/ar/reportpartners/reportpenerimaaninvoice"
+                        "/akunting/ar/reportpartners/reportpenerimaaninvoice"
                         ? "menu-item-active menu-item-hover"
                         : "menu-item-hover"
                     }

@@ -10,11 +10,12 @@ function ModalEditSPDetail({ isOpen, onClose, handleOpenModal, data, NamaKotaGlo
     const [dataas, setdatass] = useState("")
     const datawoi = EditDetailSPModal(state => state.data);
     const setData = EditDetailSPModal(state => state.setData);
-   
+
     const formik = useFormik({
         initialValues: {
             alamatmuat: data?.alamatmuat || '',
             alamatbongkar: data?.alamatbongkar || "",
+            pilihrute:"",
             kendaraan: data?.kendaraan || "",
             via: data?.via || "",
             alamatrute: data?.alamatrute || '',
@@ -22,6 +23,7 @@ function ModalEditSPDetail({ isOpen, onClose, handleOpenModal, data, NamaKotaGlo
         validationSchema: Yup.object({
             alamatmuat: Yup.string().required('Alamat Muat Harus Di Isi'),
             alamatbongkar: Yup.string().required('Alamat Bongkar Harus Di Isi'),
+            pilihrute: Yup.string().required('Pilih rute Harus Di Isi'),
             kendaraan: Yup.string().required('Kendaraan Harus Di Isi'),
             via: Yup.string().required('Via Harus Di Isi'),
 
@@ -147,9 +149,9 @@ function ModalEditSPDetail({ isOpen, onClose, handleOpenModal, data, NamaKotaGlo
                             <Form.Item
                                 required
                                 label="Pilih Rute"
-                                help={formik.touched.alamatbongkar && formik.errors.alamatbongkar}
+                                help={formik.touched.pilihrute && formik.errors.pilihrute}
                                 validateStatus={
-                                    formik.touched.alamatbongkar && formik.errors.alamatbongkar
+                                    formik.touched.pilihrute && formik.errors.pilihrute
                                         ? 'error'
                                         : 'success'
                                 }
