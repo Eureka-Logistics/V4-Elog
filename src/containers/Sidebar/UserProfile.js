@@ -23,7 +23,7 @@ const UserProfile = () => {
             className="gx-size-50 gx-pointer gx-mr-3"
             alt=""
           />
-          <div  style={{marginTop: '5%'}} >
+          <div style={{marginTop: '5%', verticalAlign: 'middle'}} >
             <b>Admin {jobdesk}</b>
           </div>
         </Col>
@@ -58,7 +58,7 @@ const UserProfile = () => {
         content={userMenuOptions}
         trigger="click"
       >
-        <Row style={{ marginTop: "2%" }}>
+        <Row style={{  verticalAlign: 'middle', marginTop: '2%'}}>
           <Col span={6}>
             <Avatar
               src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}

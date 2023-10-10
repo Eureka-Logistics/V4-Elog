@@ -78,7 +78,7 @@ const Topbar = () => {
         <Row >
           <Col >
             {" "}
-            <h5 style={{ color: "blue" , marginLeft : "30px"}} className="mt-1">
+            <h5 style={{ color: "blue" , marginLeft : "30px"}}>
             👋 Halo, Selamat Datang! {fullname} 
             </h5>
           </Col>
