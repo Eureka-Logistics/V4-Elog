@@ -51,29 +51,37 @@ function Index() {
   const [IdSales, SetIdSales] = useState(0);
   const history = useHistory();
   const dapetinnosp = async () => {
-    const data = await axios.get(
-      `${Baseurl}sp/get-SP-select-create?keyword=&companyId=${CompanyID}&kode_cabang=JKT&divisi=sales`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      }
-    );
-    const noSP = data.data.data;
-    setgetAwalSP(noSP);
-    setnogetAwalSP(data.data.data.noSP);
-    setnoPH(data.data.data.noPH);
-    setPHZustand(data.data.data.noPH)
-    setNamaMarketing(data.data.data.marketing);
-    setnamaPerusahaan(data.data.data.company);
-    setAlamatInvoice(data.data.data.address);
-    setAlamatInvoiceBaru(data.data.data.invoiceAddress?.[0]?.invoiceAddress || data.data.data.invoiceAddress?.[0]?.invoiceAddress?.[0]?.adddress);
-    setDiskonSelect(data.data.data.discount);
-    setServiceSelect(data.data.data.service);
-    setInsuranceSelect(data.data.data.insurance);
-    setTypeMobilSelect(data.data.data.type)
-    setpackingValue(data.data.data.packing);
+    try {
+      const data = await axios.get(
+        `${Baseurl}sp/get-SP-select-create?keyword=&companyId=${CompanyID}&kode_cabang=JKT&divisi=sales`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      const noSP = data.data.data;
+      setgetAwalSP(noSP);
+      setnogetAwalSP(data.data.data.noSP);
+      setnoPH(data.data.data.noPH);
+      setPHZustand(data.data.data.noPH)
+      setNamaMarketing(data.data.data.marketing);
+      setnamaPerusahaan(data.data.data.company);
+      setAlamatInvoice(data.data.data.address);
+      setAlamatInvoiceBaru(data.data.data.invoiceAddress?.[0]?.invoiceAddress || data.data.data.invoiceAddress?.[0]?.invoiceAddress?.[0]?.adddress);
+      setDiskonSelect(data.data.data.discount);
+      setServiceSelect(data.data.data.service);
+      setInsuranceSelect(data.data.data.insurance);
+      setTypeMobilSelect(data.data.data.type)
+      setpackingValue(data.data.data.packing);
+    } catch (error) {
+      console.log(error);
+      notification.error({
+        message : "Ada Kesalahan dalam mendapatkan data"
+      })
+    }
+
 
   };
   useEffect(() => {
@@ -116,7 +124,7 @@ function Index() {
           },
         }
       );
-     
+
       console.log(response);
       setButtonDisable(false)
       if (response.data) {

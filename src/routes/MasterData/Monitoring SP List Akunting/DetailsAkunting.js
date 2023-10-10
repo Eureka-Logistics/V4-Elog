@@ -449,7 +449,7 @@ function DetailsAkunting() {
                 </Button>
               </div>
 
-              {jobdesk === "sales" && actSalesStatus === "Y" ? (
+              {jobdesk === "sales" && actSalesStatus === "N" ? (
                 <>
                   <Button
                     size="sm"
@@ -624,7 +624,7 @@ function DetailsAkunting() {
                       <tr
                         style={{
                           fontWeight: "bold",
-                          backgroundColor: "#dff0d8",
+                          backgroundColor: "#dff0d8 ",
                         }}
                       >
                         <td>{index + 1}.</td>
