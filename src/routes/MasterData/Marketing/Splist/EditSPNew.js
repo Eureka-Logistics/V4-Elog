@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 import ModalCreateDetail from './ModalCreateDetail';
 import ModalEditSPDetail from './EditModalSPDetail/ModalEditSPDetail';
 import ModalDetailMarketing from './ModalDetailMarketing/Index';
-function EditSPNew({ getDetail }) {
+function EditSPNew({ getDetail ,refreshtable}) {
     const { idmp } = useParams();
     const [NomorSP, setNoSP] = useState("")
     const [DetailSemua, setDetailSemua] = useState("")
@@ -43,6 +43,7 @@ function EditSPNew({ getDetail }) {
             setLoading(false)
             setNoSP(data.data.sp)
             setDetailSemua(data.data)
+            console.log(`ini mau refresh`);
             setdata(data)
             setTimeout(() => {
                 formik.setValues({
@@ -268,7 +269,7 @@ function EditSPNew({ getDetail }) {
                                         </Select.Option>
                                     ))}
                             </Select>
-                            <ModalDetailMarketing detailsemua={DetailSemua} modal1Open={modal1Open} setModal1Open={setModal1Open} name={formik.values.marketing == null ? "-" : formik.values.marketing} />
+                            <ModalDetailMarketing detailsemua={DetailSemua}  modal1Open={modal1Open} setModal1Open={setModal1Open} name={formik.values.marketing == null ? "-" : formik.values.marketing} />
 
                             {/* <Input
                                 id="marketing"
@@ -529,7 +530,7 @@ function EditSPNew({ getDetail }) {
 
             </Row>
             <ModalCreateDetail
-                idmp={idmp} DetailSP={DetailSP} JenisBarangFormik={formik.values.jenisBarang} AlamatInvoiceOptions={AlamatInvoiceOptions} DetailSemua={DetailSemua} />
+           refreshtable={refreshtable}   idmp={idmp} DetailSP={DetailSP} JenisBarangFormik={formik.values.jenisBarang} AlamatInvoiceOptions={AlamatInvoiceOptions} DetailSemua={DetailSemua} />
 
         </div>
     )

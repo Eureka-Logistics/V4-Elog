@@ -424,7 +424,7 @@ function FormTable({
   const supir = idUnit === "" ? pickup_supir : idUnit;
   const id_unit = AmbilIdUnitPurch1 ? AmbilIdUnitPurch1 : (selectDriver[0]?.idUnit === "-" ? null : selectDriver[0]?.idUnit);
   const id_unit_2 = selectnomor === "" ? id_unit : selectnomor;
-  const HandleApprovePURCH = (idmpd) => {
+  const HandleApprovePURCH = async (idmpd) => {
     try {
       const body = {
         // id_mp: idmp,
@@ -468,17 +468,14 @@ function FormTable({
             Authorization: localStorage.getItem("token"),
           },
         })
-      const isidata = response?.data?.status;
-      console.log(response);
+      const isidata = await response?.data?.status;
       setApproved(isidata);
       Swal.fire({
         icon: "success",
-        title: "Approval Successful",
+        title: "Approve Sukses",
         text: "The approval process has been completed successfully.",
       });
-      messagedetail()
       handleClose();
-      // window.location.reload();
     } catch (error) {
       console.log(error);
       notification.error({
@@ -486,6 +483,9 @@ function FormTable({
         description: error.response.data.status.message,
       })
       handleClose();
+    } finally {
+      messagedetail()
+
     }
 
   };
@@ -902,8 +902,7 @@ function FormTable({
   };
 
   const [ShowModalCreatePO, setShowModalCreatePO] = useState(false);
-console.log(`StatusApproveOpt`,StatusApproveOpt);
-
+  console.log(`Kendaraan_operasionalStatus`, Kendaraan_operasionalStatus);
   return (
     <>
       <Row>
@@ -1648,7 +1647,7 @@ console.log(`StatusApproveOpt`,StatusApproveOpt);
                             }}
                           />
                           <a
-                            href="/masterdata/purchasing/driver" 
+                            href="/masterdata/purchasing/driver"
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => {
@@ -1997,26 +1996,26 @@ console.log(`StatusApproveOpt`,StatusApproveOpt);
 
               {StatusApproveAct === "Y" && TanggalACT3 != null ? (
                 <Alert type="success" message="Approve Akunting" banner />
-              ) : StatusApproveAct === "N" && TanggalACT3 === "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z"? (
+              ) : StatusApproveAct === "N" && TanggalACT3 === "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z" ? (
                 <Alert type="error" message="Reject Akunting" banner />
-              ) : StatusApproveAct === "N" && TanggalACT3 !== "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z"? (
+              ) : StatusApproveAct === "N" && TanggalACT3 !== "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z" ? (
                 <Alert type="info" message="Waiting Akunting" banner />
               ) : null}
 
               {Kendaraan_operasionalStatus === "Y" && TanggalACT4 != null ? (
                 <Alert type="success" message="Approve Operasional" banner />
-              ) : StatusApproveOpt === "N" && TanggalACT4 === "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z"? (
-                <Alert type="error" message="Reject Operasional" banner />
-              ) : StatusApproveOpt === "N" && TanggalACT4 !== "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z"? (
+              ) : StatusApproveOpt === "N" && TanggalACT4 === "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z" ? (
                 <Alert type="info" message="Waiting Operasional" banner />
+              ) : StatusApproveOpt === "N" && TanggalACT4 !== "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z" ? (
+                <Alert type="error" message="Reject Operasional" banner />
               ) : null}
 
               {StatusPurchasing === "Y" && TanggalACT5 != null ? (
                 <Alert type="success" message="Approve Purchasing" banner />
-              ) : StatusPurchasing === "N" && TanggalACT5 === "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z"? (
-                <Alert type="error" message="Reject Purchasing" banner />
-              ) : StatusPurchasing === "N" && TanggalACT5 !== "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z"? (
+              ) : StatusPurchasing === "N" && TanggalACT5 === "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z" ? (
                 <Alert type="info" message="Waiting Purchasing" banner />
+              ) : StatusPurchasing === "N" && TanggalACT5 !== "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z" ? (
+                <Alert type="error" message="Reject Purchasing" banner />
               ) : null}
 
               {jobdesk === "operasional" && (
@@ -2544,7 +2543,7 @@ console.log(`StatusApproveOpt`,StatusApproveOpt);
                 IsiDataSPSemua.detail.map((data, index) => (
                   <>
                     <tr style={{ fontWeight: "bold" }}>
-                      <td colSpan={10}>
+                      <td colSpan={20}>
                         {/* <hr /> */}
                         <br />{" "}
                       </td>
@@ -2555,12 +2554,12 @@ console.log(`StatusApproveOpt`,StatusApproveOpt);
                         backgroundColor: "#dff0d8",
                       }}
                     >
-                      <td style={{backgroundColor :"transparent"}}>{index + 1}.</td>
-                      <td style={{backgroundColor :"transparent"}} colSpan={12}>Alamat Muat</td>
+                      <td style={{ backgroundColor: "transparent" }}>{index + 1}.</td>
+                      <td style={{ backgroundColor: "transparent" }} colSpan={20}>Alamat Muat</td>
                     </tr>
 
                     <tr key={index}>
-                      <td colSpan={11}>{data.pickup}</td>
+                      <td colSpan={20}>{data.pickup}</td>
                     </tr>
 
                     {spdetailsemuanyasekarang &&
@@ -2573,19 +2572,27 @@ console.log(`StatusApproveOpt`,StatusApproveOpt);
                               backgroundColor: "#b7d1f8",
                             }}
                           >
-                            <td style={{backgroundColor :"transparent"}}>{index + 1}. </td>
-                            <td style={{backgroundColor :"transparent"}}>Alamat Bongkar</td>
-                            <td style={{backgroundColor :"transparent"}} width="100px">SJ ID</td>
-                            <td style={{backgroundColor :"transparent"}}>Kendaraan</td>
-                            <td style={{backgroundColor :"transparent"}}>Via</td>
-                            <td style={{backgroundColor :"transparent"}}>Service</td>
-                            <td style={{backgroundColor :"transparent"}}>Item</td>
-                            <td style={{backgroundColor :"transparent"}}>Berat</td>
-                            <td style={{backgroundColor :"transparent"}}>Qty</td>
-                            <td style={{backgroundColor :"transparent"}} >Tarif</td>
-                            <td style={{backgroundColor :"transparent"}} width="50px">Biaya Muat</td>
-                            <td style={{backgroundColor :"transparent"}} width="50px">Biaya Bongkar</td>
-                            <td style={{backgroundColor :"transparent"}} width="50px">Total</td>
+                            <td style={{ backgroundColor: "transparent" }}>No. {index + 1}</td>
+                            <td style={{ backgroundColor: "transparent" }}>Alamat Bongkar</td>
+                            <td style={{ backgroundColor: "transparent" }} width="100px">NO SJ</td>
+                            <td style={{ backgroundColor: "transparent" }}>Kendaraan</td>
+                            <td style={{ backgroundColor: "transparent" }}>Service</td>
+                            <td style={{ backgroundColor: "transparent" }}>Via</td>
+                            <td style={{ backgroundColor: "transparent" }}>Item</td>
+                            <td style={{ backgroundColor: "transparent" }}>Shipment</td>
+                            <td style={{ backgroundColor: "transparent" }}>Berat</td>
+                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Jalan</td>
+                            <td style={{ backgroundColor: "transparent" }} width="250px">Biaya Jalan {data?.service[0]}</td>
+                            <td style={{ backgroundColor: "transparent" }}>Qty</td>
+                            <td style={{ backgroundColor: "transparent" }} width="150px">Harga Muat</td>
+                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Mel</td>
+                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Lain</td>
+                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Bongkar</td>
+                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Multi Drop</td>
+                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Multi Muat</td>
+                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Over Tonase</td>
+                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Tambahan</td>
+                            <td style={{ backgroundColor: "transparent" }} width="150px">Total</td>
                             {jobdesk != "akunting" ? (
                               <td colSpan={2}>Aksi</td>
                             ) : (
@@ -2684,51 +2691,72 @@ console.log(`StatusApproveOpt`,StatusApproveOpt);
                             <td>{data.destination}</td>
                             <td>{data.noSJ}</td>
                             <td>{data.kendaraan}</td>
-                            <td>{data?.service}</td>
+                            <td>{"reas"}</td>
                             <td>{data?.via}</td>
                             <td>{data.item}</td>
+                            <td>{data.shipmentName}</td>
                             <td>{data.berat}</td>
+                            <td>{data.Price?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td>
+                            {data?.service[0] === "Retail" ?
+                              <td>
+                                {(data.berat * data.Price).toLocaleString("id-ID", {
+                                  style: "currency",
+                                  currency: "IDR",
+                                })}
+                              </td> :
+                              <td>
+                                {(data.Price).toLocaleString("id-ID", {
+                                  style: "currency",
+                                  currency: "IDR",
+                                })}
+                              </td>
+                            }
+
+
                             <td>{data.qty}</td>
-                            <td>
-                              {data.Price?.toLocaleString("id-ID", {
+                            <td>{data.harga_muat?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td>
+                            <td>{data.biayaMel?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td>
+                            <td>{data.biayaLain?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td>
+                            {/* <td>{data.Price?.toLocaleString("id-ID", {
                                 style: "currency",
                                 currency: "IDR",
-                              })}
-                            </td>
-                            <td>
-                              {data.harga_muat?.toLocaleString("id-ID", {
-                                style: "currency",
-                                currency: "IDR",
-                              })}
-                            </td>
-                            <td>
-                              {data.harga_bongkar?.toLocaleString("id-ID", {
-                                style: "currency",
-                                currency: "IDR",
-                              })}
-                            </td>
-                            {serviceState === "Charter" ?
-                              <>
-                                <td>
-                                  {data.totalBiayaCharter?.toLocaleString("id-ID", {
-                                    style: "currency",
-                                    currency: "IDR",
-                                  })}
-                                </td>
-                              </> : <>
-                                <td>
-                                  {data.total?.toLocaleString("id-ID", {
-                                    style: "currency",
-                                    currency: "IDR",
-                                  })}
-                                </td>
-                                {/* <td>
-                                  {data.totalBiayaRetail?.toLocaleString("id-ID", {
-                                    style: "currency",
-                                    currency: "IDR",
-                                  })}
-                                </td> */}
-                              </>}
+                            })}</td> */}
+                            <td>{data.harga_bongkar?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td>
+                            <td>{data.biaya_multi_drop?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td>
+                            <td>{data.biaya_multimuat?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td>
+                            <td>{data.biaya_overtonase?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td>
+                            <td>{data.biaya_tambahan?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td>
+                            <td>{data.total?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td>
 
                             <td>
                               {/* {jobdesk == "operasional" &&
@@ -2865,175 +2893,249 @@ console.log(`StatusApproveOpt`,StatusApproveOpt);
                   </>
                 ))}
             </tbody>
-            <tfoot>
-              <tr style={{ fontWeight: "bold" }}>
-                <td colSpan={12} width="150px" className="text-right">
-                  Sub Total
-                </td>
-                <td width="160px">
-                  {" "}
-                  {IsiDataSPSemua?.subTotal?.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </td>
-              </tr>
-            </tfoot>
           </Table>
           {/* {(jobdesk === "purchasing") && ( */}
-          <Table>
-            <Row>
+          <Row>
+            <Col
+              span={12}
+              style={{ marginLeft: "10px" }}
+              className="d-flex justify-content-end"
+            >
+              <div>
+                <tr style={{ fontWeight: "bold" }}>
+                  <td style={{ paddingRight: "20px" }}>Total Muat</td>
+                  <td style={{ paddingRight: "10px" }}>:</td>
+                  <td width="150px" style={{ paddingLeft: "10px" }}>
+                    {IsiDataSPSemua?.totalMuat?.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    })}
+                  </td>
+                </tr>
+              </div>
+            </Col>
+          </Row>
+          <Row>
 
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}>Biaya Muat</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="150px" style={{ paddingLeft: "10px" }}>
-                      {IsiDataSPSemua?.totalMuat?.toLocaleString("id-ID", {
+            <Col
+              span={12}
+              style={{ marginLeft: "10px" }}
+              className="d-flex justify-content-end"
+            >
+              <div>
+                <tr style={{ fontWeight: "bold" }}>
+                  <td style={{ paddingRight: "20px" }}> Total Bongkar </td>
+                  <td style={{ paddingRight: "10px" }}>:</td>
+                  <td width="150px" style={{ paddingLeft: "10px" }}>
+                    {IsiDataSPSemua?.totalBongkar?.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    })}
+                  </td>
+                </tr>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col
+              span={12}
+              style={{ marginLeft: "10px" }}
+              className="d-flex justify-content-end"
+            >
+              <div>
+                <tr style={{ fontWeight: "bold" }}>
+                  <td style={{ paddingRight: "20px" }}> Biaya Multimuat</td>
+                  <td style={{ paddingRight: "10px" }}>:</td>
+                  <td width="150px" style={{ paddingLeft: "10px" }}>
+                    {IsiDataSPSemua?.biayaMultiMuat?.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    }) === undefined ? "Rp 0,00" : IsiDataSPSemua?.biayaMultiMuat?.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    })}
+                  </td>
+                </tr>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+
+            <Col
+              span={12}
+              style={{ marginLeft: "10px" }}
+              className="d-flex justify-content-end"
+            >
+              <div>
+                <tr style={{ fontWeight: "bold" }}>
+                  <td style={{ paddingRight: "20px" }}>    Biaya Mel</td>
+                  <td style={{ paddingRight: "10px" }}>:</td>
+                  <td width="150px" style={{ paddingLeft: "10px" }}>
+                    {IsiDataSPSemua?.biayaMel?.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR"
+                    })
+                      === undefined ? "Rp 0,00" : IsiDataSPSemua?.biayaMel?.toLocaleString("id-ID", {
                         style: "currency",
                         currency: "IDR",
                       })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
-            <Row>
+                  </td>
+                </tr>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col
+              span={12}
+              style={{ marginLeft: "10px" }}
+              className="d-flex justify-content-end"
+            >
+              <div>
+                <tr style={{ fontWeight: "bold" }}>
+                  <td style={{ paddingRight: "20px" }}>    Biaya Lain</td>
+                  <td style={{ paddingRight: "10px" }}>:</td>
+                  <td width="150px" style={{ paddingLeft: "10px" }}>
+                    {IsiDataSPSemua?.biayaLain?.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    }) === undefined ? "Rp 0,00" : IsiDataSPSemua?.biayaLain?.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    })}
+                  </td>
+                </tr>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col
+              span={12}
+              style={{ marginLeft: "10px" }}
+              className="d-flex justify-content-end"
+            >
+              <div>
+                <tr style={{ fontWeight: "bold" }}>
+                  <td style={{ paddingRight: "20px" }}> Biaya Tambahan</td>
+                  <td style={{ paddingRight: "10px" }}>:</td>
+                  <td width="150px" style={{ paddingLeft: "10px" }}>
+                    {IsiDataSPSemua?.biayaTambahan?.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    }) === undefined ? "Rp 0,00" : IsiDataSPSemua?.biayaTambahan?.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    })}
+                  </td>
+                </tr>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col
+              span={12}
+              style={{ marginLeft: "10px" }}
+              className="d-flex justify-content-end"
+            >
+              <div>
+                <tr style={{ fontWeight: "bold" }}>
+                  <td style={{ paddingRight: "20px" }}> Harga Selanjutnya</td>
+                  <td style={{ paddingRight: "10px" }}>:</td>
+                  <td width="150px" style={{ paddingLeft: "10px" }}>
+                    {IsiDataSPSemua?.hargaSelanjutnya?.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    }) === undefined ? "Rp 0,00" : IsiDataSPSemua?.hargaSelanjutnya?.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    })}
+                  </td>
+                </tr>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col
+              span={12}
+              style={{ marginLeft: "10px" }}
+              className="d-flex justify-content-end"
+            >
+              <div>
+                <tr style={{ fontWeight: "bold" }}>
+                  <td style={{ paddingRight: "20px" }}>Total Overtonase</td>
+                  <td style={{ paddingRight: "10px" }}>:</td>
+                  <td width="150px" style={{ paddingLeft: "10px" }}>
+                    {IsiDataSPSemua?.totalovertonase?.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    })}
+                  </td>
+                </tr>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col
+              span={12}
+              style={{ marginLeft: "10px" }}
+              className="d-flex justify-content-end"
+            >
+              <div>
+                <tr style={{ fontWeight: "bold" }}>
+                  <td style={{ paddingRight: "20px" }}>   Biaya Multidrop</td>
+                  <td style={{ paddingRight: "10px" }}>:</td>
+                  <td width="150px" style={{ paddingLeft: "10px" }}>
+                    {IsiDataSPSemua?.biayaMultiDrop?.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    })}
+                  </td>
+                </tr>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col
+              span={12}
+              style={{ marginLeft: "10px" }}
+              className="d-flex justify-content-end"
+            >
+              <div>
+                <tr style={{ fontWeight: "bold" }}>
+                  <td style={{ paddingRight: "20px" }}>   Biaya Jalan</td>
+                  <td style={{ paddingRight: "10px" }}>:</td>
+                  <td width="150px" style={{ paddingLeft: "10px" }}>
+                    {IsiDataSPSemua?.tarif?.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    })}
+                  </td>
+                </tr>
+              </div>
+            </Col>
+          </Row>
 
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}> Biaya Bongkar </td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="150px" style={{ paddingLeft: "10px" }}>
-                      {IsiDataSPSemua?.totalBongkar?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
-            <Row>
+          <hr />
+          <Row>
 
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}>Biaya Mel</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="150px" style={{ paddingLeft: "10px" }}>
-                      Rp. 0,00
-                      {/* {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })} */}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}> Biaya Inap</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="150px" style={{ paddingLeft: "10px" }}>
-                      Rp. 0,00
-                      {/* {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })} */}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}> Biaya MultiDrop</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="150px" style={{ paddingLeft: "10px" }}>
-                      Rp 0,00 {IsiDataSPSemua?.biaya_multidrop?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}>Biaya Overtonase</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="150px" style={{ paddingLeft: "10px" }}>
-                      Rp 0,00  {IsiDataSPSemua?.biaya_overtonase?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
-
-            <hr />
-            <Row>
-
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}>TOTAL KESELURUHAN</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="150px" style={{ paddingLeft: "10px" }}>
-                      {IsiDataSPSemua?.Totalprice?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
-          </Table>
+            <Col
+              span={12}
+              style={{ marginLeft: "10px" }}
+              className="d-flex justify-content-end"
+            >
+              <div>
+                <tr style={{ fontWeight: "bold" }}>
+                  <td style={{ paddingRight: "20px" }}>   TOTAL KESELURUHAN</td>
+                  <td style={{ paddingRight: "10px" }}>:</td>
+                  <td width="150px" style={{ paddingLeft: "10px" }}>
+                    {IsiDataSPSemua?.totalFix?.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    })}
+                  </td>
+                </tr>
+              </div>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </>
