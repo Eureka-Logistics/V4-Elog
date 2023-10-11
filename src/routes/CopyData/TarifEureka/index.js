@@ -490,17 +490,17 @@ const SamplePage = () => {
     /> */}
         <Table responsive>
           <thead style={{ backgroundColor: "#1A5CBF", color: "white" }}>
-            <tr>
-              <th>No.</th>
-              <th>Jenis Kiriman</th>
-              <th>Muat</th>
-              <th>Tujuan</th>
-              <th>Jenis Kendaraan</th>
-              <th>Tarif</th>
-              <th>Max Tonase(kg/koli)</th>
-              <th>Satuan</th>
-              <th>Harga</th>
-              <th>Action</th>
+            <tr style={{ textAlign: 'start' }}>
+            <th style={{ backgroundColor: 'transparent', color: 'white', verticalAlign: 'middle' }}>No.</th>
+              <th style={{backgroundColor: 'transparent', color: 'white'}}>Jenis Kiriman</th>
+              <th style={{ backgroundColor: 'transparent', color: 'white', verticalAlign: 'middle' }}>Muat</th>
+              <th style={{ backgroundColor: 'transparent', color: 'white', verticalAlign: 'middle' }}>Tujuan</th>
+              <th style={{backgroundColor: 'transparent', color: 'white'}}>Jenis Kendaraan</th>
+              <th style={{ backgroundColor: 'transparent', color: 'white', verticalAlign: 'middle' }}>Tarif</th>
+              <th style={{backgroundColor: 'transparent', color: 'white'}}>Max Tonase(kg/koli)</th>
+              <th style={{ backgroundColor: 'transparent', color: 'white', verticalAlign: 'middle' }}>Satuan</th>
+              <th style={{ backgroundColor: 'transparent', color: 'white', verticalAlign: 'middle' }}>Harga</th>
+              <th style={{ backgroundColor: 'transparent', color: 'white', verticalAlign: 'middle' }}>Action</th>
             </tr>
           </thead>
           <tbody>

@@ -315,7 +315,7 @@ function EditDetailAlamat() {
               showSearch
               //   value={DataDetailAddress?.kode_wilayah}
               placeholder={
-                <span style={{ color: "black" }}>{DataKodeWilayah}</span>
+                <span style={{ color: "black" }}>{DataDetailAddress.kode_wilayah}</span>
               }
               optionFilterProp="value"
               style={{ width: "100%" }}

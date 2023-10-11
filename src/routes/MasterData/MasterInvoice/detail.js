@@ -49,8 +49,8 @@ function Detail() {
       setDataNPWP(respons?.data?.data[0].npwp || "");
       setDataAddressOffice(respons?.data?.data[0].addressOffice || "");
       setDataAddressGoogle(respons?.data?.data[0].addressGoogle || "");
-      setDataAddressNPWP(respons?.data?.data[0].address_npwp || "");
-      setDataFormatNPWP(respons?.data?.data[0].format_npwp || "");
+      setDataAddressNPWP(respons?.data?.data[0].addressNpwp || "");
+      setDataFormatNPWP(respons?.data?.data[0].formatNpwp || "");
     } catch (error) {}
   };
 
@@ -228,7 +228,7 @@ function Detail() {
             <label style={{ fontWeight: "bold" }}>Address NPWP :</label>
             <Input
               className="mt-2 mb-2"
-              placeholder={DataInvoice?.address_npwp}
+              placeholder={DataInvoice?.addressNpwp}
               value={DataAddressNPWP}
               onChange={(e) => {
                 console.log(e.target.value);
@@ -240,7 +240,7 @@ function Detail() {
             <label style={{ fontWeight: "bold" }}>Format NPWP :</label>
             <Input
               className="mt-2 mb-2"
-              placeholder={DataInvoice?.format_npwp}
+              placeholder={DataInvoice?.formatNpwp}
               value={DataFormatNPWP}
               onChange={(e) => {
                 console.log(e.target.value);

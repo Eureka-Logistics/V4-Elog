@@ -110,8 +110,9 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               <Col span={24} className="d-flex justify-content-center">
                 <Avatar
                   src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
-                  className="gx-size-60 gx-pointer gx-mr-3"
+                  className="gx-size-50 gx-pointer gx-mr-4"
                   alt=""
+                  style={{width: '100%'}}
                 />
                 <div >
                   <b style={{ color: "black" }}>
@@ -1792,6 +1793,36 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         : "menu-item-hover"
                     }
                   >
+                    <Link to="/DataBuEmployeePosition" style={{ textDecoration: "none" }}>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <UserAddOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Employee Position
+                        </span>
+                      </div>
+                    </Link>
+                  </Menu.Item>
+                  {/* <Menu.Item
+                    key="Data Employee Position"
+                    className={
+                      activeMenu === "/DataBuEmployeePosition"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
                     <Link
                       to="/DataBuEmployeePosition"
                       style={{ textDecoration: "none" }}
@@ -1816,7 +1847,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         </span>
                       </div>
                     </Link>
-                  </Menu.Item>
+                  </Menu.Item> */}
                 </>
               ) : null}
 
