@@ -88,6 +88,7 @@ const SamplePage = () => {
     },
   ];
 
+
   const formik = useFormik({
     initialValues: {
       id_muat_kota: kota?.value,
@@ -95,8 +96,9 @@ const SamplePage = () => {
       id_kendaraan_jenis: jenisKendaraan?.value,
       id_mitra: IdMitra?.value,
       service_type: "",
-      jenis_kiriman: jenisKiriman,
-      via: via?.label,
+      jenis_kiriman: jenisKiriman.label,
+      // via: via?.label,
+      
       tarif: Tarif,
       ritase: Ritase,
       uang_jalan: UangJalan,
@@ -114,6 +116,7 @@ const SamplePage = () => {
           tarif: Tarif,
           ritase: Ritase,
           uang_jalan: UangJalan,
+          via: via.label
         })
         .then(({ data }) => {
           notification.success({

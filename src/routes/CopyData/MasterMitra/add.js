@@ -508,6 +508,7 @@ const SamplePage = () => {
                  <Form.Label style={{fontWeight: "bold"}}>Akhir Kontrak :</Form.Label>
                 <InputGroup>
                   <Form.Control
+                  
                     name="akhir_kontrak"
                     value={formik.values.akhir_kontrak}
                     onChange={formik.handleChange}

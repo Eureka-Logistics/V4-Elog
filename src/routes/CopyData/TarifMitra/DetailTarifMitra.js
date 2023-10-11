@@ -40,7 +40,7 @@ function DetailTarifMitra() {
   const [DataIDKotaTujuan, setDataIDKotaTujuan] = useState("");
   const [IDJenisKiriman, setIDJenisKiriman] = useState("");
   const [IDJenisKendaraan, setIDJenisKendaraan] = useState("");
-
+  const [createdData, setCreatedData] = useState("");
 
   const fetchData = async () => {
     try {
@@ -99,6 +99,8 @@ function DetailTarifMitra() {
       setJenisKendaraan(respons.data.order[0].kendaraanJenis);
       setServiceType(respons.data.order[0].service_type);
       setTarif(respons.data.order[0].tarif);
+      setDataVia(respons.data.order[0].via);
+      setCreatedData(respons.data.order[0].date_created);
       //   console.log("responssssscarismid", respons.data.data);
 
       //   setDataTambah(respons.data);
@@ -119,7 +121,7 @@ function DetailTarifMitra() {
         tarif: parseInt(tarif),
         ritase: parseInt(ritase),
         uang_jalan: parseInt(uangJalan),
-        via: viaData,
+        via: ViaData,
       };
 
       const response = await axios.post(
@@ -148,7 +150,6 @@ function DetailTarifMitra() {
         setTimeout(() => {
           window.location.href = "/tarifmitra";
         }, 1000);
-     
       } else if (response.status === 500) {
         // Swal.fire({
         //     icon: 'error',
@@ -174,14 +175,12 @@ function DetailTarifMitra() {
     fetchData();
     fetchSelectMitra();
     DetailTarifMitra(id_price);
-    
   }, [ritase]);
 
   const handleChange = (value) => {
     console.log(`Selected option: ${value}`);
     setViaData(value);
   };
-
 
   const toRupiah = (angka) => {
     var rupiah = "";
@@ -194,41 +193,54 @@ function DetailTarifMitra() {
       .join("")}`;
   };
 
-    const formatTarif = (value) => {
-      // Menghapus semua karakter selain angka
-      const numericValue = value.replace(/[^0-9]/g, '');
+  const formatTarif = (value) => {
+    // Menghapus semua karakter selain angka
+    const numericValue = value.replace(/[^0-9]/g, "");
 
-      // Menambahkan titik setiap 3 digit dari belakang
-      const formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    // Menambahkan titik setiap 3 digit dari belakang
+    const formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-      return formattedValue;
-    };
+    return formattedValue;
+  };
 
-    const handleTarifChange = (e) => {
-      const inputValue = e.target.value;
-      const formattedValue = formatTarif(inputValue);
+  const handleTarifChange = (e) => {
+    const inputValue = e.target.value;
+    const formattedValue = formatTarif(inputValue);
 
-      setTarif(formattedValue);
-    };
+    setTarif(formattedValue);
+  };
 
-    
+  console.log(ViaData);
+  function handleClick(value, option) {
+    console.log("Selected Value:", value);
+    console.log("Selected Option:", option);
 
-  
+    // Check if ViaData is an array
+    if (!Array.isArray(ViaData)) {
+      setDataVia([value]);
+    } else {
+      // Spread the previous state only if it's an array
+      setDataVia([...ViaData, value]);
+    }
+  }
+  console.log(DataTambah.via);
 
   return (
     <div>
       <Card>
-        <h5 style={{color: '#113D7F', fontWeight: 'bold'}}>Edit dan Detail Tarif Mitra</h5>
+        <h5 style={{ color: "#113D7F", fontWeight: "bold" }}>
+          Edit dan Detail Tarif Mitra
+        </h5>
         <Row>
-          <Col className="mt-2" span={8}>
-            <label style={{fontWeight: 'bold'}}>Nama Mitra :</label>
+          <Col className="mt-2" span={6}>
+            <label style={{ fontWeight: "bold" }}>Nama Mitra :</label>
             <Select
               className="mt-2"
               showSearch
               // placeholder={DetailDataTarif.mitra}
               value={customers}
               optionFilterProp="value"
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               onChange={(e, options) => {
                 console.log(options.key);
                 setCustomers(options);
@@ -246,15 +258,15 @@ function DetailTarifMitra() {
                 ))}
             </Select>
           </Col>
-          <Col className="mt-2" span={8}>
-            <label style={{fontWeight: 'bold'}}>Kota Muat :</label>
+          <Col className="mt-2" span={6}>
+            <label style={{ fontWeight: "bold" }}>Kota Muat :</label>
             <Select
-            className="mt-2"
+              className="mt-2"
               showSearch
               // placeholder={DetailDataTarif.kotaAsal}
               value={mitraId}
               optionFilterProp="value"
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               onChange={(e, options) => {
                 console.log(options.key);
                 setmitraId(options);
@@ -272,15 +284,15 @@ function DetailTarifMitra() {
                 ))}
             </Select>
           </Col>
-          <Col className="mt-2" span={8}>
-            <label style={{fontWeight: 'bold'}}>Kota Tujuan :</label>
+          <Col className="mt-2" span={6}>
+            <label style={{ fontWeight: "bold" }}>Kota Tujuan :</label>
             <Select
               showSearch
               className="mt-2"
               // placeholder={DetailDataTarif.kotaTujuan}
               value={KotaYangDiTuju}
               optionFilterProp="value"
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               onChange={(e, options) => {
                 console.log(options.key);
                 setKotaYangDiTuju(options);
@@ -298,17 +310,31 @@ function DetailTarifMitra() {
                 ))}
             </Select>
           </Col>
+          <Col className="mt-2" span={6}>
+            <label style={{ fontWeight: "bold" }}>Date Created :</label>
+            <Input
+              className="mt-2"
+              disabled
+              type="text"
+              // placeholder={DetailDataTarif.tarif}
+              value={createdData}
+              // onChange={(e) => {
+              //   console.log(e.target.value);
+              //   setTarif(e.target.value);
+              // }}
+            />
+          </Col>
         </Row>
         <Row>
-          <Col className="mt-2" span={8}>
-            <label style={{fontWeight: 'bold'}}>Jenis Kendaraan :</label>
+          <Col className="mt-2" span={6}>
+            <label style={{ fontWeight: "bold" }}>Jenis Kendaraan :</label>
             <Select
               showSearch
               className="mt-2"
               // placeholder={DetailDataTarif.kendaraanJenis}
               value={jenisKendaraan}
               optionFilterProp="value"
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               onChange={(e, options) => {
                 console.log(options.key);
                 console.log(options);
@@ -327,31 +353,46 @@ function DetailTarifMitra() {
                 ))}
             </Select>
           </Col>
-          <Col className="mt-2" span={8}>
-            <label style={{fontWeight: 'bold'}}>Service Type :</label>
+          <Col className="mt-2" span={6}>
+            <label style={{ fontWeight: "bold" }}>Service Type :</label>
             <Select
               className="mt-2"
               placeholder={DetailDataTarif.service_type}
               value={ServiceType}
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               onChange={(e) => setServiceType(e)}
             >
               <Option value="Retail">Retail</Option>
               <Option value="Charter">Charter</Option>
             </Select>
           </Col>
-          <Col className="mt-2" span={8}>
-            <label style={{fontWeight: 'bold'}}>Jenis Kiriman :</label>
+          <Col className="mt-2" span={6}>
+            <label style={{ fontWeight: "bold" }}>Jenis Kiriman :</label>
             <Select
               className="mt-2"
               // placeholder={DetailDataTarif.jenis_kiriman}
               value={Kiriman}
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               onChange={(e) => setJenisKiriman(e)}
             >
               <Option value="Expres">Expres</Option>
               <Option value="Reguler">Reguler</Option>
             </Select>
+          </Col>
+          <Col className="mt-2" span={6}>
+            <label style={{ fontWeight: "bold" }}>Via :</label>
+            <Select
+              className="mt-2"
+              // placeholder={DetailDataTarif.jenis_kiriman}
+              value={ViaData}
+              style={{ width: "100%" }}
+              onChange={(e) => setDataVia(e)}
+            >
+              <Option value="darat">darat</Option>
+              <Option value="laut">laut</Option>
+              <Option value="udara">udara</Option>
+            </Select>
+            
           </Col>
 
           {/* <Col className="mt-2" span={7}>
@@ -381,22 +422,25 @@ function DetailTarifMitra() {
         <br />
         <hr />
 
-        <h5 style={{color: '#113D7F', fontWeight: 'bold'}}>Biaya Penanganan</h5>
+        <h5 style={{ color: "#113D7F", fontWeight: "bold" }}>
+          Biaya Penanganan
+        </h5>
         <Row>
-          <Col className="mt-2" span={8}>
-            <label style={{fontWeight: 'bold'}}>Tarif :</label>
+          <Col className="mt-2" span={6}>
+            <label style={{ fontWeight: "bold" }}>Tarif :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <Input className="mt-2"
-            type="text"
+            <Input
+              className="mt-2"
+              type="text"
               placeholder={DetailDataTarif.tarif}
-              value={tarif} 
+              value={tarif}
               onChange={(e) => {
                 console.log(e.target.value);
                 setTarif(e.target.value);
               }}
             />
           </Col>
-          {/* <Col className="mt-2" span={8}>
+          {/* <Col className="mt-2" span={6}>
             <label style={{fontWeight: 'bold'}}>Ritase :</label>
             Menghubungkan input ritase dengan state ritase
             <Input

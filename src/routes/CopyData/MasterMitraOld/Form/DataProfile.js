@@ -954,10 +954,10 @@ const SamplePage = () => {
                 style={{ width: "100%" }}
                 value={
                   formik.values.akhir_kontrak
-                    ? moment(formik.values.akhir_kontrak, "DD-MM-YYYY")
+                    ? moment(formik.values.akhir_kontrak, "YYYY-MM-DD")
                     : null
                 }
-                format="DD-MM-YYYY" // Format "tanggal bulan tahun"
+                format="YYYY-MM-DD" // Format "tanggal bulan tahun"
                 onChange={(date, dateString) => {
                   formik.setFieldValue("akhir_kontrak", dateString);
                 }}
