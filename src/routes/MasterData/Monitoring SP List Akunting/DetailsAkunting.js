@@ -117,7 +117,7 @@ function DetailsAkunting() {
           );
 
           const approve = data.status;
-
+          StausApprove()
           Swal.fire({
             icon: "success",
             title: "Berhasil",
@@ -162,7 +162,7 @@ function DetailsAkunting() {
               },
             }
           );
-
+          StausApprove()
           Swal.fire({
             icon: "success",
             title: "Berhasil",
@@ -276,7 +276,7 @@ function DetailsAkunting() {
     StausApprove();
   }, []);
 
-  console.log(`statusnya adalah`, actSalesStatus);
+  console.log(`Kendaraan_operasional`, Kendaraan_operasional);
 
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [commentReject, setCommentReject] = useState("");
@@ -418,27 +418,27 @@ function DetailsAkunting() {
                     ApproveAkuntingTgl !== null ? (
                     <Alert type="success" message="Approve Akunting" banner />
                   ) : ApproveAkuntingStatus === "N" &&
-                    ApproveAkuntingTgl !== "1970-01-01T00:00:00.000Z" ? (
-                    <Alert type="error" message="Diverted Akunting" banner />
-                  ) : ApproveAkuntingStatus === "N" &&
-                    ApproveAkuntingTgl !== null && ApproveAkuntingTgl === "1970-01-01T00:00:00.000Z" ? (
+                    ApproveAkuntingTgl !== "1970-01-01T00:00:00.000Z" || "2023-10-11T03:21:34.000Z" ? (
                     <Alert type="info" message="Waiting Akunting" banner />
+                  ) : ApproveAkuntingStatus === "N" &&
+                    ApproveAkuntingTgl !== null && ApproveAkuntingTgl === "1970-01-01T00:00:00.000Z" || "2023-10-11T03:21:34.000Z" ? (
+                    <Alert type="error" message="Reject Akunting" banner />
                   ) : null}
 
                   {Kendaraan_operasional === "Y" && tgl_act_4 != null ? (
                     <Alert type="success" message="Approve Operasional" banner />
-                  ) : Kendaraan_operasional === "N" && tgl_act_4 != "1970-01-01T00:00:00.000Z" ? (
+                  ) : Kendaraan_operasional === "N" && tgl_act_4 != "1970-01-01T00:00:00.000Z" || "2023-10-11T03:21:34.000Z" ? (
                     <Alert type="info" message="Waiting Operasional" banner />
-                  ) : Kendaraan_operasional === "N" && tgl_act_4 === "1970-01-01T00:00:00.000Z" ? (
-                    <Alert type="error" message="Diverted Operasional" banner />
+                  ) : Kendaraan_operasional === "N" && tgl_act_4 === "1970-01-01T00:00:00.000Z" || "2023-10-11T03:21:34.000Z" ? (
+                    <Alert type="error" message="Reject Operasional" banner />
                   ) : null}
 
                   {Kendaraan_purchasing === "Y" && tgl_act_5 !== null ? (
                     <Alert type="success" message="Approve Purchasing" banner />
-                  ) : Kendaraan_purchasing === "N" && tgl_act_5 !== "1970-01-01T00:00:00.000Z" ? (
+                  ) : Kendaraan_purchasing === "N" && tgl_act_5 !== "1970-01-01T00:00:00.000Z" || "2023-10-11T03:21:34.000Z" ? (
                     <Alert type="info" message="Waiting Purchasing" banner />
-                  ) : Kendaraan_purchasing === "N" && tgl_act_5 === "1970-01-01T00:00:00.000Z" ? (
-                    <Alert type="error" message="Diverted Purchasing" banner />
+                  ) : Kendaraan_purchasing === "N" && tgl_act_5 === "1970-01-01T00:00:00.000Z" || "2023-10-11T03:21:34.000Z" ? (
+                    <Alert type="error" message="Reject Purchasing" banner />
                   ) : null}
                 </>
               )}
@@ -449,7 +449,7 @@ function DetailsAkunting() {
                 </Button>
               </div>
 
-              {jobdesk === "sales" && actSalesStatus === "N" ? (
+              {jobdesk === "sales" || actSalesStatus === "N" ? (
                 <>
                   <Button
                     size="sm"
@@ -615,7 +615,7 @@ function DetailsAkunting() {
                   detailData.detail.map((data, index) => (
                     <>
                       <tr style={{ fontWeight: "bold" }}>
-                        <td colSpan={10}>
+                        <td colSpan={20}>
                           <br />
                           <br />{" "}
                         </td>
@@ -624,14 +624,14 @@ function DetailsAkunting() {
                       <tr
                         style={{
                           fontWeight: "bold",
-                          backgroundColor: '#1a5cbf' ,
-                          
+                          backgroundColor: '#1a5cbf',
+
                         }}
                       >
-                       
-                        <td style={{backgroundColor: 'transparent', color: 'white'}}>{index + 1}.</td>
-                        <td colSpan={14}  style={{backgroundColor: 'transparent', color: 'white'}}>Alamat Muat</td>
-                        
+
+                        <td style={{ backgroundColor: 'transparent', color: 'white' }}>{index + 1}.</td>
+                        <td colSpan={20} style={{ backgroundColor: 'transparent', color: 'white' }}>Alamat Muat</td>
+
                       </tr>
                       <tr key={index}>
                         <td>
@@ -660,23 +660,27 @@ function DetailsAkunting() {
 
                               }}
                             >
-                              <td style={{backgroundColor: 'transparent'}}> {index + 1}. </td>
-                              <td style={{backgroundColor: 'transparent'}}>Alamat Bongkar</td>
-                              <td style={{backgroundColor: 'transparent'}} width="100px">NO SM</td>
-                              <td style={{backgroundColor: 'transparent'}}>Kendaraan</td>
-                              <td style={{backgroundColor: 'transparent'}}>Service</td>
-                              <td style={{backgroundColor: 'transparent'}}>Via</td>
-                              <td style={{backgroundColor: 'transparent'}}>Item</td>
-                              <td style={{backgroundColor: 'transparent'}}>Berat</td>
-                              <td style={{backgroundColor: 'transparent'}}>Qty</td>
-                              {jobdesk !== "operasional" && (
-                                <>
-                                  <td style={{backgroundColor: 'transparent'}} width="150px">Tarif</td>
-                                  <td style={{backgroundColor: 'transparent'}} width="150px">Biaya Muat</td>
-                                  <td style={{backgroundColor: 'transparent'}} width="150px">Biaya Bongkar</td>
-                                  <td style={{backgroundColor: 'transparent'}} width="150px">Total</td>
-                                </>
-                              )}
+                              <td style={{ backgroundColor: "transparent" }}>No. {index + 1}</td>
+                              <td style={{ backgroundColor: "transparent" }}>Alamat Bongkar</td>
+                              <td style={{ backgroundColor: "transparent" }} width="100px">NO SJ</td>
+                              <td style={{ backgroundColor: "transparent" }}>Kendaraan</td>
+                              <td style={{ backgroundColor: "transparent" }}>Service</td>
+                              <td style={{ backgroundColor: "transparent" }}>Via</td>
+                              <td style={{ backgroundColor: "transparent" }}>Item</td>
+                              <td style={{ backgroundColor: "transparent" }}>Shipment</td>
+                              <td style={{ backgroundColor: "transparent" }}>Berat</td>
+                              <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Jalan</td>
+                              <td style={{ backgroundColor: "transparent" }} width="250px">Biaya Jalan {data?.service[0]}</td>
+                              <td style={{ backgroundColor: "transparent" }}>Qty</td>
+                              <td style={{ backgroundColor: "transparent" }} width="150px">Harga Muat</td>
+                              <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Mel</td>
+                              <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Lain</td>
+                              <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Bongkar</td>
+                              <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Multi Drop</td>
+                              <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Multi Muat</td>
+                              <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Over Tonase</td>
+                              <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Tambahan</td>
+                              <td style={{ backgroundColor: "transparent" }} width="150px">Total</td>
                             </tr>
 
                             <tr key={index}>
@@ -697,67 +701,72 @@ function DetailsAkunting() {
                               <td>{data.destination}</td>
                               <td>{data.noSJ}</td>
                               <td>{data.kendaraan}</td>
-                              <td>{data.service}</td>
+                              <td>{"reas"}</td>
                               <td>{data?.via}</td>
                               <td>{data.item}</td>
+                              <td>{data.shipmentName}</td>
                               <td>{data.berat}</td>
-                              <td>{data.qty}</td>
-                              {jobdesk !== "operasional" && statusservice === "Charter" && (
-                                <>
-                                  <td>
-                                    {data.Price?.toLocaleString("id-ID", {
-                                      style: "currency",
-                                      currency: "IDR",
-                                    })}
-                                  </td>
-                                  <td>
-                                    {data.harga_muat?.toLocaleString("id-ID", {
-                                      style: "currency",
-                                      currency: "IDR",
-                                    })}
-                                  </td>
-                                  <td>
-                                    {data.harga_bongkar?.toLocaleString("id-ID", {
-                                      style: "currency",
-                                      currency: "IDR",
-                                    })}
-                                  </td>
-                                  <td>
-                                    {data.totalBiayaCharter?.toLocaleString("id-ID", {
-                                      style: "currency",
-                                      currency: "IDR",
-                                    })}
-                                  </td>
-                                </>
-                              )}
-                              {jobdesk !== "operasional" && statusservice === "Retail" &&
-                                <>
-                                  <td>
-                                    {data.Price?.toLocaleString("id-ID", {
-                                      style: "currency",
-                                      currency: "IDR",
-                                    })}
-                                  </td>
-                                  <td>
-                                    {data.harga_muat?.toLocaleString("id-ID", {
-                                      style: "currency",
-                                      currency: "IDR",
-                                    })}
-                                  </td>
-                                  <td>
-                                    {data.harga_bongkar?.toLocaleString("id-ID", {
-                                      style: "currency",
-                                      currency: "IDR",
-                                    })}
-                                  </td>
-                                  <td>
-                                    {data.totalBiayaRetail?.toLocaleString("id-ID", {
-                                      style: "currency",
-                                      currency: "IDR",
-                                    })}
-                                  </td>
-                                </>
+                              <td>{data.Price?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                              {data?.service[0] === "Retail" ?
+                                <td>
+                                  {(data.berat * data.Price).toLocaleString("id-ID", {
+                                    style: "currency",
+                                    currency: "IDR",
+                                  })}
+                                </td> :
+                                <td>
+                                  {(data.Price).toLocaleString("id-ID", {
+                                    style: "currency",
+                                    currency: "IDR",
+                                  })}
+                                </td>
                               }
+
+
+                              <td>{data.qty}</td>
+                              <td>{data.harga_muat?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                              <td>{data.biayaMel?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                              <td>{data.biayaLain?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                              {/* <td>{data.Price?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                            })}</td> */}
+                              <td>{data.harga_bongkar?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                              <td>{data.biaya_multi_drop?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                              <td>{data.biaya_multimuat?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                              <td>{data.biaya_overtonase?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                              <td>{data.biaya_tambahan?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                              <td>{data.total?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
                             </tr>
                           </>
                         ))}
@@ -765,11 +774,11 @@ function DetailsAkunting() {
                   ))}
               </tbody>
 
-              <tfoot>
+              {/* <tfoot>
                 <tr style={{ fontWeight: "bold" }}>
                   {jobdesk !== "operasional" && (
                     <>
-                      <td colSpan={12} width="150px" style={{ textAlign: 'end' }}>
+                      <td colSpan={20} width="150px" style={{ textAlign: 'end' }}>
                         Sub Total
                       </td>
                     </>
@@ -785,19 +794,19 @@ function DetailsAkunting() {
                     </>
                   )}
                 </tr>
-              </tfoot>
+              </tfoot> */}
               <tfoot>
                 <tr style={{ fontWeight: "bold" }}>
                   {jobdesk !== "operasional" && (
                     <>
-                      <td style={{ textAlign: 'end' }} colSpan={12} width="150px" >
-                        Biaya Muat
+                      <td style={{ textAlign: 'end' }} colSpan={20} width="150px" >
+                        Total Muat
                       </td>
                     </>
                   )}
                   {jobdesk !== "operasional" && (
                     <>
-                      <td width="150px">
+                      <td width="130px" style={{ paddingLeft: "10px" }}>
                         {detailData?.totalMuat?.toLocaleString("id-ID", {
                           style: "currency",
                           currency: "IDR",
@@ -811,46 +820,18 @@ function DetailsAkunting() {
                 <tr style={{ fontWeight: "bold" }}>
                   {jobdesk !== "operasional" && (
                     <>
-                      <td style={{ textAlign: 'end' }} colSpan={12} width="150px" >
-                        Biaya Bongkar
+                      <td style={{ textAlign: 'end' }} colSpan={20} width="150px" >
+                        Total Bongkar
                       </td>
                     </>
                   )}
                   {jobdesk !== "operasional" && (
                     <>
-                      <td width="150px">
-                        {detailData?.totalBongkar?.toLocaleString(
-                          "id-ID",
-                          {
-                            style: "currency",
-                            currency: "IDR",
-                          }
-                        )}
-                      </td>
-                    </>
-                  )}
-                </tr>
-              </tfoot>
-              <tfoot>
-                <tr style={{ fontWeight: "bold" }}>
-                  {jobdesk !== "operasional" && (
-                    <>
-                      <td style={{ textAlign: 'end' }} colSpan={12} width="150px" >
-                        Biaya MultiDrop
-                      </td>
-                    </>
-                  )}
-                  {jobdesk !== "operasional" && (
-                    <>
-                      <td width="150px">
-                        Rp 0,00{" "}
-                        {detailData?.biaya_multidrop?.toLocaleString(
-                          "id-ID",
-                          {
-                            style: "currency",
-                            currency: "IDR",
-                          }
-                        )}
+                      <td width="130px" style={{ paddingLeft: "10px" }}>
+                        {detailData?.totalBongkar?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })}
                       </td>
                     </>
                   )}
@@ -860,66 +841,190 @@ function DetailsAkunting() {
                 <tr style={{ fontWeight: "bold" }}>
                   {jobdesk !== "operasional" && (
                     <>
-                      <td style={{ textAlign: 'end' }} colSpan={12} width="150px" >
+                      <td style={{ textAlign: 'end' }} colSpan={20} width="150px" >
+                        Biaya Multimuat
+                      </td>
+                    </>
+                  )}
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td width="130px" style={{ paddingLeft: "10px" }}>
+                        {detailData?.biayaMultiMuat?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        }) === undefined ? "Rp 0,00" : detailData?.biayaMultiMuat?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })}
+                      </td>
+                    </>
+                  )}
+                </tr>
+              </tfoot>
+              <tfoot>
+                <tr style={{ fontWeight: "bold" }}>
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td style={{ textAlign: 'end' }} colSpan={20} width="150px" >
                         Biaya Mel
                       </td>
                     </>
                   )}
                   {jobdesk !== "operasional" && (
                     <>
-                      <td width="150px">
-                        Rp. 0,00
-                        {detailData?.biayamel?.toLocaleString("id-ID", {
+                      <td width="130px" style={{ paddingLeft: "10px" }}>
+                        {detailData?.biayaMel?.toLocaleString("id-ID", {
                           style: "currency",
-                          currency: "IDR",
-                        })}
-                      </td>
-                    </>
-                  )}
-                </tr>
-              </tfoot>
-              <tfoot>
-                <tr style={{ fontWeight: "bold" }}>
-                  {jobdesk !== "operasional" && (
-                    <>
-                      <td style={{ textAlign: 'end' }} colSpan={12} width="150px" >
-                        Biaya Inap
-                      </td>
-                    </>
-                  )}
-                  {jobdesk !== "operasional" && (
-                    <>
-                      <td width="150px">
-                        Rp. 0,00
-                        {detailData?.biayainap?.toLocaleString("id-ID", {
-                          style: "currency",
-                          currency: "IDR",
-                        })}
-                      </td>
-                    </>
-                  )}
-                </tr>
-              </tfoot>
-              <tfoot>
-                <tr style={{ fontWeight: "bold" }}>
-                  {jobdesk !== "operasional" && (
-                    <>
-                      <td style={{ textAlign: 'end' }} colSpan={12} width="150px" >
-                        Biaya Overtonase
-                      </td>
-                    </>
-                  )}
-                  {jobdesk !== "operasional" && (
-                    <>
-                      <td width="150px">
-                        Rp 0,00{" "}
-                        {detailData?.biaya_overtonase?.toLocaleString(
-                          "id-ID",
-                          {
+                          currency: "IDR"
+                        })
+                          === undefined ? "Rp 0,00" : detailData?.biayaMel?.toLocaleString("id-ID", {
                             style: "currency",
                             currency: "IDR",
-                          }
-                        )}
+                          })}
+                      </td>
+                    </>
+                  )}
+                </tr>
+              </tfoot>
+              <tfoot>
+                <tr style={{ fontWeight: "bold" }}>
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td style={{ textAlign: 'end' }} colSpan={20} width="150px" >
+                        Biaya Lain
+                      </td>
+                    </>
+                  )}
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td width="150px">
+                        {detailData?.biayaLain?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        }) === undefined ? "Rp 0,00" : detailData?.biayaLain?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })}
+                      </td>
+                    </>
+                  )}
+                </tr>
+              </tfoot>
+              <tfoot>
+                <tr style={{ fontWeight: "bold" }}>
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td style={{ textAlign: 'end' }} colSpan={20} width="150px" >
+                        Biaya Tambahan
+                      </td>
+                    </>
+                  )}
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td width="150px">
+                        {detailData?.biayaTambahan?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        }) === undefined ? "Rp 0,00" : detailData?.biayaTambahan?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })}
+                      </td>
+                    </>
+                  )}
+                </tr>
+              </tfoot>
+              <tfoot>
+                <tr style={{ fontWeight: "bold" }}>
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td style={{ textAlign: 'end' }} colSpan={20} width="150px" >
+                        Harga Selanjutnya
+                      </td>
+                    </>
+                  )}
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td width="150px">
+                        {detailData?.hargaSelanjutnya?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        }) === undefined ? "Rp 0,00" : detailData?.hargaSelanjutnya?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })}
+                      </td>
+                    </>
+                  )}
+                </tr>
+              </tfoot>
+              <tfoot>
+                <tr style={{ fontWeight: "bold" }}>
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td style={{ textAlign: 'end' }} colSpan={20} width="150px" >
+                        Total Overtonase
+                      </td>
+                    </>
+                  )}
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td width="150px">
+                        {detailData?.totalovertonase?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        }) === undefined ? "Rp 0,00" : detailData?.totalovertonase?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })}
+                      </td>
+                    </>
+                  )}
+                </tr>
+              </tfoot>
+              <tfoot>
+                <tr style={{ fontWeight: "bold" }}>
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td style={{ textAlign: 'end' }} colSpan={20} width="150px" >
+                        Biaya Multidrop
+                      </td>
+                    </>
+                  )}
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td width="150px">
+                        {detailData?.biayaMultiDrop?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        }) === undefined ? "Rp 0,00" : detailData?.biayaMultiDrop?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })}
+                      </td>
+                    </>
+                  )}
+                </tr>
+              </tfoot>
+              <tfoot>
+                <tr style={{ fontWeight: "bold" }}>
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td style={{ textAlign: 'end' }} colSpan={20} width="150px" >
+                        Biaya Jalan
+                      </td>
+                    </>
+                  )}
+                  {jobdesk !== "operasional" && (
+                    <>
+                      <td width="150px">
+                        {detailData?.tarif?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        }) === undefined ? "Rp 0,00" : detailData?.tarif?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })}
                       </td>
                     </>
                   )}
@@ -932,7 +1037,7 @@ function DetailsAkunting() {
 
                 <Row>
                   <Col
-                    span={12}
+                    span={20}
                     style={{ marginLeft: "10px" }}
                     className="d-flex justify-content-end mt-2 mb-2"
                   >
@@ -951,7 +1056,7 @@ function DetailsAkunting() {
                             </td>
                             <td style={{ paddingRight: "10px" }}>:</td>
                             <td width="150px" style={{ paddingLeft: "10px" }}>
-                              {detailData?.Totalprice?.toLocaleString("id-ID", {
+                              {detailData?.totalFix?.toLocaleString("id-ID", {
                                 style: "currency",
                                 currency: "IDR",
                               })}
@@ -1092,10 +1197,10 @@ function DetailsAkunting() {
             <Table responsive>
               <thead>
                 <tr style={{ fontWeight: "bold", backgroundColor: "#f4dddd" }}>
-                  <td style={{backgroundColor: 'transparent'}}>No</td>
-                  <td style={{backgroundColor: 'transparent'}}>Comment</td>
-                  <td style={{backgroundColor: 'transparent'}}>User</td>
-                  <td style={{backgroundColor: 'transparent'}}>Tgl Comment</td>
+                  <td style={{ backgroundColor: 'transparent' }}>No</td>
+                  <td style={{ backgroundColor: 'transparent' }}>Comment</td>
+                  <td style={{ backgroundColor: 'transparent' }}>User</td>
+                  <td style={{ backgroundColor: 'transparent' }}>Tgl Comment</td>
                 </tr>
               </thead>
               <tbody>

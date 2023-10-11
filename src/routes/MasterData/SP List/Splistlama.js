@@ -11,10 +11,12 @@ import Swal from "sweetalert2";
 import { Pagination } from "antd";
 import SpStore from "../../../zustand/Store/FilterSP";
 import DetailUserLoginZustand from "../../../zustand/Store/DetailUserLogin/Index";
-import { array } from "prop-types";
+import { array, func } from "prop-types";
 import "../Monitoring SP List Akunting/style.css"
+import NamaCabangStore from "../../../zustand/Store/NamaCabang";
 function SPListlama() {
   const DetailUserLoginZustandState = DetailUserLoginZustand((i) => i?.DetailUserLoginZustandState)
+  const NamaCabang = NamaCabangStore(state => state.NamaCabang);
 
   const [isiData, setIsiData] = useState([]);
   const [Loading, setLoading] = useState(false);
@@ -51,7 +53,7 @@ function SPListlama() {
       { label: "-", value: "" },
       ...SPFilter.cabang.map((item) => ({
         label: item.cabang,
-        value: nomor++,
+        value: item.cabang,
       })),
     ];
   const CariSalesOptions = SPFilter &&
@@ -92,13 +94,23 @@ function SPListlama() {
       console.error(error);
     }
   }
+  console.log(`CariCabangValue`, CariCabangValue);
+  console.log(`CariCabangOptions`, CariCabangOptions);
+
+  function ganticabang() {
+    if (!CariCabangValue) {
+      return NamaCabang
+    } else if (CariCabangValue){
+      return CariCabangValue
+    }
+  }
 
 
   const ApiDataAwal = async (page = 1, pageSize = 10) => {
     try {
       setLoading(true)
       const data = await axios.get(
-        `${Baseurl}sp/get-SP-all?limit=${pageSize}&page=${page}&keyword=${search}&statusSP=&customerId=${CustumerValue}&cabang=${CariCabangValue}&sales=${CariSalesValue}&buId=${CariBu}`,
+        `${Baseurl}sp/get-SP-all?limit=${pageSize}&page=${page}&keyword=${search}&statusSP=&customerId=${CustumerValue}&codeBrench=${ganticabang()}&sales=${CariSalesValue}&buId=${CariBu}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -330,7 +342,7 @@ function SPListlama() {
               <Tag color="green">
                 Approved <br /> {date}
               </Tag>
-            ) : row.approvePurch === "N" && date === "1970-01-01 07:00:00" || "Invalid date"? (
+            ) : row.approvePurch === "N" && date === "1970-01-01 07:00:00" || "Invalid date" ? (
               <Tag color="yellow">
                 Waiting <br /> {date ? "-" : date}
               </Tag>
@@ -373,7 +385,7 @@ function SPListlama() {
     setSearch(e.target.value);
   };
 
-  
+
 
 
   return (
@@ -406,6 +418,7 @@ function SPListlama() {
                     optionFilterProp="label"
                     showSearch
                     options={CariCabangOptions}
+                    value={ganticabang()}
                     onChange={(e) => setCariCabangValue(e)}
                     placeholder="Cari Cabang"
                     style={{
