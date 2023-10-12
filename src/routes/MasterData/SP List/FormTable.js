@@ -463,7 +463,7 @@ function FormTable({
 
       };
 
-      const response = axios
+      const response =await axios
         .post(`${Baseurl}sp/approve-SP-purch`, body, {
           headers: {
             "Content-Type": "application/json",
@@ -477,6 +477,7 @@ function FormTable({
         title: "Approve Sukses",
         text: "The approval process has been completed successfully.",
       });
+      await messagedetail();
       handleClose();
     } catch (error) {
       console.log(error);
@@ -485,10 +486,7 @@ function FormTable({
         description: error.response.data.status.message,
       })
       handleClose();
-    } finally {
-      messagedetail()
-
-    }
+    } 
 
   };
   const handleAnotherDriverClick = () => {
@@ -2852,65 +2850,103 @@ function FormTable({
                           </tr>
 
 
+                          {data.harga_muat !== 0 && (
+                            <tr>
+                              <td colSpan={6}></td>
+                              <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Harga Muat</td>
+                              <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.harga_muat?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                            </tr>
+                          )}
+
+                          {data.biayaMel !== 0 && (
+                            <tr>
+                              <td colSpan={6}></td>
+                              <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Mel</td>
+                              <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biayaMel?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                            </tr>
+                          )}
+
+                          {data.biayaLain !== 0 && (
+                            <tr>
+                              <td colSpan={6}></td>
+                              <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Lain</td>
+                              <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biayaLain?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                            </tr>
+                          )}
+
+                          {data.harga_bongkar !== 0 && (
+                            <tr>
+                              <td colSpan={6}></td>
+                              <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Bongkar</td>
+                              <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.harga_bongkar?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                            </tr>
+                          )}
+
+                          {data.biaya_multi_drop !== 0 && (
+                            <tr>
+                              <td colSpan={6}></td>
+                              <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Multi Drop</td>
+                              <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_multi_drop?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                            </tr>
+                          )}
+
+                          {data.biaya_multimuat !== 0 && (
+                            <tr>
+                              <td colSpan={6}></td>
+                              <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Multi Muat</td>
+                              <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_multimuat?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                            </tr>
+                          )}
+
+                          {data.biaya_overtonase !== 0 && (
+                            <tr>
+                              <td colSpan={6}></td>
+                              <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Over Tonase</td>
+                              <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_overtonase?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                            </tr>
+                          )}
+
+                          {data.biaya_tambahan !== 0 && (
+                            <tr>
+                              <td colSpan={6}></td>
+                              <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Tambahan</td>
+                              <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_tambahan?.toLocaleString("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                              })}</td>
+                            </tr>
+                          )}
+
                           <tr>
                             <td colSpan={6}></td>
-                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Harga Muat</td>
-                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.harga_muat?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td>
-                          </tr>
-                          <tr>
-                            <td colSpan={6}></td>
-                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Mel</td>
-                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biayaMel?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td></tr>
-                          <tr>  <td colSpan={6}></td>
-                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Lain</td>
-                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biayaLain?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td>
-                          </tr>
-                          <tr>  <td colSpan={6}></td>
-                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Bongkar</td>
-                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.harga_bongkar?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td></tr>
-                          <tr>   <td colSpan={6}></td>
-                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Multi Drop</td>
-                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_multi_drop?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td> </tr>
-                          <tr>
-                            <td colSpan={6}></td>
-                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Multi Muat</td>
-                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_multimuat?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td> </tr>
-                          <tr>  <td colSpan={6}></td>
-                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Over Tonase</td>
-                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_overtonase?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td> </tr>
-                          <tr>   <td colSpan={6}></td>
-                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Tambahan</td>
-                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_tambahan?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td> </tr>
-                          <tr>   <td colSpan={6}></td>
                             <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Total SJ {index + 1}</td>
                             <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.total?.toLocaleString("id-ID", {
                               style: "currency",
                               currency: "IDR",
-                            })}</td> </tr>
+                            })}</td>
+                          </tr>
+
                           {/* <tr>
                             <td>No</td>
                             <td>Kode Mitra</td>
