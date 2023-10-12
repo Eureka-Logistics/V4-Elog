@@ -88,7 +88,7 @@ const SamplePage = () => {
     },
 
     {
-      title: "Keterangan",
+      title: "Service Type",
       dataIndex: "service_type",
       key: "service_type",
       render: (text) => (
@@ -323,6 +323,9 @@ const SamplePage = () => {
     Bongkar: item.kotaTujuan,
     'Biaya Kirim': formatRupiah(item.tarif),
     Keterangan: item.service_type,
+    'via': item.via,
+    'Jenis Kendaraan' : item.kendaraanJenis,
+    'Jenis Kiriman' : item.jenis_kiriman
   }));
   
   const exportToExcel = () => {
@@ -340,7 +343,10 @@ const SamplePage = () => {
       { wch: 30 }, // 'Muat'
       { wch: 30 }, // 'Bongkar'
       { wch: 30 }, // 'Biaya Kirim'
-      { wch: 30 }, // 'Keterangan'
+      { wch: 20 }, // 'Keterangan'
+      { wch: 10 }, // 'via'
+      { wch: 30 }, // 'Jenis Kendaraan'
+      { wch: 20 }, // 'Jenis Kendaraan'
     ];
   
     // Apply column widths to the worksheet

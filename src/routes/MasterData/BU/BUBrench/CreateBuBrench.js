@@ -14,6 +14,7 @@ function CreateBuBrench() {
   const [NoTelepon, setNoTelepon] = useState("");
   const [Alamat, setAlamat] = useState("");
   const [dataBU, setDataBU] = useState("");
+  const [buName, setbuName] = useState("");
 
   const TambahData = async () => {
     try {
@@ -24,7 +25,8 @@ function CreateBuBrench() {
           code_bu_brench: DataCodeBu,
           id_bu: IDBu,
           no_telp: NoTelepon,
-          alamat: Alamat
+          alamat: Alamat,
+          name_bu_brench: buName
         },
         {
           headers: {
@@ -124,6 +126,19 @@ function CreateBuBrench() {
               }}
             /> */}
           </Col>
+        <Col span={24} className="mt-2">
+          <label style={{ fontWeight: "bold" }}>Name BU Brench :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            className="mt-2 mb-2"
+            name="name_bu_brench"
+            placeholder="Input BU Name"
+            onChange={(e) => {
+              console.log(e.target.value);
+              setbuName(e.target.value);
+            }}
+          />
+        </Col>
         <Col span={24} className="mt-2">
           <label style={{ fontWeight: "bold" }}>Code BU Brench :</label>
           {/* Menghubungkan input tarif dengan state tarif */}

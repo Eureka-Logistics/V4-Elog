@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {Card, Col, Row, Table, Form, Input } from "antd";
+import { Card, Col, Row, Table, Form, Input } from "antd";
 import Select from "react-select";
 import { httpClient } from "../../../Api/Api";
 
+const { Option } = Select;
 
 const SamplePage = () => {
   const [kecamatan, setKecamatan] = useState([]);
@@ -53,14 +54,12 @@ const SamplePage = () => {
     };
 
     fetchProvinsi();
-    
   }, []);
 
-
-  const fetchKota = async() => {
+  const fetchKota = async () => {
     let query = "";
-    if(provinsi) {
-      query += `idprovinsi=${provinsi.value}`
+    if (provinsi) {
+      query += `idprovinsi=${provinsi.value}`;
     }
     httpClient
       .get(`wilayah/get-kota?${query}`)
@@ -77,7 +76,7 @@ const SamplePage = () => {
       .catch(function (error) {
         console.log(error.message);
       });
-  }
+  };
 
   const columns = [
     {
@@ -182,63 +181,66 @@ const SamplePage = () => {
   };
 
   const onFinish = (values) => {
-    console.log('Success:', values);
+    console.log("Success:", values);
   };
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
+
+  
 
   return (
     <div>
-         <Card>
-        <h5>Tabel Data Kecamatan</h5>
-      </Card>
-
-      
-      
       <div style={{ marginBottom: 16 }}>
-      <Card>
-      <Row>
-          <Col span={12}>
-
-            <Select
-
-              style={{ width: 200, marginRight: 8 }}
-              options={provinsiOptions}
-              value={provinsi}
-              isSearchable
-              placeholder="Select Provinsi"
-              name="provinsi"
-              styles={customStylesReactSelect}
-              onChange={onSelectChange}
-              autoFocus
-            />
-            
-          </Col>
-          <Col span={12}>
-            <Select
-              style={{ width: 200 }}
-              options={kotaOptions}
-              value={kota}
-              isSearchable
-              placeholder="Select Kota"
-              name="kota"
-              styles={customStylesReactSelect}
-              onChange={onSelectChange}
-            />
-          </Col>
-        </Row>
-        <Table
-        className="mt-5"
-        columns={columns}
-        dataSource={dataSource}
-        pagination={{ total, current: page, pageSize: limit }}
-        onChange={(pagination) => setPage(pagination.current)}
-      />
-      </Card>
-        
+        <Card>
+        <h5 style={{color: '#1A5CBF'}}>Tabel Data Kecamatan</h5>
+        <hr/>
+        <br/>
+          <Row>
+            <Col span={12}>
+              <label style={{fontWeight: 'bold'}} className="mb-2">
+                Search Provinsi : 
+              </label>
+              <Select
+                style={{ width: 200, marginRight: 8 }}
+                options={[{ value: "", label: "All" }, ...provinsiOptions]}
+                value={provinsi}
+                isSearchable
+                placeholder="Select Provinsi"
+                name="provinsi"
+                styles={customStylesReactSelect}
+                onChange={onSelectChange}
+                autoFocus
+              />
+            </Col>
+            <Col span={12}>
+            <label style={{fontWeight: 'bold'}} className="mb-2">
+                Search Kota :
+              </label>
+              <Select
+                style={{ width: 200 }}
+                options={[{ value: "", label: "All" }, ...kotaOptions]}
+                // options={kotaOptions}
+                value={kota}
+                isSearchable
+                placeholder="Select Kota"
+                name="kota"
+                styles={customStylesReactSelect}
+                onChange={onSelectChange}
+              />
+            </Col>
+          </Row>
+          <br/>
+          <hr/>
+          <Table
+            className="mt-4"
+            columns={columns}
+            dataSource={dataSource}
+            pagination={{ total, current: page, pageSize: limit }}
+            onChange={(pagination) => setPage(pagination.current)}
+          />
+        </Card>
       </div>
-      
     </div>
   );
 };

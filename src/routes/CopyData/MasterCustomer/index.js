@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Input, Space, Modal, Tag , Table} from "antd";
+import { Button, Card, Input, Space, Modal, Tag, Table, Row, Col } from "antd";
 import {
   ExclamationCircleOutlined,
   EditOutlined,
@@ -178,29 +178,32 @@ const SamplePage = () => {
   const endIndex = startIndex + pageSize;
   const recordsToShow = order.slice(startIndex, endIndex);
 
-
   return (
     <div>
       <Card>
         <h4 className="mb-3">Data Master Customer</h4>
         <hr />
-        <Space style={{ marginBottom: 16 }}>
-          <Button type="primary" onClick={handleAdd}>
-            New Customer
-          </Button>
-          <Input.Search
-            placeholder="Search by company name"
-            onSearch={onSearch}
-            onChange={onSearch}
-            loading={loadingState}
-          />
-        </Space>
+        <Row>
+          <Col span={12} >
+            <Input.Search
+            style={{width: "50%"}}
+              placeholder="Search by company name"
+              onSearch={onSearch}
+              onChange={onSearch}
+              loading={loadingState}
+            />
+          </Col>
+          <Col span={12} className="d-flex justify-content-end">
+            <Button type="primary" onClick={handleAdd}>
+              New Customer
+            </Button>
+          </Col>
+        </Row>
         <Table
           columns={columns}
           dataSource={order}
           pagination={{ total, current: page, pageSize: limit }}
           onChange={(pagination) => setPage(pagination.current)}
-          
         />
 
         {/* <Table responsive>

@@ -281,7 +281,7 @@ function Index() {
         </Row>
         <Row className=" mb-3">
           <Col span={4}>
-            <label style={{fontFamily: 'NoirPro'}}>
+            <label style={{fontFamily: 'NoirPro', fontWeight: "bold"}}>
               Pilih Kode Employee
             </label>
             <Select
@@ -295,6 +295,7 @@ function Index() {
                 setSelectedValue(value);
               }}
             >
+               <Select.Option value="">-</Select.Option>
               {filter.map((item) => (
                 <Select.Option key={item.value} value={item.value}>
                   {item.position}
@@ -327,7 +328,7 @@ function Index() {
         ) : (
           <div style={alertStyle}>
             <Alert
-              message="Pilih terlebih dahulu Kode Employeenya, Jika A (Asmen), M (Manager), G (GL), K (KACAB), D (Direktur) !"
+              message="Pilih terlebih dahulu Kode Employeenya, Jika A (Asmen), M (Manager), G (GL), K (KACAB), Z (AMD) !"
               type="info"
               showIcon
             />
