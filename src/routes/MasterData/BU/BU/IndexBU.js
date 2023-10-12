@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Baseurl from "../../../../Api/BaseUrl";
-import { Card, Space, Table, Tag, Button, Col, Row, Modal } from "antd";
+import { Card, Space, Table, Tag, Button, Col, Row, Modal, Switch } from "antd";
 import {
   DeleteOutlined,
   ExclamationCircleOutlined,
@@ -41,7 +41,28 @@ function IndexBU() {
       setDataBU(respons.data.data.order);
       console.log("ini data BU", respons.data.data.order);
       //   setSJList(respons.data?.data?.sj);
-    } catch (error) {}
+    } catch (error) { }
+  };
+
+  const aktifstatus = async (asu) => {
+    try {
+      const respons = await axios.post(
+        `${Baseurl}bu/active-bu`, {
+        "id": asu
+      },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log("responssssscarismid", respons.data.data);
+      fetchData()
+      setDataBU(respons.data.data.order);
+      console.log("ini data BU", respons.data.data.order);
+      //   setSJList(respons.data?.data?.sj);
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -58,7 +79,7 @@ function IndexBU() {
       title: "Kode BU",
       dataIndex: "buId",
       key: "buId",
-       render: (buId) => <Tag color="magenta">{buId}</Tag>,
+      render: (buId) => <Tag color="magenta">{buId}</Tag>,
     },
     {
       title: "Nama Alias",
@@ -71,16 +92,30 @@ function IndexBU() {
       dataIndex: "buName",
       key: "buName",
     },
-    
+
     {
       title: "STATUS",
       dataIndex: "status",
       key: "status",
-      render: (status) => (
-        <Tag color={status === 1 ? 'green' : 'red'}>
-          {status === 1 ? 'Active' : 'Inactive'}
-        </Tag>
-      ),
+      render: (status, record) => {
+        const handleSwitchChange = () => {
+          console.log(`sstauts`, record.id)
+          if (status === 1) {
+            handleDelete(record.id);
+          } else {
+            aktifstatus(record.id);
+          }
+        };
+
+        return (
+          <Switch
+            checked={status === 1}
+            unCheckedChildren={status !== 1 ? "in active" : ""}
+            checkedChildren={status === 1 ? "active" : ""}
+            onClick={handleSwitchChange}
+          />
+        );
+      },
     },
     {
       title: "Aksi",
@@ -92,16 +127,13 @@ function IndexBU() {
               <FormOutlined />
             </span>
           </Button>
-          <Button danger onClick={() => handleDelete(record.id)}>
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <DeleteOutlined />
-            </span>
-          </Button>
         </Space>
       ),
     },
   ];
-
+  const onChange = (checked) => {
+    console.log(`switch to ${checked}`);
+  };
   const handleAdd = () => {
     // router.push(`/createdataBU/`);
     // router.push(`/pelanggantarifcerate/`);
@@ -122,45 +154,33 @@ function IndexBU() {
   };
 
   const handleDelete = (id) => {
-    Modal.confirm({
-      title: "Yakin untuk menghapus Bisnis Unit ini ?",
-      icon: <ExclamationCircleOutlined />,
-      content: "Tindakan ini tidak dapat dibatalkan.",
-      onOk() {
-        const datas = {
-          id: id,
-        };
-        httpClient
-          .post(`bu/delete-bu`, datas)
-          .then(({ data }) => {
-            if (data.status.code === 200) {
-              const newOrder = listData.filter((item) => item.id !== id);
-              setListData(newOrder);
-              // Reload the data after successful deletion if necessary
-              fetchData();
-              // window.location.reload();
-            }
-          })
-          .catch(function (error) {
-            console.log(error.message);
-          });
-      },
-      onCancel() {},
-    });
+    const datas = {
+      id: id,
+    };
+    httpClient
+      .post(`bu/delete-bu`, datas)
+      .then(({ data }) => {
+       console.log(`data`,data);
+       fetchData()
+      })
+      .catch(function (error) {
+        console.error(`Terjadi kesalahan saat mengirim permintaan penghapusan: ${error.message}`);
+      });
   };
+
 
   return (
     <div>
       <Card>
-        <h5 style={{fontWeight:'bold'}}>Data Bisnis Unit</h5>
+        <h5 style={{ fontWeight: 'bold' }}>Data Bisnis Unit</h5>
         <hr />
         <Row>
           <Col span={24} className="d-flex justify-content-end">
-            <Button style={{backgroundColor: '#1A5CBF', color: 'white'}} onClick={handleAdd}>New Bisnis Unit</Button>
+            <Button style={{ backgroundColor: '#1A5CBF', color: 'white' }} onClick={handleAdd}>New Bisnis Unit</Button>
           </Col>
         </Row>
         <Modal
-          title={<span style={{ color: "#1A5CBF" }}><h5 style={{fontWeight: 'bold'}}>New Bisnis Unit</h5></span>}
+          title={<span style={{ color: "#1A5CBF" }}><h5 style={{ fontWeight: 'bold' }}>New Bisnis Unit</h5></span>}
           visible={isModalVisible}
           footer={null}
           onCancel={() => setIsModalVisible(false)}
