@@ -1,22 +1,26 @@
-import { Modal } from 'antd'
+import { Input, Modal } from 'antd'
 import React from 'react'
-
-function index() {
+import DriverTableBaru from '../../../../Driver/DriverTableBaru'
+// import "./style.css"
+function ModalDriverPurchasing({ setShow, ModalDriverPurch, setModalDriverPurch }) {
     return (
         <Modal
-            title="20px to Top"
+            width={1500}
+            title="Add Driver dan Vehicle"
             style={{
                 top: 20,
             }}
-            open={modal1Open}
-            onOk={() => setModal1Open(false)}
-            onCancel={() => setModal1Open(false)}
+            open={ModalDriverPurch}
+            onOk={() => {setModalDriverPurch(false)
+                setShow(true)}}
+            onCancel={() => {
+                setModalDriverPurch(false)
+                setShow(true)
+            }}
         >
-            <p>some contents...</p>
-            <p>some contents...</p>
-            <p>some contents...</p>
+            <DriverTableBaru />
         </Modal>
     )
 }
 
-export default index
+export default ModalDriverPurchasing

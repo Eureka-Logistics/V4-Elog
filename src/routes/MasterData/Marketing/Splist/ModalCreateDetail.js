@@ -1556,7 +1556,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     }}
                                 >
                                     <td style={{ backgroundColor: "transparent" }}>No. {index + 1} </td>
-                                    <td style={{ backgroundColor: "transparent" }} colSpan={20}>Alamat Muat</td>
+                                    <td style={{ backgroundColor: "transparent" }} colSpan={10}>Alamat Muat</td>
                                 </tr>
 
                                 <tr key={index}>
@@ -1573,7 +1573,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                               </Button>
                             </span> */}
                                     </td>
-                                    <td colSpan={12}>{data.pickup}</td>
+                                    <td colSpan={2}>{data.pickup}</td>
                                 </tr>
                                 {DetailSemua &&
                                     DetailSemua.detail[index].tujuan &&
@@ -1585,20 +1585,16 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                     backgroundColor: "#b7d1f8",
                                                 }}
                                             >
-                                                <td style={{ backgroundColor: "transparent" }}>No. {index + 1}</td>
+                                                <td style={{ backgroundColor: "transparent" }}>No. {index2 + 1}</td>
                                                 <td style={{ backgroundColor: "transparent" }}>Alamat Bongkar</td>
-                                                <td style={{ backgroundColor: "transparent" }} width="100px">NO SJ</td>
-                                                <td style={{ backgroundColor: "transparent" }}>Kendaraan</td>
+                                                <td style={{ backgroundColor: "transparent" }} >NO SJ</td>
                                                 <td style={{ backgroundColor: "transparent" }}>Service</td>
-                                                <td style={{ backgroundColor: "transparent" }}>Via</td>
-                                                <td style={{ backgroundColor: "transparent" }}>Item</td>
-                                                <td style={{ backgroundColor: "transparent" }}>Shipment</td>
+                                                <td style={{ backgroundColor: "transparent" }}>Qty</td>
                                                 <td style={{ backgroundColor: "transparent" }}>Berat</td>
-                                                <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Jalan</td>
+                                                <td  style={{ backgroundColor: "transparent" }} width="150px">Biaya Jalan</td>
                                                 <td style={{ backgroundColor: "transparent", textAlign: "right" }} width="250px">Jumlah ({data?.service[0]})</td>
 
                                             </tr>
-
 
                                             <tr key={index}>
                                                 <td>
@@ -1634,12 +1630,9 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                     </span>
                                                 </td>
                                                 <td >{data.destination}</td>
-                                                <td>{data.noSJ}</td>
-                                                <td>{data.kendaraan}</td>
-                                                <td>{DetailSemua?.service}</td>
-                                                <td>{data?.via}</td>
-                                                <td>{data.item}</td>
-                                                <td>{data.shipmentName}</td>
+                                                <td>{data.noSJ} <br /> <Tag>{data.kendaraan}</Tag><Tag>{data.item}</Tag></td>
+                                                <td>{data?.service}<br /> <Tag>{data.shipmentName}</Tag><Tag>{data?.via}</Tag></td>
+                                                <td>{data.qty}</td>
                                                 <td>{data.berat}</td>
                                                 <td >{data.Price?.toLocaleString("id-ID", {
                                                     style: "currency",
@@ -1673,13 +1666,9 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
 
 
                                             </tr>
+
                                             <tr>
-                                                <td colSpan={9}></td>
-                                                <td style={{ backgroundColor: "transparent",  fontWeight: "bold" }}>Qty</td>
-                                                <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.qty}</td>
-                                            </tr>
-                                            <tr>
-                                                <td colSpan={9}></td>
+                                                <td colSpan={6}></td>
                                                 <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Harga Muat</td>
                                                 <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.harga_muat?.toLocaleString("id-ID", {
                                                     style: "currency",
@@ -1687,51 +1676,51 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                 })}</td>
                                             </tr>
                                             <tr>
-                                                <td colSpan={9}></td>
+                                                <td colSpan={6}></td>
                                                 <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Mel</td>
                                                 <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biayaMel?.toLocaleString("id-ID", {
                                                     style: "currency",
                                                     currency: "IDR",
                                                 })}</td></tr>
-                                            <tr>  <td colSpan={9}></td>
-                                                <td style={{ backgroundColor: "transparent",  fontWeight: "bold" }} width="150px">Biaya Lain</td>
+                                            <tr>  <td colSpan={6}></td>
+                                                <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Lain</td>
                                                 <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biayaLain?.toLocaleString("id-ID", {
                                                     style: "currency",
                                                     currency: "IDR",
                                                 })}</td>
                                             </tr>
-                                            <tr>  <td colSpan={9}></td>
-                                                <td style={{ backgroundColor: "transparent",  fontWeight: "bold" }} width="150px">Biaya Bongkar</td>
+                                            <tr>  <td colSpan={6}></td>
+                                                <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Bongkar</td>
                                                 <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.harga_bongkar?.toLocaleString("id-ID", {
                                                     style: "currency",
                                                     currency: "IDR",
                                                 })}</td></tr>
-                                            <tr>   <td colSpan={9}></td>
+                                            <tr>   <td colSpan={6}></td>
                                                 <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Multi Drop</td>
                                                 <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_multi_drop?.toLocaleString("id-ID", {
                                                     style: "currency",
                                                     currency: "IDR",
                                                 })}</td> </tr>
                                             <tr>
-                                                <td colSpan={9}></td>
-                                                <td style={{ backgroundColor: "transparent",fontWeight: "bold" }} width="150px">Biaya Multi Muat</td>
+                                                <td colSpan={6}></td>
+                                                <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Multi Muat</td>
                                                 <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_multimuat?.toLocaleString("id-ID", {
                                                     style: "currency",
                                                     currency: "IDR",
                                                 })}</td> </tr>
-                                            <tr>  <td colSpan={9}></td>
-                                                <td style={{ backgroundColor: "transparent",  fontWeight: "bold" }} width="150px">Biaya Over Tonase</td>
+                                            <tr>  <td colSpan={6}></td>
+                                                <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Over Tonase</td>
                                                 <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_overtonase?.toLocaleString("id-ID", {
                                                     style: "currency",
                                                     currency: "IDR",
                                                 })}</td> </tr>
-                                            <tr>   <td colSpan={9}></td>
-                                                <td style={{ backgroundColor: "transparent",  fontWeight: "bold" }} width="150px">Biaya Tambahan</td>
+                                            <tr>   <td colSpan={6}></td>
+                                                <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Tambahan</td>
                                                 <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_tambahan?.toLocaleString("id-ID", {
                                                     style: "currency",
                                                     currency: "IDR",
                                                 })}</td> </tr>
-                                            <tr>   <td colSpan={9}></td>
+                                            <tr>   <td colSpan={6}></td>
                                                 <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Total SJ {index + 1}</td>
                                                 <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.total?.toLocaleString("id-ID", {
                                                     style: "currency",

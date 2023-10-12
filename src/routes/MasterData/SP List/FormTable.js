@@ -32,6 +32,7 @@ import useMitraStore from "../../../zustand/Store/MitraStore";
 import ModalCreatePO from "./ModalCreatePO/Index";
 import ModalDetailMarketing from "../Marketing/Splist/ModalDetailMarketing/Index";
 import RefreshMitra123 from "../../../zustand/Store/RefreshMitra123/RefreshMitra123";
+import ModalDriverPurchasing from "../Purchasing/SP/DetailSJ/ModalDriver";
 
 function FormTable({
   isidata,
@@ -43,6 +44,7 @@ function FormTable({
   messagedetail,
   datarefresh
 }) {
+  const [ModalDriverPurch, setModalDriverPurch] = useState(false);
   const [modal1Open, setModal1Open] = useState(false);
   const [jobdesk, setJobdesk] = useState(localStorage.getItem("jobdesk"));
   const [mitraVehicle, setMitraVehicle] = useState([]);
@@ -2347,13 +2349,16 @@ function FormTable({
                 </>
               </Modal.Body>
               <Modal.Footer>
-                <a
+                <Button
+                  onClick={() => {
+                    setShow(false)
+                    setModalDriverPurch(true)
+                  }}
                   variant="warning"
-                  target="_blank"
-                  href="/masterdata/purchasing/vehicle"
+                // href="/masterdata/purchasing/vehicle"
                 >
-                  Tambah Vehicle
-                </a>
+                  Tambah Driver dan Vehicle
+                </Button>
                 <Button variant="secondary" onClick={handleClose}>
                   Close
                 </Button>
@@ -2369,6 +2374,7 @@ function FormTable({
                 </Button>
               </Modal.Footer>
             </Modal>
+            <ModalDriverPurchasing setShow={setShow} ModalDriverPurch={ModalDriverPurch} setModalDriverPurch={setModalDriverPurch} />
           </>
         )}
         <Col sm={6}>
@@ -2543,7 +2549,7 @@ function FormTable({
                 IsiDataSPSemua.detail.map((data, index) => (
                   <>
                     <tr style={{ fontWeight: "bold" }}>
-                      <td colSpan={20}>
+                      <td colSpan={10}>
                         {/* <hr /> */}
                         <br />{" "}
                       </td>
@@ -2559,7 +2565,7 @@ function FormTable({
                     </tr>
 
                     <tr key={index}>
-                      <td colSpan={20}>{data.pickup}</td>
+                      <td colSpan={2}>{data.pickup}</td>
                     </tr>
 
                     {spdetailsemuanyasekarang &&
@@ -2572,17 +2578,14 @@ function FormTable({
                               backgroundColor: "#b7d1f8",
                             }}
                           >
-                            <td style={{ backgroundColor: "transparent" }}>No. {index + 1}</td>
+                            <td style={{ backgroundColor: "transparent" }}>No. {indesx + 1}</td>
                             <td style={{ backgroundColor: "transparent" }}>Alamat Bongkar</td>
-                            <td style={{ backgroundColor: "transparent" }} width="100px">NO SJ</td>
-                            <td style={{ backgroundColor: "transparent" }}>Kendaraan</td>
+                            <td style={{ backgroundColor: "transparent" }} >NO SJ</td>
                             <td style={{ backgroundColor: "transparent" }}>Service</td>
-                            <td style={{ backgroundColor: "transparent" }}>Via</td>
-                            <td style={{ backgroundColor: "transparent" }}>Item</td>
-                            <td style={{ backgroundColor: "transparent" }}>Shipment</td>
+                            <td style={{ backgroundColor: "transparent" }}>Qty</td>
                             <td style={{ backgroundColor: "transparent" }}>Berat</td>
-                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Jalan</td>
-                            <td style={{ backgroundColor: "transparent", textAlign: "right" }} width="250px">Jumlah ({data?.service[0]})</td>
+                            <td colSpan={1} style={{ backgroundColor: "transparent" }} >Biaya Jalan</td>
+                            <td style={{ backgroundColor: "transparent", textAlign: "right" }} >Jumlah ({data?.service[0]})</td>
 
                           </tr>
                           <tr>
@@ -2632,12 +2635,9 @@ function FormTable({
                               ) : null}
                             </td>
                             <td >{data.destination}</td>
-                            <td>{data.noSJ}</td>
-                            <td>{data.kendaraan}</td>
-                            <td>{data?.service}</td>
-                            <td>{data?.via}</td>
-                            <td>{data.item}</td>
-                            <td>{data.shipmentName}</td>
+                            <td>{data.noSJ} <br /> <Tag>{data.kendaraan}</Tag><Tag>{data.item}</Tag></td>
+                            <td>{data?.service}<br /> <Tag>{data.shipmentName}</Tag><Tag>{data?.via}</Tag></td>
+                            <td>{data.qty}</td>
                             <td>{data.berat}</td>
                             <td >{data.Price?.toLocaleString("id-ID", {
                               style: "currency",
@@ -2850,13 +2850,9 @@ function FormTable({
                               )}
                           </tr>
 
+
                           <tr>
-                            <td colSpan={9}></td>
-                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }}>Qty</td>
-                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.qty}</td>
-                          </tr>
-                          <tr>
-                            <td colSpan={9}></td>
+                            <td colSpan={6}></td>
                             <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Harga Muat</td>
                             <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.harga_muat?.toLocaleString("id-ID", {
                               style: "currency",
@@ -2864,51 +2860,51 @@ function FormTable({
                             })}</td>
                           </tr>
                           <tr>
-                            <td colSpan={9}></td>
+                            <td colSpan={6}></td>
                             <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Mel</td>
                             <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biayaMel?.toLocaleString("id-ID", {
                               style: "currency",
                               currency: "IDR",
                             })}</td></tr>
-                          <tr>  <td colSpan={9}></td>
+                          <tr>  <td colSpan={6}></td>
                             <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Lain</td>
                             <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biayaLain?.toLocaleString("id-ID", {
                               style: "currency",
                               currency: "IDR",
                             })}</td>
                           </tr>
-                          <tr>  <td colSpan={9}></td>
+                          <tr>  <td colSpan={6}></td>
                             <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Bongkar</td>
                             <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.harga_bongkar?.toLocaleString("id-ID", {
                               style: "currency",
                               currency: "IDR",
                             })}</td></tr>
-                          <tr>   <td colSpan={9}></td>
+                          <tr>   <td colSpan={6}></td>
                             <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Multi Drop</td>
                             <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_multi_drop?.toLocaleString("id-ID", {
                               style: "currency",
                               currency: "IDR",
                             })}</td> </tr>
                           <tr>
-                            <td colSpan={9}></td>
+                            <td colSpan={6}></td>
                             <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Multi Muat</td>
                             <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_multimuat?.toLocaleString("id-ID", {
                               style: "currency",
                               currency: "IDR",
                             })}</td> </tr>
-                          <tr>  <td colSpan={9}></td>
+                          <tr>  <td colSpan={6}></td>
                             <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Over Tonase</td>
                             <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_overtonase?.toLocaleString("id-ID", {
                               style: "currency",
                               currency: "IDR",
                             })}</td> </tr>
-                          <tr>   <td colSpan={9}></td>
+                          <tr>   <td colSpan={6}></td>
                             <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Tambahan</td>
                             <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_tambahan?.toLocaleString("id-ID", {
                               style: "currency",
                               currency: "IDR",
                             })}</td> </tr>
-                          <tr>   <td colSpan={9}></td>
+                          <tr>   <td colSpan={6}></td>
                             <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Total SJ {index + 1}</td>
                             <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.total?.toLocaleString("id-ID", {
                               style: "currency",

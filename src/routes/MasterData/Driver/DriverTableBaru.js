@@ -26,7 +26,9 @@ import ZustandStore from "../../../zustand/Store/JenisKepemilikanOptions";
 import useMitraStore from "../../../zustand/Store/MitraStore";
 import { CheckSquareFilled, CloseSquareFilled } from "@ant-design/icons";
 import useBanksStore from "../../../zustand/Store/NamaNamaBank";
+import VehicleBaru from "../Purchasing/Vehicle/VehicleBaru";
 function DriverTableBaru() {
+  const [ShowVehicleModal, setShowVehicleModal] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [DataAwal, setDataAwal] = useState("");
   const [DetailId, setDetailId] = useState("");
@@ -624,344 +626,368 @@ function DriverTableBaru() {
   const validasinik = formik.values.nik === "" ? "nik" : "nik";
   return (
     <div>
-      <Card>
-        <Col>
-          <h5 style={{ color: "#1A5CBF", fontWeight: "bold" }}>
-            Master Driver
-          </h5>
-        </Col>
-        <Row>
-          <Col sm={2}>
-            <Input
-              style={{
-                width: "150px",
-                border: "1px solid #1A5CBF",
-                borderRadius: "5px",
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
-              }}
-              onChange={(e) => {
-                setCariDriver(e.target.value);
-              }}
-              placeholder="Cari Driver"
-            ></Input>
-          </Col>
-          <Col sm={2}>
-            <Select
-              showSearch
-              placeholder="Jenis Kepemilikan"
-              optionFilterProp="children"
-              style={{
-                width: "150px",
-                border: "1px solid #1A5CBF",
-                borderRadius: "5px",
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
-              }}
-              // value={CariJenisKepemilikan}
-              onChange={(value) => setCariJenisKepemilikan(value)}
-            >
-              <Select.Option value="">-</Select.Option>
-              {jenisKepemilikan.map((option) => (
-                <Select.Option key={option.label} value={option.jenis}>
-                  {option.jenis}
-                </Select.Option>
-              ))}
-            </Select>
-          </Col>
-          <Col sm={6}>
-            <Select
-              showSearch
-              placeholder="Status"
-              optionFilterProp="children"
-              style={{
-                width: "150px",
-                border: "1px solid #1A5CBF",
-                borderRadius: "5px",
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
-              }}
-              // value={CariJenisKepemilikan}
-              onChange={(value) => setCariDriverAktif(value)}
-            >
-              <Select.Option value="">-</Select.Option>
-              {StatusDriverAktif.map((option) => (
-                <Select.Option key={option.label} value={option.value}>
-                  {option.status}
-                </Select.Option>
-              ))}
-            </Select>
-          </Col>
-          <Col sm={2}>
-            <Button
-              style={{
-                backgroundColor: "#1A5CBF",
-                color: "#FFFFFF",
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
-                borderColor: "#1A5CBF",
-              }}
-              size="default"
-              onClick={() => {
-                setModalOpen(true);
-                formik.resetForm();
-                setGambarDriver(null);
-                setDetailId(null);
-              }}
-            >
-              Tambah Driver
-            </Button>
-          </Col>
-
-          <Modal
-            title="Modal Driver"
-            style={{ top: 20 }}
-            width="800px"
-            visible={modalOpen}
-            onOk={formik.handleSubmit}
-            onCancel={() => setModalOpen(false)}
-          // confirmLoading={loading}
-          >
-            <Form layout="vertical" onSubmitCapture={formik.handleSubmit}>
-              <Row>
-                <Col sm={4}>
-                  <Card style={{ height: "280px" }}>
-                    <div style={{ width: "100%", height: "100%" }}>
-                      <img
-                        src={GambarDriver instanceof File ? URL.createObjectURL(GambarDriver) : GambarDriver}
-                        alt="Gambar Driver"
-                        style={{
-                          objectFit: "contain",
-                          width: "100%",
-                          height: "100%",
-                        }}
-                      />
-
-                    </div>
-                  </Card>
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    name="uploadgambar"
-                    label="Upload Gambar"
-                    help={
-                      formik.touched.cover && formik.errors.cover
-                        ? formik.errors.cover
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.cover && formik.errors.cover
-                        ? "error"
-                        : undefined
-                    }
+      {ShowVehicleModal === false && (
+        <>
+          <Card>
+            <Col>
+              <h5 style={{ color: "#1A5CBF", fontWeight: "bold" }}>
+                Master Driver
+              </h5>
+            </Col>
+            <Row>
+              <Col sm={2}>
+                <Input
+                  style={{
+                    width: "150px",
+                    border: "1px solid #1A5CBF",
+                    borderRadius: "5px",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                  }}
+                  onChange={(e) => {
+                    setCariDriver(e.target.value);
+                  }}
+                  placeholder="Cari Driver"
+                ></Input>
+              </Col>
+              <Col sm={2}>
+                <Select
+                  showSearch
+                  placeholder="Jenis Kepemilikan"
+                  optionFilterProp="children"
+                  style={{
+                    width: "150px",
+                    border: "1px solid #1A5CBF",
+                    borderRadius: "5px",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                  }}
+                  // value={CariJenisKepemilikan}
+                  onChange={(value) => setCariJenisKepemilikan(value)}
+                >
+                  <Select.Option value="">-</Select.Option>
+                  {jenisKepemilikan.map((option) => (
+                    <Select.Option key={option.label} value={option.jenis}>
+                      {option.jenis}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Col>
+              <Col sm={4}>
+                <Select
+                  showSearch
+                  placeholder="Status"
+                  optionFilterProp="children"
+                  style={{
+                    width: "150px",
+                    border: "1px solid #1A5CBF",
+                    borderRadius: "5px",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                  }}
+                  // value={CariJenisKepemilikan}
+                  onChange={(value) => setCariDriverAktif(value)}
+                >
+                  <Select.Option value="">-</Select.Option>
+                  {StatusDriverAktif.map((option) => (
+                    <Select.Option key={option.label} value={option.value}>
+                      {option.status}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Col>
+              <Col sm={2}>
+                <Button
+                  style={{
+                    backgroundColor: "#1A5CBF",
+                    color: "#FFFFFF",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                    borderColor: "#1A5CBF",
+                  }}
+                  size="default"
+                  onClick={() => {
+                    setModalOpen(true);
+                    formik.resetForm();
+                    setGambarDriver(null);
+                    setDetailId(null);
+                  }}
+                >
+                  Tambah Driver
+                </Button>
+              </Col>
+              {localStorage.getItem("jobdesk") === "purchasing" && (
+                <Col sm={2}>
+                  <Button
+                    style={{
+                      backgroundColor: "red",
+                      color: "#FFFFFF",
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                      borderColor: "#1A5CBF",
+                    }}
+                    size="default"
+                    onClick={() => {
+                      // setModalOpen(true);
+                      formik.resetForm();
+                      // setGambarDriver(null);
+                      // setDetailId(null);
+                      setShowVehicleModal(true)
+                    }}
                   >
-                    <Upload
-                      name="cover"
-                      accept=".png,.jpg,.jpeg"
-                      beforeUpload={(file) => {
-                        setGambarDriver(file)
-                        console.log(file);
-                        formik.setFieldValue("cover", file);
-                        return false; // Prevent upload immediately
-                      }}
-                      fileList={
-                        formik.values.cover ? [formik.values.cover] : []
-                      }
-                    >
-                      <Button
-                        icon={<UploadOutlined />}
-                        style={{
-                          border: "1px solid #1A5CBF",
-                          borderRadius: "5px",
-                        }}
-                      >
-                        Pilih Gambar
-                      </Button>
-                    </Upload>
-                  </Form.Item>
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="Tanggal Masuk"
-                    help={
-                      formik.touched.tglmasuk && formik.errors.tglmasuk
-                        ? formik.errors.tglmasuk
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.tglmasuk && formik.errors.tglmasuk
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <DatePicker
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      format="DD-MM-YYYY"
-                      name="tglmasuk"
-                      onChange={(date, dateString) => {
-                        const apiFormatDate = date.format("YYYY-MM-DD")
-                        formik.setFieldValue("tglmasuk", apiFormatDate)
-                      }}
-                      onBlur={formik.handleBlur}
-                      value={
-                        (formik.values.tglmasuk)
-                          ? moment(formik.values.tglmasuk, "YYYY-MM-DD")
-                          : null
-                      }
-                      placeholder="Pilih tanggal masuk"
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="Tanggal SIM"
-                    help={
-                      formik.touched.tglsim && formik.errors.tglsim
-                        ? formik.errors.tglsim
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.tglsim && formik.errors.tglsim
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <DatePicker
-                      format="DD-MM-YYYY"
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      placeholder="input tgl sim"
-                      name="tglsim"
-                      id="tglsim"
-                      onChange={(date, dateString) => {
-                        const apiFormatDate = date.format("YYYY-MM-DD");
-                        formik.setFieldValue("tglsim", apiFormatDate)
-                      }}
-                      onBlur={formik.handleBlur}
-                      value={
-                        formik.values.tglsim
-                          ? moment(formik.values.tglsim, "YYYY-MM-DD")
-                          : null
-                      }
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="Tanggal Lahir"
-                    help={
-                      formik.touched.tgllahir && formik.errors.tgllahir
-                        ? formik.errors.tgllahir
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.tgllahir && formik.errors.tgllahir
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <DatePicker
-                      format="DD-MM-YYYY"
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      placeholder="input tgl lahir"
-                      name="tgllahir"
-                      onChange={(date, dateString) => {
-                        const apiFormatDate = date.format("YYYY-MM-DD");
-                        formik.setFieldValue("tgllahir", apiFormatDate);
-                      }}
-                      onBlur={formik.handleBlur}
-                      // value={
-                      //   moment(formik.values.tgllahir)
-                      //     ? moment(formik.values.tgllahir, "YYYY-MM-DD")
-                      //     : null
-                      // }
-                      value={
-                        formik.values.tgllahir
-                          ? moment(formik.values.tgllahir, "YYYY-MM-DD")
-                          : null
-                      }
-
-                    />
-                  </Form.Item>
+                  Halaman Tambah Vehicles
+                  </Button>
                 </Col>
-                <Col sm={4}>
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label={`Nik` + validasinik}
-                    help={helpValue}
-                    // validateStatus={
-                    //   formik.touched.nik && formik.errors.nik
-                    //     ? "error"
-                    //     : undefined
-                    // }
-                    validateStatus={validateStatusValue}
-                  >
-                    {role === "operasional" ?
-                      <Input
-                        style={{
-                          border: "1px solid #1A5CBF",
-                          borderRadius: "5px",
-                        }}
-                        placeholder="input nik"
-                        name={validasinik} // Sekarang, ini akan menjadi "nik" atau "niknotvalidasi" berdasarkan kondisi
-                        onChange={(e) => {
-                          const val = e.target.value;
-                          const newVal = val ? val.charAt(0).toUpperCase() + val.slice(1) : "";
 
-                          // Jika formik.values.nik kosong, gunakan "niknotvalidasi", sebaliknya gunakan "nik"
-                          formik.setFieldValue(validasinik, newVal);
-                        }}
-                        onBlur={formik.handleBlur}
-                        value={formik.values[validasinik]} // Dinamis berdasarkan validasinik
-                      />
-                      : <Input
-                        disabled
-                        style={{
-                          border: "1px solid #1A5CBF",
-                          borderRadius: "5px",
-                        }}
-                        placeholder="input nik"
-                        name={validasinik} // Sekarang, ini akan menjadi "nik" atau "niknotvalidasi" berdasarkan kondisi
-                        onChange={(e) => {
-                          const val = e.target.value;
-                          const newVal = val ? val.charAt(0).toUpperCase() + val.slice(1) : "";
+              )}
+              <Modal
+                title="Modal Driver"
+                style={{ top: 20 }}
+                width="800px"
+                visible={modalOpen}
+                onOk={formik.handleSubmit}
+                onCancel={() => setModalOpen(false)}
+              // confirmLoading={loading}
+              >
+                <Form layout="vertical" onSubmitCapture={formik.handleSubmit}>
+                  <Row>
+                    <Col sm={4}>
+                      <Card style={{ height: "280px" }}>
+                        <div style={{ width: "100%", height: "100%" }}>
+                          <img
+                            src={GambarDriver instanceof File ? URL.createObjectURL(GambarDriver) : GambarDriver}
+                            alt="Gambar Driver"
+                            style={{
+                              objectFit: "contain",
+                              width: "100%",
+                              height: "100%",
+                            }}
+                          />
 
-                          // Jika formik.values.nik kosong, gunakan "niknotvalidasi", sebaliknya gunakan "nik"
-                          formik.setFieldValue(validasinik, newVal);
-                        }}
-                        onBlur={formik.handleBlur}
-                        value={formik.values[validasinik]} // Dinamis berdasarkan validasinik
-                      />}
+                        </div>
+                      </Card>
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        name="uploadgambar"
+                        label="Upload Gambar"
+                        help={
+                          formik.touched.cover && formik.errors.cover
+                            ? formik.errors.cover
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.cover && formik.errors.cover
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <Upload
+                          name="cover"
+                          accept=".png,.jpg,.jpeg"
+                          beforeUpload={(file) => {
+                            setGambarDriver(file)
+                            console.log(file);
+                            formik.setFieldValue("cover", file);
+                            return false; // Prevent upload immediately
+                          }}
+                          fileList={
+                            formik.values.cover ? [formik.values.cover] : []
+                          }
+                        >
+                          <Button
+                            icon={<UploadOutlined />}
+                            style={{
+                              border: "1px solid #1A5CBF",
+                              borderRadius: "5px",
+                            }}
+                          >
+                            Pilih Gambar
+                          </Button>
+                        </Upload>
+                      </Form.Item>
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="Tanggal Masuk"
+                        help={
+                          formik.touched.tglmasuk && formik.errors.tglmasuk
+                            ? formik.errors.tglmasuk
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.tglmasuk && formik.errors.tglmasuk
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <DatePicker
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          format="DD-MM-YYYY"
+                          name="tglmasuk"
+                          onChange={(date, dateString) => {
+                            const apiFormatDate = date.format("YYYY-MM-DD")
+                            formik.setFieldValue("tglmasuk", apiFormatDate)
+                          }}
+                          onBlur={formik.handleBlur}
+                          value={
+                            (formik.values.tglmasuk)
+                              ? moment(formik.values.tglmasuk, "YYYY-MM-DD")
+                              : null
+                          }
+                          placeholder="Pilih tanggal masuk"
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="Tanggal SIM"
+                        help={
+                          formik.touched.tglsim && formik.errors.tglsim
+                            ? formik.errors.tglsim
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.tglsim && formik.errors.tglsim
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <DatePicker
+                          format="DD-MM-YYYY"
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          placeholder="input tgl sim"
+                          name="tglsim"
+                          id="tglsim"
+                          onChange={(date, dateString) => {
+                            const apiFormatDate = date.format("YYYY-MM-DD");
+                            formik.setFieldValue("tglsim", apiFormatDate)
+                          }}
+                          onBlur={formik.handleBlur}
+                          value={
+                            formik.values.tglsim
+                              ? moment(formik.values.tglsim, "YYYY-MM-DD")
+                              : null
+                          }
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="Tanggal Lahir"
+                        help={
+                          formik.touched.tgllahir && formik.errors.tgllahir
+                            ? formik.errors.tgllahir
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.tgllahir && formik.errors.tgllahir
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <DatePicker
+                          format="DD-MM-YYYY"
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          placeholder="input tgl lahir"
+                          name="tgllahir"
+                          onChange={(date, dateString) => {
+                            const apiFormatDate = date.format("YYYY-MM-DD");
+                            formik.setFieldValue("tgllahir", apiFormatDate);
+                          }}
+                          onBlur={formik.handleBlur}
+                          // value={
+                          //   moment(formik.values.tgllahir)
+                          //     ? moment(formik.values.tgllahir, "YYYY-MM-DD")
+                          //     : null
+                          // }
+                          value={
+                            formik.values.tgllahir
+                              ? moment(formik.values.tgllahir, "YYYY-MM-DD")
+                              : null
+                          }
 
-                  </Form.Item>
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col sm={4}>
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label={`Nik` + validasinik}
+                        help={helpValue}
+                        // validateStatus={
+                        //   formik.touched.nik && formik.errors.nik
+                        //     ? "error"
+                        //     : undefined
+                        // }
+                        validateStatus={validateStatusValue}
+                      >
+                        {role === "operasional" ?
+                          <Input
+                            style={{
+                              border: "1px solid #1A5CBF",
+                              borderRadius: "5px",
+                            }}
+                            placeholder="input nik"
+                            name={validasinik} // Sekarang, ini akan menjadi "nik" atau "niknotvalidasi" berdasarkan kondisi
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              const newVal = val ? val.charAt(0).toUpperCase() + val.slice(1) : "";
 
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="Nama Driver"
-                    help={
-                      formik.touched.namadriver && formik.errors.namadriver
-                        ? formik.errors.namadriver
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.namadriver && formik.errors.namadriver
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <Input
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      placeholder="namadriver"
-                      name="namadriver"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.namadriver}
-                    />
-                  </Form.Item>
-                  {/* <Form.Item
+                              // Jika formik.values.nik kosong, gunakan "niknotvalidasi", sebaliknya gunakan "nik"
+                              formik.setFieldValue(validasinik, newVal);
+                            }}
+                            onBlur={formik.handleBlur}
+                            value={formik.values[validasinik]} // Dinamis berdasarkan validasinik
+                          />
+                          : <Input
+                            disabled
+                            style={{
+                              border: "1px solid #1A5CBF",
+                              borderRadius: "5px",
+                            }}
+                            placeholder="input nik"
+                            name={validasinik} // Sekarang, ini akan menjadi "nik" atau "niknotvalidasi" berdasarkan kondisi
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              const newVal = val ? val.charAt(0).toUpperCase() + val.slice(1) : "";
+
+                              // Jika formik.values.nik kosong, gunakan "niknotvalidasi", sebaliknya gunakan "nik"
+                              formik.setFieldValue(validasinik, newVal);
+                            }}
+                            onBlur={formik.handleBlur}
+                            value={formik.values[validasinik]} // Dinamis berdasarkan validasinik
+                          />}
+
+                      </Form.Item>
+
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="Nama Driver"
+                        help={
+                          formik.touched.namadriver && formik.errors.namadriver
+                            ? formik.errors.namadriver
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.namadriver && formik.errors.namadriver
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <Input
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          placeholder="namadriver"
+                          name="namadriver"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.namadriver}
+                        />
+                      </Form.Item>
+                      {/* <Form.Item
                     style={{ fontWeight: "bold" }}
                     label="Divisi"
                     help={
@@ -987,431 +1013,431 @@ function DriverTableBaru() {
                       value={formik.values.divisi}
                     />
                   </Form.Item> */}
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="Jenis Driver"
-                    help={
-                      formik.touched.jeniskepemilikan &&
-                        formik.errors.jeniskepemilikan
-                        ? formik.errors.jeniskepemilikan
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.jeniskepemilikan &&
-                        formik.errors.jeniskepemilikan
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <Select
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      name="jeniskepemilikan"
-                      id="jeniskepemilikan"
-                      // onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.jeniskepemilikan}
-                      onChange={(value) =>
-                        formik.setFieldValue("jeniskepemilikan", value)
-                      }
-                    >
-                      {jenisKepemilikan.map((item) => (
-                        <Select.Option key={item.label} value={item.jenis}>
-                          {item.jenis}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                    {/* <Input
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="Jenis Driver"
+                        help={
+                          formik.touched.jeniskepemilikan &&
+                            formik.errors.jeniskepemilikan
+                            ? formik.errors.jeniskepemilikan
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.jeniskepemilikan &&
+                            formik.errors.jeniskepemilikan
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <Select
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          name="jeniskepemilikan"
+                          id="jeniskepemilikan"
+                          // onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.jeniskepemilikan}
+                          onChange={(value) =>
+                            formik.setFieldValue("jeniskepemilikan", value)
+                          }
+                        >
+                          {jenisKepemilikan.map((item) => (
+                            <Select.Option key={item.label} value={item.jenis}>
+                              {item.jenis}
+                            </Select.Option>
+                          ))}
+                        </Select>
+                        {/* <Input
                                             placeholder="input jenis kepemilikan"
                                             name="jeniskepemilikan"
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.jeniskepemilikan}
                                         /> */}
-                  </Form.Item>
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="Perusahaan"
-                    help={
-                      formik.touched.mitra &&
-                        formik.errors.mitra
-                        ? formik.errors.mitra
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.mitra &&
-                        formik.errors.mitra
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <Select
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      name="mitra"
-                      id="mitra"
-                      showSearch
-                      optionFilterProp="children"
-                      // onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.mitra}
-                      onChange={(value, key) => {
-                        formik.setFieldValue("mitra", value);
-                        formik.setFieldValue("mitraId", parseInt(key.key));
-                      }}
-                    >
-                      {NamaMitra &&
-                        NamaMitra.map((item) => (
-                          <Select.Option
-                            key={item.mitraId}
-                            value={item.NamaMitra}
-                          >
-                            {item.NamaMitra}
-                          </Select.Option>
-                        ))}
-                    </Select>
-                    {/* <Input
+                      </Form.Item>
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="Perusahaan"
+                        help={
+                          formik.touched.mitra &&
+                            formik.errors.mitra
+                            ? formik.errors.mitra
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.mitra &&
+                            formik.errors.mitra
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <Select
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          name="mitra"
+                          id="mitra"
+                          showSearch
+                          optionFilterProp="children"
+                          // onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.mitra}
+                          onChange={(value, key) => {
+                            formik.setFieldValue("mitra", value);
+                            formik.setFieldValue("mitraId", parseInt(key.key));
+                          }}
+                        >
+                          {NamaMitra &&
+                            NamaMitra.map((item) => (
+                              <Select.Option
+                                key={item.mitraId}
+                                value={item.NamaMitra}
+                              >
+                                {item.NamaMitra}
+                              </Select.Option>
+                            ))}
+                        </Select>
+                        {/* <Input
                                             placeholder="input jenis kepemilikan"
                                             name="jeniskepemilikan"
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.jeniskepemilikan}
                                         /> */}
-                  </Form.Item>
+                      </Form.Item>
 
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="No KTP"
-                    help={
-                      formik.touched.noktp && formik.errors.noktp
-                        ? formik.errors.noktp
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.noktp && formik.errors.noktp
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <Input
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      placeholder="input no ktp"
-                      name="noktp"
-                      type="number"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.noktp}
-                    />
-                  </Form.Item>
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="No KTP"
+                        help={
+                          formik.touched.noktp && formik.errors.noktp
+                            ? formik.errors.noktp
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.noktp && formik.errors.noktp
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <Input
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          placeholder="input no ktp"
+                          name="noktp"
+                          type="number"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.noktp}
+                        />
+                      </Form.Item>
 
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="No SIM"
-                    help={
-                      formik.touched.nosim && formik.errors.nosim
-                        ? formik.errors.nosim
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.nosim && formik.errors.nosim
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <Input
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      placeholder="input no sim"
-                      name="nosim"
-                      type="number"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.nosim}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="Jenis SIM"
-                    help={
-                      formik.touched.jenissim && formik.errors.jenissim
-                        ? formik.errors.jenissim
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.jenissim && formik.errors.jenissim
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <Select
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      showSearch
-                      optionFilterProp="children"
-                      id="jenissim"
-                      name="jenissim"
-                      type="text"
-                      defaultValue="Pilih Jenis SIM"
-                      // onChange={formik.handleChange}
-                      onChange={(value) =>
-                        formik.setFieldValue("jenissim", value)
-                      }
-                      value={formik.values.jenissim}
-                      onBlur={formik.handleBlur}
-                    >
-                      {JenisSimOptions.map((option) => (
-                        <Select.Option key={option.label} value={option.jenis}>
-                          {option.jenis}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                    {/* <Input
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="No SIM"
+                        help={
+                          formik.touched.nosim && formik.errors.nosim
+                            ? formik.errors.nosim
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.nosim && formik.errors.nosim
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <Input
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          placeholder="input no sim"
+                          name="nosim"
+                          type="number"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.nosim}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="Jenis SIM"
+                        help={
+                          formik.touched.jenissim && formik.errors.jenissim
+                            ? formik.errors.jenissim
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.jenissim && formik.errors.jenissim
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <Select
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          showSearch
+                          optionFilterProp="children"
+                          id="jenissim"
+                          name="jenissim"
+                          type="text"
+                          defaultValue="Pilih Jenis SIM"
+                          // onChange={formik.handleChange}
+                          onChange={(value) =>
+                            formik.setFieldValue("jenissim", value)
+                          }
+                          value={formik.values.jenissim}
+                          onBlur={formik.handleBlur}
+                        >
+                          {JenisSimOptions.map((option) => (
+                            <Select.Option key={option.label} value={option.jenis}>
+                              {option.jenis}
+                            </Select.Option>
+                          ))}
+                        </Select>
+                        {/* <Input
                                             placeholder="input jenissim"
                                             name="jenissim"
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.jenissim}
                                         /> */}
-                  </Form.Item>
+                      </Form.Item>
 
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="Agama"
-                    help={
-                      formik.touched.agama && formik.errors.agama
-                        ? formik.errors.agama
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.agama && formik.errors.agama
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <Select
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      placeholder="Pilih Agama"
-                      onBlur={formik.handleBlur}
-                      value={formik.values.agama}
-                      onChange={(value, option) => {
-                        formik.handleChange({
-                          target: {
-                            name: "agama",
-                            value: value,
-                          },
-                        });
-                      }}
-                    >
-                      <Select.Option value="1">Islam</Select.Option>
-                      <Select.Option value="2">Kristen</Select.Option>
-                      <Select.Option value="3">Hindu</Select.Option>
-                      <Select.Option value="4">Buddha</Select.Option>
-                      <Select.Option value="5">Khonghucu</Select.Option>
-                    </Select>
-                  </Form.Item>
-                </Col>
-                <Col sm={4}>
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="No Telp"
-                    help={
-                      formik.touched.notelp1 && formik.errors.notelp1
-                        ? formik.errors.notelp1
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.notelp1 && formik.errors.notelp1
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <Input.Group>
-                      <Input addonBefore="+62"
-                        style={{
-                          border: "1px solid #1A5CBF",
-                          borderRadius: "5px",
-                        }}
-                        type="number"
-                        placeholder="input notelp1"
-                        name="notelp1"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.notelp1}
-                      />
-                    </Input.Group>
-                  </Form.Item>
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="No Telp 2"
-                    help={
-                      formik.touched.notelp2 && formik.errors.notelp2
-                        ? formik.errors.notelp2
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.notelp2 && formik.errors.notelp2
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <Input addonBefore="+62"
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      type="number"
-                      placeholder="input notelp2"
-                      name="notelp2"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={
-                        formik.values.notelp2 === undefined
-                          ? "Tidak ada No Telp 2"
-                          : formik.values.notelp2
-                      }
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="Email"
-                    help={
-                      formik.touched.email && formik.errors.email
-                        ? formik.errors.email
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.email && formik.errors.email
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <Input
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      placeholder="input email"
-                      name="email"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.email}
-                    />
-                  </Form.Item>
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="Agama"
+                        help={
+                          formik.touched.agama && formik.errors.agama
+                            ? formik.errors.agama
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.agama && formik.errors.agama
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <Select
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          placeholder="Pilih Agama"
+                          onBlur={formik.handleBlur}
+                          value={formik.values.agama}
+                          onChange={(value, option) => {
+                            formik.handleChange({
+                              target: {
+                                name: "agama",
+                                value: value,
+                              },
+                            });
+                          }}
+                        >
+                          <Select.Option value="1">Islam</Select.Option>
+                          <Select.Option value="2">Kristen</Select.Option>
+                          <Select.Option value="3">Hindu</Select.Option>
+                          <Select.Option value="4">Buddha</Select.Option>
+                          <Select.Option value="5">Khonghucu</Select.Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col sm={4}>
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="No Telp"
+                        help={
+                          formik.touched.notelp1 && formik.errors.notelp1
+                            ? formik.errors.notelp1
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.notelp1 && formik.errors.notelp1
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <Input.Group>
+                          <Input addonBefore="+62"
+                            style={{
+                              border: "1px solid #1A5CBF",
+                              borderRadius: "5px",
+                            }}
+                            type="number"
+                            placeholder="input notelp1"
+                            name="notelp1"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.notelp1}
+                          />
+                        </Input.Group>
+                      </Form.Item>
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="No Telp 2"
+                        help={
+                          formik.touched.notelp2 && formik.errors.notelp2
+                            ? formik.errors.notelp2
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.notelp2 && formik.errors.notelp2
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <Input addonBefore="+62"
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          type="number"
+                          placeholder="input notelp2"
+                          name="notelp2"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={
+                            formik.values.notelp2 === undefined
+                              ? "Tidak ada No Telp 2"
+                              : formik.values.notelp2
+                          }
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="Email"
+                        help={
+                          formik.touched.email && formik.errors.email
+                            ? formik.errors.email
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.email && formik.errors.email
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <Input
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          placeholder="input email"
+                          name="email"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.email}
+                        />
+                      </Form.Item>
 
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="Vehicle Type"
-                    help={
-                      formik.touched.vehicletype && formik.errors.vehicletype
-                        ? formik.errors.vehicletype
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.vehicletype && formik.errors.vehicletype
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <Select
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      showSearch
-                      name="vehicletype"
-                      id="vehicletype"
-                      optionFilterProp="children"
-                      value={formik.values.vehicletype}
-                      onChange={(value) =>
-                        formik.setFieldValue("vehicletype", value)
-                      }
-                    >
-                      {DriverTypeOptions.map((option) => (
-                        <Select.Option key={option.label} value={option.jenis}>
-                          {option.label}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                    {/* <Input
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="Vehicle Type"
+                        help={
+                          formik.touched.vehicletype && formik.errors.vehicletype
+                            ? formik.errors.vehicletype
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.vehicletype && formik.errors.vehicletype
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <Select
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          showSearch
+                          name="vehicletype"
+                          id="vehicletype"
+                          optionFilterProp="children"
+                          value={formik.values.vehicletype}
+                          onChange={(value) =>
+                            formik.setFieldValue("vehicletype", value)
+                          }
+                        >
+                          {DriverTypeOptions.map((option) => (
+                            <Select.Option key={option.label} value={option.jenis}>
+                              {option.label}
+                            </Select.Option>
+                          ))}
+                        </Select>
+                        {/* <Input
                                             placeholder="input vehicle type"
                                             name="vehicletype"
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.vehicletype}
                                         /> */}
-                  </Form.Item>
+                      </Form.Item>
 
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="Ukuran Seragam"
-                    help={
-                      formik.touched.ukseragam && formik.errors.ukseragam
-                        ? formik.errors.ukseragam
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.ukseragam && formik.errors.ukseragam
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <Select
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      name="ukseragam"
-                      id="ukseragam"
-                      onChange={(value) => {
-                        formik.setFieldValue("ukseragam", value);
-                      }}
-                      defaultValue="Pilih Ukuran Seragam"
-                      onBlur={formik.handleBlur}
-                      value={formik.values.ukseragam}
-                    >
-                      {UkuranSeragam.map((item) => (
-                        <Select.Option value={item.ukuran}>
-                          {item.ukuran}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                    {/* <Input
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="Ukuran Seragam"
+                        help={
+                          formik.touched.ukseragam && formik.errors.ukseragam
+                            ? formik.errors.ukseragam
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.ukseragam && formik.errors.ukseragam
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <Select
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          name="ukseragam"
+                          id="ukseragam"
+                          onChange={(value) => {
+                            formik.setFieldValue("ukseragam", value);
+                          }}
+                          defaultValue="Pilih Ukuran Seragam"
+                          onBlur={formik.handleBlur}
+                          value={formik.values.ukseragam}
+                        >
+                          {UkuranSeragam.map((item) => (
+                            <Select.Option value={item.ukuran}>
+                              {item.ukuran}
+                            </Select.Option>
+                          ))}
+                        </Select>
+                        {/* <Input
                                             placeholder="input ukuran seragam"
                                             name="ukseragam"
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             value={formik.values.ukseragam}
                                         /> */}
-                  </Form.Item>
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="Nama Bank"
-                    help={
-                      formik.touched.rekeningbank && formik.errors.rekeningbank
-                        ? formik.errors.rekeningbank
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.rekeningbank && formik.errors.rekeningbank
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    {/* <Input
+                      </Form.Item>
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="Nama Bank"
+                        help={
+                          formik.touched.rekeningbank && formik.errors.rekeningbank
+                            ? formik.errors.rekeningbank
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.rekeningbank && formik.errors.rekeningbank
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        {/* <Input
                       style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",
@@ -1422,105 +1448,112 @@ function DriverTableBaru() {
                       onBlur={formik.handleBlur}
                       value={formik.values.rekeningbank}
                     /> */}
-                    <Select
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      showSearch
-                      optionFilterProp="children"
-                      placeholder="input rekening bank"
-                      name="rekeningbank"
-                      onChange={(key) => { formik.setFieldValue(`rekeningbank`, key); console.log('ini log', key) }}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.rekeningbank}>
-                      {NamaBankOptionsZustand && NamaBankOptionsZustand.map((i) => (
-                        <option key={i.name} value={i.name}>{i.name}</option>
-                      ))}
-                    </Select>
-                  </Form.Item>
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="Nomor Rekening"
-                    help={
-                      formik.touched.norekening && formik.errors.norekening
-                        ? formik.errors.norekening
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.norekening && formik.errors.norekening
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <Input
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      type="number"
-                      placeholder="input nomor rekening"
-                      name="norekening"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.norekening}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="Alamat :"
-                    help={
-                      formik.touched.alamat && formik.errors.alamat
-                        ? formik.errors.alamat
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.alamat && formik.errors.alamat
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <Input
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      placeholder="input alamat"
-                      name="alamat"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.alamat}
-                    />
-                  </Form.Item>
-                </Col>
-              </Row>
-            </Form>
-          </Modal>
+                        <Select
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          showSearch
+                          optionFilterProp="children"
+                          placeholder="input rekening bank"
+                          name="rekeningbank"
+                          onChange={(key) => { formik.setFieldValue(`rekeningbank`, key); console.log('ini log', key) }}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.rekeningbank}>
+                          {NamaBankOptionsZustand && NamaBankOptionsZustand.map((i) => (
+                            <option key={i.name} value={i.name}>{i.name}</option>
+                          ))}
+                        </Select>
+                      </Form.Item>
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="Nomor Rekening"
+                        help={
+                          formik.touched.norekening && formik.errors.norekening
+                            ? formik.errors.norekening
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.norekening && formik.errors.norekening
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <Input
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          type="number"
+                          placeholder="input nomor rekening"
+                          name="norekening"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.norekening}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        style={{ fontWeight: "bold" }}
+                        label="Alamat :"
+                        help={
+                          formik.touched.alamat && formik.errors.alamat
+                            ? formik.errors.alamat
+                            : null
+                        }
+                        validateStatus={
+                          formik.touched.alamat && formik.errors.alamat
+                            ? "error"
+                            : undefined
+                        }
+                      >
+                        <Input
+                          style={{
+                            border: "1px solid #1A5CBF",
+                            borderRadius: "5px",
+                          }}
+                          placeholder="input alamat"
+                          name="alamat"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.alamat}
+                        />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </Form>
+              </Modal>
 
-          <DataTable
-            columns={columns}
-            data={DataAwal}
-            onRowClicked={DetailRow}
-          />
-          <style>
-            {`
+              <DataTable
+                columns={columns}
+                data={DataAwal}
+                onRowClicked={DetailRow}
+              />
+              <style>
+                {`
           .rdt_TableBody .rdt_TableRow:hover {
             cursor: pointer;
             background-color: #C7E1FB;
           }
           
         `}
-          </style>
-          <div className="d-flex justify-content-end mt-3">
-            <Pagination
-              showSizeChanger
-              onChange={onShowSizeChange}
-              defaultCurrent={1}
-              total={TotalPages}
-            />
-          </div>
-        </Row>
-      </Card>
+              </style>
+              <div className="d-flex justify-content-end mt-3">
+                <Pagination
+                  showSizeChanger
+                  onChange={onShowSizeChange}
+                  defaultCurrent={1}
+                  total={TotalPages}
+                />
+              </div>
+
+
+            </Row>
+          </Card>
+        </>)}
+      {ShowVehicleModal === true && (
+        <>
+          <VehicleBaru ShowVehicleModal={ShowVehicleModal} setShowVehicleModal={setShowVehicleModal} />
+        </>)}
     </div>
   );
 }

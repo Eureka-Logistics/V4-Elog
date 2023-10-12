@@ -15,7 +15,7 @@ import {
     CheckSquareFilled,
     CloseSquareFilled
 } from '@ant-design/icons';
-function VehicleBaru() {
+function VehicleBaru({ ShowVehicleModal, setShowVehicleModal }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [IdDriver, setIdDriver] = useState("");
     const [FotoDriver, setFotoDriver] = useState("")
@@ -397,7 +397,7 @@ function VehicleBaru() {
 
             // Tampilkan SweetAlert untuk error
             console.log(error.response.data.status.message);
-           
+
 
         }
     }
@@ -583,7 +583,7 @@ function VehicleBaru() {
                                 ))}
                             </Select>
                         </Col>
-                        <Col sm={6}>
+                        <Col sm={4}>
                             <Select
                                 showSearch
                                 placeholder="Status"
@@ -622,13 +622,38 @@ function VehicleBaru() {
                                 Tambah Vehicle
                             </Button>
                         </Col>
+                        {localStorage.getItem("jobdesk") && (
+                            <Col sm={2}>
+                                <Button
+                                    style={{
+                                        backgroundColor: "red",
+                                        color: "#FFFFFF",
+                                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                                        borderColor: "#1A5CBF",
+                                    }}
+                                    type="danger" onClick={() => {
+                                        setShowVehicleModal(false)
+                                        // showModal()
+                                        // setIdDriver(null)
+                                        // setFotoDriver(null)
+                                        // DriverName()
+                                    }} >
+                                   Halaman Tambah Driver
+                                </Button>
+                            </Col>
+
+                        )}
                     </Row>
 
                     <Modal
                         title={title()} style={{ top: 10 }} visible={isModalOpen} onOk={formik.handleSubmit}
                         width={1000}
                         // confirmLoading={Loading}
-                        onCancel={handleCancel}>
+                        onCancel={() => {
+                            handleCancel()
+
+
+                        }}>
                         <AntForm>
                             <Row>
                                 <Col sm={4}>
@@ -1261,7 +1286,7 @@ function VehicleBaru() {
                     />
                 </div>
             </Card>
-        </div>
+        </div >
     )
 }
 

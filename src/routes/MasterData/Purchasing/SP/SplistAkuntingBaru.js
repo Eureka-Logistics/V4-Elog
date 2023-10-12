@@ -135,21 +135,18 @@ function SplistOperasional() {
         let displayText;
     
         if (approveact === "Y" && dateApproveAct !== "Invalid Date") {
-          // Kondisi untuk "Approve"
           displayText = (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
           );
         } else if (approveact === "N" && dateApproveAct === "Invalid Date") {
-          // Kondisi untuk "Waiting"
           displayText = (
             <Tag color="yellow">
               Waiting <br /> <small>Menunggu</small> {/* Ubah teks ini jika "dateApproveAct" tidak valid */}
             </Tag>
           );
         } else {
-          // Kondisi untuk "Reject" atau kondisi lain yang tidak terpenuhi
           displayText = (
             <Tag color="red">
               Reject <br /> <small>{dateApproveAct === "Invalid Date" ? '---' : dateApproveAct}</small>
