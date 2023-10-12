@@ -2349,6 +2349,9 @@ function FormTable({
                 </>
               </Modal.Body>
               <Modal.Footer>
+                <Button variant="danger" onClick={handleClose}>
+                  Close
+                </Button>
                 <Button
                   onClick={() => {
                     setShow(false)
@@ -2358,9 +2361,6 @@ function FormTable({
                 // href="/masterdata/purchasing/vehicle"
                 >
                   Tambah Driver dan Vehicle
-                </Button>
-                <Button variant="secondary" onClick={handleClose}>
-                  Close
                 </Button>
                 <Button
                   variant="primary"
@@ -2633,6 +2633,25 @@ function FormTable({
                                   Edit
                                 </Button>
                               ) : null}
+                              {jobdesk == "purchasing" &&
+                                jobdesk != "akunting" &&
+                                jobdesk != "operasional" && (
+                                  <>
+                                    <Button
+                                      size="sm"
+                                      variant="primary"
+                                      onClick={() => {
+                                        handleShow(data.idmpd);
+                                        approvebaru(data.idmpd, data);
+                                        MitraMulti(data.idmpd)
+                                        // FetchTipeKendaraan()
+                                      }}
+                                      className="mt-2"
+                                    >
+                                      Approve
+                                    </Button>
+                                  </>
+                                )}
                             </td>
                             <td >{data.destination}</td>
                             <td>{data.noSJ} <br /> <Tag>{data.kendaraan}</Tag><Tag>{data.item}</Tag></td>
@@ -2829,25 +2848,7 @@ function FormTable({
                             ) : null} */}
 
                             {/* Approve Purchasing */}
-                            {jobdesk == "purchasing" &&
-                              jobdesk != "akunting" &&
-                              jobdesk != "operasional" && (
-                                <>
-                                  <Button
-                                    size="sm"
-                                    variant="primary"
-                                    onClick={() => {
-                                      handleShow(data.idmpd);
-                                      approvebaru(data.idmpd, data);
-                                      MitraMulti(data.idmpd)
-                                      // FetchTipeKendaraan()
-                                    }}
-                                    className="mt-2"
-                                  >
-                                    Approve
-                                  </Button>
-                                </>
-                              )}
+
                           </tr>
 
 

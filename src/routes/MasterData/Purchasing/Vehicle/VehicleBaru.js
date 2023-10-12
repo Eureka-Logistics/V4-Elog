@@ -15,7 +15,7 @@ import {
     CheckSquareFilled,
     CloseSquareFilled
 } from '@ant-design/icons';
-function VehicleBaru({ ShowVehicleModal, setShowVehicleModal }) {
+function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [IdDriver, setIdDriver] = useState("");
     const [FotoDriver, setFotoDriver] = useState("")
@@ -622,7 +622,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal }) {
                                 Tambah Vehicle
                             </Button>
                         </Col>
-                        {localStorage.getItem("jobdesk") && (
+                        {localStorage.getItem("jobdesk") && ValidasiTombol === false && (
                             <Col sm={2}>
                                 <Button
                                     style={{
@@ -638,7 +638,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal }) {
                                         // setFotoDriver(null)
                                         // DriverName()
                                     }} >
-                                   Halaman Tambah Driver
+                                    Halaman Tambah Driver
                                 </Button>
                             </Col>
 

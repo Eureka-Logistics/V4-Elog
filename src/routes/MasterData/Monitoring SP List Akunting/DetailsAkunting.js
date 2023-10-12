@@ -450,7 +450,7 @@ function DetailsAkunting() {
               </div>
 
               {/* {jobdesk === "sales" && actSalesStatus === "Y" ? ( */}
-              {jobdesk === "sales" || actSalesStatus === "Y" ? (
+              {jobdesk === "sales" || actSalesStatus === "N" ? (
                 <>
                   <Button
                     size="sm"

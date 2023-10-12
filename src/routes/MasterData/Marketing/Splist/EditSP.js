@@ -419,7 +419,7 @@ function EditSP({ }) {
   });
 
   ////Edit sp
-  
+
   const editttsp = async () => {
     try {
       Swal.fire({
@@ -621,7 +621,7 @@ function EditSP({ }) {
           <EditSPNew refreshtable={getDetail} />
           {/* <ModalCreateDetail refreshtable={getDetail}/> */}
           <div className="d-flex justify-content-end">
-            {jobdesk != "sales" && jobdesk != "operasional" ? (
+            {jobdesk != "sales" && jobdesk != "operasional" && jobdesk != "purchasing" ? (
               <>
                 <Button size="sm" onClick={() => tombolApprove()}>
                   Approve
@@ -1355,7 +1355,7 @@ function EditSP({ }) {
               <Col span={10}></Col>
               <Col
                 span={2}
-                style={{ }}
+                style={{}}
                 className="d-flex justify-content-end mb-2 mb-2"
               >
                 <div>
@@ -1392,7 +1392,7 @@ function EditSP({ }) {
                 </div>
               </Col>
             </Row>
-           
+
             {/* <Row>
               <Col
                 span={12}

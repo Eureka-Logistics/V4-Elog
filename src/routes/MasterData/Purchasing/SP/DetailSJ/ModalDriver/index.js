@@ -1,11 +1,12 @@
 import { Input, Modal } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import DriverTableBaru from '../../../../Driver/DriverTableBaru'
 // import "./style.css"
 function ModalDriverPurchasing({ setShow, ModalDriverPurch, setModalDriverPurch }) {
+    const [ValidasiTombol ,setValidasiTombol] = useState(false)
     return (
         <Modal
-            width={1500}
+            width={1700}
             title="Add Driver dan Vehicle"
             style={{
                 top: 20,
@@ -18,7 +19,7 @@ function ModalDriverPurchasing({ setShow, ModalDriverPurch, setModalDriverPurch 
                 setShow(true)
             }}
         >
-            <DriverTableBaru />
+            <DriverTableBaru ValidasiTombol={ValidasiTombol} setValidasiTombol={setValidasiTombol}/>
         </Modal>
     )
 }
