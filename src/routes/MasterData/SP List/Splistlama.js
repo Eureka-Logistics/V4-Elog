@@ -279,11 +279,11 @@ function SPListlama() {
           <Tag color="green">
             Approved <br /> {tanggal}
           </Tag>
-        ) : row?.approveAct === "N" && tanggal === "1970-01-01 07:00:00" ? (
+        ) : row?.approveAct === "N" && tanggal === "1970-01-01 07:00:00" || "Invalid Date" ? (
           <Tag color="yellow">
             Waiting <br /> {tanggal ? "-" : tanggal}
           </Tag>
-        ) : row?.approveAct === "N" && tanggal !== "1970-01-01 07:00:00" ? (
+        ) : row?.approveAct === "N" && tanggal !== "1970-01-01 07:00:00" || "Invalid Date" ? (
           <Tag color="red">
             Diverted <br /> {tanggal}
           </Tag>

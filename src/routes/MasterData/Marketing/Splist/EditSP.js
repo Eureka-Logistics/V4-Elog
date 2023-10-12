@@ -1352,9 +1352,10 @@ function EditSP({ }) {
               </tfoot> */}
 
             <Row>
+              <Col span={10}></Col>
               <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
+                span={2}
+                style={{ }}
                 className="d-flex justify-content-end mb-2 mb-2"
               >
                 <div>
@@ -1373,7 +1374,7 @@ function EditSP({ }) {
             </Row>
             <Row>
               <Col
-                span={12}
+                span={10}
                 style={{ marginLeft: "10px" }}
                 className="d-flex justify-content-end mb-2"
               >

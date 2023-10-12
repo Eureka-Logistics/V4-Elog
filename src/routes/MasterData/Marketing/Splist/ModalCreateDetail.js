@@ -57,12 +57,13 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
             kendaraan: "",
             via: "",
             alamatrute: '',
+            berat: ""
 
         },
         validationSchema: Yup.object({
             alamatmuat: Yup.string().required('Alamat Muat Harus Di Isi'),
             alamatbongkar: Yup.string().required('Alamat Bongkar Harus Di Isi'),
-            // pilihrute: Yup.string().required('Pilih Rute Harus Di Isi'),
+            berat: Yup.string().required('Berat Harus Diisi'),
             kendaraan: Yup.string().required('Kendaraan Harus Di Isi'),
             via: Yup.string().required('Via Harus Di Isi'),
 
@@ -105,7 +106,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     id_albongkar: formik.values.IDalamatbongkar,
                     // nama_barang: formik.values.namabarang,
                     nama_barang: JenisBarangFormik,
-                    berat: formik.values.berat || 1,
+                    berat: formik.values.berat,
                     qty: formik.values.qty,
                     koli: formik.values.koli,
                     id_price_customer: id_price_customer,
@@ -268,6 +269,14 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     harga_muat: formik.values.biayamuat,
                     harga_bongkar: formik.values.bongkar,
                     // harga: HasilTarif,
+                    max_tonase: formik.values.biayamaxtonase,
+                    biaya_mel: formik.values.biayamel,
+                    harga_selanjutnya: formik.values.biayaselanjutnya,
+                    biaya_lain: formik.values.lain,
+                    biaya_tambahan: formik.values.tambahan,
+                    biaya_multidrop: formik.values.biayamultidrop,
+                    biaya_multimuat: formik.values.biayamultimuat,
+                    biaya_overtonase: formik.values.overtonase,
                     harga: formik.values.biayajalan,
                     total: formik.values.total
 
@@ -287,6 +296,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         } catch (error) {
             message.error(error.response.data.status.message)
 
+        } finally {
+            refreshtable()
         }
     }
 
@@ -367,7 +378,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         const biayamultimuat = Number(formik.values.biayamultimuat) || 0;
         const biayamultidrop = Number(formik.values.biayamultidrop) || 0;
         const biayamel = Number(formik.values.biayamel) || 0;
-        const berat = Number(formik.values.berat) || 1;
+        // const berat = Number(formik.values.berat) || 1;
+        const berat = Number(formik.values.berat);
         // const HasilTarifNumerik =Number(formik.values.biayajalan) ||  Number(HasilTarif) ;
         const HasilTarifNumerik = Number(formik.values.biayajalan);
         const overtonase = Number(formik.values.overtonase) || 0;
@@ -890,7 +902,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         console.log(`berat`, e.target.value);
                                     }}
 
-                                    value={formik.values.berat || 1}
+                                    value={formik.values.berat}
 
                                     onBlur={formik.handleBlur}
                                 />
@@ -1583,18 +1595,10 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                 <td style={{ backgroundColor: "transparent" }}>Shipment</td>
                                                 <td style={{ backgroundColor: "transparent" }}>Berat</td>
                                                 <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Jalan</td>
-                                                <td style={{ backgroundColor: "transparent" }} width="250px">Biaya Jalan {data?.service[0]}</td>
-                                                <td style={{ backgroundColor: "transparent" }}>Qty</td>
-                                                <td style={{ backgroundColor: "transparent" }} width="150px">Harga Muat</td>
-                                                <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Mel</td>
-                                                <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Lain</td>
-                                                <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Bongkar</td>
-                                                <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Multi Drop</td>
-                                                <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Multi Muat</td>
-                                                <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Over Tonase</td>
-                                                <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Tambahan</td>
-                                                <td style={{ backgroundColor: "transparent" }} width="150px">Total</td>
+                                                <td style={{ backgroundColor: "transparent", textAlign: "right" }} width="250px">Jumlah ({data?.service[0]})</td>
+
                                             </tr>
+
 
                                             <tr key={index}>
                                                 <td>
@@ -1609,20 +1613,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                         >
                                                             X
                                                         </Button>
-                                                        {/* <Button
-                                                            size="md"
-                                                            type="primary"
-                                                            onClick={() => {
-                                                                //   setIdmpdPerstate(data.idmpd);
-                                                                //   handleShowSP(data.idmpd, data.noSJ);
-                                                                setDetailSemuaTemp(data)
-                                                                setModal1Open(true, data)
-                                                                getTarifRute()
-                                                            }}
-                                                            className="mt-2"
-                                                        >
-                                                            Edit
-                                                        </Button> */}
+
                                                         <Button
                                                             size="md"
                                                             type="primary"
@@ -1639,18 +1630,10 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                         >
                                                             Edit
                                                         </Button>
-                                                        {/* <ModalEditSPDetail
-                                                            datasemua={dataas}
-                                                            data={dataas}
-                                                            isOpen={modal1Open1}
-                                                            handleOpenModal={() => handleOpenModal(data)}
-                                                            idkotamuat={formik.values?.id_kota_muat}
-                                                            NamaKotaGlobal={NamaKotaGlobal}
-                                                            onClose={handleCloseModal}
-                                                        /> */}
+
                                                     </span>
                                                 </td>
-                                                <td>{data.destination}</td>
+                                                <td >{data.destination}</td>
                                                 <td>{data.noSJ}</td>
                                                 <td>{data.kendaraan}</td>
                                                 <td>{DetailSemua?.service}</td>
@@ -1658,18 +1641,19 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                 <td>{data.item}</td>
                                                 <td>{data.shipmentName}</td>
                                                 <td>{data.berat}</td>
-                                                <td>{data.Price?.toLocaleString("id-ID", {
+                                                <td >{data.Price?.toLocaleString("id-ID", {
                                                     style: "currency",
                                                     currency: "IDR",
                                                 })}</td>
+
                                                 {data?.service[0] === "Retail" ?
-                                                    <td>
+                                                    <td style={{ textAlign: "right", fontWeight: "bold" }}>
                                                         {(data.berat * data.Price).toLocaleString("id-ID", {
                                                             style: "currency",
                                                             currency: "IDR",
                                                         })}
                                                     </td> :
-                                                    <td>
+                                                    <td style={{ textAlign: "right", fontWeight: "bold" }}>
                                                         {(data.Price).toLocaleString("id-ID", {
                                                             style: "currency",
                                                             currency: "IDR",
@@ -1678,75 +1662,87 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                 }
 
 
-                                                <td>{data.qty}</td>
-                                                <td>{data.harga_muat?.toLocaleString("id-ID", {
-                                                    style: "currency",
-                                                    currency: "IDR",
-                                                })}</td>
-                                                <td>{data.biayaMel?.toLocaleString("id-ID", {
-                                                    style: "currency",
-                                                    currency: "IDR",
-                                                })}</td>
-                                                <td>{data.biayaLain?.toLocaleString("id-ID", {
-                                                    style: "currency",
-                                                    currency: "IDR",
-                                                })}</td>
+
+
+
+
                                                 {/* <td>{data.Price?.toLocaleString("id-ID", {
                                 style: "currency",
                                 currency: "IDR",
                             })}</td> */}
-                                                <td>{data.harga_bongkar?.toLocaleString("id-ID", {
-                                                    style: "currency",
-                                                    currency: "IDR",
-                                                })}</td>
-                                                <td>{data.biaya_multi_drop?.toLocaleString("id-ID", {
-                                                    style: "currency",
-                                                    currency: "IDR",
-                                                })}</td>
-                                                <td>{data.biaya_multimuat?.toLocaleString("id-ID", {
-                                                    style: "currency",
-                                                    currency: "IDR",
-                                                })}</td>
-                                                <td>{data.biaya_overtonase?.toLocaleString("id-ID", {
-                                                    style: "currency",
-                                                    currency: "IDR",
-                                                })}</td>
-                                                <td>{data.biaya_tambahan?.toLocaleString("id-ID", {
-                                                    style: "currency",
-                                                    currency: "IDR",
-                                                })}</td>
-                                                {serviceStatus === "Charter" ?
-                                                    <>
-                                                        <td>{data.total?.toLocaleString("id-ID", {
-                                                            style: "currency",
-                                                            currency: "IDR",
-                                                        })}</td>
-                                                    </> : <>
-                                                        <td>{data.total?.toLocaleString("id-ID", {
-                                                            style: "currency",
-                                                            currency: "IDR",
-                                                        })}</td>
-                                                    </>}
 
 
                                             </tr>
+                                            <tr>
+                                                <td colSpan={9}></td>
+                                                <td style={{ backgroundColor: "transparent",  fontWeight: "bold" }}>Qty</td>
+                                                <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.qty}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colSpan={9}></td>
+                                                <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Harga Muat</td>
+                                                <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.harga_muat?.toLocaleString("id-ID", {
+                                                    style: "currency",
+                                                    currency: "IDR",
+                                                })}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colSpan={9}></td>
+                                                <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Mel</td>
+                                                <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biayaMel?.toLocaleString("id-ID", {
+                                                    style: "currency",
+                                                    currency: "IDR",
+                                                })}</td></tr>
+                                            <tr>  <td colSpan={9}></td>
+                                                <td style={{ backgroundColor: "transparent",  fontWeight: "bold" }} width="150px">Biaya Lain</td>
+                                                <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biayaLain?.toLocaleString("id-ID", {
+                                                    style: "currency",
+                                                    currency: "IDR",
+                                                })}</td>
+                                            </tr>
+                                            <tr>  <td colSpan={9}></td>
+                                                <td style={{ backgroundColor: "transparent",  fontWeight: "bold" }} width="150px">Biaya Bongkar</td>
+                                                <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.harga_bongkar?.toLocaleString("id-ID", {
+                                                    style: "currency",
+                                                    currency: "IDR",
+                                                })}</td></tr>
+                                            <tr>   <td colSpan={9}></td>
+                                                <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Multi Drop</td>
+                                                <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_multi_drop?.toLocaleString("id-ID", {
+                                                    style: "currency",
+                                                    currency: "IDR",
+                                                })}</td> </tr>
+                                            <tr>
+                                                <td colSpan={9}></td>
+                                                <td style={{ backgroundColor: "transparent",fontWeight: "bold" }} width="150px">Biaya Multi Muat</td>
+                                                <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_multimuat?.toLocaleString("id-ID", {
+                                                    style: "currency",
+                                                    currency: "IDR",
+                                                })}</td> </tr>
+                                            <tr>  <td colSpan={9}></td>
+                                                <td style={{ backgroundColor: "transparent",  fontWeight: "bold" }} width="150px">Biaya Over Tonase</td>
+                                                <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_overtonase?.toLocaleString("id-ID", {
+                                                    style: "currency",
+                                                    currency: "IDR",
+                                                })}</td> </tr>
+                                            <tr>   <td colSpan={9}></td>
+                                                <td style={{ backgroundColor: "transparent",  fontWeight: "bold" }} width="150px">Biaya Tambahan</td>
+                                                <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_tambahan?.toLocaleString("id-ID", {
+                                                    style: "currency",
+                                                    currency: "IDR",
+                                                })}</td> </tr>
+                                            <tr>   <td colSpan={9}></td>
+                                                <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Total SJ {index + 1}</td>
+                                                <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.total?.toLocaleString("id-ID", {
+                                                    style: "currency",
+                                                    currency: "IDR",
+                                                })}</td> </tr>
                                             <br />
                                         </>
                                     ))}
                             </>
                         ))}
                 </tbody>
-                <tfoot>
-                    <tr style={{ fontWeight: "bold" }}>
-                        <td colSpan={13} width="150px" className="text-right">
-                            Sub Total
-                        </td>
-                        <td width="150px">{DetailSemua?.subTotal?.toLocaleString("id-ID", {
-                            style: "currency",
-                            currency: "IDR",
-                        })}</td>
-                    </tr>
-                </tfoot>
             </Table>
 
 
@@ -2404,34 +2400,33 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                 />
                             </Form.Item>
                         </Col>
-                        {DetailSemua?.service === "Retail" && (
-                            <Col sm={ColBiaya()}>
-                                <Form.Item
-                                    label="Biaya mel"
-                                    help={formik.touched.biayamel && formik.errors.biayamel}
-                                    validateStatus={
-                                        formik.touched.biayamel && formik.errors.biayamel
-                                            ? 'error'
-                                            : 'success'
-                                    }
-                                    style={{ marginBottom: 2 }}
-                                >
-                                    <Input
-                                        disabled={!HasilTarif}
-                                        id="biayamel"
-                                        name="biayamel"
-                                        type="text"
-                                        onChange={e => {
-                                            // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
-                                            formik.setFieldValue("biayamel", Number(e.target.value.replace(/\D/g, '')))
-                                        }}
-                                        value={formik.values.biayamel === undefined ? 0 : formik.values.biayamel.toLocaleString('id-ID')}
-                                        // value={formik.values.biayamultimuat }
-                                        onBlur={formik.handleBlur}
-                                    />
-                                </Form.Item>
+                        <Col sm={ColBiaya()}>
+                            <Form.Item
+                                label="Biaya mel"
+                                help={formik.touched.biayamel && formik.errors.biayamel}
+                                validateStatus={
+                                    formik.touched.biayamel && formik.errors.biayamel
+                                        ? 'error'
+                                        : 'success'
+                                }
+                                style={{ marginBottom: 2 }}
+                            >
+                                <Input
+                                    disabled={!HasilTarif}
+                                    id="biayamel"
+                                    name="biayamel"
+                                    type="text"
+                                    onChange={e => {
+                                        // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
+                                        formik.setFieldValue("biayamel", Number(e.target.value.replace(/\D/g, '')))
+                                    }}
+                                    value={formik.values.biayamel === undefined ? 0 : formik.values.biayamel.toLocaleString('id-ID')}
+                                    // value={formik.values.biayamultimuat }
+                                    onBlur={formik.handleBlur}
+                                />
+                            </Form.Item>
 
-                            </Col>)}
+                        </Col>
                         <Col sm={3}>
                             <Form.Item
                                 label="Biaya tambahan"
@@ -2523,33 +2518,60 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
 
 
 
+                        {DetailSemua?.service === "Retail" && (
+                            <>
+                                <Col sm={3}>
+                                    <Form.Item
+                                        label="Max Tonase"
+                                        help={formik.touched.biayamaxtonase && formik.errors.biayamaxtonase}
+                                        validateStatus={
+                                            formik.touched.biayamaxtonase && formik.errors.biayamaxtonase
+                                                ? 'error'
+                                                : 'success'
+                                        }
+                                        style={{ marginBottom: 2 }}
+                                    >
+                                        <Input
+                                            id="biayamaxtonase"
+                                            name="biayamaxtonase"
+                                            type="text"
+                                            onChange={e => {
+                                                // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
+                                                formik.setFieldValue("biayamaxtonase", Number(e.target.value.replace(/\D/g, '')))
+                                            }}
+                                            value={formik.values.biayamaxtonase === undefined ? 0 : formik.values.biayamaxtonase.toLocaleString('id-ID')}
+                                            onBlur={formik.handleBlur}
+                                        />
+                                    </Form.Item>
+                                </Col>
+                                <Col sm={3}>
+                                    <Form.Item
+                                        label="Harga Selanjutnya"
+                                        help={formik.touched.biayaselanjutnya && formik.errors.biayaselanjutnya}
+                                        validateStatus={
+                                            formik.touched.biayaselanjutnya && formik.errors.biayaselanjutnya
+                                                ? 'error'
+                                                : 'success'
+                                        }
+                                        style={{ marginBottom: 2 }}
+                                    >
+                                        <Input
+                                            id="biayaselanjutnya"
+                                            name="biayaselanjutnya"
+                                            type="text"
+                                            onChange={e => {
+                                                // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
+                                                formik.setFieldValue("biayaselanjutnya", Number(e.target.value.replace(/\D/g, '')))
+                                            }}
+                                            value={formik.values.biayaselanjutnya === undefined ? 0 : formik.values.biayaselanjutnya.toLocaleString('id-ID')}
+                                            // value={formik.values.biayamel }
+                                            onBlur={formik.handleBlur}
+                                        />
+                                    </Form.Item>
 
-                        <Col sm={3}>
-                            <Form.Item
-                                label="Harga Selanjutnya"
-                                help={formik.touched.biayaselanjutnya && formik.errors.biayaselanjutnya}
-                                validateStatus={
-                                    formik.touched.biayaselanjutnya && formik.errors.biayaselanjutnya
-                                        ? 'error'
-                                        : 'success'
-                                }
-                                style={{ marginBottom: 2 }}
-                            >
-                                <Input
-                                    id="biayaselanjutnya"
-                                    name="biayaselanjutnya"
-                                    type="text"
-                                    onChange={e => {
-                                        // Hapus semua karakter non-angka, ubah ke number, lalu simpan ke formik
-                                        formik.setFieldValue("biayaselanjutnya", Number(e.target.value.replace(/\D/g, '')))
-                                    }}
-                                    value={formik.values.biayaselanjutnya === undefined ? 0 : formik.values.biayaselanjutnya.toLocaleString('id-ID')}
-                                    // value={formik.values.biayamel }
-                                    onBlur={formik.handleBlur}
-                                />
-                            </Form.Item>
-
-                        </Col>
+                                </Col>
+                            </>
+                        )}
                         <Col>
                             <Form.Item
                                 label={`TOTAL ${DetailSemua?.service?.toUpperCase()}`}

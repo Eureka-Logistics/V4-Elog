@@ -331,7 +331,7 @@ function DriverTableBaru() {
           alamat: formik.values.alamat,
           tgl_lahir: formik.values.tgllahir,
           agama: formik.values.agama,
-          notelp: "62"+formik.values.notelp1,
+          notelp: "62" + formik.values.notelp1,
           notelp2: formik.values.notelp2,
           email: formik.values.email,
           tgl_masuk: formik.values.tglmasuk,
@@ -402,7 +402,7 @@ function DriverTableBaru() {
       formData.append("alamat", formik.values.alamat);
       formData.append("tgl_lahir", formik.values.tgllahir);
       formData.append("agama", formik.values.agama);
-      formData.append("notelp", "62"+ formik.values.notelp1);
+      formData.append("notelp", "62" + formik.values.notelp1);
       formData.append("notelp2", formik.values.notelp2);
       formData.append("email", formik.values.email);
       formData.append("tgl_masuk", formik.values.tglmasuk);
@@ -552,7 +552,7 @@ function DriverTableBaru() {
         .transform((value) =>
           value ? value.charAt(0).toUpperCase() + value.slice(1) : ""
         ) : null
-          ,
+      ,
 
       // noktp: Yup.number().max(16,"Tidak Boleh Melebihi 16 angka").required('No KTP harus diisi').integer('Nik harus berupa angka'),
       namadriver: Yup.string()
@@ -887,7 +887,7 @@ function DriverTableBaru() {
                 <Col sm={4}>
                   <Form.Item
                     style={{ fontWeight: "bold" }}
-                    label={`Nik`+validasinik}
+                    label={`Nik` + validasinik}
                     help={helpValue}
                     // validateStatus={
                     //   formik.touched.nik && formik.errors.nik
@@ -987,7 +987,50 @@ function DriverTableBaru() {
                       value={formik.values.divisi}
                     />
                   </Form.Item> */}
-
+                  <Form.Item
+                    style={{ fontWeight: "bold" }}
+                    label="Jenis Driver"
+                    help={
+                      formik.touched.jeniskepemilikan &&
+                        formik.errors.jeniskepemilikan
+                        ? formik.errors.jeniskepemilikan
+                        : null
+                    }
+                    validateStatus={
+                      formik.touched.jeniskepemilikan &&
+                        formik.errors.jeniskepemilikan
+                        ? "error"
+                        : undefined
+                    }
+                  >
+                    <Select
+                      style={{
+                        border: "1px solid #1A5CBF",
+                        borderRadius: "5px",
+                      }}
+                      name="jeniskepemilikan"
+                      id="jeniskepemilikan"
+                      // onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.jeniskepemilikan}
+                      onChange={(value) =>
+                        formik.setFieldValue("jeniskepemilikan", value)
+                      }
+                    >
+                      {jenisKepemilikan.map((item) => (
+                        <Select.Option key={item.label} value={item.jenis}>
+                          {item.jenis}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                    {/* <Input
+                                            placeholder="input jenis kepemilikan"
+                                            name="jeniskepemilikan"
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                            value={formik.values.jeniskepemilikan}
+                                        /> */}
+                  </Form.Item>
                   <Form.Item
                     style={{ fontWeight: "bold" }}
                     label="Perusahaan"
@@ -1039,50 +1082,7 @@ function DriverTableBaru() {
                                             value={formik.values.jeniskepemilikan}
                                         /> */}
                   </Form.Item>
-                  <Form.Item
-                    style={{ fontWeight: "bold" }}
-                    label="Jenis Driver"
-                    help={
-                      formik.touched.jeniskepemilikan &&
-                        formik.errors.jeniskepemilikan
-                        ? formik.errors.jeniskepemilikan
-                        : null
-                    }
-                    validateStatus={
-                      formik.touched.jeniskepemilikan &&
-                        formik.errors.jeniskepemilikan
-                        ? "error"
-                        : undefined
-                    }
-                  >
-                    <Select
-                      style={{
-                        border: "1px solid #1A5CBF",
-                        borderRadius: "5px",
-                      }}
-                      name="jeniskepemilikan"
-                      id="jeniskepemilikan"
-                      // onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.jeniskepemilikan}
-                      onChange={(value) =>
-                        formik.setFieldValue("jeniskepemilikan", value)
-                      }
-                    >
-                      {jenisKepemilikan.map((item) => (
-                        <Select.Option key={item.label} value={item.jenis}>
-                          {item.jenis}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                    {/* <Input
-                                            placeholder="input jenis kepemilikan"
-                                            name="jeniskepemilikan"
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            value={formik.values.jeniskepemilikan}
-                                        /> */}
-                  </Form.Item>
+
                   <Form.Item
                     style={{ fontWeight: "bold" }}
                     label="No KTP"
@@ -1240,7 +1240,7 @@ function DriverTableBaru() {
                     }
                   >
                     <Input.Group>
-                      <Input addonBefore="+62" 
+                      <Input addonBefore="+62"
                         style={{
                           border: "1px solid #1A5CBF",
                           borderRadius: "5px",
@@ -1268,7 +1268,7 @@ function DriverTableBaru() {
                         : undefined
                     }
                   >
-                   <Input addonBefore="+62"
+                    <Input addonBefore="+62"
                       style={{
                         border: "1px solid #1A5CBF",
                         borderRadius: "5px",

@@ -78,17 +78,17 @@ function SplistOperasional() {
         const approveact = row.approveAct;
         const dateApproveAct = row.dateApproveAct;
         let displayText =
-          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" ? (
+          approveact === "Y" && dateApproveAct !== "Invalid Date" ? (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
-          ) : approveact === "N" && dateApproveAct === "1970-01-01 07:00:00" ? (
+          ) : approveact === "Y" && dateApproveAct !== "Invalid Date" ? (
             <Tag color="yellow">
               Waiting <br /> <small>{dateApproveAct}</small>
             </Tag>
           ) : (
             <Tag color="red">
-              Diverted <br /> <small>{dateApproveAct}</small>
+              Reject <br /> <small>{dateApproveAct}</small>
             </Tag>
           );
 
@@ -101,24 +101,30 @@ function SplistOperasional() {
       selector: (row) => {
         const approveact = row.approveOps;
         const dateApproveAct = row.dateApproveOps;
-        let displayText =
-          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" ? (
+        let displayText;
+
+        if (approveact === "Y" && dateApproveAct !== "Invalid Date") {
+          displayText = (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
-          ) : approveact === "N" && dateApproveAct === "1970-01-01 07:00:00" ? (
+          );
+        } else if (approveact !== "Y" && dateApproveAct !== "Invalid Date") {
+          displayText = (
             <Tag color="yellow">
               Waiting <br /> <small>{dateApproveAct}</small>
             </Tag>
-          ) : (
+          );
+        } else {
+          displayText = (
             <Tag color="red">
-              Diverted <br /> <small>{dateApproveAct}</small>
+              Reject <br /> <small>{dateApproveAct}</small>
             </Tag>
           );
+        }
 
         return <>{displayText}</>;
       },
-      // width: "150px",
     },
 
     {
@@ -126,25 +132,36 @@ function SplistOperasional() {
       selector: (row) => {
         const approveact = row.approvePurch;
         const dateApproveAct = row.dateApprovePurch;
-        let displayText =
-          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" ? (
+        let displayText;
+    
+        if (approveact === "Y" && dateApproveAct !== "Invalid Date") {
+          // Kondisi untuk "Approve"
+          displayText = (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
-          ) : approveact === "N" && dateApproveAct === "1970-01-01 07:00:00" ? (
+          );
+        } else if (approveact === "N" && dateApproveAct === "Invalid Date") {
+          // Kondisi untuk "Waiting"
+          displayText = (
             <Tag color="yellow">
-              Waiting <br /> <small>{dateApproveAct}</small>
-            </Tag>
-          ) : (
-            <Tag color="red">
-              Diverted <br /> <small>{dateApproveAct}</small>
+              Waiting <br /> <small>Menunggu</small> {/* Ubah teks ini jika "dateApproveAct" tidak valid */}
             </Tag>
           );
-
+        } else {
+          // Kondisi untuk "Reject" atau kondisi lain yang tidak terpenuhi
+          displayText = (
+            <Tag color="red">
+              Reject <br /> <small>{dateApproveAct === "Invalid Date" ? '---' : dateApproveAct}</small>
+            </Tag>
+          );
+        }
+    
         return <>{displayText}</>;
       },
       // width: "150px",
-    },
+    }
+    
     // {
     //   name: "Detail",
     //   selector: (row) => (

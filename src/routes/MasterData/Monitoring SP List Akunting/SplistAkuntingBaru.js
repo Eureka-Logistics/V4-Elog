@@ -105,7 +105,7 @@ function SplistAkuntingBaru() {
         const approveact = row?.approveAct;
         const dateApproveAct = row?.dateApproveAct;
         let displayText =
-          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" || "2023-10-11 12:11:59" ? (
+          approveact === "Y" && dateApproveAct !==  "Invalid Date" ? (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
@@ -129,7 +129,7 @@ function SplistAkuntingBaru() {
         const approveact = row?.approveOps;
         const dateApproveAct = row?.dateApproveOps;
         let displayText =
-          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" || "2023-10-11 12:11:59" ? (
+          approveact === "Y" && dateApproveAct !==  "Invalid Date"? (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
@@ -154,11 +154,11 @@ function SplistAkuntingBaru() {
         const approveact = row?.approvePurch;
         const dateApproveAct = row?.dateApprovePurch;
         let displayText =
-          approveact === "Y" && dateApproveAct !== "1970-01-01 07:00:00" || "2023-10-11 12:11:59" ? (
+          approveact === "Y" && dateApproveAct !==  "Invalid Date" ? (
             <Tag color="green">
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
-          ) : approveact === "N" && dateApproveAct === "Invalid date" || "1970-01-01 07:00:00" || "2023-10-11 12:11:59" ? (
+          ) : approveact === "N" && dateApproveAct === "Invalid Date" || "1970-01-01 07:00:00" || "2023-10-11 12:11:59" ? (
             <Tag color="yellow">
               Waiting <br /> <small>{dateApproveAct}</small>
             </Tag>

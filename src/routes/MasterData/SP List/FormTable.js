@@ -2564,7 +2564,7 @@ function FormTable({
 
                     {spdetailsemuanyasekarang &&
                       spdetailsemuanyasekarang.detail[index].tujuan &&
-                      spdetailsemuanyasekarang.detail[index].tujuan.map((data, index) => (
+                      spdetailsemuanyasekarang.detail[index].tujuan.map((data, indesx) => (
                         <>
                           <tr
                             style={{
@@ -2582,65 +2582,124 @@ function FormTable({
                             <td style={{ backgroundColor: "transparent" }}>Shipment</td>
                             <td style={{ backgroundColor: "transparent" }}>Berat</td>
                             <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Jalan</td>
-                            <td style={{ backgroundColor: "transparent" }} width="250px">Biaya Jalan {data?.service[0]}</td>
-                            <td style={{ backgroundColor: "transparent" }}>Qty</td>
-                            <td style={{ backgroundColor: "transparent" }} width="150px">Harga Muat</td>
-                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Mel</td>
-                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Lain</td>
-                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Bongkar</td>
-                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Multi Drop</td>
-                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Multi Muat</td>
-                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Over Tonase</td>
-                            <td style={{ backgroundColor: "transparent" }} width="150px">Biaya Tambahan</td>
-                            <td style={{ backgroundColor: "transparent" }} width="150px">Total</td>
-                            {jobdesk != "akunting" ? (
-                              <td colSpan={2}>Aksi</td>
-                            ) : (
-                              ""
-                            )}
+                            <td style={{ backgroundColor: "transparent", textAlign: "right" }} width="250px">Jumlah ({data?.service[0]})</td>
+
                           </tr>
+                          <tr>
 
+                            <td>No {index + 1}
+                              {IsiKomenRejectSP === "Tidak Menggunakan unit" ? (
+                                <Alert
+                                  type="error"
+                                  message="SO Sudah Di Reject"
+                                  banner
+                                />
+                              ) : jobdesk === "operasional" &&
+                                data.supirId === 0 &&
+                                data.unitId === 0 ? (
+                                <Button
+                                  size="sm"
+                                  style={{ textAlign: "right" }}
+                                  variant="primary"
+                                  onClick={() => {
+                                    handleShow(data.idmpd);
+                                    approvebaru(data.idmpd);
+                                    setNamaMobilDariTable(data.kendaraan)
+                                  }}
+                                  className="mt-2"
+                                  disabled={LoadingMuterMuter}
+                                >
+                                  Approve
+                                </Button>
+                              ) : jobdesk === "operasional" &&
+                                data.supirId !== 0 &&
+                                data.unitId !== 0 ? (
+                                <Button
+                                  // disabled
+                                  size="sm"
+                                  type="danger"
+                                  variant="danger"
+                                  style={{ color: "white", backgroundColor: "red" }}
+                                  onClick={() => {
+                                    handleShow(data.idmpd);
+                                    approvebaru(data.idmpd);
+                                    setNamaMobilDariTable(data.kendaraan)
+                                  }}
+                                  className="mt-2"
+                                >
+                                  Edit
+                                </Button>
+                              ) : null}
+                            </td>
+                            <td >{data.destination}</td>
+                            <td>{data.noSJ}</td>
+                            <td>{data.kendaraan}</td>
+                            <td>{data?.service}</td>
+                            <td>{data?.via}</td>
+                            <td>{data.item}</td>
+                            <td>{data.shipmentName}</td>
+                            <td>{data.berat}</td>
+                            <td >{data.Price?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td>
+
+                            {data?.service[0] === "Retail" ?
+                              <td style={{ textAlign: "right", fontWeight: "bold" }}>
+                                {(data.berat * data.Price).toLocaleString("id-ID", {
+                                  style: "currency",
+                                  currency: "IDR",
+                                })}
+                              </td> :
+                              <td style={{ textAlign: "right", fontWeight: "bold" }}>
+                                {(data.Price).toLocaleString("id-ID", {
+                                  style: "currency",
+                                  currency: "IDR",
+                                })}
+                              </td>
+                            }
+                          </tr>
                           <tr key={index}>
-                            <td>
-                              {jobdesk !== "purchasing" && (
-                                <>
-                                  {/* <p className="text-center">{++}</p> */}
-                                </>
-                              )}
-                              <span>
-                                {jobdesk != "purchasing" ||
-                                  (jobdesk == "akunting" && (
-                                    <>
-                                      <Button
-                                        size="md"
-                                        variant="danger"
-                                        // onClick={() => deltebutton(data.idmpd)}
-                                        className="mt-2"
-                                      >
-                                        X
-                                      </Button>
-                                    </>
-                                  ))}
 
-                                {jobdesk != "purchasing" ||
-                                  (jobdesk == "akunting" && (
-                                    <>
-                                      <Button
-                                        size="md"
-                                        variant="primary"
-                                        onClick={() => {
-                                          // setIdmpdPerstate(data.idmpd);
-                                          // handleShowSP(data.idmpd, data.noSJ);
-                                          // setIsiDataSPSemuaTemp(data)
-                                        }}
-                                        className="mt-2"
-                                      >
-                                        Edit
-                                      </Button>
-                                    </>
-                                  ))}
+                            {jobdesk !== "purchasing" && (
+                              <>
+                                {/* <p className="text-center">{++}</p> */}
+                              </>
+                            )}
+                            <span>
+                              {jobdesk != "purchasing" ||
+                                (jobdesk == "akunting" && (
+                                  <>
+                                    <Button
+                                      size="md"
+                                      variant="danger"
+                                      // onClick={() => deltebutton(data.idmpd)}
+                                      className="mt-2"
+                                    >
+                                      X
+                                    </Button>
+                                  </>
+                                ))}
 
-                                {/* {(StatusPurchasing === "Y") && (
+                              {jobdesk != "purchasing" ||
+                                (jobdesk == "akunting" && (
+                                  <>
+                                    <Button
+                                      size="md"
+                                      variant="primary"
+                                      onClick={() => {
+                                        // setIdmpdPerstate(data.idmpd);
+                                        // handleShowSP(data.idmpd, data.noSJ);
+                                        // setIsiDataSPSemuaTemp(data)
+                                      }}
+                                      className="mt-2"
+                                    >
+                                      Edit
+                                    </Button>
+                                  </>
+                                ))}
+
+                              {/* {(StatusPurchasing === "Y") && (
                                   <>
                                     <Button
                                       size="sm"
@@ -2653,7 +2712,7 @@ function FormTable({
 
                                   </>)
                                 } */}
-                                {/* {(jobdesk == "operasional" && Kendaraan_operasionalStatus === "N") && (
+                              {/* {(jobdesk == "operasional" && Kendaraan_operasionalStatus === "N") && (
                                   <>
                                     <Button
                                       size="sm"
@@ -2668,7 +2727,7 @@ function FormTable({
                                     </Button>
                                   </>
                                 )} */}
-                                {/* {(jobdesk == "operasional" && Kendaraan_operasionalStatus === "Y") && (
+                              {/* {(jobdesk == "operasional" && Kendaraan_operasionalStatus === "Y") && (
                                   <>
                                     <Button
                                       disabled
@@ -2684,102 +2743,13 @@ function FormTable({
                                     </Button>
                                   </>
                                 )} */}
-                              </span>
-                              {/* {angkamanual++} */}
-                            </td>
-
-                            <td>{data.destination}</td>
-                            <td>{data.noSJ}</td>
-                            <td>{data.kendaraan}</td>
-                            <td>{"reas"}</td>
-                            <td>{data?.via}</td>
-                            <td>{data.item}</td>
-                            <td>{data.shipmentName}</td>
-                            <td>{data.berat}</td>
-                            <td>{data.Price?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td>
-                            {data?.service[0] === "Retail" ?
-                              <td>
-                                {(data.berat * data.Price).toLocaleString("id-ID", {
-                                  style: "currency",
-                                  currency: "IDR",
-                                })}
-                              </td> :
-                              <td>
-                                {(data.Price).toLocaleString("id-ID", {
-                                  style: "currency",
-                                  currency: "IDR",
-                                })}
-                              </td>
-                            }
+                            </span>
+                            {/* {angkamanual++} */}
 
 
-                            <td>{data.qty}</td>
-                            <td>{data.harga_muat?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td>
-                            <td>{data.biayaMel?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td>
-                            <td>{data.biayaLain?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td>
-                            {/* <td>{data.Price?.toLocaleString("id-ID", {
-                                style: "currency",
-                                currency: "IDR",
-                            })}</td> */}
-                            <td>{data.harga_bongkar?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td>
-                            <td>{data.biaya_multi_drop?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td>
-                            <td>{data.biaya_multimuat?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td>
-                            <td>{data.biaya_overtonase?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td>
-                            <td>{data.biaya_tambahan?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td>
-                            <td>{data.total?.toLocaleString("id-ID", {
-                              style: "currency",
-                              currency: "IDR",
-                            })}</td>
-
-                            <td>
-                              {/* {jobdesk == "operasional" &&
-                                Kendaraan_operasionalStatus === "Y" && (
-                                  <> */}
-                              {/* <Button
-                                      disabled
-                                      size="sm"
-                                      variant="primary"
-                                      onClick={() => {
-                                        handleShow(data.idmpd);
-                                        approvebaru(data.idmpd);
-                                      }}
-                                      className="mt-2"
-                                    >
-                                      Approved
-                                    </Button> */}
-                              {/* </>
-                                )} */}
-                            </td>
 
                             {/* ///////ini approve operasional untuk drivernya////// */}
-                            {IsiKomenRejectSP === "Tidak Menggunakan unit" ? (
+                            {/* {IsiKomenRejectSP === "Tidak Menggunakan unit" ? (
                               <Alert
                                 type="error"
                                 message="SO Sudah Di Reject"
@@ -2790,6 +2760,7 @@ function FormTable({
                               data.unitId === 0 ? (
                               <Button
                                 size="sm"
+                                style={{ textAlign: "right" }}
                                 variant="primary"
                                 onClick={() => {
                                   handleShow(data.idmpd);
@@ -2819,8 +2790,9 @@ function FormTable({
                               >
                                 Edit
                               </Button>
-                            ) : null}
+                            ) : null} */}
                             {/* ///////END ini approve operasional untuk drivernya////// */}
+
 
                             {/* 
                             {(jobdesk == "operasional" && data.supirId === 0 && data.unitId === 0
@@ -2877,6 +2849,71 @@ function FormTable({
                                 </>
                               )}
                           </tr>
+
+                          <tr>
+                            <td colSpan={9}></td>
+                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }}>Qty</td>
+                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.qty}</td>
+                          </tr>
+                          <tr>
+                            <td colSpan={9}></td>
+                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Harga Muat</td>
+                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.harga_muat?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td>
+                          </tr>
+                          <tr>
+                            <td colSpan={9}></td>
+                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Mel</td>
+                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biayaMel?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td></tr>
+                          <tr>  <td colSpan={9}></td>
+                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Lain</td>
+                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biayaLain?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td>
+                          </tr>
+                          <tr>  <td colSpan={9}></td>
+                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Bongkar</td>
+                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.harga_bongkar?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td></tr>
+                          <tr>   <td colSpan={9}></td>
+                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Multi Drop</td>
+                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_multi_drop?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td> </tr>
+                          <tr>
+                            <td colSpan={9}></td>
+                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Multi Muat</td>
+                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_multimuat?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td> </tr>
+                          <tr>  <td colSpan={9}></td>
+                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Over Tonase</td>
+                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_overtonase?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td> </tr>
+                          <tr>   <td colSpan={9}></td>
+                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Biaya Tambahan</td>
+                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.biaya_tambahan?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td> </tr>
+                          <tr>   <td colSpan={9}></td>
+                            <td style={{ backgroundColor: "transparent", fontWeight: "bold" }} width="150px">Total SJ {index + 1}</td>
+                            <td style={{ textAlign: "right", fontWeight: "bold" }}>{data.total?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}</td> </tr>
                           {/* <tr>
                             <td>No</td>
                             <td>Kode Mitra</td>
