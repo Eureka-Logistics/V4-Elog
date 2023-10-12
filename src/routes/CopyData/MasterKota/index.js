@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card,Table, Select } from "antd";
+import { Card, Table, Select } from "antd";
 import { httpClient } from "../../../Api/Api";
 
 const { Option } = Select;
@@ -110,7 +110,7 @@ const SamplePage = () => {
 
   return (
     <div>
-         <Card>
+      <Card>
         <h3>Tabel Data Kota</h3>
       </Card>
       <Select
@@ -118,6 +118,8 @@ const SamplePage = () => {
         placeholder="Select Provinsi"
         value={selectedProvinsi}
         onChange={handleProvinsiChange}
+        showSearch // Enable search functionality
+        optionFilterProp="children"
       >
         <Option value="">All</Option>
         {provinsiOptions.map((item) => (

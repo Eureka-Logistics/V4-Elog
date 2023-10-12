@@ -188,6 +188,16 @@ function Tarif() {
       key: "kotaTujuan",
     },
     {
+      title: "Service Type",
+      dataIndex: "service_type",
+      key: "service_type",
+      render: serviceType => (
+        <Tag color={serviceType === 'Retail' ? 'green' : 'magenta'}>
+          {serviceType}
+        </Tag>
+      ),
+    },
+    {
       title: "Jenis Kendaraan",
       dataIndex: "kendaraanJenis",
       key: "kendaraanJenis",
@@ -244,6 +254,16 @@ function Tarif() {
       key: "kotaTujuan",
     },
     {
+      title: "Service Type",
+      dataIndex: "service_type",
+      key: "service_type",
+      render: serviceType => (
+        <Tag color={serviceType === 'Retail' ? 'green' : 'magenta'}>
+          {serviceType}
+        </Tag>
+      ),
+    },
+    {
       title: "Jenis Kendaraan",
       dataIndex: "kendaraanJenis",
       key: "kendaraanJenis",
@@ -296,6 +316,16 @@ function Tarif() {
       title: "Tujuan",
       dataIndex: "kotaTujuan",
       key: "kotaTujuan",
+    },
+    {
+      title: "Service Type",
+      dataIndex: "service_type",
+      key: "service_type",
+      render: serviceType => (
+        <Tag color={serviceType === 'Retail' ? 'green' : 'magenta'}>
+          {serviceType}
+        </Tag>
+      ),
     },
     {
       title: "Jenis Kendaraan",

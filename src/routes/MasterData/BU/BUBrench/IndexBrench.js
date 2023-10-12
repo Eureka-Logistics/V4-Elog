@@ -30,7 +30,7 @@ function IndexBrench() {
       );
       setDataBrench(respons.data.data.order);
       console.log("ini data BU", respons.data.data);
-      setTotal(respons.data.data.order.totalData);
+      setTotal(respons.data.data.totalData);
       setLimits(respons.data.data.limit)
     } catch (error) {}
   };
@@ -55,6 +55,11 @@ function IndexBrench() {
       title: "Bisnis Unit Kode",
       dataIndex: "buCode",
       key: "buCode",
+    },
+    {
+      title: "Nama BU Brench",
+      dataIndex: "buBrenchName",
+      key: "buBrenchName",
     },
     {
       title: "Alamat",

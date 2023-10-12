@@ -353,6 +353,7 @@ function ReportCustomer() {
                 setCustomers(options.value);
               }}
             >
+              <Select.Option value="">-</Select.Option>
               {CustomersOptions &&
                 CustomersOptions.customer.map((item, index) => (
                   <Select.Option value={item.customerId}>

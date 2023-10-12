@@ -738,7 +738,7 @@ function Detail() {
               >
                  {DataSelect &&
               DataSelect?.BuEmployee
-                .filter((item) => item.codeEmployeePosition.startsWith("D"))
+                .filter((item) => item.codeEmployeePosition.startsWith("Z"))
                 .map((CustomerItem) => (
                   <Select.Option
                     key={CustomerItem?.codeEmployeePosition}

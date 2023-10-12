@@ -196,9 +196,10 @@ function Index() {
               showSearch
               optionFilterProp="children"
               placeholder="Select Customer"
-              style={{ width: "100%" }}
+              style={{ width: "50%" }}
               onChange={(e) => setCustomer(e)}
             >
+               <Select.Option value="">-</Select.Option>
               {customerOptionSelect.map((item, index) => (
                 <Select.Option key={item.id} value={item.id}>
                   {item.customer}
@@ -206,7 +207,7 @@ function Index() {
               ))}
             </Select>
           </Col>
-          <Col span={4}>
+          <Col span={12} className="d-flex justify-content-end">
             <Button type="primary" onClick={showModal}>
               New Master Alamat
             </Button>

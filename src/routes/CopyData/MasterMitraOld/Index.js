@@ -256,6 +256,7 @@ const SamplePage = () => {
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
   };
+  
 
   const exportToExcel = () => {
     // Map your table data to the format expected by XLSX
@@ -280,7 +281,44 @@ const SamplePage = () => {
       "PIC": {  t: "s",
       v: item.pic,
       s: { alignment: { horizontal: "center" } },},
+     
+      "Mitra Phone": {  t: "s",
+      v: item.mitraTelephone,
+      s: { alignment: { horizontal: "center"  } },},
+     
+      "Direktur": {  t: "s",
+      v: item.direktur,
+      s: { alignment: { horizontal: "center" } },},
+      "Jenis Kiriman": {  t: "s",
+      v: item.jenis_kiriman,
+      s: { alignment: { horizontal: "center" } },},
+      "Cabang": {  t: "s",
+      v: item.cabang,
+      s: { alignment: { horizontal: "center" } },},
+      "Telp": {  t: "s",
+      v: item.telp,
+      s: { alignment: { horizontal: "center" } },},
       // Add other columns here as needed
+      "Fax": {  t: "s",
+      v: item.fax,
+      s: { alignment: { horizontal: "center" } },},
+      "NPWP": {  t: "s",
+      v: item.npwp_id,
+      s: { alignment: { horizontal: "center" } },},
+     
+      "Nama Bank": {  t: "s",
+      v: item.nama_bank,
+      s: { alignment: { horizontal: "center" } },},
+      "Mitra Phone": {  t: "s",
+      v: item.mitraTelephone,
+      s: { alignment: { horizontal: "center" } },},
+      
+      "NPWP Address": {  t: "s",
+      v: item.npwp_address,
+      s: { alignment: { horizontal: "center", wrapText: true } },},
+      "Mitra Address": {  t: "s",
+      v: item.mitraAddress,
+      s: { alignment: { horizontal: "center" } },},
     }));
   
     // Convert the data to a worksheet
@@ -288,13 +326,24 @@ const SamplePage = () => {
   
     // Set column widths
     ws["!cols"] = [
-      { wch: 5 },
-      { wch: 15 },
-      { wch: 25 },
-      { wch: 11 },
-      { wch: 25 },
-      { wch: 25 },
-      { wch: 16 },
+      { wch: 5 }, //nomor
+      { wch: 15 }, // mitra code
+      { wch: 37 }, // mitra name
+      { wch: 11 }, // status
+      { wch: 20 }, // awal kontrak
+      { wch: 20 }, // akhir kontrak
+      { wch: 16 }, // pic
+      { wch: 20 }, // mitra phone
+      { wch: 34 }, // direktur
+      { wch: 26 }, // jenis kiriman
+      { wch: 16 }, // cabang
+      { wch: 18 }, // telp
+      { wch: 20 }, // fax
+      { wch: 30 }, // npwp
+      { wch: 30 }, // nama bank
+      { wch: 30 }, // mitra phone
+      { wch: 40 }, // npwp address
+      { wch: 40 }, // mitra address 
     ];
   
     // Create a new workbook and add the worksheet
@@ -369,6 +418,7 @@ const SamplePage = () => {
                     setStatusMitra(options.value);
                   }}
                 >
+                  <Select.Option value="">-</Select.Option>
                   <option value={"0"}>Tidak Aktif</option>
                   <option value={"1"}>Aktif</option>
                   <option value={"2"}>Habis Kontrak</option>

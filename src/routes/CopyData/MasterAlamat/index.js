@@ -261,16 +261,17 @@ const SamplePage = () => {
         <h3>Data Master Alamat</h3>
         {/* <h5 className="mt-5">Pilih Filter Customer Terlebih Dahulu</h5> */}
         <Row className="mt-3 mb-3">
-          <Col span={12}>
+          <Col span={10}>
             <Select
               value={customer}
               name="customer"
               showSearch
               optionFilterProp="children"
               placeholder="Select Customer"
-              style={{ width: "100%" }}
+              style={{ width: "50%" }}
               onChange={(e) => setCustomer(e)}
             >
+               <Select.Option value="">-</Select.Option>
               {customerOptionSelect.map((item, index) => (
                 <Select.Option key={item.id} value={item.id}>
                   {item.customer}
@@ -278,7 +279,7 @@ const SamplePage = () => {
               ))}
             </Select>
           </Col>
-          <Col span={4}>
+          <Col span={14} className="d-flex justify-content-end">
             <Button type="primary" onClick={showModal}>
              New Master Alamat
             </Button>

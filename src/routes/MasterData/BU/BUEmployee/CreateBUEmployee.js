@@ -393,6 +393,7 @@ function CreateBUEmployee() {
                   </Select.Option>
                 ))}
           </Select>
+          haha iya iya
           {/* <Input
             className="mt-2 mb-2"
             name="id_gl"
@@ -621,7 +622,7 @@ function CreateBUEmployee() {
           >
             {DataSelect &&
               DataSelect?.BuEmployee
-                .filter((item) => item.codeEmployeePosition.startsWith("D"))
+                .filter((item) => item.codeEmployeePosition.startsWith("Z"))
                 .map((CustomerItem) => (
                   <Select.Option
                     key={CustomerItem?.codeEmployeePosition}

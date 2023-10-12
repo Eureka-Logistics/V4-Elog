@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Baseurl from '../../../../Api/BaseUrl';
-import { Button, Card, Col, Pagination, Row, Space, Table, Tag, Modal } from 'antd';
+import { Button, Card, Col, Pagination, Row, Space, Table, Tag, Modal, Input } from 'antd';
 import { DeleteOutlined, FormOutlined } from '@ant-design/icons';
 import { useHistory } from "react-router-dom";
 import CreateBUEmployee from './CreateBUEmployee';
@@ -13,7 +13,7 @@ function IndexEmployee() {
   const [limit, setLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const [CariNamaBu, setCariNamaBu] = useState("");
   const handleView = (idEmploye) => {
     router.push(`/EditDetailEmployeeBU/${idEmploye}`);
     console.log("ini id_bu", );
@@ -28,7 +28,7 @@ function IndexEmployee() {
   const fetchData = async (pages = 1) => {
     try {
       const respons = await axios.get(
-        `${Baseurl}bu/get-bu-employee?limit=${limit}&page=${pages}`,
+        `${Baseurl}bu/get-bu-employee?limit=${limit}&page=${pages}&keyword=${CariNamaBu}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -48,7 +48,7 @@ function IndexEmployee() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [CariNamaBu]);
 
   const columns = [
     {
@@ -131,7 +131,24 @@ function IndexEmployee() {
       </h5>
       <hr />
       <Row>
-          <Col span={24} className="d-flex justify-content-end">
+      <Col span={12}>
+        <label style={{width: '100%', fontWeight: 'bold', fontFamily: 'NoirPro'}} className='mb-2'>
+          Search Employee Name :
+        </label>
+            <Input
+              style={{
+                width: "50%",
+                border: "1px solid #1A5CBF",
+                borderRadius: "5px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+              }}
+              onChange={(e) => {
+                setCariNamaBu(e.target.value);
+              }}
+              placeholder="Search Employee Name"
+            ></Input>
+          </Col>
+          <Col span={12} className="d-flex justify-content-end">
             <Button style={{backgroundColor: '#1A5CBF', color: 'white'}} onClick={handleAdd}>New Bisnis Unit</Button>
           </Col>
         </Row>

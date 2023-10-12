@@ -41,22 +41,22 @@ const SamplePage = () => {
       key: "no",
     },
 
-    // {
-    //   title: "Jenis Pelayanan",
-    //   dataIndex: "service_type",
-    //   key: "service_type",
-    //   render: (text) => {
-    //     let tagColor = "";
-    //     if (text === "Retail") {
-    //       tagColor = "lime";
-    //     } else if (text === "Charter") {
-    //       tagColor = "orange";
-    //     } else if (text === "reguler") {
-    //       tagColor = "blue";
-    //     }
-    //     return <Tag color={tagColor}>{text}</Tag>;
-    //   },
-    // },
+    {
+      title: "Jenis Pelayanan",
+      dataIndex: "service_type",
+      key: "service_type",
+      render: (text) => {
+        let tagColor = "";
+        if (text === "Retail") {
+          tagColor = "lime";
+        } else if (text === "Charter") {
+          tagColor = "orange";
+        } else if (text === "reguler") {
+          tagColor = "blue";
+        }
+        return <Tag color={tagColor}>{text}</Tag>;
+      },
+    },
     {
       title: "Jenis Kiriman",
       dataIndex: "jenis_kiriman",
@@ -121,11 +121,11 @@ const SamplePage = () => {
       dataIndex: "kendaraanJenis",
       key: "kendaraanJenis",
     },
-    {
-      title: "Max Tonase(kg/koli)",
-      dataIndex: "max_tonase",
-      key: "max_tonase",
-    },
+    // {
+    //   title: "Max Tonase(kg/koli)",
+    //   dataIndex: "max_tonase",
+    //   key: "max_tonase",
+    // },
     {
       title: "Satuan",
       dataIndex: "satuan",
@@ -497,7 +497,7 @@ const SamplePage = () => {
               <th style={{ backgroundColor: 'transparent', color: 'white', verticalAlign: 'middle' }}>Tujuan</th>
               <th style={{backgroundColor: 'transparent', color: 'white'}}>Jenis Kendaraan</th>
               <th style={{ backgroundColor: 'transparent', color: 'white', verticalAlign: 'middle' }}>Tarif</th>
-              <th style={{backgroundColor: 'transparent', color: 'white'}}>Max Tonase(kg/koli)</th>
+              <th style={{backgroundColor: 'transparent', color: 'white'}}>Service Type</th>
               <th style={{ backgroundColor: 'transparent', color: 'white', verticalAlign: 'middle' }}>Satuan</th>
               <th style={{ backgroundColor: 'transparent', color: 'white', verticalAlign: 'middle' }}>Harga</th>
               <th style={{ backgroundColor: 'transparent', color: 'white', verticalAlign: 'middle' }}>Action</th>
@@ -513,7 +513,7 @@ const SamplePage = () => {
                     color={
                       record.jenis_kiriman === "Reguler"
                         ? "magenta"
-                        : record.jenis_kiriman === "Retail"
+                        : record.jenis_kiriman === "Express"
                         ? "yellow"
                         : "green"
                     }
@@ -530,7 +530,7 @@ const SamplePage = () => {
                     currency: "IDR",
                   }).format(record.tarif)}`}
                 </td>
-                <td style={{ paddingTop: "20px", textAlign: 'center' }} className="justify-content-center">{record.max_tonase}</td>
+                <td style={{ paddingTop: "20px", textAlign: 'center' }} className="justify-content-center">{record.service_type}</td>
                 <td style={{ paddingTop: "20px" }}>{record.satuan}</td>
                 <td style={{ paddingTop: "20px" }}>
                   {`${new Intl.NumberFormat("id-ID", {
