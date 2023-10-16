@@ -7,6 +7,8 @@ import * as Yup from "yup";
 import { httpClient } from "../../../Api/Api";
 import { InputGroup, Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Baseurl from "../../../Api/BaseUrl";
+import axios from "axios";
 
 const { RangePicker } = DatePicker;
 
@@ -37,6 +39,9 @@ const SamplePage = () => {
   const [via, setVia] = useState("");
   const [IdMitra, setIdMitra] = useState("");
   const [Tarif, setTarif] = useState(10000);
+  const [NamaMitraOptions, setNamaMitraOptions] = useState("");
+  const [NamaMitranya, setNamaMitranya] = useState("");
+  const [namaMitranyaoptionSelect, setnamaMitranyaoptionSelect] = useState("");
   // console.log(Tarif, "Tarif");
   const [Ritase, setRitase] = useState("");
   const [UangJalan, setUangJalan] = useState("");
@@ -88,7 +93,6 @@ const SamplePage = () => {
     },
   ];
 
-
   const formik = useFormik({
     initialValues: {
       id_muat_kota: kota?.value,
@@ -98,7 +102,7 @@ const SamplePage = () => {
       service_type: "",
       jenis_kiriman: jenisKiriman.label,
       // via: via?.label,
-      
+
       tarif: Tarif,
       ritase: Ritase,
       uang_jalan: UangJalan,
@@ -116,7 +120,7 @@ const SamplePage = () => {
           tarif: Tarif,
           ritase: Ritase,
           uang_jalan: UangJalan,
-          via: via.label
+          via: via.label,
         })
         .then(({ data }) => {
           notification.success({
@@ -344,17 +348,63 @@ const SamplePage = () => {
     }
   };
 
-    const toRupiah = (angka) => {
-      var rupiah = '';
-      var angkarev = angka.toString().split('').reverse().join('');
-      for (var i = 0; i < angkarev.length; i++) if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + '.';
-      return `${rupiah.split('', rupiah.length - 1).reverse().join('')}`;
-  }
+  const toRupiah = (angka) => {
+    var rupiah = "";
+    var angkarev = angka.toString().split("").reverse().join("");
+    for (var i = 0; i < angkarev.length; i++)
+      if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + ".";
+    return `${rupiah
+      .split("", rupiah.length - 1)
+      .reverse()
+      .join("")}`;
+  };
 
   // function toRupiah(angka) {
   //   const rupiah = angka.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
   //   return `Rp ${rupiah}`;
   // }
+  const NamaMitraOptionsAPI = async () => {
+    try {
+      const data = await axios.get(`${Baseurl}mitra/get-select-mitraPic`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      console.log(`asu`, data.data.mitra);
+      setNamaMitraOptions(data.data?.mitra);
+    } catch (error) {}
+  };
+
+  const getDataSelectt = async () => {
+    try {
+      const response = await axios.get(`${Baseurl}tarif/get-select`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      // setMuatKotaOptionsSelect (response.data);
+      console.log(response.data, 'ini get select mitra');
+      setnamaMitranyaoptionSelect(response.data);
+      // Cek apakah permintaan berhasil (kode status 200-299)
+      if (response.status >= 200 && response.status < 300) {
+        // Mengembalikan data yang diterima dari permintaan
+        return response.data;
+      } else {
+        // Menangani situasi ketika permintaan tidak berhasil (status error)
+        throw new Error("Permintaan tidak berhasil.");
+      }
+    } catch (error) {
+      // Menangani kesalahan jaringan atau kesalahan lain yang terjadi selama permintaan
+      console.error("Kesalahan saat mengambil data:", error.message);
+      throw error; // Lanjutkan penanganan kesalahan di tempat lain jika perlu
+    }
+  };
+
+  useEffect(() => {
+    getDataSelectt();
+    NamaMitraOptionsAPI();
+  }, []);
 
   return (
     <div>
@@ -396,6 +446,7 @@ const SamplePage = () => {
                   Nama Mitra
                 </Form.Label>
                 <InputGroup>
+                
                   <Select
                     options={customerOptions}
                     value={IdMitra}

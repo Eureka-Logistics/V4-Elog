@@ -1,4 +1,4 @@
-import { Card, Space, Tag, Pagination, Button, Select, Table } from "antd";
+import { Card, Space, Tag, Pagination, Button, Select, Table, Input } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Modal } from "antd";
@@ -27,6 +27,7 @@ const SamplePage = () => {
   const [PilihTahun, setTahun] = useState("");
   const [StatusMitra, setStatusMitra] = useState("");
   const [filter, setFilter] = useState("");
+  const [CariKode, setCariKode] = useState("");
 
   // const ubahPerHalaman = (perhalaman) => {
   //   fetchData(perhalaman);
@@ -44,22 +45,22 @@ const SamplePage = () => {
       key: "mitraCode",
       render: (text) => <Tag color="blue">{text}</Tag>,
     },
-    
-      {
-        title: "Status",
-        dataIndex: "status",
-        key: "status",
-        render: (text) => (
-          <Tag
-            color={
-              text === "aktif" ? "green" : text === "tidak aktif" ? "red" : "red"
-            }
-            title={text === "tidak aktif" ? "Status tidak aktif" : ""}
-          >
-            {text}
-          </Tag>
-        ),
-      },
+
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (text) => (
+        <Tag
+          color={
+            text === "aktif" ? "green" : text === "tidak aktif" ? "red" : "red"
+          }
+          title={text === "tidak aktif" ? "Status tidak aktif" : ""}
+        >
+          {text}
+        </Tag>
+      ),
+    },
     {
       title: "Mitra Name",
       dataIndex: "mitraName",
@@ -124,7 +125,7 @@ const SamplePage = () => {
           ""
         ),
     },
-    
+
     {
       name: "Mitra Name",
       selector: (row) => row.mitraName,
@@ -195,14 +196,13 @@ const SamplePage = () => {
     httpClient
 
       .get(
-        `mitra/get-mitra?limit=${perhalaman}&page=${page}&status=${StatusMitra}`
+        `mitra/get-mitra?limit=${perhalaman}&page=${page}&status=${StatusMitra}&keyword=${CariKode}`
       )
       .then(({ data }) => {
         if (data.status.code === 200) {
           const dataawal = data.data.order;
           setDataapiawal(dataawal);
           setDataPagination(data.data.totalData);
-
           setLoading(false);
         }
       })
@@ -244,7 +244,7 @@ const SamplePage = () => {
 
   useEffect(() => {
     fetchData();
-  }, [filter, StatusMitra]);
+  }, [filter, StatusMitra, CariKode]);
 
   // const handlePageChange = (page) => {
   //   setPageInfo((prevPageInfo) => ({
@@ -256,74 +256,106 @@ const SamplePage = () => {
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
   };
-  
 
   const exportToExcel = () => {
     // Map your table data to the format expected by XLSX
     const dataToExport = dataapiawal.map((item, index) => ({
-      No: { t: "s", v: index + 1, s: { alignment: { horizontal: "center", vertical: 'center' }, color: { rgb: "6495ED" } } },
-      "Mitra Code": {  t: "s",
-      v: item.mitraCode,
-      s: { alignment: { horizontal: "center" } },},
-      "Mitra Name": {  t: "s",
-      v: item.mitraName,
-      s: { alignment: { horizontal: "center" } },},
-      "Status": {  t: "s",
-      v: item.status,
-      s: { alignment: { horizontal: "center" } },},
-     
-      "Awal Kontrak": {  t: "s",
-      v: item.awalKontrak,
-      s: { alignment: { horizontal: "center" } },},
-      "Akhir Kontrak": {  t: "s",
-      v: item.akhirKontrak,
-      s: { alignment: { horizontal: "center" } },},
-      "PIC": {  t: "s",
-      v: item.pic,
-      s: { alignment: { horizontal: "center" } },},
-     
-      "Mitra Phone": {  t: "s",
-      v: item.mitraTelephone,
-      s: { alignment: { horizontal: "center"  } },},
-     
-      "Direktur": {  t: "s",
-      v: item.direktur,
-      s: { alignment: { horizontal: "center" } },},
-      "Jenis Kiriman": {  t: "s",
-      v: item.jenis_kiriman,
-      s: { alignment: { horizontal: "center" } },},
-      "Cabang": {  t: "s",
-      v: item.cabang,
-      s: { alignment: { horizontal: "center" } },},
-      "Telp": {  t: "s",
-      v: item.telp,
-      s: { alignment: { horizontal: "center" } },},
+      No: {
+        t: "s",
+        v: index + 1,
+        s: {
+          alignment: { horizontal: "center", vertical: "center" },
+          color: { rgb: "6495ED" },
+        },
+      },
+      "Mitra Code": {
+        t: "s",
+        v: item.mitraCode,
+        s: { alignment: { horizontal: "center" } },
+      },
+      "Mitra Name": {
+        t: "s",
+        v: item.mitraName,
+        s: { alignment: { horizontal: "center" } },
+      },
+      Status: {
+        t: "s",
+        v: item.status,
+        s: { alignment: { horizontal: "center" } },
+      },
+
+      "Awal Kontrak": {
+        t: "s",
+        v: item.awalKontrak,
+        s: { alignment: { horizontal: "center" } },
+      },
+      "Akhir Kontrak": {
+        t: "s",
+        v: item.akhirKontrak,
+        s: { alignment: { horizontal: "center" } },
+      },
+      PIC: { t: "s", v: item.pic, s: { alignment: { horizontal: "center" } } },
+
+      "Mitra Phone": {
+        t: "s",
+        v: item.mitraTelephone,
+        s: { alignment: { horizontal: "center" } },
+      },
+
+      Direktur: {
+        t: "s",
+        v: item.direktur,
+        s: { alignment: { horizontal: "center" } },
+      },
+      "Jenis Kiriman": {
+        t: "s",
+        v: item.jenis_kiriman,
+        s: { alignment: { horizontal: "center" } },
+      },
+      Cabang: {
+        t: "s",
+        v: item.cabang,
+        s: { alignment: { horizontal: "center" } },
+      },
+      Telp: {
+        t: "s",
+        v: item.telp,
+        s: { alignment: { horizontal: "center" } },
+      },
       // Add other columns here as needed
-      "Fax": {  t: "s",
-      v: item.fax,
-      s: { alignment: { horizontal: "center" } },},
-      "NPWP": {  t: "s",
-      v: item.npwp_id,
-      s: { alignment: { horizontal: "center" } },},
-     
-      "Nama Bank": {  t: "s",
-      v: item.nama_bank,
-      s: { alignment: { horizontal: "center" } },},
-      "Mitra Phone": {  t: "s",
-      v: item.mitraTelephone,
-      s: { alignment: { horizontal: "center" } },},
-      
-      "NPWP Address": {  t: "s",
-      v: item.npwp_address,
-      s: { alignment: { horizontal: "center", wrapText: true } },},
-      "Mitra Address": {  t: "s",
-      v: item.mitraAddress,
-      s: { alignment: { horizontal: "center" } },},
+      Fax: { t: "s", v: item.fax, s: { alignment: { horizontal: "center" } } },
+      NPWP: {
+        t: "s",
+        v: item.npwp_id,
+        s: { alignment: { horizontal: "center" } },
+      },
+
+      "Nama Bank": {
+        t: "s",
+        v: item.nama_bank,
+        s: { alignment: { horizontal: "center" } },
+      },
+      "Mitra Phone": {
+        t: "s",
+        v: item.mitraTelephone,
+        s: { alignment: { horizontal: "center" } },
+      },
+
+      "NPWP Address": {
+        t: "s",
+        v: item.npwp_address,
+        s: { alignment: { horizontal: "center", wrapText: true } },
+      },
+      "Mitra Address": {
+        t: "s",
+        v: item.mitraAddress,
+        s: { alignment: { horizontal: "center" } },
+      },
     }));
-  
+
     // Convert the data to a worksheet
     const ws = XLSX.utils.json_to_sheet(dataToExport);
-  
+
     // Set column widths
     ws["!cols"] = [
       { wch: 5 }, //nomor
@@ -343,24 +375,24 @@ const SamplePage = () => {
       { wch: 30 }, // nama bank
       { wch: 30 }, // mitra phone
       { wch: 40 }, // npwp address
-      { wch: 40 }, // mitra address 
+      { wch: 40 }, // mitra address
     ];
-  
+
     // Create a new workbook and add the worksheet
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Table Data");
-  
+
     // Write the workbook to a buffer
     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-  
+
     // Create a Blob from the buffer
     const blob = new Blob([excelBuffer], {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     });
-  
+
     // Define the file name
     const fileName = "table_data.xlsx";
-  
+
     // Check if the browser supports saving files
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
       // For IE
@@ -399,7 +431,7 @@ const SamplePage = () => {
                 <label
                   className="mb-2"
                   htmlFor="StatusMitra"
-                  style={{ fontWeight: "400", fontFamily: "NoirPro" }}
+                  style={{ fontFamily: "NoirPro" , fontWeight: 'bold'}}
                 >
                   Search Status:
                 </label>
@@ -419,13 +451,44 @@ const SamplePage = () => {
                   }}
                 >
                   <Select.Option value="">-</Select.Option>
-                  <option value={"0"}>Tidak Aktif</option>
-                  <option value={"1"}>Aktif</option>
-                  <option value={"2"}>Habis Kontrak</option>
+                  <option value={"0"}>tidak aktif</option>
+                  <option value={"1"}>habis kontrak</option>
+                  <option value={"2"}>aktif</option>
                 </Select>
               </Col>
-              <Col sm={10} className="d-flex justify-content-end mt-3">
-                <Button style={{color: 'white', backgroundColor: 'green', fontFamily: 'NoirPro'}} onClick={exportToExcel}>
+              <Col sm={4}>
+                <label
+                  style={{
+                    width: "100%",
+                    fontWeight: "bold",
+                    fontFamily: "NoirPro",
+                  }}
+                  className="mb-2"
+                >
+                  Search Mitra Name :
+                </label>
+                <Input
+                  style={{
+                    width: "50%",
+                    border: "1px solid #1A5CBF",
+                    borderRadius: "5px",
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                  }}
+                  onChange={(e) => {
+                    setCariKode(e.target.value);
+                  }}
+                  placeholder="Search Employee Name"
+                ></Input>
+              </Col>
+              <Col sm={6} className="d-flex justify-content-end mt-3">
+                <Button
+                  style={{
+                    color: "white",
+                    backgroundColor: "green",
+                    fontFamily: "NoirPro",
+                  }}
+                  onClick={exportToExcel}
+                >
                   Export Excel
                 </Button>
                 <CreateMitraModal />
@@ -433,8 +496,8 @@ const SamplePage = () => {
             </Row>
 
             <Table
-            style={{ overflow: "auto"}}
-            className="mt-3"
+              style={{ overflow: "auto" }}
+              className="mt-3"
               columns={columnss}
               dataSource={dataapiawal}
               pagination={false}

@@ -20,7 +20,6 @@ import moment from "moment";
 import useBanksStore from "../../../../zustand/Store/NamaNamaBank";
 const { RangePicker } = DatePicker;
 
-
 const onSearch = (value) => console.log(value);
 const SamplePage = () => {
   const router = useHistory();
@@ -168,6 +167,31 @@ const SamplePage = () => {
     },
     validationSchema: Yup.object({
       nama_perusahaan: Yup.string().max(30, "Must be 30 characters or less"),
+      telepon: Yup.string().matches(/^\d{10}$/, "Must be a 10-digit number"),
+
+      hp: Yup.string().matches(/^\d{10}$/, "Must be a 10-digit number"),
+
+      npwp: Yup.string().matches(/^\d{15}$/, "Must be a 15-digit number"),
+
+      tahun_berdiri: Yup.number()
+        .integer("Must be a valid integer")
+        .min(1800, "Must be greater than 1800")
+        .max(
+          new Date().getFullYear(),
+          "Must be less than or equal to the current year"
+        ),
+
+      email: Yup.string().email("Invalid email address"),
+
+      ktp: Yup.string().matches(/^\d{16}$/, "Must be a 16-digit number"),
+
+      tdp: Yup.string().matches(/^\d{13}$/, "Must be a 13-digit number"),
+
+      siup: Yup.string().max(20, "Must be 20 characters or less"),
+
+      pkp: Yup.string().max(15, "Must be 15 characters or less"),
+
+      fax: Yup.string().max(15, "Must be 15 characters or less"),
     }),
     onSubmit: (values) => {
       console.log(`values dari sini`, values);
@@ -300,7 +324,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <DatePicker
-                   style={{width: "100%"}}
+                    style={{ width: "100%" }}
                     name="tgl_bergabung"
                     placeholder="YYYY-MM-DD"
                     selected={
@@ -331,7 +355,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <DatePicker
-                   style={{width: "100%"}}
+                    style={{ width: "100%" }}
                     name="tgl_berdiri"
                     placeholder="YYYY-MM-DD"
                     selected={
@@ -413,7 +437,6 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-
           </Row>
           <Row>
             <Col span={12}>
@@ -501,7 +524,7 @@ const SamplePage = () => {
             </Col>
           </Row>
           <Row className="mt-2">
-          <Col span={12}>
+            <Col span={12}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Email Customer :
@@ -518,7 +541,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-          <Col span={12}>
+            <Col span={12}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   HP Customer :
@@ -634,7 +657,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <DatePicker
-                   style={{width: "100%"}}
+                    style={{ width: "100%" }}
                     name="pic_birth"
                     placeholder="YYYY-MM-DD"
                     selected={
@@ -680,14 +703,14 @@ const SamplePage = () => {
           <h5 style={{ fontWeight: "bold" }}>DATA PIC</h5>
           <hr />
           <br />
-         <Row>
-         <Col span={12}>
+          <Row>
+            <Col span={12}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
-                Manager :
+                  Manager :
                 </Form.Label>
                 <InputGroup>
-                <Select
+                  <Select
                     style={{ width: "100%" }}
                     options={OptionsDireksi}
                     name="manager"
@@ -695,7 +718,6 @@ const SamplePage = () => {
 
                     placeholder="Ada atau Tidak Ada"
                     onChange={(value, label) => {
-
                       setManager(label.value);
                       formik.setFieldValue(`manager`, label.value);
                       // console.log(label.label);
@@ -721,7 +743,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <DatePicker
-                   style={{width: "100%"}}
+                    style={{ width: "100%" }}
                     name="manager_date"
                     placeholder="YYYY-MM-DD"
                     selected={
@@ -745,13 +767,13 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-         </Row>
+          </Row>
 
-         <Row>
-          <Col span={24}>
-          <Form.Group>
+          <Row>
+            <Col span={24}>
+              <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
-                Manager Memo :
+                  Manager Memo :
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
@@ -764,17 +786,17 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-          </Col>
-         </Row>
-         {/* Akunting */}
-         <Row className="mt-3">
-         <Col span={12}>
+            </Col>
+          </Row>
+          {/* Akunting */}
+          <Row className="mt-3">
+            <Col span={12}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
-                Akunting  :
+                  Akunting :
                 </Form.Label>
                 <InputGroup>
-                <Select
+                  <Select
                     style={{ width: "100%" }}
                     options={OptionsDireksi}
                     name="akunting"
@@ -782,7 +804,6 @@ const SamplePage = () => {
 
                     placeholder="Ada atau Tidak Ada"
                     onChange={(value, label) => {
-
                       setAkunting(label.value);
                       formik.setFieldValue(`akunting`, label.value);
                       // console.log(label.label);
@@ -808,8 +829,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <DatePicker
-                   style={{width: "100%"}}
-                
+                    style={{ width: "100%" }}
                     name="akunting_date"
                     placeholder="YYYY-MM-DD"
                     selected={
@@ -833,12 +853,12 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-         </Row>
-         <Row>
-          <Col span={24}>
-          <Form.Group>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
-                Akunting Memo :
+                  Akunting Memo :
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
@@ -851,17 +871,17 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-          </Col>
-         </Row>
-         {/* Direktur */}
-         <Row className="mt-3">
-         <Col span={12}>
+            </Col>
+          </Row>
+          {/* Direktur */}
+          <Row className="mt-3">
+            <Col span={12}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
-              Direktur :
+                  Direktur :
                 </Form.Label>
                 <InputGroup>
-                <Select
+                  <Select
                     style={{ width: "100%" }}
                     options={OptionsDireksi}
                     name="direktur"
@@ -869,7 +889,6 @@ const SamplePage = () => {
 
                     placeholder="Ada atau Tidak Ada"
                     onChange={(value, label) => {
-
                       setDirektur(label.value);
                       formik.setFieldValue(`direktur`, label.value);
                       // console.log(label.label);
@@ -895,7 +914,7 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <DatePicker
-                   style={{width: "100%"}}
+                    style={{ width: "100%" }}
                     name="direktur_date"
                     placeholder="YYYY-MM-DD"
                     selected={
@@ -919,12 +938,12 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-         </Row>
-         <Row>
-          <Col span={24}>
-          <Form.Group>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
-            Direktur Memo :
+                  Direktur Memo :
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
@@ -937,8 +956,8 @@ const SamplePage = () => {
                   />
                 </InputGroup>
               </Form.Group>
-          </Col>
-         </Row>
+            </Col>
+          </Row>
 
           <br />
           <hr />
@@ -1115,16 +1134,15 @@ const SamplePage = () => {
                   Bank Name :
                 </Form.Label>
                 <Select
-                style={{width : "100%"}}
-                name="nama_bank"
-                value={formik.values.nama_bank}
-                onChange={(e)=>formik.setFieldValue("nama_bank", e)}
-                showSearch
-                optionFilterProp="children"
+                  style={{ width: "100%" }}
+                  name="nama_bank"
+                  value={formik.values.nama_bank}
+                  onChange={(e) => formik.setFieldValue("nama_bank", e)}
+                  showSearch
+                  optionFilterProp="children"
                 >
-                  {banks && banks.map((i)=>(
-                    <select value={i.name}>{i.name}</select>
-                  ))}
+                  {banks &&
+                    banks.map((i) => <select value={i.name}>{i.name}</select>)}
                 </Select>
               </Form.Group>
             </Col>
@@ -1220,7 +1238,6 @@ const SamplePage = () => {
                     style={{ width: "100%" }}
                     options={optionCurrency}
                     name="mata_uang "
-
                     placeholder="Select Currency"
                     onChange={(value, label) => {
                       setCurrency(label.label);

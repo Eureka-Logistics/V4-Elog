@@ -397,11 +397,12 @@ const SamplePage = () => {
         <h5 style={{ color: "#1A5CBF", fontWeight: "bold" }}>
           Data Tarif Mitra
         </h5>
+        <hr/>
         <div>
           <Row className="mt-4 mb-2">
             <Col sm={3}>
-              <label className="mb-2" htmlFor="muatKotaSelect">
-                Search Kota Muat:
+              <label style={{fontWeight: 'bold', fontFamily: 'NoirPro'}} className="mb-2" htmlFor="muatKotaSelect">
+                Search Kota Muat :
               </label>
               <Select
                 value={muatKota}
@@ -430,8 +431,8 @@ const SamplePage = () => {
               </Select>
             </Col>
             <Col sm={3}>
-              <label className="mb-2" htmlFor="muatKotaSelect">
-                Search Kota Tujuan:
+              <label style={{fontWeight: 'bold', fontFamily: 'NoirPro'}} className="mb-2" htmlFor="muatKotaSelect">
+                Search Kota Tujuan :
               </label>
               <Select
                 value={kotaTujuan}
@@ -460,8 +461,8 @@ const SamplePage = () => {
               </Select>
             </Col>
             <Col sm={3}>
-              <label className="mb-2" htmlFor="muatKotaSelect">
-                Search Nama Mitras:
+              <label style={{fontWeight: 'bold', fontFamily: 'NoirPro'}} className="mb-2" htmlFor="muatKotaSelect">
+                Search Nama Mitra :
               </label>
               <Select
                 value={NamaMitranya}
