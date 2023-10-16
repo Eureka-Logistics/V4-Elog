@@ -27,7 +27,7 @@ import useMitraStore from "../../../zustand/Store/MitraStore";
 import { CheckSquareFilled, CloseSquareFilled } from "@ant-design/icons";
 import useBanksStore from "../../../zustand/Store/NamaNamaBank";
 import VehicleBaru from "../Purchasing/Vehicle/VehicleBaru";
-function DriverTableBaru() {
+function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
   const [ShowVehicleModal, setShowVehicleModal] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [DataAwal, setDataAwal] = useState("");
@@ -475,6 +475,8 @@ function DriverTableBaru() {
     }
   }
 
+  console.log(`ada ga ValidasiTombol`, ValidasiTombol);
+
   const { NamaMitra, fetchMitra } = useMitraStore((item) => ({
     NamaMitra: item.NamaMitra,
     fetchMitra: item.fetchMitra,
@@ -712,7 +714,7 @@ function DriverTableBaru() {
                   Tambah Driver
                 </Button>
               </Col>
-              {localStorage.getItem("jobdesk") === "purchasing" && (
+              {localStorage.getItem("jobdesk") === "purchasing" && ValidasiTombol === false && (
                 <Col sm={2}>
                   <Button
                     style={{
@@ -730,11 +732,11 @@ function DriverTableBaru() {
                       setShowVehicleModal(true)
                     }}
                   >
-                  Halaman Tambah Vehicles
+                    Halaman Tambah Vehicles
                   </Button>
                 </Col>
-
               )}
+
               <Modal
                 title="Modal Driver"
                 style={{ top: 20 }}
@@ -913,7 +915,7 @@ function DriverTableBaru() {
                     <Col sm={4}>
                       <Form.Item
                         style={{ fontWeight: "bold" }}
-                        label={`Nik` + validasinik}
+                        label={`Nik`}
                         help={helpValue}
                         // validateStatus={
                         //   formik.touched.nik && formik.errors.nik
@@ -1552,7 +1554,7 @@ function DriverTableBaru() {
         </>)}
       {ShowVehicleModal === true && (
         <>
-          <VehicleBaru ShowVehicleModal={ShowVehicleModal} setShowVehicleModal={setShowVehicleModal} />
+          <VehicleBaru ValidasiTombol={ValidasiTombol} ShowVehicleModal={ShowVehicleModal} setShowVehicleModal={setShowVehicleModal} />
         </>)}
     </div>
   );
