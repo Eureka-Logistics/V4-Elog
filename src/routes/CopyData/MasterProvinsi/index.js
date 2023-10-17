@@ -48,9 +48,9 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
-        <h3>Tabel Data Provinsi</h3>
-      </Card>
-      <Table
+        <h5 style={{color: '#1a5cbf'}}>Tabel Data Provinsi</h5>
+        <hr/>
+        <Table
         dataSource={data}
         columns={columns}
         style={{ marginTop: 10 }}
@@ -58,6 +58,8 @@ const SamplePage = () => {
         pagination={{ total, current: page, pageSize: limit }}
         onChange={(pagination) => setPage(pagination.current)}
       />
+      </Card>
+    
     </div>
   );
 };

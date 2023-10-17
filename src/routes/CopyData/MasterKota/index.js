@@ -111,9 +111,9 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
-        <h5>Data Tabel Kota</h5>
+        <h5 style={{color: '#1a5cbf'}}>Data Tabel Kota</h5>
       <hr/>
-      <label style={{width: '100%', fontWeight: 'bold', fontFamily: 'NoirPro'}} className="mb-2">
+      <label style={{width: '100%', fontFamily: 'NoirPro'}} className="mb-2">
         Search Provinsi :
       </label>
       <Select
