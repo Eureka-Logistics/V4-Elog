@@ -316,77 +316,107 @@ const SamplePage = () => {
     });
   };
   
-  const exportData = listData.map((item) => ({
-    'No': item.no,
-    'Nama Mitra': item.mitra,
-    Muat: item.kotaAsal,
-    Bongkar: item.kotaTujuan,
-    'Biaya Kirim': formatRupiah(item.tarif),
-    Keterangan: item.service_type,
-    'via': item.via,
-    'Jenis Kendaraan' : item.kendaraanJenis,
-    'Jenis Kiriman' : item.jenis_kiriman
-  }));
+  const exportToExcel = async () => {
+    try {
+      let allData = [];
+      let currentPage = 1;
   
-  const exportToExcel = () => {
-    const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    const fileExtension = '.xlsx';
-    const fileName = 'exported-data';
+      while (true) {
+        const response = await httpClient.get(
+          `tarif/get-tarifMitra?limit=${limit}&page=${currentPage}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_mitra=${NamaMitranya}&id_price_mitra=&keyword=`
+        );
   
-    // Create a worksheet
-    const ws = XLSX.utils.json_to_sheet(exportData);
+        const data = response.data;
   
-    // Set column widths for specific columns
-    const columnWidths = [
-      { wch: 5 }, // 'No'
-      { wch: 30 }, // 'Nama Mitra'
-      { wch: 30 }, // 'Muat'
-      { wch: 30 }, // 'Bongkar'
-      { wch: 30 }, // 'Biaya Kirim'
-      { wch: 20 }, // 'Keterangan'
-      { wch: 10 }, // 'via'
-      { wch: 30 }, // 'Jenis Kendaraan'
-      { wch: 20 }, // 'Jenis Kendaraan'
-    ];
+        if (data.status.code === 200) {
+          const newData = data.data.order;
+          allData = [...allData, ...newData];
   
-    // Apply column widths to the worksheet
-    ws['!cols'] = columnWidths;
+          // Check if there are more pages
+          if (newData.length < limit) {
+            break;
+          }
   
-    // Apply blue background color to specific header cells
-    const blueBackgroundColor = { fgColor: { rgb: '0000FF' } }; // '0000FF' represents blue
-    const headerCells = ['A1', 'B1', 'C1', 'D1', 'E1', 'F1']; // Adjust cell references as needed
+          currentPage++;
+        } else {
+          console.log("Error: ", data.status.message);
+          break;
+        }
+      }
   
-    headerCells.forEach((cellRef) => {
-      ws[cellRef].s = { ...ws[cellRef].s, ...blueBackgroundColor };
-    });
+      const exportData = allData.map((item) => ({
+        'No': item.no,
+        'Nama Mitra': item.mitra,
+        Muat: item.kotaAsal,
+        Bongkar: item.kotaTujuan,
+        'Biaya Kirim': formatRupiah(item.tarif),
+        Keterangan: item.service_type,
+        'via': item.via,
+        'Jenis Kendaraan': item.kendaraanJenis,
+        'Jenis Kiriman': item.jenis_kiriman
+      }));
   
-    // Center content in 'No' and 'Keterangan' cells
-    const centerStyle = { alignment: { vertical: 'center', horizontal: 'center' } };
-    ws['B1'].s = { ...ws['B1'].s, ...centerStyle }; // Center 'No'
-    ws['F1'].s = { ...ws['F1'].s, ...centerStyle }; // Center 'Keterangan'
+      const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+      const fileExtension = '.xlsx';
+      const fileName = 'exported-data';
   
-    // Apply borders to all cells (including header)
-    const borderStyle = { style: 'thin', color: { rgb: '000000' } }; // '000000' represents black
-    for (let cellRef in ws) {
-      if (cellRef[0] === '!') continue; // Skip metadata
+      // Create a worksheet
+      const ws = XLSX.utils.json_to_sheet(exportData);
   
-      ws[cellRef].s = { ...ws[cellRef].s, ...borderStyle };
+      // Set column widths for specific columns
+      const columnWidths = [
+        { wch: 5 }, // 'No'
+        { wch: 30 }, // 'Nama Mitra'
+        { wch: 30 }, // 'Muat'
+        { wch: 30 }, // 'Bongkar'
+        { wch: 30 }, // 'Biaya Kirim'
+        { wch: 20 }, // 'Keterangan'
+        { wch: 10 }, // 'via'
+        { wch: 30 }, // 'Jenis Kendaraan'
+        { wch: 20 }, // 'Jenis Kendaraan'
+      ];
+  
+      // Apply column widths to the worksheet
+      ws['!cols'] = columnWidths;
+  
+      // Apply blue background color to specific header cells
+      const blueBackgroundColor = { fgColor: { rgb: '0000FF' } }; // '0000FF' represents blue
+      const headerCells = ['A1', 'B1', 'C1', 'D1', 'E1', 'F1']; // Adjust cell references as needed
+  
+      headerCells.forEach((cellRef) => {
+        ws[cellRef].s = { ...ws[cellRef].s, ...blueBackgroundColor };
+      });
+  
+      // Center content in 'No' and 'Keterangan' cells
+      const centerStyle = { alignment: { vertical: 'center', horizontal: 'center' } };
+      ws['B1'].s = { ...ws['B1'].s, ...centerStyle }; // Center 'No'
+      ws['F1'].s = { ...ws['F1'].s, ...centerStyle }; // Center 'Keterangan'
+  
+      // Apply borders to all cells (including header)
+      const borderStyle = { style: 'thin', color: { rgb: '000000' } }; // '000000' represents black
+      for (let cellRef in ws) {
+        if (cellRef[0] === '!') continue; // Skip metadata
+  
+        ws[cellRef].s = { ...ws[cellRef].s, ...borderStyle };
+      }
+  
+      // Create a workbook
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'data');
+  
+      // Generate Excel buffer
+      const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  
+      // Create a Blob and download the Excel file
+      const blob = new Blob([excelBuffer], { type: fileType });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = fileName + fileExtension;
+      anchor.click();
+    } catch (error) {
+      console.log("Error: ", error.message);
     }
-  
-    // Create a workbook
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'data');
-  
-    // Generate Excel buffer
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-  
-    // Create a Blob and download the Excel file
-    const blob = new Blob([excelBuffer], { type: fileType });
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement('a');
-    anchor.href = url;
-    anchor.download = fileName + fileExtension;
-    anchor.click();
   };
   
   
