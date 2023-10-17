@@ -1276,6 +1276,15 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                     columns={columns}
                     data={DataAwal}
                     onRowClicked={handleRowClick}
+                    customStyles={{
+                        headCells: {
+                          style: {
+                            backgroundColor: '#1a5cbf',
+                            color: '#fff',
+                            width:"100%"
+                          },
+                        },
+                      }}
                 />
                 <div className='d-flex justify-content-end mt-3'>
                     <Pagination

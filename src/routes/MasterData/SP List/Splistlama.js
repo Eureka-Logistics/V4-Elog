@@ -12,7 +12,7 @@ import { Pagination } from "antd";
 import SpStore from "../../../zustand/Store/FilterSP";
 import DetailUserLoginZustand from "../../../zustand/Store/DetailUserLogin/Index";
 import { array, func } from "prop-types";
-import "../Monitoring SP List Akunting/style.css"
+// import "../Monitoring SP List Akunting/style.css"
 import NamaCabangStore from "../../../zustand/Store/NamaCabang";
 function SPListlama() {
   const DetailUserLoginZustandState = DetailUserLoginZustand((i) => i?.DetailUserLoginZustandState)
@@ -100,7 +100,7 @@ function SPListlama() {
   function ganticabang() {
     if (!CariCabangValue) {
       return NamaCabang
-    } else if (CariCabangValue){
+    } else if (CariCabangValue) {
       return CariCabangValue
     }
   }
@@ -175,10 +175,27 @@ function SPListlama() {
     },
     {
       name: "SO ID",
-      selector: (row) => row?.sp,
-      width: "150px",
+      selector: (row) => {
+        let tagColor = "blue";
+
+        if (row.service.toLowerCase() === "charter") {
+          tagColor = "blue";
+        } else if (row.service.toLowerCase() === "retail" || row.service.toLowerCase() === "retailer") {
+          tagColor = "gold";
+        }
+        return (
+          <>
+           <Tag  color={tagColor}>
+            {row.sp}
+            <br />
+           {row?.service}</Tag>
+          </>
+        );
+      },
       wrap: true,
     },
+
+
     {
       name: "Perusahaan",
       selector: (row) => row?.perusahaan,
@@ -202,12 +219,12 @@ function SPListlama() {
       width: "100px",
       wrap: true,
     },
-    {
-      name: "Service",
-      selector: (row) => row?.service,
-      width: "100px",
-      wrap: true,
-    },
+    // {
+    //   name: "Service",
+    //   selector: (row) => row?.service,
+    //   width: "100px",
+    //   wrap: true,
+    // },
     {
       name: "Vehicle",
       selector: (row) => row?.kendaraan,
@@ -247,30 +264,30 @@ function SPListlama() {
     //     return data
     //   },
     // },
-    // {
-    //   name: "Sales",
-    //   selector: (row) => {
-    //     const tanggal = row.dateApproveSales;
-    //     return row?.approveAct === "Y" ? (
-    //       <Tag color="green">
-    //         Approved <br /> {tanggal}
-    //       </Tag>
-    //     ) : row?.approveAct === "N" && tanggal === "1970-01-01 07:00:00" ? (
-    //       <Tag color="red">
-    //         Reject <br /> {tanggal ? "-" : tanggal}
-    //       </Tag>
-    //     ) : row?.approveAct === "N" && tanggal !== "1970-01-01 07:00:00" ? (
-    //       <Tag color="red">
-    //         Reject <br /> {tanggal}
-    //       </Tag>
-    //     ) : (
-    //       <Tag color="blue">
-    //         Pass <br /> {tanggal}
-    //       </Tag>
-    //     );
-    //   },
-    //   width: "170px",
-    // },
+    {
+      name: "Sales",
+      selector: (row) => {
+        const tanggal = row.dateApproveSales;
+        return row?.approveAct === "Y" ? (
+          <Tag color="green">
+            Approved <br /> {tanggal}
+          </Tag>
+        ) : row?.approveSales === "Y" && tanggal !== "Invalid Date" ? (
+          <Tag color="green">
+            Approved <br /> {tanggal }
+          </Tag>
+        ) : row?.approveSales === "N" && tanggal !== "Invalid Date" ? (
+          <Tag color="red">
+            Reject <br /> {tanggal}
+          </Tag>
+        ) : (
+          <Tag color="blue">
+            Pass <br /> {tanggal}
+          </Tag>
+        );
+      },
+      width: "170px",
+    },
     {
       name: "Akunting",
       selector: (row) => {
@@ -503,7 +520,17 @@ function SPListlama() {
                   data={isiData}
                   onRowClicked={RowClick}
                   className="myCustomTable"
+                  customStyles={{
+                    headCells: {
+                      style: {
+                        backgroundColor: '#1a5cbf',
+                        color: '#fff',
+                        width: "100%"
+                      },
+                    },
+                  }}
                 />
+
               </div>
             )}
             <div className="mt-3 d-flex justify-content-end">

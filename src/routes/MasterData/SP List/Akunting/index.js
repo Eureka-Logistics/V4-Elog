@@ -129,6 +129,15 @@ function Index() {
                             onChangePage={handlePageChange}
                             paginationTotalRows={totalRows}
                             onRowClicked={buttonarahin}
+                            customStyles={{
+                                headCells: {
+                                  style: {
+                                    backgroundColor: '#1a5cbf',
+                                    color: '#fff',
+                                    width:"100%"
+                                  },
+                                },
+                              }}
                         />
 
                     )}

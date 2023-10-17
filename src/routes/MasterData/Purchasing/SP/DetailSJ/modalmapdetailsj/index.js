@@ -97,13 +97,13 @@ function ModalMapsSJ() {
     }, [dataapi?.pickupAddress, dataapi?.destination]);
     return (
         <div>
-            <Button type="primary" onClick={() => {
+            {/* <Button type="primary" onClick={() => {
               
                     setModalMapsSJOpen(true);
               
             }}>
                 Cek Lokasi Kendaraan
-            </Button>
+            </Button> */}
             
             <Modal
                 title={`Lokasi Kendaraan`}

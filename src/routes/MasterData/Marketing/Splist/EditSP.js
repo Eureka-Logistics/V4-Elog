@@ -1,4 +1,4 @@
-import { Card, Modal as ModalAntd, notification } from "antd";
+import { Card, Modal as ModalAntd, Tag, notification } from "antd";
 import React from "react";
 import DataTable from "react-data-table-component";
 import { useEffect, useState } from "react";
@@ -1351,233 +1351,273 @@ function EditSP({ }) {
                 </tr>
               </tfoot> */}
 
-            <Row>
-              <Col span={10}></Col>
-              <Col
-                span={2}
-                style={{}}
-                className="d-flex justify-content-end mb-2 mb-2"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}>Total Muat</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.totalMuat?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col
-                span={10}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end mb-2"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}>Total Bongkar</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.totalBongkar?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
+            {detailData?.totalMuat !== 0 && (
+              <Row>
+                <Col span={10}></Col>
+                <Col
+                  span={2}
+                  style={{}}
+                  className="d-flex justify-content-end mb-2 mb-2"
+                >
+                  <div>
+                    <table style={{ width: '100%' }}>
+                      <tbody>
+                        <tr style={{ fontWeight: "bold" }}>
+                          <td style={{ paddingRight: "20px" }}>Total Muat</td>
+                          <td style={{ paddingRight: "10px" }}>:</td>
+                          <td width="130px" style={{ paddingLeft: "10px" }}>
+                            {detailData?.totalMuat?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </Col>
+              </Row>
+            )}
 
-            {/* <Row>
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end mb-2"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}>Biaya Overtonase</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.totalovertonase?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      }) === undefined ? "Rp 0,00" : detailData?.totalovertonase?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row> */}
-            <Row>
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end mb-2"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}>Biaya Multimuat</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.biayaMultiMuat?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      }) === undefined ? "Rp 0,00" : detailData?.biayaMultiMuat?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end mb-2"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}>Biaya Mel</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.biayaMel?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR"
-                      })
-                        === undefined ? "Rp 0,00" : detailData?.biayaMel?.toLocaleString("id-ID", {
-                          style: "currency",
-                          currency: "IDR",
-                        })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end mb-2"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}>Biaya Lain</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.biayaLain?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      }) === undefined ? "Rp 0,00" : detailData?.biayaLain?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end mb-2"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}>Biaya Tambahan</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.biayaTambahan?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      }) === undefined ? "Rp 0,00" : detailData?.biayaTambahan?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end mb-2"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}>Harga Selanjutnya</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.hargaSelanjutnya?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      }) === undefined ? "Rp 0,00" : detailData?.hargaSelanjutnya?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end mb-2"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}>Total Overtonase</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.totalovertonase?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      }) === undefined ? "Rp 0,00" : detailData?.totalovertonase?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end mb-2"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}>Biaya Multidrop</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.biayaMultiDrop?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      }) === undefined ? "Rp 0,00" : detailData?.biayaMultiDrop?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
+            {detailData?.totalBongkar !== 0 && (
+              <Row>
+                <Col
+                  span={10}
+                  style={{ marginLeft: "10px" }}
+                  className="d-flex justify-content-end mb-2"
+                >
+                  <div>
+                    <table style={{ width: '100%' }}>
+                      <tbody>
+                        <tr style={{ fontWeight: "bold" }}>
+                          <td style={{ paddingRight: "20px" }}>Total Bongkar</td>
+                          <td style={{ paddingRight: "10px" }}>:</td>
+                          <td width="130px" style={{ paddingLeft: "10px" }}>
+                            {detailData?.totalBongkar?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </Col>
+              </Row>
+            )}
+
+
+
+            {detailData?.biayaMultiMuat !== 0 && (
+              <Row>
+                <Col
+                  span={12}
+                  style={{ marginLeft: "10px" }}
+                  className="d-flex justify-content-end mb-2"
+                >
+                  <div>
+                    <table style={{ width: '100%' }}>
+                      <tbody>
+                        <tr style={{ fontWeight: "bold" }}>
+                          <td style={{ paddingRight: "20px" }}>Biaya Multimuat</td>
+                          <td style={{ paddingRight: "10px" }}>:</td>
+                          <td width="130px" style={{ paddingLeft: "10px" }}>
+                            {detailData?.biayaMultiMuat?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            }) === undefined ? "Rp 0,00" : detailData?.biayaMultiMuat?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </Col>
+              </Row>
+            )}
+
+            {detailData?.biayaMel !== 0 && (
+              <Row>
+                <Col
+                  span={12}
+                  style={{ marginLeft: "10px" }}
+                  className="d-flex justify-content-end mb-2"
+                >
+                  <div>
+                    <table style={{ width: '100%' }}>
+                      <tbody>
+                        <tr style={{ fontWeight: "bold" }}>
+                          <td style={{ paddingRight: "20px" }}>Biaya Mel</td>
+                          <td style={{ paddingRight: "10px" }}>:</td>
+                          <td width="130px" style={{ paddingLeft: "10px" }}>
+                            {detailData?.biayaMel?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            }) === undefined ? "Rp 0,00" : detailData?.biayaMel?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </Col>
+              </Row>
+            )}
+
+            {detailData?.biayaLain !== 0 && (
+              <Row>
+                <Col
+                  span={12}
+                  style={{ marginLeft: "10px" }}
+                  className="d-flex justify-content-end mb-2"
+                >
+                  <div>
+                    <table style={{ width: '100%' }}>
+                      <tbody>
+                        <tr style={{ fontWeight: "bold" }}>
+                          <td style={{ paddingRight: "20px" }}>Biaya Lain</td>
+                          <td style={{ paddingRight: "10px" }}>:</td>
+                          <td width="130px" style={{ paddingLeft: "10px" }}>
+                            {detailData?.biayaLain?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            }) === undefined ? "Rp 0,00" : detailData?.biayaLain?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </Col>
+              </Row>
+            )}
+
+            {detailData?.biayaTambahan !== 0 && (
+              <Row>
+                <Col
+                  span={12}
+                  style={{ marginLeft: "10px" }}
+                  className="d-flex justify-content-end mb-2"
+                >
+                  <div>
+                    <table style={{ width: '100%' }}>
+                      <tbody>
+                        <tr style={{ fontWeight: "bold" }}>
+                          <td style={{ paddingRight: "20px" }}>Biaya Tambahan</td>
+                          <td style={{ paddingRight: "10px" }}>:</td>
+                          <td width="130px" style={{ paddingLeft: "10px" }}>
+                            {detailData?.biayaTambahan?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            }) === undefined ? "Rp 0,00" : detailData?.biayaTambahan?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </Col>
+              </Row>
+            )}
+
+            {detailData?.hargaSelanjutnya !== 0 && (
+              <Row>
+                <Col
+                  span={12}
+                  style={{ marginLeft: "10px" }}
+                  className="d-flex justify-content-end mb-2"
+                >
+                  <div>
+                    <table style={{ width: '100%' }}>
+                      <tbody>
+                        <tr style={{ fontWeight: "bold" }}>
+                          <td style={{ paddingRight: "20px" }}>Harga Selanjutnya</td>
+                          <td style={{ paddingRight: "10px" }}>:</td>
+                          <td width="130px" style={{ paddingLeft: "10px" }}>
+                            {detailData?.hargaSelanjutnya?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            }) === undefined ? "Rp 0,00" : detailData?.hargaSelanjutnya?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </Col>
+              </Row>
+            )}
+
+            {detailData?.totalovertonase !== 0 && (
+              <Row>
+                <Col
+                  span={12}
+                  style={{ marginLeft: "10px" }}
+                  className="d-flex justify-content-end mb-2"
+                >
+                  <div>
+                    <table style={{ width: '100%' }}>
+                      <tbody>
+                        <tr style={{ fontWeight: "bold" }}>
+                          <td style={{ paddingRight: "20px" }}>Total Overtonase</td>
+                          <td style={{ paddingRight: "10px" }}>:</td>
+                          <td width="130px" style={{ paddingLeft: "10px" }}>
+                            {detailData?.totalovertonase?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            }) === undefined ? "Rp 0,00" : detailData?.totalovertonase?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </Col>
+              </Row>
+            )}
+
+            {detailData?.biayaMultiDrop !== 0 && (
+              <Row>
+                <Col
+                  span={12}
+                  style={{ marginLeft: "10px" }}
+                  className="d-flex justify-content-end mb-2"
+                >
+                  <div>
+                    <table style={{ width: '100%' }}>
+                      <tbody>
+                        <tr style={{ fontWeight: "bold" }}>
+                          <td style={{ paddingRight: "20px" }}>Biaya Multidrop</td>
+                          <td style={{ paddingRight: "10px" }}>:</td>
+                          <td width="130px" style={{ paddingLeft: "10px" }}>
+                            {detailData?.biayaMultiDrop?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            }) === undefined ? "Rp 0,00" : detailData?.biayaMultiDrop?.toLocaleString("id-ID", {
+                              style: "currency",
+                              currency: "IDR",
+                            })}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </Col>
+              </Row>
+            )}
+
             {/* <Row>
               <Col
                 span={12}
@@ -1601,6 +1641,7 @@ function EditSP({ }) {
                 </div>
               </Col>
             </Row> */}
+            {detailData?.tarif !== 0 &&
             <Row>
               <Col
                 span={12}
@@ -1624,6 +1665,7 @@ function EditSP({ }) {
                 </div>
               </Col>
             </Row>
+            }
             <hr />
             <Row>
               <Col
@@ -1636,10 +1678,10 @@ function EditSP({ }) {
                     <td style={{ paddingRight: "20px" }}>TOTAL KESELURUHAN</td>
                     <td style={{ paddingRight: "10px" }}>:</td>
                     <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.totalFix?.toLocaleString("id-ID", {
+                      <Tag color="blue">  {detailData?.totalFix?.toLocaleString("id-ID", {
                         style: "currency",
                         currency: "IDR",
-                      })}
+                      })}</Tag>
                     </td>
                   </tr>
                 </div>

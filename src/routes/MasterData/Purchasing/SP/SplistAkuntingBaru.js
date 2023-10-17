@@ -83,12 +83,12 @@ function SplistOperasional() {
               Approve <br /> <small>{dateApproveAct}</small>
             </Tag>
           ) : approveact === "Y" && dateApproveAct !== "Invalid Date" ? (
-            <Tag color="yellow">
-              Waiting <br /> <small>{dateApproveAct}</small>
-            </Tag>
-          ) : (
             <Tag color="red">
               Reject <br /> <small>{dateApproveAct}</small>
+            </Tag>
+          ) : (
+            <Tag color="yellow">
+              Waiting <br /> <small>Menunggu</small> 
             </Tag>
           );
 
@@ -111,14 +111,14 @@ function SplistOperasional() {
           );
         } else if (approveact !== "Y" && dateApproveAct !== "Invalid Date") {
           displayText = (
-            <Tag color="yellow">
-              Waiting <br /> <small>{dateApproveAct}</small>
+            <Tag color="red">
+              Reject <br /> <small>{dateApproveAct}</small>
             </Tag>
           );
         } else {
           displayText = (
-            <Tag color="red">
-              Reject <br /> <small>{dateApproveAct}</small>
+            <Tag color="yellow">
+              Waiting <br /> <small>Menunggu</small> 
             </Tag>
           );
         }
@@ -276,6 +276,15 @@ function SplistOperasional() {
                 columns={columns}
                 data={combinedData}
                 onRowClicked={buttonarahin}
+                customStyles={{
+                  headCells: {
+                    style: {
+                      backgroundColor: '#1a5cbf',
+                      color: '#fff',
+                      width:"100%"
+                    },
+                  },
+                }}
               // pagination
               // paginationServer
               // paginationTotalRows={totalRows}

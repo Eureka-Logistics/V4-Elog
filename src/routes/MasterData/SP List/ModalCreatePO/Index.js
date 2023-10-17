@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal } from 'antd';
+import { Button, Card, Form, Input, Modal } from 'antd';
 import React, { useState } from 'react'
 import { Col, Row } from 'react-bootstrap';
 
@@ -17,7 +17,7 @@ function ModalCreatePO({ show, onHide }) {
     return (
         <div>
             <Modal
-                title="Modal Create PO"
+                title=" Buat PO"
                 style={{
                     top: 20,
                 }}
@@ -46,23 +46,29 @@ function ModalCreatePO({ show, onHide }) {
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
-                        {Array.from({ length: 3 }).map((_, index) => (
-                            <Col md={4}>
-                                <Form.Item
-                                    key={index}
-                                    label={`PO number ${index + 1} Mitra Name`}
-                                    name={`po_number_${index + 1}`}
-                                    rules={[
-                                        {
-                                            required: false,
-                                            message: `Please input PO number ${index + 1}!`,
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
+                    <div>
+                        <Row>
+                            <Col sm={6}>
+                                <div >
+                                    <Card style={{ backgroundColor: "#b7d1f8" }}>
+                                    <p style={{ fontWeight :"bold" }}>PO 1 Mitra 1</p>
+                                        <Input className='mb-3' placeholder='sp 01' />
+                                        <Input placeholder='sp 02' />
+                                    </Card>
+                                </div>
                             </Col>
-                        ))}
+                        </Row>
+                        <Row>
+                            <Col sm={6}>
+                                <div >
+                                    <Card style={{ backgroundColor: "#b7d1f8" }}>
+                                    <p style={{ fontWeight :"bold" }}>PO 2 Mitra 2</p>
+                                        <Input className='mb-3' placeholder='sp 03' />
+                                    </Card>
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>
                 </Form>
             </Modal>
             <br />

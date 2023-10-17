@@ -179,61 +179,61 @@ function SJ() {
       selector: (row) => row.bu_brench,
       width: "150px",
     },
-    {
-      name: "Uang Jalan",
-      selector: (row) => "uang jalan",
-      width: "150px",
-    },
-    {
-      name: "onProcess",
-      selector: (row) => "uang jalan",
-      width: "150px",
-    },
-    {
-      name: "onPickup",
-      selector: (row) => "uang jalan",
-      width: "150px",
-    },
-    {
-      name: "onDelivery",
-      selector: (row) => "uang jalan",
-      width: "150px",
-    },
-    {
-      name: "Unloading",
-      selector: (row) => "uang jalan",
-      width: "150px",
-    },
-    {
-      name: "Success",
-      selector: (row) => "uang jalan",
-      width: "150px",
-    },
-    {
-      name: "receiveSJ",
-      selector: (row) => <Button size="sm" variant="primary">Terima</Button>,
-      width: "150px",
-    },
-    {
-      name: "SJonAP",
-      selector: (row) => <Button size="sm" variant="primary">Terima</Button>,
-      width: "150px",
-    },
-    {
-      name: "SJonAR",
-      selector: (row) => <Button size="sm" variant="primary">Terima</Button>,
-      width: "150px",
-    },
-    {
-      name: "Invoice",
-      selector: (row) => "uang jalan",
-      width: "150px",
-    },
-    {
-      name: "AP",
-      selector: (row) => "uang jalan",
-      width: "150px",
-    },
+    // {
+    //   name: "Uang Jalan",
+    //   selector: (row) => "uang jalan",
+    //   width: "150px",
+    // },
+    // {
+    //   name: "onProcess",
+    //   selector: (row) => "uang jalan",
+    //   width: "150px",
+    // },
+    // {
+    //   name: "onPickup",
+    //   selector: (row) => "uang jalan",
+    //   width: "150px",
+    // },
+    // {
+    //   name: "onDelivery",
+    //   selector: (row) => "uang jalan",
+    //   width: "150px",
+    // },
+    // {
+    //   name: "Unloading",
+    //   selector: (row) => "uang jalan",
+    //   width: "150px",
+    // },
+    // {
+    //   name: "Success",
+    //   selector: (row) => "uang jalan",
+    //   width: "150px",
+    // },
+    // {
+    //   name: "receiveSJ",
+    //   selector: (row) => <Button size="sm" variant="primary">Terima</Button>,
+    //   width: "150px",
+    // },
+    // {
+    //   name: "SJonAP",
+    //   selector: (row) => <Button size="sm" variant="primary">Terima</Button>,
+    //   width: "150px",
+    // },
+    // {
+    //   name: "SJonAR",
+    //   selector: (row) => <Button size="sm" variant="primary">Terima</Button>,
+    //   width: "150px",
+    // },
+    // {
+    //   name: "Invoice",
+    //   selector: (row) => "uang jalan",
+    //   width: "150px",
+    // },
+    // {
+    //   name: "AP",
+    //   selector: (row) => "uang jalan",
+    //   width: "150px",
+    // },
     // {
     //   name: "Options",
     //   selector: (row) => <><Button onClick={()=>buttonarahin(row.id)} size="sm">Detail</Button></>,
@@ -433,6 +433,15 @@ function SJ() {
                   columns={columns}
                   data={isiData}
                   onRowClicked={buttonarahin}
+                  customStyles={{
+                    headCells: {
+                      style: {
+                        backgroundColor: '#1a5cbf',
+                        color: '#fff',
+                        width:"100%"
+                      },
+                    },
+                  }}
                 />
               </div>
 
