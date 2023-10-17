@@ -70,6 +70,8 @@ const SamplePage = () => {
     });
     return formatter.format(angka);
   };
+
+  
   const columns = [
     {
       title: "No.",
@@ -91,6 +93,15 @@ const SamplePage = () => {
       title: "Service",
       dataIndex: "service_type",
       key: "service_type",
+      render: (text, row) => {
+        return row.service_type === 'Retail' ? (
+          <Tag color="green">Retail</Tag>
+        ) : row.service_type === 'Charter' ? (
+          <Tag color="magenta">Charter</Tag>
+        ) : (
+          ''
+        );
+      }
     },
     {
       title: "Muat",
@@ -385,7 +396,7 @@ const SamplePage = () => {
     // Set the exporting flag back to false after export is complete
     setExporting(false);
   }
-};
+};  
 
   return (
     <div>

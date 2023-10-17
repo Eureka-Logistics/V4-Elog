@@ -264,17 +264,17 @@ const SamplePage = () => {
   const exportToExcel = async () => {
     // Set the exporting flag to true
     setExporting(true);
-
+  
     // Fetch all data before exporting
     try {
       const response = await httpClient.get(
         `tarif/get-tarifeureka?limit=${total}&page=1&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=`
       );
       const data = response.data;
-
+  
       if (data.status.code === 200) {
         const allData = data.data.order;
-
+  
         const dataToExport = allData.map((record) => ({
           // Sesuaikan dengan kolom-kolom yang ingin diekspor
           "No.": record.no,
@@ -285,7 +285,7 @@ const SamplePage = () => {
           "Jenis Kendaraan": record.kendaraanJenis,
           Satuan: record.satuan,
           "Uang Jalan": {
-            v:  record.uang_jalan,
+            v: record.uang_jalan,
             s: { alignment: { horizontal: "left" } },
           },
           "Maintenance Cost": {
@@ -296,31 +296,31 @@ const SamplePage = () => {
             v: record.fixed_cost,
             s: { alignment: { horizontal: "left" } },
           },
-          "Max Tonase(kg/koli)": { 
-            v: record.max_tonase , 
-            s: { alignment: { horizontal: 'left' } },
+          "Max Tonase(kg/koli)": {
+            v: record.max_tonase,
+            s: { alignment: { horizontal: "left" } },
           },
-          Amount: { 
-            v: record.amount, 
-            s: { alignment: { horizontal: 'left' } },
-          }, 
-          Percent: { 
-            v: `${record.percent} %`, 
-            s: { alignment: { horizontal: 'left' } },
+          Amount: {
+            v: record.amount,
+            s: { alignment: { horizontal: "left" } },
           },
-          Tarif: { 
-            v: record.tarif, 
-            s: { alignment: { horizontal: 'left' } },
+          Percent: {
+            v: `${record.percent} %`,
+            s: { alignment: { horizontal: "left" } },
           },
-          Harga: { 
-            v: record.harga_selanjutnya, 
-            s: { alignment: { horizontal: 'left' } },
-          }, 
+          Tarif: {
+            v: record.tarif,
+            s: { alignment: { horizontal: "left" } },
+          },
+          Harga: {
+            v: record.harga_selanjutnya,
+            s: { alignment: { horizontal: "left" } },
+          },
           "Date Create": record.date_created,
         }));
-
+  
         const ws = XLSX.utils.json_to_sheet(dataToExport);
-
+  
         // Set lebar kolom sesuai kebutuhan
         ws["!cols"] = [
           { wch: 5 }, // Lebar kolom No.
@@ -340,12 +340,23 @@ const SamplePage = () => {
           { wch: 20 }, // Lebar kolom Harga
           { wch: 30 }, // Lebar kolom Harga
         ];
-
+  
         const wb = XLSX.utils.book_new();
+  
+        // Mendapatkan tanggal saat ini
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, "0");
+        const mm = String(today.getMonth() + 1).padStart(2, "0"); // Januari dimulai dari 0
+        const yyyy = today.getFullYear();
+  
+        // Membangun nama file dengan menambahkan tanggal
+        const fileName = `Export Tarif Eureka_${dd}${mm}${yyyy}.xlsx`;
+  
         XLSX.utils.book_append_sheet(wb, ws, "Data Tarif");
-
+  
         // Simpan file Excel
-        XLSX.writeFile(wb, "Export Tarif Eureka.xlsx");
+        XLSX.writeFile(wb, fileName);
+        console.log(`File ${fileName} berhasil diekspor.`);
       } else {
         console.log("Error: ", data.status.message);
       }
@@ -356,7 +367,7 @@ const SamplePage = () => {
       setExporting(false);
     }
   };
-
+  
   function formatToRupiah(angka) {
     const formatter = new Intl.NumberFormat("id-ID", {
       style: "currency",
