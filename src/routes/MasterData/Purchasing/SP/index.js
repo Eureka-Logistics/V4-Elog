@@ -67,7 +67,7 @@ function ListPageSpPurchasing() {
             name: "Service",
             selector: (row) => row.service,
             cell: (row, index) => {
-                if (row.service === "charter") {
+                if (row.service === "charter" || row.service === "Charter") {
                     return <Tag color="blue">Charter
                         <br />
                         {row.pickupDate}
