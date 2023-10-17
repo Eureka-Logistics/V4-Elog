@@ -40,6 +40,7 @@ const SamplePage = () => {
   const [Akunting, setAkunting] = useState("");
 
   const optjenisPembayaran = [
+   
     {
       value: 1,
       label: "Cash",
@@ -104,7 +105,7 @@ const SamplePage = () => {
       nama_perusahaan: "",
       jenis_barang: "",
       jenis_usaha: "",
-      tgl_berdiri: "",
+      tgl_berdiri: 0,
       tahun_berdiri: "",
       npwp: "",
       alamat_npwp: "",
@@ -126,7 +127,7 @@ const SamplePage = () => {
       invoice_address: "",
       invoice_position: "",
       invoice_phone_office: "",
-      invoice_mobile: "",
+      invoice_mobile: 0,
       invoice_email: "",
       pic_office: "",
       pic_position: "",
@@ -134,7 +135,7 @@ const SamplePage = () => {
       pic_number: "",
       pic_fax: "",
       pic_email: "",
-      pic_birth: "",
+      pic_birth: 0,
       fax: "",
       email: "",
       bank_pic: "",
@@ -145,7 +146,7 @@ const SamplePage = () => {
       nama_bank: "",
       nama_akun: "",
       no_rek: "",
-      top: "",
+      top: 0,
       jenis_angkutan: "",
       kemasan: "",
       unique_cus: "",
@@ -155,43 +156,22 @@ const SamplePage = () => {
       foto_npwp: "",
       manager: "",
       manager_memo: "",
-      manager_date: "",
+      manager_date: 0,
       akunting: "",
       akunting_memo: "",
-      akunting_date: "",
+      akunting_date: 0,
       direktur: "",
       direktur_memo: "",
-      direktur_date: "",
+      direktur_date: 0,
       mou_file: "",
       tgl_bergabung: "",
     },
     validationSchema: Yup.object({
-      nama_perusahaan: Yup.string().max(30, "Must be 30 characters or less"),
-      telepon: Yup.string().matches(/^\d{10}$/, "Must be a 10-digit number"),
-
-      hp: Yup.string().matches(/^\d{10}$/, "Must be a 10-digit number"),
-
-      npwp: Yup.string().matches(/^\d{15}$/, "Must be a 15-digit number"),
-
-      tahun_berdiri: Yup.number()
-        .integer("Must be a valid integer")
-        .min(1800, "Must be greater than 1800")
-        .max(
-          new Date().getFullYear(),
-          "Must be less than or equal to the current year"
-        ),
-
-      email: Yup.string().email("Invalid email address"),
-
-      ktp: Yup.string().matches(/^\d{16}$/, "Must be a 16-digit number"),
-
-      tdp: Yup.string().matches(/^\d{13}$/, "Must be a 13-digit number"),
-
-      siup: Yup.string().max(20, "Must be 20 characters or less"),
-
-      pkp: Yup.string().max(15, "Must be 15 characters or less"),
-
-      fax: Yup.string().max(15, "Must be 15 characters or less"),
+      nama_perusahaan: Yup.string()
+        .max(30, "Must be 30 characters or less")
+        .required("Masukkan Nama Perusahaan !"),
+        
+      // // Anda dapat menambahkan aturan validasi lainnya untuk setiap field
     }),
     onSubmit: (values) => {
       console.log(`values dari sini`, values);
@@ -206,11 +186,30 @@ const SamplePage = () => {
           setTimeout(() => router.push("/mastercustomersss"), 1000);
         })
         .catch(function (error) {
+          let errorMessage = "Terjadi kesalahan.";
+        
+          if (error.response && error.response.data && error.response.data.status) {
+            const status = error.response.data.status;
+        
+            if (status.code === 500) {
+              errorMessage = "Ada data yang belum terinputkan";
+              if (status.message) {
+                errorMessage += ` Detail: ${status.message}`;
+              }
+            } else {
+              errorMessage = "Terjadi kesalahan yang tidak diketahui.";
+            }
+          }
+        
           notification.error({
             message: "Error",
-            description: error.message,
+            description: errorMessage,
           });
-          console.log(error.message);
+        
+          console.error(error.message);
+          if (error.response && error.response.data && error.response.data.status) {
+            console.error(error.response.data.status.message);
+          }
         });
     },
     //   httpClient
@@ -391,9 +390,17 @@ const SamplePage = () => {
                     name="nama_perusahaan"
                     placeholder="Nama Perusahaan"
                     value={formik.values.nama_perusahaan}
-                    onChange={formik.handleChange}
+                    onChange={(e) =>
+                      formik.setFieldValue(
+                        "nama_perusahaan",
+                        e.target.value.toUpperCase()
+                      )
+                    }
                     isInvalid={!!formik.errors.nama_perusahaan}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.nama_perusahaan}
+                  </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
             </Col>

@@ -324,21 +324,28 @@ const SamplePage = () => {
         v: formatRupiah(item.biaya_jalan),
         s: { alignment: { horizontal: "center" } },
       },
+      "Via": {
+        t: "s",
+        v: item.via,
+        s: { alignment: { horizontal: "center" } },
+      },
     }));
 
     const ws = XLSX.utils.json_to_sheet(dataToExport);
 
     // Mengatur lebar kolom untuk kolom "Kode Tarif" dengan lebar 15
     ws["!cols"] = [
-      { wch: 5 },
-      { wch: 15 },
-      { wch: 30 },
-      { wch: 11 },
-      { wch: 25 },
-      { wch: 25 },
-      { wch: 16 },
-      { wch: 22 },
-      { wch: 30 },
+      { wch: 5 }, // Nomor
+      { wch: 15 }, // kode tarif
+      { wch: 35 }, // pelanggan
+      { wch: 11 }, // service
+      { wch: 25 }, // muat
+      { wch: 25 }, // bongkar 
+      { wch: 16 }, // jenis kendaraan
+      { wch: 22 }, // date
+      { wch: 30 }, // biaya kirim 
+      { wch: 15 }, // via
+
     ];
 
     const wb = XLSX.utils.book_new();
