@@ -47,21 +47,7 @@ const SamplePage = () => {
       render: (text) => <Tag color="blue">{text}</Tag>,
     },
 
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      render: (text) => (
-        <Tag
-          color={
-            text === "aktif" ? "green" : text === "tidak aktif" ? "red" : "red"
-          }
-          title={text === "tidak aktif" ? "Status tidak aktif" : ""}
-        >
-          {text}
-        </Tag>
-      ),
-    },
+    
     {
       title: "Mitra Name",
       dataIndex: "mitraName",
@@ -83,6 +69,21 @@ const SamplePage = () => {
       title: "PIC",
       dataIndex: "pic",
       key: "pic",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (text) => (
+        <Tag
+          color={
+            text === "aktif" ? "green" : text === "tidak aktif" ? "red" : "red"
+          }
+          title={text === "tidak aktif" ? "Status tidak aktif" : ""}
+        >
+          {text}
+        </Tag>
+      ),
     },
     {
       title: "Aksi",
