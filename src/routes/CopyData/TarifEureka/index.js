@@ -345,7 +345,7 @@ const SamplePage = () => {
         XLSX.utils.book_append_sheet(wb, ws, "Data Tarif");
 
         // Simpan file Excel
-        XLSX.writeFile(wb, "data_tarif.xlsx");
+        XLSX.writeFile(wb, "Export Tarif Eureka.xlsx");
       } else {
         console.log("Error: ", data.status.message);
       }

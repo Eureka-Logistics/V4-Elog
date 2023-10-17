@@ -42,6 +42,7 @@ const SamplePage = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [NamaMitraOptions, setNamaMitraOptions] = useState("");
+  const [exporting, setExporting] = useState(false);
 
   const handleView = (id) => {
     router.push(`/tarifmitraeditdetail/${id}`);
@@ -317,6 +318,7 @@ const SamplePage = () => {
   };
   
   const exportToExcel = async () => {
+    setExporting(true);
     try {
       let allData = [];
       let currentPage = 1;
@@ -358,7 +360,7 @@ const SamplePage = () => {
   
       const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
       const fileExtension = '.xlsx';
-      const fileName = 'exported-data';
+      const fileName = 'Export Tarif Mitra';
   
       // Create a worksheet
       const ws = XLSX.utils.json_to_sheet(exportData);
@@ -416,6 +418,9 @@ const SamplePage = () => {
       anchor.click();
     } catch (error) {
       console.log("Error: ", error.message);
+    } finally {
+      // Set the exporting flag back to false after export is complete
+      setExporting(false);
     }
   };
   
@@ -530,8 +535,9 @@ const SamplePage = () => {
                   marginRight: "10px",
                 }}
                 onClick={exportToExcel}
+                disabled={exporting}
               >
-                Export Excel
+                 {exporting ? "Exporting..." : "Export Excel"}
               </Button>
               <Button
                 style={{
@@ -540,7 +546,7 @@ const SamplePage = () => {
                   boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
                   borderColor: "#1A5CBF",
                 }}
-                // type="primary"
+                // type="primary  "
                 onClick={handleAdd}
               >
                 New Tarif

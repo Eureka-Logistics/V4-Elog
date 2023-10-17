@@ -35,6 +35,8 @@ const SamplePage = () => {
   const [total, setTotal] = useState(0);
   const [loadingState, setLoadingState] = useState(false);
   const [limit, setLimit] = useState(10);
+  const [exporting, setExporting] = useState(false);
+
 
   const handleView = (id) => {
     router.push(`/detailTarifPelanggan/${id}`);
@@ -270,6 +272,8 @@ const SamplePage = () => {
   };
 
   const exportToExcel = async () => {
+    setExporting(true);
+
   try {
     const response = await httpClient.get(
       `tarif/get-tarifCustomer?limit=${total}&page=1&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_price=&id_customer=${NamaMitraa}`
@@ -359,7 +363,7 @@ const SamplePage = () => {
       type:
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     });
-    const fileName = "table_data.xlsx";
+    const fileName = "Export Tarif Customer.xlsx";
 
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
       // For IE
@@ -377,6 +381,9 @@ const SamplePage = () => {
     }
   } catch (error) {
     console.error("Error exporting data:", error);
+  } finally {
+    // Set the exporting flag back to false after export is complete
+    setExporting(false);
   }
 };
 
@@ -518,8 +525,9 @@ const SamplePage = () => {
             <Button
               style={{ backgroundColor: "green", color: "white" }}
               onClick={exportToExcel}
+              disabled={exporting}
             >
-              Export Excel (XLSX)
+              {exporting ? "Exporting..." : "Export Excel (XLSX)"} 
             </Button>
 
             <Button
