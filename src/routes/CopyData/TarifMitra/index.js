@@ -366,7 +366,7 @@ const SamplePage = () => {
       // Set column widths for specific columns
       const columnWidths = [
         { wch: 5 }, // 'No'
-        { wch: 30 }, // 'Nama Mitra'
+        { wch: 35 }, // 'Nama Mitra'
         { wch: 30 }, // 'Muat'
         { wch: 30 }, // 'Bongkar'
         { wch: 30 }, // 'Biaya Kirim'
