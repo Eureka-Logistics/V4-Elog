@@ -185,10 +185,10 @@ function SPListlama() {
         }
         return (
           <>
-           <Tag  color={tagColor}>
-            {row.sp}
-            <br />
-           {row?.service}</Tag>
+            <Tag color={tagColor}>
+              {row.sp}
+              <br />
+              {row?.service}</Tag>
           </>
         );
       },
@@ -274,7 +274,7 @@ function SPListlama() {
           </Tag>
         ) : row?.approveSales === "Y" && tanggal !== "Invalid Date" ? (
           <Tag color="green">
-            Approved <br /> {tanggal }
+            Approved <br /> {tanggal}
           </Tag>
         ) : row?.approveSales === "N" && tanggal !== "Invalid Date" ? (
           <Tag color="red">
@@ -318,29 +318,30 @@ function SPListlama() {
         const dateApproveOps = row?.dateApproveOps;
         const isValidDate = !isNaN(new Date(dateApproveOps));
         const data = isValidDate ? dateApproveOps : "-";
-
+        const idops = row?.idops
+        const approveOps = row?.approveOps
         if (row?.approveOps === "Y") {
           return (
             <Tag color="green">
               Approved <br /> {data}
             </Tag>
           );
-        } else if (row?.approveOps === "N" && (dateApproveOps === "1970-01-01 07:00:00" || "Invalid date")) {
+        } else if (approveOps === "N" && dateApproveOps === "Invalid Date" || dateApproveOps.toLowerCase() === "invalid date") {
           return (
             <Tag color="yellow">
               Waiting <br />  -
             </Tag>
           );
-        } else if (row?.approveOps === "N" && (dateApproveOps !== "1970-01-01 07:00:00" || "Invalid date")) {
+        } else if (dateApproveOps !== "Invalid date" && idops !== 0 && approveOps === "N") {
           return (
-            <Tag color="red">
+            <Tag color="blue">
               Diverted <br /> {data}
             </Tag>
           );
-        } else if (row?.approveOps === "P") {
+        } else if (approveOps === "N" && dateApproveOps !==  "Invalid date") {
           return (
-            <Tag color="blue">
-              Pass <br /> {data}
+            <Tag color="red">
+              Reject <br /> {data}
             </Tag>
           );
         }
