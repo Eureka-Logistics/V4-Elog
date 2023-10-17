@@ -15,6 +15,7 @@ import {
   FormOutlined,
 } from "@ant-design/icons";
 import XLSX from "xlsx";
+import Baseurl from "../../../Api/BaseUrl";
 
 const SamplePage = () => {
   const history = useHistory();
@@ -211,6 +212,8 @@ const SamplePage = () => {
       });
   };
 
+  
+
   const ubahHalaman = (page) => {
     fetchData(page);
   };
@@ -244,6 +247,7 @@ const SamplePage = () => {
 
   useEffect(() => {
     fetchData();
+
   }, [filter, StatusMitra, CariKode]);
 
   // const handlePageChange = (page) => {
@@ -416,6 +420,7 @@ const SamplePage = () => {
         <h5 style={{ color: "#113D7F", fontWeight: "bold" }}>
           Data Master Mitra
         </h5>
+        <hr/>
         <Row>
           <Col>
             {/* <Row className="d-flex justify-content-end">
@@ -426,7 +431,7 @@ const SamplePage = () => {
                 />
               </Col>
             </Row> */}
-            <Row className="mt-3">
+            <Row className="mt-2">
               <Col sm={2}>
                 <label
                   className="mb-2"
@@ -451,9 +456,10 @@ const SamplePage = () => {
                   }}
                 >
                   <Select.Option value="">-</Select.Option>
-                  <option value={"0"}>tidak aktif</option>
-                  <option value={"1"}>habis kontrak</option>
-                  <option value={"2"}>aktif</option>
+                  <option value={"tidak_aktif"}>Tidak Aktif</option>
+                  <option value={"aktif"}>Aktif</option>
+                  <option value={"habis_kontrak"}>Habis Kontrak</option>
+                
                 </Select>
               </Col>
               <Col sm={4}>
