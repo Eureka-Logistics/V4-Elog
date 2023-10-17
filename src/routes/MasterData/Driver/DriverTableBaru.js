@@ -1529,6 +1529,15 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                 columns={columns}
                 data={DataAwal}
                 onRowClicked={DetailRow}
+                customStyles={{
+                  headCells: {
+                    style: {
+                      backgroundColor: '#1a5cbf',
+                      color: '#fff',
+                      width:"100%"
+                    },
+                  },
+                }}
               />
               <style>
                 {`

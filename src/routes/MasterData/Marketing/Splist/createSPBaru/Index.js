@@ -87,7 +87,7 @@ function Index() {
   useEffect(() => {
     dapetinnosp();
   }, [CompanyID]);
-
+console.log(`packingValues`,packingValues);
   const createspAwal = async () => {
     try {
       setButtonDisable(true)
@@ -99,7 +99,7 @@ function Index() {
           memo: memoValue,
           id_customer: CompanyID,
           jenis_barang: JenisBarang,
-          packing: packingValues,
+          packing: packingValues === "" ? 1 : packingValues,
           asuransi: insuranceSelects,
           tgl_pickup: tgl_pickup,
           tgl_bongkar: tgl_bongkar,
@@ -196,6 +196,8 @@ function Index() {
                 </Form.Select> */}
                 <SelectAntd style={{ width: "100%" }}
                   placeholder="Select Marketing"
+                  showSearch
+                  optionFilterProp="children"
                   onChange={(e, idgl, key, idasm, id_amd, id_kacab, id_mgr) => {
                     console.log(idgl);
                     setid_gl(idgl.idgl)
@@ -326,8 +328,8 @@ function Index() {
                   optionFilterProp="children"
                   showSearch
                   style={{ width: "100%" }}
-                  placeholder="Pilih Packing"
                   onChange={(e) => { console.log(e); setpackingValues(e) }}
+                  placeholder={"-"}
                 >
                   {packingValue && [...packingValue].reverse().map((item) => (
                     <option key={item.id} value={item.id}>{item.packing}</option>

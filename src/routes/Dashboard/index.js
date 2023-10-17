@@ -13,6 +13,7 @@ import DashboardPurchasing from "./DashboardPurchasing/index"
 import DetailUserLoginZustand from "../../zustand/Store/DetailUserLogin/Index";
 import { useSelector } from "react-redux";
 import Index from "../Race/WebAdmin/Index";
+import DashboardSales from "./DashboardSales/Index";
 const SamplePage = () => {
 
   const { jobdesk, setJobdesk } = mobil((state) => ({
@@ -110,7 +111,7 @@ const SamplePage = () => {
         {jobdesk === "sales" &&
           (
             <>
-              <h5>ini dashboard {jobdesk}</h5>
+            <DashboardSales/>
             </>
           )}
         {jobdesk === "rcadmin" &&

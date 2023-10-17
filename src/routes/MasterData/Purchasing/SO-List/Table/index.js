@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Table } from 'antd';
+import { Button, Table } from 'antd';
 import { httpClient } from '../../../../../Api/Api';
 import Baseurl from '../../../../../Api/BaseUrl';
 import ModalSOList from '../ModalDetailSO';
+import { Col, Row } from 'react-bootstrap';
+import DataTable from 'react-data-table-component';
 function SOListTable() {
     const [data, setdata] = useState([])
     const [DetailData, setDetailData] = useState({});
@@ -23,11 +25,6 @@ function SOListTable() {
             title: 'Mpo',
             dataIndex: 'mpo',
             key: 'mpo',
-        },
-        {
-            title: 'Mitra',
-            dataIndex: 'mitra',
-            key: 'mitra',
         },
         {
             title: 'Service',
@@ -55,6 +52,9 @@ function SOListTable() {
             key: 'kendaraan',
         },
     ];
+
+
+
     const handleTableChange = (pagination) => {
         getlist(pagination);
     }
@@ -72,7 +72,7 @@ function SOListTable() {
             })
         } catch (error) {
             console.log(error);
-            
+
         }
     }
     const getDetaillist = async (idMpo) => {
@@ -105,13 +105,25 @@ function SOListTable() {
         console.log(record);
 
     }
+
+    const [CreatePoModal, setCreatePoModal] = useState(false)
+    async function createPO() {
+        setModal1Open(true)
+        setCreatePoModal(true)
+    }
     return (
         <div>
+            <Row>
+                <Col sm={2}>
+                    <Button onClick={createPO} size='' type='primary'>Buat PO</Button>
+                </Col>
+            </Row>
             <Table dataSource={data} columns={columns} pagination={paginationss}
                 onRow={(record) => ({
                     onClick: () => handleRowClick(record),
+                    style: { cursor: '' }
                 })} />
-            <ModalSOList getlist={getlist} setDetailData={setDetailData} DetailData={DetailData} setModal1Open={setModal1Open} modal1Open={modal1Open} />
+            <ModalSOList CreatePoModal={CreatePoModal} setCreatePoModal={setCreatePoModal} createPO={createPO} getlist={getlist} setDetailData={setDetailData} DetailData={DetailData} setModal1Open={setModal1Open} modal1Open={modal1Open} />
 
         </div>
     )

@@ -660,7 +660,7 @@ const App = ({ match }) => {
           path={`${match.url}akunting/splistakuntingbaru`}
           component={asyncComponent(() =>
             import(
-              "./MasterData/Monitoring SP List Akunting/SplistAkuntingBaru"
+              "./MasterData/SP List/Splistlama"
             )
           )}
         />
@@ -741,7 +741,7 @@ const App = ({ match }) => {
         <Route
           path={`${match.url}purchasing/newsplist`}
           component={asyncComponent(() =>
-            import("./MasterData/Purchasing/SP/SplistAkuntingBaru")
+            import("./MasterData/Purchasing/SP/index")
           )}
         />
         <Route

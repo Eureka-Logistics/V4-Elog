@@ -299,6 +299,15 @@ function SplistAkuntingBaru() {
                 data={dataApi}
                 paginationTotalRows={totalRows}
                 onRowClicked={buttonarahin}
+                customStyles={{
+                  headCells: {
+                    style: {
+                      backgroundColor: '#1a5cbf',
+                      color: '#fff',
+                      width:"100%"
+                    },
+                  },
+                }}
               />
             )}
             <div className="mt-3 justify-content-end d-flex">

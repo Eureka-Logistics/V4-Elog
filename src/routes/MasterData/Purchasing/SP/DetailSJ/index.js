@@ -537,7 +537,7 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="Supir Pickup"
-                                // name="driver1"
+                                name="namaSupir1"
                                 rules={[
                                     {
                                         required: false,
@@ -546,7 +546,10 @@ function Index() {
                                 ]}
                             >
                                 {/* <Input value={NamaDriver1} /> */}
-                                <Select value={DriverName1}
+                                <Select
+                                    optionFilterProp='children'
+                                    showSearch
+                                    value={DriverName1}
                                     onChange={(e) => setDriverName1(e)} >
                                     {NamaAnotherZustand && NamaAnotherZustand.map((i, index) => (
                                         <Select.Option key={index} value={i.id}>{i.name}</Select.Option>
@@ -555,10 +558,10 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="No HP Supir"
-                                name="destinasi"
+                                name="numberSupir1"
                                 rules={[
                                     {
-                                        message: 'Please input your password!',
+                                        message: 'Masukan no hp supir',
                                     },
                                 ]}
                             >
@@ -617,7 +620,7 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="Supir Pickup"
-                                // name="driver2"
+                                name="namaSupir2"
                                 rules={[
                                     {
                                         required: false,
@@ -626,7 +629,10 @@ function Index() {
                                 ]}
                             >
                                 {/* <Input /> */}
-                                <Select value={DriverName2}>
+                                <Select
+                                    optionFilterProp='children'
+                                    showSearch
+                                    value={DriverName2}>
                                     {NamaAnotherZustand && NamaAnotherZustand.map((i) => (
                                         <Select.Option value={i.id}>{i.name}</Select.Option>
                                     ))}
@@ -634,7 +640,7 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="No HP Supir"
-                                name="destinasi"
+                                name="numberSupir2"
                                 rules={[
                                     {
                                         message: 'Please input your password!',
@@ -701,7 +707,7 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="Supir Pickup"
-                                // name="driver3"
+                                name="namaSupir3"
                                 rules={[
                                     {
                                         required: false,
@@ -709,7 +715,10 @@ function Index() {
                                     },
                                 ]}
                             >
-                                <Select value={DriverName3}>
+                                <Select
+                                    optionFilterProp='children'
+                                    showSearch
+                                    value={DriverName3}>
                                     {NamaAnotherZustand && NamaAnotherZustand.map((i) => (
                                         <Select.Option value={i.id}>{i.name}</Select.Option>
                                     ))}
@@ -717,7 +726,7 @@ function Index() {
                             </Form.Item>
                             <Form.Item
                                 label="No HP Supir"
-                                name="destinasi"
+                                name="numberSupir3"
                                 rules={[
                                     {
                                         message: 'Please input your password!',

@@ -115,6 +115,15 @@ const ubahpaggination = (page) =>{
                 <DataTable
                     columns={columns}
                     data={DataAwalASP}
+                    customStyles={{
+                        headCells: {
+                          style: {
+                            backgroundColor: '#1a5cbf',
+                            color: '#fff',
+                            width:"100%"
+                          },
+                        },
+                      }}
                 // onRowClicked={RowClick}
                 />
                 <div className="d-flex justify-content-end mt-3">

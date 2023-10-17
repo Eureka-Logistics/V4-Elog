@@ -99,6 +99,15 @@ function CancelSPListSales() {
                         data={DataAwal}
                         onRowClicked={pindahspdetail}
                         title="Reject SP Sales"
+                        customStyles={{
+                            headCells: {
+                              style: {
+                                backgroundColor: '#1a5cbf',
+                                color: '#fff',
+                                width:"100%"
+                              },
+                            },
+                          }}
                     />
                     <div className='mt-3 d-flex justify-content-end'>
                         <style>

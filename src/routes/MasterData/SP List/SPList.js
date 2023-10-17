@@ -220,6 +220,15 @@ function SPList() {
                   columns={columns}
                   data={isiData}
                   onRowClicked={RowClick}
+                  customStyles={{
+                    headCells: {
+                      style: {
+                        backgroundColor: '#1a5cbf',
+                        color: '#fff',
+                        width:"100%"
+                      },
+                    },
+                  }}
                 />
                 <div className="d-flex justify-content-end mt-3">
                   <Pagination

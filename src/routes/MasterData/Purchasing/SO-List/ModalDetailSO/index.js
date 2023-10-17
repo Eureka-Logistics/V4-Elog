@@ -5,8 +5,40 @@ import { Col, Row } from 'react-bootstrap'
 import { httpClient } from '../../../../../Api/Api';
 import Baseurl from '../../../../../Api/BaseUrl';
 
-function ModalSOList({ modal1Open, setModal1Open, DetailData, setDetailData,getlist }) {
-    const [dataDetail, setdataDetail] = useState([])
+function ModalSOList({ CreatePoModal, setCreatePoModal, modal1Open, setModal1Open, DetailData, setDetailData, getlist, createPO }) {
+    const [dataDetail, setdataDetail] = useState("")
+    const [judul, setjudul] = useState("")
+
+    async function judulasu() {
+        if (CreatePoModal === true) {
+            setjudul("Create PO")
+            setDetailData("")
+            console.log(`ada`);
+        } else if (CreatePoModal === false) {
+            setjudul('Edit Detail PO')
+        }
+    }
+
+
+    const approvePO = async () => {
+        try {
+            const data = await axios.post(`${Baseurl}sm/create-po`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: localStorage.getItem("token"),
+                    },
+                }
+            )
+        } catch (error) {
+
+        }
+    }
+
+    useEffect(() => {
+        judulasu();
+    }, [CreatePoModal]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setdataDetail(value)
@@ -66,7 +98,7 @@ function ModalSOList({ modal1Open, setModal1Open, DetailData, setDetailData,getl
             const response = await httpClient.post(`/sm/edit-po`, databody);
             console.log(response.data.status?.message)
             notification.success({
-                message : response.data.status?.message
+                message: response.data.status?.message
             })
             getlist()
             setModal1Open(false)
@@ -79,14 +111,26 @@ function ModalSOList({ modal1Open, setModal1Open, DetailData, setDetailData,getl
     return (
         <div>
             <Modal
-                title="Detail SO"
+                title={judul}
                 width={1000}
                 style={{
                     top: 20,
                 }}
                 open={modal1Open}
-                onOk={() => postEdit() }
-                onCancel={() => setModal1Open(false)}
+                onOk={() => {
+                    if (CreatePoModal === false) {
+                        postEdit()
+                        setCreatePoModal(false)
+                    } else {
+                        approvePO()
+                    }
+
+                }}
+                onCancel={() => {
+                    setModal1Open(false)
+                    setCreatePoModal(false)
+                }
+                }
             >
                 <Row>
                     <Col sm={4}>
@@ -95,11 +139,11 @@ function ModalSOList({ modal1Open, setModal1Open, DetailData, setDetailData,getl
                     </Col>
                     <Col sm={4}>
                         <div>Service</div>
-                        <Input name='service' value={DetailData?.service} onChange={handleChange} placeholder='mpo' />
+                        <Input name='service' value={DetailData?.service} onChange={handleChange} placeholder='Service' />
                     </Col>
                     <Col sm={4}>
                         <div>Top</div>
-                        <Input name='top' onChange={handleChange} value={DetailData?.top} placeholder='mpo' />
+                        <Input name='top' onChange={handleChange} value={DetailData?.top} placeholder='top' />
                     </Col>
                 </Row>
                 <Row className='mt-3'>
