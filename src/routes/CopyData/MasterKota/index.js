@@ -111,10 +111,13 @@ const SamplePage = () => {
   return (
     <div>
       <Card>
-        <h3>Tabel Data Kota</h3>
-      </Card>
+        <h5>Data Tabel Kota</h5>
+      <hr/>
+      <label style={{width: '100%', fontWeight: 'bold', fontFamily: 'NoirPro'}} className="mb-2">
+        Search Provinsi :
+      </label>
       <Select
-        style={{ width: 200, marginBottom: 16 }}
+        style={{ width: 200 }}
         placeholder="Select Provinsi"
         value={selectedProvinsi}
         onChange={handleProvinsiChange}
@@ -128,13 +131,16 @@ const SamplePage = () => {
           </Option>
         ))}
       </Select>
+      <hr/>
       <Table
         columns={columns}
         dataSource={dataSource}
         pagination={{ total, current: page, pageSize: limit }}
         onChange={(pagination) => setPage(pagination.current)}
       />
+      </Card>
     </div>
+    
   );
 };
 

@@ -118,11 +118,11 @@ const SamplePage = () => {
       name: "Status",
       selector: (row) =>
         row.status === "habis kontrak" ? (
-          <Tag color="red">Habis Kontrak</Tag>
+          <Tag color="yellow">Habis Kontrak</Tag>
         ) : row.status === "aktif" ? (
           <Tag color="green">Aktif</Tag>
         ) : row.status === "tidak aktif" ? (
-          <Tag color="yellow">Tidak Aktif</Tag>
+          <Tag color="red">Tidak Aktif</Tag>
         ) : (
           ""
         ),
