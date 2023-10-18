@@ -495,6 +495,49 @@ function FormTable({
     setBukaanother(!bukaanother);
   };
 
+  const rejectsppurch = async () => {
+    Swal.fire({
+      title: "Apakah Anda yakin?",
+      text: "Anda tidak akan dapat mengembalikan ini!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+      cancelButtonText: "Batal",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const body = {
+            id_mp: idmp,
+          };
+          const data = await axios.post(`${Baseurl}sp/reject-purch`, body, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: localStorage.getItem("token"),
+            },
+          });
+          Swal.fire({
+            icon: "success",
+            title: "Berhasil",
+            text: "Data telah di reject",
+          });
+          AmbilStatusApprove()
+          setSpDetailZustand()
+        } catch (error) {
+          console.log(error.response.data.status.message);
+          Swal.fire({
+            icon: "error",
+            title: "Gagal",
+            text: error.response.data.status.message,
+          });
+          console.error(error);
+        }
+      }
+    });
+  };
+
+
   ///sp reject operasional
   const rejectsp = async () => {
     Swal.fire({
@@ -2005,6 +2048,7 @@ function FormTable({
                   Reject SO
                 </Button>
               )}
+
               {/* {(StatusApproveAct === 'N') &&
                 <Button size="sm" variant="danger" onClick={() => jobdesk === "akunting" ? rejectspAkunting() : rejectsp()}>
                   Reject SP
@@ -2049,7 +2093,9 @@ function FormTable({
                   Reject SO
                 </Button>
               )}
-
+              {jobdesk.toLocaleLowerCase() === "purchasing" && StatusPurchasing === "N" && TanggalACT5.toLocaleLowerCase() !== "invalid date" &&(
+                <Button onClick={rejectsppurch} size="sm" variant="danger" className="ms-2">Reject SO</Button>
+              )}
               {/* {(StatusPurchasing === 'Y') &&
                 <Alert type="success" message="Approve Purchasing" banner /> */}
               {/* } */}
@@ -2548,7 +2594,7 @@ function FormTable({
           <Table responsive>
             {/* <thead></thead> */}
             <tbody>
-              {
+              {/* {
                 jobdesk === "purchasing" &&
                 IsiDataSPSemua && (
                   <>
@@ -2565,7 +2611,7 @@ function FormTable({
                     />
                   </>
                 )
-              }
+              } */}
 
 
               {IsiDataSPSemua &&
@@ -2690,7 +2736,7 @@ function FormTable({
                                   }}
                                   className="mt-2"
                                 >
-                                  Edit 
+                                  Edit
                                 </Button>
                               ) : jobdesk.toLocaleLowerCase() === "purchasing" && data?.supirSJ1 !== 0 && data?.supirSJ2 === 0 ? (
                                 <Button
@@ -2705,10 +2751,10 @@ function FormTable({
                                   }}
                                   className="mt-2"
                                 >
-                                  Approve 
+                                  Approve
                                 </Button>
                               ) : (
-                               null
+                                null
                               )}
 
 
