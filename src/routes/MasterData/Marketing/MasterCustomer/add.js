@@ -40,7 +40,6 @@ const SamplePage = () => {
   const [Akunting, setAkunting] = useState("");
 
   const optjenisPembayaran = [
-   
     {
       value: 1,
       label: "Cash",
@@ -154,13 +153,13 @@ const SamplePage = () => {
       foto_pic: "",
       foto_ktp: "",
       foto_npwp: "",
-      manager: "",
+      manager: "Y",
       manager_memo: "",
       manager_date: 0,
-      akunting: "",
+      akunting: "Y",
       akunting_memo: "",
       akunting_date: 0,
-      direktur: "",
+      direktur: "Y",
       direktur_memo: "",
       direktur_date: 0,
       mou_file: "",
@@ -170,7 +169,27 @@ const SamplePage = () => {
       nama_perusahaan: Yup.string()
         .max(30, "Must be 30 characters or less")
         .required("Masukkan Nama Perusahaan !"),
-        
+      alamat_kantor: Yup.string()
+        .max(1000, "Must be 1000 characters or less")
+        .required("Masukkan Customer Address !"),
+      npwp: Yup.string()
+      .max(30, "Must be 30 characters or less")
+        .required("Masukkan Nomor NPWP !"),
+      alamat_npwp: Yup.string()
+        .max(1000, "Must be 1000 characters or less")
+        .required("Masukkan NPWP Address !"),
+      pic_office: Yup.string()
+        .max(30, "Must be 30 characters or less")
+        .required("Masukkan PIC Office !"),
+      pic_position: Yup.string()
+        .max(30, "Must be 30 characters or less")
+        .required("Masukkan PIC Position !"),
+        pic_phone: Yup.string()
+        .max(30, "Must be 30 characters or less")
+        .required("Masukkan PIC Phone !"),      
+      jenis_usaha: Yup.string()
+        .max(30, "Must be 30 characters or less")
+        .required("Masukkan Jenis Usaha !"),
       // // Anda dapat menambahkan aturan validasi lainnya untuk setiap field
     }),
     onSubmit: (values) => {
@@ -187,27 +206,35 @@ const SamplePage = () => {
         })
         .catch(function (error) {
           let errorMessage = "Terjadi kesalahan.";
-        
-          if (error.response && error.response.data && error.response.data.status) {
+
+          if (
+            error.response &&
+            error.response.data &&
+            error.response.data.status
+          ) {
             const status = error.response.data.status;
-        
+
             if (status.code === 500) {
               errorMessage = "Ada data yang belum terinputkan";
               if (status.message) {
                 errorMessage += ` Detail: ${status.message}`;
               }
             } else {
-              errorMessage = "Terjadi kesalahan yang tidak diketahui.";
+              errorMessage = error.response.data.status.message;
             }
           }
-        
+
           notification.error({
             message: "Error",
             description: errorMessage,
           });
-        
+
           console.error(error.message);
-          if (error.response && error.response.data && error.response.data.status) {
+          if (
+            error.response &&
+            error.response.data &&
+            error.response.data.status
+          ) {
             console.error(error.response.data.status.message);
           }
         });
@@ -409,14 +436,20 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Business :
                 </Form.Label>
-                <InputGroup>
+                <InputGroup className="mb-3">
                   <Form.Control
+                    type="text"
                     name="jenis_usaha"
                     placeholder="Jenis Usaha"
                     value={formik.values.jenis_usaha}
                     onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.jenis_usaha}
+                    isInvalid={
+                      formik.touched.jenis_usaha && !!formik.errors.jenis_usaha
+                    }
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.jenis_usaha}
+                  </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
             </Col>
@@ -460,6 +493,9 @@ const SamplePage = () => {
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.alamat_kantor}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.alamat_kantor}
+                  </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
             </Col>
@@ -577,14 +613,20 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>
                   PIC Office :
                 </Form.Label>
-                <InputGroup>
+                <InputGroup className="mb-3">
                   <Form.Control
+                    type="text"
                     name="pic_office"
                     placeholder="PIC Office"
                     value={formik.values.pic_office}
                     onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.pic_office}
+                    isInvalid={
+                      formik.touched.pic_office && !!formik.errors.pic_office
+                    }
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.pic_office}
+                  </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
             </Col>
@@ -593,14 +635,21 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>
                   PIC Position :
                 </Form.Label>
-                <InputGroup>
+                <InputGroup className="mb-3">
                   <Form.Control
+                    type="text"
                     name="pic_position"
                     placeholder="PIC Position"
                     value={formik.values.pic_position}
                     onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.pic_position}
+                    isInvalid={
+                      formik.touched.pic_position &&
+                      !!formik.errors.pic_position
+                    }
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.pic_position}
+                  </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
             </Col>
@@ -627,15 +676,20 @@ const SamplePage = () => {
                 <Form.Label style={{ fontWeight: "bold" }}>
                   PIC Phone :
                 </Form.Label>
-                <InputGroup>
+                <InputGroup className="mb-3">
                   <Form.Control
                     type="number"
                     name="pic_phone"
                     placeholder="PIC Phone"
                     value={formik.values.pic_phone}
                     onChange={formik.handleChange}
-                    isInvalid={!!formik.errors.pic_phone}
+                    isInvalid={
+                      formik.touched.pic_phone && !!formik.errors.pic_phone
+                    }
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.pic_phone}
+                  </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
             </Col>
@@ -979,13 +1033,16 @@ const SamplePage = () => {
                 </Form.Label>
                 <InputGroup>
                   <Form.Control
-                    type="number"
+                    type="text"
                     name="npwp"
                     placeholder="Nomor NPWP"
                     value={formik.values.npwp}
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.npwp}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.npwp}
+                  </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
             </Col>
@@ -1003,6 +1060,9 @@ const SamplePage = () => {
                     onChange={formik.handleChange}
                     isInvalid={!!formik.errors.alamat_npwp}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.alamat_npwp}
+                  </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
             </Col>
