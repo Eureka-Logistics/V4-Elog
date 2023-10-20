@@ -125,7 +125,7 @@ const SamplePage = () => {
       key: "date_created",
     },
     {
-      title: "Biaya Kirim",
+      title: "Biaya Jalan",
       dataIndex: "biaya_jalan",
       key: "biaya_jalan",
       render: (biaya_jalan) => formatRupiah(biaya_jalan),
@@ -189,7 +189,7 @@ const SamplePage = () => {
   const fetchData = async () => {
     try {
       const response = await httpClient.get(
-        `tarif/get-tarifCustomer?limit=${limit}&page=${currentPage}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_price=&id_customer=${NamaMitraa}&berat`
+        `tarif/get-tarifCustomer?limit=${limit}&page=${currentPage}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_price=&id_customer=${NamaMitraa}&berat=all`
       );
       const data = response.data;
       console.log(data);
