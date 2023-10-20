@@ -37,6 +37,18 @@ function NewTarifCustomer() {
   const [DataDiskonPersen, setDataDiskonPersen] = useState("");
   const [DataDiskonRupiah, setDataDiskonRupiah] = useState("");
   const [NilaiDiskon, setNilaiDiskon] = useState("");
+  const [MinTonase1, setMinTonase1] = useState(0);
+  const [MinTonase2, setMinTonase2] = useState(0);
+  const [MinTonase3, setMinTonase3] = useState(0);
+  const [MinTonase4, setMinTonase4] = useState(0);
+  const [MinTonase5, setMinTonase5] = useState(0);
+  const [Tarif1, setTarif1] = useState(0);
+  const [Tarif2, setTarif2] = useState(0);
+  const [Tarif3, setTarif3] = useState(0);
+  const [Tarif4, setTarif4] = useState(0);
+  const [Tarif5, setTarif5] = useState(0);
+
+
 
   const GetSelectData = async () => {
     try {
@@ -86,6 +98,15 @@ function NewTarifCustomer() {
           total_biaya: TotalBiaya,
           diskon_percent: DataDiskonPersen,
           diskon_rupiah: parseInt(DataDiskonRupiah),
+          min_tonas_1: MinTonase1,
+          min_tonas_2: MinTonase2,
+          min_tonas_3: MinTonase3,
+          min_tonas_4: MinTonase4,
+          min_tonas_5: MinTonase5,
+          tarif_2: Tarif2,
+          tarif_3: Tarif3,
+          tarif_4: Tarif4,
+          tarif_5: Tarif5,
         },
         {
           headers: {
@@ -561,6 +582,26 @@ function NewTarifCustomer() {
             }}
           /> */}
         </Col>
+        <Col span={6}>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Min Tonase :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            type="text"
+            className="mt-2 mb-2"
+            name="min_tonase_1"
+            // placeholder="-"
+            value={toRupiah(MinTonase1)}
+            // value={MinTonase1}
+            onChange={(e) => {
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setMinTonase1(inputAngka); // Set nilai tanpa tanda titik
+            }}
+            // onChange={(e) => {
+            //   console.log(e.target.value);
+            //   setDataBiayaMuat(e.target.value);
+            // }}
+          />
+        </Col>
       </Row>
       <br />
       <hr />
@@ -748,6 +789,142 @@ function NewTarifCustomer() {
             // }}
           />
         </Col>
+      </Row>
+      <hr/>
+      <Row>
+      <Col span={6}>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Jalan 2 :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            type="text"
+            className="mt-2 mb-2"
+            name="tarif_2"
+            value={toRupiah(Tarif2)}
+            // value={DataBiayaMuat}
+            onChange={(e) => {
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setTarif2(inputAngka); // Set nilai tanpa tanda titik
+            }}
+           
+          />
+        </Col>
+      <Col span={6}>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Jalan 3 :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            type="text"
+            className="mt-2 mb-2"
+            name="tarif_3"
+            value={toRupiah(Tarif3)}
+            // value={DataBiayaMuat}
+            onChange={(e) => {
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setTarif3(inputAngka); // Set nilai tanpa tanda titik
+            }}
+           
+          />
+        </Col>
+      <Col span={6}>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Jalan 4 :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            type="text"
+            className="mt-2 mb-2"
+            name="tarif_4"
+            value={toRupiah(Tarif4)}
+            // value={DataBiayaMuat}
+            onChange={(e) => {
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setTarif4(inputAngka); // Set nilai tanpa tanda titik
+            }}
+           
+          />
+        </Col>
+      <Col span={6}>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Jalan 5 :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            type="text"
+            className="mt-2 mb-2"
+            name="tarif_5"
+            value={toRupiah(Tarif5)}
+            // value={DataBiayaMuat}
+            onChange={(e) => {
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setTarif5(inputAngka); // Set nilai tanpa tanda titik
+            }}
+           
+          />
+        </Col>
+    
+      </Row>
+      {/* Min Tonase */}
+      <Row>
+      <Col span={6}>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Min Tonase 2 :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            type="text"
+            className="mt-2 mb-2"
+            name="min_tonase_2"
+            value={toRupiah(MinTonase2)}
+            // value={DataBiayaMuat}
+            onChange={(e) => {
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setMinTonase2(inputAngka); // Set nilai tanpa tanda titik
+            }}
+           
+          />
+        </Col>
+      <Col span={6}>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Min Tonase 3 :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            type="text"
+            className="mt-2 mb-2"
+            name="min_tonase_3"
+            value={toRupiah(MinTonase3)}
+            // value={DataBiayaMuat}
+            onChange={(e) => {
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setMinTonase3(inputAngka); // Set nilai tanpa tanda titik
+            }}
+           
+          />
+        </Col>
+      <Col span={6}>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Min Tonase 4 :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            type="text"
+            className="mt-2 mb-2"
+            name="min_tonase_4"
+            value={toRupiah(MinTonase4)}
+            // value={DataBiayaMuat}
+            onChange={(e) => {
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setMinTonase4(inputAngka); // Set nilai tanpa tanda titik
+            }}
+           
+          />
+        </Col>
+      <Col span={6}>
+          <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Min Tonase 5 :</label>
+          {/* Menghubungkan input tarif dengan state tarif */}
+          <Input
+            type="text"
+            className="mt-2 mb-2"
+            name="min_tonase_5"
+            value={toRupiah(MinTonase5)}
+            // value={DataBiayaMuat}
+            onChange={(e) => {
+              const inputAngka = e.target.value.replace(/\D/g, ""); // Menghilangkan semua karakter non-angka
+              setMinTonase5(inputAngka); // Set nilai tanpa tanda titik
+            }}
+           
+          />
+        </Col>
+    
       </Row>
       <Row>
         <Col span={24} className="d-flex justify-content-end">

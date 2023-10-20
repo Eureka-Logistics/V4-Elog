@@ -48,8 +48,7 @@ const SamplePage = () => {
     httpClient
       .get(
         `tarif/get-tarifCustomer?limit=${limit}&page=${currentPage}&id_muat_kota=&id_tujuan_kota=&id_kendaraan_jenis=${value.target.value}id_price=&id_customer=&berat`
-        // `tarif/get-tarifCustomer?limit=${limit}&page=${currentPage}&id_muat_kota=&id_tujuan_kota=&id_kendaraan_jenis=${value.target.value}&id_price=&id_customer=&berat`
-        // `tarif/get-tarifMitra?limit=${limit}&page=${currentPage}&id_muat_kota=&id_tujuan_kota=&id_kendaraan_jenis=${value.target.value}`
+        
       )
       .then(({ data }) => {
         if (data.status.code === 200) {
@@ -195,8 +194,8 @@ const SamplePage = () => {
       const data = response.data;
       console.log(data);
       if (data.status.code === 200) {
-        setListData(data.data.order);
-        setTotal(data.data.totalData);
+        setListData(data.data?.order);
+        setTotal(data.data?.totalData);
         console.log(data.data.order, 'ini data baru');
       } else {
         console.log("Error: ", data.status.message);

@@ -48,6 +48,17 @@ function DetailTarifPelanggan() {
   const [DataTarifKatalog, setDataTarifKatalog] = useState("");
   const [TotalBiaya, setTotalBiaya] = useState("");
   const [TarifKatalog, setTarifKatalog] = useState("");
+  const [MinTonase1, setMinTonase1] = useState("");
+  const [MinTonase2, setMinTonase2] = useState("");
+  const [MinTonase3, setMinTonase3] = useState("");
+  const [MinTonase4, setMinTonase4] = useState("");
+  const [MinTonase5, setMinTonase5] = useState("");
+  const [Tarif1, setTarif1] = useState("");
+  const [Tarif2, setTarif2] = useState("");
+  const [Tarif3, setTarif3] = useState("");
+  const [Tarif4, setTarif4] = useState("");
+  const [Tarif5, setTarif5] = useState("");
+
 
   const fetchData = async () => {
     try {
@@ -105,6 +116,16 @@ function DetailTarifPelanggan() {
       setTotalBiaya(respons.data.order[0]?.biaya_jalan);
       setDataDiskonPersen(respons.data.order[0]?.diskon_percent);
       setDataDiskonRupiah(respons.data.order[0]?.diskon_rupiah);
+      setMinTonase1(respons.data.order[0]?.min_tonase_1);
+      setMinTonase2(respons.data.order[0]?.min_tonase_2);
+      setMinTonase3(respons.data.order[0]?.min_tonase_3);
+      setMinTonase4(respons.data.order[0]?.min_tonase_4);
+      setMinTonase5(respons.data.order[0]?.min_tonase_5);
+      setTarif2(respons.data.order[0]?.tarif_2);
+      setTarif3(respons.data.order[0]?.tarif_3);
+      setTarif4(respons.data.order[0]?.tarif_4);
+      setTarif5(respons.data.order[0]?.tarif_5);
+
       // setIDBiayaLain(respons.data.order[0]?.biaya_lain);
     } catch (error) {}
   };
@@ -137,6 +158,15 @@ function DetailTarifPelanggan() {
         id_price_eureka: parseInt(DataIdPriceEureka),
         diskon_percent: DataDiskonPersen,
         diskon_rupiah: DataDiskonRupiah,
+        min_tonas_1: MinTonase1,
+        min_tonas_2: MinTonase2,
+        min_tonas_3: MinTonase3,
+        min_tonas_4: MinTonase4,
+        min_tonas_5: MinTonase5,
+        tarif_2: Tarif2,
+        tarif_3: Tarif3,
+        tarif_4: Tarif4,
+        tarif_5: Tarif5,
       };
 
       const response = await axios.post(
@@ -235,6 +265,7 @@ function DetailTarifPelanggan() {
     <div>
       <Card>
         <h5>Edit dan Detail Tarif Customer</h5>
+        <hr/>
         <Row>
           <Col className="mt-2" span={6}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
@@ -493,7 +524,22 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-         
+          <Col className="mt-2" span={8}>
+            <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
+              Min Tonase :
+            </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={MinTonase1}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setMinTonase1(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
           <Col className="mt-2" span={6}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Tanggal Pembuatan :
@@ -515,7 +561,7 @@ function DetailTarifPelanggan() {
 
         <br />
         <hr />
-        <h5>Biaya Lainnya</h5>
+        <h5>Biaya Tambahan</h5>
         <Row>
           <Col className="mt-2" span={8}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
@@ -617,7 +663,140 @@ function DetailTarifPelanggan() {
             </div>
           </Col>
         </Row>
-
+        <hr/>
+      
+        <Row>
+        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+            <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
+              Tarif 2 :
+            </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={Tarif2}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setTarif2(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+            <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
+              Tarif 3 :
+            </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={Tarif3}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setTarif3(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+            <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
+              Tarif 4 :
+            </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={Tarif4}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setTarif4(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+            <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
+              Tarif 5 :
+            </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={Tarif5}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setTarif5(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+        </Row>
+        <Row>
+        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+            <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
+              MinTonase 2 :
+            </label>
+            {/* Menghubungkan input MinTonase dengan state MinTonase */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={MinTonase2}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setMinTonase2(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+            <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
+              MinTonase 3 :
+            </label>
+            {/* Menghubungkan input MinTonase dengan state MinTonase */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={MinTonase3}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setMinTonase3(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+            <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
+              MinTonase 4 :
+            </label>
+            {/* Menghubungkan input MinTonase dengan state MinTonase */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={MinTonase4}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setMinTonase4(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+            <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
+              MinTonase 5 :
+            </label>
+            {/* Menghubungkan input MinTonase dengan state MinTonase */}
+            <div style={{ paddingRight: "30px" }}>
+              <Input
+                className="mt-2"
+                value={MinTonase5}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setMinTonase5(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+        </Row>
         <Row>
           <Col span={24} className="d-flex justify-content-end mt-2">
             <Button type="primary">
