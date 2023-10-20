@@ -56,6 +56,7 @@ const SamplePage = () => {
           console.log("respons", data.data);
           setOrder(data.data.order);
           setTotal(data.data.totalData);
+          console.log('ini data baru tanpa service', data.data.order);
         }
       })
       .catch(function (error) {
@@ -195,6 +196,7 @@ const SamplePage = () => {
       if (data.status.code === 200) {
         setListData(data.data.order);
         setTotal(data.data.totalData);
+        console.log(data.data.order, 'ini data baru');
       } else {
         console.log("Error: ", data.status.message);
       }
