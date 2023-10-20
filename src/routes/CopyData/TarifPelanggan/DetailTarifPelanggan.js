@@ -264,7 +264,7 @@ function DetailTarifPelanggan() {
   return (
     <div>
       <Card>
-        <h5>Edit dan Detail Tarif Customer</h5>
+        <h5  style={{ color: "#1A5CBF" }}>Edit dan Detail Tarif Customer</h5>
         <hr/>
         <Row>
           <Col className="mt-2" span={6}>
@@ -439,7 +439,7 @@ function DetailTarifPelanggan() {
 
         <br />
         <hr />
-        <h5>Tarif</h5>
+        <h5  style={{ color: "#1A5CBF" }}>Tarif</h5>
         <Row>
           <Col className="mt-2" span={4}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
@@ -561,7 +561,7 @@ function DetailTarifPelanggan() {
 
         <br />
         <hr />
-        <h5>Biaya Tambahan</h5>
+        <h5  style={{ color: "#1A5CBF" }}>Biaya Tambahan</h5>
         <Row>
           <Col className="mt-2" span={8}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
