@@ -47,7 +47,8 @@ const SamplePage = () => {
     setLoadingState(true);
     httpClient
       .get(
-        `tarif/get-tarifCustomer?limit=${limit}&page=${currentPage}&id_muat_kota=&id_tujuan_kota=&id_kendaraan_jenis=${value.target.value}&id_price=&id_customer=`
+        `tarif/get-tarifCustomer?limit=${limit}&page=${currentPage}&id_muat_kota=&id_tujuan_kota=&id_kendaraan_jenis=${value.target.value}id_price=&id_customer=&berat`
+        // `tarif/get-tarifCustomer?limit=${limit}&page=${currentPage}&id_muat_kota=&id_tujuan_kota=&id_kendaraan_jenis=${value.target.value}&id_price=&id_customer=&berat`
         // `tarif/get-tarifMitra?limit=${limit}&page=${currentPage}&id_muat_kota=&id_tujuan_kota=&id_kendaraan_jenis=${value.target.value}`
       )
       .then(({ data }) => {
@@ -56,6 +57,7 @@ const SamplePage = () => {
           console.log("respons", data.data);
           setOrder(data.data.order);
           setTotal(data.data.totalData);
+          console.log('ini data baru tanpa service', data.data.order);
         }
       })
       .catch(function (error) {
@@ -188,13 +190,14 @@ const SamplePage = () => {
   const fetchData = async () => {
     try {
       const response = await httpClient.get(
-        `tarif/get-tarifCustomer?limit=${limit}&page=${currentPage}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_price=&id_customer=${NamaMitraa}`
+        `tarif/get-tarifCustomer?limit=${limit}&page=${currentPage}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_price=&id_customer=${NamaMitraa}&berat`
       );
       const data = response.data;
       console.log(data);
       if (data.status.code === 200) {
         setListData(data.data.order);
         setTotal(data.data.totalData);
+        console.log(data.data.order, 'ini data baru');
       } else {
         console.log("Error: ", data.status.message);
       }
