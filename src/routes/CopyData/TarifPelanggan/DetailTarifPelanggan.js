@@ -272,7 +272,7 @@ function DetailTarifPelanggan() {
               Code Tarif :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={DetailDataTarif.kode_tarif}
@@ -289,7 +289,7 @@ function DetailTarifPelanggan() {
               showSearch
               value={customers}
               optionFilterProp="value"
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               onChange={(e, options) => {
                 console.log(options);
                 setCustomers(options);
@@ -317,7 +317,7 @@ function DetailTarifPelanggan() {
               showSearch
               value={mitraId}
               optionFilterProp="value"
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               onChange={(e, options) => {
                 console.log(options.key);
                 setmitraId(options);
@@ -344,7 +344,7 @@ function DetailTarifPelanggan() {
               showSearch
               value={KotaYangDiTuju}
               optionFilterProp="value"
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               onChange={(e, options) => {
                 console.log(options.key);
                 setIDTujuanKota(options.key);
@@ -373,7 +373,7 @@ function DetailTarifPelanggan() {
               showSearch
               value={jenisKendaraan}
               optionFilterProp="value"
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               onChange={(e, options) => {
                 setIDKendaraanJenis(options.key);
                 setJenisKendaraan(options);
@@ -399,7 +399,7 @@ function DetailTarifPelanggan() {
               className="mt-2"
               // placeholder={DetailDataTarif.service_type}
               value={ServiceType}
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               onChange={(e) => setServiceType(e)}
             >
               <Option value="Retail">Retail</Option>
@@ -413,7 +413,7 @@ function DetailTarifPelanggan() {
             <Select
               className="mt-2"
               value={Kiriman}
-              style={{ width: "90%" }}
+              style={{ width: "100%" }}
               onChange={(e) => setJenisKiriman(e)}
             >
               <Option value="Reguler">Reguler</Option>
@@ -427,7 +427,7 @@ function DetailTarifPelanggan() {
             <Select
               className="mt-2"
               value={JenisVia}
-              style={{ width: "92%" }}
+              style={{ width: "100%" }}
               onChange={(e) => setJenisVia(e)}
             >
               <Option value="Darat">Darat</Option>
@@ -568,7 +568,7 @@ function DetailTarifPelanggan() {
               Biaya Muat :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={IDBiayaMuat}
@@ -584,7 +584,7 @@ function DetailTarifPelanggan() {
               Biaya Bongkar :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={IDBiayaBongkar}
@@ -600,7 +600,7 @@ function DetailTarifPelanggan() {
               Biaya Overtonase :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={IDBiayaOvertonase}
@@ -618,7 +618,7 @@ function DetailTarifPelanggan() {
               Biaya MultiDrop :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={IDBiayaMultiDrop}
@@ -634,7 +634,7 @@ function DetailTarifPelanggan() {
               Biaya Tambahan :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={IDBiayaTambahan}
@@ -651,7 +651,7 @@ function DetailTarifPelanggan() {
               Biaya Multimuat :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={IDBiayaMultiMuat}
@@ -671,7 +671,7 @@ function DetailTarifPelanggan() {
               Tarif 2 :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={Tarif2}
@@ -687,7 +687,7 @@ function DetailTarifPelanggan() {
               Tarif 3 :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={Tarif3}
@@ -703,7 +703,7 @@ function DetailTarifPelanggan() {
               Tarif 4 :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={Tarif4}
@@ -719,7 +719,7 @@ function DetailTarifPelanggan() {
               Tarif 5 :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={Tarif5}
@@ -737,7 +737,7 @@ function DetailTarifPelanggan() {
               MinTonase 2 :
             </label>
             {/* Menghubungkan input MinTonase dengan state MinTonase */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={MinTonase2}
@@ -753,7 +753,7 @@ function DetailTarifPelanggan() {
               MinTonase 3 :
             </label>
             {/* Menghubungkan input MinTonase dengan state MinTonase */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={MinTonase3}
@@ -769,7 +769,7 @@ function DetailTarifPelanggan() {
               MinTonase 4 :
             </label>
             {/* Menghubungkan input MinTonase dengan state MinTonase */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={MinTonase4}
@@ -785,7 +785,7 @@ function DetailTarifPelanggan() {
               MinTonase 5 :
             </label>
             {/* Menghubungkan input MinTonase dengan state MinTonase */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={MinTonase5}
