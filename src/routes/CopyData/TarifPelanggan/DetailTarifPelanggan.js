@@ -707,7 +707,7 @@ function DetailTarifPelanggan() {
         <Row>
         <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
-              Tarif 2 :
+              Biaya Jalan 2 :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div >
@@ -723,7 +723,7 @@ function DetailTarifPelanggan() {
           </Col>
         <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
-              Tarif 3 :
+            Biaya Jalan 3 :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div >
@@ -739,7 +739,7 @@ function DetailTarifPelanggan() {
           </Col>
         <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
-              Tarif 4 :
+            Biaya Jalan 4 :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div >
@@ -755,7 +755,7 @@ function DetailTarifPelanggan() {
           </Col>
         <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
-              Tarif 5 :
+            Biaya Jalan 5 :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <div >
