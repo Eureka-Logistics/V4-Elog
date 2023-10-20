@@ -58,6 +58,8 @@ function DetailTarifPelanggan() {
   const [Tarif3, setTarif3] = useState("");
   const [Tarif4, setTarif4] = useState("");
   const [Tarif5, setTarif5] = useState("");
+  const [BiayaMel, setBiayaMel] = useState("");
+  const [BiayaLain, setBiayaLain] = useState("");
 
 
   const fetchData = async () => {
@@ -123,8 +125,10 @@ function DetailTarifPelanggan() {
       setMinTonase5(respons.data.order[0]?.min_tonase_5);
       setTarif2(respons.data.order[0]?.tarif_2);
       setTarif3(respons.data.order[0]?.tarif_3);
-      setTarif4(respons.data.order[0]?.tarif_4);
       setTarif5(respons.data.order[0]?.tarif_5);
+      setTarif4(respons.data.order[0]?.tarif_4);
+      setBiayaMel(respons.data.order[0]?.biaya_mel);
+      setBiayaLain(respons.data.order[0]?.biaya_lain);
 
       // setIDBiayaLain(respons.data.order[0]?.biaya_lain);
     } catch (error) {}
@@ -150,6 +154,8 @@ function DetailTarifPelanggan() {
         biaya_jalan: parseInt(TotalBiaya),
         biaya_lain: parseInt(IDBiayaLain),
         biaya_muat: parseInt(IDBiayaMuat),
+        biaya_mel: BiayaMel,
+        biaya_lain: BiayaLain,
         biaya_bongkar: parseInt(IDBiayaBongkar),
         biaya_overtonase: parseInt(IDBiayaOvertonase),
         biaya_multimuat: parseInt(IDBiayaMultiMuat),
@@ -563,7 +569,7 @@ function DetailTarifPelanggan() {
         <hr />
         <h5  style={{ color: "#1A5CBF" }}>Biaya Tambahan</h5>
         <Row>
-          <Col className="mt-2" span={8}>
+          <Col className="mt-2" span={6}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Biaya Muat :
             </label>
@@ -579,7 +585,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
+          <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Biaya Bongkar :
             </label>
@@ -595,7 +601,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
+          <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Biaya Overtonase :
             </label>
@@ -611,9 +617,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-        </Row>
-        <Row>
-          <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
+          <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Biaya MultiDrop :
             </label>
@@ -629,7 +633,10 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
+        </Row>
+        <Row>
+         
+          <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Biaya Tambahan :
             </label>
@@ -645,8 +652,40 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
+          <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+            <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
+              Biaya Mel :
+            </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div >
+              <Input
+                className="mt-2"
+                value={BiayaMel}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setBiayaMel(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
+          <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+            <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
+              Biaya Lain :
+            </label>
+            {/* Menghubungkan input tarif dengan state tarif */}
+            <div >
+              <Input
+                className="mt-2"
+                value={BiayaLain}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setBiayaLain(e.target.value);
+                }}
+              />
+            </div>
+          </Col>
 
-          <Col className="mt-2" span={8} style={{ maxWidth: "60%" }}>
+          <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Biaya Multimuat :
             </label>
@@ -799,8 +838,12 @@ function DetailTarifPelanggan() {
         </Row>
         <Row>
           <Col span={24} className="d-flex justify-content-end mt-2">
-            <Button type="primary">
-              <span onClick={EditTarif}>Save</span>
+            <Button style={{
+              backgroundColor: "#4169E1",
+              color: "white",
+              borderColor: "#4169E1",
+            }}>
+              <span onClick={EditTarif}>Save Changed</span>
             </Button>
           </Col>
         </Row>
