@@ -524,12 +524,12 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col className="mt-2" span={8}>
+          <Col className="mt-2" span={7}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Min Tonase :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={MinTonase1}
@@ -540,12 +540,12 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" span={7}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Tanggal Pembuatan :
             </label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
                 className="mt-2"
                 value={DetailDataTarif.date_created}
