@@ -2082,18 +2082,19 @@ function FormTable({
 
               {StatusPurchasing === "Y" && TanggalACT5 != null ? (
                 <Alert type="success" message="Approve Purchasing" banner />
-              ) : StatusPurchasing === "N" && TanggalACT5 === "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z" ? (
-                <Alert type="info" message="Waiting Purchasing" banner />
-              ) : StatusPurchasing === "N" && TanggalACT5 !== "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z" ? (
+              ) : StatusPurchasing === "N" && TanggalACT5 !== null ? (
                 <Alert type="error" message="Reject Purchasing" banner />
+              ) : StatusPurchasing == "N" ? (
+                <Alert type="info" message="Waiting Purchasing" banner />
               ) : null}
+
 
               {jobdesk === "operasional" && (
                 <Button size="sm" variant="danger" onClick={rejectsp}>
                   Reject SO
                 </Button>
               )}
-              {jobdesk.toLocaleLowerCase() === "purchasing" && StatusPurchasing === "N" && TanggalACT5.toLocaleLowerCase() !== "invalid date" &&(
+              {jobdesk?.toLocaleLowerCase() === "purchasing" && StatusPurchasing === "N" && TanggalACT5 === null && (
                 <Button onClick={rejectsppurch} size="sm" variant="danger" className="ms-2">Reject SO</Button>
               )}
               {/* {(StatusPurchasing === 'Y') &&

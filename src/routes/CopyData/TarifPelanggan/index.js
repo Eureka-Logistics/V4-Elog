@@ -48,7 +48,6 @@ const SamplePage = () => {
     httpClient
       .get(
         `tarif/get-tarifCustomer?limit=${limit}&page=${currentPage}&id_muat_kota=&id_tujuan_kota=&id_kendaraan_jenis=${value.target.value}id_price=&id_customer=&berat`
-        
       )
       .then(({ data }) => {
         if (data.status.code === 200) {
@@ -95,9 +94,9 @@ const SamplePage = () => {
       dataIndex: "service_type",
       key: "service_type",
       render: (text, row) => {
-        return row.service_type === 'Retail' ? (
+        return row?.service_type === 'Retail' ? (
           <Tag color="green">Retail</Tag>
-        ) : row.service_type === 'Charter' ? (
+        ) : row?.service_type === 'Charter' ? (
           <Tag color="magenta">Charter</Tag>
         ) : (
           ''
@@ -125,7 +124,7 @@ const SamplePage = () => {
       key: "date_created",
     },
     {
-      title: "Biaya Kirim",
+      title: "Biaya Jalan",
       dataIndex: "biaya_jalan",
       key: "biaya_jalan",
       render: (biaya_jalan) => formatRupiah(biaya_jalan),
@@ -189,7 +188,7 @@ const SamplePage = () => {
   const fetchData = async () => {
     try {
       const response = await httpClient.get(
-        `tarif/get-tarifCustomer?limit=${limit}&page=${currentPage}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_price=&id_customer=${NamaMitraa}&berat`
+        `tarif/get-tarifCustomer?limit=${limit}&page=${currentPage}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_price=&id_customer=${NamaMitraa}&berat=all`
       );
       const data = response.data;
       console.log(data);
@@ -313,7 +312,7 @@ const SamplePage = () => {
       },
       Service: {
         t: "s",
-        v: item.service_type,
+        v: item?.service_type,
         s: { alignment: { horizontal: "center" } },
       },
       Muat: {
