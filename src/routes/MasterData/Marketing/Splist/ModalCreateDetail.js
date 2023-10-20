@@ -101,7 +101,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                     idcustomer: DetailSemua?.idcustomer,
                     ph: DetailSemua?.sp,
                     via: formik.values.via,
-                    shipment: formik.values.shipmentIDBaru ,
+                    shipment: formik.values.shipmentIDBaru,
                     kendaraan: formik.values.kendaraan,
                     id_almuat: formik.values.IDalamatmuat,
                     id_albongkar: formik.values.IDalamatbongkar,
@@ -358,18 +358,26 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
             console.error("Failed to fetch detail data:", error);
         }
     };
-
-
+    function tarifberat() {
+        return formik.values.berat || 0; 
+    }
     const getTarifRute = async () => {
-        const data = await axios.get(`${Baseurl}tarif/get-tarifCustomer?limit=&page=&id_muat_kota=${IDMuatKota === "" ? formik.values?.id_kota_muat : IDMuatKota}&id_tujuan_kota=${IDKotaBongkar === "" ? formik.values?.id_kota_bongkar : IDKotaBongkar}&id_kendaraan_jenis=&id_price=&id_customer=${localStorage.getItem("idcustomer")}`,
+        const berat = tarifberat(); 
+        const data = await axios.get(`${Baseurl}tarif/get-tarifCustomer?limit=&page=&id_muat_kota=${IDMuatKota === "" ? formik.values?.id_kota_muat : IDMuatKota}&id_tujuan_kota=${IDKotaBongkar === "" ? formik.values?.id_kota_bongkar : IDKotaBongkar}&id_kendaraan_jenis=${formik.values.id_kendaraan_jenis === undefined ? "" : formik.values.id_kendaraan_jenis}&id_price=&berat=${berat}&id_customer=${localStorage.getItem("idcustomer")}`,
             {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: localStorage.getItem("token"),
                 },
-            })
-        setGetTarifOptions(data.data.data.order)
+            });
+        setGetTarifOptions(data.data.data.order);
     }
+    useEffect(() => {
+        // Pastikan berat tidak undefined atau null sebelum memanggil getTarifRute
+        if (formik.values.berat != null) {
+            getTarifRute();
+        }
+    }, [formik.values.berat]);
 
     let nomorr = 1
 
@@ -558,6 +566,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         formik.setFieldValue("tambahan", option.biaya_tambahan)
                                         formik.setFieldValue("biayajalan", option.biaya_jalan)
                                         formik.setFieldValue("lain", option.biaya_lain)
+                                        formik.setFieldValue("id_kendaraan_jenis", option.id_kendaraan_jenis)
                                         setid_price_customer(value)
                                         console.log(`id_price`, option);
                                         setTarifAsli(option?.biaya)
@@ -568,7 +577,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     {GetTarifOptions && GetTarifOptions
                                         .filter(item => item.service_type === DetailSemua?.service)
                                         .map((item) => (
-                                            <Select.Option biaya_overtonase={item.biaya_overtonase} biaya_tambahan={item.biaya_tambahan} biaya_lain={item.biaya_lain} biaya_jalan={item.biaya_jalan} biaya_mel={item.biaya_mel} biaya_multidrop={item.biaya_multidrop} key={item.kotaTujuan} biaya_muat={item.biaya_muat} biaya_multimuat={item.biaya_multimuat} biaya_bongkar={item.biaya_bongkar} value={item.id_price}>
+                                            <Select.Option id_kendaraan_jenis={item.id_kendaraan_jenis} biaya_overtonase={item.biaya_overtonase} biaya_tambahan={item.biaya_tambahan} biaya_lain={item.biaya_lain} biaya_jalan={item.biaya_jalan} biaya_mel={item.biaya_mel} biaya_multidrop={item.biaya_multidrop} key={item.kotaTujuan} biaya_muat={item.biaya_muat} biaya_multimuat={item.biaya_multimuat} biaya_bongkar={item.biaya_bongkar} value={item.id_price}>
                                                 Kendaraan:<Tag color='blue'>{item.kendaraanJenis}</Tag>via:<Tag color='gold'>{item.via}</Tag>Shipment:<Tag color='cyan'>{item.service_type}</Tag>Tarif:<Tag color='green'>{item.biaya_jalan}</Tag>
                                             </Select.Option>
                                         ))
@@ -902,6 +911,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         formik.setFieldValue('berat', Number(e.target.value));
                                         console.log(`berat`, e.target.value);
                                     }}
+
 
                                     value={formik.values.berat}
 
