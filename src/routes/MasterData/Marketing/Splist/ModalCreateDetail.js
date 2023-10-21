@@ -692,7 +692,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     onBlur={formik.handleBlur}
                                 >
                                     {detailalamatbenran && detailalamatbenran.map((item) => (
-                                        <Select.Option key={item.id} value={item.idKota}>
+                                        <Select.Option key={item.id} value={item.address}>
                                             {item.address}
                                         </Select.Option>
                                     ))}

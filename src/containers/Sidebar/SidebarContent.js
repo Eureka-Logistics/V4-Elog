@@ -2388,6 +2388,36 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <div className="mt-4">
                     <Menu.Item
                       className={
+                        activeMenu === "/erlangga"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="erlangga"
+                    >
+                      <Link to="/erlangga" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" />
+                         */}
+
+                        <img
+                          src={historyrace}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
+                          Erlangga  
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="mt-4">
+                    <Menu.Item
+                      className={
                         activeMenu === "/mapping"
                           ? "menu-item-active menu-item-hover"
                           : "menu-item-hover"
