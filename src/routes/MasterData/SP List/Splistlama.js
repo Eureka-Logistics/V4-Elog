@@ -540,7 +540,7 @@ function SPListlama() {
             <br />
 
             <Row>
-              <Col sm={8}>
+              <Col sm={12} className="justify-content-end d-flex">
                 <Button onClick={handleView}>Email SM</Button>
                 <Button onClick={handleView2}>Email SP</Button>
               </Col>
