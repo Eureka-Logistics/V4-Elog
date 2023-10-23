@@ -169,10 +169,16 @@ function SPListlama() {
   const columns = [
     {
       name: "No",
-      selector: (row, index) => (pagination.currentPage - 1) * 10 + index + 1,
       width: "80px",
       wrap: true,
+      selector: (row, index) => (
+        <>
+          {(pagination.currentPage - 1) * 10 + index + 1}
+          {/* <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00f510" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail-check"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /><path d="m16 19 2 2 4-4" /></svg> */}
+        </>
+      ),
     },
+
     {
       name: "SO ID",
       selector: (row) => {
@@ -183,12 +189,20 @@ function SPListlama() {
         } else if (row.service.toLowerCase() === "retail" || row.service.toLowerCase() === "retailer") {
           tagColor = "gold";
         }
+        let issue = ""
+        if (row?.is_issue === 1 && localStorage.getItem("level") === "admin" || localStorage.getItem("level") === "sales" && localStorage.getItem("level") === "account receivable" ) {
+          issue = <svg style={{ marginLeft: 2 }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f82020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail-warning"><path d="M22 10.5V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h12.5" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /><path d="M20 14v4" /><path d="M20 22v.01" /></svg>
+
+        }
         return (
           <>
-            <Tag color={tagColor}>
+            <Tag className="flex" color={tagColor}>
               {row.sp}
               <br />
-              {row?.service}</Tag>
+              {row?.service}
+                { issue }
+            </Tag>
+
           </>
         );
       },
@@ -338,7 +352,7 @@ function SPListlama() {
               Diverted <br /> {data}
             </Tag>
           );
-        } else if (approveOps === "N" && dateApproveOps !==  "Invalid date") {
+        } else if (approveOps === "N" && dateApproveOps !== "Invalid date") {
           return (
             <Tag color="red">
               Reject <br /> {data}

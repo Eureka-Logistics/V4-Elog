@@ -27,6 +27,8 @@ const SamplePage = () => {
     userProfileZustand: i.DetailUserLoginZustandState,
     setuserProfileZustand: i.setDetailUserLoginZustand,
   }))
+  
+  localStorage.setItem(`level`,userProfileZustand?.level)
 
   useEffect(() => {
     const jobdesk = localStorage.getItem('jobdesk');

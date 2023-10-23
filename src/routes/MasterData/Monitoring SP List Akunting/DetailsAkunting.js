@@ -420,7 +420,7 @@ function DetailsAkunting() {
                   {actSalesStatus === "Y" &&
                     tgl_act_2 !== null ? (
                     <Alert type="success" message="Approve Sales" banner />
-                  )  : actSalesStatus === "N" &&
+                  ) : actSalesStatus === "N" &&
                     tgl_act_2 !== "N" ? (
                     <Alert type="error" message="Reject Sales" banner />
                   ) : null}
@@ -462,7 +462,7 @@ function DetailsAkunting() {
 
               {/* {jobdesk === "sales" && actSalesStatus === "Y" ? ( */}
 
-              {jobdesk === "sales" && ApproveAkuntingTgl === "1970-01-01T00:00:00.000Z" && actSalesStatus !== "N"&&(
+              {jobdesk === "sales" && ApproveAkuntingTgl === "1970-01-01T00:00:00.000Z" && actSalesStatus !== "N" ? (
                 <>
                   <Button
                     size="sm"
@@ -476,7 +476,22 @@ function DetailsAkunting() {
                     Edit SO
                   </Button>
                 </>
-              )}
+              ) :
+                <>
+                  <Button
+                    size="sm"
+                    disabled
+                    className="mx-2"
+                    onClick={() => setModal1Open(true)}
+                    variant="danger"
+                  >
+                    Sudah Di Approv Akunting
+                  </Button>
+                  <Button size="sm" onClick={pindahedit} variant="primary">
+                    Edit SO
+                  </Button>
+                </>
+              }
               {/* ? jobdesk === "sales" && actSalesStatus === "Y" : <>
               <Button size="sm" disabled onClick={() => setModal1Open(true)} variant="danger">
                 Reject SP Sales
