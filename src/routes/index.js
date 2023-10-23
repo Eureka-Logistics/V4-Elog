@@ -816,6 +816,12 @@ const App = ({ match }) => {
           )}
         />
         <Route
+          path={`${match.url}erlangga`}
+          component={asyncComponent(() =>
+            import("../routes/Race/Erlangga/index")
+          )}
+        />
+        <Route
           path={`${match.url}mapping`}
           component={asyncComponent(() =>
             import("../routes/Race/WebAdmin/Map Pengiriman/index")

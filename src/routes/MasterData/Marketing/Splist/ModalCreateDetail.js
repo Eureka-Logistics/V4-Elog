@@ -193,8 +193,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
             via: DetailSemuaTemp?.via,
             alamatmuat: DetailSemuaTemp?.pickup,
             alamatbongkar: DetailSemuaTemp?.destination,
-            IDalamatmuat: DetailSemuaTemp?.destinationId,
-            IDalamatbongkar: DetailSemuaTemp?.pickupId,
+            IDalamatmuat: DetailSemuaTemp?.pickupId,
+            IDalamatbongkar: DetailSemuaTemp?.destinationId,
             kendaraan: DetailSemuaTemp?.kendaraan,
             shipment: DetailSemuaTemp?.shipmentName,
             berat: DetailSemuaTemp?.berat,
@@ -289,6 +289,12 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                 }
             )
             DetailSP()
+            formik.setFieldValue("alamatmuat", ""); // set alamatmuat state to option's children
+            formik.setFieldValue("IDalamatmuat", ""); // set IDalamatmuat state to option's value
+            formik.setFieldValue("IdKotaMuat", "");
+            formik.setFieldValue("alamatbongkar", ""); // set alamatbongkar state to option's children
+            formik.setFieldValue("IDKotaBongkar", ""); // set IDalamatbongkar state to option's value
+            formik.setFieldValue("IDalamatbongkar", "");  // se
             // getDetails()
             setModal1Open1(false)
             message.success('Data berhasil Diubah!');
@@ -376,13 +382,13 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
         // Pastikan berat tidak undefined atau null sebelum memanggil getTarifRute
         if (formik.values.berat != null) {
             getTarifRute();
-        } 
-    }, [formik.values.berat ]);
+        }
+    }, [formik.values.berat]);
     useEffect(() => {
         // Pastikan berat tidak undefined atau null sebelum memanggil getTarifRute
         if (formik.values.kendaraan != null) {
             getTarifRute();
-        } 
+        }
     }, [formik.values.kendaraan]);
 
     let nomorr = 1
@@ -692,7 +698,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     onBlur={formik.handleBlur}
                                 >
                                     {detailalamatbenran && detailalamatbenran.map((item) => (
-                                        <Select.Option key={item.id} value={item.idKota}>
+                                        <Select.Option key={item.id} value={item.address}>
                                             {item.address}
                                         </Select.Option>
                                     ))}
@@ -756,7 +762,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     onBlur={formik.handleBlur}
                                 >
                                     {detailalamatbenran && detailalamatbenran.map((item) => (
-                                        <Select.Option key={item.id} value={item.idKota}>
+                                        <Select.Option key={item.id} value={item.address}>
                                             {item.address}
                                         </Select.Option>
                                     ))}
@@ -2023,14 +2029,14 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         formik.setFieldValue("alamatmuat", option.children); // set alamatmuat state to option's children
                                         formik.setFieldValue("IDalamatmuat", option.key); // set IDalamatmuat state to option's value
                                         formik.setFieldValue("IdKotaMuat", value); // set IDalamatmuat state to option's value
-                                        console.log(`key`, option.key);
+                                        console.log(`key`, option);
                                     }}
                                     value={formik.values.alamatmuat}
                                     // value={data?.pickup}
                                     onBlur={formik.handleBlur}
                                 >
                                     {AlamatInvoiceOptions && AlamatInvoiceOptions.map((item) => (
-                                        <Select.Option key={item.addressId} value={item.id_kota}>
+                                        <Select.Option key={item.addressId} value={item.address}>
                                             {item.address}
                                         </Select.Option>
                                     ))}
@@ -2056,13 +2062,14 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         formik.setFieldValue("alamatbongkar", option.children); // set alamatbongkar state to option's children
                                         formik.setFieldValue("IDKotaBongkar", value); // set IDalamatbongkar state to option's value
                                         formik.setFieldValue("IDalamatbongkar", option.key); // set IDalamatbongkar state to option's value
+                                        console.log("children",option);
                                     }}
                                     // value={data?.destination}
                                     value={formik.values.alamatbongkar}
                                     onBlur={formik.handleBlur}
                                 >
                                     {AlamatInvoiceOptions && AlamatInvoiceOptions.map((item) => (
-                                        <Select.Option key={item.addressId} value={item.id_kota}>
+                                        <Select.Option key={item.addressId} value={item.address}>
                                             {item.address}
                                         </Select.Option>
                                     ))}
