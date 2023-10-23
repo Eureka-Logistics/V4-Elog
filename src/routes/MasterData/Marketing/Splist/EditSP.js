@@ -1817,7 +1817,7 @@ function EditSP({ }) {
 
                       }} placeholder="Tulis Komentar" addonBefore={selectBefore} />
 
-                     
+
                     </Form.Group>
                   </Col>
                 </>
@@ -1843,17 +1843,21 @@ function EditSP({ }) {
                 </Button>
               </Col>
               <Col sm={3} className="mt-4" style={{ width: "auto" }}>
-                <Button style={{display :"none"}} variant="danger" onClick={() => setModalMasalahSOFunc(true)} size="sm">
+                <Button style={{ display: "none" }} variant="danger" onClick={() => setModalMasalahSOFunc(true)} size="sm">
                   Ada Masalah?
                 </Button>
                 <ModalMasalahSO title={"Masalah SO"} ModalMasalahSOFunc={ModalMasalahSOFunc} setModalMasalahSOFunc={setModalMasalahSOFunc} />
               </Col>
-              <Col sm={3} className="mt-4" style={{ width: "auto" }}>
-                <Button style={{ backgroundColor: "#08B41F", color: "white" }} variant="success" onClick={solvediSue} size="sm">
-                  Solved
-                </Button>
-                <ModalMasalahSO title={"Masalah SO"} ModalMasalahSOFunc={ModalMasalahSOFunc} setModalMasalahSOFunc={setModalMasalahSOFunc} />
-              </Col>
+              {(localStorage.getItem("level") === "admin" || localStorage.getItem("level") === "sales" === localStorage.getItem("level") === "account receivable") &&
+                (
+                  <Col sm={3} className="mt-4" style={{ width: "auto" }}>
+                    <Button style={{ backgroundColor: "#08B41F", color: "white" }} variant="success" onClick={solvediSue} size="sm">
+                      Solved
+                    </Button>
+                    <ModalMasalahSO title={"Masalah SO"} ModalMasalahSOFunc={ModalMasalahSOFunc} setModalMasalahSOFunc={setModalMasalahSOFunc} />
+                  </Col>
+                )
+              }
             </Row>
 
             <br />
