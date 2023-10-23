@@ -318,6 +318,18 @@ const App = ({ match }) => {
           )}
         />
         <Route
+          path={`${match.url}email/SM`}
+          component={asyncComponent(() =>
+            import("./CopyData/Email/sm")
+          )}
+        />
+        <Route
+          path={`${match.url}email/SP`}
+          component={asyncComponent(() =>
+            import("./CopyData/Email/sp")
+          )}
+        />
+        <Route
           path={`${match.url}masterdata/marketing/splist`}
           component={asyncComponent(() =>
             import("./MasterData/SP List/Splistlama")

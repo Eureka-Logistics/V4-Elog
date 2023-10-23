@@ -11,6 +11,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import PrintSP from "./routes/Print/PrintSP";
 import PrintMasterMitra from "./routes/Print/PrintMasterMitra/PrintMasterMitra";
 import PrintSPNew from "./routes/Print/PrintSPNew/PrintSPNew";
+import EmailSM from "./routes/CopyData/Email/sm";
+import EmailSP from "./routes/CopyData/Email/sp";
 const store = configureStore(/* provide initial state if any */);
 
 const NextApp = () => (
@@ -20,6 +22,8 @@ const NextApp = () => (
         <Route path="/printSPKListNih/" component={PrintSP}/>
         <Route path="/PrintMasterMitra/" component={PrintMasterMitra}/>
         <Route path="/PrintSPNew/" component={PrintSPNew}/>
+        <Route path="/sm/" component={EmailSM}/>
+        <Route path="/sp/" component={EmailSP}/>
         <Route path="/" component={App}/>
       </Switch>
     </ConnectedRouter>
