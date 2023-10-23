@@ -15,8 +15,10 @@ import { array, func } from "prop-types";
 // import "../Monitoring SP List Akunting/style.css"
 import NamaCabangStore from "../../../zustand/Store/NamaCabang";
 function SPListlama() {
-  const DetailUserLoginZustandState = DetailUserLoginZustand((i) => i?.DetailUserLoginZustandState)
-  const NamaCabang = NamaCabangStore(state => state.NamaCabang);
+  const DetailUserLoginZustandState = DetailUserLoginZustand(
+    (i) => i?.DetailUserLoginZustandState
+  );
+  const NamaCabang = NamaCabangStore((state) => state.NamaCabang);
 
   const [isiData, setIsiData] = useState([]);
   const [Loading, setLoading] = useState(false);
@@ -26,6 +28,7 @@ function SPListlama() {
   const [CariCabangValue, setCariCabangValue] = useState("");
   const [CariSalesValue, setCariSalesValue] = useState("");
   const [CariBu, setCariBu] = useState("");
+  const router = useHistory();
   const [pagination, setPagination] = useState({
     currentPage: 1,
     limit: 10,
@@ -34,10 +37,12 @@ function SPListlama() {
     SPFilter: items.SPFilter,
     setSPFilter: items.setSPFilter,
   }));
-  const { userProfileZustand, setuserProfileZustand } = DetailUserLoginZustand((i) => ({
-    userProfileZustand: i.DetailUserLoginZustandState,
-    setuserProfileZustand: i.setDetailUserLoginZustand,
-  }))
+  const { userProfileZustand, setuserProfileZustand } = DetailUserLoginZustand(
+    (i) => ({
+      userProfileZustand: i.DetailUserLoginZustandState,
+      setuserProfileZustand: i.setDetailUserLoginZustand,
+    })
+  );
   let nomor = 1;
   const CariCustomerOptions = SPFilter &&
     SPFilter.customer && [
@@ -78,37 +83,34 @@ function SPListlama() {
     console.log(`kosong bolo`);
   }
 
-
-
   const detail = async () => {
     try {
       const data = await axios.get(`${Baseurl}auth/get-profile`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token"),
-        }
+        },
       });
       console.log(`nin`, data.data.data.id);
       // setCariSalesValue(data?.data?.data?.id)
     } catch (error) {
       console.error(error);
     }
-  }
+  };
   console.log(`CariCabangValue`, CariCabangValue);
   console.log(`CariCabangOptions`, CariCabangOptions);
 
   function ganticabang() {
     if (!CariCabangValue) {
-      return NamaCabang
+      return NamaCabang;
     } else if (CariCabangValue) {
-      return CariCabangValue
+      return CariCabangValue;
     }
   }
 
-
   const ApiDataAwal = async (page = 1, pageSize = 10) => {
     try {
-      setLoading(true)
+      setLoading(true);
       const data = await axios.get(
         `${Baseurl}sp/get-SP-all?limit=${pageSize}&page=${page}&keyword=${search}&statusSP=&customerId=${CustumerValue}&codeBrench=${ganticabang()}&sales=${CariSalesValue}&buId=${CariBu}`,
         {
@@ -128,7 +130,7 @@ function SPListlama() {
       setLoading(false);
     } catch (error) {
       if (Array.isArray(error?.response?.data?.status)) {
-        error.response.data.status.forEach(element => {
+        error.response.data.status.forEach((element) => {
           notification.error({
             message: element?.message,
           });
@@ -150,22 +152,19 @@ function SPListlama() {
     }
   };
 
-  useEffect(
-    async () => {
-      // await setuserProfileZustand()
-      await detail()
-      await setSPFilter();
-      await ApiDataAwal();
-    },
-    [search, CustumerValue, CariCabangValue, CariSalesValue, CariBu]
-  );
+  useEffect(async () => {
+    // await setuserProfileZustand()
+    await detail();
+    await setSPFilter();
+    await ApiDataAwal();
+  }, [search, CustumerValue, CariCabangValue, CariSalesValue, CariBu]);
   // console.log(`DetailUserLoginZustandState`, DetailUserLoginZustandState.id);
   // useEffect(() => {
   //   // Set nilai awal dari CariSalesValue
   //   setCariSalesValue(userProfileZustand.id);
   // }, []); // Dependency array kosong berarti ini akan dijalankan sekali saat komponen dimuat
 
-  let number = 1
+  let number = 1;
   const columns = [
     {
       name: "No",
@@ -180,7 +179,10 @@ function SPListlama() {
 
         if (row.service.toLowerCase() === "charter") {
           tagColor = "blue";
-        } else if (row.service.toLowerCase() === "retail" || row.service.toLowerCase() === "retailer") {
+        } else if (
+          row.service.toLowerCase() === "retail" ||
+          row.service.toLowerCase() === "retailer"
+        ) {
           tagColor = "gold";
         }
         return (
@@ -188,13 +190,13 @@ function SPListlama() {
             <Tag color={tagColor}>
               {row.sp}
               <br />
-              {row?.service}</Tag>
+              {row?.service}
+            </Tag>
           </>
         );
       },
       wrap: true,
     },
-
 
     {
       name: "Perusahaan",
@@ -205,13 +207,16 @@ function SPListlama() {
     {
       name: "Marketing",
       selector: (row) => (
-        <Tooltip title={<>
-          {"Gl: " + row?.gl} <br />
-          {"Asm: " + row?.asm} <br />
-          {"Mgr: " + row?.mgr} <br />
-          {"Kacab: " + row?.kacab} <br />
-          {"Amd: " + row?.amd} <br />
-        </>}
+        <Tooltip
+          title={
+            <>
+              {"Gl: " + row?.gl} <br />
+              {"Asm: " + row?.asm} <br />
+              {"Mgr: " + row?.mgr} <br />
+              {"Kacab: " + row?.kacab} <br />
+              {"Amd: " + row?.amd} <br />
+            </>
+          }
         >
           {row?.salesName}
         </Tooltip>
@@ -296,11 +301,13 @@ function SPListlama() {
           <Tag color="green">
             Approved <br /> {tanggal}
           </Tag>
-        ) : row?.approveAct === "N" && tanggal === "1970-01-01 07:00:00" || "Invalid Date" ? (
+        ) : (row?.approveAct === "N" && tanggal === "1970-01-01 07:00:00") ||
+          "Invalid Date" ? (
           <Tag color="yellow">
             Waiting <br /> {tanggal ? "-" : tanggal}
           </Tag>
-        ) : row?.approveAct === "N" && tanggal !== "1970-01-01 07:00:00" || "Invalid Date" ? (
+        ) : (row?.approveAct === "N" && tanggal !== "1970-01-01 07:00:00") ||
+          "Invalid Date" ? (
           <Tag color="red">
             Diverted <br /> {tanggal}
           </Tag>
@@ -318,27 +325,34 @@ function SPListlama() {
         const dateApproveOps = row?.dateApproveOps;
         const isValidDate = !isNaN(new Date(dateApproveOps));
         const data = isValidDate ? dateApproveOps : "-";
-        const idops = row?.idops
-        const approveOps = row?.approveOps
+        const idops = row?.idops;
+        const approveOps = row?.approveOps;
         if (row?.approveOps === "Y") {
           return (
             <Tag color="green">
               Approved <br /> {data}
             </Tag>
           );
-        } else if (approveOps === "N" && dateApproveOps === "Invalid Date" || dateApproveOps.toLowerCase() === "invalid date") {
+        } else if (
+          (approveOps === "N" && dateApproveOps === "Invalid Date") ||
+          dateApproveOps.toLowerCase() === "invalid date"
+        ) {
           return (
             <Tag color="yellow">
-              Waiting <br />  -
+              Waiting <br /> -
             </Tag>
           );
-        } else if (dateApproveOps !== "Invalid date" && idops !== 0 && approveOps === "N") {
+        } else if (
+          dateApproveOps !== "Invalid date" &&
+          idops !== 0 &&
+          approveOps === "N"
+        ) {
           return (
             <Tag color="blue">
               Diverted <br /> {data}
             </Tag>
           );
-        } else if (approveOps === "N" && dateApproveOps !==  "Invalid date") {
+        } else if (approveOps === "N" && dateApproveOps !== "Invalid date") {
           return (
             <Tag color="red">
               Reject <br /> {data}
@@ -348,7 +362,6 @@ function SPListlama() {
       },
       width: "170px",
     },
-
 
     {
       name: "Purchasing",
@@ -360,11 +373,13 @@ function SPListlama() {
               <Tag color="green">
                 Approved <br /> {date}
               </Tag>
-            ) : row.approvePurch === "N" && date === "1970-01-01 07:00:00" || "Invalid date" ? (
+            ) : (row.approvePurch === "N" && date === "1970-01-01 07:00:00") ||
+              "Invalid date" ? (
               <Tag color="yellow">
                 Waiting <br /> {date ? "-" : date}
               </Tag>
-            ) : row.approvePurch === "N" && date != "1970-01-01 07:00:00" || "Invalid date" ? (
+            ) : (row.approvePurch === "N" && date != "1970-01-01 07:00:00") ||
+              "Invalid date" ? (
               <Tag color="red">
                 Diverted <br /> {date}
               </Tag>
@@ -403,8 +418,27 @@ function SPListlama() {
     setSearch(e.target.value);
   };
 
+  const handleView = () => {
+    const newTab = window.open(`/sm/`, "_blank");
+    if (newTab) {
+      newTab.focus();
+    } else {
+      // Handling if the browser blocks pop-up
+      // You can display a message or take an alternative action here
+      window.alert("Pop-up blocked. Please allow pop-ups for this site.");
+    }
+  };
 
-
+  const handleView2 = () => {
+    const newTab = window.open(`/sp/`, "_blank");
+    if (newTab) {
+      newTab.focus();
+    } else {
+      // Handling if the browser blocks pop-up
+      // You can display a message or take an alternative action here
+      window.alert("Pop-up blocked. Please allow pop-ups for this site.");
+    }
+  };
 
   return (
     <div>
@@ -423,7 +457,8 @@ function SPListlama() {
                     showSearch
                     placeholder="Cari Bu"
                     style={{
-                      width: "100%", border: "1px solid #1A5CBF",
+                      width: "100%",
+                      border: "1px solid #1A5CBF",
                       borderRadius: "5px",
                       boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
                     }}
@@ -440,7 +475,8 @@ function SPListlama() {
                     onChange={(e) => setCariCabangValue(e)}
                     placeholder="Cari Cabang"
                     style={{
-                      width: "100%", border: "1px solid #1A5CBF",
+                      width: "100%",
+                      border: "1px solid #1A5CBF",
                       borderRadius: "5px",
                       boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
                     }}
@@ -457,7 +493,8 @@ function SPListlama() {
                     showSearch
                     placeholder="Cari Sales"
                     style={{
-                      width: "100%", border: "1px solid #1A5CBF",
+                      width: "100%",
+                      border: "1px solid #1A5CBF",
                       borderRadius: "5px",
                       boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
                     }}
@@ -473,15 +510,14 @@ function SPListlama() {
                     onChange={(e) => setCustumerValue(e)}
                     placeholder="Cari Customer"
                     style={{
-                      width: "100%", border: "1px solid #1A5CBF",
+                      width: "100%",
+                      border: "1px solid #1A5CBF",
                       borderRadius: "5px",
                       boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
                     }}
                   />
                 </Form.Group>
               </Col>
-
-
 
               <Col
                 style={{ display: "flex", justifyContent: "flex-end" }}
@@ -500,6 +536,15 @@ function SPListlama() {
                   />
                 </Form.Group>
               </Col>
+            </Row>
+            <br />
+
+            <Row>
+              <Col sm={8}>
+                <Button onClick={handleView}>Email SM</Button>
+                <Button onClick={handleView2}>Email SP</Button>
+              </Col>
+              
             </Row>
 
             <style>
@@ -524,14 +569,13 @@ function SPListlama() {
                   customStyles={{
                     headCells: {
                       style: {
-                        backgroundColor: '#1a5cbf',
-                        color: '#fff',
-                        width: "100%"
+                        backgroundColor: "#1a5cbf",
+                        color: "#fff",
+                        width: "100%",
                       },
                     },
                   }}
                 />
-
               </div>
             )}
             <div className="mt-3 d-flex justify-content-end">
