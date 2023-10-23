@@ -1807,35 +1807,38 @@ function EditSP({ }) {
 
             </Form.Group>
             <Row className="mt-3 align-items-center flex">
-              {localStorage.getItem("level") === "admin" || localStorage.getItem("level") === "sales" && localStorage.getItem("level") === "account receivable" ?
-                <>
-                  <Col sm={6}>
-                    <Form.Group className="mt-4">
-                      <Form.Label style={{ fontWeight: "bold" }}></Form.Label>
-                      <Input width={"100%"} onChange={(e) => {
-                        setTambahKomen(e.target.value)
+              {
+                (localStorage.getItem("level") === "admin" ||
+                  localStorage.getItem("level") === "sales" ||
+                  localStorage.getItem("level") === "account receivable") ?
+                  (<>
+                    <Col sm={6}>
+                      <Form.Group className="mt-4">
+                        <Form.Label style={{ fontWeight: "bold" }}></Form.Label>
+                        <Input width={"100%"} onChange={(e) => {
+                          setTambahKomen(e.target.value)
 
-                      }} placeholder="Tulis Komentar" addonBefore={selectBefore} />
+                        }} placeholder="Tulis Komentar" addonBefore={selectBefore} />
 
 
-                    </Form.Group>
-                  </Col>
-                </>
-                :
-                <>
-                  <Col sm={6}>
-                    <Form.Group className="mt-4">
-                      <Form.Label style={{ fontWeight: "bold" }}></Form.Label>
+                      </Form.Group>
+                    </Col>
+                  </>)
+                  :
+                  (<>
+                    <Col sm={6}>
+                      <Form.Group className="mt-4">
+                        <Form.Label style={{ fontWeight: "bold" }}></Form.Label>
 
-                      <textarea
-                        style={{ borderRadius: "5px", border: '2px solid blue', height: '50px', width: '100%', resize: 'none' }}
-                        onChange={(e) => setTambahKomen(e.target.value)}
-                        placeholder="Tulis komentar"
+                        <textarea
+                          style={{ borderRadius: "5px", border: '2px solid blue', height: '50px', width: '100%', resize: 'none' }}
+                          onChange={(e) => setTambahKomen(e.target.value)}
+                          placeholder="Tulis komentar"
 
-                      />
-                    </Form.Group>
-                  </Col>
-                </>
+                        />
+                      </Form.Group>
+                    </Col>
+                  </>)
               }
               <Col sm={3} className="mt-4" style={{ width: "auto" }}>
                 <Button onClick={tambahkomen} size="sm">
