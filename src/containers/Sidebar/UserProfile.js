@@ -36,14 +36,31 @@ const UserProfile = () => {
       </Row>
       <hr/>
       <Row>
-      <Col span={24} className="d-flex justify-content-end mt-2">
+      <Col span={12} className="d-flex justify-content-end mt-2">
+          {/* <Button
+            size="small"
+            style={{
+              backgroundColor: "#1A5CBF",
+              color: "white",
+              height: "30px",
+              borderRadius: "10px",
+             
+            }}
+            onClick={() => dispatch(userSignOut())}
+          >
+            <span style={{ display: "flex", alignItems: "center" }}>
+              Edit Porfile
+            </span>
+          </Button> */}
+        </Col>
+      <Col span={12} className="d-flex justify-content-end mt-2">
           <Button
             size="small"
             style={{
               backgroundColor: "#DB260E",
               color: "white",
               height: "30px",
-              borderRadius: "20px",
+              borderRadius: "10px",
              
             }}
             onClick={() => dispatch(userSignOut())}
