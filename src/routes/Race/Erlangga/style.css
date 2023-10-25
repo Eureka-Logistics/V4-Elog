@@ -1,0 +1,8 @@
+.ant-table-thead>tr>th {
+    position: relative;
+    color: white;
+    font-weight: 500;
+    text-align: left;
+    background: #f05423;
+    border-bottom: 1px solid #e8e8e8;
+}

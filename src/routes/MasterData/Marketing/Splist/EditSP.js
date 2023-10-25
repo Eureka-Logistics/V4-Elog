@@ -1,4 +1,4 @@
-import { Card, Modal as ModalAntd, Tag, notification } from "antd";
+import { Card, Input, Modal as ModalAntd, Tag, notification, Select as SelectAnt } from "antd";
 import React from "react";
 import DataTable from "react-data-table-component";
 import { useEffect, useState } from "react";
@@ -14,6 +14,7 @@ import { Col, Row, Form, Modal, Button, Table } from "react-bootstrap";
 import * as Yup from "yup";
 import EditSPNew from "./EditSPNew";
 import ModalCreateDetail from "./ModalCreateDetail";
+import { ModalMasalahSO } from "../../../../components/ModalMasalahSP";
 
 function EditSP({ }) {
   const [show, setShow] = useState(false);
@@ -73,6 +74,7 @@ function EditSP({ }) {
   const [IdBongkarKota, setIdBongkarKota] = useState([]);
   const [AlamatOptions, setAlamatOptions] = useState("");
   const [AlamatOptionsValue, setAlamatOptionsValue] = useState("");
+  const [ModalMasalahSOFunc, setModalMasalahSOFunc] = useState(false);
   const [AsuransiOptions, setAsuransiOptions] = useState("");
   const [AsuransiOptionsValue, setAsuransiOptionsValue] = useState("");
   const [ServiceValue, setServiceValue] = useState("");
@@ -151,6 +153,14 @@ function EditSP({ }) {
 
     getDetailModal();
   }, [detailData?.customer]);
+  const [seletKomen, setseletKomen] = useState("0")
+  const selectBefore = (
+    <SelectAnt defaultValue="0" onChange={(e) => setseletKomen(e)
+    }>
+      <options value="0">Semua</options>
+      <options value="1">Mrk/AR</options>
+    </SelectAnt >
+  );
 
   const refresh = async () => {
     try {
@@ -379,7 +389,7 @@ function EditSP({ }) {
     });
   };
 
-  const tambahkomen = async () => {
+  const tambahkomen = async (e) => {
     try {
       if (tambahKomen === "") {
         alert("Kolom komentar harus terisi");
@@ -390,6 +400,7 @@ function EditSP({ }) {
             id_mp: idmp,
             ph: detailData?.sp,
             chat: tambahKomen,
+            baca: seletKomen
           },
           {
             headers: {
@@ -404,6 +415,36 @@ function EditSP({ }) {
         })
         comments();
       }
+    } catch (error) {
+      notification.error({
+        message: "Error",
+        description: error.response.status.message
+      })
+    }
+  };
+
+  const solvediSue = async (e) => {
+    try {
+      const data = await axios.post(
+        `${Baseurl}sp/solved-issue`,
+        {
+          id_mp: idmp,
+          ph: detailData?.sp,
+          // chat: tambahKomen,
+          // baca: seletKomen
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      notification.success({
+        message: "success",
+        description: data.data.status.message
+      })
+      comments();
     } catch (error) {
       notification.error({
         message: "Error",
@@ -1642,29 +1683,29 @@ function EditSP({ }) {
               </Col>
             </Row> */}
             {detailData?.tarif !== 0 &&
-            <Row>
-              <Col
-                span={12}
-                style={{ marginLeft: "10px" }}
-                className="d-flex justify-content-end mb-2"
-              >
-                <div>
-                  <tr style={{ fontWeight: "bold" }}>
-                    <td style={{ paddingRight: "20px" }}>Biaya Jalan</td>
-                    <td style={{ paddingRight: "10px" }}>:</td>
-                    <td width="130px" style={{ paddingLeft: "10px" }}>
-                      {detailData?.tarif?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      }) === undefined ? "Rp 0,00" : detailData?.tarif?.toLocaleString("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                      })}
-                    </td>
-                  </tr>
-                </div>
-              </Col>
-            </Row>
+              <Row>
+                <Col
+                  span={12}
+                  style={{ marginLeft: "10px" }}
+                  className="d-flex justify-content-end mb-2"
+                >
+                  <div>
+                    <tr style={{ fontWeight: "bold" }}>
+                      <td style={{ paddingRight: "20px" }}>Biaya Jalan</td>
+                      <td style={{ paddingRight: "10px" }}>:</td>
+                      <td width="130px" style={{ paddingLeft: "10px" }}>
+                        {detailData?.tarif?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        }) === undefined ? "Rp 0,00" : detailData?.tarif?.toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                        })}
+                      </td>
+                    </tr>
+                  </div>
+                </Col>
+              </Row>
             }
             <hr />
             <Row>
@@ -1760,25 +1801,66 @@ function EditSP({ }) {
               })}
             </p> */}
             <Form.Group>
-              <Form.Label style={{ fontWeight: "bold" }}>Isi Memo</Form.Label>
-              <Form.Control disabled value={memo} />
+              <Form.Label style={{ fontWeight: "bold" }}>Memo</Form.Label>
+              {/* <Form.Control disabled value={memo} /> */}
+              <textarea value={memo} disabled style={{ borderRadius: "5px", cursor: "not-allowed", border: '2px solid black', height: '80px', width: '100%', resize: 'none' }}>{memo}</textarea>
+
             </Form.Group>
-            <Row className="mt-3 align-items-center">
-              <Col sm={9}>
-                <Form.Group className="mt-4">
-                  <Form.Label style={{ fontWeight: "bold" }}></Form.Label>
-                  <textarea
-                    style={{ border: '2px solid blue', height: '50px', width: '100%', resize: 'none' }}
-                    onChange={(e) => setTambahKomen(e.target.value)}
-                    placeholder="Tulis komentar"
-                  />
-                </Form.Group>
-              </Col>
-              <Col sm={3} className="text-start mt-4">
+            <Row className="mt-3 align-items-center flex">
+              {
+                (localStorage.getItem("level") === "admin" ||
+                  localStorage.getItem("level") === "sales" ||
+                  localStorage.getItem("level") === "account receivable") ?
+                  (<>
+                    <Col sm={6}>
+                      <Form.Group className="mt-4">
+                        <Form.Label style={{ fontWeight: "bold" }}></Form.Label>
+                        <Input width={"100%"} onChange={(e) => {
+                          setTambahKomen(e.target.value)
+
+                        }} placeholder="Tulis Komentar" addonBefore={selectBefore} />
+
+
+                      </Form.Group>
+                    </Col>
+                  </>)
+                  :
+                  (<>
+                    <Col sm={6}>
+                      <Form.Group className="mt-4">
+                        <Form.Label style={{ fontWeight: "bold" }}></Form.Label>
+
+                        <textarea
+                          style={{ borderRadius: "5px", border: '2px solid blue', height: '50px', width: '100%', resize: 'none' }}
+                          onChange={(e) => setTambahKomen(e.target.value)}
+                          placeholder="Tulis komentar"
+
+                        />
+                      </Form.Group>
+                    </Col>
+                  </>)
+              }
+              <Col sm={3} className="mt-4" style={{ width: "auto" }}>
                 <Button onClick={tambahkomen} size="sm">
                   Tambah Komen
                 </Button>
               </Col>
+              <Col sm={3} className="mt-4" style={{ width: "auto" }}>
+                <Button style={{ display: "none" }} variant="danger" onClick={() => setModalMasalahSOFunc(true)} size="sm">
+                  Ada Masalah?
+                </Button>
+                <ModalMasalahSO title={"Masalah SO"} ModalMasalahSOFunc={ModalMasalahSOFunc} setModalMasalahSOFunc={setModalMasalahSOFunc} />
+              </Col>
+              {(localStorage.getItem("level") === "admin" || localStorage.getItem("level") === "sales" === localStorage.getItem("level") === "account receivable") &&
+                (
+                  <Col sm={3} className="mt-4" style={{ width: "auto" }}>
+                    <Button style={{ backgroundColor: "#08B41F", color: "white" }} variant="success" onClick={solvediSue} size="sm">
+                      Solved
+                    </Button>
+                    <ModalMasalahSO title={"Masalah SO"} ModalMasalahSOFunc={ModalMasalahSOFunc} setModalMasalahSOFunc={setModalMasalahSOFunc} />
+                  </Col>
+                )
+              }
             </Row>
 
             <br />
@@ -1793,16 +1875,21 @@ function EditSP({ }) {
                 </tr>
               </thead>
               <tbody>
-                {comment &&
-                  comment.map((data, index) => (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{data?.chat}</td>
-                      <td>{data?.user}</td>
-                      <td>{data?.tgl_chat}</td>
-                    </tr>
-                  ))}
+                {
+                  comment &&
+                  comment
+                    .filter((data) => data?.baca === seletKomen) // filter data di mana data.baca adalah 0
+                    .map((data, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{data?.chat}</td>
+                        <td>{data?.user}</td>
+                        <td>{data?.tgl_chat}</td>
+                      </tr>
+                    ))
+                }
               </tbody>
+
             </Table>
           </Col>
           <br />

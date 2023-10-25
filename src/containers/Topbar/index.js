@@ -75,7 +75,7 @@ const Topbar = () => {
 
       {/* <div className="gx-d-none gx-d-lg-block d-flex justify-content-end gx-lt-icon-search-bar-lg gx-move-right-to-left">Halo👋 {fullname} || {namaRole} || cabang {cabang}</div> */}
       {jobdeks != "rcadmin" ? (
-        <Row >
+        <Row className="navbarsm" >
           <Col >
             {" "}
             <h5 style={{ color: "blue" , marginLeft : "30px"}}>

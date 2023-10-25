@@ -2476,8 +2476,15 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Menu.Item>
                   </div>
                   <div className="mt-4">
-                    <Menu.Item key="Vehicle">
-                      <Link to="/Dashboard" style={{ textDecoration: "none" }}>
+                    <Menu.Item
+                      className={
+                        activeMenu === "/race/vehicle"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="vehicle"
+                    >
+                      <Link to="/race/vehicle" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
                          */}
 
@@ -2493,7 +2500,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                           className="mx-3"
                           style={{ fontWeight: "bold", color: "white" }}
                         >
-                          Vehicle
+                         Kendaraan
                         </span>
                       </Link>
                     </Menu.Item>
@@ -2514,7 +2521,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         />
                         <span
                           className="mx-3"
-                          style={{ fontWeight: "bold", color: "white" }}
+                          style={{ fontWeight: "bold", color: "white" , overflow :"hidden"}}
                         >
                           Emergency
                         </span>

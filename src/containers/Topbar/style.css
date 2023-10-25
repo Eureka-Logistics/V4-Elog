@@ -1,11 +1,21 @@
 @keyframes moveRightToLeft {
-    0% { transform: translateX(100vw); }
-    100% { transform: translateX(-30%); }
+  0% {
+    transform: translateX(100vw);
   }
-  
-  .gx-move-right-to-left {
-    animation: moveRightToLeft 15s linear infinite;
-    /* white-space: nowrap; Jika teks Anda memiliki banyak kata dan Anda tidak ingin mereka melompat ke baris baru */
-    /* position: absolute; Untuk memastikan elemen benar-benar muncul dari kanan */
+
+  100% {
+    transform: translateX(-30%);
   }
-  
+}
+
+.gx-move-right-to-left {
+  animation: moveRightToLeft 15s linear infinite;
+  /* white-space: nowrap; Jika teks Anda memiliki banyak kata dan Anda tidak ingin mereka melompat ke baris baru */
+  /* position: absolute; Untuk memastikan elemen benar-benar muncul dari kanan */
+}
+
+@media screen and (max-width: 991px) {
+  .navbarsm {
+    display: none; /* ini akan menyembunyikan elemen pada layar di bawah 992px */
+  }
+}
