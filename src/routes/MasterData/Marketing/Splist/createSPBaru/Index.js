@@ -32,7 +32,7 @@ function Index() {
   const [diskonselect, setDiskonSelect] = useState("");
   const [diskonselectValue, setDiskonSelectValue] = useState("");
   const [serviceSelect, setServiceSelect] = useState("");
-  const [serviceSelectValue, setServiceSelectValue] = useState("Charter");
+  const [serviceSelectValue, setServiceSelectValue] = useState("charter");
   const [insuranceSelect, setInsuranceSelect] = useState("");
   const [insuranceSelects, setInsuranceSelects] = useState("N");
   const [packingValue, setpackingValue] = useState("");
