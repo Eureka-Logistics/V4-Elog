@@ -8,6 +8,7 @@ import { PoweroffOutlined } from "@ant-design/icons";
 const UserProfile = () => {
   const dispatch = useDispatch();
   const jobdesk = localStorage.getItem("jobdesk");
+  const fullname = localStorage.getItem(`fullname`);
   const userMenuOptions = (
     // <ul className="gx-user-popover">
     //   <li>My Account</li>
@@ -15,35 +16,57 @@ const UserProfile = () => {
     //   <li onClick={() => dispatch(userSignOut())}>Logout
     //   </li>
     // </ul>
-    <div style={{ width: "200px" }}>
+    <div style={{ width: "200px", height: 'auto' }}>
       <Row>
-        <Col span={24} className="d-flex justify-content-center mt-2" style={{marginBottom: "-10px"}}>
+        <Col span={24} className="d-flex justify-content-center">
           <Avatar
             src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
-            className="gx-size-50 gx-pointer gx-mr-3"
+            className="gx-size-60 gx-pointer "
             alt=""
           />
-          <div style={{marginTop: '5%', verticalAlign: 'middle'}} >
-            <b>Admin {jobdesk}</b>
-          </div>
+        </Col>
+        <Col span={24} className="d-flex justify-content-center mt-2">
+          <b style={{ color: "#113D7F", fontWeight: "bold", fontSize: "20px" }}>
+            {fullname}
+          </b>
+        </Col>
+        <Col span={24} className="d-flex justify-content-center">
+          <di style={{ color: "#113D7F" }}>{jobdesk}</di>
         </Col>
       </Row>
-      <hr />
+      <hr/>
       <Row>
-        <Col span={24} className="d-flex justify-content-end ">
-          <Button
-            style={{ backgroundColor: "#bf1d2d", color: "white" }}
+      <Col span={12} className="d-flex justify-content-end mt-2">
+          {/* <Button
             size="small"
+            style={{
+              backgroundColor: "#1A5CBF",
+              color: "white",
+              height: "30px",
+              borderRadius: "10px",
+             
+            }}
             onClick={() => dispatch(userSignOut())}
           >
-            <span
-              style={{
-                display: "flex",
-                alignItems: "center",
-                // paddingBottom: "10px",
-              }}
-            >
-              <PoweroffOutlined style={{ marginRight: "5px" }} /> Logout
+            <span style={{ display: "flex", alignItems: "center" }}>
+              Edit Porfile
+            </span>
+          </Button> */}
+        </Col>
+      <Col span={12} className="d-flex justify-content-end mt-2">
+          <Button
+            size="small"
+            style={{
+              backgroundColor: "#DB260E",
+              color: "white",
+              height: "30px",
+              borderRadius: "10px",
+             
+            }}
+            onClick={() => dispatch(userSignOut())}
+          >
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <PoweroffOutlined style={{ marginRight: "5px" }} /> Sign Out
             </span>
           </Button>
         </Col>
@@ -58,7 +81,7 @@ const UserProfile = () => {
         content={userMenuOptions}
         trigger="click"
       >
-        <Row style={{  verticalAlign: 'middle', marginTop: '2%'}}>
+        <Row style={{ verticalAlign: "middle", marginTop: "2%" }}>
           <Col span={6}>
             <Avatar
               src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
