@@ -21,6 +21,10 @@ import splistrace from "../../assets/img/sprace.png";
 import perbaikanrace from "../../assets/img/perbaikanrace.png";
 import vehiclerace from "../../assets/img/vehicle.png";
 import emergencyrace from "../../assets/img/emergencyrace.png";
+import DriverLogo from "../../assets/img/Driver@4x.png";
+import CodLogo from "../../assets/img/Cod.png";
+import ErlanggLogo from "../../assets/img/ErlanggLogo.png";
+import SjList from "../../assets/img/SjList.png";
 import { Button } from "react-bootstrap";
 import {
   CarTwoTone,
@@ -2404,7 +2408,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                          */}
 
                         <img
-                          src={splistrace}
+                          src={SjList}
                           style={{
                             fontSize: "30px",
                             color: "white",
@@ -2434,7 +2438,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                          */}
 
                         <img
-                          src={historyrace}
+                          src={ErlanggLogo}
                           style={{
                             fontSize: "30px",
                             color: "white",
@@ -2494,7 +2498,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                          */}
 
                         <img
-                          src={perbaikanrace}
+                          src={CodLogo}
                           style={{
                             fontSize: "30px",
                             color: "white",
@@ -2554,7 +2558,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                          */}
 
                         <img
-                          src={vehiclerace}
+                          src={DriverLogo}
                           style={{
                             fontSize: "30px",
                             color: "white",

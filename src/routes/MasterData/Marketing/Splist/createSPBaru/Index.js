@@ -298,8 +298,8 @@ console.log(`packingValues`,packingValues);
               <FormGroup>
                 <Form.Label>Service</Form.Label>
                 <Form.Select onChange={(e) => setServiceSelectValue(e.target.value)} type="text">
-                  <option value={"Charter"}>Charter</option>
-                  <option value={"Retail"}>Retail</option>
+                  <option value={"charter"}>Charter</option>
+                  <option value={"retail"}>Retail</option>
                   {/* {serviceSelect &&
                     serviceSelect.map((item) => <option value={item.tipe}>{item.tipe}</option>)} */}
                 </Form.Select>

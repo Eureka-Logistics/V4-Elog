@@ -30,11 +30,19 @@ function Erlangga() {
                     notification.success({
                         message: data.data.status.message,
                     })
+                    console.log(data.response);
+
 
                 } catch (error) {
-                    notification.error({
-                        message: error?.response?.data?.status?.message,
-                    })
+                    console.log();
+                    if (error.response) {
+                        notification.error({
+                            message: error?.response?.data?.status?.message,
+                        })
+                    } else{
+                        console.log("error");
+                    }
+
                 }
 
             }
@@ -146,23 +154,23 @@ function Erlangga() {
                 }
                 `}
                 </style>
-                    <Table className='mt-3 ' loading={!Data.Data} columns={columns} dataSource={Data.Data}
-                        pagination={{
-                            // current: currentPage, // halaman saat ini
-                            // pageSize: itemsPerPage, // jumlah item per halaman
-                            total: Data.SizePge, // total jumlah item
-                            onChange: (page, size) => {
-                                Pageination(page, size)
+                <Table className='mt-3 ' loading={!Data.Data} columns={columns} dataSource={Data.Data}
+                    pagination={{
+                        // current: currentPage, // halaman saat ini
+                        // pageSize: itemsPerPage, // jumlah item per halaman
+                        total: Data.SizePge, // total jumlah item
+                        onChange: (page, size) => {
+                            Pageination(page, size)
 
-                            },
-                        }}
-                        onRow={(data, index) => ({
-                            onClick: event => {
-                                GetdataTable(index, data)
-                            },
-                            className: 'hover-row'
-                        })}
-                    />
+                        },
+                    }}
+                    onRow={(data, index) => ({
+                        onClick: event => {
+                            GetdataTable(index, data)
+                        },
+                        className: 'hover-row'
+                    })}
+                />
             </Card>
         </div>
     )

@@ -804,7 +804,7 @@ const App = ({ match }) => {
           )}
         />
         <Route
-          path={`${match.url}race/detailsplistrace/:idmp`}
+          path={`${match.url}race/detailsplistrace/:idmp/:id_msm`}
           component={asyncComponent(() =>
             import("../routes/Race/WebAdmin/splist/Detailsplist/index")
           )}
