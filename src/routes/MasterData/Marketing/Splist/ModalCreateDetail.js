@@ -1748,7 +1748,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                     currency: "IDR",
                                                 })}</td>
 
-                                                {data?.service[0] === "Retail" ?
+                                                {data?.service[0].toLocaleString() === "retail" || data?.service[0].toLocaleString() === "retailer" ?
                                                     <td style={{ textAlign: "right", fontWeight: "bold" }}>
                                                         {(data.berat * data.Price).toLocaleString("id-ID", {
                                                             style: "currency",

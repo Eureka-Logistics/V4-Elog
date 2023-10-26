@@ -662,7 +662,7 @@ function EditSP({ }) {
           <EditSPNew refreshtable={getDetail} />
           {/* <ModalCreateDetail refreshtable={getDetail}/> */}
           <div className="d-flex justify-content-end">
-            {jobdesk != "sales" && jobdesk != "operasional" && jobdesk != "purchasing" ? (
+            {jobdesk != "sales" && jobdesk != "operasional" && jobdesk != "purchasing"  && jobdesk != "rcadmin" ? (
               <>
                 <Button size="sm" onClick={() => tombolApprove()}>
                   Approve

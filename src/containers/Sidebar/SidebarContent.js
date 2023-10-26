@@ -95,6 +95,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
   useEffect(() => {
     setActiveMenu(location.pathname);
   }, [location]);
+  
+
   return (
     <>
       <SidebarLogo
@@ -112,7 +114,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
                   className="gx-size-50 gx-pointer gx-mr-4"
                   alt=""
-                  style={{width: '100%'}}
+                  style={{ width: '100%' }}
                 />
                 <div >
                   <b style={{ color: "black" }}>
@@ -2320,7 +2322,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 </Menu.Item>
               )}
               {/* ////Login Race///// */}
-              {jobdesk == "rcadmin" && (
+              {jobdesk === "rcadmin" && (
                 <>
                   <div className="mt-3">
                     <Menu.Item
@@ -2388,6 +2390,39 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <div className="mt-4">
                     <Menu.Item
                       className={
+                        activeMenu === "/race/sjlist"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="sjlist"
+                    >
+                      <Link
+                        to="/race/sjlist"
+                        style={{ textDecoration: "none" }}
+                      >
+                        {/* <i className="icon icon-widgets" />
+                         */}
+
+                        <img
+                          src={splistrace}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
+                          SJ List
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="mt-4">
+                    <Menu.Item
+                      className={
                         activeMenu === "/erlangga"
                           ? "menu-item-active menu-item-hover"
                           : "menu-item-hover"
@@ -2410,7 +2445,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                           className="mx-3"
                           style={{ fontWeight: "bold", color: "white" }}
                         >
-                          Erlangga  
+                          Erlangga
                         </span>
                       </Link>
                     </Menu.Item>
@@ -2500,7 +2535,37 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                           className="mx-3"
                           style={{ fontWeight: "bold", color: "white" }}
                         >
-                         Kendaraan
+                          Kendaraan
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="mt-4">
+                    <Menu.Item
+                      className={
+                        activeMenu === "/race/driver"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="driver"
+                    >
+                      <Link to="/race/driver" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" />
+                         */}
+
+                        <img
+                          src={vehiclerace}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
+                          Driver
                         </span>
                       </Link>
                     </Menu.Item>
@@ -2521,7 +2586,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         />
                         <span
                           className="mx-3"
-                          style={{ fontWeight: "bold", color: "white" , overflow :"hidden"}}
+                          style={{ fontWeight: "bold", color: "white", overflow: "hidden" }}
                         >
                           Emergency
                         </span>

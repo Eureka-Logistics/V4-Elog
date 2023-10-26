@@ -1,14 +1,14 @@
-import React, {memo, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Redirect, Route, Switch, useHistory, useLocation, useRouteMatch} from "react-router-dom";
-import {ConfigProvider} from 'antd';
-import {IntlProvider} from "react-intl";
+import React, { memo, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect, Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { ConfigProvider } from 'antd';
+import { IntlProvider } from "react-intl";
 import { userSignInSuccess } from "../../appRedux/actions";
 import AppLocale from "../../lngProvider";
 import MainApp from "./MainApp";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
-import {setInitUrl} from "../../appRedux/actions";
+import { setInitUrl } from "../../appRedux/actions";
 import {
   LAYOUT_TYPE_BOXED,
   LAYOUT_TYPE_FRAMED,
@@ -20,7 +20,7 @@ import {
   NAV_STYLE_INSIDE_HEADER_HORIZONTAL, THEME_TYPE_DARK
 } from "../../constants/ThemeSetting";
 
-const RestrictedRoute = ({component: Component, location, authUser, ...rest}) =>
+const RestrictedRoute = ({ component: Component, location, authUser, ...rest }) =>
   <Route
     {...rest}
     render={props =>
@@ -29,11 +29,11 @@ const RestrictedRoute = ({component: Component, location, authUser, ...rest}) =>
         : <Redirect
           to={{
             pathname: '/signin',
-            state: {from: location}
+            state: { from: location }
           }}
         />}
   />;
-  
+
 
 const setLayoutType = (layoutType) => {
   if (layoutType === LAYOUT_TYPE_FULL) {
@@ -66,19 +66,25 @@ const setNavStyle = (navStyle) => {
 };
 
 const App = () => {
-  const locale = useSelector(({settings}) => settings.locale);
-  const navStyle = useSelector(({settings}) => settings.navStyle);
-  const layoutType = useSelector(({settings}) => settings.layoutType);
-  const themeType = useSelector(({settings}) => settings.themeType);
-  const isDirectionRTL = useSelector(({settings}) => settings.isDirectionRTL);
+  const locale = useSelector(({ settings }) => settings.locale);
+  const navStyle = useSelector(({ settings }) => settings.navStyle);
+  const layoutType = useSelector(({ settings }) => settings.layoutType);
+  const themeType = useSelector(({ settings }) => settings.themeType);
+  const isDirectionRTL = useSelector(({ settings }) => settings.isDirectionRTL);
 
-  const {authUser, initURL} = useSelector(({auth}) => auth);
+  const { authUser, initURL } = useSelector(({ auth }) => auth);
   const dispatch = useDispatch();
 
   const location = useLocation();
   const history = useHistory();
   const match = useRouteMatch();
 
+  const jobdesk = localStorage.getItem("jobdesk")
+  useEffect(() => {
+    if (!jobdesk) {
+      history.push(`/signin`);
+    }
+  }, [])
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -140,9 +146,9 @@ const App = () => {
         locale={currentAppLocale.locale}
         messages={currentAppLocale.messages}>
         <Switch>
-          <Route exact path='/signin' component={SignIn}/>
+          <Route exact path='/signin' component={SignIn} />
           {/* <Route exact path='/signup' component={SignUp}/> */}
-          <RestrictedRoute path={`${match.url}`} authUser={authUser} location={location} component={MainApp}/>
+          <RestrictedRoute path={`${match.url}`} authUser={authUser} location={location} component={MainApp} />
         </Switch>
       </IntlProvider>
     </ConfigProvider>

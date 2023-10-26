@@ -118,6 +118,9 @@ function Erlangga() {
             }
         },
     ]
+    function GetdataTable(d, i) {
+        console.log(d, i);
+    }
     return (
         <div>
             <Card>
@@ -129,23 +132,37 @@ function Erlangga() {
                     <Col sm={3} >
                         <Input
                             onChange={(e) => { setKeyword(e.target.value); }}
-                             placeholder='Cari No Referensi' />
+                            placeholder='Cari No Referensi' />
                     </Col>
                     <Col sm={4} className='d-flex justify-content-end'>
                         <Button type='primary'>Create SM</Button>
                     </Col>
                 </Row>
-                {Data.Data ?
-                    <Table className='mt-3 ' columns={columns} dataSource={Data.Data}
+                <style>
+                    {`
+                .hover-row:hover {
+                    background-color: #F36C43 ; 
+                    cursor: pointer;
+                }
+                `}
+                </style>
+                    <Table className='mt-3 ' loading={!Data.Data} columns={columns} dataSource={Data.Data}
                         pagination={{
                             // current: currentPage, // halaman saat ini
                             // pageSize: itemsPerPage, // jumlah item per halaman
                             total: Data.SizePge, // total jumlah item
                             onChange: (page, size) => {
                                 Pageination(page, size)
-                            }
-                        }} />
-                    : <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>Pilih Tanggal Terlebih Dahulu</div>}
+
+                            },
+                        }}
+                        onRow={(data, index) => ({
+                            onClick: event => {
+                                GetdataTable(index, data)
+                            },
+                            className: 'hover-row'
+                        })}
+                    />
             </Card>
         </div>
     )

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import { Route, Switch } from "react-router-dom";
@@ -16,15 +16,16 @@ import EmailSP from "./routes/CopyData/Email/sp";
 const store = configureStore(/* provide initial state if any */);
 
 const NextApp = () => (
+  
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
-        <Route path="/printSPKListNih/" component={PrintSP}/>
-        <Route path="/PrintMasterMitra/" component={PrintMasterMitra}/>
-        <Route path="/PrintSPNew/" component={PrintSPNew}/>
-        <Route path="/sm/" component={EmailSM}/>
-        <Route path="/sp/" component={EmailSP}/>
-        <Route path="/" component={App}/>
+        <Route path="/printSPKListNih/" component={PrintSP} />
+        <Route path="/PrintMasterMitra/" component={PrintMasterMitra} />
+        <Route path="/PrintSPNew/" component={PrintSPNew} />
+        <Route path="/sm/" component={EmailSM} />
+        <Route path="/sp/" component={EmailSP} />
+        <Route path="/" component={App} />
       </Switch>
     </ConnectedRouter>
   </Provider>
