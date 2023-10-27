@@ -845,6 +845,12 @@ const App = ({ match }) => {
             import("../routes/Race/WebAdmin/List Vehicle/index")
           )}
         />
+        {/* <Route
+          path={`${match.url}race/newsp`}
+          component={asyncComponent(() =>
+            import("../routes/Race/WebAdmin/splist/CreateNewSPpRace")
+          )}
+        /> */}
         <Route
           path={`${match.url}race/driver`}
           component={asyncComponent(() =>

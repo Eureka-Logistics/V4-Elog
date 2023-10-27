@@ -5,8 +5,10 @@ import { BaseUrlRace } from '../../../Api/BaseUrl';
 import moment from 'moment';
 import { Col } from 'react-bootstrap';
 import "../Erlangga/style.css"
+import ModalCreateaSPRace from './Modal Create SP';
 function Erlangga() {
     const { RangePicker } = DatePicker;
+    const [modal1Open, setModal1Open] = useState(false);
     const [Data, setData] = useState({
         Data: null,
         Data_Tanggal: null,
@@ -16,6 +18,9 @@ function Erlangga() {
     })
     const [Keyword, setKeyword] = useState("")
     const datenya = (date, datanggal) => {
+        console.log(datanggal);
+        const formattedStartDate = moment(datanggal[0]).format("YYYY-M-D");
+        const formattedEndDate = moment(datanggal[1]).format("YYYY-M-D");
         if (datanggal[0] === "") {
             return null
         } else {
@@ -23,36 +28,98 @@ function Erlangga() {
                 ...sebelumnya,
                 Data_Tanggal: datanggal
             }))
-            const GetDataTanggal = async () => {
-                let datas = "ada"
-                try {
-                    const data = await axios.get(`${BaseUrlRace}sp/get-data-erl?dateForm=${datanggal[0]}&dateTo=${datanggal[1]}&wh=511`)
-                    notification.success({
-                        message: data.data.status.message,
-                    })
-                    console.log(data.response);
+            // const GetDataTanggal = async () => {
+            //     let datas = "ada"
+            //     try {
+            //         const data = await axios.get(`${BaseUrlRace}sp/get-data-erl?dateForm=${formattedStartDate}&dateTo=${formattedEndDate}&wh=511`, {
+            //             headers: {
+            //                 "Content-Type": "application/json",
+            //                 Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
+            //                 // Authorization: localStorage.getItem("token"),
+            //             },
+            //         })
+            //         Refresh()
+            //         notification.success({
+            //             message: data.data.status.message,
+            //         })
+            //         console.log(data.response);
 
 
-                } catch (error) {
-                    console.log();
-                    if (error.response) {
-                        notification.error({
-                            message: error?.response?.data?.status?.message,
-                        })
-                    } else{
-                        console.log("error");
-                    }
+            //     } catch (error) {
+            //         console.log();
+            //         if (error.response) {
+            //             notification.error({
+            //                 message: error?.response?.data?.status?.message,
+            //             })
+            //         } else {
+            //             console.log("error");
+            //         }
 
-                }
+            //     }
 
-            }
-            GetDataTanggal()
+            // }
+            // GetDataTanggal()
 
         }
     }
 
+    const GetDataTanggal = async () => {
+        let datas = "ada"
+        const formattedStartDate = moment(Data.Data_Tanggal[0]).format("YYYY-M-D");
+        const formattedEndDate = moment(Data.Data_Tanggal[1]).format("YYYY-M-D");
+        try {
+            const data = await axios.get(`${BaseUrlRace}sp/get-data-erl?dateForm=${formattedStartDate}&dateTo=${formattedEndDate}&wh=511`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
+                    // Authorization: localStorage.getItem("token"),
+                },
+            })
+            Refresh()
+            notification.success({
+                message: data.data.status.message,
+            })
+            console.log(data.response);
+
+
+        } catch (error) {
+            console.log();
+            if (error.response) {
+                notification.error({
+                    message: error?.response?.data?.status?.message,
+                })
+            } else {
+                console.log("error");
+            }
+
+        }
+
+    }
+
+    const Refresh = async () => {
+        const datanya = await axios.get(`${BaseUrlRace}sp/get-data-pesanan?page=${Data?.paggination}&limit=${Data?.size}&keyword=${Keyword}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
+                    // Authorization: localStorage.getItem("token"),
+                },
+            })
+        setData(prevState => ({
+            ...prevState,
+            Data: datanya.data.data.order,
+            SizePge: datanya.data?.data.totalData
+        }));
+    }
     useEffect(async () => {
-        const datanya = await axios.get(`${BaseUrlRace}sp/get-data-pesanan?page=${Data?.paggination}&limit=${Data?.size}&keyword=${Keyword}`)
+        const datanya = await axios.get(`${BaseUrlRace}sp/get-data-pesanan?page=${Data?.paggination}&limit=${Data?.size}&keyword=${Keyword}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
+                    // Authorization: localStorage.getItem("token"),
+                },
+            })
         setData(prevState => ({
             ...prevState,
             Data: datanya.data.data.order,
@@ -68,6 +135,8 @@ function Erlangga() {
         }))
 
     }
+
+    console.log(Data.Data_Tanggal);
 
     const columns = [
         {
@@ -133,17 +202,20 @@ function Erlangga() {
         <div>
             <Card>
                 <Row >
-                    <Col sm={4} >
+                    <Col sm={3} className='ms-3'style={{backgroundColor :""}} >
                         <RangePicker
                             onChange={datenya} />
+                    </Col>
+                    <Col sm={3}>
+                        <Button type='primary' onClick={GetDataTanggal}>Sync Data</Button>
+                    </Col>
+                    <Col sm={2}>
+                        <Button onClick={() => setModal1Open(true)} type='danger'>Create SP</Button>
                     </Col>
                     <Col sm={3} >
                         <Input
                             onChange={(e) => { setKeyword(e.target.value); }}
                             placeholder='Cari No Referensi' />
-                    </Col>
-                    <Col sm={4} className='d-flex justify-content-end'>
-                        <Button type='primary'>Create SM</Button>
                     </Col>
                 </Row>
                 <style>
@@ -171,6 +243,7 @@ function Erlangga() {
                         className: 'hover-row'
                     })}
                 />
+                <ModalCreateaSPRace Refresh={Refresh} modal1Open={modal1Open} setModal1Open={setModal1Open} />
             </Card>
         </div>
     )

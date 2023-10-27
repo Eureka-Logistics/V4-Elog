@@ -1,12 +1,17 @@
-import { Input, Modal, Form, DatePicker, Upload, Button, notification } from 'antd'
+import { Input, Modal, Form, DatePicker, Upload, Button, notification, Select } from 'antd'
 import moment from 'moment';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import Baseurl from '../../../Api/BaseUrl';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import ZustandStore from '../../../zustand/Store/JenisKepemilikanOptions';
 
 function ModalVehicleDetailRace({ modal1Open, setModal1Open, DetailSemuaVehilce, setDetailSemuaVehilce }) {
+    const { DriverType, setDriverType } = ZustandStore((item) => ({
+        DriverType: item.DriverType,
+        setDriverType: item.setDriverType
+    }))
 
     function handleChange(e) {
         if (e.target.name === "jeniskepemilikan") {
@@ -15,9 +20,10 @@ function ModalVehicleDetailRace({ modal1Open, setModal1Open, DetailSemuaVehilce,
                 jenisKepemilikan: e.target.value
             }));
         } else if (e.target.name === "policeNumber") {
+
             setDetailSemuaVehilce(prevState => ({
                 ...prevState,
-                policeNumber: e.target.value
+                policeNumber: e.target.value,
             }));
         } else if (e.target.name === "vendor") {
             setDetailSemuaVehilce(prevState => ({
@@ -27,7 +33,7 @@ function ModalVehicleDetailRace({ modal1Open, setModal1Open, DetailSemuaVehilce,
         } else if (e.target.name === "vehicleType") {
             setDetailSemuaVehilce(prevState => ({
                 ...prevState,
-                vehicleType: e.target.value
+                vehicleType: e
             }));
         } else if (e.target.name === "driverName") {
             setDetailSemuaVehilce(prevState => ({
@@ -64,6 +70,11 @@ function ModalVehicleDetailRace({ modal1Open, setModal1Open, DetailSemuaVehilce,
                 ...prevState,
                 vehicleHeight: e.target.value
             }));
+        } else if (e.target.name === "kode_kendaraan") {
+            setDetailSemuaVehilce(prevState => ({
+                ...prevState,
+                kode_kendaraan: e.target.value
+            }));
         } else if (e.target.name === "bpkbNumber") {
             setDetailSemuaVehilce(prevState => ({
                 ...prevState,
@@ -86,6 +97,13 @@ function ModalVehicleDetailRace({ modal1Open, setModal1Open, DetailSemuaVehilce,
             }));
         }
     }
+    useEffect(() => {
+
+        setDriverType()
+
+    }, [])
+
+
 
     function kubikasi() {
         const hasil = Number(DetailSemuaVehilce?.vehicleLentgth) * Number(DetailSemuaVehilce?.vehicleWidth) * Number(DetailSemuaVehilce?.vehicleHeight)
@@ -97,10 +115,13 @@ function ModalVehicleDetailRace({ modal1Open, setModal1Open, DetailSemuaVehilce,
             const data = await axios.post(`${Baseurl}vehicle/edit-vehicle`,
                 {
                     ...DetailSemuaVehilce,
+                    no_polisi: DetailSemuaVehilce?.policeNumber,
+                    kode_kendaraan: DetailSemuaVehilce?.kode_kendaraan,
+                    jenis_kendaraan: DetailSemuaVehilce?.vehicleType,
+                    id_kendaraan_jenis: DetailSemuaVehilce?.id_kendaraan_jenis,
                     id: DetailSemuaVehilce.IdDriver,
-                    id_driver: DetailSemuaVehilce.id_driver,
+                    id_driver: DetailSemuaVehilce.driverId,
                     id_vendor: DetailSemuaVehilce.id_vendor,
-                    // id_jenis_kendaraan: formik.values.id_jenis_kendaraan
                 },
                 {
                     headers: {
@@ -126,10 +147,54 @@ function ModalVehicleDetailRace({ modal1Open, setModal1Open, DetailSemuaVehilce,
 
                 })
             }
-            setModal1Open(false)
+            // setModal1Open(false)
             console.log(error.response.data.status.message);
 
 
+        }
+    }
+
+    const createVehicle = async () => {
+        const formData = new FormData();
+
+        for (const key in DetailSemuaVehilce) {
+            if (DetailSemuaVehilce.hasOwnProperty(key)) {
+                formData.append(key, DetailSemuaVehilce[key]);
+            }
+        }
+
+        try {
+            const response = await axios.post(
+                `${Baseurl}vehicle/create-vehicle`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        Authorization: localStorage.getItem("token"),
+                    },
+                }
+            );
+        } catch (error) {
+            console.log(error.response.data);
+
+            if (error.response.data.errors) {
+                error.response.data.errors.forEach((errorItem) => {
+                    notification.error({
+                        message: errorItem.message
+                    });
+                });
+            }
+        }
+    }
+
+    console.log(DetailSemuaVehilce);
+    console.log(`no_polisi`, DetailSemuaVehilce.no_polisi);
+    function ValidasiTombol() {
+        if (!DetailSemuaVehilce.vehicleId) {
+            return createVehicle()
+
+        } else {
+            return EditVehicle()
         }
     }
 
@@ -142,7 +207,7 @@ function ModalVehicleDetailRace({ modal1Open, setModal1Open, DetailSemuaVehilce,
                 top: 20,
             }}
             open={modal1Open}
-            onOk={() => EditVehicle()}
+            onOk={() => ValidasiTombol()}
             onCancel={() => setModal1Open(false)}
         >
 
@@ -306,11 +371,12 @@ function ModalVehicleDetailRace({ modal1Open, setModal1Open, DetailSemuaVehilce,
                             style={{ margin: 0 }}
                         >
                             <Input
-                                value={DetailSemuaVehilce?.jenisKepemilikan}
+                                value={DetailSemuaVehilce?.kode_kendaraan}
                                 showSearch
                                 optionFilterProp="children"
                                 id=""
-                                name=""
+                                name="kode_kendaraan"
+                                onChange={(e) => handleChange(e)}
                             >
 
                             </Input>
@@ -364,16 +430,21 @@ function ModalVehicleDetailRace({ modal1Open, setModal1Open, DetailSemuaVehilce,
                             wrapperCol={{ span: 24 }}
                             style={{ marginBottom: 0 }}
                         >
-                            <Input
+                            <Select
                                 value={DetailSemuaVehilce?.vehicleType}
+                                onChange={(e, k) => console.log(e, k)}
                                 showSearch
                                 optionFilterProp="children"
                                 id=""
                                 name="vehicleType"
-                                onChange={(e) => handleChange(e)}
                             >
 
-                            </Input>
+                                {DriverType.map((item) => (
+                                    <Select.Option key={item.id} value={item.tipe}>
+                                        {item.tipe}
+                                    </Select.Option>
+                                ))}
+                            </Select>
                         </Form.Item>
                     </Col>
                     <Col sm={12}>

@@ -13,10 +13,11 @@ import PrintMasterMitra from "./routes/Print/PrintMasterMitra/PrintMasterMitra";
 import PrintSPNew from "./routes/Print/PrintSPNew/PrintSPNew";
 import EmailSM from "./routes/CopyData/Email/sm";
 import EmailSP from "./routes/CopyData/Email/sp";
+import LoginRaceCustomer from "./routes/Race/Login";
 const store = configureStore(/* provide initial state if any */);
 
 const NextApp = () => (
-  
+
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
@@ -25,6 +26,7 @@ const NextApp = () => (
         <Route path="/PrintSPNew/" component={PrintSPNew} />
         <Route path="/sm/" component={EmailSM} />
         <Route path="/sp/" component={EmailSP} />
+        <Route path="/login/race/customer" component={LoginRaceCustomer} />
         <Route path="/" component={App} />
       </Switch>
     </ConnectedRouter>

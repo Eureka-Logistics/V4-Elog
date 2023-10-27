@@ -2358,6 +2358,35 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
+                  {/* <div className="mt-3">
+                    <Menu.Item
+                      className={
+                        activeMenu === "/race/newsp"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="newsp"
+                    >
+                      <Link to="/race/newsp" style={{ textDecoration: "none" }}>
+                      
+
+                        <img
+                          src={logodashboard}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
+                         New SP
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div> */}
                   <div className="mt-4">
                     <Menu.Item
                       className={
@@ -2517,13 +2546,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <div className="mt-4">
                     <Menu.Item
                       className={
-                        activeMenu === "/race/vehicle"
+                        activeMenu === "/masterdata/purchasing/vehicle"
                           ? "menu-item-active menu-item-hover"
                           : "menu-item-hover"
                       }
                       key="vehicle"
                     >
-                      <Link to="/race/vehicle" style={{ textDecoration: "none" }}>
+                      <Link to="/masterdata/purchasing/vehicle" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
                          */}
 
@@ -2547,13 +2576,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <div className="mt-4">
                     <Menu.Item
                       className={
-                        activeMenu === "/race/driver"
+                        activeMenu === "/masterdata/purchasing/driver"
                           ? "menu-item-active menu-item-hover"
                           : "menu-item-hover"
                       }
                       key="driver"
                     >
-                      <Link to="/race/driver" style={{ textDecoration: "none" }}>
+                      <Link to="/masterdata/purchasing/driver" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
                          */}
 

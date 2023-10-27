@@ -9,6 +9,7 @@ import icondriver from "../../../../assets/img/drivericon.png"
 import telponicon from "../../../../assets/img/telponicon.png"
 import whatsappicon from "../../../../assets/img/whatsappicon.png"
 import "./style.css"
+import { getCoordinates } from '../../../../Api/Geocode';
 function SMList({ }) {
     const [Open, setOpen] = useState(false)
     const [CariSJ, SetCariSJ] = useState("")
@@ -17,7 +18,10 @@ function SMList({ }) {
         setOpen(true);
 
     };
-
+    const [AlamatMuatBongkarCoordinate, setAlamatMuatBongkarCoordinate] = useState({
+        AlamatMuat: "",
+        AlamatBongkar: "",
+    })
     const [DataApi, setDataApi] = useState({
         Data: null,
         totalData: "",
@@ -28,7 +32,7 @@ function SMList({ }) {
 
     const DataApiSM = async (s = 1) => {
         try {
-            const dataa = await axios.get(`${Baseurl}sm/get-sm?limit=${DataApi.limit}&page=${s}&keyword=${CariSJ}&kodeCabang=&mitra1=&mitra2=&mitra3=&id_bu=&id_bu_brench=`,
+            const dataa = await axios.get(`https://api.eurekalogistics.co.id/sm/get-sm?limit=${DataApi.limit}&page=${s}&keyword=${CariSJ}&kodeCabang=&mitra1=&mitra2=&mitra3=&id_bu=&id_bu_brench=`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -88,7 +92,7 @@ Salam hangat,
     const onClose = () => {
         setOpen(false);
     };
-    console.log(DetailDataPerClick?.[0]);
+    console.log(`DetailDataPerClick`, DetailDataPerClick?.[0]);
 
 
     function Paginations(s, u) {
@@ -99,6 +103,20 @@ Salam hangat,
             limit: u
         }))
     }
+
+    async function NyariAlamat() {
+        const AlamatMuat = await getCoordinates(DetailDataPerClick?.[0]?.other?.m_pengadaan_detail?.muat?.alamat_detail || DetailDataPerClick?.[0]?.other?.m_pengadaan_detail?.muat?.alamat)
+        const Bongkar = await getCoordinates(DetailDataPerClick?.[0]?.other?.m_pengadaan_detail?.bongkar?.alamat_detail || DetailDataPerClick?.[0]?.other?.m_pengadaan_detail?.bongkar?.alamat)
+        setAlamatMuatBongkarCoordinate(item => ({
+            ...item,
+            AlamatMuat: AlamatMuat,
+            AlamatBongkar: Bongkar,
+        }))
+        console.log(AlamatMuat, Bongkar);
+    }
+    console.log(`asdsadsa`, DetailDataPerClick?.[0]?.other?.m_pengadaan_detail?.bongkar?.alamat_detail);
+
+    // console.log(`AlamatMuatBongkarCoordinate`,AlamatMuatBongkarCoordinate);
     return (
         <div>
 
@@ -109,10 +127,10 @@ Salam hangat,
                 onClose={onClose}
                 open={Open}
             >
-                <Card bodyStyle={{ padding: 0 }} style={{ height: 300, overflow: 'hidden' }}>
-                    <MapContainer />
+                <Card bodyStyle={{ padding: 0 }} style={{ height: 350, overflow: 'hidden' }}>
+                    <MapContainer AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate} />
                 </Card>
-                <Card bodyStyle={{ padding: 0 }} style={{ height: 270 }}>
+                <Card bodyStyle={{ padding: 0 }} style={{ height: "auto" }}>
                     <Container>
                         <p style={{ fontWeight: "bold", fontSize: 20 }}>Informasi Driver</p>
                         {Array.isArray(DetailDataPerClick) ? DetailDataPerClick.map((i, index) => (
@@ -144,11 +162,15 @@ Salam hangat,
                                 <Row>
                                     <Col style={{ backgroundColor: "" }}>
                                         <div style={{ fontWeight: "bold" }}>Customer</div>
-                                        <div style={{ fontWeight: "bold" }}>Destination</div>
+                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>Destination</div>
+                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>Alamat Muat</div>
+                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>Alamat Bongkar</div>
                                     </Col>
                                     <Col >
                                         <div style={{ fontWeight: "bold" }}>{DetailDataPerClick?.[0]?.customer}</div>
-                                        <div style={{ fontWeight: "bold" }}>{DetailDataPerClick?.[0]?.destination}</div>
+                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>{DetailDataPerClick?.[0]?.destination}</div>
+                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>{DetailDataPerClick?.[0]?.other?.m_pengadaan_detail?.muat?.alamat_detail}</div>
+                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>{DetailDataPerClick?.[0]?.other?.m_pengadaan_detail?.bongkar?.alamat_detail}</div>
                                     </Col>
                                 </Row>
                             </Col>
@@ -199,16 +221,15 @@ Salam hangat,
                     // rest of your code
                     return (
                         <Col sm={12} md={6} >
-                            <Card hoverable onClick={(e) => {
-
+                            <Card hoverable onClick={async (e) => {
                                 if (Array.isArray(i)) {
                                     setDetailDataPerClick(i);
                                 } else {
                                     // Handle the error or set a default value
                                     setDetailDataPerClick([i]);
                                 }
-
-                                showDefaultDrawer(i)
+                                 showDefaultDrawer(i)
+                                 NyariAlamat()
                             }} style={{ height: 230, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}>
                                 <Container>
                                     <Row style={{ marginTop: -10 }}>
@@ -248,7 +269,7 @@ Salam hangat,
 
                                     <Row style={{ backgroundColor: "" }}>
                                         <Col sm={4} md={4}>
-                                            <p style={{ marginTop: "20px" }}>Kendaraan Pickup</p>
+                                            <p style={{ marginTop: "20px", fontWeight: "bold" }}>Kendaraan Pickup</p>
                                             <p style={{ marginTop: "-10px", fontWeight: "bold" }}>{i?.kendaraanPickup}</p>
                                         </Col>
                                         <Col sm={4} md={4}>

@@ -2,7 +2,7 @@ import { Button, Card, Checkbox } from 'antd'
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
 import CardMappingStoreRace from '../../../../../zustand/Store/DriverMappingCardRace/MappingStore';
-function CardMapping({ onAdd }) {
+function CardMapping({ onAdd , DataApi }) {
     const { selectedData, addData, removeData } = CardMappingStoreRace();
     const data = [
         {
@@ -59,8 +59,8 @@ function CardMapping({ onAdd }) {
     }
     return (
         <div>
-            {data.map(item => (
-                <Card key={item.id} style={{ padding: "0px", borderRadius: "10px" }}>
+            {DataApi && DataApi.map(item => (
+                <Card key={item.sp} style={{ padding: "0px", borderRadius: "10px" }}>
                     <Row style={{ backgroundColor: "", height: 30 }}>
                         <Col sm={1}>
                             <Checkbox onChange={(e) => {  handleCheckboxChange(item , e) }} style={{ width: 20, height: 20 }} />
@@ -68,7 +68,7 @@ function CardMapping({ onAdd }) {
 
                         </Col>
                         <Col>
-                            <h4>{item.id}</h4>
+                            <h4>{item.sp}</h4>
                         </Col>
                         <Col className='d-flex justify-content-end'>
                             <Button disabled={item.status === "Waiting"} style={{ height: 30, width: 80 }}>
@@ -83,37 +83,37 @@ function CardMapping({ onAdd }) {
                         <Col className='d-flex justify-content-start' style={{}} sm={5}>
                             <p>Tanggal Pick Up</p>
                         </Col>
-                        <Col style={{ marginTop: -15 }} sm={8}>
-                            <p style={{ fontSize: "16px", fontWeight: "bold" }}>{item.pelanggan}</p>
+                        <Col style={{ marginTop: -15 }} sm={7}>
+                            <p style={{ fontSize: "16px", fontWeight: "bold" }}>{item.customer}</p>
                         </Col>
                         <Col style={{ marginTop: -15 }} sm={4}>
-                            <p style={{ fontSize: "16px", fontWeight: "bold" }}>{item.tanggalPickUp}</p>
+                            <p style={{ fontSize: "16px", fontWeight: "bold" }}>{item.pickupDate}</p>
                         </Col>
                     </Row>
                     <Row>
                         <Col sm={3}>
-                            <p>Asal Muatan</p>
+                            <p>Penerima</p>
                         </Col>
                         <Col sm={3} className='d-flex justify-content-start'>
                             <p>Tujuan Muatan</p>
                         </Col>
                         <Col sm={3} className='d-flex justify-content-start'>
-                            <p>Kendaraan</p>
+                            <p>koli</p>
                         </Col>
                         <Col sm={3} className='d-flex justify-content-start' style={{}}>
-                            <p>Tonase</p>
+                            <p>Qty</p>
                         </Col>
                         <Col sm={3} style={{ marginTop: -15 }}>
-                            <p style={{ fontSize: "16px", fontWeight: "bold" }}>{item.asalMuatan}</p>
+                            <p style={{ fontSize: "12px", fontWeight: "bold" }}>{item.penerima}</p>
                         </Col>
                         <Col sm={3} className='d-flex justify-content-start' style={{ marginTop: -15 }}>
-                            <p style={{ fontSize: "16px", fontWeight: "bold" }}>{item.tujuanMuatan}</p>
+                            <p style={{ fontSize: "12px", fontWeight: "bold" }}>{item.tujuan}</p>
                         </Col>
                         <Col sm={3} className='d-flex justify-content-start' style={{ marginTop: -15 }}>
-                            <p style={{ fontSize: "16px", fontWeight: "bold" }}>{item.kendaraan}</p>
+                            <p style={{ fontSize: "16px", fontWeight: "bold" }}>{item.koli}</p>
                         </Col>
                         <Col sm={3} className='d-flex justify-content-start' style={{ marginTop: -15 }}>
-                            <p style={{ fontSize: "16px", fontWeight: "bold" }}>{item.tonase}</p>
+                            <p style={{ fontSize: "16px", fontWeight: "bold" }}>{item.qty}</p>
                         </Col>
 
                     </Row>

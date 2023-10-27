@@ -26,7 +26,7 @@ function ListPengiriman({ setOpen, CariDisini }) {
     })
     const SpAll = async (page = 1) => {
         try {
-            const datsa = await axios.get(`${Baseurl}sp/get-SP-all?limit=${Spdata?.size}&page=${page}&keyword=${CariDisini}&statusSP=&customerId=&codeBrench=JKT&sales=&buId=`,
+            const datsa = await axios.get(`https://api.eurekalogistics.co.id/sp/get-SP-all?limit=${Spdata?.size}&page=${page}&keyword=${CariDisini}&statusSP=&customerId=&codeBrench=JKT&sales=&buId=`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -118,6 +118,11 @@ function ListPengiriman({ setOpen, CariDisini }) {
             title: "Destination",
             dataIndex: 'destination',
             key: 'destination',
+            render:(destination)=>{
+                return(
+                    <p>{destination === null ? "-" : destination}</p>
+                )
+            }
         },
         // {
         //     title: "Sales",
