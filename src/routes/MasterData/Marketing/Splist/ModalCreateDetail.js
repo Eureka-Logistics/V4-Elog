@@ -415,8 +415,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
             return (HasilTarifNumerik * berat) + totalBiayaTambahan;
         } else if (DetailSemua?.service === 'Charter') {
             return HasilTarifNumerik + totalBiayaTambahan;
-        } else if (DetailSemua?.service?.toLowerCase() === 'retail' || DetailSemua?.service?.toLowerCase() === 'retailer') {
-            return (HasilTarifNumerik * berat) + totalBiayaTambahan;
+        } else if ( formik.values.via === "laut" && DetailSemua?.service?.toLowerCase() === 'retail' || DetailSemua?.service?.toLowerCase() === 'retailer') {
+            return HasilTarifNumerik + totalBiayaTambahan;
         }
     };
 
