@@ -337,7 +337,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     };
 
     const service = GetTarifOptions.map((i) => (
-        i.service_type
+        i?.service_type
     ))
     // console.log(`DetailSemua?.service`, DetailSemua?.service);
 
@@ -429,7 +429,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     }, [HasilTarif, formik.values.lain, formik.values.biayaselanjutnya, formik.values.biayamaxtonase, formik.values.biayajalan, formik.values.tambahan, formik.values.overtonase, formik.values.totalCreate, formik.values.shipment, formik.values.berat, formik.values.bongkar, formik.values.biayamuat, formik.values.biayamultimuat, formik.values.biayamultidrop, formik.values.biayamel]);
 
 
-    console.log(`formik.via`, formik.values.jenisKiriman);
+    console.log(`formik.via`, formik?.values?.jenisKiriman);
 
     const labelpilihan = () => {
         if (formik.values.pilihanberat === 1) {
