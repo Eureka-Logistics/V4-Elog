@@ -2015,8 +2015,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     {GetTarifOptions && GetTarifOptions
                                         .filter(item => item?.service_type === DetailSemua?.service)
                                         .map((item) => (
-                                            <Select.Option biaya_overtonase={item?.biaya_overtonase} biaya_tambahan={item?.biaya_tambahan} biaya_lain={item?.biaya_lain} biaya_jalan={item?.biaya_jalan} biaya_mel={item?.biaya_mel} biaya_multidrop={item?.biaya_multidrop} key={item?.kotaTujuan} biaya_muat={item?.biaya_muat} biaya_multimuat={item?.biaya_multimuat} biaya_bongkar={item?.biaya_bongkar} value={item?.id_price}>
-                                                Kendaraan:<Tag color='blue'>{item?.kendaraanJenis}</Tag>via:<Tag color='gold'>{item?.via}</Tag>Shipment:<Tag color='cyan'>{item?.service_type}</Tag>Tarif:<Tag color='green'>{item?.biaya_jalan}</Tag>
+                                            <Select.Option biaya_overtonase={item.biaya_overtonase} biaya_tambahan={item.biaya_tambahan} biaya_lain={item.biaya_lain} biaya_jalan={item.biaya_jalan} biaya_mel={item.biaya_mel} biaya_multidrop={item.biaya_multidrop} key={item.kotaTujuan} biaya_muat={item.biaya_muat} biaya_multimuat={item.biaya_multimuat} biaya_bongkar={item.biaya_bongkar} value={item.id_price}>
+                                                Kendaraan:<Tag color='blue'>{item.kendaraanJenis}</Tag>via:<Tag color='gold'>{item.via}</Tag>Shipment:<Tag color='cyan'>{item.service_type}</Tag>Tarif:<Tag color='green'>{item.biaya_jalan}</Tag>
                                             </Select.Option>
                                         ))
                                     }
@@ -2049,8 +2049,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     onBlur={formik.handleBlur}
                                 >
                                     {AlamatInvoiceOptions && AlamatInvoiceOptions.map((item) => (
-                                        <Select.Option key={item?.addressId} value={item?.address}>
-                                            {item?.address}
+                                        <Select.Option key={item.addressId} value={item.address}>
+                                            {item.address}
                                         </Select.Option>
                                     ))}
                                 </Select>
