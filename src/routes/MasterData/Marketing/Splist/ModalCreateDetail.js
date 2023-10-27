@@ -660,14 +660,14 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     {GetTarifOptions && GetTarifOptions
                                         // .filter(item => item.service_type.toLowerCase() === DetailSemua?.service.toLowerCase())
                                         .map((item) => (
-                                            <Select.Option id_kendaraan_jenis={item.id_kendaraan_jenis} biaya_overtonase={item.biaya_overtonase} biaya_tambahan={item.biaya_tambahan} biaya_lain={item.biaya_lain} biaya_jalan={item.biaya_jalan} biaya_mel={item.biaya_mel} biaya_multidrop={item.biaya_multidrop} key={item.kotaTujuan} biaya_muat={item.biaya_muat} biaya_multimuat={item.biaya_multimuat} biaya_bongkar={item.biaya_bongkar} value={item.id_price}>
-                                                Kendaraan:<Tag color='blue'>{item.kendaraanJenis}</Tag>
-                                                via:<Tag color='gold'>{item.via}</Tag>
-                                                Shipment:{item.service_type.toLowerCase() === "retailer" || item.service_type.toLowerCase() === "retail" ? <Tag color='red'>{item.service_type}</Tag> : <Tag color='purple'>{item.service_type}</Tag>}
+                                            <Select.Option id_kendaraan_jenis={item?.id_kendaraan_jenis} biaya_overtonase={item?.biaya_overtonase} biaya_tambahan={item?.biaya_tambahan} biaya_lain={item?.biaya_lain} biaya_jalan={item?.biaya_jalan} biaya_mel={item?.biaya_mel} biaya_multidrop={item?.biaya_multidrop} key={item?.kotaTujuan} biaya_muat={item?.biaya_muat} biaya_multimuat={item?.biaya_multimuat} biaya_bongkar={item?.biaya_bongkar} value={item?.id_price}>
+                                                Kendaraan:<Tag color='blue'>{item?.kendaraanJenis}</Tag>
+                                                via:<Tag color='gold'>{item?.via}</Tag>
+                                                Shipment:{item?.service_type.toLowerCase() === "retailer" || item?.service_type.toLowerCase() === "retail" ? <Tag color='red'>{item?.service_type}</Tag> : <Tag color='purple'>{item?.service_type}</Tag>}
                                                 Tarif:<Tag color='green'>
-                                                    {item.biaya_jalan}
+                                                    {item?.biaya_jalan}
                                                 </Tag>
-                                                Jenis Kiriman : <Tag color='blue'>{item.jenisKiriman}</Tag>
+                                                Jenis Kiriman : <Tag color='blue'>{item?.jenisKiriman}</Tag>
                                             </Select.Option>
                                         ))
                                     }
@@ -704,8 +704,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     onBlur={formik.handleBlur}
                                 >
                                     {detailalamatbenran && detailalamatbenran.map((item) => (
-                                        <Select.Option key={item.id} value={item.address}>
-                                            {item.address}
+                                        <Select.Option key={item?.id} value={item?.address}>
+                                            {item?.address}
                                         </Select.Option>
                                     ))}
                                 </Select>
