@@ -1465,7 +1465,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                             </Col>
                         )}
 
-                        {DetailSemua?.service.toLowerCase() === "retail" || DetailSemua?.service.toLowerCase() === "retailer" &&(
+                        {DetailSemua?.service === "retail" || DetailSemua?.service === "retailer" &&(
                             <>
                                 <Col sm={3}>
                                     <Form.Item
