@@ -22,7 +22,8 @@ function SpListRace() {
     const onClose = () => {
         setOpen(false);
     };
-
+    const [CariDisini, setCariDisini] = useState("")
+    console.log(CariDisini);
     const pindahdetailsp = () => {
         history.push(`/race/detailsplistrace/:idmp`)
     }
@@ -151,10 +152,10 @@ Salam hangat,
                     </h5>
                 </Col>
                 <Col sm={3}>
-                    <Input style={{ Width: "400px", height: "50px" }} addonBefore={<SearchOutlined />} placeholder='Cari Disini' />
+                    <Input onChange={(e) => setCariDisini(e.target.value)} style={{ Width: "400px", height: "50px" }} addonBefore={<SearchOutlined />} placeholder='Cari Disini' />
                 </Col>
             </Row>
-            <ListPengiriman setOpen={setOpen} />
+            <ListPengiriman CariDisini={CariDisini} setOpen={setOpen} />
         </div>
     )
 }

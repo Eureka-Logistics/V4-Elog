@@ -36,7 +36,7 @@ const CardMappingStoreRace = create(set => ({
     selectedData: [],
     gabunganData: [],
     addData: (data) => set(state => ({ selectedData: [...state.selectedData, data] })),
-    removeData: (id) => set(state => ({ selectedData: state.selectedData.filter(data => data.id !== id) })),
+    removeData: (sp) => set(state => ({ selectedData: state.selectedData.filter(data => data.sp !== sp) })),
     setGabunganData: (newData) => set(state => ({ gabunganData: newData })),
 }));
 

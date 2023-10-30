@@ -21,6 +21,10 @@ import splistrace from "../../assets/img/sprace.png";
 import perbaikanrace from "../../assets/img/perbaikanrace.png";
 import vehiclerace from "../../assets/img/vehicle.png";
 import emergencyrace from "../../assets/img/emergencyrace.png";
+import DriverLogo from "../../assets/img/Driver@4x.png";
+import CodLogo from "../../assets/img/Cod.png";
+import ErlanggLogo from "../../assets/img/ErlanggLogo.png";
+import SjList from "../../assets/img/SjList.png";
 import { Button } from "react-bootstrap";
 import {
   CarTwoTone,
@@ -95,6 +99,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
   useEffect(() => {
     setActiveMenu(location.pathname);
   }, [location]);
+  
+
   return (
     <>
       <SidebarLogo
@@ -112,7 +118,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
                   className="gx-size-50 gx-pointer gx-mr-4"
                   alt=""
-                  style={{width: '100%'}}
+                  style={{ width: '100%' }}
                 />
                 <div >
                   <b style={{ color: "black" }}>
@@ -2320,7 +2326,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 </Menu.Item>
               )}
               {/* ////Login Race///// */}
-              {jobdesk == "rcadmin" && (
+              {jobdesk === "rcadmin" && (
                 <>
                   <div className="mt-3">
                     <Menu.Item
@@ -2352,6 +2358,35 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
+                  {/* <div className="mt-3">
+                    <Menu.Item
+                      className={
+                        activeMenu === "/race/newsp"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="newsp"
+                    >
+                      <Link to="/race/newsp" style={{ textDecoration: "none" }}>
+                      
+
+                        <img
+                          src={logodashboard}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
+                         New SP
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div> */}
                   <div className="mt-4">
                     <Menu.Item
                       className={
@@ -2388,6 +2423,39 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <div className="mt-4">
                     <Menu.Item
                       className={
+                        activeMenu === "/race/sjlist"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="sjlist"
+                    >
+                      <Link
+                        to="/race/sjlist"
+                        style={{ textDecoration: "none" }}
+                      >
+                        {/* <i className="icon icon-widgets" />
+                         */}
+
+                        <img
+                          src={SjList}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
+                          SJ List
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="mt-4">
+                    <Menu.Item
+                      className={
                         activeMenu === "/erlangga"
                           ? "menu-item-active menu-item-hover"
                           : "menu-item-hover"
@@ -2399,7 +2467,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                          */}
 
                         <img
-                          src={historyrace}
+                          src={ErlanggLogo}
                           style={{
                             fontSize: "30px",
                             color: "white",
@@ -2410,7 +2478,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                           className="mx-3"
                           style={{ fontWeight: "bold", color: "white" }}
                         >
-                          Erlangga  
+                          Erlangga
                         </span>
                       </Link>
                     </Menu.Item>
@@ -2459,7 +2527,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                          */}
 
                         <img
-                          src={perbaikanrace}
+                          src={CodLogo}
                           style={{
                             fontSize: "30px",
                             color: "white",
@@ -2478,13 +2546,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <div className="mt-4">
                     <Menu.Item
                       className={
-                        activeMenu === "/race/vehicle"
+                        activeMenu === "/masterdata/purchasing/vehicle"
                           ? "menu-item-active menu-item-hover"
                           : "menu-item-hover"
                       }
                       key="vehicle"
                     >
-                      <Link to="/race/vehicle" style={{ textDecoration: "none" }}>
+                      <Link to="/masterdata/purchasing/vehicle" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
                          */}
 
@@ -2500,7 +2568,37 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                           className="mx-3"
                           style={{ fontWeight: "bold", color: "white" }}
                         >
-                         Kendaraan
+                          Kendaraan
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="mt-4">
+                    <Menu.Item
+                      className={
+                        activeMenu === "/masterdata/purchasing/driver"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="driver"
+                    >
+                      <Link to="/masterdata/purchasing/driver" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" />
+                         */}
+
+                        <img
+                          src={DriverLogo}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
+                          Driver
                         </span>
                       </Link>
                     </Menu.Item>
@@ -2521,7 +2619,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         />
                         <span
                           className="mx-3"
-                          style={{ fontWeight: "bold", color: "white" , overflow :"hidden"}}
+                          style={{ fontWeight: "bold", color: "white", overflow: "hidden" }}
                         >
                           Emergency
                         </span>

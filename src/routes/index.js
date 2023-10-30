@@ -804,7 +804,7 @@ const App = ({ match }) => {
           )}
         />
         <Route
-          path={`${match.url}race/detailsplistrace/:idmp`}
+          path={`${match.url}race/detailsplistrace/:idmp/:id_msm`}
           component={asyncComponent(() =>
             import("../routes/Race/WebAdmin/splist/Detailsplist/index")
           )}
@@ -834,9 +834,27 @@ const App = ({ match }) => {
           )}
         />
         <Route
+          path={`${match.url}race/sjlist`}
+          component={asyncComponent(() =>
+            import("../routes/Race/WebAdmin/SMList/index")
+          )}
+        />
+        <Route
           path={`${match.url}race/vehicle`}
           component={asyncComponent(() =>
             import("../routes/Race/WebAdmin/List Vehicle/index")
+          )}
+        />
+        {/* <Route
+          path={`${match.url}race/newsp`}
+          component={asyncComponent(() =>
+            import("../routes/Race/WebAdmin/splist/CreateNewSPpRace")
+          )}
+        /> */}
+        <Route
+          path={`${match.url}race/driver`}
+          component={asyncComponent(() =>
+            import("../routes/Race/WebAdmin/List Driver/index")
           )}
         />
         <Route

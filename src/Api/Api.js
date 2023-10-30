@@ -1,5 +1,5 @@
 import axios from "axios";
-import Baseurl from "./BaseUrl"
+import Baseurl, { BaseUrlRace } from "./BaseUrl"
 export const httpClient = axios.create({
   baseURL: Baseurl,
   headers: {
@@ -7,3 +7,5 @@ export const httpClient = axios.create({
     Authorization: localStorage.getItem("token"),
   },
 });
+
+

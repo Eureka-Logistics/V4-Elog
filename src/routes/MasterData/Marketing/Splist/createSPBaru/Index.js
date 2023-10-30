@@ -32,7 +32,7 @@ function Index() {
   const [diskonselect, setDiskonSelect] = useState("");
   const [diskonselectValue, setDiskonSelectValue] = useState("");
   const [serviceSelect, setServiceSelect] = useState("");
-  const [serviceSelectValue, setServiceSelectValue] = useState("Charter");
+  const [serviceSelectValue, setServiceSelectValue] = useState("charter");
   const [insuranceSelect, setInsuranceSelect] = useState("");
   const [insuranceSelects, setInsuranceSelects] = useState("N");
   const [packingValue, setpackingValue] = useState("");
@@ -298,8 +298,8 @@ console.log(`packingValues`,packingValues);
               <FormGroup>
                 <Form.Label>Service</Form.Label>
                 <Form.Select onChange={(e) => setServiceSelectValue(e.target.value)} type="text">
-                  <option value={"Charter"}>Charter</option>
-                  <option value={"Retail"}>Retail</option>
+                  <option value={"charter"}>Charter</option>
+                  <option value={"retailer"}>retailer</option>
                   {/* {serviceSelect &&
                     serviceSelect.map((item) => <option value={item.tipe}>{item.tipe}</option>)} */}
                 </Form.Select>

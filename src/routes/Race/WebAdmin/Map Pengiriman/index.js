@@ -1,12 +1,15 @@
 import { Button, Card, Checkbox, Select } from 'antd'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import CardMapping from './CardComponent Mapping/index'
 import "./style.css"
 import MappingDriverCard from './MaapingDriverCard'
 import CardMappingStoreRace from '../../../../zustand/Store/DriverMappingCardRace/MappingStore'
+import axios from 'axios'
+import { BaseUrlRace } from '../../../../Api/BaseUrl'
 function MapPengiriman() {
-    const { selectedData, addData, removeData, drivers,setGabunganData } = CardMappingStoreRace();
+    const { selectedData, addData, removeData, drivers, setGabunganData } = CardMappingStoreRace();
+    const [DataApi, setmapping] = useState("")
     console.log("selectedData", selectedData);
     const handleSelect = (driverId) => {
         const selectedDriver = drivers.find(driver => driver.id === driverId);
@@ -16,6 +19,26 @@ function MapPengiriman() {
             setGabunganData(updatedSelectedData)
         }
     };
+    const PengadaanDetail = async () => {
+        try {
+            const data = await axios.get(`${BaseUrlRace}sp/get-pengadaan-detail`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.getItem('token'),
+                    },
+                }
+            )
+            console.log(data.data.data);
+            setmapping(data.data.data)
+        } catch (error) {
+
+        }
+    }
+    useEffect(() => {
+        PengadaanDetail()
+    }, [])
+
     return (
         <div>
             <Row>
@@ -36,7 +59,7 @@ function MapPengiriman() {
                         </Col>
                     </Row>
                     <div className="div-no-scrollbar" style={{ padding: "0px", height: "800px", backgroundColor: "", overflow: "auto" }}>
-                        <CardMapping />
+                        <CardMapping  DataApi={DataApi}/>
                     </div>
 
 
@@ -45,7 +68,7 @@ function MapPengiriman() {
                     <Card className="div-no-scrollbar" style={{ padding: "0px", height: "800px", backgroundColor: "", overflow: "auto" }} >
                         <Row>
                             <h5>Driver Tersedia</h5>
-                            <MappingDriverCard />
+                            <MappingDriverCard  DataApi={DataApi}/>
                         </Row>
                     </Card>
                 </Col>

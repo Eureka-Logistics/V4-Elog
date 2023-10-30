@@ -7,7 +7,7 @@ import CardMappingStoreRace from '../../../../../zustand/Store/DriverMappingCard
 import { database } from "../../../../../firebase/firebase"
 import { getDatabase, ref, get, set, push, on, off } from "firebase/database";
 
-function MappingDriverCard() {
+function MappingDriverCard({DataApi}) {
     const [availableDrivers, setAvailableDrivers] = useState([]);
     const [cards, setCards] = useState([{ id: 1 }, { id: 2 }]); // asumsi mula-mula ada dua cards
     const [isHidden, setIsHidden] = useState(false); // state untuk menyembunyikan atau menampilkan cards
