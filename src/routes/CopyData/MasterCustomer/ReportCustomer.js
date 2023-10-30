@@ -122,27 +122,27 @@ function ReportCustomer() {
       key: "sp",
       render: (sp) => <Tag color="blue">{sp}</Tag>,
     },
-    {
-      title: "No SPK",
-      dataIndex: "spk",
-      key: "spk",
-      render: (spk) => <Tag color="volcano">{spk}</Tag>,
-    },
+    // {
+    //   title: "No SPK",
+    //   dataIndex: "spk",
+    //   key: "spk",
+    //   render: (spk) => <Tag color="volcano">{spk}</Tag>,
+    // },
     {
       title: "Nama Sales",
       dataIndex: "salesName",
       key: "salesName",
     },
-    {
-      title: "Service",
-      dataIndex: "service",
-      key: "service",
-    },
-    {
-      title: "Jenis Barang",
-      dataIndex: "jenisBarang",
-      key: "jenisBarang",
-    },
+    // {
+    //   title: "Service",
+    //   dataIndex: "service",
+    //   key: "service",
+    // },
+    // {
+    //   title: "Jenis Barang",
+    //   dataIndex: "jenisBarang",
+    //   key: "jenisBarang",
+    // },
     // {
     //   title: "Via",
     //   dataIndex: "via",
@@ -153,24 +153,24 @@ function ReportCustomer() {
       dataIndex: "kendaraan",
       key: "kendaraan",
     },
-    {
-      title: "Status",
-      dataIndex: "starus",
-      key: "starus",
-      render: (starus) => (
-        <Tag color={starus === "Aktif" ? "green" : "red"}>{starus}</Tag>
-      ),
-    },
+    // {
+    //   title: "Status",
+    //   dataIndex: "starus",
+    //   key: "starus",
+    //   render: (starus) => (
+    //     <Tag color={starus === "Aktif" ? "green" : "red"}>{starus}</Tag>
+    //   ),
+    // },
     {
       title: "Nama Perusahaan",
       dataIndex: "perusahaan",
       key: "perusahaan",
     },
-    {
-      title: "Nama Penginput",
-      dataIndex: "adminName",
-      key: "adminName",
-    },
+    // {
+    //   title: "Nama Penginput",
+    //   dataIndex: "adminName",
+    //   key: "adminName",
+    // },
     {
       title: "Destination",
       dataIndex: "destination",
