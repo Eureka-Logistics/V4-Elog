@@ -1,4 +1,4 @@
-import { Button, Card, DatePicker, Input, Row, Table, notification } from 'antd'
+import { Button, Card, DatePicker, Input, Row, Select, Table, notification } from 'antd'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { BaseUrlRace } from '../../../Api/BaseUrl';
@@ -62,13 +62,13 @@ function Erlangga() {
 
         }
     }
-
-    const GetDataTanggal = async () => {
+    const [PilihCabang, setPilihCabang] = useState(511)
+    const GetDataTanggal = async (e) => {
         let datas = "ada"
         const formattedStartDate = moment(Data.Data_Tanggal[0]).format("YYYY-M-D");
         const formattedEndDate = moment(Data.Data_Tanggal[1]).format("YYYY-M-D");
         try {
-            const data = await axios.get(`${BaseUrlRace}sp/get-data-erl?dateForm=${formattedStartDate}&dateTo=${formattedEndDate}&wh=511`, {
+            const data = await axios.get(`${BaseUrlRace}sp/get-data-erl?dateForm=${formattedStartDate}&dateTo=${formattedEndDate}&wh=${PilihCabang}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
@@ -125,7 +125,7 @@ function Erlangga() {
             Data: datanya.data.data.order,
             SizePge: datanya.data?.data.totalData
         }));
-    }, [Data?.paggination, Data?.size, Keyword])
+    }, [Data?.paggination, Data?.size, Keyword, PilihCabang])
 
     function Pageination(page, size) {
         setData(data => ({
@@ -136,7 +136,6 @@ function Erlangga() {
 
     }
 
-    console.log(Data.Data_Tanggal);
 
     const columns = [
         {
@@ -202,20 +201,42 @@ function Erlangga() {
         <div>
             <Card>
                 <Row >
-                    <Col sm={3} className='ms-3'style={{backgroundColor :""}} >
+                    <Col md={3} style={{ backgroundColor: "" }} >
                         <RangePicker
                             onChange={datenya} />
                     </Col>
-                    <Col sm={3}>
+                    <Col md={3}>
                         <Button type='primary' onClick={GetDataTanggal}>Sync Data</Button>
+
                     </Col>
-                    <Col sm={2}>
+                    <Col md={3}>
                         <Button onClick={() => setModal1Open(true)} type='danger'>Create SP</Button>
+
                     </Col>
-                    <Col sm={3} >
+                    <Col md={3} >
                         <Input
                             onChange={(e) => { setKeyword(e.target.value); }}
                             placeholder='Cari No Referensi' />
+                    </Col>
+                    <Col md={3}>
+                        <Select
+                            placeholder="Pilih Cabang"
+                            style={{ width: "100%" }}
+                            onChange={(e) => setPilihCabang(e)}
+                        >
+                            <Select.Option value="510">510</Select.Option>
+                            <Select.Option value="511">511</Select.Option>
+                            <Select.Option value="512">512 - Banten</Select.Option>
+                            <Select.Option value="513">513 - DKI Retail</Select.Option>
+                            <Select.Option value="514">514 - DKI Direct</Select.Option>
+                            <Select.Option value="515">515</Select.Option>
+                            <Select.Option value="516">516</Select.Option>
+                            <Select.Option value="517">517 - Banten</Select.Option>
+                            <Select.Option value="518">518 - Bogor</Select.Option>
+                            <Select.Option value="519">519</Select.Option>
+                            <Select.Option value="520">520</Select.Option>
+                            <Select.Option value="521">521</Select.Option>
+                        </Select>
                     </Col>
                 </Row>
                 <style>
@@ -228,9 +249,7 @@ function Erlangga() {
                 </style>
                 <Table className='mt-3 ' loading={!Data.Data} columns={columns} dataSource={Data.Data}
                     pagination={{
-                        // current: currentPage, // halaman saat ini
-                        // pageSize: itemsPerPage, // jumlah item per halaman
-                        total: Data.SizePge, // total jumlah item
+                        total: Data.SizePge,
                         onChange: (page, size) => {
                             Pageination(page, size)
 

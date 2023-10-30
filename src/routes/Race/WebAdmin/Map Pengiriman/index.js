@@ -10,7 +10,7 @@ import { BaseUrlRace } from '../../../../Api/BaseUrl'
 function MapPengiriman() {
     const { selectedData, addData, removeData, drivers, setGabunganData } = CardMappingStoreRace();
     const [DataApi, setmapping] = useState("")
-    console.log("selectedData", selectedData);
+    const [OptionNamaNamaDriver, setOptionNamaNamaDriver] = useState("")
     const handleSelect = (driverId) => {
         const selectedDriver = drivers.find(driver => driver.id === driverId);
         if (selectedDriver) {
@@ -35,8 +35,53 @@ function MapPengiriman() {
 
         }
     }
+    const SelectDriver = async () => {
+        try {
+            const data = await axios.get(`${BaseUrlRace}sp/get-driver-approve`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.getItem('token'),
+                    },
+                }
+            )
+            console.log(data.data.data);
+            setOptionNamaNamaDriver(data.data.data);
+        } catch (error) {
+
+        }
+    }
+    console.log("selectedData", selectedData);
+    // console.log("selectedData", selectedData[0].id_mpd);
+    const Approvesp = async () => {
+        const body = selectedData.map(item => ({
+            "id_mpd": item.id_mpd,
+            "id_unit": item.id_unit,
+            "id_supir": 34, // Sesuaikan dengan kebutuhan Anda
+            "kendaraan": "GRAND MAX", // Sesuaikan dengan kebutuhan Anda
+            "berat": item.berat,
+            "qty": item.qty,
+            "koli": item.koli,
+            "ikat": item.ikat
+        }));
+        try {
+            const data = await axios.post(`${BaseUrlRace}sp/approve-sp`, body,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.getItem('token'),
+                    },
+                }
+            )
+            console.log(data.data.data);
+            setOptionNamaNamaDriver(data.data.data);
+        } catch (error) {
+
+        }
+    }
     useEffect(() => {
         PengadaanDetail()
+        SelectDriver()
     }, [])
 
     return (
@@ -49,17 +94,20 @@ function MapPengiriman() {
                         </Col>
                         <Col className="d-flex justify-content-end" sm={6}>
                             <h5 style={{ color: "#5197FF" }}>
-                                {selectedData.length === 0 ? "Mapping Otomatis" :
-                                    <Select style={{ width: 300 }} placeholder="Select Driver Dan Mapping" onChange={handleSelect}>
-                                        {drivers && drivers.map((i) => (
-                                            <option key={i.id} value={i.id}>{i.name}</option>
+                                {OptionNamaNamaDriver.length === 0 ? "Mapping Otomatis" :
+                                    <Select
+                                        showSearch
+                                        optionFilterProp='children'
+                                        style={{ width: 300 }} placeholder="Select Driver Dan Mapping" onChange={Approvesp}>
+                                        {OptionNamaNamaDriver && OptionNamaNamaDriver.map((i) => (
+                                            <Select.Option key={i.idKendaraan} value={i.idDriver}>{i.Driver}</Select.Option>
                                         ))}
                                     </Select>}
                             </h5>
                         </Col>
                     </Row>
                     <div className="div-no-scrollbar" style={{ padding: "0px", height: "800px", backgroundColor: "", overflow: "auto" }}>
-                        <CardMapping  DataApi={DataApi}/>
+                        <CardMapping DataApi={DataApi} />
                     </div>
 
 
@@ -68,7 +116,7 @@ function MapPengiriman() {
                     <Card className="div-no-scrollbar" style={{ padding: "0px", height: "800px", backgroundColor: "", overflow: "auto" }} >
                         <Row>
                             <h5>Driver Tersedia</h5>
-                            <MappingDriverCard  DataApi={DataApi}/>
+                            <MappingDriverCard OptionNamaNamaDriver={OptionNamaNamaDriver} DataApi={DataApi} />
                         </Row>
                     </Card>
                 </Col>

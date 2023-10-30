@@ -13,10 +13,10 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
         seleckan_sekolah: "",
     })
     useEffect(() => {
-        if (modal1Open ) {
+        if (modal1Open) {
             SelectData()
         }
-    },[modal1Open])
+    }, [modal1Open])
 
 
     const SelectData = async () => {
@@ -31,7 +31,10 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
                     },
                 }
             );
-            console.log(data.data);
+            setSeleckan(item => ({
+                ...item,
+                seleckan_sekolah: data?.data?.sekolah?.[0]
+            }))
             let updatedSeleckanSekolah;
             if (Array.isArray(data.data.sekolah)) {
                 updatedSeleckanSekolah = data.data.sekolah;
@@ -57,7 +60,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
             "memo": Seleckan.seleckan_noref,
         }
         try {
-            const data = await axios.post(`${BaseUrlRace}sp/create-sp`, body, {
+            const data = await axios.post(`${BaseUrlRace}sp/creates-sp`, body, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
@@ -65,6 +68,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
                 },
             })
             CreateSPDetail(null)
+            setModal1Open(false)
         } catch (error) {
 
         }
@@ -96,6 +100,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
     useEffect(() => {
         SelectData();
     }, [Seleckan.seleckan_noref]);
+
     return (
         <div>
             <Modal
@@ -105,12 +110,30 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
                     top: 20,
                 }}
                 open={modal1Open}
-                onOk={() => setModal1Open(false)}
-                onCancel={() => setModal1Open(false)}
+                okText={!Seleckan.seleckan_sekolah ? "Pilih Sekolah Dahulu" : "Create SP"}
+                confirmLoading={!Seleckan.seleckan_sekolah}
+                onOk={() => {
+                    CreateSP()
+                    setSeleckan(item=>({
+                            ...item,
+                            seleckan_sekolah : "",
+                            seleckan_noref : "",
+    
+                        }))
+                }}
+                onCancel={() => {
+                    setModal1Open(false)
+                    // setSeleckan(item=>({
+                    //     ...item,
+                    //     seleckan_sekolah : "",
+                    //     seleckan_noref : "",
+
+                    // }))
+                }}
             >
                 <Form>
                     <Row>
-                        <Col style={{ backgroundColor: "" }} md={4}>
+                        <Col style={{ backgroundColor: "" }} >
                             <Form.Item
                                 label="Select Memo"
                                 labelCol={{ span: 24 }}
@@ -120,12 +143,12 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
                                     style={{ width: "100%" }}
                                     showSearch
                                     optionFilterProp='children'
+                                    value={Seleckan?.seleckan_noref}
                                     onChange={(e) => {
                                         setSeleckan(item => ({
                                             ...item,
                                             seleckan_noref: e
                                         }))
-                                        console.log(e)
 
                                     }}
                                 >
@@ -135,7 +158,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col style={{ backgroundColor: "" }} md={4}>
+                        <Col style={{ backgroundColor: "" }} >
                             <Form.Item
                                 label="Pilih Sekolah"
                                 labelCol={{ span: 24 }}
@@ -146,12 +169,14 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
                                     disabled={!Seleckan.seleckan_noref}
                                     showSearch
                                     optionFilterProp='children'
-                                    onChange={(e) => {
+                                    value={Seleckan?.seleckan_sekolah?.sekolah}
+                                    onChange={(e, key) => {
                                         setSeleckan(item => ({
                                             ...item,
                                             seleckan_sekolah: e
                                         }))
-                                        console.log(e)
+                                        // setSeleckan()
+                                        // console.log(key,e)
                                     }}
                                 // value={Seleckan?.seleckan_sekolah[0]?.sekolah}
                                 >
@@ -167,15 +192,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col className='d-flex justify-content-center' md={4}>
-                            <Form.Item
-                                label="Create SP"
-                                labelCol={{ span: 24 }}
-                                wrapperCol={{ span: 24 }}
-                            >
-                                <Button onClick={() => CreateSP()} disabled={!Seleckan.seleckan_sekolah} type='primary'>Create SP</Button>
-                            </Form.Item>
-                        </Col>
+                       
                     </Row>
                 </Form>
             </Modal>
