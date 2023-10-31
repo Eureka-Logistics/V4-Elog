@@ -10,6 +10,8 @@ import telponicon from "../../../../assets/img/telponicon.png"
 import whatsappicon from "../../../../assets/img/whatsappicon.png"
 import "./style.css"
 import { getCoordinates } from '../../../../Api/Geocode';
+import MapsGoogle from '../../../../components/MapsGoole';
+import useCoordinateRaceMap from '../../../../zustand/Store/coordinateMapRace/RaceMaps';
 function SMList({ }) {
     const [Open, setOpen] = useState(false)
     const [CariSJ, SetCariSJ] = useState("")
@@ -18,6 +20,8 @@ function SMList({ }) {
         setOpen(true);
 
     };
+    const { Coordinate, setCoordinate } = useCoordinateRaceMap()
+    console.log(`CoordinateRaceMap`, Coordinate);
     const [AlamatMuatBongkarCoordinate, setAlamatMuatBongkarCoordinate] = useState({
         AlamatMuat: "",
         AlamatBongkar: "",
@@ -40,7 +44,6 @@ function SMList({ }) {
                     },
                 }
             )
-            console.log(dataa.data.data);
             setDataApi(data => ({
                 ...data,
                 Data: dataa?.data?.data?.order,
@@ -63,14 +66,14 @@ function SMList({ }) {
 
     const history = useHistory()
     const pindahdetailsp = () => {
-        if (!DetailDataPerClick?.[0]?.other?.id_mpd || !DetailDataPerClick?.[0]?.other?.id_msm) {
+        if (!DetailDataPerClick?.other?.id_mpd || !DetailDataPerClick?.other?.id_msm) {
             notification.error({
                 message: "Error",
                 description: "Tidak ada id_mpd || id_msm",
             })
         } else {
 
-            history.push(`/race/detailsplistrace/${DetailDataPerClick?.[0]?.other?.id_mpd}/${DetailDataPerClick?.[0]?.other?.id_msm}`)
+            history.push(`/race/detailsplistrace/${DetailDataPerClick?.other?.id_mpd}/${DetailDataPerClick?.other?.id_msm}`)
         }
     }
 
@@ -92,43 +95,62 @@ Salam hangat,
     const onClose = () => {
         setOpen(false);
     };
-    console.log(`DetailDataPerClick`, DetailDataPerClick?.[0]);
 
 
     function Paginations(s, u) {
-        console.log(s, u);
         DataApiSM(s)
         setDataApi(items => ({
             ...items,
             limit: u
         }))
     }
+    const [isDataFetched, setIsDataFetched] = useState(false);
+    useEffect(() => {
+        setIsDataFetched(true)
+        const fetchData = async () => {
+            const AlamatMuat = await getCoordinates(DetailDataPerClick?.other?.m_pengadaan_detail?.muat?.alamat || DetailDataPerClick?.other?.m_pengadaan_detail?.muat?.alamat_detail);
+            const Bongkar = await getCoordinates(DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat || DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat_detail);
 
-    async function NyariAlamat() {
-        const AlamatMuat = await getCoordinates(DetailDataPerClick?.[0]?.other?.m_pengadaan_detail?.muat?.alamat_detail || DetailDataPerClick?.[0]?.other?.m_pengadaan_detail?.muat?.alamat)
-        const Bongkar = await getCoordinates(DetailDataPerClick?.[0]?.other?.m_pengadaan_detail?.bongkar?.alamat_detail || DetailDataPerClick?.[0]?.other?.m_pengadaan_detail?.bongkar?.alamat)
-        setAlamatMuatBongkarCoordinate(item => ({
-            ...item,
-            AlamatMuat: AlamatMuat,
-            AlamatBongkar: Bongkar,
-        }))
-        console.log(AlamatMuat, Bongkar);
-    }
-    console.log(`asdsadsa`, DetailDataPerClick?.[0]?.other?.m_pengadaan_detail?.bongkar?.alamat_detail);
+            setAlamatMuatBongkarCoordinate(item => ({
+                ...item,
+                AlamatMuat: AlamatMuat,
+                AlamatBongkar: Bongkar,
+            }));
+            setCoordinate({
+                AlamatMuat,
+                Bongkar,
+            });
+            // console.log(`ini dari DetailDataPerClick`, AlamatMuat);
+            // console.log(`ini dari DetailDataPerClick`, Bongkar);
+        };
+        setIsDataFetched(false)
+        fetchData();
+    }, [DetailDataPerClick]);
 
-    // console.log(`AlamatMuatBongkarCoordinate`,AlamatMuatBongkarCoordinate);
+
+
     return (
         <div>
 
+            {DetailDataPerClick ?
+            
             <Drawer
-                title={`Tracking Pengiriman` + " " + DetailDataPerClick?.[0]?.destination}
+                title={`Tracking Pengiriman` + " " + DetailDataPerClick?.destination}
                 width={3220}
                 closable={false}
                 onClose={onClose}
                 open={Open}
             >
                 <Card bodyStyle={{ padding: 0 }} style={{ height: 350, overflow: 'hidden' }}>
-                    <MapContainer AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate} />
+
+                    {!isDataFetched ? (
+
+                        <MapsGoogle AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate} width={730} height={350} />
+                    ) : (
+                        <div>Loading...</div> // tampilkan pesan loading atau komponen lainnya saat data belum selesai di-fetch
+                    )}
+
+                    {/* <MapContainer AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate} /> */}
                 </Card>
                 <Card bodyStyle={{ padding: 0 }} style={{ height: "auto" }}>
                     <Container>
@@ -167,10 +189,10 @@ Salam hangat,
                                         <div style={{ fontWeight: "bold", marginTop: 5 }}>Alamat Bongkar</div>
                                     </Col>
                                     <Col >
-                                        <div style={{ fontWeight: "bold" }}>{DetailDataPerClick?.[0]?.customer}</div>
-                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>{DetailDataPerClick?.[0]?.destination}</div>
-                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>{DetailDataPerClick?.[0]?.other?.m_pengadaan_detail?.muat?.alamat_detail}</div>
-                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>{DetailDataPerClick?.[0]?.other?.m_pengadaan_detail?.bongkar?.alamat_detail}</div>
+                                        <div style={{ fontWeight: "bold" }}>{DetailDataPerClick?.customer}</div>
+                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>{DetailDataPerClick?.destination}</div>
+                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>{DetailDataPerClick?.other?.m_pengadaan_detail?.muat?.alamat_detail}</div>
+                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>{DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat_detail}</div>
                                     </Col>
                                 </Row>
                             </Col>
@@ -193,6 +215,7 @@ Salam hangat,
                     </Container>
                 </Card>
             </Drawer>
+            : <>Loading</>}
             <Row>
                 <Col className='ms-3' sm={4} md={2}>
                     <Form.Item>
@@ -222,14 +245,9 @@ Salam hangat,
                     return (
                         <Col sm={12} md={6} >
                             <Card hoverable onClick={async (e) => {
-                                if (Array.isArray(i)) {
-                                    setDetailDataPerClick(i);
-                                } else {
-                                    // Handle the error or set a default value
-                                    setDetailDataPerClick([i]);
-                                }
-                                 showDefaultDrawer(i)
-                                 NyariAlamat()
+                                // console.log(`ini i i`, i);
+                                setDetailDataPerClick(i);
+                                showDefaultDrawer(i)
                             }} style={{ height: 230, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}>
                                 <Container>
                                     <Row style={{ marginTop: -10 }}>
@@ -286,7 +304,6 @@ Salam hangat,
                         </Col>
                     )
                 })}
-
             </Row>
         </div >
     )

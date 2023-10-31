@@ -193,12 +193,13 @@ const MapContainer = ({AlamatMuatBongkarCoordinate, google, style, origin, Kenda
             strokeColor: "blue",
           },
         });
-        directionsRendererTruck.setMap(map);
-        const routeTruck = {
-          origin: { lat: AlamatMuatBongkarCoordinate.AlamatBongkar?.lat, lng: AlamatMuatBongkarCoordinate.AlamatBongkar?.lng },
-          destination: { lat: AlamatMuatBongkarCoordinate.AlamatBongkar?.lat, lng: AlamatMuatBongkarCoordinate.AlamatBongkar?.lng },
-          travelMode: google.maps.TravelMode.DRIVING
-        };
+          directionsRendererTruck.setMap(map);
+          const routeTruck = {
+            origin: {lat:-6.3213622 , lng:106.8705039} ||{ lat: AlamatMuatBongkarCoordinate.AlamatBongkar?.lat, lng: AlamatMuatBongkarCoordinate.AlamatBongkar?.lng }  ,
+            destination:{lat:-6.3213622 , lng:106.8705039} || { lat: AlamatMuatBongkarCoordinate.AlamatBongkar?.lat, lng: AlamatMuatBongkarCoordinate.AlamatBongkar?.lng },
+            travelMode: google.maps.TravelMode.DRIVING
+          };
+       
         directionsServiceTruck.route(routeTruck, (result, status) => {
           if (status === google.maps.DirectionsStatus.OK) {
             directionsRendererTruck.setDirections(result);
@@ -228,7 +229,7 @@ const MapContainer = ({AlamatMuatBongkarCoordinate, google, style, origin, Kenda
       //   });
       // }
     }
-  }, [waypoints, google, origin, destination, KendaraanLat, KendaraanLong, LokasiTerakhir]);
+  }, [waypoints, google, origin, destination, KendaraanLat, KendaraanLong, LokasiTerakhir,AlamatMuatBongkarCoordinate.AlamatBongkar?.lat,AlamatMuatBongkarCoordinate.AlamatBongkar?.lng ,AlamatMuatBongkarCoordinate.AlamatBongkar?.lat , AlamatMuatBongkarCoordinate.AlamatBongkar?.lng]);
 
 
 
@@ -236,31 +237,9 @@ const MapContainer = ({AlamatMuatBongkarCoordinate, google, style, origin, Kenda
 
 
 
-  const handleButtonClick = () => {
-    if (KendaraanLat && KendaraanLong && mapRef.current && mapRef.current.map) {
-      const { map } = mapRef.current;
-      map.panTo(new google.maps.LatLng(KendaraanLat, KendaraanLong));
-    }
-  };
 
-  const CopyToClipboard = (text) => {
-    const navigatorClipboard = navigator.clipboard;
-    if (navigatorClipboard && navigatorClipboard.writeText) {
-      message.success('Link berhasil disalin!');
-      navigatorClipboard.writeText(text)
-        .then(() => {
-          message.success('Link berhasil disalin!');
-        })
-        .catch(err => {
-          message.error('Gagal menyalin link!');
-        });
-    } else {
-      message.error('Fungsi clipboard tidak tersedia pada browser ini.');
-    }
-  };
-  const shareLink = `http://eurekalogistics.co.id/tracking/result?nosm=${nomosm}`;
 
-  console.log(`ini validasisampaiinvalitdate woi`, AlamatMuatBongkarCoordinate);
+  // console.log(`ini validasisampaiinvalitdate woi`, AlamatMuatBongkarCoordinate);
   console.log(`ini AlamatMuatBongkarCoordinate.AlamatBongkar?.lat`, AlamatMuatBongkarCoordinate.AlamatBongkar?.lat);
   console.log(`ini AlamatMuatBongkarCoordinate.AlamatBongkar?.lat`, AlamatMuatBongkarCoordinate.AlamatBongkar?.lng);
   return (
@@ -270,20 +249,13 @@ const MapContainer = ({AlamatMuatBongkarCoordinate, google, style, origin, Kenda
         Estimasi Waktu Tempuh: {estimatedDuration}
       </div> */}
 
-      <div style={{ backgroundColor: "", width: "100%" }} className=' d-flex w-100 justify-content-between align-items-center'>
-        <Button onClick={handleButtonClick} style={{ color: "white", backgroundColor: "#ea4335" }} className='mb-2'>Cari Posisi Truck</Button>
-        <div className=' mb-2 d-flex'>
-          <Tooltip title={`Klik untuk Share Lokasi SM ini ${nomosm}`}>
-            <Button type='primary' onClick={() => CopyToClipboard(shareLink)}>Salin Tautan Tracking</Button>
-          </Tooltip>
-        </div>
-      </div>
+      
       <Map
         ref={mapRef}
         google={google}
         zoom={12}
         style={style || mapStyles}
-        initialCenter={{ lat: AlamatMuatBongkarCoordinate.AlamatBongkar?.lat, lng: AlamatMuatBongkarCoordinate.AlamatBongkar?.lng } || LokasiTerakhir || waypoints[0]}
+        initialCenter={{ lat: AlamatMuatBongkarCoordinate.AlamatBongkar?.lat, lng: AlamatMuatBongkarCoordinate.AlamatBongkar?.lng}|| {lat:-6.3213622 , lng:106.8705039} }
       >
         {/* Ini Marker mobil */}
         <Marker
