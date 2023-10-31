@@ -40,26 +40,24 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
         <div >
             {(Array.isArray(OptionNamaNamaDriver) ? OptionNamaNamaDriver : []).map((data, index) => (
                 <Card className='mt-3' style={{ borderRadius: 10, backgroundColor: "#ccd8f3", padding: "0px", margin: "0px", height: "auto" }}>
-                    <Card className='card-2' style={{ marginTop: "-15px", borderRadius: 10, marginRight: -20, marginLeft: -20 }}>
+                    <Card className='card-2' style={{ marginTop: "-15px", borderRadius: 10, marginRight: -20, marginLeft: -20, backgroundColor: "", maxHeight: 100 }}>
                         <Row >
-                            <Col style={{ backgroundColor: "" }} sm={2}>
-                                <img src={driver}></img>
+                            <Col>
+                                <Button onClick={toggleHide} style={{ marginTop: '10px', backgroundColor: "blue", color: "white", borderRadius: 10 }}>{isHidden ? 'Show' : 'Hide'}</Button>
                             </Col>
                             <Col sm={5}>
                                 <div style={{ fontWeight: "bold", fontSize: 15 }}>
                                     <Tag color='blue'>{data.Driver}</Tag>
                                 </div>
-                                <div className='mt-4' style={{ fontWeight: "bold", fontSize: 15 }}>
+                                <div className='' style={{ fontWeight: "bold", fontSize: 15 }}>
                                     {data?.Kendaraan}
                                 </div>
                             </Col>
-                            <Col sm={3} className='mt-3'>
+                            <Col sm={3} className='mt-1'>
                                 <div style={{ color: "#1F3D7D", fontSize: 15, fontWeight: "bold", textAlign: 'center' }}>Jumlah SJ</div>
                                 <div style={{ color: "#1F3D7D", fontWeight: "bold", fontSize: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{data.statusSJ?.length || 0}</div>
                             </Col>
-                            <Col>
-                                <Button onClick={toggleHide} style={{ marginTop: '10px', backgroundColor: "blue", color: "white", borderRadius: 10 }}>{isHidden ? 'Show' : 'Hide'}</Button>
-                            </Col>
+
                         </Row>
                     </Card>
                     {!isHidden ? (
@@ -68,10 +66,10 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
                                 Belum Ada Pengiriman {data?.statusSJ[0]?.customer}
                             </div>
                         ) : (
-                            <div style={{ color: "#A2A2A2", fontSize: 20, marginTop: -20 , maxHeight : 155 }}>
+                            <div style={{ color: "#A2A2A2", fontSize: 20, marginTop: -20, maxHeight: 155 }}>
                                 <div style={{ marginTop: -20 }}>
                                     {data?.statusSJ?.map((item, index) => (
-                                        <Card key={item.id} style={{ padding: "0px", borderRadius: "10px", marginRight: -20, marginLeft: -20 , maxHeight : 160 }}>
+                                        <Card key={item.id} style={{ padding: "0px", borderRadius: "10px", marginRight: -20, marginLeft: -20, maxHeight: 160 , backgroundColor :"#F0EBEB" }}>
                                             <Row style={{ backgroundColor: "", height: 30 }}>
                                                 {/* <Button onClick={() => handleRemoveData(item.id)} color='red'>Hapus {index + 1}</Button> */}
 
