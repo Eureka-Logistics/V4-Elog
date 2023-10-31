@@ -50,12 +50,12 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
                                     <Tag color='blue'>{data.Driver}</Tag>
                                 </div>
                                 <div className='' style={{ fontWeight: "bold", fontSize: 15 }}>
-                                    {data?.Kendaraan}
+                                    <Tag color='yellow'>  {data?.Kendaraan} </Tag>
                                 </div>
                             </Col>
                             <Col sm={3} className='mt-1'>
                                 <div style={{ color: "#1F3D7D", fontSize: 15, fontWeight: "bold", textAlign: 'center' }}>Jumlah SJ</div>
-                                <div style={{ color: "#1F3D7D", fontWeight: "bold", fontSize: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{data.statusSJ?.length || 0}</div>
+                                <div style={{ color: "blue", fontWeight: "bold", fontSize: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{data.statusSJ?.length || 0}</div>
                             </Col>
 
                         </Row>
@@ -66,15 +66,15 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
                                 Belum Ada Pengiriman {data?.statusSJ[0]?.customer}
                             </div>
                         ) : (
-                            <div style={{ color: "#A2A2A2", fontSize: 20, marginTop: -20, maxHeight: 155 }}>
+                            <div style={{ color: "#A2A2A2", fontSize: 20, marginTop: -20, maxHeight: 135 }}>
                                 <div style={{ marginTop: -20 }}>
                                     {data?.statusSJ?.map((item, index) => (
-                                        <Card key={item.id} style={{ padding: "0px", borderRadius: "10px", marginRight: -20, marginLeft: -20, maxHeight: 160 , backgroundColor :"#F0EBEB" }}>
+                                        <Card key={item.id} style={{ padding: "0px", borderRadius: "10px", marginRight: -20, marginLeft: -20, maxHeight: 150, backgroundColor: "#FFF9F9" }}>
                                             <Row style={{ backgroundColor: "", height: 30 }}>
                                                 {/* <Button onClick={() => handleRemoveData(item.id)} color='red'>Hapus {index + 1}</Button> */}
 
                                                 <Col>
-                                                    <h4>{index + 1}</h4>
+                                                    <h4 style={{ color: "blue" }}>{index + 1}</h4>
                                                 </Col>
                                                 <Col className='d-flex justify-content-start'>
                                                     <Button type='primary' disabled={item.status === "Waiting"} style={{}}>
@@ -82,32 +82,29 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
                                                     </Button>
                                                 </Col>
                                             </Row>
-                                            <Row className=''>
-                                                <Col sm={7}>
-                                                    <p>Pelanggan</p>
+                                            <Row className='mt-3' style={{ backgroundColor: "" }}>
+                                                <Col >
+                                                    <b>Pelanggan</b>
                                                 </Col>
-
-                                                <Col style={{ marginTop: -15 }} sm={8}>
-                                                    <p style={{ fontSize: "16px", fontWeight: "bold" }}>{item.customer}</p>
+                                                <Col style={{}}>
+                                                    <b>Status</b>
                                                 </Col>
-
+                                                <Col >
+                                                    <p style={{ fontWeight: "bold" }}>Tanggal Update</p>
+                                                </Col>
+                                                <Row>
+                                                    <Col style={{ marginTop: 5 }} >
+                                                        <Tag color='blue' style={{ fontSize: "16px", fontWeight: "bold" }}>{item.customer}</Tag>
+                                                    </Col>
+                                                    <Col style={{ marginTop: 5 }}>
+                                                        <Tag color='blue' style={{ fontSize: "16px", fontWeight: "bold" }}>{item.status}</Tag>
+                                                    </Col>
+                                                    <Col style={{ marginTop: 5 }}>
+                                                        <Tag color='blue' style={{ fontSize: "16px", fontWeight: "bold" }}>{moment(item.updateDate).format("D-MM-YYYY")}</Tag>
+                                                    </Col>
+                                                </Row>
                                             </Row>
-                                            <Row>
-                                                <Col sm={6} style={{}}>
-                                                    <p>Status</p>
-                                                </Col>
-
-                                                <Col sm={6}>
-                                                    <p>Tanggal Update</p>
-                                                </Col>
-
-                                                <Col sm={6} style={{ marginTop: -15 }}>
-                                                    <p style={{ fontSize: "16px", fontWeight: "bold" }}>{item.status}</p>
-                                                </Col>
-                                                <Col sm={6} style={{ marginTop: -15 }}>
-                                                    <p style={{ fontSize: "16px", fontWeight: "bold" }}>{moment(item.updateDate).format("D-MM-YYYY")}</p>
-                                                </Col>
-                                            </Row>
+                                          
                                         </Card>
                                     ))}
                                 </div>
