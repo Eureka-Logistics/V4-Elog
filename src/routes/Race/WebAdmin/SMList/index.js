@@ -20,7 +20,7 @@ function SMList({ }) {
         setOpen(true);
 
     };
-    const { Coordinate, setCoordinate } = useCoordinateRaceMap()
+    const { Coordinate, setCoordinate, JarakDanWaktu } = useCoordinateRaceMap()
     console.log(`CoordinateRaceMap`, Coordinate);
     const [AlamatMuatBongkarCoordinate, setAlamatMuatBongkarCoordinate] = useState({
         AlamatMuat: "",
@@ -127,45 +127,45 @@ Salam hangat,
         fetchData();
     }, [DetailDataPerClick]);
 
-
+    console.log(`DetailDataPerClick`, DetailDataPerClick);
 
     return (
         <div>
 
             {DetailDataPerClick ?
-            
-            <Drawer
-                title={`Tracking Pengiriman` + " " + DetailDataPerClick?.destination}
-                width={3220}
-                closable={false}
-                onClose={onClose}
-                open={Open}
-            >
-                <Card bodyStyle={{ padding: 0 }} style={{ height: 350, overflow: 'hidden' }}>
 
-                    {!isDataFetched ? (
+                <Drawer
+                    title={`Tracking Pengiriman` + " " + DetailDataPerClick?.destination}
+                    width={3220}
+                    closable={false}
+                    onClose={onClose}
+                    open={Open}
+                >
+                    <Card bodyStyle={{ padding: 0 }} style={{ height: 350, overflow: 'hidden' }}>
 
-                        <MapsGoogle AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate} width={730} height={350} />
-                    ) : (
-                        <div>Loading...</div> // tampilkan pesan loading atau komponen lainnya saat data belum selesai di-fetch
-                    )}
+                        {!isDataFetched ? (
 
-                    {/* <MapContainer AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate} /> */}
-                </Card>
-                <Card bodyStyle={{ padding: 0 }} style={{ height: "auto" }}>
-                    <Container>
-                        <p style={{ fontWeight: "bold", fontSize: 20 }}>Informasi Driver</p>
-                        {Array.isArray(DetailDataPerClick) ? DetailDataPerClick.map((i, index) => (
+                            <MapsGoogle AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate} width={730} height={350} />
+                        ) : (
+                            <div>Loading...</div> // tampilkan pesan loading atau komponen lainnya saat data belum selesai di-fetch
+                        )}
+
+                        {/* <MapContainer AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate} /> */}
+                    </Card>
+                    <Card bodyStyle={{ padding: 0 }} style={{ height: "auto" }}>
+                        <Container>
+
+                            <p style={{ fontWeight: "bold", fontSize: 20 }}>Informasi Driver</p>
                             <Row style={{ marginTop: "20px" }}>
                                 <Col >
-                                    <p style={{ fontWeight: "bold" }}>{i.driver1}</p>
-                                    <p style={{ fontWeight: "bold" }}>{i.kendaraanMitra1}</p>
-                                    <p style={{ fontWeight: "bold" }}>{i.unit1}</p>
+                                    <p style={{ fontWeight: "bold" }}>{DetailDataPerClick?.driver1}</p>
+                                    <p style={{ fontWeight: "bold" }}>{DetailDataPerClick?.kendaraanMitra1}</p>
+                                    <p style={{ fontWeight: "bold" }}>{DetailDataPerClick?.unit1}</p>
                                 </Col>
                                 <Col >
-                                    <p style={{ fontWeight: "bold" }}>{i.sp}</p>
-                                    <p style={{ fontWeight: "bold" }}>{i.sm}</p>
-                                    <p style={{ fontWeight: "bold" }}>{i.tglPickup}</p>
+                                    <p style={{ fontWeight: "bold" }}>{DetailDataPerClick?.sp}</p>
+                                    <p style={{ fontWeight: "bold" }}>{DetailDataPerClick?.sm}</p>
+                                    <p style={{ fontWeight: "bold" }}>{DetailDataPerClick?.tglPickup}</p>
 
                                 </Col>
 
@@ -174,48 +174,53 @@ Salam hangat,
                                     <img onClick={sendMessage} src={whatsappicon} style={{ height: "80px", width: "93px", borderRadius: "10px", cursor: "pointer" }}></img>
                                 </Col>
                             </Row>
-                        )) : null}
-                        <hr />
-                        <Row style={{}} className="align-items-center">
-                            <Col style={{ backgroundColor: "" }} md={8}>
-                                <Col style={{ backgroundColor: "" }} >
-                                    <div style={{ fontWeight: "bold", fontSize: 20 }}>Informasi Perjalanan</div>
+                            <hr />
+                            <Row style={{}} className="align-items-center">
+                                <Col style={{ backgroundColor: "" }} md={8}>
+                                    <Col style={{ backgroundColor: "" }} >
+                                        <div style={{ fontWeight: "bold", fontSize: 20 }}>Informasi Perjalanan</div>
+                                    </Col>
+                                    <Row>
+                                        <Col style={{ backgroundColor: "" }}>
+                                            <div>
+                                                <div style={{ fontWeight: "bold", marginTop: 5 }}>Jarak</div>
+                                                <div style={{ fontWeight: "bold", marginTop: 5 }}>Waktu</div>
+                                            </div>
+                                            <div style={{ fontWeight: "bold", marginTop: 5 }}>Customer</div>
+                                            <div style={{ fontWeight: "bold", marginTop: 5 }}>Destination</div>
+                                            <div style={{ fontWeight: "bold", marginTop: 5 }}>Alamat Muat</div>
+                                            <div style={{ fontWeight: "bold", marginTop: 5 }}>Alamat Bongkar</div>
+                                        </Col>
+                                        <Col >
+                                            <div style={{ fontWeight: "", marginTop: 5 }}>{JarakDanWaktu?.jarak?.text}</div>
+                                            <div style={{ fontWeight: "", marginTop: 5 }}>{JarakDanWaktu?.waktu?.text}</div>
+                                            <div style={{ fontWeight: "", marginTop: 5 }}>{DetailDataPerClick?.customer}</div>
+                                            <div style={{ fontWeight: "", marginTop: 5 }}>{DetailDataPerClick?.destination}</div>
+                                            <div style={{ fontWeight: "", marginTop: 5 }}>{DetailDataPerClick?.other?.m_pengadaan_detail?.muat?.alamat_detail}</div>
+                                            <div style={{ fontWeight: "", marginTop: 5 }}>{DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat_detail}</div>
+                                        </Col>
+                                    </Row>
                                 </Col>
-                                <Row>
-                                    <Col style={{ backgroundColor: "" }}>
-                                        <div style={{ fontWeight: "bold" }}>Customer</div>
-                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>Destination</div>
-                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>Alamat Muat</div>
-                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>Alamat Bongkar</div>
-                                    </Col>
-                                    <Col >
-                                        <div style={{ fontWeight: "bold" }}>{DetailDataPerClick?.customer}</div>
-                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>{DetailDataPerClick?.destination}</div>
-                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>{DetailDataPerClick?.other?.m_pengadaan_detail?.muat?.alamat_detail}</div>
-                                        <div style={{ fontWeight: "bold", marginTop: 5 }}>{DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat_detail}</div>
-                                    </Col>
-                                </Row>
-                            </Col>
-                            <Col className='d-flex justify-content-end'>
-                                <Button
-                                    onClick={pindahdetailsp}
-                                    style={{
-                                        backgroundColor: "blue",
-                                        fontWeight: "bold",
-                                        fontSize: 20,
-                                        color: 'white',
-                                        cursor: 'pointer',
-                                        textDecoration: 'none'
-                                    }}
-                                >
-                                    Cek Detail
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Container>
-                </Card>
-            </Drawer>
-            : <>Loading</>}
+                                <Col className='d-flex justify-content-end'>
+                                    <Button
+                                        onClick={pindahdetailsp}
+                                        style={{
+                                            backgroundColor: "blue",
+                                            fontWeight: "bold",
+                                            fontSize: 20,
+                                            color: 'white',
+                                            cursor: 'pointer',
+                                            textDecoration: 'none'
+                                        }}
+                                    >
+                                        Cek Detail
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </Card>
+                </Drawer>
+                : <>Loading</>}
             <Row>
                 <Col className='ms-3' sm={4} md={2}>
                     <Form.Item>
