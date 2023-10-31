@@ -135,7 +135,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
                     <Row>
                         <Col style={{ backgroundColor: "" }} >
                             <Form.Item
-                                label="Select Memo"
+                                label="Select SJ"
                                 labelCol={{ span: 24 }}
                                 wrapperCol={{ span: 24 }}
                             >
