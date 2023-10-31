@@ -102,7 +102,7 @@ function Tarif() {
   const fetchDataTarifCustomer = async (limit = 10, pageSize = 1) => {
     try {
       const response = await httpClient.get(
-        `tarif/get-tarifCustomer?limit=${limit}&page=${currnt3}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=${JenisKendaraan}`
+        `tarif/get-tarifCustomer?limit=${limit}&page=${currnt3}&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=${JenisKendaraan}id_price=&id_customer=&berat`
       );
       const data = response.data;
 
