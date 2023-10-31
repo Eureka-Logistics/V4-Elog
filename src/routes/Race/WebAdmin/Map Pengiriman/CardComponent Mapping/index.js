@@ -8,7 +8,7 @@ function CardMapping({ onAdd, DataApi }) {
         if (e.target.checked) {
             addData(item);
         } else {
-            removeData(item.sp); // Make sure you pass the correct identifier for removing data
+            removeData(item.sp);
         }
         console.log(selectedData);
     }

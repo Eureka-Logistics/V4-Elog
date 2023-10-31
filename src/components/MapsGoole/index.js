@@ -1,57 +1,89 @@
-import React, { useEffect } from 'react'
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import React, { useEffect, useState } from 'react';
+import { GoogleMap, Marker, useJsApiLoader, DirectionsRenderer } from '@react-google-maps/api';
 import ApiGoogleMap from '../../Api/ApigoogleMap';
 import useCoordinateRaceMap from '../../zustand/Store/coordinateMapRace/RaceMaps';
 
-
 function MapsGoogle({ width, height, AlamatMuatBongkarCoordinate }) {
-    const [map, setMap] = React.useState(null)
-    const { Coordinate } = useCoordinateRaceMap()
+    const [map, setMap] = React.useState(null);
+    const { Coordinate } = useCoordinateRaceMap();
+    const [DirectionJalanan, setDirectionJalanan] = useState(null);
     const containerStyle = {
         width: width,
-        height: height
+        height: height,
     };
 
     const center = {
         lat: Coordinate?.AlamatMuat?.lat || -3.745,
-        lng: Coordinate?.AlamatMuat?.lng || -38.523
-        // lat: AlamatMuatBongkarCoordinate?.AlamatBongkar?.lat === null ? -3.745 : AlamatMuatBongkarCoordinate?.AlamatBongkar?.lat,
-        // lng: AlamatMuatBongkarCoordinate?.AlamatBongkar?.lng === null ? -38.523 : AlamatMuatBongkarCoordinate?.AlamatBongkar?.lng
+        lng: Coordinate?.AlamatMuat?.lng || -38.523,
     };
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: ApiGoogleMap
-    })
-
+        googleMapsApiKey: ApiGoogleMap,
+    });
 
     const onLoad = React.useCallback(function callback(map) {
-        // This is just an example of getting and using the map instance!!! don't just blindly copy!
         const bounds = new window.google.maps.LatLngBounds(center);
         map.fitBounds(bounds);
 
-        setMap(map)
-    }, [])
+        setMap(map);
+    }, []);
 
     const onUnmount = React.useCallback(function callback(map) {
-        setMap(null)
-    }, [])
-    console.log(`AlamatMuatBongkarCoordinate render Coordinate`, Coordinate);
-    useEffect(() => {
+        setMap(null);
+    }, []);
 
-    }, [Coordinate])
+    async function CalculateRoute() {
+        if (typeof window.google === 'undefined') {
+            console.error('Google Maps API belum terdefinisi. Pastikan Anda telah memasukkan API key yang valid dan memuat script Google Maps API.');
+            return;
+        }
+    
+        const google = window.google;
+        const directionService = new google.maps.DirectionsService();
+        console.log(`ini ada`);
+        try {
+            const hasil = await directionService.route({
+                origin: {
+                    lat: Coordinate?.AlamatMuat?.lat || -3.745,
+                    lng: Coordinate?.AlamatMuat?.lng || -38.523,
+                },
+                destination: {
+                    lat: Coordinate?.AlamatBongkar?.lat || -6.3253178,
+                    lng: Coordinate?.AlamatBongkar?.lng || 106.8049824,
+                },
+                travelMode: google.maps.TravelMode.DRIVING,
+            });
+            setDirectionJalanan(hasil);
+            console.log(`hasil`, hasil);
+        } catch (error) {
+            console.error('Gagal mendapatkan rute: ', error);
+        }
+    }
+
+    useEffect(() => {
+        CalculateRoute();
+    }, [Coordinate]);
+
+    console.log(`DirectionJalanan`, DirectionJalanan);
 
     return isLoaded ? (
-        <GoogleMap
-            mapContainerStyle={containerStyle}
-            center={ center}
-            zoom={14}
-            onLoad={onLoad}
-            onUnmount={onUnmount}
-        >
+        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={14} onLoad={onLoad} onUnmount={onUnmount}>
             <Marker position={center} />
-            <></>
+            {DirectionJalanan && (
+                <DirectionsRenderer
+                    directions={DirectionJalanan}
+                    options={{
+                        polylineOptions: {
+                            strokeColor: '#1B5EEE', // Warna merah untuk garis rute
+                            strokeWeight: 2, // Ketebalan garis
+                        },
+                    }}
+                />
+            )}
         </GoogleMap>
-    ) : <></>
+    ) : (
+        <></>
+    );
 }
-export default MapsGoogle
+export default MapsGoogle;

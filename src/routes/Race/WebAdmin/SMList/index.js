@@ -245,10 +245,9 @@ Salam hangat,
                     return (
                         <Col sm={12} md={6} >
                             <Card hoverable onClick={async (e) => {
-                                console.log(`ini i i`, i);
+                                // console.log(`ini i i`, i);
                                 setDetailDataPerClick(i);
                                 showDefaultDrawer(i)
-                                console.log(`ini log i`, i);
                             }} style={{ height: 230, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' }}>
                                 <Container>
                                     <Row style={{ marginTop: -10 }}>
