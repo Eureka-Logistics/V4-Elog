@@ -68,10 +68,10 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
                                 Belum Ada Pengiriman {data?.statusSJ[0]?.customer}
                             </div>
                         ) : (
-                            <div style={{ color: "#A2A2A2", fontSize: 20, marginTop: -20 }}>
+                            <div style={{ color: "#A2A2A2", fontSize: 20, marginTop: -20 , maxHeight : 155 }}>
                                 <div style={{ marginTop: -20 }}>
                                     {data?.statusSJ?.map((item, index) => (
-                                        <Card key={item.id} style={{ padding: "0px", borderRadius: "10px", marginRight: -20, marginLeft: -20 }}>
+                                        <Card key={item.id} style={{ padding: "0px", borderRadius: "10px", marginRight: -20, marginLeft: -20 , maxHeight : 160 }}>
                                             <Row style={{ backgroundColor: "", height: 30 }}>
                                                 {/* <Button onClick={() => handleRemoveData(item.id)} color='red'>Hapus {index + 1}</Button> */}
 
@@ -84,7 +84,7 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
                                                     </Button>
                                                 </Col>
                                             </Row>
-                                            <Row className='mt-3'>
+                                            <Row className=''>
                                                 <Col sm={7}>
                                                     <p>Pelanggan</p>
                                                 </Col>
