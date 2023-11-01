@@ -87,7 +87,7 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
                                                         marginRight: -20,
                                                         marginLeft: -20,
                                                         maxHeight: 120,
-                                                        backgroundColor: '#FFF9F9',
+                                                        backgroundColor: '',
                                                     }}
                                                 >
                                                     <Row style={{ height: 30, backgroundColor: "", marginTop: -10 }}>
