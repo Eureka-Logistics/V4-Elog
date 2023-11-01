@@ -110,3 +110,7 @@ height: 30px !important;
   border-radius: 8px;
   height: 100% !important;
 }
+
+.ant-layout-sider .ant-menu-submenu > .ant-menu.ant-menu-sub .ant-menu-item, .ant-drawer .ant-menu-submenu > .ant-menu.ant-menu-sub .ant-menu-item {
+  padding-left: 0px !important;
+}

@@ -98,6 +98,7 @@ function CreateUserBaru() {
         console.log('Failed:', errorInfo);
     };
 
+    console.log(`selectoptions`,selectoptions);
     return (
         <>
             <div style={{
@@ -220,7 +221,8 @@ function CreateUserBaru() {
                                         >
                                             <Select placeholder="Pilih Bisnis Unit " showSearch optionFilterProp='children' onChange={(e, label) => {
                                                 setKodeCabang(label?.code_bu_brench)
-                                                setid_bu_brench(label.value)
+                                                // setid_bu_brench(label.value)
+                                                console.log(`label`,label);
                                             }}
                                             >
                                                 {Array.isArray(selectoptions?.divisi) && selectoptions?.divisi.map((i) => (

@@ -201,27 +201,10 @@ function Erlangga() {
         <div>
             <Card>
                 <Row >
-                    <Col md={3} style={{ backgroundColor: "" }} >
-                        <RangePicker
-                            onChange={datenya} />
-                    </Col>
-                    <Col md={3}>
-                        <Button type='primary' onClick={GetDataTanggal}>Sync Data</Button>
-
-                    </Col>
-                    <Col md={3}>
-                        <Button onClick={() => setModal1Open(true)} type='danger'>Create SP</Button>
-
-                    </Col>
-                    <Col md={3} >
-                        <Input
-                            onChange={(e) => { setKeyword(e.target.value); }}
-                            placeholder='Cari No Referensi' />
-                    </Col>
-                    <Col md={3}>
+                    <Col style={{ backgroundColor: "" }} >
                         <Select
                             placeholder="Pilih Cabang"
-                            style={{ width: "100%" }}
+                            style={{ width: "100%", marginRight: 20 }}
                             onChange={(e) => setPilihCabang(e)}
                         >
                             <Select.Option value="510">510</Select.Option>
@@ -237,6 +220,26 @@ function Erlangga() {
                             <Select.Option value="520">520</Select.Option>
                             <Select.Option value="521">521</Select.Option>
                         </Select>
+
+                    </Col>
+                    <Col style={{ backgroundColor: "", marginLeft: 10 }}>
+                        <RangePicker
+                            onChange={datenya} />
+
+                    </Col>
+                    <Col style={{marginLeft :10}} >
+                        <Button type='primary' onClick={GetDataTanggal}>Sync Data</Button>
+
+                    </Col>
+                    <Col style={{ backgroundColor: "" }}>
+                        <Button style={{ backgroundColor: "" }} onClick={() => setModal1Open(true)} type='danger'>Create SP</Button>
+
+                    </Col>
+                    <Col  >
+                        <Input
+                            style={{}}
+                            onChange={(e) => { setKeyword(e.target.value); }}
+                            placeholder='Cari No Referensi' />
                     </Col>
                 </Row>
                 <style>

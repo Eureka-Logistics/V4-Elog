@@ -62,119 +62,111 @@ function Index() {
 
                 </Row>
 
-                <div style={{ position: 'relative' }}>  {/* Position relative disini agar elemen absolut lainnya berpatokan pada elemen ini */}
-                    <Row>
-                        <Col sm={8} style={{ backgroundImage: `url(${graph1})`, backgroundColor: '', margin: '5px', height: '328px' }}>
-                            <div>
-                                {/* <img src={graph1} /> */}
-                            </div>
-                        </Col>
-                        <Col sm={3} style={{ backgroundColor: '#ffffff', margin: '5px', height: '600px' }}>
-                            <h4 className='mt-4' style={{ fontWeight: "bold" }}>
-                                Laporan Driver
-                            </h4>
-                            <Card className='mt-3'>
-                                <Row>
-                                    <Col sm={3}>
-                                        <Tag color='red'>Trouble</Tag>
-                                    </Col>
-                                    <Col sm={9} className='d-flex justify-content-end'>
-                                        <p style={{ color: "#1F3D7D", fontWeight: "bold" }}>05-09-2023</p>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col sm={8}>
-                                        <p style={{ color: "#A1A1A1" }}>Informasi Driver</p>
-                                    </Col>
-                                    <Col sm={4} className='d-flex justify-content-start'>
-                                        <p style={{ color: "#A1A1A1", fontWeight: "" }}>Nomor SJ</p>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col sm={8}>
-                                        <p style={{ color: "black" }}>Budiawan Suprapto</p>
-                                    </Col>
-                                    <Col sm={4} className='d-flex justify-content-start'>
-                                        <p style={{ color: "black", fontWeight: "" }}>JKT23-007583</p>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col sm={8}>
-                                        <p style={{ color: "black" }}>P1239100</p>
-                                    </Col>
-                                </Row>
-                                <a style={{ textDecoration: "none" }} className=' d-flex justify-content-center'>Cek Detail</a>
-                            </Card>
-
-                            <Card className='mt-3'>
-                                <Row>
-                                    <Col sm={3}>
-                                        <Tag color='red'>Trouble</Tag>
-                                    </Col>
-                                    <Col sm={9} className='d-flex justify-content-end'>
-                                        <p style={{ color: "#1F3D7D", fontWeight: "bold" }}>05-09-2023</p>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col sm={8}>
-                                        <p style={{ color: "#A1A1A1" }}>Informasi Driver</p>
-                                    </Col>
-                                    <Col sm={4} className='d-flex justify-content-start'>
-                                        <p style={{ color: "#A1A1A1", fontWeight: "" }}>Nomor SJ</p>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col sm={8}>
-                                        <p style={{ color: "black" }}>Budiawan Suprapto</p>
-                                    </Col>
-                                    <Col sm={4} className='d-flex justify-content-start'>
-                                        <p style={{ color: "black", fontWeight: "" }}>JKT23-007583</p>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col sm={8}>
-                                        <p style={{ color: "black" }}>P1239100</p>
-                                    </Col>
-                                </Row>
-                                <a style={{ textDecoration: "none" }} className=' d-flex justify-content-center'>Cek Detail</a>
-                            </Card>
-                            <Row >
-                                <Col className='d-flex justify-content-center'>
-                                    <Button style={{ backgroundColor: "#1f3d7d" , width :321 , color : "white" , borderRadius : 10 , height : 44} }>Selengkapnya</Button>
-                                </Col>
-                            </Row>
-                        </Col>
-
-                        {/* Row for Data Driver and Score Bulanan */}
-                        <div style={{ position: 'absolute', top: '350px', }}> {/* Posisi absolut */}
-                            <Row>
-                                <Col sm={4}
-                                    style={{
-                                        backgroundImage: `url(${graph2})`,
-                                        backgroundRepeat: 'no-repeat',
-                                        backgroundSize: 'cover',
-                                        margin: '5px',
-                                        height: '240px'
-                                    }}>
-                                    <div>
-                                    </div>
-                                </Col>
-
-                                <Col sm={4} style={{
-                                    backgroundImage: `url(${graph3})`,
-                                    backgroundRepeat: 'no-repeat',
-                                    backgroundSize: 'cover', backgroundColor: 'lightyellow', margin: '5px', height: '240px'
-                                }}>
-                                    <div>
-                                    </div>
-                                </Col>
-                            </Row>
-
-                        </div>
-                    </Row>
-                </div>
+                
             </Container>
 
+
+
+
+            <div className='scorebulanan dta-driver'>
+                <Row>
+                    <Col md={8}>
+                        <Col style={{ width: "auto", minHeight: "328px", backgroundImage: `url(${graph1})` , backgroundRepeat: 'no-repeat' }}>
+                            
+                        </Col>
+                        <Row >
+                            <Col style={{
+                                backgroundColor: "", marginTop: 20, marginLeft: 10, backgroundImage: `url(${graph2})`,
+                                backgroundRepeat: 'no-repeat',
+                                backgroundSize: 'cover', height: '250px'
+                            }}>
+                            </Col>
+                            <Col style={{
+                                backgroundColor: "", marginTop: 20, marginLeft: 20, marginRight: 10, backgroundImage: `url(${graph3})`,
+                                backgroundRepeat: 'no-repeat',
+                                backgroundSize: 'cover',  height: '250px'
+                            }}>
+                                
+                            </Col>
+
+                        </Row>
+                    </Col>
+                    <Col style={{ backgroundColor: "white" }}>
+                        <h4 className='mt-4' style={{ fontWeight: "bold" }}>
+                            Laporan Driver
+                        </h4>
+                        <Card className='mt-3'>
+                            <Row>
+                                <Col sm={3}>
+                                    <Tag color='red'>Trouble</Tag>
+                                </Col>
+                                <Col sm={9} className='d-flex justify-content-end'>
+                                    <p style={{ color: "#1F3D7D", fontWeight: "bold" }}>05-09-2023</p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col sm={8}>
+                                    <p style={{ color: "#A1A1A1" }}>Informasi Driver</p>
+                                </Col>
+                                <Col sm={4} className='d-flex justify-content-start'>
+                                    <p style={{ color: "#A1A1A1", fontWeight: "" }}>Nomor SJ</p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col sm={8}>
+                                    <p style={{ color: "black" }}>Budiawan Suprapto</p>
+                                </Col>
+                                <Col sm={4} className='d-flex justify-content-start'>
+                                    <p style={{ color: "black", fontWeight: "" }}>JKT23-007583</p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col sm={8}>
+                                    <p style={{ color: "black" }}>P1239100</p>
+                                </Col>
+                            </Row>
+                            <a style={{ textDecoration: "none" }} className=' d-flex justify-content-center'>Cek Detail</a>
+                        </Card>
+                        <Card className='mt-3'>
+                            <Row>
+                                <Col sm={3}>
+                                    <Tag color='red'>Trouble</Tag>
+                                </Col>
+                                <Col sm={9} className='d-flex justify-content-end'>
+                                    <p style={{ color: "#1F3D7D", fontWeight: "bold" }}>05-09-2023</p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col sm={8}>
+                                    <p style={{ color: "#A1A1A1" }}>Informasi Driver</p>
+                                </Col>
+                                <Col sm={4} className='d-flex justify-content-start'>
+                                    <p style={{ color: "#A1A1A1", fontWeight: "" }}>Nomor SJ</p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col sm={8}>
+                                    <p style={{ color: "black" }}>Budiawan Suprapto</p>
+                                </Col>
+                                <Col sm={4} className='d-flex justify-content-start'>
+                                    <p style={{ color: "black", fontWeight: "" }}>JKT23-007583</p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col sm={8}>
+                                    <p style={{ color: "black" }}>P1239100</p>
+                                </Col>
+                            </Row>
+                            <a style={{ textDecoration: "none" }} className=' d-flex justify-content-center'>Cek Detail</a>
+                        </Card>
+                        <div style={{ backgroundColor: "", display: "flex", justifyContent: "center" }}>
+                            <Button style={{}} type='primary'>Selengkapnya</Button>
+                        </div>
+                    </Col>
+
+                </Row>
+
+            </div>
         </>
     )
 }

@@ -11,6 +11,7 @@ function MapPengiriman() {
     const { selectedData, addData, removeData, drivers, setGabunganData } = CardMappingStoreRace();
     const [DataApi, setmapping] = useState("")
     const [OptionNamaNamaDriver, setOptionNamaNamaDriver] = useState("")
+    const [LoadingGan, setLoadingGan] = useState(false)
     const handleSelect = (driverId) => {
         const selectedDriver = drivers.find(driver => driver.id === driverId);
         if (selectedDriver) {
@@ -21,6 +22,7 @@ function MapPengiriman() {
     };
     const [DataSelectDriver, setDataSelectDriver] = useState([])
     const PengadaanDetail = async () => {
+        setLoadingGan(true)
         try {
             const data = await axios.get(`${BaseUrlRace}sp/get-pengadaan-detail`,
                 {
@@ -32,6 +34,8 @@ function MapPengiriman() {
             )
             console.log(data.data.data);
             setmapping(data.data.data)
+            setLoadingGan(false)
+
         } catch (error) {
 
         }
@@ -98,9 +102,9 @@ function MapPengiriman() {
         <div>
             <Row>
                 <Col sm={6}>
-                    <Row>
-                        <Col sm={6}>
-                            <h4>Mapping Pengiriman</h4>
+                    <Row style={{ backgroundColor: "" }}>
+                        <Col sm={6} style={{ backgroundColor: "" }}>
+                            {/* <h4>Mapping Pengiriman</h4> */}
                         </Col>
                         <Col className="d-flex justify-content-end" sm={6}>
                             <h5 style={{ color: "#5197FF" }}>
@@ -123,11 +127,11 @@ function MapPengiriman() {
                                         ))}
                                     </Select>}
                             </h5>
-                            <Button onClick={Approvesp} type='primary' size='sm'>Mapping</Button>
+                            <Button className='ms-2' onClick={Approvesp} type='primary' size='sm'>Mapping</Button>
                         </Col>
                     </Row>
                     <div className="div-no-scrollbar" style={{ padding: "0px", height: "800px", backgroundColor: "", overflow: "auto" }}>
-                        <CardMapping DataApi={DataApi} />
+                        <CardMapping DataApi={DataApi} LoadingGan={LoadingGan} />
                     </div>
 
 

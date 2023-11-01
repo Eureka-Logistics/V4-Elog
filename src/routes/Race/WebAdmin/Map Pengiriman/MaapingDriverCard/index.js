@@ -35,31 +35,28 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
 
 
 
-
     return (
         <div >
             {(Array.isArray(OptionNamaNamaDriver) ? OptionNamaNamaDriver : []).map((data, index) => (
                 <Card className='mt-3' style={{ borderRadius: 10, backgroundColor: "#ccd8f3", padding: "0px", margin: "0px", height: "auto" }}>
-                    <Card className='card-2' style={{ marginTop: "-15px", borderRadius: 10, marginRight: -20, marginLeft: -20 }}>
+                    <Card className='card-2' style={{ marginTop: "-15px", borderRadius: 10, marginRight: -20, marginLeft: -20, backgroundColor: "orange", maxHeight: 90 }}>
                         <Row >
-                            <Col style={{ backgroundColor: "" }} sm={2}>
-                                <img src={driver}></img>
+                            <Col style={{ backgroundColor: "" }}>
+                                <Button disabled style={{ backgroundColor: "red", borderRadius: "8px", color: "white" }}>{index + 1}</Button>
                             </Col>
                             <Col sm={5}>
                                 <div style={{ fontWeight: "bold", fontSize: 15 }}>
                                     <Tag color='blue'>{data.Driver}</Tag>
                                 </div>
-                                <div className='mt-4' style={{ fontWeight: "bold", fontSize: 15 }}>
-                                    {data?.Kendaraan}
+                                <div className='' style={{ fontWeight: "bold", fontSize: 15 }}>
+                                    <Tag color='yellow'>  {data?.Kendaraan} </Tag>
                                 </div>
                             </Col>
-                            <Col sm={3} className='mt-3'>
+                            <Col sm={3} className='mt-1'>
                                 <div style={{ color: "#1F3D7D", fontSize: 15, fontWeight: "bold", textAlign: 'center' }}>Jumlah SJ</div>
-                                <div style={{ color: "#1F3D7D", fontWeight: "bold", fontSize: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{data.statusSJ?.length || 0}</div>
+                                <div style={{ color: "blue", fontWeight: "bold", fontSize: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{data.statusSJ?.length || 0}</div>
                             </Col>
-                            <Col>
-                                <Button onClick={toggleHide} style={{ marginTop: '10px', backgroundColor: "blue", color: "white", borderRadius: 10 }}>{isHidden ? 'Show' : 'Hide'}</Button>
-                            </Col>
+
                         </Row>
                     </Card>
                     {!isHidden ? (
@@ -68,56 +65,82 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
                                 Belum Ada Pengiriman {data?.statusSJ[0]?.customer}
                             </div>
                         ) : (
-                            <div style={{ color: "#A2A2A2", fontSize: 20, marginTop: -20 }}>
-                                <div style={{ marginTop: -20 }}>
+                            <>
+                                <>
                                     {data?.statusSJ?.map((item, index) => (
-                                        <Card key={item.id} style={{ padding: "0px", borderRadius: "10px", marginRight: -20, marginLeft: -20 }}>
-                                            <Row style={{ backgroundColor: "", height: 30 }}>
-                                                {/* <Button onClick={() => handleRemoveData(item.id)} color='red'>Hapus {index + 1}</Button> */}
+                                        <div
+                                            style={{
+                                                color: '#A2A2A2',
+                                                fontSize: 20,
+                                                marginTop: -20,
+                                                maxHeight: 135,
+                                            }}
+                                        >
+                                            <div style={{ marginTop: -10 }}>
+                                                <Card
+                                                    key={item.id}
+                                                    style={{
+                                                        padding: '0px',
+                                                        borderRadius: '10px',
+                                                        marginRight: -20,
+                                                        marginLeft: -20,
+                                                        maxHeight: 90,
+                                                        backgroundColor: '#FFF9F9',
+                                                    }}
+                                                >
+                                                    <Row style={{ height: 30, backgroundColor: "", marginTop: -10 }}>
+                                                        <Col md={2}>
+                                                            <Tag color='
+                                                                red' disabled type="primary">
+                                                                {index + 1}
+                                                            </Tag>
+                                                        </Col>
+                                                        <Col>
+                                                            <Tag color='blue' disabled>
+                                                                {item.noSj}
+                                                            </Tag>
+                                                        </Col>
+                                                        <Col >
+                                                            <Tag color="gold" style={{ fontSize: '10px', fontWeight: 'bold' }}>
+                                                                {item.status}
+                                                            </Tag>
+                                                        </Col>
+                                                        <Col >
+                                                            <Tag color="blue" style={{ fontSize: '10px', fontWeight: 'bold' }}>
+                                                                {moment(item.updateDate).format('D-MM-YYYY')}
+                                                            </Tag>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="mt-3">
+                                                        <Row>
+                                                            <Col md={2}></Col>
+                                                            <Col style={{ marginTop: -10 }}>
+                                                                <Tag color="blue" style={{ fontSize: '10px', fontWeight: 'bold' }}>
+                                                                    {item.customer}
+                                                                </Tag>
+                                                            </Col>
+                                                            <Col style={{ marginTop: -10 }}>
+                                                                <Tag color="red" style={{ fontSize: '10px', fontWeight: 'bold' }}>
+                                                                    {item.bongkar}
+                                                                </Tag>
+                                                            </Col>
 
-                                                <Col>
-                                                    <h4>{index + 1}</h4>
-                                                </Col>
-                                                <Col className='d-flex justify-content-start'>
-                                                    <Button type='primary' disabled={item.status === "Waiting"} style={{}}>
-                                                        {item.noSj}
-                                                    </Button>
-                                                </Col>
-                                            </Row>
-                                            <Row className='mt-3'>
-                                                <Col sm={7}>
-                                                    <p>Pelanggan</p>
-                                                </Col>
 
-                                                <Col style={{ marginTop: -15 }} sm={8}>
-                                                    <p style={{ fontSize: "16px", fontWeight: "bold" }}>{item.customer}</p>
-                                                </Col>
-
-                                            </Row>
-                                            <Row>
-                                                <Col sm={6} style={{}}>
-                                                    <p>Status</p>
-                                                </Col>
-
-                                                <Col sm={6}>
-                                                    <p>Tanggal Update</p>
-                                                </Col>
-
-                                                <Col sm={6} style={{ marginTop: -15 }}>
-                                                    <p style={{ fontSize: "16px", fontWeight: "bold" }}>{item.status}</p>
-                                                </Col>
-                                                <Col sm={6} style={{ marginTop: -15 }}>
-                                                    <p style={{ fontSize: "16px", fontWeight: "bold" }}>{moment(item.updateDate).format("D-MM-YYYY")}</p>
-                                                </Col>
-                                            </Row>
-                                        </Card>
+                                                        </Row>
+                                                    </Row>
+                                                </Card>
+                                            </div>
+                                        </div>
                                     ))}
-                                </div>
-                            </div>
+                                    <Col className='d-flex justify-content-center' style={{ backgroundColor: "" }}>
+                                        <Button onClick={toggleHide} style={{ backgroundColor: "blue", color: "white", borderRadius: 10 }}>{isHidden ? 'Show' : 'Hide'}</Button>
+                                    </Col>
+                                </>
+                            </>
                         )
                     ) : (
-                        <div className='d-flex justify-content-center' style={{ color: "#A2A2A2", fontSize: 20, marginTop: -20 }}>
-                            Tersedia {data.statusSJ?.length || 0}
+                        <div className='d-flex justify-content-center' style={{  fontSize: 20 }}>
+                             <Button onClick={toggleHide} style={{ backgroundColor: "blue", color: "white", borderRadius: 10 , marginTop :-10 , display:'flex' , justifyItems :'center' }}>{isHidden ? 'Show' : 'Hide'}</Button>
                         </div>
                     )}
                 </Card>
