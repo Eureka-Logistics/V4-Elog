@@ -430,6 +430,39 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Link>
                   </Menu.Item>
                   <Menu.Item
+                    key="LoseSale"
+                    className={
+                      activeMenu === "/LoseSale"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
+                    <Link
+                      to="/LoseSale"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <UserSwitchOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Lose Sale
+                        </span>
+                      </div>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item
                     key="Data Wilayah"
                     className={
                       activeMenu === "/mastercustomersss"
