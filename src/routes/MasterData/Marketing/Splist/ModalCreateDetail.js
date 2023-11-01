@@ -1759,7 +1759,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                 {(data.via.toLowerCase() === "darat" && (data?.service[0].toLowerCase() === "retail" || data?.service[0].toLowerCase() === "retailer"))
                                                     ?
                                                     <td style={{ textAlign: "right", fontWeight: "bold" }}>
-                                                        {data?.service[0]}
+                                                        {/* {data?.service[0]} */}
                                                         {
                                                             (data.berat * data.Price).toLocaleString("id-ID", {
                                                                 style: "currency",
