@@ -12,14 +12,7 @@ function MapPengiriman() {
     const [DataApi, setmapping] = useState("")
     const [OptionNamaNamaDriver, setOptionNamaNamaDriver] = useState("")
     const [LoadingGan, setLoadingGan] = useState(false)
-    const handleSelect = (driverId) => {
-        const selectedDriver = drivers.find(driver => driver.id === driverId);
-        if (selectedDriver) {
-            const updatedSelectedData = selectedDriver; // menambahkan selectedDriver sebagai item baru dalam array
-            updatedSelectedData.selectedData = [...selectedData]
-            setGabunganData(updatedSelectedData)
-        }
-    };
+    
     const [DataSelectDriver, setDataSelectDriver] = useState([])
     const PengadaanDetail = async () => {
         setLoadingGan(true)
@@ -33,7 +26,7 @@ function MapPengiriman() {
                 }
             )
             console.log(data.data.data);
-            setmapping(data.data.data)
+            setmapping(data?.data?.data)
             setLoadingGan(false)
 
         } catch (error) {
@@ -51,47 +44,47 @@ function MapPengiriman() {
                 }
             )
             console.log(data.data.data);
-            setOptionNamaNamaDriver(data.data.data);
+            setOptionNamaNamaDriver(data?.data?.data);
         } catch (error) {
 
         }
     }
-    console.log("selectedData", selectedData);
     // console.log("selectedData", selectedData[0].id_mpd);
     const Approvesp = async () => {
-        const body = selectedData.map(item => ({
-            "id_mpd": item.id_mpd,
-            "id_unit": item.id_unit,
-            "id_supir": DataSelectDriver?.id_supir, // Sesuaikan dengan kebutuhan Anda
-            "kendaraan": DataSelectDriver?.Kendaraan, // Sesuaikan dengan kebutuhan Anda
-            "berat": item.berat,
-            "qty": item.qty,
-            "koli": item.koli,
-            "ikat": item.ikat
-        }));
-        try {
-            const data = await axios.post(`${BaseUrlRace}sp/approve-sp`, body,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: localStorage.getItem('token'),
-                    },
-                }
-            )
-            console.log(data.data.data);
-            setOptionNamaNamaDriver(data.data.data);
-        } catch (error) {
-            if (error.response.data && error.response.data.status && error.response.data.status.message) {
-                const messages = error.response.data.status.message.split(',');
-                messages.forEach(element => {
-                    notification.error({
-                        message: "Error",
-                        description: element.trim()
+        for (const item of selectedData) {
+            const body = {
+                "id_mpd": item.id_mpd,
+                "id_unit": DataSelectDriver?.idKendaraan,
+                "id_supir": DataSelectDriver?.id_supir,
+                "kendaraan": DataSelectDriver?.Kendaraan,
+                "berat": item.berat,
+                "qty": item.qty,
+                "koli": item.koli,
+                "ikat": item.ikat
+            };
+            try {
+                const data = await axios.post(`${BaseUrlRace}sp/approve-sp`, body,
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: localStorage.getItem('token'),
+                        },
+                    }
+                )
+                console.log(data.data.data);
+                setOptionNamaNamaDriver(data?.data?.data);
+            } catch (error) {
+                if (error.response.data && error.response.data.status && error.response.data.status.message) {
+                    const messages = error.response.data.status.message.split(',');
+                    messages.forEach(element => {
+                        notification.error({
+                            message: "Error",
+                            description: element.trim()
+                        });
                     });
-                });
+                }
             }
         }
-
     }
     useEffect(() => {
         PengadaanDetail()
@@ -114,16 +107,17 @@ function MapPengiriman() {
                                         optionFilterProp='children'
                                         style={{ width: 300 }} placeholder="Select Driver Dan Mapping"
                                         onChange={(e, data) => {
-                                            console.log(e, data)
+                                            console.log(data)
                                             setDataSelectDriver(item => ({
                                                 ...item,
-                                                id_supir: data.data.id_supir,
+                                                id_supir: data.data.idDriver,
                                                 Kendaraan: data.data.Kendaraan,
+                                                idKendaraan: data.data.idKendaraan,
 
                                             }))
                                         }}>
                                         {OptionNamaNamaDriver && OptionNamaNamaDriver.map((i) => (
-                                            <Select.Option key={i.idKendaraan} data={i} value={i.idDriver}>{i.Driver}</Select.Option>
+                                            <Select.Option key={i.idKendaraan}  data={i} value={i.idDriver}>{i.Driver}</Select.Option>
                                         ))}
                                     </Select>}
                             </h5>

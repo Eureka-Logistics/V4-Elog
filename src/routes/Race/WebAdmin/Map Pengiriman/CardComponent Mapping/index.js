@@ -30,7 +30,7 @@ function CardMapping({ onAdd, DataApi, LoadingGan }) {
 
                                 </Col>
                                 <Col>
-                                    <h4 style={{ fontSize: 15, fontWeight: "bold" }}><Tag color="blue">{item.sp}</Tag></h4>
+                                    <h4 style={{ fontSize: 15, fontWeight: "bold", color: "#1F3D7D", marginRight: 20 }}><div color="blue">{item.sp}</div></h4>
                                 </Col>
                                 <Col className='d-flex justify-content-end'>
                                     <Button disabled={item.status === "Waiting"} style={{ height: 30, width: 80 }}>
@@ -43,18 +43,18 @@ function CardMapping({ onAdd, DataApi, LoadingGan }) {
                                     <p>Pelanggan</p>
                                 </Col>
                                 <Col className='d-flex justify-content-start' style={{ fontWeight: "bold" }} sm={5}>
-                                    <p>Tanggal Pick Up</p>
+                                    <p>Penerima</p>
                                 </Col>
                                 <Col style={{ marginTop: -15 }} sm={7}>
-                                    <p style={{ fontSize: "16px", fontWeight: "bold" }}><Tag color="gold">{item.customer}</Tag></p>
+                                    <p style={{ fontSize: "13px", fontWeight: "bold", paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, background: '#EAF1FF', borderRadius: 4,color :"#1F3D7D"}}>{item.customer}</p>
                                 </Col>
                                 <Col style={{ marginTop: -15 }} sm={4}>
-                                    <p style={{ fontSize: "16px", fontWeight: "bold" }}><Tag color="green">{item.pickupDate}</Tag></p>
+                                    <p style={{ fontSize: "13px", fontWeight: "bold" , color :"#F05423" ,paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, background: '#FEEAE4', borderRadius: 4, justifyContent: 'center', alignItems: 'center', display :"flex"}}>{item.penerima}</p>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col style={{ fontWeight: "bold" }} sm={6}>
-                                    <p>Penerima</p>
+                                    <p>Tanggal Pick Up</p>
                                 </Col>
                                 <Col style={{ fontWeight: "bold" }} sm={2} className='d-flex justify-content-start'>
                                     <p>ikat</p>
@@ -66,7 +66,7 @@ function CardMapping({ onAdd, DataApi, LoadingGan }) {
                                     <p>Qty</p>
                                 </Col>
                                 <Col sm={6} style={{ marginTop: -15 }}>
-                                    <p style={{ fontSize: "12px", fontWeight: "bold" }}><Tag color='red'>{item.penerima}</Tag></p>
+                                    <p style={{ fontSize: "12px", fontWeight: "bold" }}><Tag color='red'>{item.pickupDate}</Tag></p>
                                 </Col>
                                 <Col sm={2} className='d-flex justify-content-start' style={{ marginTop: -15 }}>
                                     <p style={{ fontSize: "12px", fontWeight: "bold" }}><Tag color='teal'>{item.ikat}</Tag></p>
@@ -80,11 +80,11 @@ function CardMapping({ onAdd, DataApi, LoadingGan }) {
 
                             </Row>
                             <Row>
-                                <Col style={{ fontWeight: "bold" }} sm={3} className='d-flex justify-content-start'>
+                                <Col style={{ fontWeight: "bold" }} md={12} className='d-flex justify-content-start'>
                                     <p>Tujuan Muatan</p>
                                 </Col>
-                                <Col className='d-flex justify-content-start' style={{}}>
-                                    <Tag color='purple' style={{ fontSize: "12px", fontWeight: "bold", overflow: "hidden" }}>{item.tujuan}</Tag>
+                                <Col md={12} className='d-flex justify-content-start' style={{}}>
+                                    <div  style={{ fontSize: "12px", fontWeight: "bold", overflow: "hidden",paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, background: '#F8F8F8', borderRadius: 4, justifyContent: 'center', alignItems: 'center', gap: 8, display: 'inline-flex' }}>{item.tujuan}</div>
                                 </Col>
                             </Row>
                         </Card>

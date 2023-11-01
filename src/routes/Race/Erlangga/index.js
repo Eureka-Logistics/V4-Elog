@@ -28,38 +28,6 @@ function Erlangga() {
                 ...sebelumnya,
                 Data_Tanggal: datanggal
             }))
-            // const GetDataTanggal = async () => {
-            //     let datas = "ada"
-            //     try {
-            //         const data = await axios.get(`${BaseUrlRace}sp/get-data-erl?dateForm=${formattedStartDate}&dateTo=${formattedEndDate}&wh=511`, {
-            //             headers: {
-            //                 "Content-Type": "application/json",
-            //                 Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
-            //                 // Authorization: localStorage.getItem("token"),
-            //             },
-            //         })
-            //         Refresh()
-            //         notification.success({
-            //             message: data.data.status.message,
-            //         })
-            //         console.log(data.response);
-
-
-            //     } catch (error) {
-            //         console.log();
-            //         if (error.response) {
-            //             notification.error({
-            //                 message: error?.response?.data?.status?.message,
-            //             })
-            //         } else {
-            //             console.log("error");
-            //         }
-
-            //     }
-
-            // }
-            // GetDataTanggal()
-
         }
     }
     const [PilihCabang, setPilihCabang] = useState(511)
@@ -144,11 +112,11 @@ function Erlangga() {
             key: 'name',
             render: (text) => <a>{text}</a>,
         },
-        {
-            title: 'Customer',
-            dataIndex: 'customer',
-            key: 'customer',
-        },
+        // {
+        //     title: 'Customer',
+        //     dataIndex: 'customer',
+        //     key: 'customer',
+        // },
         {
             title: 'Referensi',
             dataIndex: 'referensi',
@@ -194,9 +162,8 @@ function Erlangga() {
             }
         },
     ]
-    function GetdataTable(d, i) {
-        console.log(d, i);
-    }
+  
+  
     return (
         <div>
             <Card>
@@ -227,7 +194,7 @@ function Erlangga() {
                             onChange={datenya} />
 
                     </Col>
-                    <Col style={{marginLeft :10}} >
+                    <Col style={{ marginLeft: 10 }} >
                         <Button type='primary' onClick={GetDataTanggal}>Sync Data</Button>
 
                     </Col>
@@ -260,7 +227,7 @@ function Erlangga() {
                     }}
                     onRow={(data, index) => ({
                         onClick: event => {
-                            GetdataTable(index, data)
+                            // GetdataTable(index, data)
                         },
                         className: 'hover-row'
                     })}

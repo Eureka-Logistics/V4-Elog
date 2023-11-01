@@ -415,6 +415,8 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
             return (HasilTarifNumerik * berat) + totalBiayaTambahan;
         } else if (DetailSemua?.service === 'Charter') {
             return HasilTarifNumerik + totalBiayaTambahan;
+        } else if ( formik.values.via === "laut" && formik.values.kapalcepat === "Kapal Cepat" && DetailSemua?.service?.toLowerCase() === 'retail' || DetailSemua?.service?.toLowerCase() === 'retailer') {
+            return HasilTarifNumerik + totalBiayaTambahan;
         } else if ( formik.values.via === "laut" && DetailSemua?.service?.toLowerCase() === 'retail' || DetailSemua?.service?.toLowerCase() === 'retailer') {
             return HasilTarifNumerik + totalBiayaTambahan;
         }
@@ -896,16 +898,17 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     id="shipment"
                                     name="shipment"
                                     type="text"
-                                    onChange={(e) => {
+                                    onChange={(e,data) => {
                                         formik.setFieldValue("shipmentBaru", e)
                                         formik.setFieldValue("shipmentIDBaru", e)
-                                        console.log(e);
+                                        formik.setFieldValue("kapalcepat", data.data.shipment)
+                                        console.log(`kapalcepat`,data.data.shipment);
                                     }}
                                     value={formik.values.shipmentBaru}
                                     onBlur={formik.handleBlur}
                                 >
                                     {shipmentOptions && shipmentOptions.map((item) => (
-                                        <Select.Option value={item.id}>{item.shipment + " - " + formik.values.via}</Select.Option>
+                                        <Select.Option data={item} value={item.id}>{item.shipment + " - " + formik.values.via}</Select.Option>
                                     ))}
                                 </Select>
                             </Form.Item>
