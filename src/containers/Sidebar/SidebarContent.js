@@ -99,7 +99,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
   useEffect(() => {
     setActiveMenu(location.pathname);
   }, [location]);
-  
+
 
   return (
     <>
@@ -2722,6 +2722,398 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
+                </>
+              )}
+
+              {jobdesk === "kacab" && (
+                <>
+                  <Menu.Item
+                    key="SP List"
+                    className={
+                      activeMenu === "/masterdata/marketing/splist"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
+                    <Link
+
+                      to="/masterdata/marketing/splist"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <FileTextOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="SP List" />
+                        </span>
+                      </div>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item
+                    key="SJ List"
+                    className={
+                      activeMenu === "/masterdata/sjlist"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
+                    <Link
+                      to="/masterdata/sjlist"
+                      style={{ textDecoration: "none" }}
+                    >
+                      {/* <i className="icon icon-widgets" />
+                       */}
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <FolderOpenOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="SJ List" />
+                        </span>
+                      </div>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item
+                    key="MasterCustomer"
+                    className={
+                      activeMenu === "/ReportCustomer"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
+                    <Link
+                      to="/ReportCustomer"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <UserSwitchOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          Report Customer
+                        </span>
+                      </div>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.SubMenu
+                    title={
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <FolderOpenOutlined
+                          style={{
+                            fontSize: '30px',
+                            color: 'black',
+                            marginBottom: '8px',
+                            marginTop: '10px',
+
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: 'bold',
+                            color: 'black',
+                            marginLeft: '8px',
+
+                          }}
+                        >
+                          <IntlMessages id="Master Kendaraan" />
+                        </span>
+                      </div>
+                    }
+                  >
+                    <Menu.Item
+                      key="driverpurch"
+                      className={
+                        activeMenu === "/masterdata/purchasing/driver"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                    >
+                      <Link
+                        to="/masterdata/purchasing/driver"
+                        style={{ textDecoration: "none" }}
+                      >
+                        {/* <i className="icon icon-widgets" />
+                       */}
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <SmileTwoTone
+                            style={{
+                              fontSize: "30px",
+                              color: "black",
+                              marginBottom: "8px",
+                              marginTop: "10px",
+                            }}
+                          />
+                          <span
+                            style={{
+                              fontWeight: "bold",
+                              color: "black",
+                              marginLeft: "8px",
+                            }}
+                          >
+                            <IntlMessages id="Master Driver" />
+                          </span>
+                        </div>
+                      </Link>
+                    </Menu.Item>
+                    <Menu.Item
+                      key="vehicle"
+                      className={
+                        activeMenu === "/masterdata/vehicle"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                    >
+                      <Link
+                        to="/masterdata/vehicle"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <CarTwoTone
+                            style={{
+                              fontSize: "30px",
+                              color: "black",
+                              marginBottom: "8px",
+                              marginTop: "10px",
+                            }}
+                          />
+                          <span
+                            style={{
+                              fontWeight: "bold",
+                              color: "black",
+                              marginLeft: "8px",
+                            }}
+                          >
+                            <IntlMessages id="sidebar.vehicle" />
+                          </span>
+                        </div>
+                      </Link>
+                    </Menu.Item>
+
+
+                  </Menu.SubMenu>
+
+                  <Menu.SubMenu
+                    title={
+                      <div style={{ display: 'flex', alignItems: 'center' , backgroundColor :""}}>
+                        <FolderOpenOutlined
+                          style={{
+                            fontSize: '30px',
+                            color: 'black',
+                            marginBottom: '8px',
+                            marginTop: '10px',
+
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: 'bold',
+                            color: 'black',
+                            marginLeft: '',
+
+                          }}
+                        >
+                          <IntlMessages id="Master Tarif" />
+                        </span>
+                      </div>
+                    }
+                  >
+
+                    <Menu.Item
+                    
+                      key="Master Tarif"
+                      className={
+                        activeMenu === "/mastermitra"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                    >
+                      <Link to="/mastermitra" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" />
+                       */}
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <ShopOutlined
+                            style={{
+                              fontSize: "30px",
+                              color: "black",
+                              marginBottom: "8px",
+                              marginTop: "10px",
+                            }}
+                          />
+                          <span
+                            style={{
+                              fontWeight: "bold",
+                              color: "black",
+                              marginLeft: "8px",
+                            }}
+                          >
+                            Master Mitra
+                          </span>
+                        </div>
+                      </Link>
+                    </Menu.Item>
+                    <Menu.Item
+                      key="Tarif Mitra"
+                      className={
+                        activeMenu === "/tarifmitra"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                    >
+                      <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" />
+                       */}
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <DollarOutlined
+                            style={{
+                              fontSize: "30px",
+                              color: "black",
+                              marginBottom: "8px",
+                              marginTop: "10px",
+                            }}
+                          />
+                          <span
+                            style={{
+                              fontWeight: "bold",
+                              color: "black",
+                              marginLeft: "8px",
+                            }}
+                          >
+                            Tarif Mitra
+                          </span>
+                        </div>
+                      </Link>
+                    </Menu.Item>
+                    <Menu.Item
+                      key="Tarif Eureka"
+                      className={
+                        activeMenu === "/tarif_eureka"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                    >
+                      <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" /> */}
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <DollarOutlined
+                            style={{
+                              fontSize: "30px",
+                              color: "black",
+                              marginBottom: "8px",
+                              marginTop: "10px",
+                            }}
+                          />
+                          <span
+                            style={{
+                              fontWeight: "bold",
+                              color: "black",
+                              marginLeft: "8px",
+                            }}
+                          >
+                            Tarif Eureka
+                          </span>
+                        </div>
+                      </Link>
+                    </Menu.Item>
+                    <Menu.Item
+                      key="Cari Tarif"
+                      className={
+                        activeMenu === "/CariTarif"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                    >
+                      <Link to="/CariTarif" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" /> */}
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <DollarOutlined
+                            style={{
+                              fontSize: "30px",
+                              color: "black",
+                              marginBottom: "8px",
+                              marginTop: "10px",
+                            }}
+                          />
+                          <span
+                            style={{
+                              fontWeight: "bold",
+                              color: "black",
+                              marginLeft: "8px",
+                            }}
+                          >
+                            Cari Tarif
+                          </span>
+                        </div>
+                      </Link>
+                    </Menu.Item>
+                    <Menu.Item
+                      key="Tarif Customer"
+                      className={
+                        activeMenu === "/pelanggantarif"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                    >
+                      <Link
+                        to="/pelanggantarif"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <DollarOutlined
+                            style={{
+                              fontSize: "30px",
+                              color: "black",
+                              marginBottom: "8px",
+                              marginTop: "10px",
+                            }}
+                          />
+                          <span
+                            style={{
+                              fontWeight: "bold",
+                              color: "black",
+                              marginLeft: "8px",
+                            }}
+                          >
+                            Tarif Customer
+                          </span>
+                        </div>
+                      </Link>
+                    </Menu.Item>
+
+                  </Menu.SubMenu>
                 </>
               )}
             </MenuItemGroup>

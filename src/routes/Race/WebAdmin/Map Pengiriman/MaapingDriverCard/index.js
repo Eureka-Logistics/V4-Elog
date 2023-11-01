@@ -35,15 +35,15 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
 
 
 
-
     return (
         <div >
             {(Array.isArray(OptionNamaNamaDriver) ? OptionNamaNamaDriver : []).map((data, index) => (
                 <Card className='mt-3' style={{ borderRadius: 10, backgroundColor: "#ccd8f3", padding: "0px", margin: "0px", height: "auto" }}>
                     <Card className='card-2' style={{ marginTop: "-15px", borderRadius: 10, marginRight: -20, marginLeft: -20, backgroundColor: "", maxHeight: 100 }}>
                         <Row >
-                            <Col>
-                                <Button onClick={toggleHide} style={{ marginTop: '10px', backgroundColor: "blue", color: "white", borderRadius: 10 }}>{isHidden ? 'Show' : 'Hide'}</Button>
+                            <Col style={{backgroundColor :""}}>
+                                <Button onClick={toggleHide} style={{  backgroundColor: "blue", color: "white", borderRadius: 10 }}>{isHidden ? 'Show' : 'Hide'}</Button>
+                                <Button disabled style={{backgroundColor :"#F65757" , borderRadius : "8px" , color :"white"}}>{index+1}</Button>
                             </Col>
                             <Col sm={5}>
                                 <div style={{ fontWeight: "bold", fontSize: 15 }}>
@@ -74,17 +74,17 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
                                                 {/* <Button onClick={() => handleRemoveData(item.id)} color='red'>Hapus {index + 1}</Button> */}
 
                                                 <Col>
-                                                    <h4 style={{ color: "blue" }}>{index + 1}</h4>
+                                                    <h4 style={{ color: "blue" }}><Button disabled type='primary'>{index + 1}</Button></h4>
                                                 </Col>
                                                 <Col className='d-flex justify-content-start'>
-                                                    <Button type='primary' disabled={item.status === "Waiting"} style={{}}>
+                                                    <Button type='primary' disabled style={{}}>
                                                         {item.noSj}
                                                     </Button>
                                                 </Col>
                                             </Row>
                                             <Row className='mt-3' style={{ backgroundColor: "" }}>
-                                                <Col >
-                                                    <b>Pelanggan</b>
+                                                <Col md={5}>
+                                                    <b >Pelanggan</b>
                                                 </Col>
                                                 <Col style={{}}>
                                                     <b>Status</b>
@@ -93,14 +93,14 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
                                                     <p style={{ fontWeight: "bold" }}>Tanggal Update</p>
                                                 </Col>
                                                 <Row>
-                                                    <Col style={{ marginTop: 5 }} >
-                                                        <Tag color='blue' style={{ fontSize: "16px", fontWeight: "bold" }}>{item.customer}</Tag>
+                                                    <Col md={5} style={{ marginTop: 5 }} >
+                                                        <Tag color='blue' style={{ fontSize: "10px", fontWeight: "bold" }}>{item.customer}</Tag>
                                                     </Col>
                                                     <Col style={{ marginTop: 5 }}>
-                                                        <Tag color='blue' style={{ fontSize: "16px", fontWeight: "bold" }}>{item.status}</Tag>
+                                                        <Tag color='blue' style={{ fontSize: "10px", fontWeight: "bold" }}>{item.status}</Tag>
                                                     </Col>
                                                     <Col style={{ marginTop: 5 }}>
-                                                        <Tag color='blue' style={{ fontSize: "16px", fontWeight: "bold" }}>{moment(item.updateDate).format("D-MM-YYYY")}</Tag>
+                                                        <Tag color='blue' style={{ fontSize: "10px", fontWeight: "bold" }}>{moment(item.updateDate).format("D-MM-YYYY")}</Tag>
                                                     </Col>
                                                 </Row>
                                             </Row>
