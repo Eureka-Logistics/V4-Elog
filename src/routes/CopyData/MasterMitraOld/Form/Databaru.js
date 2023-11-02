@@ -45,7 +45,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
       setDataKodeMitraZustand: state.setDataKodeMitraZustand,
     })
   );
-  console.log(`DataKodeMitraZustand`,DataKodeMitraZustand);
+  console.log(`DataKodeMitraZustand`, DataKodeMitraZustand);
   const [DataKodeMitra, setDataKodeMitra] = useState("");
   const [DataKodeInisial, setDataKodeInisial] = useState("");
   const [DataQRKode, setDataQRKode] = useState("");
@@ -209,8 +209,8 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
         },
       }
     );
-    console.log(data.data.pic, 'data pic');
-    
+    console.log(data.data.pic, "data pic");
+
     setMitraData1state({
       namaMitra: data.data.data?.nama_mitra,
       typeOfPayment: data.data.data?.metode_pembayaran,
@@ -290,13 +290,12 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
       assetTanah: data.data.data?.asset_tanah,
       assetBangunan: data.data.data?.asset_bangunan,
       assetKendaran: data.data.data?.asset_kendaraan,
-    jumlah_unit: data.data.data?.jumlah_unit,
-      
+      jumlah_unit: data.data.data?.jumlah_unit,
     });
 
     await setnamaMitra(data.data.data?.nama_mitra);
     // console.log(data.data.data.jenis);
-    setDataPICPurchasing(data.data.pic)
+    setDataPICPurchasing(data.data.pic);
     setTypeOfPayment(data.data.data?.metode_pembayaran);
     setStatus(data.data.data?.status);
     setTitle(data.data.data?.title);
@@ -354,7 +353,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
     setDataType(data.data.data?.type || "");
     setDataBlok(data.data.data?.npwp_blok || "");
     setDataPicId(data.data.data?.pic_id || "");
-    setDataPICPurchasing(data.data.pic || "" );
+    setDataPICPurchasing(data.data.pic || "");
     setPoLegalitas(data.data.data?.po_legalitas || "");
     setKTPLegalitas(data.data.data?.ktp_legalitas || "");
     setAktaPendirian(data.data.data?.akta_pendirian || "");
@@ -491,9 +490,8 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
     });
   };
 
-
   const EditMitra = () => {
-    setActiveTab('profile');
+    setActiveTab("profile");
     const data = {
       id_mitra: mitraId,
       jenis: DataJenis,
@@ -599,10 +597,10 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
       rp_trailer20: parseInt(QtyTrailer20),
       qty_trailer40: parseInt(QtyTrailer40),
       rp_trailer40: parseInt(RpTrailer40),
-      jumlah_unit: JumlahUnit
+      jumlah_unit: JumlahUnit,
     };
     setData(data);
-  }
+  };
 
   const EditMitras = async () => {
     // setActiveTab('profile');
@@ -801,9 +799,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
 
   return (
     <>
-
       <Card>
-
         <h3 style={{ color: "#113D7F" }}>Detail Master Mitra</h3>
       </Card>
       <Card>
@@ -819,11 +815,17 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
           // onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <Row>
+          <Row gutter={[16, 16]}>
             <Col span={8} style={{ width: "100%" }}>
               <h5>NAMA DAN ALAMAT PERUSAHAAN(Sold to Party)</h5>
             </Col>
-            <Col span={4} className="d-flex justify-content-end">
+            <Col
+              xs={24}
+              sm={12}
+              md={4}
+              lg={4}
+              className="d-flex justify-content-end"
+            >
               <Button onClick={() => handleView()} type="primary">
                 <span style={{ display: "flex", alignItems: "center" }}>
                   <PrinterOutlined />
@@ -833,8 +835,8 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
             </Col>
           </Row>
 
-          <Row className="mt-4">
-            <Col sm={2} style={{ padding: "0px" }}>
+          <Row gutter={[16, 16]} className="mt-4">
+            <Col xs={24} sm={12} md={4} lg={2} style={{ padding: "0px" }}>
               <Form.Item
                 label="Kode Mitra :"
                 style={{ fontWeight: "bold" }}
@@ -851,14 +853,14 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={2} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={2} style={{ padding: "0px" }}>
               <Form.Item
                 label="Title :"
                 style={{ fontWeight: "bold" }}
                 name="title"
-              // rules={[
-              //   { required: false, message: "Please input your jenis!" },
-              // ]}
+                // rules={[
+                //   { required: false, message: "Please input your jenis!" },
+                // ]}
               >
                 <Select
                   className="mt-2"
@@ -886,14 +888,14 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 </Select> */}
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Mitra Name :"
                 style={{ fontWeight: "bold" }}
                 name="nama_mitra"
-              // rules={[
-              //   { required: false, message: "Please input your nama mitra!" },
-              // ]}
+                // rules={[
+                //   { required: false, message: "Please input your nama mitra!" },
+                // ]}
               >
                 <Input
                   className="mt-2"
@@ -905,17 +907,17 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Kode Perusahaan (Singkatan Mitra Name)"
                 style={{ fontWeight: "bold" }}
                 name="kode"
-              // rules={[
-              //   {
-              //     required: false,
-              //     message: "Please input your Kode Perusahaan!",
-              //   },
-              // ]}
+                // rules={[
+                //   {
+                //     required: false,
+                //     message: "Please input your Kode Perusahaan!",
+                //   },
+                // ]}
               >
                 <Input
                   className="mt-2"
@@ -929,7 +931,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
             </Col>
           </Row>
           <Row>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Jenis Usaha :"
                 style={{ fontWeight: "bold" }}
@@ -948,7 +950,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Jenis Kepemilikan :"
                 style={{ fontWeight: "bold" }}
@@ -978,7 +980,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 /> */}
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Home Page (Website) :"
                 style={{ fontWeight: "bold" }}
@@ -999,7 +1001,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
             </Col>
           </Row>
           <Row>
-            {/* <Col sm={4} style={{ padding: "0px" }}>
+            {/* <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="PIC Purchasing :"
                 style={{ fontWeight: "bold" }}
@@ -1016,7 +1018,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                   }}/>
               </Form.Item>
             </Col> */}
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="PIC Purchasing :"
                 style={{ fontWeight: "bold" }}
@@ -1047,7 +1049,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 </Select>
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Jumlah Unit :"
                 style={{ fontWeight: "bold" }}
@@ -1056,19 +1058,19 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                   { required: false, message: "Please input your jenis!" },
                 ]}
               >
-               <Input
-               value={JumlahUnit}
-               className="mt-2"
-               onChange={(e) => {
-                 console.log(e.target.value);
-                 setJumlahUnit(e.target.value);
-               }}
-               />
+                <Input
+                  value={JumlahUnit}
+                  className="mt-2"
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setJumlahUnit(e.target.value);
+                  }}
+                />
               </Form.Item>
             </Col>
           </Row>
           <Row>
-            <Col sm={12} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={12} lg={12} style={{ padding: "0px" }}>
               <Form.Item
                 label="Alamat :"
                 style={{ fontWeight: "bold" }}
@@ -1090,7 +1092,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
             </Col>
           </Row>
           <Row>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Direktur :"
                 style={{ fontWeight: "bold" }}
@@ -1109,7 +1111,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Jumlah Armada :"
                 style={{ fontWeight: "bold" }}
@@ -1128,7 +1130,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Jumlah SDM Operasional :"
                 style={{ fontWeight: "bold" }}
@@ -1149,7 +1151,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
             </Col>
           </Row>
           <Row>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Cabang :"
                 style={{ fontWeight: "bold" }}
@@ -1168,7 +1170,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Jenis Kiriman :"
                 style={{ fontWeight: "bold" }}
@@ -1198,7 +1200,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 /> */}
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Jenis Mitra :"
                 style={{ fontWeight: "bold" }}
@@ -1229,7 +1231,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
           </Row>
 
           <Row>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Wilayah :"
                 style={{ fontWeight: "bold" }}
@@ -1248,7 +1250,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Tujuan :"
                 style={{ fontWeight: "bold" }}
@@ -1267,7 +1269,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Tahun Berdiri :"
                 style={{ fontWeight: "bold" }}
@@ -1288,7 +1290,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
             </Col>
           </Row>
           <Row>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Kontrak Awal :"
                 style={{ fontWeight: "bold" }}
@@ -1308,7 +1310,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 </Input.Group>
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Akhir Kontrak :"
                 style={{ fontWeight: "bold" }}
@@ -1330,7 +1332,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 {/* <Checkbox>Berlaku perpanjang otomatis</Checkbox> */}
               </Form.Item>
             </Col>
-            {/* <Col sm={4}>
+            {/* <Col xs={24} sm={12} md={4} lg={4}>
               <Form.Item
                 label="Kontrak Akhir :"
                 style={{ fontWeight: "bold" }}
@@ -1346,7 +1348,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 <Checkbox>Berlaku perpanjang otomatis</Checkbox>
               </Form.Item>
             </Col> */}
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Tahun Register :"
                 style={{ fontWeight: "bold" }}
@@ -1433,7 +1435,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
             DATA PERPAJAKAN (Tax Information)
           </h5>
           <Row className="mt-5">
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="No. NPWP :"
                 style={{ fontWeight: "bold" }}
@@ -1453,14 +1455,14 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Status Usaha :"
                 style={{ fontWeight: "bold" }}
                 name="status_usaha"
-              // rules={[
-              //   { required: false, message: "Please input your alamat!" },
-              // ]}
+                // rules={[
+                //   { required: false, message: "Please input your alamat!" },
+                // ]}
               >
                 <Select
                   className="mt-2"
@@ -1483,7 +1485,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 /> */}
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Nama NPWP :"
                 style={{ fontWeight: "bold" }}
@@ -1505,7 +1507,13 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
           </Row>
 
           <Row>
-            <Col sm={2} style={{ padding: "0px", width: "20%" }}>
+            <Col
+              xs={24}
+              sm={12}
+              md={4}
+              lg={2}
+              style={{ padding: "0px", width: "20%" }}
+            >
               <Form.Item
                 label="Jalan NPWP:"
                 style={{ fontWeight: "bold" }}
@@ -1521,7 +1529,13 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={2} style={{ width: "20%", padding: "0px" }}>
+            <Col
+              xs={24}
+              sm={12}
+              md={4}
+              lg={2}
+              style={{ width: "20%", padding: "0px" }}
+            >
               <Form.Item
                 label="Kota :"
                 style={{ fontWeight: "bold" }}
@@ -1538,7 +1552,13 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
               </Form.Item>
             </Col>
 
-            <Col sm={2} style={{ width: "20%", padding: "0px" }}>
+            <Col
+              xs={24}
+              sm={12}
+              md={4}
+              lg={2}
+              style={{ width: "20%", padding: "0px" }}
+            >
               <Form.Item
                 label="Kecamatan :"
                 style={{ fontWeight: "bold" }}
@@ -1554,7 +1574,13 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={2} style={{ width: "20%", padding: "0px" }}>
+            <Col
+              xs={24}
+              sm={12}
+              md={4}
+              lg={2}
+              style={{ width: "20%", padding: "0px" }}
+            >
               <Form.Item
                 label="Kelurahan :"
                 style={{ fontWeight: "bold" }}
@@ -1570,7 +1596,13 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={2} style={{ width: "20%", padding: "0px" }}>
+            <Col
+              xs={24}
+              sm={12}
+              md={4}
+              lg={2}
+              style={{ width: "20%", padding: "0px" }}
+            >
               <Form.Item
                 label="Provinsi :"
                 style={{ fontWeight: "bold" }}
@@ -1589,7 +1621,13 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
           </Row>
 
           <Row>
-            <Col sm={2} style={{ width: "20%", padding: "0px" }}>
+            <Col
+              xs={24}
+              sm={12}
+              md={4}
+              lg={2}
+              style={{ width: "20%", padding: "0px" }}
+            >
               <Form.Item
                 label="Blok :"
                 style={{ fontWeight: "bold" }}
@@ -1605,7 +1643,13 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={2} style={{ width: "20%", padding: "0px" }}>
+            <Col
+              xs={24}
+              sm={12}
+              md={4}
+              lg={2}
+              style={{ width: "20%", padding: "0px" }}
+            >
               <Form.Item
                 label="Nomor :"
                 style={{ fontWeight: "bold" }}
@@ -1622,7 +1666,13 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={2} style={{ width: "20%", padding: "0px" }}>
+            <Col
+              xs={24}
+              sm={12}
+              md={4}
+              lg={2}
+              style={{ width: "20%", padding: "0px" }}
+            >
               <Form.Item
                 label="RT :"
                 style={{ fontWeight: "bold" }}
@@ -1639,7 +1689,13 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={2} style={{ width: "20%", padding: "0px" }}>
+            <Col
+              xs={24}
+              sm={12}
+              md={4}
+              lg={2}
+              style={{ width: "20%", padding: "0px" }}
+            >
               <Form.Item
                 label="RW :"
                 style={{ fontWeight: "bold" }}
@@ -1657,7 +1713,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
               </Form.Item>
             </Col>
 
-            <Col sm={4} style={{ padding: "0px", width: "20%" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px", width: "20%" }}>
               <Form.Item
                 label="Kode Pos :"
                 style={{ fontWeight: "bold" }}
@@ -1700,8 +1756,8 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
           <h5 style={{ color: "#113D7F" }}>
             DATA ACCOUNTING (Accounting Information)
           </h5>
-          <Row className="mt-4">
-            <Col sm={4} style={{ padding: "0px" }}>
+          <Row gutter={[16, 16]} className="mt-4">
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Bank :"
                 style={{ fontWeight: "bold" }}
@@ -1726,7 +1782,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 </Select>
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Account Name :"
                 style={{ fontWeight: "bold" }}
@@ -1742,7 +1798,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Account Number :"
                 style={{ fontWeight: "bold" }}
@@ -1762,8 +1818,8 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
           <br />
           <hr />
           <br />
-          <Row className="mt-4">
-            <Col sm={4} style={{ padding: "0px" }}>
+          <Row gutter={[16, 16]} className="mt-4">
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Currency :"
                 style={{ fontWeight: "bold" }}
@@ -1779,11 +1835,11 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Term of payment (Hari) :"
                 style={{ fontWeight: "bold" }}
-              name="top"
+                name="top"
               >
                 <Select
                   className="mt-2"
@@ -1802,7 +1858,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 </Select>
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Type Of Payment :"
                 style={{ fontWeight: "bold" }}
@@ -1826,8 +1882,8 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
               </Form.Item>
             </Col>
           </Row>
-          <Row className="mt-4">
-            <Col sm={4} style={{ padding: "0px" }}>
+          <Row gutter={[16, 16]} className="mt-4">
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Contact Person :"
                 style={{ fontWeight: "bold" }}
@@ -1843,7 +1899,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Email :"
                 style={{ fontWeight: "bold" }}
@@ -1859,7 +1915,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
                 />
               </Form.Item>
             </Col>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Telp :"
                 style={{ fontWeight: "bold" }}
@@ -1877,11 +1933,11 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
             </Col>
           </Row>
           <Row>
-            <Col sm={4} style={{ padding: "0px" }}>
+            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px" }}>
               <Form.Item
                 label="Status :"
                 style={{ fontWeight: "bold" }}
-              // name="-"
+                // name="-"
               >
                 <Select
                   className="mt-2"
@@ -1914,7 +1970,6 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
         </Form>
       </Card>
       {/* <PIC namaMitra={namaMitra}/> */}
-
     </>
   );
 }

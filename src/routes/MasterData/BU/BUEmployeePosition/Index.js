@@ -276,11 +276,9 @@ function Index() {
       <Card>
         <h5 style={{ fontWeight: "bold" }}>Data BU Employee Position</h5>
         <hr />
-        <Row>
-          
-        </Row>
-        <Row className=" mb-3">
-          <Col span={4}>
+        
+        <Row gutter={[16, 16]} className=" mb-3">
+          <Col xs={24} sm={12} md={4} lg={4}>
             <label style={{fontFamily: 'NoirPro', fontWeight: "bold"}}>
               Pilih Kode Employee
             </label>
@@ -303,7 +301,7 @@ function Index() {
               ))}
             </Select>
           </Col>
-          <Col span={20} className="d-flex justify-content-end">
+          <Col  xs={24} sm={12} md={20} lg={20} className="d-flex justify-content-end mt-2">
             <Button
               style={{ backgroundColor: "#1A5CBF", color: "white" }}
               onClick={handleAdd}

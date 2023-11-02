@@ -100,8 +100,8 @@ function CreatedPIC() {
         <h5>New Data Master Mitra PIC</h5>
         <hr />
         <br />
-        <Row>
-          <Col span={12}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={12} lg={12}>
             <label style={{ fontWeight: "bold" }}> Jabatan : </label>
             <Input
               type="text"
@@ -132,7 +132,7 @@ function CreatedPIC() {
                 ))}
             </Select> */}
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12} md={12} lg={12}>
             <label style={{ fontWeight: "bold" }}>Nama PIC :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -147,8 +147,8 @@ function CreatedPIC() {
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={12} lg={12}>
             <label style={{ fontWeight: "bold" }}>Email :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -162,7 +162,7 @@ function CreatedPIC() {
               }}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12} md={12} lg={12}>
             <label style={{ fontWeight: "bold" }}>Telepon :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -176,7 +176,7 @@ function CreatedPIC() {
               }}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12} md={12} lg={12}>
             <label style={{ fontWeight: "bold" }}>KTP :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -191,7 +191,7 @@ function CreatedPIC() {
             />
           </Col>
         </Row>
-        <Row>
+        <Row gutter={[16, 16]}>
           <Col span={24} className="d-flex justify-content-end">
             <Button
               style={{

@@ -215,7 +215,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
       <hr />
       <br />
 
-      <Row>
+      <Row gutter={[16, 16]}>
         <Col sm={6}>
           <Row className="align-items-center mb-2">
             <Col sm={5}>
@@ -223,7 +223,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>PURCHASE ORDER</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Select
                 style={{ width: "100%" }}
                 value={datareverensis.po_legalitas}
@@ -244,7 +244,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>KTP PENANDATANGAN</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Select
                 style={{ width: "100%" }}
                 value={datareverensis.ktp_legalitas}
@@ -265,7 +265,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>AKTA PENDIRIAN</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Select
                 style={{ width: "100%" }}
                 value={datareverensis.akta_pendirian}
@@ -286,7 +286,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>AKTA PENDIRIAN</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Select
                 aria-label="Default select example"
                 value={datareverensis.akta_pendirian}
@@ -307,7 +307,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>AKTA PERUBAHAN DASAR TERBARU</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Select
                 style={{ width: "100%" }}
                 value={datareverensis.akta_pendirian}
@@ -328,7 +328,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>AKTA SUSUNAN DIREKSI TERBARU</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Select
                 style={{ width: "100%" }}
                 value={datareverensis.akta_susunan_direksi}
@@ -349,7 +349,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>SURAT DOMISILI</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Select
                 style={{ width: "100%" }}
                 value={datareverensis.surat_domisili}
@@ -370,7 +370,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>NPWP</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Select
                 style={{ width: "100%" }}
                 value={datareverensis.npwp_legalitas}
@@ -391,7 +391,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>SKT</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Select
                 style={{ width: "100%" }}
                 value={datareverensis.skt_legalitas}
@@ -412,7 +412,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>NPPKP / SPPKP</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Select aria-label="Default select example">
                 <option value="1">{datareverensis?.nppkp_legalitas}</option>
                 <option value="1">TIDAK</option>
@@ -425,7 +425,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>NIB (SIUP/SIUB/SIUJK/SIUPAL)</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Select
                 style={{ width: "100%" }}
                 value={datareverensis.siup_legalitas}
@@ -446,7 +446,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>IJIN PENDIRIAN KPPA</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Select
                 style={{ width: "100%" }}
                 value={datareverensis.ijin_pendirian}
@@ -467,7 +467,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>PERSETUJUAN PENANAMAN MODAL DARI BPKM</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Select aria-label="Default select example">
                 <option value="1">ADA</option>
                 <option value="1">TIDAK</option>
@@ -480,7 +480,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>IJIN USAHA TETAP DARI BPKM</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Select
                 style={{ width: "100%" }}
                 value={datareverensis.ijin_usaha}
@@ -501,7 +501,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>TDP</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Select
                 style={{ width: "100%" }}
                 value={datareverensis.tdp_legalitas}
@@ -522,7 +522,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>SURAT KUASA (PENANDATANGAN KONTRAK BUKAN DIREKSI)</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Select
                 style={{ width: "100%" }}
                 value={datareverensis.surat_kuasa}
@@ -543,7 +543,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
                 <b>ASSET MESIN</b>
               </Form.Label>
             </Col>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Select
                 style={{ width: "100%" }}
                 value={datareverensis.asset_mesin}
@@ -627,7 +627,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
           </Row>
           <br />
           <Row>
-            <Col>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <b>B. BADAN USAHA</b>
             </Col>
           </Row>
@@ -712,7 +712,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
           <br />
           <br />
           <Row className="align-items-center">
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>QTY MOTOR :</b>
               </Form.Label>
@@ -725,7 +725,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
             
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>QTY GRANDMAX :</b>
               </Form.Label>
@@ -738,7 +738,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
             
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>QTY L300 :</b>
               </Form.Label>
@@ -751,7 +751,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
              
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>QTY TRAGA :</b>
               </Form.Label>
@@ -763,7 +763,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               }}
               />
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>QTY CDE :</b>
               </Form.Label>
@@ -776,7 +776,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
              
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>QTY CDD :</b>
               </Form.Label>
@@ -789,7 +789,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
              
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>QTY FUSO :</b>
               </Form.Label> <Input 
@@ -801,7 +801,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
             
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>QTY WINGBOX :</b>
               </Form.Label>
@@ -814,7 +814,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
             
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>QTY TRAILER 20" :</b>
               </Form.Label>
@@ -827,7 +827,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
              
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>QTY TRAILER 40" :</b>
               </Form.Label>
@@ -848,7 +848,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
           <br />
           <br />
           <Row className="align-items-center">
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>BIAYA MOTOR :</b>
               </Form.Label>
@@ -861,7 +861,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
              
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>BIAYA GRANDMAX :</b>
               </Form.Label> <Input 
@@ -873,7 +873,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
              
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>BIAYA L300 :</b>
               </Form.Label>
@@ -886,7 +886,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
               
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>BIAYA TRAGA :</b>
               </Form.Label>
@@ -899,7 +899,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
               
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>BIAYA CDE :</b>
               </Form.Label>
@@ -912,7 +912,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
               
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>BIAYA CDD :</b>
               </Form.Label>
@@ -925,7 +925,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
             
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>BIAYA FUSO :</b>
               </Form.Label>
@@ -938,7 +938,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
             
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>BIAYA WINGBOX :</b>
               </Form.Label>
@@ -951,7 +951,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
              
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>BIAYA TRAILER 20" :</b>
               </Form.Label>
@@ -964,7 +964,7 @@ function DataReferensi({ mitraId, SemuaDataUntukEdit, setActiveTab }) {
               />
              
             </Col>
-            <Col>
+            <Col xs={6} sm={4} md={2} lg={2}>
               <Form.Label style={{ fontSize: "10px" }}>
                 <b>BIAYA TRAILER 40" :</b>
               </Form.Label>

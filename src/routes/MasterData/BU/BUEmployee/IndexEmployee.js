@@ -130,14 +130,14 @@ function IndexEmployee() {
         Data Bisnis Unit Employee
       </h5>
       <hr />
-      <Row>
-      <Col span={12}>
+      <Row gutter={[16,16]}>
+      <Col xs={24} sm={12} md={6} lg={6}>
         <label style={{width: '100%', fontWeight: 'bold', fontFamily: 'NoirPro'}} className='mb-2'>
           Search Employee Name :
         </label>
             <Input
               style={{
-                width: "50%",
+                width: "100%",
                 border: "1px solid #1A5CBF",
                 borderRadius: "5px",
                 boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
@@ -148,7 +148,7 @@ function IndexEmployee() {
               placeholder="Search Employee Name"
             ></Input>
           </Col>
-          <Col span={12} className="d-flex justify-content-end">
+          <Col xs={24} sm={12} md={12} lg={18} className="d-flex justify-content-end">
             <Button style={{backgroundColor: '#1A5CBF', color: 'white'}} onClick={handleAdd}>New Bisnis Unit</Button>
           </Col>
         </Row>

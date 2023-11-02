@@ -146,8 +146,8 @@ function CreateBUEmployee() {
     <div>
       <h5>Data Employee</h5>
       <hr />
-      <Row>
-        {/* <Col span={10}>
+      <Row gutter={[16, 16]}>
+        {/* <Col xs={24} sm={12} md={10} lg={10}>
           <label style={{ fontWeight: "bold" }}>Photo :</label>
           <Card>
             <Upload
@@ -167,7 +167,7 @@ function CreateBUEmployee() {
             </Upload>
           </Card>
         </Col> */}
-        <Col span={4}>
+        <Col xs={24} sm={12} md={4} lg={4}>
           <label style={{ fontWeight: "bold" }}>Code Employee :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -180,7 +180,7 @@ function CreateBUEmployee() {
             }}
           />
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={12} md={8} lg={8}>
           <label style={{ fontWeight: "bold" }}>Full Name :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -193,7 +193,7 @@ function CreateBUEmployee() {
             }}
           />
         </Col>
-        <Col span={6}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold" }}>Designation :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -219,7 +219,7 @@ function CreateBUEmployee() {
               ))}
           </Select>
         </Col>
-        <Col span={6}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold" }}>BU Brench :</label>
           <Select
             className="mt-2"
@@ -289,7 +289,7 @@ function CreateBUEmployee() {
         </Col>
       </Row>
       <Row className="mt-2">
-        <Col span={6}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold" }}>No Telepon :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -303,7 +303,7 @@ function CreateBUEmployee() {
             }}
           />
         </Col>
-        <Col span={6}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold" }}>Email :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -316,7 +316,7 @@ function CreateBUEmployee() {
             }}
           />
         </Col>
-        <Col span={3}>
+        <Col xs={24} sm={12} md={3} lg={3}>
           <label style={{ fontWeight: "bold" }}>Kode BU :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -343,7 +343,7 @@ function CreateBUEmployee() {
               ))}
           </Select>
         </Col>
-        <Col span={9}>
+        <Col xs={24} sm={12} md={9} lg={9}>
           <label style={{ fontWeight: "bold" }}>Nama Bisnis Unit :</label>
 
           <Input
@@ -355,15 +355,15 @@ function CreateBUEmployee() {
           />
         </Col>
       </Row>
-      {/* <Row>
+      {/* <Row gutter={[16, 16]}>
      
       </Row> */}
 
       <br />
       <h5>Wilayah Group Leader</h5>
       <hr />
-      <Row className="mt-2">
-        <Col span={3}>
+      <Row gutter={[16,16]} className="mt-2">
+        <Col xs={24} sm={12} md={3} lg={3}>
           <label style={{ fontWeight: "bold" }}>ID GL :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -393,7 +393,6 @@ function CreateBUEmployee() {
                   </Select.Option>
                 ))}
           </Select>
-          haha iya iya
           {/* <Input
             className="mt-2 mb-2"
             name="id_gl"
@@ -404,7 +403,7 @@ function CreateBUEmployee() {
             }}
           /> */}
         </Col>
-        <Col span={10}>
+        <Col xs={24} sm={12} md={10} lg={10}>
           <label style={{ fontWeight: "bold" }}>Nama Group Leader :</label>
           <Input
             disabled
@@ -416,7 +415,7 @@ function CreateBUEmployee() {
           />
         </Col>
 
-        <Col span={10}>
+        <Col xs={24} sm={12} md={10} lg={10}>
           <label style={{ fontWeight: "bold" }}>Position Grup Leader :</label>
           <Input
             disabled
@@ -431,7 +430,7 @@ function CreateBUEmployee() {
       <h5>Wilayah ASMEN</h5>
       <hr />
       <Row className="mt-2">
-        <Col span={3}>
+        <Col xs={24} sm={12} md={3} lg={3}>
           <label style={{ fontWeight: "bold" }}>ID ASM :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -466,7 +465,7 @@ function CreateBUEmployee() {
                 ))}
           </Select>
         </Col>
-        <Col span={10}>
+        <Col xs={24} sm={12} md={10} lg={10}>
           <label style={{ fontWeight: "bold" }}>Nama ASMEN :</label>
           <Input
             disabled
@@ -476,7 +475,7 @@ function CreateBUEmployee() {
             value={DataASM}
           />
         </Col>
-        <Col span={10}>
+        <Col xs={24} sm={12} md={10} lg={10}>
           <label style={{ fontWeight: "bold" }}>Position ASMEN :</label>
           <Input
             disabled
@@ -490,8 +489,8 @@ function CreateBUEmployee() {
       <br />
       <h5>Wilayah Manager</h5>
       <hr />
-      <Row>
-        <Col span={3}>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={12} md={3} lg={3}>
           <label style={{ fontWeight: "bold" }}>ID MGR :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -522,7 +521,7 @@ function CreateBUEmployee() {
                 ))}
           </Select>
         </Col>
-        <Col span={10}>
+        <Col xs={24} sm={12} md={10} lg={10}>
           <label style={{ fontWeight: "bold" }}>Nama Manager :</label>
           <Input
             disabled
@@ -532,7 +531,7 @@ function CreateBUEmployee() {
             value={DataMgr}
           />
         </Col>
-        <Col span={10}>
+        <Col xs={24} sm={12} md={10} lg={10}>
           <label style={{ fontWeight: "bold" }}>Position Manager :</label>
           <Input
             disabled
@@ -546,8 +545,8 @@ function CreateBUEmployee() {
       <br />
       <h5>Wilayah Kepala Cabang</h5>
       <hr />
-      <Row>
-        <Col span={3}>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={12} md={3} lg={3}>
           <label style={{ fontWeight: "bold" }}>ID KACAB:</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -578,7 +577,7 @@ function CreateBUEmployee() {
                 ))}
           </Select>
         </Col>
-        <Col span={10}>
+        <Col xs={24} sm={12} md={10} lg={10}>
           <label style={{ fontWeight: "bold" }}>Nama Kepala Cabang :</label>
           <Input
             disabled
@@ -588,7 +587,7 @@ function CreateBUEmployee() {
             value={DataKacab}
           />
         </Col>
-        <Col span={10}>
+        <Col xs={24} sm={12} md={10} lg={10}>
           <label style={{ fontWeight: "bold" }}>Position Kepala Cabang :</label>
           <Input
             disabled
@@ -602,8 +601,8 @@ function CreateBUEmployee() {
       <br />
       <h5>Wilayah AMD</h5>
       <hr />
-      <Row>
-        <Col span={3}>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={12} md={3} lg={3}>
           <label style={{ fontWeight: "bold" }}>ID AMD :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -634,7 +633,7 @@ function CreateBUEmployee() {
                 ))}
           </Select>
         </Col>
-        <Col span={10}>
+        <Col xs={24} sm={12} md={10} lg={10}>
           <label style={{ fontWeight: "bold" }}>Nama AMD :</label>
           <Input
             disabled
@@ -644,7 +643,7 @@ function CreateBUEmployee() {
             value={DataAmd}
           />
         </Col>
-        <Col span={10}>
+        <Col xs={24} sm={12} md={10} lg={10}>
           <label style={{ fontWeight: "bold" }}>Position AMD :</label>
           <Input
             disabled
@@ -655,7 +654,7 @@ function CreateBUEmployee() {
           />
         </Col>
       </Row>
-      <Row>
+      <Row gutter={[16, 16]}>
         <Col span={24} className="d-flex justify-content-end mt-2">
           <Button type="primary">
             <span onClick={TambahData}>Save</span>

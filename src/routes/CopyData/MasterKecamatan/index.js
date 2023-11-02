@@ -196,8 +196,8 @@ const SamplePage = () => {
         <h5 style={{color: '#1A5CBF'}}>Tabel Data Kecamatan</h5>
         <hr/>
         <br/>
-          <Row>
-            <Col span={12}>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12} md={12} lg={12}>
               <label style={{fontWeight: 'bold'}} className="mb-2">
                 Search Provinsi : 
               </label>
@@ -213,7 +213,7 @@ const SamplePage = () => {
                 autoFocus
               />
             </Col>
-            <Col span={12}>
+            <Col xs={24} sm={12} md={12} lg={12}>
             <label style={{fontWeight: 'bold'}} className="mb-2">
                 Search Kota :
               </label>
@@ -233,6 +233,7 @@ const SamplePage = () => {
           <br/>
           <hr/>
           <Table
+           style={{ overflowX: "auto" }}
             className="mt-4"
             columns={columns}
             dataSource={dataSource}
