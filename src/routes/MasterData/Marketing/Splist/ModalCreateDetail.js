@@ -413,23 +413,25 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
 
         if (DetailSemua?.service?.toLowerCase() === 'retail' || DetailSemua?.service?.toLowerCase() === 'retailer' && formik.values.via != "laut") {
             return (HasilTarifNumerik * berat) + totalBiayaTambahan;
+        } else if (formik.values.kapalcepat === "Kapal Cepat" && formik.values.via === "laut" && DetailSemua?.service?.toLowerCase() === 'retail' || DetailSemua?.service?.toLowerCase() === 'retailer') {
+            return HasilTarifNumerik * berat;
         } else if (DetailSemua?.service === 'Charter') {
             return HasilTarifNumerik + totalBiayaTambahan;
-        } else if ( formik.values.via === "laut" && DetailSemua?.service?.toLowerCase() === 'retail' || DetailSemua?.service?.toLowerCase() === 'retailer') {
+        } else if (formik.values.via === "laut" && DetailSemua?.service?.toLowerCase() === 'retail' || DetailSemua?.service?.toLowerCase() === 'retailer') {
             return HasilTarifNumerik + totalBiayaTambahan;
         }
     };
-
+    console.log(`formik.values.via `, formik.values.via);
     useEffect(() => {
         const total = calculateTotal(formik.values.shipment, formik.values.berat, formik.values.biayajalan);
         formik.setFieldValue("total", total);
 
         const totalCreate = calculateTotal(formik.values.shipment, formik.values.berat, formik.values.biayajalan);
         formik.setFieldValue("totalCreate", totalCreate);
-    }, [HasilTarif, formik.values.lain, formik.values.biayaselanjutnya, formik.values.biayamaxtonase, formik.values.biayajalan, formik.values.tambahan, formik.values.overtonase, formik.values.totalCreate, formik.values.shipment, formik.values.berat, formik.values.bongkar, formik.values.biayamuat, formik.values.biayamultimuat, formik.values.biayamultidrop, formik.values.biayamel]);
+    }, [HasilTarif, formik.values.lain, formik.values.biayaselanjutnya, formik.values.biayamaxtonase, formik.values.biayajalan, formik.values.tambahan, formik.values.overtonase, formik.values.totalCreate, formik.values.shipment, formik.values.kapalcepat, formik.values.berat, formik.values.bongkar, formik.values.biayamuat, formik.values.biayamultimuat, formik.values.biayamultidrop, formik.values.biayamel,formik?.values?.via  ]);
 
 
-    console.log(`formik.via`, formik?.values?.jenisKiriman);
+    console.log(`formik.via`, formik?.values?.via);
 
     const labelpilihan = () => {
         if (formik.values.pilihanberat === 1) {
@@ -651,7 +653,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                         formik.setFieldValue("id_kendaraan_jenis", option.id_kendaraan_jenis)
                                         formik.setFieldValue("jenisKiriman", option.jenisKiriman)
                                         setid_price_customer(value)
-                                        console.log(`id_price`, option);
+                                        console.log(`ini options`, option);
                                         setTarifAsli(option?.biaya)
                                     }}
                                     value={"Kendaraan :" + " " + formik.values.kendaraan + " | | " + "Via :" + " " + formik.values.via + " | | " + "Shipment : " + formik.values.shipment + " || " + "Tarif : " + formik.values.biayajalan}
@@ -868,7 +870,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     id="via"
                                     name="via"
                                     type="via"
-                                    onChange={(e) => formik.setFieldValue("via", e)}
+                                    onChange={(e) => {console.log(`ini dari form`,e);formik.setFieldValue("via", e)}}
                                     value={formik.values.via}
                                     onBlur={formik.handleBlur}
                                 >
@@ -896,16 +898,17 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                     id="shipment"
                                     name="shipment"
                                     type="text"
-                                    onChange={(e) => {
+                                    onChange={(e, data) => {
                                         formik.setFieldValue("shipmentBaru", e)
                                         formik.setFieldValue("shipmentIDBaru", e)
-                                        console.log(e);
+                                        formik.setFieldValue("kapalcepat", data.data.shipment)
+                                        console.log(`kapalcepat`, data.data.shipment);
                                     }}
                                     value={formik.values.shipmentBaru}
                                     onBlur={formik.handleBlur}
                                 >
                                     {shipmentOptions && shipmentOptions.map((item) => (
-                                        <Select.Option value={item.id}>{item.shipment + " - " + formik.values.via}</Select.Option>
+                                        <Select.Option data={item} value={item.id}>{item.shipment + " - " + formik.values.via}</Select.Option>
                                     ))}
                                 </Select>
                             </Form.Item>
@@ -1756,7 +1759,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
                                                 {(data.via.toLowerCase() === "darat" && (data?.service[0].toLowerCase() === "retail" || data?.service[0].toLowerCase() === "retailer"))
                                                     ?
                                                     <td style={{ textAlign: "right", fontWeight: "bold" }}>
-                                                        {data?.service[0]}
+                                                        {/* {data?.service[0]} */}
                                                         {
                                                             (data.berat * data.Price).toLocaleString("id-ID", {
                                                                 style: "currency",

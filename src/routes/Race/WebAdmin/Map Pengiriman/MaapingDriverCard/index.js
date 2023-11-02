@@ -39,26 +39,28 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
         <div >
             {(Array.isArray(OptionNamaNamaDriver) ? OptionNamaNamaDriver : []).map((data, index) => (
                 <Card className='mt-3' style={{ borderRadius: 10, backgroundColor: "#ccd8f3", padding: "0px", margin: "0px", height: "auto" }}>
-                    <Card className='card-2' style={{ marginTop: "-15px", borderRadius: 10, marginRight: -20, marginLeft: -20, backgroundColor: "orange", maxHeight: 90 }}>
+                    <Card className='card-2' style={{ marginTop: "-15px", borderRadius: 10, marginRight: -20, marginLeft: -20, backgroundColor: "#1A3368", maxHeight: 90 }}>
                         <Row >
-                            <Col style={{ backgroundColor: "" }}>
-                                <Button disabled style={{ backgroundColor: "red", borderRadius: "8px", color: "white" }}>{index + 1}</Button>
+                            <Col md={1} l style={{ backgroundColor: "" }}>
+                                <Button style={{ backgroundColor: "white", borderRadius: "8px", color: "blue" }}>{index + 1}</Button>
                             </Col>
-                            <Col sm={5}>
-                                <div style={{ fontWeight: "bold", fontSize: 15 }}>
-                                    <Tag color='blue'>{data.Driver}</Tag>
+                            <Col>
+                                <div style={{ fontWeight: "bold", fontSize: 15, color: "white", marginLeft: 20 }}>
+                                    {data.Driver}
                                 </div>
-                                <div className='' style={{ fontWeight: "bold", fontSize: 15 }}>
+                                <div className='' style={{ fontWeight: "bold", fontSize: 15, marginLeft: 20 }}>
                                     <Tag color='yellow'>  {data?.Kendaraan} </Tag>
                                 </div>
                             </Col>
                             <Col sm={3} className='mt-1'>
-                                <div style={{ color: "#1F3D7D", fontSize: 15, fontWeight: "bold", textAlign: 'center' }}>Jumlah SJ</div>
-                                <div style={{ color: "blue", fontWeight: "bold", fontSize: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{data.statusSJ?.length || 0}</div>
+                                <div style={{ color: "white", fontSize: 15, fontWeight: "bold", textAlign: 'center' }}>Jumlah SJ</div>
+                                <div style={{ color: "white", fontWeight: "bold", fontSize: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{data.statusSJ?.length || 0}</div>
                             </Col>
 
                         </Row>
+
                     </Card>
+
                     {!isHidden ? (
                         (data?.length || 0) > 0 ? (
                             <div className='d-flex justify-content-center' style={{ color: "#A2A2A2", fontSize: 20, marginTop: -20 }}>
@@ -78,14 +80,14 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
                                         >
                                             <div style={{ marginTop: -10 }}>
                                                 <Card
-                                                    key={item.id}
+                                                    key={item?.id}
                                                     style={{
                                                         padding: '0px',
                                                         borderRadius: '10px',
                                                         marginRight: -20,
                                                         marginLeft: -20,
-                                                        maxHeight: 90,
-                                                        backgroundColor: '#FFF9F9',
+                                                        maxHeight: 120,
+                                                        backgroundColor: '',
                                                     }}
                                                 >
                                                     <Row style={{ height: 30, backgroundColor: "", marginTop: -10 }}>
@@ -96,33 +98,31 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
                                                             </Tag>
                                                         </Col>
                                                         <Col>
-                                                            <Tag color='blue' disabled>
-                                                                {item.noSj}
-                                                            </Tag>
+                                                            <Row>
+                                                                <div style={{ color: "#A2A2A2" }}>{moment(item.updateDate).format('D-MM-YYYY')}<br /></div>
+                                                                <div style={{ color: "#1F3D7D", fontWeight: "bold" }}> {item.noSj}</div>
+                                                            </Row>
+
                                                         </Col>
-                                                        <Col >
-                                                            <Tag color="gold" style={{ fontSize: '10px', fontWeight: 'bold' }}>
-                                                                {item.status}
-                                                            </Tag>
+                                                        <Col className='d-flex justify-content-end'>
+                                                            <div style={{ fontSize: '10px', fontWeight: 'bold', backgroundColor: "#1F3D7D", display: "flex", alignItems: "center", borderRadius: 4, gap: 8, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
+                                                                <div style={{ color: "white", fontWeight: "bold" }}>{item.status}</div>
+                                                            </div>
                                                         </Col>
-                                                        <Col >
-                                                            <Tag color="blue" style={{ fontSize: '10px', fontWeight: 'bold' }}>
-                                                                {moment(item.updateDate).format('D-MM-YYYY')}
-                                                            </Tag>
-                                                        </Col>
+
                                                     </Row>
-                                                    <Row className="mt-3">
+                                                    <Row className="mt-4" style={{display :"flex",justifyItems :"center"}}>
                                                         <Row>
                                                             <Col md={2}></Col>
-                                                            <Col style={{ marginTop: -10 }}>
-                                                                <Tag color="blue" style={{ fontSize: '10px', fontWeight: 'bold' }}>
+                                                            <Col style={{ marginTop: -5 }}>
+                                                                <div style={{ fontSize: '10px', fontWeight: 'bold', backgroundColor: "#EAF1FF", color: "#1F3D7D",  paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8,justifyItems :"center" }}>
                                                                     {item.customer}
-                                                                </Tag>
+                                                                </div>
                                                             </Col>
-                                                            <Col style={{ marginTop: -10 }}>
-                                                                <Tag color="red" style={{ fontSize: '10px', fontWeight: 'bold' }}>
+                                                            <Col style={{ marginTop: -5 }}>
+                                                                <div style={{ fontSize: '10px', fontWeight: 'bold', backgroundColor: "#FEEAE4", color: "#F05423", paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, }}>
                                                                     {item.bongkar}
-                                                                </Tag>
+                                                                </div>
                                                             </Col>
 
 
@@ -132,15 +132,13 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
                                             </div>
                                         </div>
                                     ))}
-                                    <Col className='d-flex justify-content-center' style={{ backgroundColor: "" }}>
-                                        <Button onClick={toggleHide} style={{ backgroundColor: "blue", color: "white", borderRadius: 10 }}>{isHidden ? 'Show' : 'Hide'}</Button>
-                                    </Col>
+                                    <Button onClick={toggleHide} style={{ backgroundColor: "#5297FF", color: "white", width: "100%", borderRadius: 10 }}>{isHidden ? 'Show' : 'Hide'}</Button>
                                 </>
                             </>
                         )
                     ) : (
-                        <div className='d-flex justify-content-center' style={{  fontSize: 20 }}>
-                             <Button onClick={toggleHide} style={{ backgroundColor: "blue", color: "white", borderRadius: 10 , marginTop :-10 , display:'flex' , justifyItems :'center' }}>{isHidden ? 'Show' : 'Hide'}</Button>
+                        <div className='d-flex justify-content-center' style={{ fontSize: 20 }}>
+                            <Button onClick={toggleHide} style={{ backgroundColor: "#5297FF", color: "white", width: "100%", borderRadius: 10 }}>{!isHidden ? 'Hide' : 'Show'}</Button>
                         </div>
                     )}
                 </Card>

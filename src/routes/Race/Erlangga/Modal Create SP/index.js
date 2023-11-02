@@ -1,4 +1,4 @@
-import { Button, Form, Modal, Select, notification } from 'antd'
+import { Button, Form, Modal, Select, Table, notification } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap';
 import { BaseUrlRace } from '../../../../Api/BaseUrl';
@@ -17,10 +17,9 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
             SelectData()
         }
     }, [modal1Open])
-
+    const [SelectSekolahforEach, setSelectSekolahforEach] = useState("")
 
     const SelectData = async () => {
-
         try {
             const data = await axios.get(`${BaseUrlRace}sp/get-select-sp?noref=${Seleckan.seleckan_noref}`,
                 {
@@ -35,6 +34,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
                 ...item,
                 seleckan_sekolah: data?.data?.sekolah?.[0]
             }))
+            // SelectDataForeach()
             let updatedSeleckanSekolah;
             if (Array.isArray(data.data.sekolah)) {
                 updatedSeleckanSekolah = data.data.sekolah;
@@ -60,10 +60,10 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
             "memo": Seleckan.seleckan_noref,
         }
         try {
-            const data = await axios.post(`${BaseUrlRace}sp/creates-sp`, body, {
+            const data = await axios.post(`${BaseUrlRace}sp/create-sp`, body, {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4ODMxNjI1LCJleHAiOjE2OTg5MTgwMjV9.RIV1GBzazVw4NK-mi648hOxO7139bTKGKtP6jYVLGnc',
                     // Authorization: localStorage.getItem("token"),
                 },
             })
@@ -78,13 +78,13 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
         const body =
         {
             "memo": Seleckan.seleckan_noref,
-            "sekolah": Seleckan.seleckan_sekolah,
+            "sekolah": Seleckan.seleckan_sekolah.sekolah,
         }
         try {
             const data = await axios.post(`${BaseUrlRace}sp/create-sp-detail`, body, {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4ODMxNjI1LCJleHAiOjE2OTg5MTgwMjV9.RIV1GBzazVw4NK-mi648hOxO7139bTKGKtP6jYVLGnc',
                     // Authorization: localStorage.getItem("token"),
                 },
             })
@@ -101,6 +101,49 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
         SelectData();
     }, [Seleckan.seleckan_noref]);
 
+
+    // const SelectDataForeach = async () => {
+    //     try {
+    //         Seleckan.data_noref.forEach(async (datafor) => {
+    //             const data = await axios.get(`${BaseUrlRace}sp/get-select-sp?noref=${datafor.referensi}`,
+    //                 {
+    //                     headers: {
+    //                         Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
+    //                         "Content-Type": "application/json",
+    //                     },
+    //                 }
+    //             );
+    //             const datas = data.data.sekolah.map((item) => ({
+    //                 item: item.sekolah
+    //             }))
+    //             console.log(`ini datas`, data.data.sekolah)
+    //             setSelectSekolahforEach(data.data.sekolah)
+    //         });
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+
+
+    // const columns = [
+    //     {
+    //         title: 'referensi',
+    //         dataIndex: 'referensi',
+    //         key: 'referensi',
+    //     },
+    //     {
+    //         title: 'Button',
+    //         key: 'button',
+    //         render: () => {
+    //             return <Button>{}</Button>;
+    //         },
+    //     },
+    // ];
+
+
+
+
+
     return (
         <div>
             <Modal
@@ -114,12 +157,12 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
                 confirmLoading={!Seleckan.seleckan_sekolah}
                 onOk={() => {
                     CreateSP()
-                    setSeleckan(item=>({
-                            ...item,
-                            seleckan_sekolah : "",
-                            seleckan_noref : "",
-    
-                        }))
+                    setSeleckan(item => ({
+                        ...item,
+                        seleckan_sekolah: "",
+                        seleckan_noref: "",
+
+                    }))
                 }}
                 onCancel={() => {
                     setModal1Open(false)
@@ -192,8 +235,9 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
                                 </Select>
                             </Form.Item>
                         </Col>
-                       
+
                     </Row>
+                    {/* <Table columns={columns} dataSource={Seleckan.data_noref} /> */}
                 </Form>
             </Modal>
         </div >
