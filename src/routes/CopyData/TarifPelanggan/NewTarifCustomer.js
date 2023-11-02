@@ -246,8 +246,8 @@ function NewTarifCustomer() {
       </h5>
       <hr />
       <br />
-      <Row>
-        <Col span={6}>
+      <Row gutter={[16,16]}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           {/* <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Kode Tarif Customer:</label> */}
           <Form.Group style={{ marginBottom: "10px" }}>
             <Form.Label style={{ fontWeight: `bold`, fontFamily: 'NoirPro' }}>
@@ -268,7 +268,7 @@ function NewTarifCustomer() {
             disabled
           /> */}
         </Col>
-        <Col span={6} style={{ width: "100%" }}>
+        <Col xs={24} sm={12} md={6} lg={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Customer :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -294,7 +294,7 @@ function NewTarifCustomer() {
               ))}
           </Select>
         </Col>
-        <Col span={6} style={{ width: "100%" }}>
+        <Col xs={24} sm={12} md={6} lg={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Kota Muat :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -321,7 +321,7 @@ function NewTarifCustomer() {
               ))}
           </Select>
         </Col>
-        <Col span={6} style={{ width: "100%" }}>
+        <Col xs={24} sm={12} md={6} lg={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Kota Tujuan :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -348,8 +348,8 @@ function NewTarifCustomer() {
           </Select>
         </Col>
       </Row>
-      <Row>
-        <Col span={6} style={{ width: "100%" }}>
+      <Row gutter={[16,16]}>
+        <Col xs={24} sm={12} md={6} lg={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Jenis Kendaraan :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -375,7 +375,7 @@ function NewTarifCustomer() {
               ))}
           </Select>
         </Col>
-        <Col span={6} style={{ width: "100%" }}>
+        <Col xs={24} sm={12} md={6} lg={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Jenis Layanan :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -399,7 +399,7 @@ function NewTarifCustomer() {
               ))}
           </Select>
         </Col>
-        <Col span={6} style={{ width: "100%" }}>
+        <Col xs={24} sm={12} md={6} lg={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Via :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -422,7 +422,7 @@ function NewTarifCustomer() {
               ))}
           </Select>
         </Col>
-        <Col span={6} style={{ width: "100%" }}>
+        <Col xs={24} sm={12} md={6} lg={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Jenis Kiriman:</label>
           <Select
             className="mt-2 mb-2"
@@ -446,8 +446,8 @@ function NewTarifCustomer() {
       <hr />
       <h5 style={{ fontWeight: "bold", color: "#1A5CBF" }}>Tarif Customer</h5>
       <br />
-      <Row>
-        <Col span={4}>
+      <Row gutter={[16,16]}>
+        <Col xs={24} sm={12} md={4} lg={4} >
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Kode Tarif Eureka</label>
           <Form.Control
             className="mt-2"
@@ -461,7 +461,7 @@ function NewTarifCustomer() {
             }}
           ></Form.Control>
         </Col>
-        <Col span={6}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Tarif Katalog :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Form.Control
@@ -492,7 +492,7 @@ function NewTarifCustomer() {
             }}
           /> */}
         </Col>
-        {/* <Col span={6} style={{ width: "100%" }}>
+        {/* <Col xs={24} sm={12} md={6} lg={6} style={{ width: "100%" }}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Jenis Diskon :</label>
           <Select
             className="mt-2 mb-2"
@@ -509,7 +509,7 @@ function NewTarifCustomer() {
             <Select.Option value="Presentase">Presentase</Select.Option>
           </Select>
         </Col> */}
-        <Col span={7}>
+        <Col xs={24} sm={12} md={7} lg={7} >
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Diskon (%) :</label>
           <Input
             type="text"
@@ -520,7 +520,7 @@ function NewTarifCustomer() {
             onChange={(e) => handleDiskonChange(e, true)}
           />
         </Col>
-        <Col span={7}>
+        <Col xs={24} sm={12} md={7} lg={7}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Diskon (Rp.) :</label>
           <Input
             type="text"
@@ -531,7 +531,7 @@ function NewTarifCustomer() {
             onChange={(e) => handleDiskonChange(e, false)}
           />
         </Col>
-        {/* <Col span={6}>
+        {/* <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Diskon :</label>
           <Input
             type="number"
@@ -544,7 +544,7 @@ function NewTarifCustomer() {
             }}
           />
         </Col> */}
-        <Col span={10}>
+        <Col xs={24} sm={12} md={10} lg={10}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Total Biaya :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Form.Control
@@ -582,7 +582,7 @@ function NewTarifCustomer() {
             }}
           /> */}
         </Col>
-        <Col span={6}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Min Tonase :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -607,8 +607,8 @@ function NewTarifCustomer() {
       <hr />
       <h5 style={{ fontWeight: "bold", color: "#1A5CBF" }}>Biaya Tambahan</h5>
       <br />
-      <Row>
-        <Col span={6}>
+      <Row gutter={[16,16]}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Muat :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -628,7 +628,7 @@ function NewTarifCustomer() {
             // }}
           />
         </Col>
-        <Col span={6}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Bongkar :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -650,7 +650,7 @@ function NewTarifCustomer() {
             // value={DataBiayaBongkar}
           />
         </Col>
-        <Col span={6}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Overtonase :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -671,7 +671,7 @@ function NewTarifCustomer() {
             // }}
           />
         </Col>
-        <Col span={6}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya MultiDrop :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -693,8 +693,8 @@ function NewTarifCustomer() {
           />
         </Col>
       </Row>
-      <Row>
-        {/* <Col span={6}>
+      <Row gutter={[16,16]}>
+        {/* <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Jalan :</label>
           <Input
             type="text"
@@ -707,7 +707,7 @@ function NewTarifCustomer() {
             }}
           />
         </Col> */}
-        <Col span={6}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Tambahan :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -728,7 +728,7 @@ function NewTarifCustomer() {
             // }}
           />
         </Col>
-        <Col span={6}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Mel :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -748,7 +748,7 @@ function NewTarifCustomer() {
             // }}
           />
         </Col>
-        <Col span={6}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Lain :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -768,7 +768,7 @@ function NewTarifCustomer() {
             // }}
           />
         </Col>
-        <Col span={6}>
+        <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Multimuat :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -791,8 +791,8 @@ function NewTarifCustomer() {
         </Col>
       </Row>
       <hr/>
-      <Row>
-      <Col span={6}>
+      <Row gutter={[16,16]}>
+      <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Jalan 2 :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -808,7 +808,7 @@ function NewTarifCustomer() {
            
           />
         </Col>
-      <Col span={6}>
+      <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Jalan 3 :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -824,7 +824,7 @@ function NewTarifCustomer() {
            
           />
         </Col>
-      <Col span={6}>
+      <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Jalan 4 :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -840,7 +840,7 @@ function NewTarifCustomer() {
            
           />
         </Col>
-      <Col span={6}>
+      <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Biaya Jalan 5 :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -859,8 +859,8 @@ function NewTarifCustomer() {
     
       </Row>
       {/* Min Tonase */}
-      <Row>
-      <Col span={6}>
+      <Row gutter={[16,16]}>
+      <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Min Tonase 2 :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -876,7 +876,7 @@ function NewTarifCustomer() {
            
           />
         </Col>
-      <Col span={6}>
+      <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Min Tonase 3 :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -892,7 +892,7 @@ function NewTarifCustomer() {
            
           />
         </Col>
-      <Col span={6}>
+      <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Min Tonase 4 :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -908,7 +908,7 @@ function NewTarifCustomer() {
            
           />
         </Col>
-      <Col span={6}>
+      <Col xs={24} sm={12} md={6} lg={6}>
           <label style={{ fontWeight: "bold", fontFamily: 'NoirPro' }}>Min Tonase 5 :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Input
@@ -926,7 +926,7 @@ function NewTarifCustomer() {
         </Col>
     
       </Row>
-      <Row>
+      <Row gutter={[16,16]}>
         <Col span={24} className="d-flex justify-content-end">
           <Button
             className="mt-2"

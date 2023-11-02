@@ -362,3 +362,9 @@ iframe{
   border: none;
   z-index: 2147483647;
 }
+
+@media (max-width: 600px) {
+  .responsive-table {
+    width: 100%;
+  }
+}
