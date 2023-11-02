@@ -430,7 +430,7 @@ const SamplePage = () => {
           
         `}
         </style>
-        <Row>
+        <Row >
           <Col sm={5}>
             <label
               className="mb-2"

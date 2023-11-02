@@ -108,11 +108,12 @@ function EditDetailBrench() {
       <Card>
         <h5>Data Detail Bisnis Unit Brench</h5>
         <hr />
-        <Row>
-          <Col span={12} className="mt-3">
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={12} lg={12} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Nama BU Brench :</label>
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
+              style={{width: '100%'}}
                 className="mt-2"
                 value={NamaBrench}
                 onChange={(e) => {
@@ -122,10 +123,11 @@ function EditDetailBrench() {
               />
             </div>
           </Col>
-          <Col span={12} className="mt-3">
+          <Col xs={24} sm={12} md={12} lg={12} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Nomor Telepon :</label>
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input
+               style={{width: '100%'}}
               type="number"
                 className="mt-2"
                 value={NomorTelepon}
@@ -136,11 +138,12 @@ function EditDetailBrench() {
               />
             </div>
           </Col>
-          <Col span={12} className="mt-3">
+          <Col xs={24} sm={12} md={12} lg={12} >
             <label style={{ fontWeight: "bold" }}>Code BU Brench :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
-            <div style={{ paddingRight: "30px" }}>
+            <div >
             <Input
+             style={{width: '100%'}}
                 className="mt-2"
                 value={IDBuCode}
                 onChange={(e) => {
@@ -172,10 +175,11 @@ function EditDetailBrench() {
             </Select> */}
             </div>
           </Col>
-          <Col className="mt-2" span={12}>
+          <Col  xs={24} sm={12} md={12} lg={12}>
             <label style={{fontWeight: "bold"}}>ID BU Brench :</label>
-            <div style={{ paddingRight: "30px" }}>
+            <div >
             <Input
+             style={{width: '100%'}}
                 className="mt-2"
                 value={IDBuBrench}
                 onChange={(e) => {
@@ -207,10 +211,11 @@ function EditDetailBrench() {
                 ))}
             </Select> */}
           </Col>
-          <Col span={24} className="mt-3">
+          <Col span={24} >
             <label style={{ fontWeight: "bold" }}>Alamat :</label>
-            <div style={{ paddingRight: "30px" }}>
+            <div >
               <Input.TextArea
+               style={{width: '100%'}}
                 className="mt-2"
                 value={Alamat}
                 onChange={(e) => {
@@ -223,7 +228,7 @@ function EditDetailBrench() {
           
          
         </Row>
-        <Row>
+        <Row gutter={[16, 16]}>
           <Col span={24} className="d-flex justify-content-end mt-2">
             <Button type="primary">
               <span onClick={EditDetailDataBrench}>Save</span>

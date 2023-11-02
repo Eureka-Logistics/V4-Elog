@@ -235,8 +235,9 @@ function EditDetail() {
         <h5 style={{ color: "#113D7F", fontWeight: "bold" }}>
           Edit dan Detail Tarif Eureka
         </h5>
-        <Row>
-          <Col className="mt-2" span={8}>
+        <hr/>
+        <Row gutter={[16, 16]}>
+          <Col className="mt-2" xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>Kota Muat :</label>
             <Select
               className="mt-2"
@@ -262,7 +263,7 @@ function EditDetail() {
                 ))}
             </Select>
           </Col>
-          <Col className="mt-2" span={8}>
+          <Col className="mt-2" xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>Kota Tujuan :</label>
             <Select
               showSearch
@@ -288,7 +289,7 @@ function EditDetail() {
                 ))}
             </Select>
           </Col>
-          <Col className="mt-2" span={8}>
+          <Col className="mt-2" xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>Jenis Kendaraan :</label>
             <Select
               showSearch
@@ -315,8 +316,8 @@ function EditDetail() {
             </Select>
           </Col>
         </Row>
-        <Row>
-          <Col className="mt-2" span={4}>
+        <Row gutter={[16, 16]}>
+          <Col className="mt-2" xs={24} sm={12} md={4} lg={4}>
             <label style={{ fontWeight: "bold" }}>Service Type :</label>
             <Select
               className="mt-2"
@@ -329,7 +330,7 @@ function EditDetail() {
               <Option value="Charter">Charter</Option>
             </Select>
           </Col>
-          <Col className="mt-2" span={4}>
+          <Col className="mt-2" xs={24} sm={12} md={4} lg={4}>
             <label style={{ fontWeight: "bold" }}>Satuan :</label>
             <Select
               className="mt-2"
@@ -343,7 +344,7 @@ function EditDetail() {
               <Option value="Pcs">Pcs</Option>
             </Select>
           </Col>
-          <Col className="mt-2" span={4}>
+          <Col className="mt-2" xs={24} sm={12} md={4} lg={4}>
             <label style={{ fontWeight: "bold" }}>Jenis Kiriman :</label>
             <Select
               className="mt-2"
@@ -356,7 +357,7 @@ function EditDetail() {
               <Option value="Reguler">Reguler</Option>
             </Select>
           </Col>
-          <Col className="mt-2" span={4}>
+          <Col className="mt-2" xs={24} sm={12} md={4} lg={4}>
             <label style={{ fontWeight: "bold" }}>Ritase :</label>
             {/* Menghubungkan input ritase dengan state ritase */}
             <Input
@@ -370,7 +371,7 @@ function EditDetail() {
             />
           </Col>
 
-          <Col className="mt-2" span={8}>
+          <Col className="mt-2" xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>Date Created :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
@@ -410,8 +411,8 @@ function EditDetail() {
         <hr />
         <h5 style={{ color: "#113D7F" }}>Biaya Penanganan</h5>
         <hr />
-        <Row>
-          <Col className="mt-2" span={6}>
+        <Row gutter={[16, 16]}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Uang Jalan :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
@@ -422,7 +423,7 @@ function EditDetail() {
               onChange={(e) => setUangJalan(e.target.value)}
             />
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Maintenance Cost :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
@@ -432,7 +433,7 @@ function EditDetail() {
               onChange={(e) => setDataMaintenance(e.target.value)}
             />
           </Col>
-          {/* <Col className="mt-2" span={6}>
+          {/* <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Variable Cost :</label>
             <Input
               className="mt-2"
@@ -441,7 +442,7 @@ function EditDetail() {
             />
           </Col> */}
 
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Fixed Cost :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
@@ -451,7 +452,7 @@ function EditDetail() {
               onChange={(e) => setDataFixedCost(e.target.value)}
             />
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Max Tonase :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
@@ -463,8 +464,8 @@ function EditDetail() {
         </Row>
         <br />
         <hr />
-        <Row>
-          <Col className="mt-2" span={6}>
+        <Row gutter={[16, 16]}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Amount :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
@@ -475,7 +476,7 @@ function EditDetail() {
               onChange={(e) => setDataAmount(e.target.value)}
             />
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Percent :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
@@ -486,7 +487,7 @@ function EditDetail() {
             />
           </Col>
 
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Tarif :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -499,7 +500,7 @@ function EditDetail() {
               }}
             />
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Harga Selanjutnya :</label>
             {/* Menghubungkan input uang jalan dengan state uangJalan */}
             <Input
@@ -509,7 +510,7 @@ function EditDetail() {
             />
           </Col>
         </Row>
-        <Row>
+        <Row gutter={[16, 16]}>
           <Col span={24} className="d-flex justify-content-end mt-2">
             <Button type="primary">
               <span onClick={EditTarif}>Save</span>

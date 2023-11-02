@@ -231,8 +231,9 @@ function DetailTarifMitra() {
         <h5 style={{ color: "#113D7F", fontWeight: "bold" }}>
           Edit dan Detail Tarif Mitra
         </h5>
-        <Row>
-          <Col className="mt-2" span={6}>
+        <hr/>
+        <Row gutter={[16, 16]}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Nama Mitra :</label>
             <Select
               className="mt-2"
@@ -258,7 +259,7 @@ function DetailTarifMitra() {
                 ))}
             </Select>
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Kota Muat :</label>
             <Select
               className="mt-2"
@@ -284,7 +285,7 @@ function DetailTarifMitra() {
                 ))}
             </Select>
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Kota Tujuan :</label>
             <Select
               showSearch
@@ -310,7 +311,7 @@ function DetailTarifMitra() {
                 ))}
             </Select>
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Date Created :</label>
             <Input
               className="mt-2"
@@ -325,8 +326,8 @@ function DetailTarifMitra() {
             />
           </Col>
         </Row>
-        <Row>
-          <Col className="mt-2" span={6}>
+        <Row gutter={[16, 16]}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Jenis Kendaraan :</label>
             <Select
               showSearch
@@ -353,7 +354,7 @@ function DetailTarifMitra() {
                 ))}
             </Select>
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Service Type :</label>
             <Select
               className="mt-2"
@@ -366,7 +367,7 @@ function DetailTarifMitra() {
               <Option value="Charter">Charter</Option>
             </Select>
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Jenis Kiriman :</label>
             <Select
               className="mt-2"
@@ -379,7 +380,7 @@ function DetailTarifMitra() {
               <Option value="Reguler">Reguler</Option>
             </Select>
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Via :</label>
             <Select
               className="mt-2"
@@ -425,8 +426,8 @@ function DetailTarifMitra() {
         <h5 style={{ color: "#113D7F", fontWeight: "bold" }}>
           Biaya Penanganan
         </h5>
-        <Row>
-          <Col className="mt-2" span={6}>
+        <Row gutter={[16, 16]}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontWeight: "bold" }}>Tarif :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -440,7 +441,7 @@ function DetailTarifMitra() {
               }}
             />
           </Col>
-          {/* <Col className="mt-2" span={6}>
+          {/* <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{fontWeight: 'bold'}}>Ritase :</label>
             Menghubungkan input ritase dengan state ritase
             <Input
@@ -458,7 +459,7 @@ function DetailTarifMitra() {
           </Col> */}
         </Row>
         <br />
-        <Row>
+        <Row gutter={[16, 16]}>
           <Col span={24} className="d-flex justify-content-end">
             <Button type="primary">
               <span onClick={EditTarif}>Save</span>

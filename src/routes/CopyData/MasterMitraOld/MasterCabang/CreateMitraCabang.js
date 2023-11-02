@@ -66,8 +66,8 @@ function CreateMitraCabang() {
         Data Contact PIC
       </h5>
       <hr/>
-      <Row>
-        <Col span={8}>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={12} md={8} lg={8}>
           <label style={{ fontWeight: "bold" }}>PIC Name :</label>
           <Input
             className="mt-2 mb-2"
@@ -79,7 +79,7 @@ function CreateMitraCabang() {
             }}
           />
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={12} md={8} lg={8}>
           <label style={{ fontWeight: "bold" }}>PIC Number Phone :</label>
           <Input
             className="mt-2 mb-2"
@@ -91,7 +91,7 @@ function CreateMitraCabang() {
             }}
           />
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={12} md={8} lg={8}>
           <label style={{ fontWeight: "bold" }}>PIC Email :</label>
           <Input
             className="mt-2 mb-2"
@@ -109,8 +109,8 @@ function CreateMitraCabang() {
         Data Account Bank
       </h5>
       <hr/>
-      <Row>
-        <Col span={8}>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={12} md={8} lg={8}>
           <label style={{ fontWeight: "bold" }}>Bank :</label>
           {/* Menghubungkan input tarif dengan state tarif */}
           <Select
@@ -129,7 +129,7 @@ function CreateMitraCabang() {
               banks.map((i) => <select value={i.name}>{i.name}</select>)}
           </Select>
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={12} md={8} lg={8}>
           <label style={{ fontWeight: "bold" }}>PIC Account Name :</label>
           <Input
             className="mt-2 mb-2"
@@ -141,7 +141,7 @@ function CreateMitraCabang() {
             }}
           />
         </Col>
-        <Col span={8}>
+        <Col xs={24} sm={12} md={8} lg={8}>
           <label style={{ fontWeight: "bold" }}>PIC Account Number :</label>
           <Input
             className="mt-2 mb-2"
@@ -154,7 +154,7 @@ function CreateMitraCabang() {
           />
         </Col>
       </Row>
-      <Row>
+      <Row gutter={[16, 16]}>
         <Col span={24} className="d-flex justify-content-end mt-2">
           <Button type="primary">
             <span onClick={TambahData}>Save</span>

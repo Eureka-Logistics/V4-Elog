@@ -188,15 +188,15 @@ function Index() {
       <Card>
         <h5>Data Invoice Address Customer</h5>
 
-        <Row className="mt-3">
-          <Col span={12}>
+        <Row gutter={[16, 16]} className="mt-3">
+          <Col xs={24} sm={12} md={12} lg={6}>
             <Select
               value={customer}
               name="customer"
               showSearch
               optionFilterProp="children"
               placeholder="Select Customer"
-              style={{ width: "50%" }}
+              style={{ width: "100%" }}
               onChange={(e) => setCustomer(e)}
             >
                <Select.Option value="">-</Select.Option>
@@ -207,7 +207,7 @@ function Index() {
               ))}
             </Select>
           </Col>
-          <Col span={12} className="d-flex justify-content-end">
+          <Col xs={24} sm={12} md={12} lg={18} className="d-flex justify-content-end">
             <Button type="primary" onClick={showModal}>
               New Master Alamat
             </Button>

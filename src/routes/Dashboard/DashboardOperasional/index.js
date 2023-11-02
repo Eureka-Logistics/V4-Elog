@@ -157,7 +157,7 @@ function Index() {
 
   return (
     <div>
-      {/* <Row>
+      {/* <Row gutter={[16,16]}>
         <Col span={24}>
           <div className="text-dashboard mb-4 d-flex justify-content-center">
             Dashboard {jobdesk}
@@ -165,10 +165,10 @@ function Index() {
         </Col>
       </Row> */}
       {/* <h5>Dashboard {jobdesk}</h5> */}
-      <Row>
-        <Col span={6}>
+      <Row gutter={[16,16]}>
+        <Col xs={12} sm={6} md={6} lg={6}>
           <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
-            <Row>
+            <Row gutter={[16,16]}>
               <Col span={24} className="d-flex justify-content-center">
                 <div
                   style={{
@@ -201,9 +201,9 @@ function Index() {
             </Row>
           </Card>
         </Col>
-        <Col span={6}>
+        <Col xs={12} sm={6} md={6} lg={6}>
           <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
-            <Row>
+            <Row gutter={[16,16]}>
               <Col span={24} className="d-flex justify-content-center">
                 <div
                   style={{
@@ -236,9 +236,9 @@ function Index() {
             </Row>
           </Card>
         </Col>
-        <Col span={6}>
+        <Col xs={12} sm={6} md={6} lg={6}>
           <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
-            <Row>
+            <Row gutter={[16,16]}>
               <Col span={24} className="d-flex justify-content-center">
                 <div
                   style={{
@@ -271,9 +271,9 @@ function Index() {
             </Row>
           </Card>
         </Col>
-        <Col span={6}>
+        <Col xs={12} sm={6} md={6} lg={6}>
           <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
-            <Row>
+            <Row gutter={[16,16]}>
               <Col span={24} className="d-flex justify-content-center">
                 <div
                   style={{

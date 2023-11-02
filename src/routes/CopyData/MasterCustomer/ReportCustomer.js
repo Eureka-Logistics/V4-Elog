@@ -19,8 +19,8 @@ function ReportCustomer() {
   const [total, setTotal] = useState(0);
   const [CariTanggal, setCariTanggal] = useState({
     tgl_pickup: "",
-    tgl_bongkar: ""
-  })
+    tgl_bongkar: "",
+  });
 
   console.log(`CariTanggal`, CariTanggal);
 
@@ -39,7 +39,7 @@ function ReportCustomer() {
       setDataReportCust(respons.data.data.order);
       setTotal(respons.data.data.totalData);
       // setCurrentPage(respons.data.data.setCurrentPage)
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const getDataSelectt = async () => {
@@ -73,7 +73,7 @@ function ReportCustomer() {
   useEffect(() => {
     fetchData();
     getDataSelectt();
-  }, [Customers, currentPage, limit,CariTanggal]);
+  }, [Customers, currentPage, limit, CariTanggal]);
 
   const dataSource = [
     // {
@@ -195,7 +195,10 @@ function ReportCustomer() {
         const formattedPickUpWithHyphen = formattedPickUp.replace(/\//g, "-");
 
         // Ganti karakter titik (.) dengan karakter titik dua (:)
-        const formattedPickUpWithColon = formattedPickUpWithHyphen.replace(/\./g, ":");
+        const formattedPickUpWithColon = formattedPickUpWithHyphen.replace(
+          /\./g,
+          ":"
+        );
 
         return <Tag color="magenta">{formattedPickUpWithColon}</Tag>;
       },
@@ -219,7 +222,8 @@ function ReportCustomer() {
           /\//g,
           "-"
         );
-        const formattedOrderDateWithColon = formattedOrderDateWithHyphen.replace(/\./g, ":");
+        const formattedOrderDateWithColon =
+          formattedOrderDateWithHyphen.replace(/\./g, ":");
 
         return <Tag color="purple">{formattedOrderDateWithColon}</Tag>;
       },
@@ -298,7 +302,10 @@ function ReportCustomer() {
     const formattedOrderDateWithHyphen = formattedOrderDate.replace(/\//g, "-");
 
     // Ganti karakter titik (.) dengan karakter titik dua (:)
-    const formattedOrderDateWithColon = formattedOrderDateWithHyphen.replace(/\./g, ":");
+    const formattedOrderDateWithColon = formattedOrderDateWithHyphen.replace(
+      /\./g,
+      ":"
+    );
 
     return formattedOrderDateWithColon;
   }
@@ -317,7 +324,10 @@ function ReportCustomer() {
     const formattedPickUpWithHyphen = formattedPickUp.replace(/\//g, "-");
 
     // Ganti karakter titik (.) dengan karakter titik dua (:)
-    const formattedPickUpWithColon = formattedPickUpWithHyphen.replace(/\./g, ":");
+    const formattedPickUpWithColon = formattedPickUpWithHyphen.replace(
+      /\./g,
+      ":"
+    );
 
     return formattedPickUpWithColon;
   }
@@ -327,14 +337,13 @@ function ReportCustomer() {
       <Card>
         <h5>Report Customer</h5>
         <hr />
-        <Row>
-          <Col span={6}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={6} lg={6}>
             <label
               className="mb-2"
-              // htmlFor="muatKotaSelect"
               style={{ fontWeight: "bold", fontFamily: "NoirPro" }}
             >
-              Search Nama Perushaan :
+              Search Nama Perusahaan :
             </label>
             <Select
               value={Customers}
@@ -356,13 +365,13 @@ function ReportCustomer() {
               <Select.Option value="">-</Select.Option>
               {CustomersOptions &&
                 CustomersOptions.customer.map((item, index) => (
-                  <Select.Option value={item.customerId}>
+                  <Select.Option value={item.customerId} key={item.customerId}>
                     {item.customerName}
                   </Select.Option>
                 ))}
             </Select>
           </Col>
-          <Col span={6}>
+          <Col xs={24} sm={12} md={6} lg={6}>
             <label
               className="mb-2"
               htmlFor="muatKotaSelect"
@@ -372,9 +381,9 @@ function ReportCustomer() {
             </label>
             <DatePicker
               onChange={(date, dateString) => {
-                setCariTanggal(prevState => ({
+                setCariTanggal((prevState) => ({
                   ...prevState,
-                  tgl_pickup: dateString
+                  tgl_pickup: dateString,
                 }));
               }}
               showSearch
@@ -382,12 +391,11 @@ function ReportCustomer() {
                 width: "100%",
                 border: "1px solid #1A5CBF",
                 borderRadius: "5px",
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)"
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
               }}
             />
-
           </Col>
-          <Col span={6}>
+          <Col xs={24} sm={12} md={6} lg={6}>
             <label
               className="mb-2"
               htmlFor="muatKotaSelect"
@@ -396,12 +404,12 @@ function ReportCustomer() {
               Search Tanggal Selesai :
             </label>
             <DatePicker
-             onChange={(date, dateString) => {
-              setCariTanggal(prevState => ({
-                ...prevState,
-                tgl_bongkar: dateString
-              }));
-            }}
+              onChange={(date, dateString) => {
+                setCariTanggal((prevState) => ({
+                  ...prevState,
+                  tgl_bongkar: dateString,
+                }));
+              }}
               showSearch
               style={{
                 width: "100%",
@@ -411,7 +419,13 @@ function ReportCustomer() {
               }}
             ></DatePicker>
           </Col>
-          <Col span={6} className="d-flex justify-content-end mt-4">
+          <Col
+            xs={24}
+            sm={12}
+            md={6}
+            lg={6}
+            className="d-flex justify-content-end mt-4"
+          >
             <Button
               style={{ backgroundColor: "green", color: "white" }}
               onClick={exportToExcel}
@@ -432,6 +446,7 @@ function ReportCustomer() {
             current: currentPage,
             pageSize: limit,
             total,
+
             onChange: (page) => setCurrentPage(page),
           }}
           onChange={(pagination) => {
@@ -439,7 +454,6 @@ function ReportCustomer() {
             setLimit(pagination.pageSize);
           }}
         />
-        ;
       </Card>
     </div>
   );

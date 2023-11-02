@@ -411,7 +411,7 @@ const SamplePage = () => {
       <Card>
         <Form onSubmit={formik.handleSubmit}>
           <Row style={{ marginBottom: "10px" }}>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <h4 style={{ color: "#1A5CBF" }}>Buat Tarif Mitra Baru</h4>
             </Col>
             <Col span={3}></Col>
@@ -424,8 +424,9 @@ const SamplePage = () => {
               showIcon
             />
           )}
-          <Row style={{ marginBottom: "10px" }}>
-            <Col span={6}>
+          <hr/>
+          <Row gutter={[16, 16]} style={{ marginBottom: "10px" }}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Code Tarif Mitra
@@ -440,7 +441,7 @@ const SamplePage = () => {
                 </InputGroup> */}
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Nama Mitra
@@ -459,7 +460,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Kota Muat
@@ -477,7 +478,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Kota Tujuan
@@ -495,7 +496,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>Via</Form.Label>
                 <InputGroup>
@@ -511,7 +512,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Jenis kendaraan{" "}
@@ -529,7 +530,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Jenis Layanan
@@ -570,7 +571,7 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
 
-            <Col span={6}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Jenis Kiriman
@@ -599,7 +600,7 @@ const SamplePage = () => {
 
           <h4 style={{ color: "#1A5CBF" }}>Biaya Penanganan</h4>
           <Row className="mt-4">
-            {/* <Col span={6}>
+            {/* <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>
                   Lead Time (Hari)
@@ -615,7 +616,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col> */}
-            <Col span={6}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: `bold` }}>Tarif</Form.Label>
                 <InputGroup>
@@ -647,7 +648,7 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
 
-            {/* <Col span={6}>
+            {/* <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{fontWeight: `bold`}}>Ritase</Form.Label>
                 <InputGroup>
@@ -661,7 +662,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group>
                 <Form.Label style={{fontWeight: `bold`}}>Uang Jalan</Form.Label>
                 <InputGroup>

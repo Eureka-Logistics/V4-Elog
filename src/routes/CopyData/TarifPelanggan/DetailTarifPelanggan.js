@@ -272,8 +272,8 @@ function DetailTarifPelanggan() {
       <Card>
         <h5  style={{ color: "#1A5CBF" }}>Edit dan Detail Tarif Customer</h5>
         <hr/>
-        <Row>
-          <Col className="mt-2" span={6}>
+        <Row gutter={[16, 16]}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Code Tarif :
             </label>
@@ -286,7 +286,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Customer :
             </label>
@@ -314,7 +314,7 @@ function DetailTarifPelanggan() {
             </Select>
           </Col>
 
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Kota Muat :
             </label>
@@ -341,7 +341,7 @@ function DetailTarifPelanggan() {
                 ))}
             </Select>
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Kota Tujuan :
             </label>
@@ -369,8 +369,8 @@ function DetailTarifPelanggan() {
             </Select>
           </Col>
         </Row>
-        <Row>
-          <Col className="mt-2" span={6}>
+        <Row gutter={[16, 16]}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Jenis Kendaraan :
             </label>
@@ -397,7 +397,7 @@ function DetailTarifPelanggan() {
             </Select>
           </Col>
 
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Service Type :
             </label>
@@ -412,7 +412,7 @@ function DetailTarifPelanggan() {
               <Option value="Charter">Charter</Option>
             </Select>
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Jenis Kiriman :
             </label>
@@ -426,7 +426,7 @@ function DetailTarifPelanggan() {
               <Option value="Express">Express</Option>
             </Select>
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Via :
             </label>
@@ -446,8 +446,8 @@ function DetailTarifPelanggan() {
         <br />
         <hr />
         <h5  style={{ color: "#1A5CBF" }}>Tarif</h5>
-        <Row>
-          <Col className="mt-2" span={4}>
+        <Row gutter={[16, 16]}>
+          <Col className="mt-2" xs={24} sm={12} md={4} lg={4}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Kode Tarif Eureka :
             </label>
@@ -464,7 +464,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col className="mt-2" span={6}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Tarif Katalog :
             </label>
@@ -482,7 +482,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col span={7} className="mt-2">
+          <Col xs={24} sm={12} md={7} lg={7} className="mt-2">
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Diskon (%)
             </label>
@@ -498,7 +498,7 @@ function DetailTarifPelanggan() {
             </div>
           </Col>
 
-          <Col span={7} className="mt-2">
+          <Col xs={24} sm={12} md={7} lg={7} className="mt-2">
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Diskon (Rp.)
             </label>
@@ -513,7 +513,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col span={10} className="mt-2">
+          <Col xs={24} sm={12} md={10} lg={10} className="mt-2">
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Total Biaya
             </label>
@@ -530,7 +530,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col className="mt-2" span={7}>
+          <Col className="mt-2" xs={24} sm={12} md={7} lg={7}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Min Tonase :
             </label>
@@ -546,7 +546,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col className="mt-2" span={7}>
+          <Col className="mt-2" xs={24} sm={12} md={7} lg={7}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Tanggal Pembuatan :
             </label>
@@ -568,8 +568,8 @@ function DetailTarifPelanggan() {
         <br />
         <hr />
         <h5  style={{ color: "#1A5CBF" }}>Biaya Tambahan</h5>
-        <Row>
-          <Col className="mt-2" span={6}>
+        <Row gutter={[16, 16]}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Biaya Muat :
             </label>
@@ -585,7 +585,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6} style={{ maxWidth: "100%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Biaya Bongkar :
             </label>
@@ -601,7 +601,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6} style={{ maxWidth: "100%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Biaya Overtonase :
             </label>
@@ -617,7 +617,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6} style={{ maxWidth: "100%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Biaya MultiDrop :
             </label>
@@ -634,9 +634,9 @@ function DetailTarifPelanggan() {
             </div>
           </Col>
         </Row>
-        <Row>
+        <Row gutter={[16, 16]}>
          
-          <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6} style={{ maxWidth: "100%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Biaya Tambahan :
             </label>
@@ -652,7 +652,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6} style={{ maxWidth: "100%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Biaya Mel :
             </label>
@@ -668,7 +668,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-          <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6} style={{ maxWidth: "100%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Biaya Lain :
             </label>
@@ -685,7 +685,7 @@ function DetailTarifPelanggan() {
             </div>
           </Col>
 
-          <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+          <Col className="mt-2" xs={24} sm={12} md={6} lg={6} style={{ maxWidth: "100%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Biaya Multimuat :
             </label>
@@ -704,8 +704,8 @@ function DetailTarifPelanggan() {
         </Row>
         <hr/>
       
-        <Row>
-        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+        <Row gutter={[16, 16]}>
+        <Col className="mt-2" xs={24} sm={12} md={6} lg={6} style={{ maxWidth: "100%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               Biaya Jalan 2 :
             </label>
@@ -721,7 +721,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+        <Col className="mt-2" xs={24} sm={12} md={6} lg={6} style={{ maxWidth: "100%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
             Biaya Jalan 3 :
             </label>
@@ -737,7 +737,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+        <Col className="mt-2" xs={24} sm={12} md={6} lg={6} style={{ maxWidth: "100%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
             Biaya Jalan 4 :
             </label>
@@ -753,7 +753,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+        <Col className="mt-2" xs={24} sm={12} md={6} lg={6} style={{ maxWidth: "100%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
             Biaya Jalan 5 :
             </label>
@@ -770,8 +770,8 @@ function DetailTarifPelanggan() {
             </div>
           </Col>
         </Row>
-        <Row>
-        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+        <Row gutter={[16, 16]}>
+        <Col className="mt-2" xs={24} sm={12} md={6} lg={6} style={{ maxWidth: "100%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               MinTonase 2 :
             </label>
@@ -787,7 +787,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+        <Col className="mt-2" xs={24} sm={12} md={6} lg={6} style={{ maxWidth: "100%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               MinTonase 3 :
             </label>
@@ -803,7 +803,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+        <Col className="mt-2" xs={24} sm={12} md={6} lg={6} style={{ maxWidth: "100%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               MinTonase 4 :
             </label>
@@ -819,7 +819,7 @@ function DetailTarifPelanggan() {
               />
             </div>
           </Col>
-        <Col className="mt-2" span={6} style={{ maxWidth: "60%" }}>
+        <Col className="mt-2" xs={24} sm={12} md={6} lg={6} style={{ maxWidth: "100%" }}>
             <label style={{ fontFamily: "NoirPro", fontWeight: "bold" }}>
               MinTonase 5 :
             </label>
@@ -836,7 +836,7 @@ function DetailTarifPelanggan() {
             </div>
           </Col>
         </Row>
-        <Row>
+        <Row gutter={[16, 16]}>
           <Col span={24} className="d-flex justify-content-end mt-2">
             <Button style={{
               backgroundColor: "#4169E1",

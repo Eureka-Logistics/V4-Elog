@@ -260,15 +260,15 @@ const SamplePage = () => {
       <Card>
         <h3>Data Master Alamat</h3>
         {/* <h5 className="mt-5">Pilih Filter Customer Terlebih Dahulu</h5> */}
-        <Row className="mt-3 mb-3">
-          <Col span={10}>
+        <Row  gutter={[16, 16]} className="mt-3 mb-3">
+          <Col xs={24} sm={12} md={10} lg={6}>
             <Select
               value={customer}
               name="customer"
               showSearch
               optionFilterProp="children"
               placeholder="Select Customer"
-              style={{ width: "50%" }}
+              style={{ width: "100%" }}
               onChange={(e) => setCustomer(e)}
             >
                <Select.Option value="">-</Select.Option>
@@ -279,7 +279,7 @@ const SamplePage = () => {
               ))}
             </Select>
           </Col>
-          <Col span={14} className="d-flex justify-content-end">
+          <Col xs={24} sm={12} md={14} lg={18} className="d-flex justify-content-end">
             <Button type="primary" onClick={showModal}>
              New Master Alamat
             </Button>

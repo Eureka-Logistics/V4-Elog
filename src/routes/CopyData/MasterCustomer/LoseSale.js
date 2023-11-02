@@ -137,8 +137,8 @@ function LoseSale() {
         <h5>Lose Sale</h5>
         <hr />
         <p style={{ fontFamily: "NoirPro" }}>List Pengajuan Service</p>
-        <Row className="mt-4">
-          <Col span={6} style={{ paddingRight: "0px" }}>
+        <Row className="mt-4" gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={6} lg={6} style={{ paddingRight: "0px" }}>
             <Input.Group compact>
               <Input
                 style={{ width: "18%", padding: "8px 11px" }}
@@ -157,7 +157,7 @@ function LoseSale() {
               <DatePicker style={{ width: "72%" }} />
             </Input.Group>
           </Col>
-          <Col span={6} style={{ paddingRight: "0px" }}>
+          <Col xs={24} sm={12} md={6} lg={6} style={{ paddingRight: "0px" }}>
             <Input.Group compact>
               <Input
                 style={{ width: "18%", padding: "8px 11px" }}
@@ -177,7 +177,7 @@ function LoseSale() {
               <DatePicker style={{ width: "72%" }} />
             </Input.Group>
           </Col>
-          <Col span={6}>
+          <Col xs={24} sm={12} md={6} lg={6}>
             <Select
               showSearch
               defaultValue="ALL"
@@ -200,7 +200,7 @@ function LoseSale() {
               </Select.Option>
             </Select>
           </Col>
-          <Col span={6} style={{ paddingRight: "0px" }}>
+          <Col xs={24} sm={12} md={6} lg={6} style={{ paddingRight: "0px" }}>
             <Input.Group compact>
               <Select
                 showSearch
@@ -245,9 +245,9 @@ function LoseSale() {
         </Row>
         <Row className="mt-3">
           <Col span={12}></Col>
-          <Col span={6}></Col>
+          <Col xs={24} sm={12} md={6} lg={6}></Col>
 
-          <Col span={6} className="d-flex justify-content-end">
+          <Col xs={24} sm={12} md={6} lg={6} className="d-flex justify-content-end">
             <label style={{ marginRight: "8px", marginTop: "10px" }}>
               Search:
             </label>
@@ -255,7 +255,7 @@ function LoseSale() {
           </Col>
         </Row>
         <hr />
-        <Table dataSource={dataSource} columns={columns} />
+        <Table style={{ overflowX: "auto" }}  dataSource={dataSource} columns={columns} />
       </Card>
     </div>
   );

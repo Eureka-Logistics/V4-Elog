@@ -422,7 +422,7 @@ const SamplePage = () => {
           Data Master Mitra
         </h5>
         <hr/>
-        <Row>
+        <Row gutter={[16, 16]}>
           <Col>
             {/* <Row className="d-flex justify-content-end">
               <Col sm={3}>
@@ -432,7 +432,7 @@ const SamplePage = () => {
                 />
               </Col>
             </Row> */}
-            <Row className="mt-2">
+            <Row gutter={[16, 16]} className="mt-2">
               <Col sm={2}>
                 <label
                   className="mb-2"
@@ -463,7 +463,7 @@ const SamplePage = () => {
                 
                 </Select>
               </Col>
-              <Col sm={4}>
+              <Col  xs={24} sm={12} md={4} lg={4} >
                 <label
                   style={{
                     width: "100%",
@@ -476,7 +476,7 @@ const SamplePage = () => {
                 </label>
                 <Input
                   style={{
-                    width: "50%",
+                    width: "100%",
                     border: "1px solid #1A5CBF",
                     borderRadius: "5px",
                     boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",

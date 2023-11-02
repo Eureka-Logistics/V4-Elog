@@ -292,8 +292,8 @@ console.log(`PicBirth`,PicBirth);
       <Card>
         <h5 style={{ fontWeight: "bold" }}>CUSTOMER DATA</h5>
         <hr />
-        <Row>
-          {/* <Col span={12} className="mt-3">
+          <Row gutter={[16, 16]}>
+          {/* <Col xs={24} sm={12} md={12} lg={12} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Customer ID :</label> */}
           {/* Menghubungkan input tarif dengan state tarif */}
           {/* <Input
@@ -301,7 +301,7 @@ console.log(`PicBirth`,PicBirth);
               placeholder={DetailDataMasterCustomer.id_customer}
             /> */}
           {/* </Col> */}
-          <Col span={4} className="mt-3">
+          <Col xs={24} sm={12} md={4} lg={4} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Code Customer :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -310,7 +310,7 @@ console.log(`PicBirth`,PicBirth);
               disabled
             />
           </Col>
-          <Col span={8} className="mt-3">
+          <Col xs={24} sm={12} md={8} lg={8} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Customer Name :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -323,7 +323,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={6} className="mt-3">
+          <Col xs={24} sm={12} md={6} lg={6} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Date Register : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -337,7 +337,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={6} className="mt-3">
+          <Col xs={24} sm={12} md={6} lg={6} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Tanggal Berdiri : </label>
             {/* Menggunakan DatePicker dari Ant Design dengan Moment.js */}
             <DatePicker
@@ -361,8 +361,8 @@ console.log(`PicBirth`,PicBirth);
             /> */}
           </Col>
         </Row>
-        <Row>
-          <Col span={4} className="mt-3">
+          <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={4} lg={4}  className="mt-3">
             <label style={{ fontWeight: "bold" }}>Item :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -376,7 +376,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={8} className="mt-3">
+          <Col xs={24} sm={12} md={8} lg={8} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Business :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -389,7 +389,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={6} className="mt-3">
+          <Col xs={24} sm={12} md={6} lg={6} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Company Anniversary :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -403,7 +403,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={6} className="mt-3">
+          <Col xs={24} sm={12} md={6} lg={6} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Telp Office :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -418,8 +418,8 @@ console.log(`PicBirth`,PicBirth);
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12} className="mt-3">
+          <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={12} lg={12} className="mt-3">
             <label style={{ fontWeight: "bold" }}>KTP Customer :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -432,7 +432,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={12} className="mt-3">
+          <Col xs={24} sm={12} md={12} lg={12} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Number Customer :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -447,8 +447,8 @@ console.log(`PicBirth`,PicBirth);
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={6} className="mt-3">
+          <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={6} lg={6} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Email Customer :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -461,7 +461,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={6} className="mt-3">
+          <Col xs={24} sm={12} md={6} lg={6} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Fax Office :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -474,7 +474,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={12} className="mt-3">
+          <Col xs={24} sm={12} md={12} lg={12} className="mt-3">
             <label style={{ fontWeight: "bold" }}>Customer Address :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input.TextArea
@@ -495,8 +495,8 @@ console.log(`PicBirth`,PicBirth);
         <hr />
         <br />
 
-        <Row>
-          <Col span={8}>
+          <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>PIC Office : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -509,7 +509,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>PIC Position : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -522,7 +522,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>PIC Email : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -537,10 +537,11 @@ console.log(`PicBirth`,PicBirth);
           </Col>
         </Row>
         <Row className="mt-2">
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>PIC Phone : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
+            style={{width: '100%'}}
               className="mt-2"
               placeholder={DetailDataMasterCustomer.pic_phone}
               value={PicPhone}
@@ -550,11 +551,11 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>PIC Birthday : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <DatePicker
-              style={{ width: "100%" }}
+              style={{ width: "101%" }}
               className="mt-2"
               value={PicBirth === "0000-00-00" ? null : moment(PicBirth)} // Konversi nilai TanggalBerdiri ke objek Moment
               onChange={(date, dateStrings) => {
@@ -573,7 +574,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             /> */}
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>PIC Fax : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -592,8 +593,8 @@ console.log(`PicBirth`,PicBirth);
         <h5 style={{ fontWeight: "bold" }}>PIC</h5>
         <hr />
         <br />
-        <Row>
-          <Col span={12} className="mt-2">
+          <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={12} lg={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Akunting : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Select
@@ -616,7 +617,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             /> */}
           </Col>
-          <Col span={12} className="mt-2">
+          <Col xs={24} sm={12} md={12} lg={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Akunting Date : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <DatePicker
@@ -650,7 +651,7 @@ console.log(`PicBirth`,PicBirth);
         {/* Manager */}
 
         <Row className="mt-2">
-          <Col span={12} className="mt-2">
+          <Col xs={24} sm={12} md={12} lg={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Manager : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Select
@@ -673,7 +674,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             /> */}
           </Col>
-          <Col span={12} className="mt-2">
+          <Col xs={24} sm={12} md={12} lg={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Manager Date : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <DatePicker
@@ -702,8 +703,8 @@ console.log(`PicBirth`,PicBirth);
           </Col>
         </Row>
         {/* DIREKTUR */}
-        <Row>
-          <Col span={12} className="mt-2">
+          <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={12} lg={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Direktur : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Select
@@ -726,7 +727,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             /> */}
           </Col>
-          <Col span={12} className="mt-2">
+          <Col xs={24} sm={12} md={12} lg={12} className="mt-2">
             <label style={{ fontWeight: "bold" }}>Direktur Date : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <DatePicker
@@ -761,7 +762,7 @@ console.log(`PicBirth`,PicBirth);
         <hr />
         <br />
         <Row className="mt-3">
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>NPWP Number : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -774,7 +775,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={16}>
+          <Col xs={24} sm={16} md={16} lg={16}>
             <label style={{ fontWeight: "bold" }}>NPWP Address : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input.TextArea
@@ -789,7 +790,7 @@ console.log(`PicBirth`,PicBirth);
           </Col>
         </Row>
         <Row className="mt-3">
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>KTP Number : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -802,7 +803,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={16}>
+          <Col xs={24} sm={16} md={16} lg={16}>
             <label style={{ fontWeight: "bold" }}> TDP Number : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -815,7 +816,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          {/* <Col span={8}>
+          {/* <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}> NIB Number : </label>
             <Input
               className="mt-2"
@@ -829,7 +830,7 @@ console.log(`PicBirth`,PicBirth);
           </Col> */}
         </Row>
         <Row className="mt-3">
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>TAX PIC : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -842,7 +843,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}> TAX Position : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -855,7 +856,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}> TAX Email : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -870,7 +871,7 @@ console.log(`PicBirth`,PicBirth);
           </Col>
         </Row>
         <Row className="mt-3">
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>TAX Phone Office : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -884,7 +885,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}> TAX Mobile : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -905,7 +906,7 @@ console.log(`PicBirth`,PicBirth);
         <hr />
         <br />
         <Row className="mt-3">
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <Form.Group>
               <Form.Label style={{ fontWeight: "bold" }}>
                 Bank Name :
@@ -928,7 +929,7 @@ console.log(`PicBirth`,PicBirth);
               </Select>
             </Form.Group>
           </Col>
-          {/* <Col span={8}> */}
+          {/* <Col xs={24} sm={12} md={8} lg={8}> */}
           {/* <label style={{ fontWeight: "bold" }}>Bank Name : </label> */}
           {/* Menghubungkan input tarif dengan state tarif */}
           {/* <Input
@@ -941,7 +942,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             /> */}
           {/* </Col> */}
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}> Account Name : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -954,7 +955,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}> Account Number : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -969,7 +970,7 @@ console.log(`PicBirth`,PicBirth);
           </Col>
         </Row>
         <Row className="mt-3">
-          <Col className="mt-2" span={8}>
+          <Col className="mt-2" xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>Type Of Payment : </label>
             <Select
               className="mt-2"
@@ -982,7 +983,7 @@ console.log(`PicBirth`,PicBirth);
               <Option value="Credit">Credit</Option>
             </Select>
           </Col>
-          <Col className="mt-2" span={4}>
+          <Col className="mt-2" xs={24} sm={12} md={4} lg={4} >
             <label style={{ fontWeight: "bold" }}>Term of payment : </label>
             <Select
               className="mt-2"
@@ -999,7 +1000,7 @@ console.log(`PicBirth`,PicBirth);
             </Select>
           </Col>
 
-          <Col className="mt-2" span={4}>
+          <Col className="mt-2" xs={24} sm={12} md={4} lg={4} >
             <label style={{ fontWeight: "bold" }}>Currency : </label>
             <Select
               className="mt-2"
@@ -1013,7 +1014,7 @@ console.log(`PicBirth`,PicBirth);
             </Select>
           </Col>
 
-          {/* <Col span={8}> */}
+          {/* <Col xs={24} sm={12} md={8} lg={8}> */}
           {/* <label style={{ fontWeight: "bold" }}> ToP : </label> */}
           {/* Menghubungkan input tarif dengan state tarif */}
           {/* <Input
@@ -1026,7 +1027,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             /> */}
           {/* </Col> */}
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}> BANK PIC : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -1041,7 +1042,7 @@ console.log(`PicBirth`,PicBirth);
           </Col>
         </Row>
         <Row className="mt-3">
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>BANK Position : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -1055,7 +1056,7 @@ console.log(`PicBirth`,PicBirth);
             />
           </Col>
 
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}> BANK Email : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -1068,7 +1069,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}> BANK Office Phone : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -1084,7 +1085,7 @@ console.log(`PicBirth`,PicBirth);
           </Col>
         </Row>
         <Row className="mt-3">
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>BANK Mobile : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -1106,7 +1107,7 @@ console.log(`PicBirth`,PicBirth);
         <hr />
         <br />
         <Row className="mt-3">
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>INV PIC : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -1119,7 +1120,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>INV Position : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -1132,7 +1133,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>INV Email : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -1147,7 +1148,7 @@ console.log(`PicBirth`,PicBirth);
           </Col>
         </Row>
         <Row className="mt-3">
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>INV Office Phone : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -1161,7 +1162,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>INV Mobile : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -1175,7 +1176,7 @@ console.log(`PicBirth`,PicBirth);
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>INV Address: </label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input.TextArea

@@ -360,8 +360,8 @@ function Tarif() {
       <Card>
         <h5>Silahkan Pilih Tarif</h5>
         <hr />
-        <Row className="mt-3 mb-4">
-          <Col sm={6}>
+        <Row gutter={[16, 16]} className="mt-3 mb-4">
+          <Col xs={24} sm={12} md={6} lg={6}>
             <label
               className="mb-2"
               htmlFor="muatKotaSelect"
@@ -396,7 +396,7 @@ function Tarif() {
                 ))}
             </Select>
           </Col>
-          <Col sm={6}>
+          <Col xs={24} sm={12} md={6} lg={6}>
             <label
               className="mb-2"
               htmlFor="muatKotaSelect"
@@ -431,7 +431,7 @@ function Tarif() {
                 ))}
             </Select>
           </Col>
-          <Col sm={6}>
+          <Col xs={24} sm={12} md={6} lg={6}>
             <label
               className="mb-2"
               htmlFor="muatKotaSelect"

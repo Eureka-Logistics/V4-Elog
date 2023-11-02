@@ -75,21 +75,21 @@ const UserProfile = () => {
   );
 
   return (
-    <div className="gx-flex-row gx-align-items-center gx-mb-4 gx-avatar-row">
+    <div className="gx-flex-row gx-align-items-center gx-avatar-row">
       <Popover
         placement="bottomRight"
         content={userMenuOptions}
         trigger="click"
       >
-        <Row style={{ verticalAlign: "middle", marginTop: "2%" }}>
-          <Col span={6}>
+        <Row style={{ verticalAlign: "middle", marginTop: "0%" }}>
+          <Col span={6} >
             <Avatar
               src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
-              className="gx-size-50 gx-pointer gx-mr-3"
+              className="gx-size-40 gx-pointer gx-mr-3"
               alt=""
             />
           </Col>
-          <Col span={18} style={{ marginTop: "5%" }}>
+          <Col span={18} style={{ marginTop: "3%" }}>
             <h6 className="gx-avatar-name">
               Admin {jobdesk}
               <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />

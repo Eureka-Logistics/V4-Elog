@@ -312,21 +312,21 @@ const SamplePage = () => {
       <Card>
         <h5>New Master Customer</h5>
         <Form onSubmit={formik.handleSubmit}>
-          <Row style={{ marginBottom: "10px" }}>
-            <Col span={8}></Col>
+          {/* <Row style={{ marginBottom: "10px" }}> */}
+            {/* <Col xs={24} sm={12} md={8} lg={8}></Col>
             <Col span={3}></Col>
-            <Col span={3}></Col>
+            <Col span={3}></Col> */}
             {/* <Col span={3}>
               <Button type="submit">Save and load photo customer</Button>
             </Col> */}
-          </Row>
+          {/* </Row> */}
           <br />
           <hr />
           <h5>Customer Data</h5>
           <hr />
           <br />
-          <Row style={{ marginBottom: "10px" }}>
-            <Col span={12}>
+          <Row style={{ marginBottom: "10px" }} gutter={[16, 16]}>
+            <Col xs={24} sm={12} md={12} lg={12} xs={24} sm={12} md={12} lg={12}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Customer Code :
@@ -343,7 +343,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Date Register :
@@ -374,7 +374,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Tanggal Berdiri :
@@ -406,8 +406,8 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
           </Row>
-          <Row>
-            <Col span={12}>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12} md={12} lg={12}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Customer Name :
@@ -431,7 +431,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Business :
@@ -453,7 +453,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Jenis Kiriman :
@@ -478,8 +478,8 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
           </Row>
-          <Row>
-            <Col span={12}>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12} md={12} lg={12}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Customer Address :
@@ -499,7 +499,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Company Anniversary :
@@ -515,7 +515,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={6}>
+            <Col xs={24} sm={12} md={6} lg={6}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>Item :</Form.Label>
                 <InputGroup>
@@ -530,8 +530,8 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
           </Row>
-          <Row>
-            <Col span={12}>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12} md={12} lg={12}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Telp Office :
@@ -548,7 +548,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={12}>
+            <Col xs={24} sm={12} md={12} lg={12}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Fax Office :
@@ -567,7 +567,7 @@ const SamplePage = () => {
             </Col>
           </Row>
           <Row className="mt-2">
-            <Col span={12}>
+            <Col xs={24} sm={12} md={12} lg={12}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Email Customer :
@@ -584,7 +584,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={12}>
+            <Col xs={24} sm={12} md={12} lg={12}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   HP Customer :
@@ -607,8 +607,8 @@ const SamplePage = () => {
           <h5 style={{ fontWeight: "bold" }}>Contact Person</h5>
           <hr />
           <br />
-          <Row>
-            <Col span={8}>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   PIC Office :
@@ -630,7 +630,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   PIC Position :
@@ -653,7 +653,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   PIC Email :
@@ -671,7 +671,7 @@ const SamplePage = () => {
             </Col>
           </Row>
           <Row className="mt-2">
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   PIC Phone :
@@ -693,7 +693,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   PIC Number :
@@ -711,7 +711,7 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
 
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   PIC Birth :
@@ -742,7 +742,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8} className="mt-2">
+            <Col xs={24} sm={12} md={8} lg={8} className="mt-2">
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   PIC Fax :
@@ -764,8 +764,8 @@ const SamplePage = () => {
           <h5 style={{ fontWeight: "bold" }}>DATA PIC</h5>
           <hr />
           <br />
-          <Row>
-            <Col span={12}>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12} md={12} lg={12}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Manager :
@@ -797,7 +797,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={12}>
+            <Col xs={24} sm={12} md={12} lg={12}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Manager Date :
@@ -830,7 +830,7 @@ const SamplePage = () => {
             </Col>
           </Row>
 
-          <Row>
+          <Row gutter={[16, 16]}>
             <Col span={24}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
@@ -851,7 +851,7 @@ const SamplePage = () => {
           </Row>
           {/* Akunting */}
           <Row className="mt-3">
-            <Col span={12}>
+            <Col xs={24} sm={12} md={12} lg={12}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Akunting :
@@ -883,7 +883,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={12}>
+            <Col xs={24} sm={12} md={12} lg={12}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Akunting Date :
@@ -915,7 +915,7 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
           </Row>
-          <Row>
+          <Row gutter={[16, 16]}>
             <Col span={24}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
@@ -936,7 +936,7 @@ const SamplePage = () => {
           </Row>
           {/* Direktur */}
           <Row className="mt-3">
-            <Col span={12}>
+            <Col xs={24} sm={12} md={12} lg={12}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Direktur :
@@ -968,7 +968,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={12}>
+            <Col xs={24} sm={12} md={12} lg={12}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Direktur Date :
@@ -1000,7 +1000,7 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
           </Row>
-          <Row>
+          <Row gutter={[16, 16]}>
             <Col span={24}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
@@ -1025,8 +1025,8 @@ const SamplePage = () => {
           <h5 style={{ fontWeight: "bold" }}>TAX</h5>
           <hr />
           <br />
-          <Row>
-            <Col span={8}>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   NPWP Number :
@@ -1068,7 +1068,7 @@ const SamplePage = () => {
             </Col>
           </Row>
           <Row className="mt-4">
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   KTP Number :
@@ -1104,7 +1104,7 @@ const SamplePage = () => {
             </Col>
           </Row>
           <Row className="mt-4">
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   TAX PIC :
@@ -1120,7 +1120,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   TAX Position :
@@ -1136,7 +1136,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   TAX Email :
@@ -1154,7 +1154,7 @@ const SamplePage = () => {
             </Col>
           </Row>
           <Row className="mt-4">
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   TAX Phone Office :
@@ -1171,7 +1171,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   TAX Mobile :
@@ -1194,8 +1194,8 @@ const SamplePage = () => {
           <h5> TERM OF PAYMENT </h5>
           <hr />
           <br />
-          <Row>
-            <Col span={8}>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Bank Name :
@@ -1213,7 +1213,7 @@ const SamplePage = () => {
                 </Select>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Account Name :
@@ -1229,7 +1229,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Account Number :
@@ -1248,7 +1248,7 @@ const SamplePage = () => {
             </Col>
           </Row>
           <Row className="mt-3">
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group style={{ marginBottom: "10px" }}>
                 <label style={{ fontWeight: "bold", marginBottom: "10px" }}>
                   Type Of Payment:{" "}
@@ -1317,7 +1317,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            {/* <Col span={8}>
+            {/* <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>ToP :</Form.Label>
                 <InputGroup>
@@ -1331,7 +1331,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col> */}
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   BANK PIC :
@@ -1348,8 +1348,8 @@ const SamplePage = () => {
               </Form.Group>
             </Col>
           </Row>
-          <Row>
-            <Col span={8}>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   BANK Position :
@@ -1365,7 +1365,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   BANK Email :
@@ -1381,7 +1381,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   BANK Office Phone :
@@ -1400,7 +1400,7 @@ const SamplePage = () => {
             </Col>
           </Row>
           <Row className="mt-2">
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   BANK Mobile :
@@ -1423,8 +1423,8 @@ const SamplePage = () => {
           <h5> INVOICE </h5>
           <hr />
           <br />
-          <Row>
-            <Col span={8}>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Inv PIC :
@@ -1440,7 +1440,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Inv Position :
@@ -1456,7 +1456,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Inv Email :
@@ -1474,7 +1474,7 @@ const SamplePage = () => {
             </Col>
           </Row>
           <Row className="mt-2">
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Inv Office Phone :
@@ -1491,7 +1491,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Inv Mobile :
@@ -1508,7 +1508,7 @@ const SamplePage = () => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={12} md={8} lg={8}>
               <Form.Group>
                 <Form.Label style={{ fontWeight: "bold" }}>
                   Inv Address :

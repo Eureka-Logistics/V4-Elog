@@ -1,0 +1,18 @@
+@media (min-width: 768px) {
+    .gx-avatar-row .gx-flex-row .gx-align-items-center .gx-mb-4 .gx-avatar-name {
+      margin-top: 5%; /* Atur margin atas sesuai kebutuhan */
+    }
+  }
+  
+  /* Untuk layar kecil (kurang dari 768px) */
+  @media (max-width: 767px) {
+    .gx-avatar-row .gx-flex-row .gx-align-items-center .gx-mb-4 .gx-avatar-name {
+      margin-top: 5%; /* Hapus margin atas */
+    }
+  }
+
+  @media (max-width: 568px) {
+    .my-col {
+      margin-top: 0;
+    }
+}

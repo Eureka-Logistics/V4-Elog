@@ -33,8 +33,8 @@ function Index() {
   }, []);
   return (
     <div>
-      <Row>
-        <Col span={6}>
+      <Row gutter={[16,16]}>
+        <Col xs={12} sm={6} md={6} lg={6}>
           <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
             <Row>
               <Col span={24} className="d-flex justify-content-center">
@@ -69,7 +69,7 @@ function Index() {
             </Row>
           </Card>
         </Col>
-        <Col span={6}>
+        <Col xs={12} sm={6} md={6} lg={6}>
           <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
             <Row>
               <Col span={24} className="d-flex justify-content-center">
@@ -104,7 +104,7 @@ function Index() {
             </Row>
           </Card>
         </Col>
-        <Col span={6}>
+        <Col xs={12} sm={6} md={6} lg={6}>
           <Card style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
             <Row>
               <Col span={24} className="d-flex justify-content-center">
