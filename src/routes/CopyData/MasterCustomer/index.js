@@ -183,17 +183,18 @@ const SamplePage = () => {
       <Card>
         <h4 className="mb-3">Data Master Customer</h4>
         <hr />
-        <Row>
-          <Col span={12} >
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={6} lg={6} >
             <Input.Search
-            style={{width: "50%"}}
+            style={{width: "100%"}}
               placeholder="Search by company name"
               onSearch={onSearch}
               onChange={onSearch}
               loading={loadingState}
             />
           </Col>
-          <Col span={12} className="d-flex justify-content-end">
+         
+          <Col xs={24} sm={12} md={6} lg={18} className="d-flex justify-content-end">
             <Button type="primary" onClick={handleAdd}>
               New Customer
             </Button>
@@ -204,6 +205,7 @@ const SamplePage = () => {
           dataSource={order}
           pagination={{ total, current: page, pageSize: limit }}
           onChange={(pagination) => setPage(pagination.current)}
+          style={{ overflowX: "auto" }}
         />
 
         {/* <Table responsive>

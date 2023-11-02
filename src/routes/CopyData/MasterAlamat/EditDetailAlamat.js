@@ -187,8 +187,8 @@ function EditDetailAlamat() {
     <div>
       <Card>
         <h5 style={{ fontWeight: "bold" }}>Data Detail Address Customer</h5>
-        <Row>
-          <Col span={24}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={24} md={24} lg={24}>
             <label className="mt-2" style={{ fontWeight: "bold" }}>
               PIC :
             </label>
@@ -202,7 +202,7 @@ function EditDetailAlamat() {
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>Jabatan :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -215,7 +215,7 @@ function EditDetailAlamat() {
               }}
             />
           </Col>
-          <Col span={8} > <label style={{ fontWeight: "bold" }}>Tlp/HP :</label>
+          <Col xs={24} sm={12} md={8} lg={8} > <label style={{ fontWeight: "bold" }}>Tlp/HP :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
               className="mt-2 mb-2"
@@ -226,7 +226,7 @@ function EditDetailAlamat() {
                 setDataHP(e.target.value);
               }}
             /></Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>Email :</label>
             {/* Menghubungkan input tarif dengan state tarif */}
             <Input
@@ -240,7 +240,7 @@ function EditDetailAlamat() {
             />
           </Col>
         </Row>
-        <Row>
+        <Row gutter={[16, 16]}>
           <Col span={24}>
             <label style={{ fontWeight: "bold" }}>Alamat : </label>
             {/* Menghubungkan input tarif dengan state tarif */}
@@ -266,7 +266,7 @@ function EditDetailAlamat() {
         </Row>
         <Row>
 
-          {/* <Col span={8}>
+          {/* <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>Ritase :</label>
            
             <Input
@@ -307,7 +307,7 @@ function EditDetailAlamat() {
           </Col>
         </Row>
         <Row>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>Provinsi :</label>
 
             <Select
@@ -339,7 +339,7 @@ function EditDetailAlamat() {
                 ))}
             </Select>
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>Kota :</label>
 
             <Select
@@ -358,7 +358,7 @@ function EditDetailAlamat() {
               }}
             ></Select>
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>Kecamatan :</label>
 
             <Select

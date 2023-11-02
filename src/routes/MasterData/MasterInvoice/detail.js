@@ -117,7 +117,7 @@ function Detail() {
       <Card>
         <h4>Data Detail Invoice Address Customer</h4>
         <hr />
-        <Row>
+        <Row gutter={[16, 16]}>
           <Col span={24}>
             <label style={{ fontWeight: "bold" }}>Customer Name :</label>
             <Input
@@ -148,7 +148,7 @@ function Detail() {
         <Row>
           <Col span={24}>
             <label style={{ fontWeight: "bold" }}>Address Office :</label>
-            <Input
+            <Input.TextArea
               className="mt-2 mb-2"
               placeholder={DataInvoice?.addressOffice}
               value={DataAddressOffice}
@@ -160,7 +160,7 @@ function Detail() {
           </Col>
           <Col span={24}>
             <label style={{ fontWeight: "bold" }}>Address Google :</label>
-            <Input
+            <Input.TextArea
               className="mt-2 mb-2"
               placeholder={DataInvoice?.addressGoogle}
               value={DataAddressGoogle}
@@ -171,8 +171,8 @@ function Detail() {
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={12}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={12} lg={12}>
             <label style={{ fontWeight: "bold" }}>PIC Name :</label>
             <Input
               className="mt-2 mb-2"
@@ -184,7 +184,7 @@ function Detail() {
               }}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12} md={12} lg={12}>
             <label style={{ fontWeight: "bold" }}>PIC Position :</label>
             <Input
               className="mt-2 mb-2"
@@ -198,7 +198,7 @@ function Detail() {
           </Col>
         </Row>
         <Row>
-          <Col span={12}>
+          <Col xs={24} sm={12} md={12} lg={12}>
             <label style={{ fontWeight: "bold" }}>PIC Phone :</label>
             <Input
               className="mt-2 mb-2"
@@ -210,7 +210,7 @@ function Detail() {
               }}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12} md={12} lg={12}>
             <label style={{ fontWeight: "bold" }}>PIC Number :</label>
             <Input
               className="mt-2 mb-2"
@@ -224,9 +224,9 @@ function Detail() {
           </Col>
         </Row>
         <Row>
-          <Col span={12}>
+          <Col xs={24} sm={12} md={12} lg={12}>
             <label style={{ fontWeight: "bold" }}>Address NPWP :</label>
-            <Input
+            <Input.TextArea
               className="mt-2 mb-2"
               placeholder={DataInvoice?.addressNpwp}
               value={DataAddressNPWP}
@@ -236,7 +236,7 @@ function Detail() {
               }}
             />
           </Col>
-          <Col span={12}>
+          <Col xs={24} sm={12} md={12} lg={12}>
             <label style={{ fontWeight: "bold" }}>Format NPWP :</label>
             <Input
               className="mt-2 mb-2"
@@ -249,8 +249,8 @@ function Detail() {
             />
           </Col>
         </Row>
-        <Row>
-          <Col span={8}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>PIC Email :</label>
             <Input
               className="mt-2 mb-2"
@@ -262,7 +262,7 @@ function Detail() {
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>PIC Fax :</label>
             <Input
               className="mt-2 mb-2"
@@ -274,7 +274,7 @@ function Detail() {
               }}
             />
           </Col>
-          <Col span={8}>
+          <Col xs={24} sm={12} md={8} lg={8}>
             <label style={{ fontWeight: "bold" }}>NPWP Number:</label>
             <Input
               className="mt-2 mb-2"
