@@ -437,7 +437,7 @@ function ReportCustomer() {
           </Col>
         </Row>
         <Table
-          className="mt-3"
+          className="mt-3 responsive-table"
           // pagination={false}
           style={{ overflowX: "auto" }}
           dataSource={DataReportCust}
