@@ -6,7 +6,7 @@ import backgroundImage from "../assets/img/BackGround_Login.png";
 import loginPage from "../assets/img/LoginPage.jpg";
 import LogoEureka from "../assets/img/LogoEureka.png";
 import "../../src/assets/style.css";
-
+import "./StyleLogin.css"
 
 
 import { hideMessage, showAuthLoader, userSignIn } from "../appRedux/actions";
@@ -64,10 +64,10 @@ const SignIn = () => {
       }}
     >
       <Row>
-        <Col span={16} className="d-flex justify-content-center align-items-center">
+        <Col sm={2} md={16} className="d-flex justify-content-center ini-gambar align-items-center">
           <Image width={"90%"} src={loginPage} />
         </Col>
-        <Col span={8}>
+        <Col className="" sm={24} md={8}>
           <div
             style={{
               backgroundColor: "white",
@@ -79,7 +79,7 @@ const SignIn = () => {
           >
             <div className="gx-app-login">
               <Row>
-                <Col span={24} className="d-flex justify-content-center mb-3" style={{ marginTop: "20%" }}>
+                <Col sm={2} md={24}  className="d-flex justify-content-center mb-3 inigambar" style={{ marginTop: "20%" }}>
                   <Image width={"40%"} src={LogoEureka} className="mt-5" />
                 </Col>
               </Row>
