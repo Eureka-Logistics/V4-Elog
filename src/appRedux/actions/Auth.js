@@ -1,5 +1,5 @@
 import axios from "axios";
-import Baseurl from "../../Api/BaseUrl";
+import Baseurl, { BaseUrlRace } from "../../Api/BaseUrl";
 import {
   HIDE_MESSAGE,
   INIT_URL,
@@ -22,6 +22,7 @@ import {
   SIGNUP_USER_SUCCESS
 } from "constants/ActionTypes";
 import mobil from "../../routes/redux toolkit/store/ZustandStore";
+import { notification } from "antd";
 
 export const userSignUp = (user) => {
   return {
@@ -30,30 +31,53 @@ export const userSignUp = (user) => {
   };
 };
 
-export const userSignIn = (user) => {
+export const userSignIn = (user, selectLogin) => {
   return async dispatch => {
     dispatch(showAuthLoader());
-
     try {
-      const response = await axios.post(`${Baseurl}auth/login`, user);
 
-      // asumsikan response.data.data berisi token dan jobdesk
-      const { token, jobdesk, cabang, fullname } = response.data.data;
+      if (selectLogin === 1) {
+        const response = await axios.post(`${Baseurl}auth/login`, user);
 
-      // simpan token ke dalam local storage
-      localStorage.setItem('token', token);
-      localStorage.setItem('jobdesk', jobdesk);
-      localStorage.setItem('cabang', cabang);
-      localStorage.setItem('fullname', fullname);
-      dispatch(userSignInSuccess({ token, jobdesk }));
+        // asumsikan response.data.data berisi token dan jobdesk
+        const { token, jobdesk, cabang, fullname } = response.data.data;
 
-      // set token to axios header
-      axios.defaults.headers.common['Authorization'] = token;
+        // simpan token ke dalam local storage
+        localStorage.setItem('token', token);
+        localStorage.setItem('jobdesk', jobdesk);
+        localStorage.setItem('cabang', cabang);
+        localStorage.setItem('fullname', fullname);
+        dispatch(userSignInSuccess({ token, jobdesk }));
 
-      const detail = await axios.get(`${Baseurl}auth/get-profile`);
+        // set token to axios header
+        axios.defaults.headers.common['Authorization'] = token;
+
+        const detail = await axios.get(`${Baseurl}auth/get-profile`);
+      } else {
+        const response = await axios.post(`${BaseUrlRace}auth/login`, user);
+
+        // asumsikan response.data.data berisi token dan jobdesk
+        const { token, jobdesk, cabang, fullname } = response.data.data;
+
+        // simpan token ke dalam local storage
+        localStorage.setItem('token', token);
+        localStorage.setItem('jobdesk', jobdesk);
+        localStorage.setItem('cabang', cabang);
+        localStorage.setItem('fullname', fullname);
+        dispatch(userSignInSuccess({ token, jobdesk }));
+
+        // set token to axios header
+        axios.defaults.headers.common['Authorization'] = token;
+
+        const detail = await axios.get(`${Baseurl}auth/get-profile`);
+      }
+
     } catch (error) {
       // handle error, misalnya dengan menampilkan pesan kesalahan
-      dispatch(showAuthMessage(error.toString()));
+      // notification.error({
+      //   message : error?.response?.data?.errors[0]?.message
+      // })
+      dispatch(showAuthMessage(error?.response?.data?.errors[0]?.message.toString()));
     }
   };
 };

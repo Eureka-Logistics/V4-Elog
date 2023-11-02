@@ -1,4 +1,4 @@
-import { Button, Card, Drawer, Form, Input, Pagination, Skeleton, Tag, notification } from 'antd'
+import { Button, Card, Drawer, Form, Input, Pagination, Select, Skeleton, Tag, notification } from 'antd'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
@@ -234,6 +234,31 @@ Salam hangat,
                         <Input onChange={(e) => { SetCariSJ(e.target.value) }} />
                     </Form.Item>
                 </Col>
+                <Col className='ms-3' sm={4} md={2}>
+                    <Form.Item>
+                        <div style={{ fontWeight: "bold" }}>
+                            Cari Nama Customer
+                        </div>
+                        <Input onChange={(e) => { SetCariSJ(e.target.value) }} />
+                    </Form.Item>
+                </Col>
+                <Col className='ms-3' sm={4} md={2}>
+                    <Form.Item>
+                        <div style={{ fontWeight: "bold" }}>
+                            Cari Pic Alamat
+                        </div>
+                        <Select onChange={(e) => { SetCariSJ(e.target.value) }} />
+                    </Form.Item>
+                </Col>
+                <Col>
+                    <div  style={{ fontWeight: "bold" , marginTop : 20 }}>
+                    </div>
+                    <Pagination className='d-flex justify-content-end'
+                        // current={1}
+                        onChange={(page, size) => Paginations(page, size)}
+                        total={DataApi.totalData}
+                    // pageSize={10}
+                    /></Col>
             </Row>
             <Row>
                 {!DataApi.Data && (
@@ -242,19 +267,14 @@ Salam hangat,
                     </div>
 
                 )}
-                <Pagination className='d-flex justify-content-end'
-                    // current={1}
-                    onChange={(page, size) => Paginations(page, size)}
-                    total={DataApi.totalData}
-                // pageSize={10}
-                />
+
                 {DataApi.Data && DataApi.Data.map((i, currentIndex) => {
                     const index = (DataApi.currentPage - 1) * DataApi.limit + currentIndex;
 
                     // rest of your code
                     return (
                         <>
-                            {LoadingBang ? <Skeleton/> : (
+                            {LoadingBang ? <Skeleton /> : (
 
                                 <Col sm={12} md={6} >
                                     <Card hoverable size='lg' onClick={async (e) => {

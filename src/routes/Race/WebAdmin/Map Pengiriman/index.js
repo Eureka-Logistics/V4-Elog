@@ -22,7 +22,7 @@ function MapPengiriman() {
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: localStorage.getItem('token'),
-                    },
+                    },  
                 }
             )
             console.log(data.data.data);
@@ -84,7 +84,7 @@ function MapPengiriman() {
             });
     
             // Setelah semua API call berhasil, lakukan operasi yang diperlukan
-            // Anda bisa menggunakan responses yang merupakan array dari setiap data yang dikembalikan oleh API call
+            setDataSelectDriver("")
             setOptionNamaNamaDriver(responses);
             SelectDriver();
             PengadaanDetail();
