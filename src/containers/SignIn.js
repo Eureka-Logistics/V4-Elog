@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Checkbox, Col, Form, Image, Input, Row, Select, Switch, message } from "antd";
+import { Button, Checkbox, Col, Form, Image, Input, Row, Select, Switch, message, notification } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import backgroundImage from "../assets/img/BackGround_Login.png";
@@ -40,9 +40,16 @@ const SignIn = () => {
       userSignIn({
         username: values.username,
         password: values.password,
-      },SelectLogin)
+      }, SelectLogin)
     );
   };
+
+  function validasilogin() {
+    if (SelectLogin === "")
+      notification.error({
+        message: "Harus memilih Login dulu"
+      })
+  }
 
 
   return (
@@ -98,9 +105,9 @@ const SignIn = () => {
 
                 <Col span={12} style={{ backgroundColor: "" }} className="d-flex justify-content-center text-data">
 
-                  <Select placeholder="Silahkan Pilih Login Dahulu!" 
-                  onChange={(e)=>setSelectLogin(e)}
-                  style={{ width: "100%" }}>
+                  <Select placeholder="Silahkan Pilih Login Dahulu!"
+                    onChange={(e) => setSelectLogin(e)}
+                    style={{ width: "100%" }}>
                     <option value={1}>Login Elogs</option>
                     <option value={2}>Login Race</option>
                   </Select>
@@ -112,6 +119,7 @@ const SignIn = () => {
                   initialValues={{ remember: true }}
                   name="basic"
                   onFinish={onFinish}
+                  disabled={!SelectLogin}
                   onFinishFailed={onFinishFailed}
                   className="gx-signin-form gx-form-row0 mt-4"
                   labelCol={{
