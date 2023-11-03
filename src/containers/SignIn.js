@@ -14,7 +14,7 @@ import { hideMessage, showAuthLoader, userSignIn } from "../appRedux/actions";
 import IntlMessages from "util/IntlMessages";
 import CircularProgress from "../components/CircularProgress";
 const SignIn = () => {
-  const [SelectLogin, setSelectLogin] = useState("")
+  const [SelectLogin, setSelectLogin] = useState(1)
   const dispatch = useDispatch();
   const { loader, alertMessage, showMessage, authUser } = useSelector(
     ({ auth }) => auth
@@ -105,7 +105,7 @@ const SignIn = () => {
 
                 <Col span={12} style={{ backgroundColor: "" }} className="d-flex justify-content-center text-data">
 
-                  <Select placeholder="Silahkan Pilih Login Dahulu!"
+                  <Select placeholder="Login Elogs"
                     onChange={(e) => setSelectLogin(e)}
                     style={{ width: "100%" }}>
                     <option value={1}>Login Elogs</option>
@@ -119,7 +119,7 @@ const SignIn = () => {
                   initialValues={{ remember: true }}
                   name="basic"
                   onFinish={onFinish}
-                  disabled={!SelectLogin}
+                  // disabled={!SelectLogin}
                   onFinishFailed={onFinishFailed}
                   className="gx-signin-form gx-form-row0 mt-4"
                   labelCol={{
