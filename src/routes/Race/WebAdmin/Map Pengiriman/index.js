@@ -155,7 +155,7 @@ function MapPengiriman() {
     }, [])
 
     console.log(OptionNamaNamaDriver);
-    console.log(`selectreddata`,selectedData);
+    console.log(`selectreddata`, selectedData);
     return (
         <div>
             <Row>
@@ -163,9 +163,10 @@ function MapPengiriman() {
                     <Row style={{ backgroundColor: "" }}>
                         <Col className="" >
                             <div>Cari Driver</div>
-                            <Select style={{ width: "100%" }} placeholder="Cari Driver"
+                            <Select style={{ width: "100%" }} placeholder={selectedData.length === 0 ? "Pilih SJ Dahulu" : "Cari Driver"}
                                 optionFilterProp='children'
                                 showSearch
+                                disabled={selectedData.length === 0}
                                 onChange={(e) => setSelectIdDriverDanVehicle(item => ({
                                     ...item,
                                     idDriver: e
