@@ -8,7 +8,7 @@ import { database } from "../../../../../firebase/firebase"
 import { getDatabase, ref, get, set, push, on, off } from "firebase/database";
 import moment from 'moment'
 
-function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
+function MappingDriverCard({ OptionNamaNamaDriver }) {
     const [availableDrivers, setAvailableDrivers] = useState([]);
     const [cards, setCards] = useState([{ id: 1 }, { id: 2 }]); // asumsi mula-mula ada dua cards
     const [isHidden, setIsHidden] = useState(false); // state untuk menyembunyikan atau menampilkan cards
@@ -48,13 +48,10 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
                                 <div style={{ fontWeight: "bold", fontSize: 15, color: "white", marginLeft: 20 }}>
                                     {data.Driver}
                                 </div>
-                                <div className='' style={{ fontWeight: "bold", fontSize: 15, marginLeft: 20 }}>
-                                    <Tag color='yellow'>  {data?.Kendaraan} </Tag>
-                                </div>
                             </Col>
                             <Col sm={3} className='mt-1'>
                                 <div style={{ color: "white", fontSize: 15, fontWeight: "bold", textAlign: 'center' }}>Jumlah SJ</div>
-                                <div style={{ color: "white", fontWeight: "bold", fontSize: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{data.statusSJ?.length || 0}</div>
+                                <div style={{ color: "white", fontWeight: "bold", fontSize: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{data.dataSm?.length || 0}</div>
                             </Col>
 
                         </Row>
@@ -69,69 +66,70 @@ function MappingDriverCard({ DataApi, OptionNamaNamaDriver }) {
                         ) : (
                             <>
                                 <>
-                                    {data?.statusSJ?.map((item, index) => (
-                                        <div
-                                            style={{
-                                                color: '#A2A2A2',
-                                                fontSize: 20,
-                                                marginTop: -20,
-                                                maxHeight: 135,
-                                            }}
-                                        >
-                                            <div style={{ marginTop: -10 }}>
-                                                <Card
-                                                    key={item?.id}
-                                                    style={{
-                                                        padding: '0px',
-                                                        borderRadius: '10px',
-                                                        marginRight: -20,
-                                                        marginLeft: -20,
-                                                        maxHeight: 120,
-                                                        backgroundColor: '',
-                                                    }}
-                                                >
-                                                    <Row style={{ height: 30, backgroundColor: "", marginTop: -10 }}>
-                                                        <Col md={2}>
-                                                            <Tag color='
+                                    {data?.dataSm
+                                        ?.map((item, index) => (
+                                            <div
+                                                style={{
+                                                    color: '#A2A2A2',
+                                                    fontSize: 20,
+                                                    marginTop: -20,
+                                                    maxHeight: 135,
+                                                }}
+                                            >
+                                                <div style={{ marginTop: -10 }}>
+                                                    <Card
+                                                        key={item?.id}
+                                                        style={{
+                                                            padding: '0px',
+                                                            borderRadius: '10px',
+                                                            marginRight: -20,
+                                                            marginLeft: -20,
+                                                            maxHeight: 120,
+                                                            backgroundColor: '',
+                                                        }}
+                                                    >
+                                                        <Row style={{ height: 30, backgroundColor: "", marginTop: -10 }}>
+                                                            <Col md={2}>
+                                                                <Tag color='
                                                                 red' disabled type="primary">
-                                                                {index + 1}
-                                                            </Tag>
-                                                        </Col>
-                                                        <Col>
-                                                            <Row>
-                                                                <div style={{ color: "#A2A2A2" }}>{moment(item.updateDate).format('D-MM-YYYY')}<br /></div>
-                                                                <div style={{ color: "#1F3D7D", fontWeight: "bold" }}> {item.noSj}</div>
-                                                            </Row>
+                                                                    {index + 1}
+                                                                </Tag>
+                                                            </Col>
+                                                            <Col>
+                                                                <Row>
+                                                                    <div style={{ color: "#1F3D7D", fontWeight: "bold" }}> {item.jenisKendaraan} - {item.nopol}</div>
+                                                                    <div style={{ color: "#1F3D7D", fontWeight: "bold" }}> {item.sm}</div>
+                                                                </Row>
 
-                                                        </Col>
-                                                        <Col className='d-flex justify-content-end'>
-                                                            <div style={{ fontSize: '10px', fontWeight: 'bold', backgroundColor: "#1F3D7D", display: "flex", alignItems: "center", borderRadius: 4, gap: 8, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
-                                                                <div style={{ color: "white", fontWeight: "bold" }}>{item.status}</div>
-                                                            </div>
-                                                        </Col>
-
-                                                    </Row>
-                                                    <Row className="mt-4" style={{display :"flex",justifyItems :"center"}}>
-                                                        <Row>
-                                                            <Col md={2}></Col>
-                                                            <Col style={{ marginTop: -5 }}>
-                                                                <div style={{ fontSize: '10px', fontWeight: 'bold', backgroundColor: "#EAF1FF", color: "#1F3D7D",  paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8,justifyItems :"center" }}>
-                                                                    {item.customer}
+                                                            </Col>
+                                                            <Col className='d-flex justify-content-end'>
+                                                                <div style={{ fontSize: '10px', fontWeight: 'bold', backgroundColor: "#1F3D7D", display: "flex", alignItems: "center", borderRadius: 4, gap: 8, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
+                                                                    <div style={{ color: "white", fontWeight: "bold" }}>{item.status}</div>
                                                                 </div>
                                                             </Col>
-                                                            <Col style={{ marginTop: -5 }}>
-                                                                <div style={{ fontSize: '10px', fontWeight: 'bold', backgroundColor: "#FEEAE4", color: "#F05423", paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, }}>
-                                                                    {item.bongkar}
-                                                                </div>
-                                                            </Col>
-
 
                                                         </Row>
-                                                    </Row>
-                                                </Card>
+                                                        <Row className="mt-4" style={{ display: "flex", justifyItems: "center" }}>
+                                                            <Row>
+                                                                <Col md={2}></Col>
+                                                                <Col style={{ marginTop: -5 }}>
+                                                                    <div style={{ fontSize: '10px', fontWeight: 'bold', backgroundColor: "#EAF1FF", color: "#1F3D7D", paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, justifyItems: "center" }}>
+                                                                        {item.muat}
+                                                                    </div>
+                                                                </Col>
+                                                                <Col style={{ marginTop: -5 }}>
+                                                                    <div style={{ fontSize: '10px', fontWeight: 'bold', backgroundColor: "#FEEAE4", color: "#F05423", paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, }}>
+                                                                        {item.penerima}
+                                                                    </div>
+                                                                </Col>
+
+
+                                                            </Row>
+                                                        </Row>
+                                                    </Card>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
                                     <Button onClick={toggleHide} style={{ backgroundColor: "#5297FF", color: "white", width: "100%", borderRadius: 10 }}>{isHidden ? 'Show' : 'Hide'}</Button>
                                 </>
                             </>
