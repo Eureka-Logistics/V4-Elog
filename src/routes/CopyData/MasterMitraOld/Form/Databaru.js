@@ -21,6 +21,7 @@ import Swal from "sweetalert2";
 import { Data } from "@react-google-maps/api";
 import moment from "moment";
 import { PrinterOutlined } from "@ant-design/icons";
+import dataBaru from "./dataBaru.css";
 import PrintZustand from "../../../../zustand/Store/untukPrint/MasterMitra";
 import { parse } from "date-fns";
 import isiDatamasterMitraDetailZustand from "../../../../zustand/Store/IsiDataMasterMitraDetail/Store";
@@ -1506,12 +1507,13 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
             </Col>
           </Row>
 
-          <Row>
+          <Row gutter={[16, 16]}>
             <Col
               xs={24}
               sm={12}
               md={4}
               lg={2}
+              className="formAlamat"
               style={{ padding: "0px", width: "20%" }}
             >
               <Form.Item
@@ -1534,6 +1536,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
               sm={12}
               md={4}
               lg={2}
+              className="formAlamat"
               style={{ width: "20%", padding: "0px" }}
             >
               <Form.Item
@@ -1557,6 +1560,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
               sm={12}
               md={4}
               lg={2}
+              className="formAlamat"
               style={{ width: "20%", padding: "0px" }}
             >
               <Form.Item
@@ -1579,6 +1583,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
               sm={12}
               md={4}
               lg={2}
+              className="formAlamat"
               style={{ width: "20%", padding: "0px" }}
             >
               <Form.Item
@@ -1601,6 +1606,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
               sm={12}
               md={4}
               lg={2}
+              className="formAlamat"
               style={{ width: "20%", padding: "0px" }}
             >
               <Form.Item
@@ -1626,6 +1632,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
               sm={12}
               md={4}
               lg={2}
+              className="formAlamat"
               style={{ width: "20%", padding: "0px" }}
             >
               <Form.Item
@@ -1648,6 +1655,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
               sm={12}
               md={4}
               lg={2}
+              className="formAlamat"
               style={{ width: "20%", padding: "0px" }}
             >
               <Form.Item
@@ -1671,6 +1679,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
               sm={12}
               md={4}
               lg={2}
+              className="formAlamat"
               style={{ width: "20%", padding: "0px" }}
             >
               <Form.Item
@@ -1694,6 +1703,7 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
               sm={12}
               md={4}
               lg={2}
+              className="formAlamat"
               style={{ width: "20%", padding: "0px" }}
             >
               <Form.Item
@@ -1713,7 +1723,14 @@ function DataBaru({ mitraId, DataOptions, setActiveTab }) {
               </Form.Item>
             </Col>
 
-            <Col xs={24} sm={12} md={4} lg={4} style={{ padding: "0px", width: "20%" }}>
+            <Col
+              xs={24}
+              sm={12}
+              md={4}
+              lg={4}
+              className="formAlamat"
+              style={{ padding: "0px", width: "20%" }}
+            >
               <Form.Item
                 label="Kode Pos :"
                 style={{ fontWeight: "bold" }}

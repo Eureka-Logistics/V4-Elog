@@ -193,11 +193,17 @@ function PIC({ mitraId }) {
 
   return (
     <div>
-      <Row>
-        <Col span={8}>
+      <Row gutter={[16,16]}> 
+        <Col  xs={24}
+            sm={24}
+            md={8}
+            lg={8}>
           <h5>DATA PENANGGUNG JAWAB (Person In Charge)</h5>
         </Col>
-        <Col span={16} className="d-flex justify-content-end">
+        <Col  xs={24}
+            sm={24}
+            md={16}
+            lg={16} className="d-flex justify-content-end">
           <Button onClick={handleAdd}>Tambah Data PIC</Button>
         </Col>
       </Row>

@@ -1,4 +1,13 @@
-import { Card, Space, Tag, Pagination, Button, Select, Table, Input } from "antd";
+import {
+  Card,
+  Space,
+  Tag,
+  Pagination,
+  Button,
+  Select,
+  Table,
+  Input,
+} from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Modal } from "antd";
@@ -47,7 +56,6 @@ const SamplePage = () => {
       render: (text) => <Tag color="blue">{text}</Tag>,
     },
 
-    
     {
       title: "Mitra Name",
       dataIndex: "mitraName",
@@ -213,8 +221,6 @@ const SamplePage = () => {
       });
   };
 
-  
-
   const ubahHalaman = (page) => {
     fetchData(page);
   };
@@ -248,7 +254,6 @@ const SamplePage = () => {
 
   useEffect(() => {
     fetchData();
-
   }, [filter, StatusMitra, CariKode]);
 
   // const handlePageChange = (page) => {
@@ -421,7 +426,7 @@ const SamplePage = () => {
         <h5 style={{ color: "#113D7F", fontWeight: "bold" }}>
           Data Master Mitra
         </h5>
-        <hr/>
+        <hr />
         <Row gutter={[16, 16]}>
           <Col>
             {/* <Row className="d-flex justify-content-end">
@@ -433,14 +438,11 @@ const SamplePage = () => {
               </Col>
             </Row> */}
             <Row gutter={[16, 16]} className="mt-2">
-              <Col  xs={24}
-            sm={12}
-            md={4}
-            lg={2} >
+              <Col xs={24} sm={12} md={4} lg={2}>
                 <label
                   className="mb-2"
                   htmlFor="StatusMitra"
-                  style={{ fontFamily: "NoirPro" , fontWeight: 'bold'}}
+                  style={{ fontFamily: "NoirPro", fontWeight: "bold" }}
                 >
                   Search Status:
                 </label>
@@ -463,10 +465,9 @@ const SamplePage = () => {
                   <option value={"tidak_aktif"}>Tidak Aktif</option>
                   <option value={"aktif"}>Aktif</option>
                   <option value={"habis_kontrak"}>Habis Kontrak</option>
-                
                 </Select>
               </Col>
-              <Col  xs={24} sm={12} md={4} lg={4} >
+              <Col xs={24} sm={12} md={4} lg={4}>
                 <label
                   style={{
                     width: "100%",
