@@ -433,7 +433,10 @@ const SamplePage = () => {
               </Col>
             </Row> */}
             <Row gutter={[16, 16]} className="mt-2">
-              <Col sm={2}>
+              <Col  xs={24}
+            sm={12}
+            md={4}
+            lg={2} >
                 <label
                   className="mb-2"
                   htmlFor="StatusMitra"
