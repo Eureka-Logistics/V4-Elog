@@ -1,0 +1,6 @@
+@media (max-width: 492px) {
+    .gx-site-logo {
+        width: 70%;
+        margin: 0 auto; /* Menempatkan elemen di tengah */
+      }
+}

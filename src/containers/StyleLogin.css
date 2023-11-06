@@ -1,6 +1,6 @@
 /* Sembunyikan elemen pada layar dengan lebar 492px atau lebih kecil */
 @media (max-width: 492px) {
-    .ant-image,
+    /* .ant-image,
     .ini-gambar,
     .ant-image-img {
       display: none;
@@ -10,15 +10,74 @@
         display: flex;
         justify-items: center;
         justify-content: center;
-        /* background-color: yellow !important; */
         margin-top: -3vh;
         overflow: hidden;
         height: auto;
-        /* margin-bottom: 200px; */
     
     }
     .gx-app-login {
         width: max-content;
-        /* background-color: yellow !important; */
+    } */
+   .avatars{
+    display: none;
+   }
+    .admin-text {
+        font-size: 12px;
+      }
+      .jobdesk {
+        display: none;
+      }
+      .gx-mr-3, .gx-avatar-name {
+        margin: 0;
+      }
+
+    .icons {
+        margin-top: 5px;
+    }
+
+    .paddingAja{
+        padding: 0px;
+        margin-top: -15px !important;
+    }
+}
+@media (max-width: 257px) {
+    /* .ant-image,
+    .ini-gambar,
+    .ant-image-img {
+      display: none;
+    }
+    .gx-app-login-container {
+        width: max-content;
+        display: flex;
+        justify-items: center;
+        justify-content: center;
+        margin-top: -3vh;
+        overflow: hidden;
+        height: auto;
+    
+    }
+    .gx-app-login {
+        width: max-content;
+    } */
+   .avatars{
+    display: none;
+   }
+    .admin-text {
+        font-size: 10px;
+      }
+      .jobdesk {
+        display: none;
+      }
+      .gx-mr-3, .gx-avatar-name {
+        margin: 0;
+      }
+
+    .icons {
+        margin-top: 5px;
+    }
+
+    .paddingAja{
+        padding: 0px;
+        margin-top: -15px !important;
     }
 }

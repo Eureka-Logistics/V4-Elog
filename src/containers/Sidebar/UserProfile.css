@@ -2,6 +2,10 @@
     .gx-avatar-row .gx-flex-row .gx-align-items-center .gx-mb-4 .gx-avatar-name {
       margin-top: 5%; /* Atur margin atas sesuai kebutuhan */
     }
+
+    .jobdesk {
+      display: none;
+    }
   }
   
   /* Untuk layar kecil (kurang dari 768px) */
@@ -15,4 +19,9 @@
     .my-col {
       margin-top: 0;
     }
+
+    .jobdesk {
+      display: none;
+    }
 }
+

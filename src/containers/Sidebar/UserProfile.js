@@ -16,7 +16,7 @@ const UserProfile = () => {
     //   <li onClick={() => dispatch(userSignOut())}>Logout
     //   </li>
     // </ul>
-    <div style={{ width: "200px", height: 'auto' }}>
+    <div style={{ width: "200px", height: "auto" }}>
       <Row>
         <Col span={24} className="d-flex justify-content-center">
           <Avatar
@@ -34,9 +34,9 @@ const UserProfile = () => {
           <di style={{ color: "#113D7F" }}>{jobdesk}</di>
         </Col>
       </Row>
-      <hr/>
+      <hr />
       <Row>
-      <Col span={12} className="d-flex justify-content-end mt-2">
+        <Col span={12} className="d-flex justify-content-end mt-2">
           {/* <Button
             size="small"
             style={{
@@ -53,7 +53,7 @@ const UserProfile = () => {
             </span>
           </Button> */}
         </Col>
-      <Col span={12} className="d-flex justify-content-end mt-2">
+        <Col span={12} className="d-flex justify-content-end mt-2">
           <Button
             size="small"
             style={{
@@ -61,7 +61,6 @@ const UserProfile = () => {
               color: "white",
               height: "30px",
               borderRadius: "10px",
-             
             }}
             onClick={() => dispatch(userSignOut())}
           >
@@ -81,19 +80,23 @@ const UserProfile = () => {
         content={userMenuOptions}
         trigger="click"
       >
-        <Row style={{ verticalAlign: "middle", marginTop: "0%" }}>
-          <Col span={6} >
+        <Row style={{ verticalAlign: "middle" }}>
+          <Col span={6}>
             <Avatar
               src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
-              className="gx-size-40 gx-pointer gx-mr-3"
+              className="gx-size-40 gx-pointer gx-mr-3 avatars"
               alt=""
             />
           </Col>
-          <Col span={18} style={{ marginTop: "3%" }}>
+          <Col
+            span={18}
+            className="d-flex justify-content align-items-center paddingAja"
+          >
             <h6 className="gx-avatar-name">
-              Admin {jobdesk}
-              <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2" />
+              <span className="admin-text">Admin {jobdesk}</span>{" "}
+              {/* <span className="jobdesk">{jobdesk}</span> */}
             </h6>
+            <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2 icons" />
           </Col>
         </Row>
       </Popover>

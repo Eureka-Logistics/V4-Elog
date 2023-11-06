@@ -1,0 +1,5 @@
+@media (max-width: 492px) {
+    .responsive-table .ant-table {
+      max-width: 50%; /* Atur lebar maksimum tabel ke 100% */
+    }
+  }

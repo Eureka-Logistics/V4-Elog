@@ -38,16 +38,13 @@
     padding-left: 35px !important;
 } */
 
-
-
 /* Change the color of icons or other elements inside the menu item on hover or when selected */
 /* .ant-menu-item:hover .anticon, .ant-menu-item-selected .anticon {
     color: #000; } */
 /* styles.css */
 .menu-item-hover:hover {
-  background-color: #113D7F !important;
+  background-color: #113d7f !important;
   height: 100% !important;
-  
 }
 
 .menu-item-hover:hover span {
@@ -60,17 +57,15 @@
 }
 
 .menu-item-active {
-  background-color: #113D7F !important; 
+  background-color: #113d7f !important;
   height: 100% !important;
   margin-top: 10px !important;
-  
 }
 
-.ant-menu-item a::before{
+.ant-menu-item a::before {
   display: flex;
   align-items: center;
   height: 100% !important;
-
 }
 
 .untuk-div {
@@ -92,25 +87,45 @@
   margin-left: 8px !important;
 }
 
-
 .ant-menu-item-selected::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   width: 5px;
-  background-color: #000; 
-height: 30px !important;
+  background-color: #000;
+  height: 30px !important;
 }
 
 .ant-menu-item {
   /* transition: background-color 0.3s ease, border 0.3s ease; */
-  border: 2px solid transparent; 
+  border: 2px solid transparent;
   border-radius: 8px;
   height: 100% !important;
 }
 
-.ant-layout-sider .ant-menu-submenu > .ant-menu.ant-menu-sub .ant-menu-item, .ant-drawer .ant-menu-submenu > .ant-menu.ant-menu-sub .ant-menu-item {
+.ant-layout-sider .ant-menu-submenu > .ant-menu.ant-menu-sub .ant-menu-item,
+.ant-drawer .ant-menu-submenu > .ant-menu.ant-menu-sub .ant-menu-item {
   padding-left: 0px !important;
+}
+
+.ant-layout-sider .ant-menu-vertical .ant-menu-item,
+.ant-layout-sider .ant-menu-vertical-left .ant-menu-item,
+.ant-layout-sider .ant-menu-vertical-right .ant-menu-item,
+.ant-layout-sider .ant-menu-inline .ant-menu-item,
+.ant-layout-sider .ant-menu-vertical .ant-menu-submenu-title,
+.ant-layout-sider .ant-menu-vertical-left .ant-menu-submenu-title,
+.ant-layout-sider .ant-menu-vertical-right .ant-menu-submenu-title,
+.ant-layout-sider .ant-menu-inline .ant-menu-submenu-title,
+.ant-drawer .ant-menu-vertical .ant-menu-item,
+.ant-drawer .ant-menu-vertical-left .ant-menu-item,
+.ant-drawer .ant-menu-vertical-right .ant-menu-item,
+.ant-drawer .ant-menu-inline .ant-menu-item,
+.ant-drawer .ant-menu-vertical .ant-menu-submenu-title,
+.ant-drawer .ant-menu-vertical-left .ant-menu-submenu-title,
+.ant-drawer .ant-menu-vertical-right .ant-menu-submenu-title,
+.ant-drawer .ant-menu-inline .ant-menu-submenu-title {
+  padding-left: 40px !important;
+  margin-left: 5px !important;
 }
