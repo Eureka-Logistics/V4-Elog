@@ -415,7 +415,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
             return (HasilTarifNumerik * berat) + totalBiayaTambahan;
         } else if (formik.values.kapalcepat === "Kapal Cepat" && formik.values.via === "laut" && DetailSemua?.service?.toLowerCase() === 'retail' || DetailSemua?.service?.toLowerCase() === 'retailer') {
             return HasilTarifNumerik * berat;
-        } else if (DetailSemua?.service === 'Charter') {
+        } else if (DetailSemua?.service?.toLowerCase() === 'charter') {
             return HasilTarifNumerik + totalBiayaTambahan;
         } else if (formik.values.via === "laut" && DetailSemua?.service?.toLowerCase() === 'retail' || DetailSemua?.service?.toLowerCase() === 'retailer') {
             return HasilTarifNumerik + totalBiayaTambahan;
@@ -431,7 +431,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
     }, [HasilTarif, formik.values.lain, formik.values.biayaselanjutnya, formik.values.biayamaxtonase, formik.values.biayajalan, formik.values.tambahan, formik.values.overtonase, formik.values.totalCreate, formik.values.shipment, formik.values.kapalcepat, formik.values.berat, formik.values.bongkar, formik.values.biayamuat, formik.values.biayamultimuat, formik.values.biayamultidrop, formik.values.biayamel,formik?.values?.via  ]);
 
 
-    console.log(`formik.via`, formik?.values?.via);
+    console.log(`DetailSemua?.service?`, DetailSemua?.service);
 
     const labelpilihan = () => {
         if (formik.values.pilihanberat === 1) {
@@ -1607,7 +1607,7 @@ function ModalCreateDetail({ AlamatInvoiceOptions, DetailSemua, idmp, DetailSP, 
 
                         </Col> */}
 
-                        {DetailSemua?.service === "Charter" && (
+                        {DetailSemua?.service?.toLowerCase() === "charter" && (
                             <Col>
                                 <Form.Item
                                     label={`TOTAL ${DetailSemua?.service?.toUpperCase()}`}

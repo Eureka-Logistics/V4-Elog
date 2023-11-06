@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Baseurl from '../../../../Api/BaseUrl'
 import DataTable from 'react-data-table-component'
-import { Card, Pagination, Select, Tag } from 'antd'
+import { Card, Input, Pagination, Select, Tag } from 'antd'
 import { Col, Row } from 'react-bootstrap'
 import { useHistory } from "react-router-dom";
 import ElogLoadingGif from "../../../../assets/Loader_Elogs1.gif";
@@ -10,6 +10,7 @@ function ListPageSpPurchasing() {
     const [MultiSelect, setMultiSelect] = useState(1)
     const [loading, setloading] = useState(false)
     const [dataApi, setdataApi] = useState("")
+    const [searchSO, setsearchSO] = useState("")
     const [paggination, setPagginations] = useState({
         totalPage: 10,
         limit: 10,
@@ -20,7 +21,7 @@ function ListPageSpPurchasing() {
     const datasp = async (e = 1) => {
         try {
             setloading(true)
-            const data = await axios.get(`${Baseurl}sp/get-list-purch?limit=${paggination.limit}&page=${paggination.currentPage}&is_multi=${MultiSelect}`,
+            const data = await axios.get(`${Baseurl}sp/get-list-purch?limit=${paggination.limit}&page=${paggination.currentPage}&is_multi=${MultiSelect}&keyword=${searchSO}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -92,7 +93,7 @@ function ListPageSpPurchasing() {
     ]
     useEffect(() => {
         datasp();
-    }, [MultiSelect, paggination.limit, paggination.currentPage]);
+    }, [MultiSelect, paggination.limit, paggination.currentPage, searchSO]);
 
 
     function selectmulti() {
@@ -150,6 +151,15 @@ function ListPageSpPurchasing() {
                                 <option value={1}>Multi Drop</option>
                                 <option value={0}>Tidak MultiDrop</option>
                             </Select>
+                        </Col>
+                        <Col sm={2}>
+                            <Input
+                                placeholder={"Cari SO"}
+                                style={{ width: "100%" }}
+                                onChange={(e) => setsearchSO(e.target.value)}
+                            >
+
+                            </Input>
                         </Col>
                     </Row>
                 </div>

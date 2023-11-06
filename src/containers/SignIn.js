@@ -6,7 +6,7 @@ import backgroundImage from "../assets/img/BackGround_Login.png";
 import loginPage from "../assets/img/LoginPage.jpg";
 import LogoEureka from "../assets/img/LogoEureka.png";
 import "../../src/assets/style.css";
-
+import "./StyleLogin.css"
 
 
 import { hideMessage, showAuthLoader, userSignIn } from "../appRedux/actions";
@@ -14,7 +14,7 @@ import { hideMessage, showAuthLoader, userSignIn } from "../appRedux/actions";
 import IntlMessages from "util/IntlMessages";
 import CircularProgress from "../components/CircularProgress";
 const SignIn = () => {
-  const [SelectLogin, setSelectLogin] = useState("")
+  const [SelectLogin, setSelectLogin] = useState(1)
   const dispatch = useDispatch();
   const { loader, alertMessage, showMessage, authUser } = useSelector(
     ({ auth }) => auth
@@ -64,10 +64,10 @@ const SignIn = () => {
       }}
     >
       <Row>
-        <Col span={16} className="d-flex justify-content-center align-items-center " >
+        <Col sm={2} md={16} className="d-flex justify-content-center ini-gambar align-items-center">
           <Image width={"90%"} src={loginPage} />
         </Col>
-        <Col span={8}>
+        <Col className="" sm={24} md={8}>
           <div
             style={{
               backgroundColor: "white",
@@ -79,7 +79,7 @@ const SignIn = () => {
           >
             <div className="gx-app-login">
               <Row>
-                <Col span={24} className="d-flex justify-content-center mb-3" style={{ marginTop: "20%" }}>
+                <Col sm={2} md={24}  className="d-flex justify-content-center mb-3 inigambar" style={{ marginTop: "20%" }}>
                   <Image width={"40%"} src={LogoEureka} className="mt-5" />
                 </Col>
               </Row>
@@ -105,7 +105,7 @@ const SignIn = () => {
 
                 <Col span={12} style={{ backgroundColor: "" }} className="d-flex justify-content-center text-data">
 
-                  <Select placeholder="Silahkan Pilih Login Dahulu!"
+                  <Select placeholder="Login Elogs"
                     onChange={(e) => setSelectLogin(e)}
                     style={{ width: "100%" }}>
                     <option value={1}>Login Elogs</option>
@@ -119,7 +119,7 @@ const SignIn = () => {
                   initialValues={{ remember: true }}
                   name="basic"
                   onFinish={onFinish}
-                  disabled={!SelectLogin}
+                  // disabled={!SelectLogin}
                   onFinishFailed={onFinishFailed}
                   className="gx-signin-form gx-form-row0 mt-4"
                   labelCol={{

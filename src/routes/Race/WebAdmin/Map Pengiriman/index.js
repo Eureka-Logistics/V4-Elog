@@ -12,8 +12,15 @@ function MapPengiriman() {
     const [DataApi, setmapping] = useState("")
     const [OptionNamaNamaDriver, setOptionNamaNamaDriver] = useState("")
     const [LoadingGan, setLoadingGan] = useState(false)
-
     const [DataSelectDriver, setDataSelectDriver] = useState([])
+    const [selectIdDriverDanVehicle, setSelectIdDriverDanVehicle] = useState({
+        idDriver: "",
+        idKendaraan: "",
+        kendaraan: "",
+        selectDriver: [],
+        selectKendaraan: []
+    });
+
     const PengadaanDetail = async () => {
         setLoadingGan(true)
         try {
@@ -22,10 +29,9 @@ function MapPengiriman() {
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: localStorage.getItem('token'),
-                    },  
+                    },
                 }
             )
-            console.log(data.data.data);
             setmapping(data?.data?.data)
             setLoadingGan(false)
 
@@ -33,9 +39,24 @@ function MapPengiriman() {
 
         }
     }
-    const SelectDriver = async () => {
+    // const SelectDriver = async () => {
+    //     try {
+    //         const data = await axios.get(`${BaseUrlRace}sp/get-driver-approve`,
+    //             {
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     Authorization: localStorage.getItem('token'),
+    //                 },
+    //             }
+    //         )
+    //         // setOptionNamaNamaDriver(data?.data?.data);
+    //     } catch (error) {
+
+    //     }
+    // }
+    const SelectDriver2 = async () => {
         try {
-            const data = await axios.get(`${BaseUrlRace}sp/get-driver-approve`,
+            const data = await axios.get(`${BaseUrlRace}sp/get-sm`,
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -43,7 +64,6 @@ function MapPengiriman() {
                     },
                 }
             )
-            console.log(data.data.data);
             setOptionNamaNamaDriver(data?.data?.data);
         } catch (error) {
 
@@ -54,16 +74,16 @@ function MapPengiriman() {
         selectedData.forEach((item) => {
             body.push({
                 "id_mpd": item.id_mpd,
-                "id_unit": DataSelectDriver?.idKendaraan,
-                "id_supir": DataSelectDriver?.id_supir,
-                "kendaraan": DataSelectDriver?.Kendaraan,
+                "id_unit": selectIdDriverDanVehicle?.idKendaraan,
+                "id_supir": selectIdDriverDanVehicle?.idDriver,
+                "kendaraan": selectIdDriverDanVehicle?.kendaraan,
                 "berat": item.berat,
                 "qty": item.qty,
                 "koli": item.koli,
                 "ikat": item.ikat,
             });
         });
-    
+
         try {
             const responses = await Promise.all(body.map(async (item) => {
                 const response = await axios.post(`${BaseUrlRace}sp/approve-sp`, item, {
@@ -74,7 +94,7 @@ function MapPengiriman() {
                 });
                 return response.data;
             }));
-    
+
             // Ambil data dari setiap response dan lakukan operasi yang diperlukan
             responses.forEach((data) => {
                 // Periksa apakah data yang diterima valid
@@ -82,13 +102,14 @@ function MapPengiriman() {
                     // Lakukan operasi dengan data
                 }
             });
-    
+
             // Setelah semua API call berhasil, lakukan operasi yang diperlukan
             setDataSelectDriver("")
             setOptionNamaNamaDriver(responses);
-            SelectDriver();
             PengadaanDetail();
-    
+            SelectDriver2("")
+            addData("")
+            selectedData("")
             notification.success({
                 message: "Sukses",
             });
@@ -104,47 +125,93 @@ function MapPengiriman() {
             }
         }
     };
-    
 
+
+    const SelectDriverdanKendaraan = async () => {
+        try {
+            const data = await axios.get(`${BaseUrlRace}sp/get-driver-kendaraan`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.getItem('token'),
+                    },
+                }
+            )
+            setSelectIdDriverDanVehicle(item => ({
+                ...item,
+                selectDriver: data.data.Driver,
+                selectKendaraan: data.data.kendaraan,
+            }))
+        } catch (error) {
+
+        }
+    }
     useEffect(() => {
+        SelectDriverdanKendaraan()
         PengadaanDetail()
-        SelectDriver()
+        // SelectDriver()
+        SelectDriver2()
+
     }, [])
-    console.log("selectedData", selectedData);
+
+    console.log(OptionNamaNamaDriver);
+    console.log(`selectreddata`, selectedData);
     return (
         <div>
             <Row>
                 <Col sm={6}>
                     <Row style={{ backgroundColor: "" }}>
-                        <Col sm={6} style={{ backgroundColor: "" }}>
-                            {/* <h4>Mapping Pengiriman</h4> */}
-                        </Col>
-                        <Col className="d-flex justify-content-end" sm={6}>
-                            <h5 style={{ color: "#5197FF" }}>
-                                {OptionNamaNamaDriver.length === 0 ? "Mapping Otomatis" :
-                                    <Select
-                                        showSearch
-                                        optionFilterProp='children'
-                                        style={{ width: 300 }} placeholder="Select Driver Dan Mapping"
-                                        onChange={(value, option) => {
-                                            console.log(`Option data:`, option);
-                                            console.log(`Selected value:`, value);
+                        <Col className="" >
+                            <div>Cari Driver</div>
+                            <Select style={{ width: "100%" }} placeholder={selectedData.length === 0 ? "Pilih SJ Dahulu" : "Cari Driver"}
+                                optionFilterProp='children'
+                                showSearch
+                                disabled={selectedData.length === 0}
+                                onChange={(e) => setSelectIdDriverDanVehicle(item => ({
+                                    ...item,
+                                    idDriver: e
+                                }))}
+                            >
+                                {
+                                    selectIdDriverDanVehicle.selectDriver && selectIdDriverDanVehicle.selectDriver.length > 0
+                                        ? selectIdDriverDanVehicle.selectDriver.map((item) => (
+                                            <Select.Option key={item.idDriver} value={item.idDriver}>{item.driverName}</Select.Option>
+                                        ))
+                                        : <option>Loading data...</option>
+                                }
 
-                                            setDataSelectDriver({
-                                                id_supir: option.idDriver,
-                                                Kendaraan: option.Kendaraan,
-                                                idKendaraan: option.idKendaraan,
-                                            });
-                                        }}
-                                    >
-                                        {OptionNamaNamaDriver && OptionNamaNamaDriver.map((i, index) => (
-                                            <option key={index} Kendaraan={i?.Kendaraan} idDriver={i.idDriver} idKendaraan={i.idKendaraan} value={i.idKendaraan}>
-                                                {i.Driver}
-                                            </option>
-                                        ))}
-                                    </Select>}
-                            </h5>
-                            <Button className='ms-2' onClick={Approvesp} type='primary' size='sm'>Mapping</Button>
+
+                            </Select>
+                        </Col>
+                        <Col className="" >
+                            <div>Cari Kendaraan</div>
+                            <Select
+                                optionFilterProp='children'
+                                showSearch
+                                disabled={!selectIdDriverDanVehicle.idDriver}
+                                onChange={(e, option) => {
+                                    console.log(e, option);
+                                    setSelectIdDriverDanVehicle(item => ({
+                                        ...item,
+                                        idKendaraan: e,
+                                        kendaraan: option.option.jenisKendaraan
+                                    }))
+                                }}
+                                style={{ width: "100%" }} placeholder={!selectIdDriverDanVehicle.idDriver ? "Pilih Driver Dahulu" : "Cari Kendaraan"}>
+
+                                {
+                                    selectIdDriverDanVehicle.selectKendaraan && selectIdDriverDanVehicle.selectKendaraan.length > 0
+                                        ? selectIdDriverDanVehicle.selectKendaraan.map((item) => (
+                                            <Select.Option key={item.kendaranId} option={item} value={item.kendaranId}>{item.jenisKendaraan} - {item.polisiNumber}</Select.Option>
+                                        ))
+                                        : <option>Loading data...</option>
+                                }
+
+                            </Select>
+                        </Col>
+                        <Col>
+                            <div className='mt-4'></div>
+                            <Button disabled={!selectIdDriverDanVehicle.idKendaraan} className='ms-2' onClick={() => Approvesp()} type='primary' size='sm'>Mapping</Button>
                         </Col>
                     </Row>
                     <div className="div-no-scrollbar" style={{ padding: "0px", height: "800px", backgroundColor: "", overflow: "auto" }}>
@@ -157,7 +224,7 @@ function MapPengiriman() {
                     <Card className="div-no-scrollbar" style={{ padding: "0px", height: "800px", backgroundColor: "", overflow: "auto" }} >
                         <Row>
                             <h5>Driver Tersedia</h5>
-                            <MappingDriverCard OptionNamaNamaDriver={OptionNamaNamaDriver} DataApi={DataApi} />
+                            <MappingDriverCard OptionNamaNamaDriver={OptionNamaNamaDriver} />
                         </Row>
                     </Card>
                 </Col>

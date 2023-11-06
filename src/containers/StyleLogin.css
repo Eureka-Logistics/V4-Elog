@@ -1,0 +1,24 @@
+/* Sembunyikan elemen pada layar dengan lebar 492px atau lebih kecil */
+@media (max-width: 492px) {
+    .ant-image,
+    .ini-gambar,
+    .ant-image-img {
+      display: none;
+    }
+    .gx-app-login-container {
+        width: max-content;
+        display: flex;
+        justify-items: center;
+        justify-content: center;
+        /* background-color: yellow !important; */
+        margin-top: -3vh;
+        overflow: hidden;
+        height: auto;
+        /* margin-bottom: 200px; */
+    
+    }
+    .gx-app-login {
+        width: max-content;
+        /* background-color: yellow !important; */
+    }
+}

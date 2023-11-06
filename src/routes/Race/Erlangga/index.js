@@ -16,6 +16,8 @@ function Erlangga() {
         paggination: 1,
         size: 10
     })
+
+    const barrer = localStorage.getItem("token")
     const [Keyword, setKeyword] = useState("")
     const datenya = (date, datanggal) => {
         console.log(datanggal);
@@ -39,8 +41,8 @@ function Erlangga() {
             const data = await axios.get(`${BaseUrlRace}sp/get-data-erl?dateForm=${formattedStartDate}&dateTo=${formattedEndDate}&wh=${PilihCabang}`, {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
-                    // Authorization: localStorage.getItem("token"),
+                    // Authorization: ,
+                    Authorization: localStorage.getItem("token"),
                 },
             })
             Refresh()
@@ -69,8 +71,8 @@ function Erlangga() {
             {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
-                    // Authorization: localStorage.getItem("token"),
+                    // Authorization: ,
+                    Authorization: localStorage.getItem("token"),
                 },
             })
         setData(prevState => ({
@@ -84,8 +86,8 @@ function Erlangga() {
             {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
-                    // Authorization: localStorage.getItem("token"),
+                    // Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
+                    Authorization: localStorage.getItem("token"),
                 },
             })
         setData(prevState => ({
@@ -162,8 +164,8 @@ function Erlangga() {
             }
         },
     ]
-  
-  
+
+
     return (
         <div>
             <Card>

@@ -24,9 +24,9 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
             const data = await axios.get(`${BaseUrlRace}sp/get-select-sp?noref=${Seleckan.seleckan_noref}`,
                 {
                     headers: {
-                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
+                        // Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
                         "Content-Type": "application/json",
-                        // Authorization: localStorage.getItem("token"),
+                        Authorization: localStorage.getItem("token"),
                     },
                 }
             );
@@ -63,8 +63,8 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
             const data = await axios.post(`${BaseUrlRace}sp/create-sp`, body, {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4ODMxNjI1LCJleHAiOjE2OTg5MTgwMjV9.RIV1GBzazVw4NK-mi648hOxO7139bTKGKtP6jYVLGnc',
-                    // Authorization: localStorage.getItem("token"),
+                    // Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4ODMxNjI1LCJleHAiOjE2OTg5MTgwMjV9.RIV1GBzazVw4NK-mi648hOxO7139bTKGKtP6jYVLGnc',
+                    Authorization: localStorage.getItem("token"),
                 },
             })
             CreateSPDetail(null)
@@ -84,8 +84,8 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
             const data = await axios.post(`${BaseUrlRace}sp/create-sp-detail`, body, {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4ODMxNjI1LCJleHAiOjE2OTg5MTgwMjV9.RIV1GBzazVw4NK-mi648hOxO7139bTKGKtP6jYVLGnc',
-                    // Authorization: localStorage.getItem("token"),
+                    // Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4ODMxNjI1LCJleHAiOjE2OTg5MTgwMjV9.RIV1GBzazVw4NK-mi648hOxO7139bTKGKtP6jYVLGnc',
+                    Authorization: localStorage.getItem("token"),
                 },
             })
             notification.success({

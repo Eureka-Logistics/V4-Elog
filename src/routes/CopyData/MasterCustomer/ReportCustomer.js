@@ -27,7 +27,7 @@ function ReportCustomer() {
   const fetchData = async () => {
     try {
       const respons = await axios.get(
-        `${Baseurl}customer/get-report-customer?limit=${limit}&page=${currentPage}&keyword=&statusSP=&customerId=${Customers}&cabang=&sales=&buId=&tgl_pickup=${CariTanggal?.tgl_pickup}&tgl_bongkar=${CariTanggal?.tgl_bongkar}`,
+        `${Baseurl}customer/get-report-customer?limit=${limit}&page=${currentPage}&keyword=&statusSP=&customerId=${Customers}&cabang=&sales=&buId=21&tgl_pickup=${CariTanggal?.tgl_pickup}&tgl_bongkar=${CariTanggal?.tgl_bongkar}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -39,7 +39,7 @@ function ReportCustomer() {
       setDataReportCust(respons.data.data.order);
       setTotal(respons.data.data.totalData);
       // setCurrentPage(respons.data.data.setCurrentPage)
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const getDataSelectt = async () => {
@@ -418,6 +418,25 @@ function ReportCustomer() {
                 boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
               }}
             ></DatePicker>
+          </Col>
+          <Col xs={24} sm={12} md={6} lg={6}>
+            <label
+              className="mb-2"
+              htmlFor="muatKotaSelect"
+              style={{ fontWeight: "bold", fontFamily: "NoirPro" }}
+            >
+              Cari BU :
+            </label>
+            <Select
+            
+            placeholder="Select BU"
+            style={{
+              width: "100%",
+              border: "1px solid #1A5CBF",
+              borderRadius: "5px",
+              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+            }}>
+            </Select>
           </Col>
           <Col
             xs={24}
