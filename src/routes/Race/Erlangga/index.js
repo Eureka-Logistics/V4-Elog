@@ -254,7 +254,7 @@ function Erlangga() {
         cursor: pointer;
     }
     .scroll-container {
-        overflow-x: auto; // This will enable horizontal scrolling
+        overflow-x: auto; 
     }
 `}
                 </style>
