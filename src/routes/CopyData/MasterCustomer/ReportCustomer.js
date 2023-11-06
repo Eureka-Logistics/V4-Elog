@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Baseurl from "../../../Api/BaseUrl";
 import { BookOutlined } from "@ant-design/icons";
 import XLSX from "xlsx";
+import tableStyle from "./tableStyle.css";
 
 function ReportCustomer() {
   const [DataReportCust, setDataReportCust] = useState("");
@@ -39,7 +40,7 @@ function ReportCustomer() {
       setDataReportCust(respons.data.data.order);
       setTotal(respons.data.data.totalData);
       // setCurrentPage(respons.data.data.setCurrentPage)
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const getDataSelectt = async () => {
@@ -428,21 +429,23 @@ function ReportCustomer() {
               Cari BU :
             </label>
             <Select
-            
-            placeholder="Select BU"
-            style={{
-              width: "100%",
-              border: "1px solid #1A5CBF",
-              borderRadius: "5px",
-              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
-            }}>
-            </Select>
+              placeholder="Select BU"
+              style={{
+                width: "100%",
+                border: "1px solid #1A5CBF",
+                borderRadius: "5px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+              }}
+            ></Select>
           </Col>
-          <Col
+          
+        </Row>
+        <Row gutter={[16,16]}>
+        <Col
             xs={24}
-            sm={12}
-            md={6}
-            lg={6}
+            sm={24}
+            md={24}
+            lg={24}
             className="d-flex justify-content-end mt-4"
           >
             <Button
@@ -456,8 +459,8 @@ function ReportCustomer() {
           </Col>
         </Row>
         <Table
+        size="sm"
           className="mt-3 responsive-table"
-          // pagination={false}
           style={{ overflowX: "auto" }}
           dataSource={DataReportCust}
           columns={columns}
@@ -465,7 +468,6 @@ function ReportCustomer() {
             current: currentPage,
             pageSize: limit,
             total,
-
             onChange: (page) => setCurrentPage(page),
           }}
           onChange={(pagination) => {

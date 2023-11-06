@@ -165,7 +165,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       backgroundColor: "#113D7F",
                       color: "white",
                     }}
-                    className="d-flex align-items-center justify-content-center"
+                    className="d-flex align-items-center justify-content-center mt-3"
                     onClick={() => createsp()}
                   >
                     Tambah SP

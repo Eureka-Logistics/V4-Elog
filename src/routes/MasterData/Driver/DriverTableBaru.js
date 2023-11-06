@@ -636,7 +636,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                 Master Driver
               </h5>
             </Col>
-            <Row>
+            <Row gutter={[16,16]}>
               <Col sm={2}>
                 <Input
                   style={{
