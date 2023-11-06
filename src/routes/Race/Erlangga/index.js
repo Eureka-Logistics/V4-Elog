@@ -114,19 +114,29 @@ function Erlangga() {
             key: 'name',
             render: (text) => <a>{text}</a>,
         },
-        // {
-        //     title: 'Customer',
-        //     dataIndex: 'customer',
-        //     key: 'customer',
-        // },
+        {
+            title: 'Pic Divisi',
+            dataIndex: 'pic_divisi',
+            key: 'pic_divisi',
+        },
         {
             title: 'Referensi',
             dataIndex: 'referensi',
             key: 'referensi',
         },
         {
+            title: 'Referensi_1',
+            dataIndex: 'referensi_1',
+            key: 'referensi_1',
+        },
+        {
+            title: 'Pic Nik',
+            dataIndex: 'pic_nik',
+            key: 'pic_nik',
+        },
+        {
             title: 'Kode Penerima',
-            dataIndex: 'kecamatan',
+            dataIndex: 'kode_penerima',
             key: 'kode_penerima',
         },
         {
@@ -140,6 +150,16 @@ function Erlangga() {
             key: 'kecamatan',
         },
         {
+            title: 'Penerima',
+            dataIndex: 'penerima',
+            key: 'penerima',
+        },
+        {
+            title: 'Item',
+            dataIndex: 'item',
+            key: 'item',
+        },
+        {
             title: 'Tanggal SJ',
             dataIndex: 'tgl_sj',
             key: 'tgl_sj',
@@ -148,6 +168,21 @@ function Erlangga() {
             title: 'Item',
             dataIndex: 'item',
             key: 'item',
+        },
+        {
+            title: 'Jam Pickup',
+            dataIndex: 'jam_pickup',
+            key: 'jam_pickup',
+        },
+        {
+            title: 'Berat',
+            dataIndex: 'berat',
+            key: 'berat',
+        },
+        {
+            title: 'Ikat',
+            dataIndex: 'ikat',
+            key: 'ikat',
         },
         {
             title: 'Qty',
@@ -211,29 +246,35 @@ function Erlangga() {
                             placeholder='Cari No Referensi' />
                     </Col>
                 </Row>
+
                 <style>
                     {`
-                .hover-row:hover {
-                    background-color: #F36C43 ; 
-                    cursor: pointer;
-                }
-                `}
+    .hover-row:hover {
+        background-color: #F36C43;
+        cursor: pointer;
+    }
+    .scroll-container {
+        overflow-x: auto; // This will enable horizontal scrolling
+    }
+`}
                 </style>
-                <Table className='mt-3 ' loading={!Data.Data} columns={columns} dataSource={Data.Data}
-                    pagination={{
-                        total: Data.SizePge,
-                        onChange: (page, size) => {
-                            Pageination(page, size)
+                <div className="scroll-container">
+                    <Table className='mt-3 ' loading={!Data.Data} columns={columns} dataSource={Data.Data}
+                        pagination={{
+                            total: Data.SizePge,
+                            onChange: (page, size) => {
+                                Pageination(page, size)
 
-                        },
-                    }}
-                    onRow={(data, index) => ({
-                        onClick: event => {
-                            // GetdataTable(index, data)
-                        },
-                        className: 'hover-row'
-                    })}
-                />
+                            },
+                        }}
+                        onRow={(data, index) => ({
+                            onClick: event => {
+                                // GetdataTable(index, data)
+                            },
+                            className: 'hover-row'
+                        })}
+                    />
+                </div>
                 <ModalCreateaSPRace Refresh={Refresh} modal1Open={modal1Open} setModal1Open={setModal1Open} />
             </Card>
         </div>

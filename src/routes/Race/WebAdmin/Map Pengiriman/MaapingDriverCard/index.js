@@ -84,7 +84,7 @@ function MappingDriverCard({ OptionNamaNamaDriver }) {
                                                             borderRadius: '10px',
                                                             marginRight: -20,
                                                             marginLeft: -20,
-                                                            maxHeight: 120,
+                                                            maxHeight: 130,
                                                             backgroundColor: '',
                                                         }}
                                                     >
@@ -95,14 +95,16 @@ function MappingDriverCard({ OptionNamaNamaDriver }) {
                                                                     {index + 1}
                                                                 </Tag>
                                                             </Col>
-                                                            <Col>
+                                                            <Col >
                                                                 <Row>
-                                                                    <div style={{ color: "#1F3D7D", fontWeight: "bold" }}> {item.jenisKendaraan} - {item.nopol}</div>
-                                                                    <div style={{ color: "#1F3D7D", fontWeight: "bold" }}> {item.sm}</div>
+                                                                    <div style={{ color: "#1F3D7D", fontWeight: "bold" }}> {item.sp}</div>
+                                                                    <div style={{ color: "#1F3D7D", fontWeight: "bold" }}>{item.sm}</div>
+                                                                    
                                                                 </Row>
 
                                                             </Col>
-                                                            <Col className='d-flex justify-content-end'>
+                                                            <Col  className='d-flex '>
+                                                            <div style={{ color: "#1F3D7D", fontWeight: "bold" }}> {item.jenisKendaraan} - {item.nopol}</div>
                                                                 <div style={{ fontSize: '10px', fontWeight: 'bold', backgroundColor: "#1F3D7D", display: "flex", alignItems: "center", borderRadius: 4, gap: 8, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
                                                                     <div style={{ color: "white", fontWeight: "bold" }}>{item.status}</div>
                                                                 </div>
