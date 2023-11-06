@@ -81,7 +81,7 @@ const UserProfile = () => {
         trigger="click"
       >
         <Row style={{ verticalAlign: "middle" }}>
-          <Col span={6}>
+          <Col span={6} className="avatars">
             <Avatar
               src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
               className="gx-size-40 gx-pointer gx-mr-3 avatars"
@@ -90,13 +90,13 @@ const UserProfile = () => {
           </Col>
           <Col
             span={18}
-            className="d-flex justify-content align-items-center paddingAja"
+            className="d-flex justify-content-center align-items-center paddingAja"
           >
             <h6 className="gx-avatar-name">
               <span className="admin-text">Admin {jobdesk}</span>{" "}
               {/* <span className="jobdesk">{jobdesk}</span> */}
             </h6>
-            <i className="icon icon-chevron-down gx-fs-xxs gx-ml-2 icons" />
+            <i className="icon icon-chevron-down gx-fs-xs gx-ml-1 icons" />
           </Col>
         </Row>
       </Popover>
