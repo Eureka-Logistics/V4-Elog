@@ -97,13 +97,13 @@ const SignIn = () => {
             <div className="gx-app-login">
               <Row gutter={[16, 16]}>
                 <Col
-                  sm={2}
+                  sm={12}
                   md={24}
-                  xs={2}
+                  xs={24}
                   className="d-flex justify-content-center mb-3 inigambar"
                   style={{ marginTop: "30%" }}
                 >
-                  <Image width={"40%"} src={LogoEureka} className="mt-5" />
+                  <Image width={"45%"} src={LogoEureka} className="mt-5" />
                 </Col>
               </Row>
 
@@ -148,7 +148,7 @@ const SignIn = () => {
               </Row>
               <div style={{ paddingLeft: "10%", paddingRight: "5%" }}>
                 <Form
-                  style={{ maxWidth: 600 }}
+                  style={{ maxWidth: 800 }}
                   initialValues={{ remember: true }}
                   name="basic"
                   onFinish={onFinish}
