@@ -64,7 +64,7 @@ const SignIn = () => {
       }}
     >
       <Row>
-        <Col span={16} className="d-flex justify-content-center align-items-center">
+        <Col span={16} className="d-flex justify-content-center align-items-center " >
           <Image width={"90%"} src={loginPage} />
         </Col>
         <Col span={8}>
