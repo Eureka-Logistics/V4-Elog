@@ -12,7 +12,8 @@ import Swal from 'sweetalert2';
 import ModalCreateDetail from './ModalCreateDetail';
 import ModalEditSPDetail from './EditModalSPDetail/ModalEditSPDetail';
 import ModalDetailMarketing from './ModalDetailMarketing/Index';
-function EditSPNew({ getDetail ,refreshtable}) {
+import ModalListSPLama from '../../Monitoring SP List Akunting/ModalListSp';
+function EditSPNew({ getDetail, refreshtable }) {
     const { idmp } = useParams();
     const [NomorSP, setNoSP] = useState("")
     const [DetailSemua, setDetailSemua] = useState("")
@@ -61,7 +62,7 @@ function EditSPNew({ getDetail ,refreshtable}) {
                     telpCustomer: data?.data?.telpCustomer
                 })
             }, 500);
-            
+
             console.log(NomorSP)
 
         } catch (error) {
@@ -184,11 +185,16 @@ function EditSPNew({ getDetail ,refreshtable}) {
     const DetailMarketing = () => {
         setModal1Open(true)
     }
+    const [ShowModalListSPLama, setShowModalListSPLama] = useState(false)
 
     return (
         <div>
             {/* <Card> */}
             <div className='d-flex justify-content-end'>
+                <Button
+                    onClick={()=>setShowModalListSPLama(true)}
+                    style={{ backgroundColor: "yellow", color: "black" }}
+                >Liat SP List</Button>
                 <Button style={{ backgroundColor: "green", color: "#ffffff" }} size='default' onClick={EditSp}>Save Edit SO</Button>
             </div>
 
@@ -269,7 +275,7 @@ function EditSPNew({ getDetail ,refreshtable}) {
                                         </Select.Option>
                                     ))}
                             </Select>
-                            <ModalDetailMarketing detailsemua={DetailSemua}  modal1Open={modal1Open} setModal1Open={setModal1Open} name={formik.values.marketing == null ? "-" : formik.values.marketing} />
+                            <ModalDetailMarketing detailsemua={DetailSemua} modal1Open={modal1Open} setModal1Open={setModal1Open} name={formik.values.marketing == null ? "-" : formik.values.marketing} />
 
                             {/* <Input
                                 id="marketing"
@@ -530,7 +536,8 @@ function EditSPNew({ getDetail ,refreshtable}) {
 
             </Row>
             <ModalCreateDetail
-           refreshtable={refreshtable}   idmp={idmp} DetailSP={DetailSP} JenisBarangFormik={formik.values.jenisBarang} AlamatInvoiceOptions={AlamatInvoiceOptions} DetailSemua={DetailSemua} />
+                refreshtable={refreshtable} idmp={idmp} DetailSP={DetailSP} JenisBarangFormik={formik.values.jenisBarang} AlamatInvoiceOptions={AlamatInvoiceOptions} DetailSemua={DetailSemua} />
+            <ModalListSPLama setShowModalListSPLama={setShowModalListSPLama} ShowModalListSPLama={ShowModalListSPLama} />
 
         </div>
     )
