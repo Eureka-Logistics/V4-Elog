@@ -13,6 +13,7 @@ import useServiceStatusStore from "../../../zustand/Store/StatusService";
 import ModalDetailMarketing from "../Marketing/Splist/ModalDetailMarketing/Index";
 import DetailKendaraanSOdiSemuaSO from "../DetailKendaraanDiSemuaSO/Index";
 import "./style.css"
+import ModalListSPLama from "./ModalListSp";
 function DetailsAkunting() {
   const history = useHistory();
   const [detailData, setDetailData] = useState([]);
@@ -317,7 +318,7 @@ function DetailsAkunting() {
   }
   let nuomber = 1
   console.log(`ApproveAkuntsngTgl`, ApproveAkuntingTgl);
-
+  const [ShowModalListSPLama, setShowModalListSPLama] = useState(false);
   return (
     <div>
       <Card>
@@ -383,7 +384,9 @@ function DetailsAkunting() {
             </Row>
           </Modal>
           <Row>
-            <div className="d-flex justify-content-end">
+
+            <div className="d-flex ">
+
               {/* {jobdesk === "sales" && (
                 <>
                   <Button size="sm" onClick={() => tombolApprove()}>
@@ -485,13 +488,18 @@ function DetailsAkunting() {
                     onClick={() => setModal1Open(true)}
                     variant="danger"
                   >
-                    Sudah Di Approv Akunting
+                    Approved Akunting
                   </Button>
                   <Button size="sm" onClick={pindahedit} variant="primary">
                     Edit SO
                   </Button>
                 </>
               }
+              <Button
+                variant="warning"
+                onClick={() => setShowModalListSPLama(true)}
+              > Liat List SP</Button>
+
               {/* ? jobdesk === "sales" && actSalesStatus === "Y" : <>
               <Button size="sm" disabled onClick={() => setModal1Open(true)} variant="danger">
                 Reject SP Sales
@@ -502,8 +510,6 @@ function DetailsAkunting() {
             </> : "" */}
             </div>
           </Row>
-
-
           {/* <Modal> */}
           {/* <Modal.Header closeButton>
               <Modal.Title>Approve Driver</Modal.Title>
@@ -1629,7 +1635,7 @@ function DetailsAkunting() {
                   {
                     comment &&
                     comment
-                   // filter data di mana data.baca adalah 0
+                      // filter data di mana data.baca adalah 0
                       .map((data, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
@@ -1681,6 +1687,8 @@ function DetailsAkunting() {
           </Col>
         </Row>
       </Card>
+      <ModalListSPLama setShowModalListSPLama={setShowModalListSPLama} ShowModalListSPLama={ShowModalListSPLama} />
+
     </div>
   );
 }

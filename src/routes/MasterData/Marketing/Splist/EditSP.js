@@ -15,6 +15,7 @@ import * as Yup from "yup";
 import EditSPNew from "./EditSPNew";
 import ModalCreateDetail from "./ModalCreateDetail";
 import { ModalMasalahSO } from "../../../../components/ModalMasalahSP";
+import ModalListSPLama from "../../Monitoring SP List Akunting/ModalListSp";
 
 function EditSP({ }) {
   const [show, setShow] = useState(false);
@@ -657,12 +658,11 @@ function EditSP({ }) {
             <>loading</>
             : <h5>Detail SO</h5>
           }
-
-
+          
           <EditSPNew refreshtable={getDetail} />
           {/* <ModalCreateDetail refreshtable={getDetail}/> */}
           <div className="d-flex justify-content-end">
-            {jobdesk != "sales" && jobdesk != "operasional" && jobdesk != "purchasing"  && jobdesk != "rcadmin" ? (
+            {jobdesk != "sales" && jobdesk != "operasional" && jobdesk != "purchasing" && jobdesk != "rcadmin" ? (
               <>
                 <Button size="sm" onClick={() => tombolApprove()}>
                   Approve
@@ -1895,7 +1895,6 @@ function EditSP({ }) {
           <br />
         </Row>
       </Card>
-
 
     </div>
   );

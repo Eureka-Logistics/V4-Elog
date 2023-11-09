@@ -10,55 +10,63 @@ import {
   Space,
   Table,
 } from "antd";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Baseurl from "../../../Api/BaseUrl";
 
 function LoseSale() {
-  const dataSource = [
-    {
-      key: "1",
-      spdi: "SP09101/05/22/JKT",
-      perusahaan: "Sari Agrotama Persada,PT",
-      tujuan: "Cikarang ->Majalengka",
-      pickup_date: "13-06-2023",
-      price: "3.950.000",
-      mkt: "",
-      ops: "Tidak Mengunakan Unit	",
-      purch: "TARIF MITRA TIDAK MASUK",
-    },
-    {
-      key: "2",
-      spdi: "SP00010/01/23/JKT	",
-      perusahaan: "PT. Orient Container Express",
-      tujuan: "Pulo Gadung->Bekasi	",
-      pickup_date: "05-01-2023",
-      price: "2.800.000	",
-      mkt: "",
-      ops: "Tidak Mengunakan Unit",
-      purch: "Tarif mitra tidak masuk",
-    },
-    {
-      key: "3",
-      spdi: "SP00032/01/23/JKT	",
-      perusahaan: "PT. Maxxis International Indonesia",
-      tujuan: "Cikarang ->Depok",
-      pickup_date: "06-01-2023	",
-      price: "2.280.000",
-      mkt: "Do lost sale, ops double approve",
-      ops: "Menggunakan Unit B 9261 AI",
-      purch: "Menggunakan Unit PT EUREKA LOGISTICS",
-    },
-  ];
+  const [DataApi, setDataApi] = useState({
+    order: [],
+    totalData: 0,
+    totalPage: 0,
+    limit: 10,
+    currentPage: 1
+  })
+  const dataApi = async () => {
+    try {
+      const data = await axios.get(`${Baseurl}sp/get-lost-sales?limit=${DataApi.limit}&page=${DataApi.currentPage}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: ,
+            Authorization: localStorage.getItem("token"),
+          },
+        })
+      console.log(data.data.data);
+      setDataApi(item => ({
+        ...item,
+        order: data.data.data.order,
+        totalData: data.data.data.totalData,
+        totalPage: data.data.data.totalPage,
+        limit: data.data.data.limit,
+        currentPage: data.data.data.currentPage,
+      }))
+    } catch (error) {
+
+    }
+  }
+  useEffect(() => {
+    dataApi()
+  }, [DataApi.currentPage , DataApi.limit])
+
+  console.log(DataApi);
+
 
   const columns = [
     {
       title: "No.",
-      dataIndex: "key",
-      key: "key",
+      dataIndex: "no",
+      key: "no",
     },
     {
-      title: "SPDI",
-      dataIndex: "spdi",
-      key: "spdi",
+      title: "SP",
+      dataIndex: "sp",
+      key: "sp",
+    },
+    {
+      title: "Kendaraan",
+      dataIndex: "kendaraan",
+      key: "kendaraan",
     },
     {
       title: "Perusahaan",
@@ -71,47 +79,52 @@ function LoseSale() {
       key: "tujuan",
     },
     {
+      title: "Sales Name",
+      dataIndex: "salesName",
+      key: "salesName",
+    },
+    {
       title: "Pickup Date",
-      dataIndex: "pickup_date",
-      key: "pickup_date",
+      dataIndex: "pickupDate",
+      key: "pickupDate",
     },
     {
-      title: "Price (Rp.)",
-      dataIndex: "price",
-      key: "price",
+      title: "Chat Mkt",
+      dataIndex: "chatMkt",
+      key: "chatMkt",
     },
     {
-      title: "MKT",
-      dataIndex: "mkt",
-      key: "mkt",
+      title: "Chat Ops",
+      dataIndex: "chatOps",
+      key: "chatOps",
     },
     {
-      title: "OPS",
-      dataIndex: "ops",
-      key: "ops",
+      title: "Chat Purch",
+      dataIndex: "getChatPurch",
+      key: "getChatPurch",
     },
-    {
-      title: "PURCH",
-      dataIndex: "purch",
-      key: "purch",
-    },
-    {
-      title: "Detail",
-      key: "detail",
-      render: (text, record) => (
-        <Space size="middle">
-          <Button onClick={() => handleDetailClick(record)} type="primary">
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <FormOutlined style={{marginRight: '5px'}}/> Detail
-            </span>
-          </Button>
-        </Space>
-      ),
-    },
+
+    // {
+    //   title: "Detail",
+    //   key: "detail",
+    //   render: (text, record) => (
+    //     <Space size="middle">
+    //       <Button onClick={() => handleDetailClick(record)} type="primary">
+    //         <span style={{ display: "flex", alignItems: "center" }}>
+    //           <FormOutlined style={{ marginRight: '5px' }} /> Detail
+    //         </span>
+    //       </Button>
+    //     </Space>
+    //   ),
+    // },
   ];
-  const handleDetailClick = (record) => {
-    // Logika untuk menangani klik tombol "Detail" di sini
-    console.log("Detail clicked for record:", record);
+  const handleDetailClick = (record, size) => {
+    console.log("Detail clicked for record:", record, size);
+    setDataApi(item => ({
+      ...item,
+      currentPage: record,
+      limit: size
+    }))
   };
 
   const customStylesReactSelect = {
@@ -225,9 +238,9 @@ function LoseSale() {
                   color: "white",
                 }}
               >
-                 <span style={{ display: "flex", alignItems: "center" }}>
-                 Search <SearchOutlined style={{marginLeft: '5px'}}/>
-            </span>
+                <span style={{ display: "flex", alignItems: "center" }}>
+                  Search <SearchOutlined style={{ marginLeft: '5px' }} />
+                </span>
               </Button>
               <Button
                 style={{
@@ -236,9 +249,9 @@ function LoseSale() {
                   color: "white",
                 }}
               >
-                 <span style={{ display: "flex", alignItems: "center" }}>
-                 Print <PrinterOutlined style={{marginLeft: '5px'}} />
-            </span>
+                <span style={{ display: "flex", alignItems: "center" }}>
+                  Print <PrinterOutlined style={{ marginLeft: '5px' }} />
+                </span>
               </Button>
             </Input.Group>
           </Col>
@@ -255,7 +268,11 @@ function LoseSale() {
           </Col>
         </Row>
         <hr />
-        <Table style={{ overflowX: "auto" }}  dataSource={dataSource} columns={columns} />
+        <Table style={{ overflowX: "auto" }} dataSource={DataApi.order} columns={columns}
+          pagination={{
+            total: DataApi.totalData,
+            onChange: (page, pageSize) => handleDetailClick(page, pageSize),
+          }} />
       </Card>
     </div>
   );
