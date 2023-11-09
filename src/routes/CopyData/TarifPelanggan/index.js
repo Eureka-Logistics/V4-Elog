@@ -533,7 +533,10 @@ const SamplePage = () => {
                 ))}
             </Select>
           </Col>
-          <Col sm={9} className="d-flex justify-content-end mt-4">
+         
+        </Row>
+        <Row>
+        <Col sm={24} className="d-flex justify-content-end mt-4">
             <Button
               style={{ backgroundColor: "green", color: "white" }}
               onClick={exportToExcel}
