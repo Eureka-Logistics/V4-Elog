@@ -2739,7 +2739,7 @@ function FormTable({
                                 >
                                   Edit
                                 </Button>
-                              ) : jobdesk.toLocaleLowerCase() === "purchasing" && data?.supirSJ1 !== 0 && data?.supirSJ2 === 0 ? (
+                              ) : jobdesk.toLocaleLowerCase() === "purchasing" && data?.supirSJ1 === 0 && data?.supirSJ2 === 0 ? (
                                 <Button
                                   size="sm"
                                   variant="primary"
