@@ -23,7 +23,6 @@ function HeaderMasterMitra() {
                 />
               </div>
             </td>
-
             <td
               align="center"
               colSpan="3"
