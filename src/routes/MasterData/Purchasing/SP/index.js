@@ -12,10 +12,11 @@ function ListPageSpPurchasing() {
     const [dataApi, setdataApi] = useState("")
     const [searchSO, setsearchSO] = useState("")
     const [paggination, setPagginations] = useState({
-        totalPage: 10,
+        totalData: 10,
         limit: 10,
         currentPage: 1
     })
+    console.log(`totalData`,paggination?.totalPage);
     const [asw, setasw] = useState('')
     const history = useHistory();
     const datasp = async (e = 1) => {
@@ -34,6 +35,7 @@ function ListPageSpPurchasing() {
                 totalPage: data.data.data.totalPage,
                 limit: data.data.data.limit,
                 currentPage: data.data.data.currentPage,
+                totalData: data.data.data.totalData,
             })
             setdataApi(response)
             setasw(response)
@@ -186,7 +188,7 @@ function ListPageSpPurchasing() {
                         onShowSizeChange={onShowSizeChange}
                         onChange={onShowSizeChanges}
                         defaultCurrent={1}
-                        total={paggination.totalPage}
+                        total={paggination.totalData}
                     />
                 </div>
             </Card>
