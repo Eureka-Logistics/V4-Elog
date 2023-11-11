@@ -381,15 +381,16 @@ function ReportCustomer() {
         <h5>Report Customer</h5>
         <hr />
         <Row gutter={[16, 16]}>
-          <Col xs={24} sm={12} md={4} lg={4}>
+        <Col xs={24} sm={12} md={4} lg={4}>
             <label
               className="mb-2"
+              htmlFor="muatKotaSelect"
               style={{ fontWeight: "bold", fontFamily: "NoirPro" }}
             >
-              Search Nama Perusahaan :
+               Search Nama Perusahaan :
             </label>
             <Select
-              value={DataBU}
+              value={Customers}
               name="customerName"
               optionFilterProp="children"
               placeholder="Select Customer"
@@ -402,18 +403,19 @@ function ReportCustomer() {
               }}
               onChange={(e, options) => {
                 console.log(options);
-                setDataBU(options.value);
+                setCustomers(options.value);
               }}
             >
               <Select.Option value="">-</Select.Option>
-              {DataBUOptions &&
-                DataBUOptions.map((item, index) => (
-                  <Select.Option value={item.id_bu} key={item.id_bu}>
-                    {item.name_bu}
+              {CustomersOptions &&
+                CustomersOptions.customer.map((item, index) => (
+                  <Select.Option value={item.customerId} key={item.customerId}>
+                    {item.customerName}
                   </Select.Option>
                 ))}
             </Select>
           </Col>
+         
           <Col xs={24} sm={12} md={4} lg={4}>
             <label
               className="mb-2"
@@ -465,13 +467,13 @@ function ReportCustomer() {
           <Col xs={24} sm={12} md={4} lg={4}>
             <label
               className="mb-2"
-              htmlFor="muatKotaSelect"
               style={{ fontWeight: "bold", fontFamily: "NoirPro" }}
             >
               Cari BU :
+             
             </label>
             <Select
-              value={Customers}
+              value={DataBU}
               name="customerName"
               optionFilterProp="children"
               placeholder="Select Customer"
@@ -484,14 +486,14 @@ function ReportCustomer() {
               }}
               onChange={(e, options) => {
                 console.log(options);
-                setCustomers(options.value);
+                setDataBU(options.value);
               }}
             >
               <Select.Option value="">-</Select.Option>
-              {CustomersOptions &&
-                CustomersOptions.customer.map((item, index) => (
-                  <Select.Option value={item.customerId} key={item.customerId}>
-                    {item.customerName}
+              {DataBUOptions &&
+                DataBUOptions.map((item, index) => (
+                  <Select.Option value={item.id_bu} key={item.id_bu}>
+                    {item.name_bu}
                   </Select.Option>
                 ))}
             </Select>
