@@ -2094,7 +2094,10 @@ function FormTable({
                   Reject SO
                 </Button>
               )}
-              {jobdesk?.toLocaleLowerCase() === "purchasing" && StatusPurchasing === "N" && TanggalACT5 === null && (
+              {/* {jobdesk?.toLocaleLowerCase() === "purchasing" && StatusPurchasing === "N" && TanggalACT5 === null && (
+                <Button onClick={rejectsppurch} size="sm" variant="danger" className="ms-2">Reject SO</Button>
+              )} */}
+              {jobdesk?.toLocaleLowerCase() === "purchasing" && (
                 <Button onClick={rejectsppurch} size="sm" variant="danger" className="ms-2">Reject SO</Button>
               )}
               {/* {(StatusPurchasing === 'Y') &&
