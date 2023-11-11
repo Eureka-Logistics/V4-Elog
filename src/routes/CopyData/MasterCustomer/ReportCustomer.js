@@ -1,4 +1,14 @@
-import { Button, Card, Col, DatePicker, Row, Select, Table, Tag } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  DatePicker,
+  Input,
+  Row,
+  Select,
+  Table,
+  Tag,
+} from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Baseurl from "../../../Api/BaseUrl";
@@ -16,8 +26,11 @@ function ReportCustomer() {
   const [PickupOptions, setPickUpOptions] = useState("");
   const [PemesananOptions, setPemesananOptions] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [DataBUOptions, setDataBUOptions] = useState("");
+  const [DataBU, setDataBU] = useState("");
   const [limit, setLimit] = useState(10);
   const [total, setTotal] = useState(0);
+  const [CariDestination, setCariDestination] = useState("");
   const [CariTanggal, setCariTanggal] = useState({
     tgl_pickup: "",
     tgl_bongkar: "",
@@ -28,7 +41,7 @@ function ReportCustomer() {
   const fetchData = async () => {
     try {
       const respons = await axios.get(
-        `${Baseurl}customer/get-report-customer?limit=${limit}&page=${currentPage}&keyword=&statusSP=&customerId=${Customers}&cabang=&sales=&buId=21&tgl_pickup=${CariTanggal?.tgl_pickup}&tgl_bongkar=${CariTanggal?.tgl_bongkar}`,
+        `${Baseurl}customer/get-report-customer?limit=${limit}&page=${currentPage}&keyword=&statusSP=&customerId=${Customers}&cabang=&sales=&buId=${DataBU}&tgl_pickup=${CariTanggal?.tgl_pickup}&tgl_bongkar=${CariTanggal?.tgl_bongkar}&destination=${CariDestination}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -69,12 +82,41 @@ function ReportCustomer() {
       console.error("Kesalahan saat mengambil data:", error.message);
       throw error; // Lanjutkan penanganan kesalahan di tempat lain jika perlu
     }
+  }; 
+
+  const getDataSelectBU = async () => {
+    try {
+      const response = await axios.get(
+        `${Baseurl}customer/get-bu-customer`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      // setMuatKotaOptionsSelect (response.data);
+      console.log(response.data.data, "ini bu");
+      setDataBUOptions(response.data.data);
+
+      if (response.status >= 200 && response.status < 300) {
+        // Mengembalikan data yang diterima dari permintaan
+        return response.data;
+      } else {
+        // Menangani situasi ketika permintaan tidak berhasil (status error)
+        throw new Error("Permintaan tidak berhasil.");
+      }
+    } catch (error) {
+      // Menangani kesalahan jaringan atau kesalahan lain yang terjadi selama permintaan
+      console.error("Kesalahan saat mengambil data:", error.message);
+      throw error; // Lanjutkan penanganan kesalahan di tempat lain jika perlu
+    }
   };
 
   useEffect(() => {
     fetchData();
     getDataSelectt();
-  }, [Customers, currentPage, limit, CariTanggal]);
+    getDataSelectBU();
+  }, [Customers, currentPage, limit, CariTanggal, CariDestination, DataBU]);
 
   const dataSource = [
     // {
@@ -339,12 +381,94 @@ function ReportCustomer() {
         <h5>Report Customer</h5>
         <hr />
         <Row gutter={[16, 16]}>
-          <Col xs={24} sm={12} md={6} lg={6}>
+          <Col xs={24} sm={12} md={4} lg={4}>
             <label
               className="mb-2"
               style={{ fontWeight: "bold", fontFamily: "NoirPro" }}
             >
               Search Nama Perusahaan :
+            </label>
+            <Select
+              value={DataBU}
+              name="customerName"
+              optionFilterProp="children"
+              placeholder="Select Customer"
+              showSearch
+              style={{
+                width: "100%",
+                border: "1px solid #1A5CBF",
+                borderRadius: "5px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+              }}
+              onChange={(e, options) => {
+                console.log(options);
+                setDataBU(options.value);
+              }}
+            >
+              <Select.Option value="">-</Select.Option>
+              {DataBUOptions &&
+                DataBUOptions.map((item, index) => (
+                  <Select.Option value={item.id_bu} key={item.id_bu}>
+                    {item.name_bu}
+                  </Select.Option>
+                ))}
+            </Select>
+          </Col>
+          <Col xs={24} sm={12} md={4} lg={4}>
+            <label
+              className="mb-2"
+              htmlFor="muatKotaSelect"
+              style={{ fontWeight: "bold", fontFamily: "NoirPro" }}
+            >
+              Search Tanggal Mulai :
+            </label>
+            <DatePicker
+              onChange={(date, dateString) => {
+                setCariTanggal((prevState) => ({
+                  ...prevState,
+                  tgl_pickup: dateString,
+                }));
+              }}
+              showSearch
+              style={{
+                width: "100%",
+                border: "1px solid #1A5CBF",
+                borderRadius: "5px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+              }}
+            />
+          </Col>
+          <Col xs={24} sm={12} md={4} lg={4}>
+            <label
+              className="mb-2"
+              htmlFor="muatKotaSelect"
+              style={{ fontWeight: "bold", fontFamily: "NoirPro" }}
+            >
+              Search Tanggal Selesai :
+            </label>
+            <DatePicker
+              onChange={(date, dateString) => {
+                setCariTanggal((prevState) => ({
+                  ...prevState,
+                  tgl_bongkar: dateString,
+                }));
+              }}
+              showSearch
+              style={{
+                width: "100%",
+                border: "1px solid #1A5CBF",
+                borderRadius: "5px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+              }}
+            ></DatePicker>
+          </Col>
+          <Col xs={24} sm={12} md={4} lg={4}>
+            <label
+              className="mb-2"
+              htmlFor="muatKotaSelect"
+              style={{ fontWeight: "bold", fontFamily: "NoirPro" }}
+            >
+              Cari BU :
             </label>
             <Select
               value={Customers}
@@ -372,82 +496,40 @@ function ReportCustomer() {
                 ))}
             </Select>
           </Col>
-          <Col xs={24} sm={12} md={6} lg={6}>
+          <Col xs={24} sm={12} md={4} lg={4}>
             <label
-              className="mb-2"
-              htmlFor="muatKotaSelect"
-              style={{ fontWeight: "bold", fontFamily: "NoirPro" }}
-            >
-              Search Tanggal Mulai :
-            </label>
-            <DatePicker
-              onChange={(date, dateString) => {
-                setCariTanggal((prevState) => ({
-                  ...prevState,
-                  tgl_pickup: dateString,
-                }));
-              }}
-              showSearch
               style={{
                 width: "100%",
+                fontWeight: "bold",
+                fontFamily: "NoirPro",
+              }}
+              className="mb-2 "
+            >
+              Search Destination :
+            </label>
+            <Input
+              style={{
+                width: "10  0%",
                 border: "1px solid #1A5CBF",
                 borderRadius: "5px",
                 boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
               }}
-            />
-          </Col>
-          <Col xs={24} sm={12} md={6} lg={6}>
-            <label
-              className="mb-2"
-              htmlFor="muatKotaSelect"
-              style={{ fontWeight: "bold", fontFamily: "NoirPro" }}
-            >
-              Search Tanggal Selesai :
-            </label>
-            <DatePicker
-              onChange={(date, dateString) => {
-                setCariTanggal((prevState) => ({
-                  ...prevState,
-                  tgl_bongkar: dateString,
-                }));
+              onChange={(e) => {
+                setCariDestination(e.target.value);
               }}
-              showSearch
-              style={{
-                width: "100%",
-                border: "1px solid #1A5CBF",
-                borderRadius: "5px",
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
-              }}
-            ></DatePicker>
+              placeholder="Search Destination"
+            ></Input>
           </Col>
-          <Col xs={24} sm={12} md={6} lg={6}>
-            <label
-              className="mb-2"
-              htmlFor="muatKotaSelect"
-              style={{ fontWeight: "bold", fontFamily: "NoirPro" }}
-            >
-              Cari BU :
-            </label>
-            <Select
-              placeholder="Select BU"
-              style={{
-                width: "100%",
-                border: "1px solid #1A5CBF",
-                borderRadius: "5px",
-                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
-              }}
-            ></Select>
-          </Col>
-          
         </Row>
-        <Row gutter={[16,16]}>
-        <Col
+        <Row gutter={[16, 16]}>
+          <Col
             xs={24}
             sm={24}
             md={24}
             lg={24}
-            className="d-flex justify-content-end mt-4"
+            className="mt-4 d-flex justify-content-end"
           >
+            {" "}
             <Button
               style={{ backgroundColor: "green", color: "white" }}
               onClick={exportToExcel}
@@ -458,8 +540,9 @@ function ReportCustomer() {
             </Button>
           </Col>
         </Row>
+
         <Table
-        size="sm"
+          size="sm"
           className="mt-3 responsive-table"
           style={{ overflowX: "auto" }}
           dataSource={DataReportCust}
