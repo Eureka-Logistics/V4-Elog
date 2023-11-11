@@ -201,12 +201,17 @@ const SamplePage = () => {
     history.push(`/mastermitradetaill/${mitraId}`);
   };
 
+  const [TotalData, setTotalData] = useState({
+    Total: 10,
+    limit: 10,
+    buatexcel : 10
+  });
   const fetchData = async (page = 1, perhalaman = 10) => {
     setLoading(true);
     httpClient
 
       .get(
-        `mitra/get-mitra?limit=${perhalaman}&page=${page}&status=${StatusMitra}&keyword=${CariKode}`
+        `mitra/get-mitra?limit=${TotalData.limit}&page=${page}&status=${StatusMitra}&keyword=${CariKode}`
       )
       .then(({ data }) => {
         if (data.status.code === 200) {
@@ -214,15 +219,38 @@ const SamplePage = () => {
           setDataapiawal(dataawal);
           setDataPagination(data.data.totalData);
           setLoading(false);
+          setTotalData((item) => ({
+            ...item,
+            Total: data.data.totalData,
+            limit: data.data.limit,
+          }));
         }
+      })
+      httpClient
+
+      .get(
+        `mitra/get-mitra?limit=${TotalData.Total}&page=${1}&status=${StatusMitra}&keyword=${CariKode}`
+      ).then((asu)=>{
+        console.log(`asu`,asu.data);
+        setTotalData((item) => ({
+          ...item,
+          buatexcel:asu.data.data?.order
+        }));
       })
       .catch(function (error) {
         console.log(error.message);
       });
   };
 
-  const ubahHalaman = (page) => {
-    fetchData(page);
+  const ubahHalaman = (e,w) => {
+    console.log(e,w);
+    // fetchData(e);
+    setTotalData((item) => ({
+      ...item,
+      TotalData:e,
+      limit: w,
+    }));
+
   };
 
   const handleDelete = (mitraId) => {
@@ -254,7 +282,7 @@ const SamplePage = () => {
 
   useEffect(() => {
     fetchData();
-  }, [filter, StatusMitra, CariKode]);
+  }, [filter, StatusMitra, CariKode , TotalData.limit , TotalData.Total]);
 
   // const handlePageChange = (page) => {
   //   setPageInfo((prevPageInfo) => ({
@@ -266,10 +294,11 @@ const SamplePage = () => {
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
   };
+  console.log(`TotalData`, TotalData.buatexcel);
 
   const exportToExcel = () => {
     // Map your table data to the format expected by XLSX
-    const dataToExport = dataapiawal.map((item, index) => ({
+    const dataToExport = TotalData?.buatexcel.map((item, index) => ({
       No: {
         t: "s",
         v: index + 1,
@@ -401,7 +430,7 @@ const SamplePage = () => {
     });
 
     // Define the file name
-    const fileName = "table_data.xlsx";
+    const fileName = "Data_MasterMitraAll.xlsx";
 
     // Check if the browser supports saving files
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
@@ -521,11 +550,11 @@ const SamplePage = () => {
             /> */}
             <div className="mt-5 d-flex justify-content-end">
               <Pagination
-                onChange={ubahHalaman}
+                onChange={(e,w)=>ubahHalaman(e,w)}
                 showSizeChanger
-                defaultCurrent={1} // Change this to your desired default page number
-                total={DataPagination}
-              />
+                defaultCurrent={1} 
+                total={DataPagination
+}              />
             </div>
           </Col>
         </Row>
