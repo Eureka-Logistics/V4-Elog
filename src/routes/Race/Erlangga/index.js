@@ -32,13 +32,15 @@ function Erlangga() {
             }))
         }
     }
-    const [PilihCabang, setPilihCabang] = useState(511)
+    const [PilihCabang, setPilihCabang] = useState("")
     const GetDataTanggal = async (e) => {
         let datas = "ada"
         const formattedStartDate = moment(Data.Data_Tanggal[0]).format("YYYY-M-D");
         const formattedEndDate = moment(Data.Data_Tanggal[1]).format("YYYY-M-D");
         try {
-            const data = await axios.get(`${BaseUrlRace}sp/get-data-erl?dateForm=${formattedStartDate}&dateTo=${formattedEndDate}&wh=${PilihCabang}`, {
+            const data = await axios.post(`${BaseUrlRace}sp/get-data-erl?whid=${PilihCabang}&from=${formattedStartDate}&to=${formattedEndDate}`, {
+               
+               
                 headers: {
                     "Content-Type": "application/json",
                     // Authorization: ,
@@ -95,6 +97,7 @@ function Erlangga() {
             Data: datanya.data.data.order,
             SizePge: datanya.data?.data.totalData
         }));
+        pilihcabangselect()
     }, [Data?.paggination, Data?.size, Keyword, PilihCabang])
 
     function Pageination(page, size) {
@@ -199,7 +202,23 @@ function Erlangga() {
             }
         },
     ]
+    const [optincabang, setoptincabang] = useState("")
+    const pilihcabangselect = async () => {
+        try {
+            const data = await axios.get(`${BaseUrlRace}sp/get-cabang`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        // Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
+                        Authorization: localStorage.getItem("token"),
+                    },
+                })
+            console.log(data.data.data);
+            setoptincabang(data.data.data)
+        } catch (error) {
 
+        }
+    }
 
     return (
         <div>
@@ -211,18 +230,10 @@ function Erlangga() {
                             style={{ width: "100%", marginRight: 20 }}
                             onChange={(e) => setPilihCabang(e)}
                         >
-                            <Select.Option value="510">510</Select.Option>
-                            <Select.Option value="511">511</Select.Option>
-                            <Select.Option value="512">512 - Banten</Select.Option>
-                            <Select.Option value="513">513 - DKI Retail</Select.Option>
-                            <Select.Option value="514">514 - DKI Direct</Select.Option>
-                            <Select.Option value="515">515</Select.Option>
-                            <Select.Option value="516">516</Select.Option>
-                            <Select.Option value="517">517 - Banten</Select.Option>
-                            <Select.Option value="518">518 - Bogor</Select.Option>
-                            <Select.Option value="519">519</Select.Option>
-                            <Select.Option value="520">520</Select.Option>
-                            <Select.Option value="521">521</Select.Option>
+                            {optincabang && optincabang.map((i, index) => (
+                                <Select.Option value={i?.whid}>{i?.cabangId} - {i?.description}</Select.Option>
+                            ))}
+
                         </Select>
 
                     </Col>
