@@ -192,7 +192,7 @@ function SPListlama() {
           tagColor = "gold";
         }
         let issue = ""
-        if (row?.is_issue === 1 && localStorage.getItem("level") === "admin" || localStorage.getItem("level") === "sales" && localStorage.getItem("level") === "account receivable" ) {
+        if (row?.is_issue === 1 && localStorage.getItem("level") === "admin" || localStorage.getItem("level") === "sales" && localStorage.getItem("level") === "account receivable") {
           issue = <svg style={{ marginLeft: 2 }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f82020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail-warning"><path d="M22 10.5V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h12.5" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /><path d="M20 14v4" /><path d="M20 22v.01" /></svg>
 
         }
@@ -202,7 +202,7 @@ function SPListlama() {
               {row.sp}
               <br />
               {row?.service}
-                { issue }
+              {issue}
             </Tag>
 
           </>
@@ -549,6 +549,25 @@ function SPListlama() {
                   />
                 </Form.Group>
               </Col>
+              <Col
+                style={{ display: "flex", justifyContent: "flex-end" }}
+                sm={2}
+              >
+                <Form.Group controlId="search">
+                  <Select
+                    style={{
+                      width: "100%",
+                      border: "1px solid #1A5CBF",
+                      borderRadius: "5px",
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                    }}
+                    placeholder="Filter SP Approve"
+                    onChange={handleSearchChange}
+                  >
+                    <option disabled value={1}>Sp Sudah Approve</option>
+                  </Select>
+                </Form.Group>
+              </Col>
             </Row>
             <br />
 
@@ -557,7 +576,7 @@ function SPListlama() {
                 <Button onClick={handleView}>Email SM</Button>
                 <Button onClick={handleView2}>Email SP</Button>
               </Col>
-              
+
             </Row>
 
             <style>
