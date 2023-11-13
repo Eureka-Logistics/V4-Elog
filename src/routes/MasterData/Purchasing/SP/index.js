@@ -150,6 +150,7 @@ function ListPageSpPurchasing() {
                                 onChange={(e) => setMultiSelect(e)}
                                 value={MultiSelect}
                             >
+                                <option value={"-"}>All</option>
                                 <option value={1}>Multi Drop</option>
                                 <option value={0}>Tidak MultiDrop</option>
                             </Select>
