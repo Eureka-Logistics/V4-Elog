@@ -269,7 +269,7 @@ function ListPengiriman({ setOpen, CariDisini }) {
                     <style>
                         {`
                 .hover-row:hover {
-                    background-color: #F36C43 ; 
+                    // background-color: #F36C43 ; 
                     cursor: pointer;
                 }
                 `}

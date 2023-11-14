@@ -7,6 +7,7 @@ import {
   Pagination,
   Select,
   Skeleton,
+  Table,
   Tag,
   notification,
 } from "antd";
@@ -23,7 +24,8 @@ import "./style.css";
 import { getCoordinates } from "../../../../Api/Geocode";
 import MapsGoogle from "../../../../components/MapsGoole";
 import useCoordinateRaceMap from "../../../../zustand/Store/coordinateMapRace/RaceMaps";
-function SMList({}) {
+import DetailSPListRace from "../splist/Detailsplist";
+function SMList({ }) {
   const [Open, setOpen] = useState(false);
   const [CariSJ, SetCariSJ] = useState("");
   const [NamaSupir, setNamaSupir] = useState("");
@@ -127,11 +129,11 @@ Salam hangat,
     const fetchData = async () => {
       const AlamatMuat = await getCoordinates(
         DetailDataPerClick?.other?.m_pengadaan_detail?.muat?.alamat ||
-          DetailDataPerClick?.other?.m_pengadaan_detail?.muat?.alamat_detail
+        DetailDataPerClick?.other?.m_pengadaan_detail?.muat?.alamat_detail
       );
       const Bongkar = await getCoordinates(
         DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat ||
-          DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat_detail
+        DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat_detail
       );
 
       setAlamatMuatBongkarCoordinate((item) => ({
@@ -151,12 +153,112 @@ Salam hangat,
   }, [DetailDataPerClick]);
 
   console.log(`DetailDataPerClick`, DetailDataPerClick);
+  const tableData = [DetailDataPerClick];
 
+  const columns = [
+    {
+      title: 'Driver',
+      dataIndex: 'driver1',
+      key: 'driver1',
+    },
+    {
+      title: 'Vehicle',
+      dataIndex: 'kendaraanMitra1',
+      key: 'kendaraanMitra1',
+    },
+    {
+      title: 'Unit',
+      dataIndex: 'unit1',
+      key: 'unit1',
+    },
+    {
+      title: 'SP',
+      dataIndex: 'sp',
+      key: 'sp',
+    },
+    {
+      title: 'SM',
+      dataIndex: 'sm',
+      key: 'sm',
+    },
+    {
+      title: 'Pickup Date',
+      dataIndex: 'tglPickup',
+      key: 'tglPickup',
+    },
+    // Add other columns as needed
+  ];
+
+  const tableData2 = [
+    {
+      key: 'jarak',
+      label: 'Jarak',
+      value: JarakDanWaktu?.jarak?.text
+    },
+    {
+      key: 'waktu',
+      label: 'Waktu',
+      value: JarakDanWaktu?.waktu?.text
+    },
+    {
+      key: 'customer',
+      label: 'Customer',
+      value: DetailDataPerClick.customer
+    },
+    {
+      key: 'destination',
+      label: 'Destination',
+      value: DetailDataPerClick.destination
+    },
+    {
+      key: 'muatAlamat',
+      label: 'Alamat Muat',
+      value: DetailDataPerClick?.other?.m_pengadaan_detail?.muat?.alamat
+    },
+    {
+      key: 'bongkarAlamat',
+      label: 'Alamat Bongkar',
+      value: DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat
+    },
+    // Add other rows as needed
+  ];
+
+  const columns2 = [
+    {
+      title: 'Label',
+      dataIndex: 'label',
+      key: 'label',
+    },
+    {
+      title: 'Informasi',
+      dataIndex: 'value',
+      key: 'value',
+    },
+  ];
   return (
     <div>
       {DetailDataPerClick ? (
         <Drawer
-          title={`Tracking Pengiriman` + " " + DetailDataPerClick?.destination}
+          title={
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: "space-between" }}>
+              <span style={{ marginRight: 10 }}>Tracking Pengiriman</span>
+              <div>{DetailDataPerClick?.sm}</div>
+              <Button
+                onClick={pindahdetailsp}
+                className="mt-3"
+                style={{
+                  backgroundColor: "blue",
+                  fontWeight: "bold",
+                  fontSize: 20,
+                  color: "white",
+                  cursor: "pointer",
+                  textDecoration: "none",
+                }}
+              >
+                Cek Detail
+              </Button>
+            </div>
+          }
           width={3220}
           closable={false}
           onClose={onClose}
@@ -178,112 +280,24 @@ Salam hangat,
 
             {/* <MapContainer AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate} /> */}
           </Card>
-          <Card bodyStyle={{ padding: 0 }} style={{ height: "auto" }}>
+          <Card bodyStyle={{ padding: 0 }} style={{ height: "auto", marginTop: 0, paddingTop: 0 }}>
             <Container>
               <p style={{ fontWeight: "bold", fontSize: 20 }}>
                 Informasi Driver
               </p>
-              <Row style={{ marginTop: "20px" }}>
-                <Col>
-                  <p style={{ fontWeight: "bold" }}>
-                    {DetailDataPerClick?.driver1}
-                  </p>
-                  <p style={{ fontWeight: "bold" }}>
-                    {DetailDataPerClick?.kendaraanMitra1}
-                  </p>
-                  <p style={{ fontWeight: "bold" }}>
-                    {DetailDataPerClick?.unit1}
-                  </p>
-                </Col>
-                <Col>
-                  <p style={{ fontWeight: "bold" }}>{DetailDataPerClick?.sp}</p>
-                  <p style={{ fontWeight: "bold" }}>{DetailDataPerClick?.sm}</p>
-                  <p style={{ fontWeight: "bold" }}>
-                    {DetailDataPerClick?.tglPickup}
-                  </p>
-                </Col>
-
-                <Col className="d-flex justify-content-end align-items-center">
-                  <img
-                    src={telponicon}
-                    style={{
-                      height: "80px",
-                      width: "93px",
-                      borderRadius: "10px",
-                    }}
-                  ></img>
-                  <img
-                    onClick={sendMessage}
-                    src={whatsappicon}
-                    style={{
-                      height: "80px",
-                      width: "93px",
-                      borderRadius: "10px",
-                      cursor: "pointer",
-                    }}
-                  ></img>
-                </Col>
+              <Row style={{ marginTop: "" }}>
+                <Table dataSource={tableData} columns={columns} pagination={false} />
               </Row>
-              <hr />
               <Row style={{}} className="align-items-center">
-                <Col style={{ backgroundColor: "" }} md={8}>
+                <Col style={{ backgroundColor: "" }} >
                   <Col style={{ backgroundColor: "" }}>
-                    <div style={{ fontWeight: "bold", fontSize: 20 }}>
+                    <div style={{ fontWeight: "bold", fontSize: 20, marginBottom: 4, marginTop: 10 }}>
                       Informasi Perjalanan
                     </div>
                   </Col>
-                  <Row>
-                    <Col style={{ backgroundColor: "" }}>
-                      <div>
-                        <div style={{ fontWeight: "bold", marginTop: 5 }}>
-                          Jarak
-                        </div>
-                        <div style={{ fontWeight: "bold", marginTop: 5 }}>
-                          Waktu
-                        </div>
-                      </div>
-                      <div style={{ fontWeight: "bold", marginTop: 5 }}>
-                        Customer
-                      </div>
-                      <div style={{ fontWeight: "bold", marginTop: 5 }}>
-                        Destination
-                      </div>
-                      <div style={{ fontWeight: "bold", marginTop: 5 }}>
-                        Alamat Muat
-                      </div>
-                      <div style={{ fontWeight: "bold", marginTop: 5 }}>
-                        Alamat Bongkar
-                      </div>
-                    </Col>
-                    <Col>
-                      <div style={{ fontWeight: "", marginTop: 5 }}>
-                        {JarakDanWaktu?.jarak?.text}
-                      </div>
-                      <div style={{ fontWeight: "", marginTop: 5 }}>
-                        {JarakDanWaktu?.waktu?.text}
-                      </div>
-                      <div style={{ fontWeight: "", marginTop: 5 }}>
-                        {DetailDataPerClick?.customer}
-                      </div>
-                      <div style={{ fontWeight: "", marginTop: 5 }}>
-                        {DetailDataPerClick?.destination}
-                      </div>
-                      <div style={{ fontWeight: "", marginTop: 5 }}>
-                        {
-                          DetailDataPerClick?.other?.m_pengadaan_detail?.muat
-                            ?.alamat_detail
-                        }
-                      </div>
-                      <div style={{ fontWeight: "", marginTop: 5 }}>
-                        {
-                          DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar
-                            ?.alamat_detail
-                        }
-                      </div>
-                    </Col>
-                  </Row>
+                  <Table dataSource={tableData2} columns={columns2} pagination={false} />
                 </Col>
-                <Col className="d-flex justify-content-end">
+                {/* <Col className="d-flex justify-content-end">
                   <Button
                     onClick={pindahdetailsp}
                     style={{
@@ -297,7 +311,7 @@ Salam hangat,
                   >
                     Cek Detail
                   </Button>
-                </Col>
+                </Col> */}
               </Row>
             </Container>
           </Card>
@@ -343,7 +357,7 @@ Salam hangat,
             // current={1}
             onChange={(page, size) => Paginations(page, size)}
             total={DataApi.totalData}
-            // pageSize={10}
+          // pageSize={10}
           />
         </Col>
       </Row>
@@ -508,6 +522,7 @@ Salam hangat,
             );
           })}
       </Row>
+      <DetailSPListRace AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate}/>
     </div>
   );
 }

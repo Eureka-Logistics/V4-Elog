@@ -261,7 +261,7 @@ function Erlangga() {
                 <style>
                     {`
     .hover-row:hover {
-        background-color: #F36C43;
+        // background-color: #F36C43;
         cursor: pointer;
     }
     .scroll-container {

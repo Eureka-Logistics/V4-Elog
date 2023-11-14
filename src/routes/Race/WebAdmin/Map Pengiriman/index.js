@@ -20,7 +20,7 @@ function MapPengiriman() {
         selectDriver: [],
         selectKendaraan: []
     });
-
+console.log(`selectedData`,selectedData);
     const PengadaanDetail = async () => {
         setLoadingGan(true)
         try {
@@ -109,7 +109,8 @@ function MapPengiriman() {
             PengadaanDetail();
             SelectDriver2("")
             addData("")
-            selectedData("")
+            CardMappingStoreRace.setState({selectedData :""})
+            // selectedData("")
             notification.success({
                 message: "Sukses",
             });

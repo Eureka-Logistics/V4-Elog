@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import bk from "../../../../../assets/img/Group 18.png"
-import { Card, Divider, Steps, Tag } from 'antd'
+import { Card, Divider, Steps, Table, Tag } from 'antd'
 import drivericon from "../../../../../assets/img/drivericon.png"
 import './style.css'
 import axios from 'axios'
 import Baseurl from '../../../../../Api/BaseUrl'
 import { useParams } from 'react-router-dom'
 import moment from 'moment'
-function DetailSPListRace() {
+import MapsGoogle from '../../../../../components/MapsGoole'
+function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
     const { idmp, id_msm } = useParams();
     const [DataApi, setDataApi] = useState([])
     const [DetailHistory, setDetailHistory] = useState()
@@ -54,17 +55,54 @@ function DetailSPListRace() {
         getDetailApi()
         HistoryKendaraan()
     }, [])
+
+    const tableData = DataApi.map((item, index) => [
+        {
+          key: 'driver1-' + index,
+          label: 'Driver',
+          value: item.driver1,
+        },
+        {
+          key: 'mitraPickup-' + index,
+          label: 'Mitra Pickup',
+          value: item.mitraPickup,
+        },
+        {
+          key: 'unit1-' + index,
+          label: 'Unit',
+          value: item.unit1,
+        },
+        {
+          key: 'kendaraanMitra1-' + index,
+          label: 'Vehicle',
+          value: item.kendaraanMitra1,
+        },
+        // Add other rows as needed
+      ]).flat();
+
+      const columns = [
+        {
+          title: 'Informasi',
+          dataIndex: 'label',
+          key: 'label',
+        },
+        {
+          title: 'Data',
+          dataIndex: 'value',
+          key: 'value',
+        },
+      ];
     return (
         <div>
             <Row>
                 {DataApi && DataApi.map((i) => (
                     <Col style={{ backgroundColor: "" }}>
                         <h3>Detail SJ</h3>
-                        <div>Np. SP</div>
-                        <div style={{ fontWeight: "bold" }}>{i.sp}</div>
-                        <br />
                         <div>No. SJ</div>
                         <div style={{ fontWeight: "bold" }}>{i?.sm}</div>
+                        <br />
+                        <div>Np. SP</div>
+                        <div style={{ fontWeight: "bold" }}>{i.sp}</div>
                         <br />
                         <div>Customer</div>
                         <div style={{ fontWeight: "bold" }}>{i?.customer}</div>
@@ -100,26 +138,37 @@ function DetailSPListRace() {
                 }}>
                     <h3 className='mt-3' style={{ color: "white" }}>Tracking Pengiriman</h3>
                     <Container>
+                        <MapsGoogle
+                            // AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate}
+                            width={"auto"}
+                            height={300}
+                        />
                         <Row style={{ height: "432px" }}>
-                            <Col style={{ backgroundColor: "" , marginTop : 50}}>
+                            <Col style={{ backgroundColor: "", marginTop: 50 }}>
                                 <Steps
                                     className="my-custom-steps"
                                     direction="vertical"
                                     size="small"
                                     current={5}
-                                    style={{ padding: '20px', width: 400, height: 500 }}
+                                    style={{ padding: '20px', width: 400, height: 500, color: "white" }}
                                     items={[
                                         {
-                                            title: DetailHistory?.[0]?.keterangan,
-                                            description: DetailHistory?.[0]?.status === undefined ? "Belum ada Data" : DetailHistory?.[0]?.status + " " + moment(DetailHistory?.[0]?.pickupDate).format("DD-MM-YYYY"),
+                                            title: <span style={{ color: 'white' }}>{DetailHistory?.[0]?.keterangan}</span>,
+                                            description: <span style={{ color: 'white' }}>
+                                                {DetailHistory?.[0]?.status === undefined ? "Belum ada Data" : DetailHistory?.[0]?.status + " " + moment(DetailHistory?.[0]?.pickupDate).format("DD-MM-YYYY")}
+                                            </span>,
                                         },
                                         {
-                                            title: DetailHistory?.[1]?.keterangan,
-                                            description: DetailHistory?.[1]?.status === undefined ? "Belum ada Data" : DetailHistory?.[1]?.status + " " + moment(DetailHistory?.[1]?.pickupDate).format("DD-MM-YYYY"),
+                                            title: <span style={{ color: 'white' }}>{DetailHistory?.[1]?.keterangan}</span>,
+                                            description: <span style={{ color: 'white' }}>
+                                                {DetailHistory?.[1]?.status === undefined ? "Belum ada Data" : DetailHistory?.[1]?.status + " " + moment(DetailHistory?.[1]?.pickupDate).format("DD-MM-YYYY")}
+                                            </span>,
                                         },
                                         {
-                                            title: DetailHistory?.[2]?.keterangan,
-                                            description: DetailHistory?.[2]?.status === undefined ? "Belum ada Data" : DetailHistory?.[2]?.status + " " + moment(DetailHistory?.[2]?.pickupDate).format("DD-MM-YYYY"),
+                                            title: <span style={{ color: 'white' }}>{DetailHistory?.[2]?.keterangan}</span>,
+                                            description: <span style={{ color: 'white' }}>
+                                                {DetailHistory?.[2]?.status === undefined ? "Belum ada Data" : DetailHistory?.[2]?.status + " " + moment(DetailHistory?.[2]?.pickupDate).format("DD-MM-YYYY")}
+                                            </span>,
                                         },
 
                                     ]}
@@ -131,18 +180,11 @@ function DetailSPListRace() {
                         <Container style={{ display: "flex", justifyContent: "center" }}>
                             <Card style={{ borderRadius: 15, width: 700 }} >
                                 <Row>
-                                    <Col sm={8}>
+                                    <Col md={12}>
                                         <h5>Informasi Driver</h5>
-                                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                                            <img src={drivericon} alt="Driver Icon" style={{ marginRight: '15px' }} />
-                                            <div style={{ fontWeight: "bold", marginTop: 20 }}>
-                                                <p>{DataApi?.[0]?.driver1}</p>
-                                                <p>{DataApi?.[0]?.mitraPickup}</p>
-                                                <p>{DataApi?.[0]?.unit1 }</p>
-                                            </div>
-                                        </div>
+                                        <Table dataSource={tableData} columns={columns} pagination={false} />
                                     </Col>
-                                    <Col sm={4}>
+                                    {/* <Col sm={4}>
                                         <div style={{ backgroundColor: "#1f3d7d", padding: 10, borderRadius: 15 }}>
                                             <div style={{ color: "white", fontWeight: "bold" }}>
                                                 <p>{DataApi[0]?.sp}</p>
@@ -150,7 +192,7 @@ function DetailSPListRace() {
                                                 <p>{DataApi[0]?.destination}</p>
                                             </div>
                                         </div>
-                                    </Col>
+                                    </Col> */}
                                 </Row>
                             </Card>
                         </Container>
