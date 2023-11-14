@@ -34,13 +34,14 @@ function SMList({ }) {
   const showDefaultDrawer = (e) => {
     setOpen(true);
   };
-  const { Coordinate, setCoordinate, JarakDanWaktu } = useCoordinateRaceMap();
+  const { Coordinate, setCoordinate, JarakDanWaktu, AmbilCoordinates } = useCoordinateRaceMap();
   console.log(`CoordinateRaceMap`, Coordinate);
   const [AlamatMuatBongkarCoordinate, setAlamatMuatBongkarCoordinate] =
     useState({
       AlamatMuat: "",
       AlamatBongkar: "",
     });
+
   const [DataApi, setDataApi] = useState({
     Data: null,
     totalData: "",
@@ -135,12 +136,15 @@ Salam hangat,
         DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat ||
         DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat_detail
       );
+      // useCoordinateRaceMap.setState({ AmbilCoordinates: [...AlamatMuat, ...Bongkar] })
 
       setAlamatMuatBongkarCoordinate((item) => ({
         ...item,
         AlamatMuat: AlamatMuat,
         AlamatBongkar: Bongkar,
+
       }));
+      // AmbilCoordinates(AlamatMuat)
       setCoordinate({
         AlamatMuat,
         Bongkar,
@@ -150,8 +154,9 @@ Salam hangat,
     };
     setIsDataFetched(false);
     fetchData();
-  }, [DetailDataPerClick]);
+  }, [DetailDataPerClick ]);
 
+  // console.log(`AmbilCoordinates`, AmbilCoordinates);
   console.log(`DetailDataPerClick`, DetailDataPerClick);
   const tableData = [DetailDataPerClick];
 
@@ -235,13 +240,16 @@ Salam hangat,
       key: 'value',
     },
   ];
+
   return (
     <div>
+      {/* <DetailSPListRace AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate} /> */}
+
       {DetailDataPerClick ? (
         <Drawer
           title={
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: "space-between" }}>
-              <span style={{ marginRight: 10 }}>Tracking Pengiriman</span>
+              <span style={{ marginRight: 10 }}>Pengiriman</span>
               <div>{DetailDataPerClick?.sm}</div>
               <Button
                 onClick={pindahdetailsp}
@@ -521,8 +529,8 @@ Salam hangat,
               </>
             );
           })}
+          
       </Row>
-      <DetailSPListRace AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate}/>
     </div>
   );
 }

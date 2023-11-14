@@ -19,6 +19,7 @@ function Erlangga() {
 
     const barrer = localStorage.getItem("token")
     const [Keyword, setKeyword] = useState("")
+    const [IDCabang, setIDCabang] = useState("")
     const datenya = (date, datanggal) => {
         console.log(datanggal);
         const formattedStartDate = moment(datanggal[0]).format("YYYY-M-D");
@@ -39,8 +40,8 @@ function Erlangga() {
         const formattedEndDate = moment(Data.Data_Tanggal[1]).format("YYYY-M-D");
         try {
             const data = await axios.post(`${BaseUrlRace}sp/get-data-erl?whid=${PilihCabang}&from=${formattedStartDate}&to=${formattedEndDate}`, {
-               
-               
+
+
                 headers: {
                     "Content-Type": "application/json",
                     // Authorization: ,
@@ -228,26 +229,26 @@ function Erlangga() {
                         <Select
                             placeholder="Pilih Cabang"
                             style={{ width: "100%", marginRight: 20 }}
-                            onChange={(e) => setPilihCabang(e)}
+                            onChange={(e, i) => { setIDCabang(i?.children?.[0]); setPilihCabang(e) }}
                         >
                             {optincabang && optincabang.map((i, index) => (
-                                <Select.Option value={i?.whid}>{i?.cabangId} - {i?.description}</Select.Option>
+                                <Select.Option children={i} value={i?.whid}>{i?.cabangId} - {i?.description}</Select.Option>
                             ))}
 
                         </Select>
 
                     </Col>
                     <Col style={{ backgroundColor: "", marginLeft: 10 }}>
-                        <RangePicker
+                        <RangePicker disabled={!IDCabang}
                             onChange={datenya} />
 
                     </Col>
                     <Col style={{ marginLeft: 10 }} >
-                        <Button type='primary' onClick={GetDataTanggal}>Sync Data</Button>
+                        <Button type='primary' disabled={!IDCabang} onClick={GetDataTanggal}>Sync Data</Button>
 
                     </Col>
                     <Col style={{ backgroundColor: "" }}>
-                        <Button style={{ backgroundColor: "" }} onClick={() => setModal1Open(true)} type='danger'>Create SP</Button>
+                        <Button style={{ backgroundColor: "" }} disabled={!IDCabang} onClick={() => setModal1Open(true)} type='danger'>Create SP</Button>
 
                     </Col>
                     <Col  >
@@ -286,7 +287,7 @@ function Erlangga() {
                         })}
                     />
                 </div>
-                <ModalCreateaSPRace Refresh={Refresh} modal1Open={modal1Open} setModal1Open={setModal1Open} />
+                <ModalCreateaSPRace IDCabang={IDCabang} Refresh={Refresh} modal1Open={modal1Open} setModal1Open={setModal1Open} />
             </Card>
         </div>
     )

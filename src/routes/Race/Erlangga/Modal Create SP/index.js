@@ -5,7 +5,7 @@ import { BaseUrlRace } from '../../../../Api/BaseUrl';
 import axios from 'axios';
 import { array } from 'prop-types';
 
-function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
+function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh ,IDCabang}) {
     const [Seleckan, setSeleckan] = useState({
         data_noref: [],
         seleckan_noref: "",
@@ -18,7 +18,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
         }
     }, [modal1Open])
     const [SelectSekolahforEach, setSelectSekolahforEach] = useState("")
-
+console.log(`IDCabang`,IDCabang);
     const SelectData = async () => {
         try {
             const data = await axios.get(`${BaseUrlRace}sp/get-select-sp?noref=${Seleckan.seleckan_noref}`,
@@ -58,6 +58,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh }) {
         const body =
         {
             "memo": Seleckan.seleckan_noref,
+            "cabang" :IDCabang
         }
         try {
             const data = await axios.post(`${BaseUrlRace}sp/create-sp`, body, {
