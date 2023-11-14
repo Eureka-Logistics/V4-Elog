@@ -288,7 +288,8 @@ const SamplePage = () => {
 
   try {
     const response = await httpClient.get(
-      `tarif/get-tarifCustomer?limit=${total}&page=1&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_price=&id_customer=${NamaMitraa}`
+      `tarif/get-tarifCustomer?limit=${total}&page=1&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_price=&id_customer=${NamaMitraa}&berat=all`
+      // `tarif/get-tarifCustomer?limit=${total}&page=1&id_muat_kota=${muatKota}&id_tujuan_kota=${kotaTujuan}&id_kendaraan_jenis=&id_price=&id_customer=${NamaMitraa}&berat=all`
     );
 
     const dataToExport = response.data.data.order.map((item, index) => ({
