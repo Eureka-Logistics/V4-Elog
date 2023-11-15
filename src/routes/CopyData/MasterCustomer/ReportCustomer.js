@@ -31,6 +31,7 @@ function ReportCustomer() {
   const [limit, setLimit] = useState(10);
   const [total, setTotal] = useState(0);
   const [CariDestination, setCariDestination] = useState("");
+  const [Keyword, setKeyword] = useState("")
   const [CariTanggal, setCariTanggal] = useState({
     tgl_pickup: "",
     tgl_bongkar: "",
@@ -41,7 +42,7 @@ function ReportCustomer() {
   const fetchData = async () => {
     try {
       const respons = await axios.get(
-        `${Baseurl}customer/get-report-customer?limit=${limit}&page=${currentPage}&keyword=&statusSP=&customerId=${Customers}&cabang=&sales=&buId=${DataBU}&tgl_pickup=${CariTanggal?.tgl_pickup}&tgl_bongkar=${CariTanggal?.tgl_bongkar}&destination=${CariDestination}`,
+        `${Baseurl}customer/get-report-customer?limit=${limit}&page=${currentPage}&keyword=${Keyword}&statusSP=&customerId=${Customers}&cabang=&sales=&buId=${DataBU}&tgl_pickup=${CariTanggal?.tgl_pickup}&tgl_bongkar=${CariTanggal?.tgl_bongkar}&destination=${CariDestination}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -116,7 +117,7 @@ function ReportCustomer() {
     fetchData();
     getDataSelectt();
     getDataSelectBU();
-  }, [Customers, currentPage, limit, CariTanggal, CariDestination, DataBU]);
+  }, [Customers, currentPage, limit, CariTanggal, CariDestination, DataBU, Keyword]);
 
   const dataSource = [
     // {
@@ -520,6 +521,30 @@ function ReportCustomer() {
                 setCariDestination(e.target.value);
               }}
               placeholder="Search Destination"
+            ></Input>
+          </Col>
+          <Col xs={24} sm={12} md={4} lg={4}>
+            <label
+              style={{
+                width: "100%",
+                fontWeight: "bold",
+                fontFamily: "NoirPro",
+              }}
+              className="mb-2 "
+            >
+              Search Nomor SP :
+            </label>
+            <Input
+              style={{
+                width: "10  0%",
+                border: "1px solid #1A5CBF",
+                borderRadius: "5px",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+              }}
+              onChange={(e) => {
+                setKeyword(e.target.value);
+              }}
+              placeholder="Search Nomor SP"
             ></Input>
           </Col>
         </Row>

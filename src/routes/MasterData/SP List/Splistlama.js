@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Card, Input, Select, Tag, Tooltip, notification } from "antd";
-import { Col, Row, Form, Button } from "react-bootstrap";
+import { Card, Input, Select, Tag, Tooltip, notification, Button } from "antd";
+import { Col, Row, Form } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import axios from "axios";
 import Baseurl from "../../../Api/BaseUrl";
@@ -191,10 +191,32 @@ function SPListlama() {
         ) {
           tagColor = "gold";
         }
-        let issue = ""
-        if (row?.is_issue === 1 && localStorage.getItem("level") === "admin" || localStorage.getItem("level") === "sales" && localStorage.getItem("level") === "account receivable") {
-          issue = <svg style={{ marginLeft: 2 }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f82020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail-warning"><path d="M22 10.5V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h12.5" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /><path d="M20 14v4" /><path d="M20 22v.01" /></svg>
-
+        let issue = "";
+        if (
+          (row?.is_issue === 1 && localStorage.getItem("level") === "admin") ||
+          (localStorage.getItem("level") === "sales" &&
+            localStorage.getItem("level") === "account receivable")
+        ) {
+          issue = (
+            <svg
+              style={{ marginLeft: 2 }}
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#f82020"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-mail-warning"
+            >
+              <path d="M22 10.5V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h12.5" />
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              <path d="M20 14v4" />
+              <path d="M20 22v.01" />
+            </svg>
+          );
         }
         return (
           <>
@@ -204,7 +226,6 @@ function SPListlama() {
               {row?.service}
               {issue}
             </Tag>
-
           </>
         );
       },
@@ -453,6 +474,63 @@ function SPListlama() {
     }
   };
 
+  const exportToExcel = async () => {
+    try {
+      setExporting(true);
+      await ApiDataAwal(); // Call the function to fetch data
+
+      // Assuming you have the data in isiData, you can use a library like xlsx to export it to Excel
+      const XLSX = require("xlsx");
+
+      // Create a worksheet
+      const ws = XLSX.utils.json_to_sheet(isiData);
+
+      // Set specific column widths
+      ws["!cols"] = [
+        { width: 5 }, //1
+        { width: 10 }, //idmp 2
+        { width: 20 }, //sp 3
+        { width: 27 }, //sales name 4
+        { width: 15 }, //gl 5
+        { width: 15 }, //asm 6
+        { width: 15 }, //mgr 7
+        { width: 15 }, //kacab 8
+        { width: 15 }, //amd 9
+        { width: 40 }, //perusahaan 10
+        { width: 15 }, //kendaraan 11
+        { width: 15 }, //service 12
+        { width: 25 }, //pickup 13
+        { width: 20 }, //approvesales
+        { width: 20 }, //dateapprovesales
+        { width: 20 }, //approveact
+        { width: 20 }, //dateapproveact
+        { width: 20 }, //approveops
+        { width: 10 }, //idops
+        { width: 20 }, //operationalname
+        { width: 20 }, //dateapproveops
+        { width: 20 }, //approvepurch
+        { width: 20 }, //dateapprovepurch
+        { width: 20 }, //destination
+
+        // Add more objects for other columns if needed
+      ];
+
+      // Create a workbook
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Sheet 1");
+
+      // Save the Excel file
+      XLSX.writeFile(wb, "exported_data.xlsx");
+    } catch (error) {
+      // Handle errors
+    }
+  };
+
+  
+
+  const [exporting, setExporting] = useState(false);
+
+
   return (
     <div>
       <Card>
@@ -539,7 +617,7 @@ function SPListlama() {
                 <Form.Group controlId="search">
                   <Input
                     style={{
-                      width: "150px",
+                      width: "100%",
                       border: "1px solid #1A5CBF",
                       borderRadius: "5px",
                       boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
@@ -564,7 +642,9 @@ function SPListlama() {
                     placeholder="Filter SP Approve"
                     onChange={handleSearchChange}
                   >
-                    <option disabled value={1}>Sp Sudah Approve</option>
+                    <option disabled value={1}>
+                      Sp Sudah Approve
+                    </option>
                   </Select>
                 </Form.Group>
               </Col>
@@ -573,10 +653,26 @@ function SPListlama() {
 
             <Row>
               <Col sm={12} className="justify-content-end d-flex">
-                <Button onClick={handleView}>Email SM</Button>
-                <Button onClick={handleView2}>Email SP</Button>
+              <Button
+              style={{ backgroundColor: "green", color: "white" }}
+              onClick={exportToExcel}
+              disabled={exporting}
+            >
+              {exporting ? "Exporting..." : "Export Excel (XLSX)"} 
+            </Button>
+                <Button
+                  style={{ backgroundColor: "#1A5CBF", color: "white" }}
+                  onClick={handleView}
+                >
+                  Email SM
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#1A5CBF", color: "white" }}
+                  onClick={handleView2}
+                >
+                  Email SP
+                </Button>
               </Col>
-
             </Row>
 
             <style>

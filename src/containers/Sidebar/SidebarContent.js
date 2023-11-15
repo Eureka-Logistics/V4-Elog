@@ -99,8 +99,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
   useEffect(() => {
     setActiveMenu(location.pathname);
   }, [location]);
-
-
+  const cabang = localStorage.getItem("cabang");
+  console.log(`cabang`, cabang);
   return (
     <>
       <SidebarLogo
@@ -112,19 +112,25 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
           className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
         >
           <Row>
+            {jobdesk === "akunting" &&
+              localStorage.getItem("cabang") === "JKT" && (
+                <Menu.Item>
+                  <div>yaudah</div>
+                </Menu.Item>
+              )}
             {jobdesk != "rcadmin" ? (
               <Col span={24} className="d-flex justify-content-center">
                 <Avatar
                   src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
                   className="gx-size-50 gx-pointer gx-mr-4"
                   alt=""
-                  style={{ width: '100%' }}
+                  style={{ width: "100%" }}
                 />
-                <div >
-                  <b style={{ color: "black" }}>
-                    {jobdesk}
-                  </b>
-                  <p style={{ color: "black", fontWeight: 'bold' }}>{fullname}</p>
+                <div>
+                  <b style={{ color: "black" }}>{jobdesk}</b>
+                  <p style={{ color: "black", fontWeight: "bold" }}>
+                    {fullname}
+                  </p>
                 </div>
               </Col>
             ) : (
@@ -174,6 +180,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
               ) : (
                 <></>
               )}
+
               {jobdesk === "akunting" ? (
                 <>
                   {/* <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
@@ -289,13 +296,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                  // style={{
-                  //   backgroundColor: "#0c2197",
-                  //   height: "20%",
-                  //   marginRight: "20px",
-                  //   marginLeft: "20px",
-                  //   borderRadius: "10px",
-                  // }}
+                    // style={{
+                    //   backgroundColor: "#0c2197",
+                    //   height: "20%",
+                    //   marginRight: "20px",
+                    //   marginLeft: "20px",
+                    //   borderRadius: "10px",
+                    // }}
                   >
                     <h6
                       style={{
@@ -317,7 +324,6 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     }
                   >
                     <Link
-
                       to="/masterdata/marketing/splist"
                       style={{ textDecoration: "none" }}
                     >
@@ -377,13 +383,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                  // style={{
-                  //   backgroundColor: "#0c2197",
-                  //   height: "20%",
-                  //   marginRight: "20px",
-                  //   marginLeft: "20px",
-                  //   borderRadius: "10px",
-                  // }}
+                    // style={{
+                    //   backgroundColor: "#0c2197",
+                    //   height: "20%",
+                    //   marginRight: "20px",
+                    //   marginLeft: "20px",
+                    //   borderRadius: "10px",
+                    // }}
                   >
                     <h6
                       style={{
@@ -437,10 +443,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         : "menu-item-hover"
                     }
                   >
-                    <Link
-                      to="/LoseSale"
-                      style={{ textDecoration: "none" }}
-                    >
+                    <Link to="/LoseSale" style={{ textDecoration: "none" }}>
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <UserSwitchOutlined
                           style={{
@@ -628,13 +631,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                  // style={{
-                  //   backgroundColor: "#0c2197",
-                  //   height: "20%",
-                  //   marginRight: "20px",
-                  //   marginLeft: "20px",
-                  //   borderRadius: "10px",
-                  // }}
+                    // style={{
+                    //   backgroundColor: "#0c2197",
+                    //   height: "20%",
+                    //   marginRight: "20px",
+                    //   marginLeft: "20px",
+                    //   borderRadius: "10px",
+                    // }}
                   >
                     <h6
                       style={{
@@ -852,7 +855,6 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </h6>
                   </div>
                   <Menu.Item
-
                     key="waiting SP List"
                     className={
                       activeMenu === "/masterdata/newsplist"
@@ -1427,7 +1429,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     key="Penerimaan INV"
                     className={
                       activeMenu ===
-                        "/akunting/ar/reportpartners/reportpenerimaaninvoice"
+                      "/akunting/ar/reportpartners/reportpenerimaaninvoice"
                         ? "menu-item-active menu-item-hover"
                         : "menu-item-hover"
                     }
@@ -1832,7 +1834,10 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         : "menu-item-hover"
                     }
                   >
-                    <Link to="/DataBuEmployeePosition" style={{ textDecoration: "none" }}>
+                    <Link
+                      to="/DataBuEmployeePosition"
+                      style={{ textDecoration: "none" }}
+                    >
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <UserAddOutlined
                           style={{
@@ -2585,7 +2590,10 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       }
                       key="vehicle"
                     >
-                      <Link to="/masterdata/purchasing/vehicle" style={{ textDecoration: "none" }}>
+                      <Link
+                        to="/masterdata/purchasing/vehicle"
+                        style={{ textDecoration: "none" }}
+                      >
                         {/* <i className="icon icon-widgets" />
                          */}
 
@@ -2615,7 +2623,10 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       }
                       key="driver"
                     >
-                      <Link to="/masterdata/purchasing/driver" style={{ textDecoration: "none" }}>
+                      <Link
+                        to="/masterdata/purchasing/driver"
+                        style={{ textDecoration: "none" }}
+                      >
                         {/* <i className="icon icon-widgets" />
                          */}
 
@@ -2652,7 +2663,11 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         />
                         <span
                           className="mx-3"
-                          style={{ fontWeight: "bold", color: "white", overflow: "hidden" }}
+                          style={{
+                            fontWeight: "bold",
+                            color: "white",
+                            overflow: "hidden",
+                          }}
                         >
                           Emergency
                         </span>
@@ -2769,7 +2784,6 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     }
                   >
                     <Link
-
                       to="/masterdata/marketing/splist"
                       style={{ textDecoration: "none" }}
                     >
@@ -2864,22 +2878,20 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <Menu.SubMenu
                     title={
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <div style={{ display: "flex", alignItems: "center" }}>
                         <FolderOpenOutlined
                           style={{
-                            fontSize: '30px',
-                            color: 'black',
-                            marginBottom: '8px',
-                            marginTop: '10px',
-
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
                           }}
                         />
                         <span
                           style={{
-                            fontWeight: 'bold',
-                            color: 'black',
-                            marginLeft: '8px',
-
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
                           }}
                         >
                           <IntlMessages id="Master Kendaraan" />
@@ -2900,7 +2912,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         style={{ textDecoration: "none" }}
                       >
                         {/* <i className="icon icon-widgets" />
-                       */}
+                         */}
                         <div style={{ display: "flex", alignItems: "center" }}>
                           <SmileTwoTone
                             style={{
@@ -2955,28 +2967,30 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         </div>
                       </Link>
                     </Menu.Item>
-
-
                   </Menu.SubMenu>
 
                   <Menu.SubMenu
                     title={
-                      <div style={{ display: 'flex', alignItems: 'center' , backgroundColor :""}}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          backgroundColor: "",
+                        }}
+                      >
                         <FolderOpenOutlined
                           style={{
-                            fontSize: '30px',
-                            color: 'black',
-                            marginBottom: '8px',
-                            marginTop: '10px',
-
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
                           }}
                         />
                         <span
                           style={{
-                            fontWeight: 'bold',
-                            color: 'black',
-                            marginLeft: '',
-
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "",
                           }}
                         >
                           <IntlMessages id="Master Tarif" />
@@ -2984,9 +2998,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </div>
                     }
                   >
-
                     <Menu.Item
-                    
                       key="Master Tarif"
                       className={
                         activeMenu === "/mastermitra"
@@ -2994,9 +3006,12 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                           : "menu-item-hover"
                       }
                     >
-                      <Link to="/mastermitra" style={{ textDecoration: "none" }}>
+                      <Link
+                        to="/mastermitra"
+                        style={{ textDecoration: "none" }}
+                      >
                         {/* <i className="icon icon-widgets" />
-                       */}
+                         */}
                         <div style={{ display: "flex", alignItems: "center" }}>
                           <ShopOutlined
                             style={{
@@ -3028,7 +3043,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     >
                       <Link to="/tarifmitra" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
-                       */}
+                         */}
                         <div style={{ display: "flex", alignItems: "center" }}>
                           <DollarOutlined
                             style={{
@@ -3058,7 +3073,10 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                           : "menu-item-hover"
                       }
                     >
-                      <Link to="/tarif_eureka" style={{ textDecoration: "none" }}>
+                      <Link
+                        to="/tarif_eureka"
+                        style={{ textDecoration: "none" }}
+                      >
                         {/* <i className="icon icon-widgets" /> */}
                         <div style={{ display: "flex", alignItems: "center" }}>
                           <DollarOutlined
@@ -3145,10 +3163,11 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         </div>
                       </Link>
                     </Menu.Item>
-
                   </Menu.SubMenu>
                 </>
               )}
+              {/* ADMIN RACE CABANG */}
+              <>===========</>
             </MenuItemGroup>
           </Menu>
         </CustomScrollbars>

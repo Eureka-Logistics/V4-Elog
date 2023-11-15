@@ -53,7 +53,8 @@ export const userSignIn = (user, selectLogin) => {
         axios.defaults.headers.common['Authorization'] = token;
 
         const detail = await axios.get(`${Baseurl}auth/get-profile`);
-      } else {
+
+      } else if (selectLogin === 0) {
         const response = await axios.post(`${BaseUrlRace}auth/login`, user);
 
         // asumsikan response.data.data berisi token dan jobdesk
@@ -65,6 +66,23 @@ export const userSignIn = (user, selectLogin) => {
         localStorage.setItem('cabang', cabang);
         localStorage.setItem('fullname', fullname);
         dispatch(userSignInSuccess({ token, jobdesk }));
+
+        // set token to axios header
+        axios.defaults.headers.common['Authorization'] = token;
+
+        const detail = await axios.get(`${Baseurl}auth/get-profile`);
+      } else {
+        const response = await axios.post(`${BaseUrlRace}auth/login-customer`, user);
+
+        // asumsikan response.data.data berisi token dan jobdesk
+        const { token, divisi, cabang, fullname } = response.data.data;
+
+        // simpan token ke dalam local storage
+        localStorage.setItem('token', token);
+        localStorage.setItem('jobdesk', divisi);
+        localStorage.setItem('cabang', cabang);
+        localStorage.setItem('fullname', fullname);
+        dispatch(userSignInSuccess({ token, divisi }));
 
         // set token to axios header
         axios.defaults.headers.common['Authorization'] = token;
