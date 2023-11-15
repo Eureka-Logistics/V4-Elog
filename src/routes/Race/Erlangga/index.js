@@ -70,7 +70,7 @@ function Erlangga() {
     }
 
     const Refresh = async () => {
-        const datanya = await axios.get(`${BaseUrlRace}sp/get-data-pesanan?page=${Data?.paggination}&limit=${Data?.size}&keyword=${Keyword}`,
+        const datanya = await axios.get(`${BaseUrlRace}sp/get-data-pesanan?page=${Data?.paggination}&limit=${Data?.size}&keyword=${Keyword}&cabang=${IDCabang}`,
             {
                 headers: {
                     "Content-Type": "application/json",
@@ -85,7 +85,7 @@ function Erlangga() {
         }));
     }
     useEffect(async () => {
-        const datanya = await axios.get(`${BaseUrlRace}sp/get-data-pesanan?page=${Data?.paggination}&limit=${Data?.size}&keyword=${Keyword}`,
+        const datanya = await axios.get(`${BaseUrlRace}sp/get-data-pesanan?page=${Data?.paggination}&limit=${Data?.size}&keyword=${Keyword}&cabang=${IDCabang}`,
             {
                 headers: {
                     "Content-Type": "application/json",
@@ -119,6 +119,11 @@ function Erlangga() {
             render: (text) => <a>{text}</a>,
         },
         {
+            title: 'Pic Nik',
+            dataIndex: 'pic_nik',
+            key: 'pic_nik',
+        },
+        {
             title: 'Pic Divisi',
             dataIndex: 'pic_divisi',
             key: 'pic_divisi',
@@ -134,24 +139,26 @@ function Erlangga() {
             key: 'referensi_1',
         },
         {
-            title: 'Pic Nik',
-            dataIndex: 'pic_nik',
-            key: 'pic_nik',
+            title: 'cabangid',
+            dataIndex: 'cabangid',
+            key: 'cabangid',
         },
+      
         {
             title: 'Kode Penerima',
             dataIndex: 'kode_penerima',
             key: 'kode_penerima',
         },
-        {
-            title: 'Kota',
-            dataIndex: 'kota',
-            key: 'kota',
-        },
+       
         {
             title: 'Kecamatan',
             dataIndex: 'kecamatan',
             key: 'kecamatan',
+        },
+        {
+            title: 'Kota',
+            dataIndex: 'kota',
+            key: 'kota',
         },
         {
             title: 'Penerima',
@@ -187,6 +194,11 @@ function Erlangga() {
             title: 'Ikat',
             dataIndex: 'ikat',
             key: 'ikat',
+        },
+        {
+            title: 'Koli',
+            dataIndex: 'koli',
+            key: 'koli',
         },
         {
             title: 'Qty',
@@ -229,7 +241,7 @@ function Erlangga() {
                         <Select
                             placeholder="Pilih Cabang"
                             style={{ width: "100%", marginRight: 20 }}
-                            onChange={(e, i) => { setIDCabang(i?.children?.[0]); setPilihCabang(e) }}
+                            onChange={(e, i) => { setIDCabang(i?.children?.[0]); setPilihCabang(e) ; console.log(e); }}
                         >
                             {optincabang && optincabang.map((i, index) => (
                                 <Select.Option children={i} value={i?.whid}>{i?.cabangId} - {i?.description}</Select.Option>

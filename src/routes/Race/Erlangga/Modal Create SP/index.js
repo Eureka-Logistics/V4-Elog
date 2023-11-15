@@ -28,8 +28,9 @@ console.log(`IDCabang`,IDCabang);
                         "Content-Type": "application/json",
                         Authorization: localStorage.getItem("token"),
                     },
-                }
-            );
+                },
+                );
+                console.log(data);
             setSeleckan(item => ({
                 ...item,
                 seleckan_sekolah: data?.data?.sekolah?.[0]
