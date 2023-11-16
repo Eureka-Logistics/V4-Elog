@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Col, Menu, Row } from "antd";
+import { Avatar, Col, Menu, Row, Tag } from "antd";
 import { Link, useHistory } from "react-router-dom";
 import CustomScrollbars from "util/CustomScrollbars";
 import "./SidebarStyles.css";
@@ -1973,7 +1973,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                             marginLeft: "8px",
                           }}
                         >
-                          <IntlMessages id="Approve SP" />
+                          <IntlMessages id="Request SP" />
+                          <Tag style={{marginLeft: '10px'}}>hah</Tag>
                         </span>
                       </div>
                     </Link>
