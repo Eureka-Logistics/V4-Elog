@@ -6,17 +6,20 @@ import { Card, Input, Pagination, Select, Tag } from 'antd'
 import { Col, Row } from 'react-bootstrap'
 import { useHistory } from "react-router-dom";
 import ElogLoadingGif from "../../../../assets/Loader_Elogs1.gif";
+import SPlistLamaState from '../../../../zustand/Store/splistlama'
 function ListPageSpPurchasing() {
-    const [MultiSelect, setMultiSelect] = useState(1)
+    const [MultiSelect, setMultiSelect] = useState(0)
     const [loading, setloading] = useState(false)
     const [dataApi, setdataApi] = useState("")
     const [searchSO, setsearchSO] = useState("")
+    const {dataapprove} = SPlistLamaState()
+    console.log(`dataapprove`,dataapprove);
     const [paggination, setPagginations] = useState({
         totalData: 10,
         limit: 10,
         currentPage: 1
     })
-    console.log(`totalData`,paggination?.totalPage);
+    console.log(`totalData`, paggination?.totalPage);
     const [asw, setasw] = useState('')
     const history = useHistory();
     const datasp = async (e = 1) => {
@@ -31,6 +34,12 @@ function ListPageSpPurchasing() {
                 }
             )
             const response = await data.data.data.order
+            if (MultiSelect === "" || 1) {
+                console.log(`ini buat approve berapa`,data.data.data);
+                SPlistLamaState.setState({
+                    dataapprove : data?.data?.data?.totalData
+                })
+            }
             setPagginations({
                 totalPage: data.data.data.totalPage,
                 limit: data.data.data.limit,
@@ -185,13 +194,16 @@ function ListPageSpPurchasing() {
                     />
                 }
                 <div className="d-flex justify-content-end mt-3">
-                    <Pagination
-                        showSizeChanger
-                        onShowSizeChange={onShowSizeChange}
-                        onChange={onShowSizeChanges}
-                        defaultCurrent={1}
-                        total={paggination.totalData}
-                    />
+                    {MultiSelect === !0 && (
+
+                        <Pagination
+                            showSizeChanger
+                            onShowSizeChange={onShowSizeChange}
+                            onChange={onShowSizeChanges}
+                            defaultCurrent={1}
+                            total={paggination.totalData}
+                        />
+                    )}
                 </div>
             </Card>
         </div >

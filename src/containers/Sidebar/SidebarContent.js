@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Col, Menu, Row } from "antd";
+import { Avatar, Col, Menu, Row, Tag } from "antd";
 import { Link, useHistory } from "react-router-dom";
 import CustomScrollbars from "util/CustomScrollbars";
 import "./SidebarStyles.css";
@@ -55,6 +55,7 @@ import {
   UserAddOutlined,
 } from "@ant-design/icons";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import SPlistLamaState from "../../zustand/Store/splistlama";
 const { SubMenu } = Menu;
 
 const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
@@ -62,6 +63,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
   const pathname = useSelector(({ common }) => common.pathname);
   const history = useHistory();
 
+  const { dataapprove } = SPlistLamaState()
   const getNoHeaderClass = (navStyle) => {
     if (
       navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR ||
@@ -296,13 +298,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                    // style={{
-                    //   backgroundColor: "#0c2197",
-                    //   height: "20%",
-                    //   marginRight: "20px",
-                    //   marginLeft: "20px",
-                    //   borderRadius: "10px",
-                    // }}
+                  // style={{
+                  //   backgroundColor: "#0c2197",
+                  //   height: "20%",
+                  //   marginRight: "20px",
+                  //   marginLeft: "20px",
+                  //   borderRadius: "10px",
+                  // }}
                   >
                     <h6
                       style={{
@@ -383,13 +385,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                    // style={{
-                    //   backgroundColor: "#0c2197",
-                    //   height: "20%",
-                    //   marginRight: "20px",
-                    //   marginLeft: "20px",
-                    //   borderRadius: "10px",
-                    // }}
+                  // style={{
+                  //   backgroundColor: "#0c2197",
+                  //   height: "20%",
+                  //   marginRight: "20px",
+                  //   marginLeft: "20px",
+                  //   borderRadius: "10px",
+                  // }}
                   >
                     <h6
                       style={{
@@ -631,13 +633,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                    // style={{
-                    //   backgroundColor: "#0c2197",
-                    //   height: "20%",
-                    //   marginRight: "20px",
-                    //   marginLeft: "20px",
-                    //   borderRadius: "10px",
-                    // }}
+                  // style={{
+                  //   backgroundColor: "#0c2197",
+                  //   height: "20%",
+                  //   marginRight: "20px",
+                  //   marginLeft: "20px",
+                  //   borderRadius: "10px",
+                  // }}
                   >
                     <h6
                       style={{
@@ -1429,7 +1431,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     key="Penerimaan INV"
                     className={
                       activeMenu ===
-                      "/akunting/ar/reportpartners/reportpenerimaaninvoice"
+                        "/akunting/ar/reportpartners/reportpenerimaaninvoice"
                         ? "menu-item-active menu-item-hover"
                         : "menu-item-hover"
                     }
@@ -1957,25 +1959,33 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       to="/purchasing/newsplist"
                       style={{ textDecoration: "none" }}
                     >
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <FileProtectOutlined
-                          style={{
-                            fontSize: "30px",
-                            color: "black",
-                            marginBottom: "8px",
-                            marginTop: "10px",
-                          }}
-                        />
-                        <span
-                          style={{
-                            fontWeight: "bold",
-                            color: "black",
-                            marginLeft: "8px",
-                          }}
-                        >
-                          <IntlMessages id="Approve SP" />
-                        </span>
-                      </div>
+                     <style>
+        {`
+          .approveText {
+            font-weight: bold;
+            color: black;
+            margin-left: 8px;
+          }
+          .dataApprove {
+            font-weight: bold;
+            color: red !important; 
+          }
+        `}
+      </style>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <FileProtectOutlined
+          style={{
+            fontSize: "30px",
+            color: "black",
+            marginBottom: "8px",
+            marginTop: "10px",
+          }}
+        />
+        <span className="approveText">
+          Approve SP <span className="dataApprove"><Tag color="blue">{dataapprove}</Tag></span>
+        </span>
+      </div>
+
                     </Link>
                   </Menu.Item>
                   <Menu.Item
