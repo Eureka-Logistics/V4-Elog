@@ -142,8 +142,8 @@ const SignIn = () => {
                     style={{ width: "100%" }}
                   >
                     <option value={1}>Login Elogs</option>
-                    <option value={2}>Login Race</option>
-                    <option value={3}>Login Cabang</option>
+                    <option value={0}>Login Race</option>
+                    <option value={2}>Login Cabang</option>
                   </Select>
                 </Col>
               </Row>

@@ -71,7 +71,7 @@ export const userSignIn = (user, selectLogin) => {
         axios.defaults.headers.common['Authorization'] = token;
 
         const detail = await axios.get(`${Baseurl}auth/get-profile`);
-      } else {
+      } else if (selectLogin === 2) {
         const response = await axios.post(`${BaseUrlRace}auth/login-customer`, user);
 
         // asumsikan response.data.data berisi token dan jobdesk

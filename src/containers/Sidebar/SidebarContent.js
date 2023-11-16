@@ -55,7 +55,8 @@ import {
   UserAddOutlined,
 } from "@ant-design/icons";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
-import SPlistLamaState from "../../zustand/Store/splistlama";
+import axios from "axios";
+import Baseurl from "../../Api/BaseUrl";
 const { SubMenu } = Menu;
 
 const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
@@ -63,7 +64,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
   const pathname = useSelector(({ common }) => common.pathname);
   const history = useHistory();
 
-  const { dataapprove } = SPlistLamaState()
+  // const { dataapprove } = SPlistLamaState()
   const getNoHeaderClass = (navStyle) => {
     if (
       navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR ||
@@ -97,8 +98,26 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
   const menuBackgroundColor = jobdesk === "rcadmin" ? "#F05423" : "#BAD6FF";
   const location = useLocation();
   const [activeMenu, setActiveMenu] = useState(location.pathname);
+  const [DataRequest, setDataRequest] = useState("");
+
+  const fetchData = async () => {
+    try {
+      const respons = await axios.get(
+        `${Baseurl}sp/get-list-purch?limit=&page=1&is_multi=`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      setDataRequest(respons.data.data.totalData);
+      console.log("ini data purch", respons.data.data.totalData);
+    } catch (error) {}
+  };
 
   useEffect(() => {
+    fetchData();
     setActiveMenu(location.pathname);
   }, [location]);
   const cabang = localStorage.getItem("cabang");
@@ -1959,33 +1978,28 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       to="/purchasing/newsplist"
                       style={{ textDecoration: "none" }}
                     >
-                     <style>
-        {`
-          .approveText {
-            font-weight: bold;
-            color: black;
-            margin-left: 8px;
-          }
-          .dataApprove {
-            font-weight: bold;
-            color: red !important; 
-          }
-        `}
-      </style>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <FileProtectOutlined
-          style={{
-            fontSize: "30px",
-            color: "black",
-            marginBottom: "8px",
-            marginTop: "10px",
-          }}
-        />
-        <span className="approveText">
-          Approve SP <span className="dataApprove"><Tag color="blue">{dataapprove}</Tag></span>
-        </span>
-      </div>
-
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <FileProtectOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="Request SP" />
+                          <Tag   className="tag-hover" style={{ marginLeft: "10px", backgroundColor: "#008000" , color: 'white'}}>
+          {DataRequest}
+        </Tag>
+                        </span>
+                      </div>
                     </Link>
                   </Menu.Item>
                   <Menu.Item
