@@ -55,6 +55,8 @@ import {
   UserAddOutlined,
 } from "@ant-design/icons";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import axios from "axios";
+import Baseurl from "../../Api/BaseUrl";
 const { SubMenu } = Menu;
 
 const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
@@ -95,8 +97,26 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
   const menuBackgroundColor = jobdesk === "rcadmin" ? "#F05423" : "#BAD6FF";
   const location = useLocation();
   const [activeMenu, setActiveMenu] = useState(location.pathname);
+  const [DataRequest, setDataRequest] = useState("");
+
+  const fetchData = async () => {
+    try {
+      const respons = await axios.get(
+        `${Baseurl}sp/get-list-purch?limit=&page=1&is_multi=`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      setDataRequest(respons.data.data.totalData);
+      console.log("ini data purch", respons.data.data.totalData);
+    } catch (error) {}
+  };
 
   useEffect(() => {
+    fetchData();
     setActiveMenu(location.pathname);
   }, [location]);
   const cabang = localStorage.getItem("cabang");
@@ -1974,7 +1994,9 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                           }}
                         >
                           <IntlMessages id="Request SP" />
-                          <Tag style={{marginLeft: '10px'}}>hah</Tag>
+                          <Tag   className="tag-hover" style={{ marginLeft: "10px", backgroundColor: "#008000" , color: 'white'}}>
+          {DataRequest}
+        </Tag>
                         </span>
                       </div>
                     </Link>
