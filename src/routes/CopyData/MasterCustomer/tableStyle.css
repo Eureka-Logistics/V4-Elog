@@ -2,4 +2,8 @@
     .responsive-table .ant-table {
       max-width: 50%; /* Atur lebar maksimum tabel ke 100% */
     }
+    .responsive-table tbody tr:hover {
+      background-color: lightgrey; /* Atur warna latar belakang yang diinginkan */
+      /* Atur gaya lainnya sesuai kebutuhan */
+    }
   }

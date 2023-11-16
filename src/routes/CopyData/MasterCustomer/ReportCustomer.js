@@ -15,9 +15,11 @@ import Baseurl from "../../../Api/BaseUrl";
 import { BookOutlined } from "@ant-design/icons";
 import XLSX from "xlsx";
 import tableStyle from "./tableStyle.css";
+import { useHistory } from "react-router-dom";
 
 function ReportCustomer() {
   const [DataReportCust, setDataReportCust] = useState("");
+  const history = useHistory();
   const [GetSelectData, setGetSelectData] = useState("");
   const [Customers, setCustomers] = useState("");
   const [TanggalPickUp, setTanggalPickUp] = useState("");
@@ -31,7 +33,7 @@ function ReportCustomer() {
   const [limit, setLimit] = useState(10);
   const [total, setTotal] = useState(0);
   const [CariDestination, setCariDestination] = useState("");
-  const [Keyword, setKeyword] = useState("")
+  const [Keyword, setKeyword] = useState("");
   const [CariTanggal, setCariTanggal] = useState({
     tgl_pickup: "",
     tgl_bongkar: "",
@@ -83,18 +85,15 @@ function ReportCustomer() {
       console.error("Kesalahan saat mengambil data:", error.message);
       throw error; // Lanjutkan penanganan kesalahan di tempat lain jika perlu
     }
-  }; 
+  };
 
   const getDataSelectBU = async () => {
     try {
-      const response = await axios.get(
-        `${Baseurl}customer/get-bu-customer`,
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      );
+      const response = await axios.get(`${Baseurl}customer/get-bu-customer`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
       // setMuatKotaOptionsSelect (response.data);
       console.log(response.data.data, "ini bu");
       setDataBUOptions(response.data.data);
@@ -117,7 +116,15 @@ function ReportCustomer() {
     fetchData();
     getDataSelectt();
     getDataSelectBU();
-  }, [Customers, currentPage, limit, CariTanggal, CariDestination, DataBU, Keyword]);
+  }, [
+    Customers,
+    currentPage,
+    limit,
+    CariTanggal,
+    CariDestination,
+    DataBU,
+    Keyword,
+  ]);
 
   const dataSource = [
     // {
@@ -376,19 +383,27 @@ function ReportCustomer() {
     return formattedPickUpWithColon;
   }
 
+  const RowClick = (record, index) => {
+    console.log(record, index);
+    window.open(`/masterdata/splistdetailakunting/${record.idmp}`, "_blank");
+    // history.push(`/masterdata/splistdetailakunting/${record.idmp}`);
+  };
+
+ 
+
   return (
     <div>
       <Card>
         <h5>Report Customer</h5>
         <hr />
         <Row gutter={[16, 16]}>
-        <Col xs={24} sm={12} md={4} lg={4}>
+          <Col xs={24} sm={12} md={4} lg={4}>
             <label
               className="mb-2"
               htmlFor="muatKotaSelect"
               style={{ fontWeight: "bold", fontFamily: "NoirPro" }}
             >
-               Search Nama Perusahaan :
+              Search Nama Perusahaan :
             </label>
             <Select
               value={Customers}
@@ -416,7 +431,7 @@ function ReportCustomer() {
                 ))}
             </Select>
           </Col>
-         
+
           <Col xs={24} sm={12} md={4} lg={4}>
             <label
               className="mb-2"
@@ -471,7 +486,6 @@ function ReportCustomer() {
               style={{ fontWeight: "bold", fontFamily: "NoirPro" }}
             >
               Cari BU :
-             
             </label>
             <Select
               value={DataBU}
@@ -573,6 +587,23 @@ function ReportCustomer() {
           className="mt-3 responsive-table"
           style={{ overflowX: "auto" }}
           dataSource={DataReportCust}
+          onRow={(record, index) => {
+            return {
+              onClick: () => RowClick(record, index),
+              style: {
+                cursor: "pointer",
+              },
+            };
+          }}
+          customStyles={{
+            headCells: {
+              style: {
+                backgroundColor: "#1a5cbf",
+                color: "#fff",
+                width: "100%",
+              },
+            },
+          }}
           columns={columns}
           pagination={{
             current: currentPage,

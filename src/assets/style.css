@@ -366,5 +366,6 @@ iframe{
 @media (max-width: 600px) {
   .responsive-table {
     width: 100%;
+    
   }
 }
