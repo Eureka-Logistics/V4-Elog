@@ -22,7 +22,7 @@ function ListPageSpPurchasing() {
     const datasp = async (e = 1) => {
         try {
             setloading(true)
-            const data = await axios.get(`${Baseurl}sp/get-list-purch?limit=${paggination.limit}&page=${paggination.currentPage}&is_multi=${MultiSelect}&keyword=${searchSO}`,
+            const data = await axios.get(`${Baseurl}sp/get-list-purch?limit=${100}&page=${paggination.currentPage}&is_multi=${MultiSelect}&keyword=${searchSO}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -150,7 +150,7 @@ function ListPageSpPurchasing() {
                                 onChange={(e) => setMultiSelect(e)}
                                 value={MultiSelect}
                             >
-                                <option value={"-"}>All</option>
+                                <option value={""}>All</option>
                                 <option value={1}>Multi Drop</option>
                                 <option value={0}>Tidak MultiDrop</option>
                                 {/* <option disabled value={2}>Semua</option> */}
