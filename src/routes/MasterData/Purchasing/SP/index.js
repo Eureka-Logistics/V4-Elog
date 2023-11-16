@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import ElogLoadingGif from "../../../../assets/Loader_Elogs1.gif";
 import SPlistLamaState from '../../../../zustand/Store/splistlama'
 function ListPageSpPurchasing() {
-  const [MultiSelect, setMultiSelect] = useState(1);
+  const [MultiSelect, setMultiSelect] = useState("");
   const [loading, setloading] = useState(false);
   const [dataApi, setdataApi] = useState("");
   const [dataRequest, setDataRequest] = useState("");
@@ -151,7 +151,7 @@ function ListPageSpPurchasing() {
                 onChange={(e) => setMultiSelect(e)}
                 value={MultiSelect}
               >
-                <option value={"-"}>All</option>
+                <option value={""}>All</option>
                 <option value={1}>Multi Drop</option>
                 <option value={0}>Tidak MultiDrop</option>
                 {/* <option disabled value={2}>Semua</option> */}
