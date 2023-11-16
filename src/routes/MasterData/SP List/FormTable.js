@@ -2075,18 +2075,18 @@ function FormTable({
               {Kendaraan_operasionalStatus === "Y" && TanggalACT4 != null ? (
                 <Alert type="success" message="Approve Operasional" banner />
               ) : StatusApproveOpt === "N" && TanggalACT4 === "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z" ? (
-                <Alert type="info" message="Waiting Operasional" banner />
-              ) : StatusApproveOpt === "N" && TanggalACT4 !== "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z" ? (
                 <Alert type="error" message="Reject Operasional" banner />
+              ) : StatusApproveOpt === "N" && TanggalACT4 !== "1970-01-01T00:00:00.000Z" || "2023-10-09T12:50:49.000Z" ? (
+                <Alert type="info" message="Waiting Operasional" banner />
               ) : null}
 
               {StatusPurchasing === "Y" && TanggalACT5 != null ? (
                 <Alert type="success" message="Approve Purchasing" banner />
-              ) : StatusPurchasing === "N" && TanggalACT5 !== null ? (
+              ) : StatusPurchasing === "N" && TanggalACT5 !== "1970-01-01T00:00:00.000Z" ? (
                 <Alert type="error" message="Reject Purchasing" banner />
               ) : StatusPurchasing == "N" ? (
                 <Alert type="info" message="Waiting Purchasing" banner />
-              ) : null}
+                ) : null}
 
 
               {jobdesk === "operasional" && (
