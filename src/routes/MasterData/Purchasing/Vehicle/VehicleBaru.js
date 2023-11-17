@@ -96,8 +96,8 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
         //     .max(8, "No STNK Tidak Boleh Lebih dari 8 Karakter"),
         // tgl_kir: Yup.date().required('Tanggal KIR wajib diisi'),
         // tgl_beli: Yup.date().required('Tanggal Pembelian wajib diisi'),
-        kapasitas: Yup.number().required('Kapasitas wajib diisi').integer('Kapasitas harus berupa angka'),
-        kapasitas_maks: Yup.number().required('Kapasitas Maks wajib diisi').integer('Kapasitas Maks harus berupa angka'),
+        // kapasitas: Yup.number().required('Kapasitas wajib diisi').integer('Kapasitas harus berupa angka'),
+        // kapasitas_maks: Yup.number().required('Kapasitas Maks wajib diisi').integer('Kapasitas Maks harus berupa angka'),
         // kubikasi: Yup.number().required('Kubikasi wajib diisi').integer('Kubikasi harus berupa angka'),
         // location: Yup.string().required('Lokasi wajib diisi'),
         id_driver: Yup.string().required('Nama Driver wajib diisi'),
@@ -1202,7 +1202,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
 
                                     <AntForm.Item
                                         label="Kapasitas (KG)"
-                                        required
+                                        // required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
                                         help={formik.touched.kapasitas && formik.errors.kapasitas}
@@ -1220,7 +1220,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                     </AntForm.Item>
                                     <AntForm.Item
                                         label="Kapasitas Max (KG)"
-                                        required
+                                        // required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
                                         help={formik.touched.kapasitas_maks && formik.errors.kapasitas_maks}
