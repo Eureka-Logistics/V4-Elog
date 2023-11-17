@@ -408,9 +408,9 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
       formData.append("notelp", "62" + formik.values.notelp1);
       formData.append("notelp2", formik.values.notelp2);
       formData.append("email", formik.values.email);
-      formData.append("tgl_masuk", formik.values.tglmasuk);
+      formData.append("tgl_masuk", !formik.values.tglmasuk ? 0 :formik.values.tglmasuk  );
       formData.append("tgl_sim", formik.values.tglsim);
-      formData.append("uk_seragam", formik.values.ukseragam);
+      formData.append("uk_seragam", !formik.values.ukseragam ? 0 : formik.values.ukseragam);
       formData.append("jenis_kepemilikan", formik.values.jeniskepemilikan);
       formData.append("rekening_bank", formik.values.rekeningbank);
       formData.append("rekening_norek", formik.values.norekening);
