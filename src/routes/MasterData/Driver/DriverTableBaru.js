@@ -414,7 +414,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
       formData.append("jenis_kepemilikan", formik.values.jeniskepemilikan);
       formData.append("rekening_bank", formik.values.rekeningbank);
       formData.append("rekening_norek", formik.values.norekening);
-      formData.append("id_mitra", formik.values.mitraId);
+      formData.append("id_mitra", !formik.values.mitraId ? 0 : formik.values.mitraId);
 
       const response = await axios.post(
         `${Baseurl}driver/create-driver`,
@@ -577,7 +577,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
       // tglsim: Yup.date().nullable().required('Tanggal SIM harus diisi'),
       vehicletype: Yup.string().required("Vehicle Type harus diisi"),
       jeniskepemilikan: Yup.string().required("Jenis Kepemilikan harus diisi"),
-      mitra: Yup.string().required("Perusahaan harus diisi"),
+      // mitra: Yup.string().required("Perusahaan harus diisi"),
       // ukseragam: Yup.string().required('Ukuran Seragam harus diisi'),
       // rekeningbank: Yup.string().required('Rekening Bank harus diisi'),
       // norekening: Yup.string().required('Nomor Rekening harus diisi'),
