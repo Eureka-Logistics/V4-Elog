@@ -571,7 +571,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
       // alamat: Yup.string().required('Alamat harus diisi'),
       // tgllahir: Yup.date().required('Tanggal Lahir harus diisi'),
       // agama: Yup.string().required('Agama harus diisi'),
-      notelp1: Yup.number().required("No Telp 1 harus diisi"),
+      // notelp1: Yup.number().required("No Telp 1 harus diisi"),
       // cover: Yup.string().required('gambar harus diisi'),
       // tglmasuk: Yup.date().nullable().required('Tanggal Masuk harus diisi'),
       // tglsim: Yup.date().nullable().required('Tanggal SIM harus diisi'),
@@ -1262,11 +1262,11 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                             ? formik.errors.notelp1
                             : null
                         }
-                        validateStatus={
-                          formik.touched.notelp1 && formik.errors.notelp1
-                            ? "error"
-                            : undefined
-                        }
+                        // validateStatus={
+                        //   formik.touched.notelp1 && formik.errors.notelp1
+                        //     ? "error"
+                        //     : undefined
+                        // }
                       >
                         <Input.Group>
                           <Input addonBefore="+62"
