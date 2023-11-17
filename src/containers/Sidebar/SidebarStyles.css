@@ -47,16 +47,16 @@
   height: 100% !important;
 }
 
-.tag-hover:hover {
-  color: black !important;
-}
+
 
 .menu-item-hover:hover span {
   color: white !important;
   height: 100% !important;
+  text-decoration-color: white !important;
 }
 .menu-item-active span {
   color: white ;
+  text-decoration-color: white !important;
   height: 100% !important;
 }
 

@@ -6,7 +6,7 @@ import { Button, Modal, notification, Input, Form as AntForm, DatePicker, Card, 
 import moment from 'moment';
 import { UploadOutlined } from '@ant-design/icons';
 import * as Yup from 'yup';
-import { useFormik } from 'formik'
+import { FormikConsumer, useFormik } from 'formik'
 import Swal from 'sweetalert2';
 import { Col, Row } from 'react-bootstrap';
 import useMitraStore from '../../../../zustand/Store/MitraStore';
@@ -77,7 +77,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
             .required('Jenis Kendaraan wajib diisi'),
         vendor: Yup.string()
             .required('Vendor Kendaraan wajib diisi'),
-        // nama_driver: Yup.string().required('Nama Driver wajib diisi') 
+        // nama_driver: Yup.string().required('Nama Driver wajib diisi') ,
         // .matches('A-Z', "Nama tidak boleh menggunakan symbol dan angka"),
         // jenis_SIM: Yup.string().required('Jenis SIM wajib diisi'),
         // warna_plat: Yup.string().required('Warna Plat wajib diisi'),
@@ -100,7 +100,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
         kapasitas_maks: Yup.number().required('Kapasitas Maks wajib diisi').integer('Kapasitas Maks harus berupa angka'),
         // kubikasi: Yup.number().required('Kubikasi wajib diisi').integer('Kubikasi harus berupa angka'),
         // location: Yup.string().required('Lokasi wajib diisi'),
-        // id_driver: Yup.string().required('ID Driver wajib diisi'),
+        id_driver: Yup.string().required('Nama Driver wajib diisi'),
         // id_kendaraan_jenis: Yup.string().required('ID Jenis Kendaraan wajib diisi')
     });
 
@@ -112,7 +112,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
 
     const formik = useFormik({
         initialValues: {
-            tgl_stnk: "",
+            tgl_stnk: 0,
             kode_kendaraan: '',
             no_polisi: '',
             jenis_kepemilikan: '',
@@ -130,8 +130,8 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
             tinggi: '',
             no_bpkb: '',
             stnk: '',
-            tgl_kir: '',
-            tgl_beli: '',
+            tgl_kir: 0,
+            tgl_beli: 0,
             kapasitas: '',
             kapasitas_maks: '',
             // kubikasi: "",
@@ -663,7 +663,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                     </Card>
                                     <AntForm.Item
                                         label="Upload Foto Kendaraan"
-                                        required
+                                        // required
                                         name="kendaraan"
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
@@ -693,7 +693,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                     </AntForm.Item>
                                     <AntForm.Item
                                         label="Tgl EXP STNK"
-                                        required
+                                        // required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
                                         help={formik.touched.tgl_stnk && formik.errors.tgl_stnk}
@@ -705,7 +705,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                             id="tgl_stnk"
                                             name="tgl_stnk"
                                             onChange={(date) => {
-                                                formik.setFieldValue("tgl_stnk", date ? date.format("YYYY-MM-DD") : "");
+                                                formik.setFieldValue("tgl_stnk", date ? date.format("YYYY-MM-DD") : 0);
                                             }}
 
                                             value={formik.values.tgl_stnk ? moment(formik.values.tgl_stnk) : null}
@@ -716,7 +716,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
 
                                     <AntForm.Item
                                         label="Tgl Exp Plat Nomor"
-                                        required
+                                        // required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
                                         // help={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan}
@@ -728,7 +728,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                             id="tgl_plat_nomor"
                                             name="tgl_plat_nomor"
                                             onChange={(date) => {
-                                                formik.setFieldValue("tgl_plat_nomor", date ? date.format("YYYY-MM-DD") : "");
+                                                formik.setFieldValue("tgl_plat_nomor", date ? date.format("YYYY-MM-DD") : 0);
                                             }}
                                             value={formik.values.tgl_plat_nomor ? moment(formik.values.tgl_plat_nomor) : null}
                                             onBlur={formik.handleBlur}
@@ -736,7 +736,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                     </AntForm.Item>
                                     <AntForm.Item
                                         label="Tgl Exp Kir"
-                                        required
+                                        // required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
                                         help={formik.touched.tgl_kir && formik.errors.tgl_kir}
@@ -748,7 +748,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                             id="tgl_kir"
                                             name="tgl_kir"
                                             onChange={(date) => {
-                                                formik.setFieldValue("tgl_kir", date ? date.format("YYYY-MM-DD") : "");
+                                                formik.setFieldValue("tgl_kir", date ? date.format("YYYY-MM-DD") : 0);
                                             }}
                                             value={formik.values.tgl_kir ? moment(formik.values.tgl_kir) : null}
                                             onBlur={formik.handleBlur}
@@ -757,7 +757,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
 
                                     <AntForm.Item
                                         label="Tgl Beli"
-                                        required
+                                        // required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
                                         // help={formik.touched.jenis_kendaraan && formik.errors.jenis_kendaraan}
@@ -932,8 +932,8 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                         required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
-                                        help={formik.touched.nama_driver && formik.errors.nama_driver}
-                                        validateStatus={formik.touched.nama_driver && formik.errors.nama_driver ? 'error' : 'success'}
+                                        help={formik.touched.id_driver && formik.errors.id_driver}
+                                        validateStatus={formik.touched.id_driver && formik.errors.id_driver ? 'error' : 'success'}
                                         style={{ marginBottom: 2 }}
 
                                     >
@@ -995,7 +995,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
 
                                     <AntForm.Item
                                         label="Warna Plat"
-                                        required
+                                        // required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
                                         help={formik.touched.warna_plat && formik.errors.warna_plat}
@@ -1006,12 +1006,12 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                             id="warna_plat"
                                             name="warna_plat"
                                             type="text"
-                                            onChange={(value) => formik.setFieldValue('warna_plat', value)}
+                                            onChange={(value) => formik.setFieldValue('warna_plat', value  )}
                                             value={formik.values.warna_plat}
                                             onBlur={formik.handleBlur}
                                         >
                                             {WarnaPlat && WarnaPlat.map((item) => (
-                                                <Select.Option key={item.warna} value={item.warna}>
+                                                <Select.Option key={item.warna} value={item.warna }>
                                                     {item.warna}
                                                 </Select.Option>
                                             ))}
@@ -1019,7 +1019,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                     </AntForm.Item>
                                     <AntForm.Item
                                         label="Merk Mobil"
-                                        required
+                                        // required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
                                         help={formik.touched.merk_mobil && formik.errors.merk_mobil}
@@ -1044,7 +1044,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                 <Col sm={4}>
                                     <AntForm.Item
                                         label="Tahun Mobil"
-                                        required
+                                        // required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
                                         help={formik.touched.tahun_mobil && formik.errors.tahun_mobil}
@@ -1082,7 +1082,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                         <Col sm={4}>
                                             <AntForm.Item
                                                 label="Panjang (m)"
-                                                required
+                                                // required
                                                 labelCol={{ span: 24 }}
                                                 wrapperCol={{ span: 24 }}
                                                 help={formik.touched.panjang && formik.errors.panjang}
@@ -1102,7 +1102,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                         <Col sm={4}>
                                             <AntForm.Item
                                                 label="Lebar (m)"
-                                                required
+                                                // required
                                                 labelCol={{ span: 24 }}
                                                 wrapperCol={{ span: 24 }}
                                                 help={formik.touched.lebar && formik.errors.lebar}
@@ -1122,7 +1122,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                         <Col sm={4}>
                                             <AntForm.Item
                                                 label="Tinggi (m)"
-                                                required
+                                                // required
                                                 labelCol={{ span: 24 }}
                                                 wrapperCol={{ span: 24 }}
                                                 help={formik.touched.tinggi && formik.errors.tinggi}
@@ -1146,7 +1146,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                                 Kubikasi (Penjumlahan Dari <strong>P x L x T</strong>)
                                             </span>
                                         }
-                                        required
+                                        // required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
                                         help={formik.touched.tinggi && formik.errors.tinggi}
@@ -1165,7 +1165,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                     </AntForm.Item>
                                     <AntForm.Item
                                         label="No BPKB"
-                                        required
+                                        // required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
                                         help={formik.touched.no_bpkb && formik.errors.no_bpkb}
@@ -1183,7 +1183,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
                                     </AntForm.Item>
                                     <AntForm.Item
                                         label="STNK"
-                                        required
+                                        // required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
                                         help={formik.touched.stnk && formik.errors.stnk}
@@ -1239,7 +1239,7 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
 
                                     <AntForm.Item
                                         label="Cabang"
-                                        required
+                                        // required
                                         labelCol={{ span: 24 }}
                                         wrapperCol={{ span: 24 }}
                                         help={formik.touched.tinggi && formik.errors.tinggi}

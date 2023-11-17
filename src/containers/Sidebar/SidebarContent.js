@@ -317,13 +317,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                  // style={{
-                  //   backgroundColor: "#0c2197",
-                  //   height: "20%",
-                  //   marginRight: "20px",
-                  //   marginLeft: "20px",
-                  //   borderRadius: "10px",
-                  // }}
+                    // style={{
+                    //   backgroundColor: "#0c2197",
+                    //   height: "20%",
+                    //   marginRight: "20px",
+                    //   marginLeft: "20px",
+                    //   borderRadius: "10px",
+                    // }}
                   >
                     <h6
                       style={{
@@ -404,13 +404,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                  // style={{
-                  //   backgroundColor: "#0c2197",
-                  //   height: "20%",
-                  //   marginRight: "20px",
-                  //   marginLeft: "20px",
-                  //   borderRadius: "10px",
-                  // }}
+                    // style={{
+                    //   backgroundColor: "#0c2197",
+                    //   height: "20%",
+                    //   marginRight: "20px",
+                    //   marginLeft: "20px",
+                    //   borderRadius: "10px",
+                    // }}
                   >
                     <h6
                       style={{
@@ -652,13 +652,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                  // style={{
-                  //   backgroundColor: "#0c2197",
-                  //   height: "20%",
-                  //   marginRight: "20px",
-                  //   marginLeft: "20px",
-                  //   borderRadius: "10px",
-                  // }}
+                    // style={{
+                    //   backgroundColor: "#0c2197",
+                    //   height: "20%",
+                    //   marginRight: "20px",
+                    //   marginLeft: "20px",
+                    //   borderRadius: "10px",
+                    // }}
                   >
                     <h6
                       style={{
@@ -1450,7 +1450,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     key="Penerimaan INV"
                     className={
                       activeMenu ===
-                        "/akunting/ar/reportpartners/reportpenerimaaninvoice"
+                      "/akunting/ar/reportpartners/reportpenerimaaninvoice"
                         ? "menu-item-active menu-item-hover"
                         : "menu-item-hover"
                     }
@@ -1995,9 +1995,16 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                           }}
                         >
                           <IntlMessages id="Request SP" />
-                          <Tag   className="tag-hover" style={{ marginLeft: "10px", backgroundColor: "#008000" , color: 'white'}}>
-          {DataRequest}
-        </Tag>
+                          <Tag
+                            // className="tag-hover"
+                            style={{
+                              marginLeft: "10px",
+                              backgroundColor: "#008000",
+                              color: "white",
+                            }}
+                          >
+                            {DataRequest}
+                          </Tag>
                         </span>
                       </div>
                     </Link>

@@ -629,7 +629,7 @@ function FormTable({
 
   const mitraOptions = mitraFix.map((item) => ({
     value: item.id,
-    label: item.mitra,
+    label: item.mitra + " " + "(" + item.type  + ")",
     mitraId: item.mitraId,
   }));
   const kodeKendaraanOptions = Array.isArray(NomorFix)
