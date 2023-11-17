@@ -151,45 +151,41 @@ function Erlangga() {
         },
        
         {
-            title: 'Kecamatan',
-            dataIndex: 'kecamatan',
-            key: 'kecamatan',
-        },
-        {
             title: 'Kota',
             dataIndex: 'kota',
             key: 'kota',
+        },
+        {
+            title: 'Kecamatan',
+            dataIndex: 'kecamatan',
+            key: 'kecamatan',
         },
         {
             title: 'Penerima',
             dataIndex: 'penerima',
             key: 'penerima',
         },
-        {
-            title: 'Item',
-            dataIndex: 'item',
-            key: 'item',
-        },
-        {
-            title: 'Tanggal SJ',
-            dataIndex: 'tgl_sj',
-            key: 'tgl_sj',
-        },
-        {
-            title: 'Item',
-            dataIndex: 'item',
-            key: 'item',
-        },
-        {
-            title: 'Jam Pickup',
-            dataIndex: 'jam_pickup',
-            key: 'jam_pickup',
-        },
-        {
-            title: 'Berat',
-            dataIndex: 'berat',
-            key: 'berat',
-        },
+        // {
+        //     title: 'Item',
+        //     dataIndex: 'item',
+        //     key: 'item',
+        // },
+        // {
+        //     title: 'Tanggal SJ',
+        //     dataIndex: 'tgl_sj',
+        //     key: 'tgl_sj',
+        // },
+        // {
+        //     title: 'Item',
+        //     dataIndex: 'item',
+        //     key: 'item',
+        // },
+        // {
+        //     title: 'Jam Pickup',
+        //     dataIndex: 'jam_pickup',
+        //     key: 'jam_pickup',
+        // },
+       
         {
             title: 'Ikat',
             dataIndex: 'ikat',
@@ -206,14 +202,19 @@ function Erlangga() {
             key: 'qty',
         },
         {
-            title: 'Tgl Sinkron',
-            dataIndex: 'tgl_sinkron',
-            key: 'tgl_sinkron',
-            render: (text, record) => {
-                const date = moment(record.tgl_sinkron).format('DD-MM-YYYY')
-                return date;
-            }
+            title: 'Berat',
+            dataIndex: 'berat',
+            key: 'berat',
         },
+        // {
+        //     title: 'Tgl Sinkron',
+        //     dataIndex: 'tgl_sinkron',
+        //     key: 'tgl_sinkron',
+        //     render: (text, record) => {
+        //         const date = moment(record.tgl_sinkron).format('DD-MM-YYYY')
+        //         return date;
+        //     }
+        // },
     ]
     const [optincabang, setoptincabang] = useState("")
     const pilihcabangselect = async () => {
