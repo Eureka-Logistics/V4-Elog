@@ -25,7 +25,24 @@ import { getCoordinates } from "../../../../Api/Geocode";
 import MapsGoogle from "../../../../components/MapsGoole";
 import useCoordinateRaceMap from "../../../../zustand/Store/coordinateMapRace/RaceMaps";
 import DetailSPListRace from "../splist/Detailsplist";
+import { getDatabase,ref, set } from "firebase/database";
+import { onValue } from "firebase/database";
+
 function SMList({ }) {
+  const db = getDatabase();
+  const starCountRef = ref(db, 'location/');
+  console.log(`starCountRef`,starCountRef);
+  // onValue(starCountRef, (snapshot) => {
+  //   const data = snapshot.val();
+  //   updateStarCount(postElement, data);
+  // }
+  // );
+  onValue(starCountRef, (snapshot) => {
+    const data = snapshot.val();
+    console.log(data);
+    // Update UI atau lakukan sesuatu dengan data
+  });
+
   const [Open, setOpen] = useState(false);
   const [CariSJ, SetCariSJ] = useState("");
   const [NamaSupir, setNamaSupir] = useState("");
@@ -35,7 +52,7 @@ function SMList({ }) {
     setOpen(true);
   };
   const { Coordinate, setCoordinate, JarakDanWaktu, AmbilCoordinates } = useCoordinateRaceMap();
-  console.log(`CoordinateRaceMap`, Coordinate);
+  // console.log(`CoordinateRaceMap`, Coordinate);
   const [AlamatMuatBongkarCoordinate, setAlamatMuatBongkarCoordinate] =
     useState({
       AlamatMuat: "",
@@ -116,7 +133,7 @@ Salam hangat,
   const onClose = () => {
     setOpen(false);
   };
-  console.log(`DataApi`, DataApi);
+  // console.log(`DataApi`, DataApi);
 
   function Paginations(s, u) {
     DataApiSM(s);
@@ -158,7 +175,7 @@ Salam hangat,
   }, [DetailDataPerClick]);
 
   // console.log(`AmbilCoordinates`, AmbilCoordinates);
-  console.log(`DetailDataPerClick`, DetailDataPerClick);
+  // console.log(`DetailDataPerClick`, DetailDataPerClick);
   const tableData = [DetailDataPerClick];
 
   const columns = [

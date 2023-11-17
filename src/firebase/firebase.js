@@ -5,14 +5,14 @@ import { getAuth } from "firebase/auth";
 import { GoogleAuthProvider ,FacebookAuthProvider ,GithubAuthProvider ,TwitterAuthProvider} from "firebase/auth";
 // Initialize Firebase
 const config = {
-  apiKey: "AIzaSyBadE6ILm5J35O2yWcuC7stPaUGdyJJOAw",
-  authDomain: "race-acb4d.firebaseapp.com",
-  databaseURL: "https://race-acb4d-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "race-acb4d",
-  storageBucket: "race-acb4d.appspot.com",
-  messagingSenderId: "260622640484",
-  appId: "1:260622640484:web:d90f8c65763ab8c9dac671",
-  measurementId: "G-ZNN60QPY4C"
+  apiKey: "AIzaSyArHdfvsqxQ0Yrtct4eKQD-b4Dk9qciowo",
+  authDomain: "eurekadev-d5422.firebaseapp.com",
+  // databaseURL: "https://race-acb4d-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "eurekadev-d5422",
+  storageBucket: "eurekadev-d5422.appspot.com",
+  messagingSenderId: "857876827694",
+  appId: "1:857876827694:web:dce7be3159451766e559bf",
+  measurementId: "G-0KN5PTMMNF"
 };
 // const config = {
 //   apiKey: "AIzaSyAz-GPfA-hN74oFh3XvXsF9vQrlE5xpU10",

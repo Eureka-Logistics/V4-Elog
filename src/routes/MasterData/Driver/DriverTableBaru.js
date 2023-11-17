@@ -329,6 +329,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
           no_ktp: formik.values.noktp,
           no_sim: formik.values.nosim,
           vehicle_type: formik.values.vehicletype,
+          jenis_kendaraan: formik.values.vehicletype,
           jenis_sim: formik.values.jenissim,
           alamat: formik.values.alamat,
           tgl_lahir: formik.values.tgllahir,

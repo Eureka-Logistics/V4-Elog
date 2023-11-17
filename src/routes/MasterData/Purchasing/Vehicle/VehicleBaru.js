@@ -125,9 +125,9 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
             tahun_mobil: '',
             kendaraan: '',
             warna_plat: '',
-            panjang: '',
-            lebar: '',
-            tinggi: '',
+            panjang: '1',
+            lebar: '1',
+            tinggi: '1',
             no_bpkb: '',
             stnk: '',
             tgl_kir: 0,
@@ -155,9 +155,9 @@ function VehicleBaru({ ShowVehicleModal, setShowVehicleModal, ValidasiTombol }) 
         },
     });
     const perhitunganVolume = () => {
-        const panjang = Number(formik.values.panjang) || 1;
-        const lebar = Number(formik.values.lebar) || 1;
-        const tinggi = Number(formik.values.tinggi) || 1;
+        const panjang = Number(!formik.values.panjang ? 1 :  formik.values.panjang) || 1;
+        const lebar = Number(!formik.values.lebar ? 1 : formik.values.lebar) || 1;
+        const tinggi = Number(!formik.values.tinggi ? 1 : formik.values.tinggi) || 1;
 
         const volume = panjang * lebar * tinggi;
         console.log(volume);

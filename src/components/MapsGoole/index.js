@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, Marker, useJsApiLoader, DirectionsRenderer } from '@react-google-maps/api';
 import ApiGoogleMap from '../../Api/ApigoogleMap';
 import useCoordinateRaceMap from '../../zustand/Store/coordinateMapRace/RaceMaps';
-
+import { getDatabase } from 'firebase/database';
 function MapsGoogle({ width, height, AlamatMuatBongkarCoordinate }) {
     const [map, setMap] = React.useState(null);
+    const database = getDatabase();
+    console.log(`database`,database);
     const { Coordinate, setJarakDanWaktu, JarakDanWaktu } = useCoordinateRaceMap();
     const [DirectionJalanan, setDirectionJalanan] = useState(null);
     const containerStyle = {
@@ -35,13 +37,13 @@ function MapsGoogle({ width, height, AlamatMuatBongkarCoordinate }) {
 
     async function CalculateRoute() {
         if (typeof window.google === 'undefined') {
-            console.error('Google Maps API belum terdefinisi. Pastikan Anda telah memasukkan API key yang valid dan memuat script Google Maps API.');
+            // console.error('Google Maps API belum terdefinisi. Pastikan Anda telah memasukkan API key yang valid dan memuat script Google Maps API.');
             return;
         }
 
         const google = window.google;
         const directionService = new google.maps.DirectionsService();
-        console.log(`ini ada`);
+        // console.log(`ini ada`);
         try {
             const hasil = await directionService.route({
                 origin: {
@@ -69,8 +71,8 @@ function MapsGoogle({ width, height, AlamatMuatBongkarCoordinate }) {
         CalculateRoute();
     }, [Coordinate]);
 
-    console.log(`DirectionJalanan`, DirectionJalanan);
-    console.log(`JarakDanWaktu`, JarakDanWaktu);
+    // console.log(`DirectionJalanan`, DirectionJalanan);
+    // console.log(`JarakDanWaktu`, JarakDanWaktu);
 
     return isLoaded ? (
         <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={14} onLoad={onLoad} onUnmount={onUnmount}>

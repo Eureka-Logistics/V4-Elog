@@ -170,7 +170,7 @@ function MappingDriverCard({ OptionNamaNamaDriver ,PengadaanDetail,SelectDriver2
                                                                        <Button size='small' type='danger'
                                                                         // onClick={() =>
                                                                         //     DeleteSm(item?.idMsm, item?.idMpd)}
-                                                                    >Hapus</Button>
+                                                                    >Batal</Button>
                                                                     </Popconfirm>
                                                                     
                                                                 </Col>
