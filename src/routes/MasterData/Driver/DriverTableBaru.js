@@ -10,7 +10,7 @@ import {
   Select,
   Tag,
   Switch,
-  notification
+  notification,
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import moment from "moment";
@@ -68,21 +68,16 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
     },
     {
       name: "NIK Driver",
-      selector: (row) =>
-        <Tag color="blue">
-          {row.nik}
-
-        </Tag>,
+      selector: (row) => <Tag color="blue">{row.nik}</Tag>,
       width: "100px",
     },
     {
       name: "Code Driver",
-      selector: (row) => <>
-        <Tag color="red">
-          {row.driverCode}
-
-        </Tag>
-      </>,
+      selector: (row) => (
+        <>
+          <Tag color="red">{row.driverCode}</Tag>
+        </>
+      ),
       width: "150px",
     },
     {
@@ -92,7 +87,12 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
     {
       name: "Image",
       selector: (row) => (
-        <img style={{ objectFit: "cover" }} src={row.driverImage} height="108px" width="158px"></img>
+        <img
+          style={{ objectFit: "cover" }}
+          src={row.driverImage}
+          height="108px"
+          width="158px"
+        ></img>
       ),
     },
     {
@@ -110,16 +110,16 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
         <>
           {(row.jenisKepemilikan === "eureka" ||
             row.jenisKepemilikan === "race") && (
-              <Tag color="blue">{row.jenisKepemilikan}</Tag>
-            )}
+            <Tag color="blue">{row.jenisKepemilikan}</Tag>
+          )}
           {(row.jenisKepemilikan === "eur_sewa" ||
             row.jenisKepemilikan === "rcn_sewa") && (
-              <Tag color="green">{row.jenisKepemilikan}</Tag>
-            )}
+            <Tag color="green">{row.jenisKepemilikan}</Tag>
+          )}
           {(row.jenisKepemilikan === "eur_oncall" ||
             row.jenisKepemilikan === "rcn_oncall") && (
-              <Tag color="yellow">{row.jenisKepemilikan}</Tag>
-            )}
+            <Tag color="yellow">{row.jenisKepemilikan}</Tag>
+          )}
         </>
       ),
     },
@@ -146,18 +146,22 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
     //   ),
     // },
     {
-      name: 'Aksi',
-      selector: row => row.status === 1 ? "Aktif" : "Tidak Aktif",
-      cell: row => (
+      name: "Aksi",
+      selector: (row) => (row.status === 1 ? "Aktif" : "Tidak Aktif"),
+      cell: (row) => (
         <div>
           <Switch
             checked={row.driverStatus === 1 ? true : false}
             checkedChildren="ON"
             unCheckedChildren="OFF"
-            onChange={(checked) => checked ? ModalONDriver(row.driverId) : ModalOFFDriver(row.driverId)}
+            onChange={(checked) =>
+              checked
+                ? ModalONDriver(row.driverId)
+                : ModalOFFDriver(row.driverId)
+            }
           />
         </div>
-      )
+      ),
     },
   ];
 
@@ -180,20 +184,19 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
 
       // Tampilkan notifikasi sukses dari antd
       notification.success({
-        message: 'Sukses',
+        message: "Sukses",
         description: 'Status driver telah diubah menjadi "ON".',
-        placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+        placement: "topRight", // ini akan menempatkan notifikasi di pojok kanan atas
       });
 
       ApiAwal();
     } catch (error) {
       // Handle error
       notification.error({
-        message: error.response.data.status.message
-      })
+        message: error.response.data.status.message,
+      });
     }
   };
-
 
   const ModalOFFDriver = async (driverId) => {
     try {
@@ -220,17 +223,17 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
       );
 
       notification.success({
-        message: 'Sukses',
+        message: "Sukses",
         description: 'Status driver telah diubah menjadi "OFF".',
-        placement: 'topRight'  // ini akan menempatkan notifikasi di pojok kanan atas
+        placement: "topRight", // ini akan menempatkan notifikasi di pojok kanan atas
       });
 
       ApiAwal();
     } catch (error) {
       // Handle error
       notification.error({
-        message: error.response.data.status.message
-      })
+        message: error.response.data.status.message,
+      });
     }
   };
 
@@ -248,7 +251,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
       setDataAwal(data.data.data.order);
       setTotalPages(data.data.data.totalData);
       console.log(data.data.data);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -313,7 +316,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
         mitraId: data.data.data[0]?.mitraId,
         cover: data.data.data[0]?.driverImage,
       });
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const EditDriver = async (driverId) => {
@@ -368,16 +371,23 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
       console.error(error);
       let errorStatus;
       if (error.response && error.response.data && error.response.data.status) {
-        errorStatus = error.response.data.status.message
+        errorStatus = error.response.data.status.message;
       }
 
       let errorMessage;
       if (error.response && error.response.data && error.response.data.errors) {
-        errorMessage = error.response.data.errors.map(err => err.message).join(', ');
-      } else if (error.response && error.response.data && error.response.data.status && error.response.data.status.message) {
+        errorMessage = error.response.data.errors
+          .map((err) => err.message)
+          .join(", ");
+      } else if (
+        error.response &&
+        error.response.data &&
+        error.response.data.status &&
+        error.response.data.status.message
+      ) {
         errorMessage = error.response.data.status.message;
       } else {
-        errorMessage = 'Terjadi kesalahan! Silakan coba lagi.';
+        errorMessage = "Terjadi kesalahan! Silakan coba lagi.";
       }
 
       Swal.fire({
@@ -390,7 +400,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
   };
 
   const BuatDriver = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const formData = new FormData();
       formData.append("cover", formik.values.cover);
@@ -408,13 +418,22 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
       formData.append("notelp", "62" + formik.values.notelp1);
       formData.append("notelp2", formik.values.notelp2);
       formData.append("email", formik.values.email);
-      formData.append("tgl_masuk", !formik.values.tglmasuk ? 0 :formik.values.tglmasuk  );
+      formData.append(
+        "tgl_masuk",
+        !formik.values.tglmasuk ? 0 : formik.values.tglmasuk
+      );
       formData.append("tgl_sim", formik.values.tglsim);
-      formData.append("uk_seragam", !formik.values.ukseragam ? 0 : formik.values.ukseragam);
+      formData.append(
+        "uk_seragam",
+        !formik.values.ukseragam ? 0 : formik.values.ukseragam
+      );
       formData.append("jenis_kepemilikan", formik.values.jeniskepemilikan);
       formData.append("rekening_bank", formik.values.rekeningbank);
       formData.append("rekening_norek", formik.values.norekening);
-      formData.append("id_mitra", !formik.values.mitraId ? 0 : formik.values.mitraId);
+      formData.append(
+        "id_mitra",
+        !formik.values.mitraId ? 0 : formik.values.mitraId
+      );
 
       const response = await axios.post(
         `${Baseurl}driver/create-driver`,
@@ -433,38 +452,43 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
       });
       UploadFoto(formik.values.cover);
       ApiAwal();
-      setLoading(false)
+      setLoading(false);
       setModalOpen(false);
       console.log(response.data);
     } catch (error) {
       console.error(error);
       let errorStatus;
       if (error.response && error.response.data && error.response.data.status) {
-        errorStatus = error.response.data.status.message
+        errorStatus = error.response.data.status.message;
       }
 
       let errorMessage;
       if (error.response && error.response.data && error.response.data.errors) {
-        let errorMessage = '';
+        let errorMessage = "";
         error.response.data.errors.forEach((err, index) => {
           errorMessage += err.message;
           if (index !== error.response.data.errors.length - 1) {
-            errorMessage += ', ';
+            errorMessage += ", ";
           }
         });
         notification.error({
-          message: 'Error',
-          description: errorMessage
+          message: "Error",
+          description: errorMessage,
         });
-      } else if (error.response && error.response.data && error.response.data.status && error.response.data.status.message) {
+      } else if (
+        error.response &&
+        error.response.data &&
+        error.response.data.status &&
+        error.response.data.status.message
+      ) {
         notification.error({
-          message: 'Error',
-          description: error.response.data.status.message
+          message: "Error",
+          description: error.response.data.status.message,
         });
       } else {
         notification.error({
-          message: 'Error',
-          description: 'Terjadi kesalahan! Silakan coba lagi.'
+          message: "Error",
+          description: "Terjadi kesalahan! Silakan coba lagi.",
         });
       }
 
@@ -474,7 +498,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
         text: errorMessage,
       });
     }
-  }
+  };
 
   console.log(`ada ga ValidasiTombol`, ValidasiTombol);
 
@@ -547,18 +571,19 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
       norekening: "",
     },
     validationSchema: Yup.object({
-      nik: (role === 'operasional') ? Yup.string()
-        .required("Nik harus diisi")
-        .max(5, "Tidak Boleh Melebihi 5 Karakter")
-        .matches(
-          /^[A-Z][A-Za-z0-9]*$/,
-          "Nik harus dimulai dengan huruf besar dan hanya boleh berupa angka/huruf, tanpa simbol atau spasi"
-        )
-        .transform((value) =>
-          value ? value.charAt(0).toUpperCase() + value.slice(1) : ""
-        ) : null
-      ,
-
+      nik:
+        role === "operasional"
+          ? Yup.string()
+              .required("Nik harus diisi")
+              .max(5, "Tidak Boleh Melebihi 5 Karakter")
+              .matches(
+                /^[A-Z][A-Za-z0-9]*$/,
+                "Nik harus dimulai dengan huruf besar dan hanya boleh berupa angka/huruf, tanpa simbol atau spasi"
+              )
+              .transform((value) =>
+                value ? value.charAt(0).toUpperCase() + value.slice(1) : ""
+              )
+          : null,
       // noktp: Yup.number().max(16,"Tidak Boleh Melebihi 16 angka").required('No KTP harus diisi').integer('Nik harus berupa angka'),
       namadriver: Yup.string()
         .matches(/^[A-Za-z ]*$/, "Nama Driver tidak boleh mengandung angka")
@@ -621,11 +646,23 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
     }
   };
 
-  const validateStatusValue = (role === "operasional") ?
-    (formik.touched.nik && formik.errors.nik ? "error" : undefined) :
-    formik.touched.nik && formik.errors.nik ? "error" : undefined;
+  const validateStatusValue =
+    role === "operasional"
+      ? formik.touched.nik && formik.errors.nik
+        ? "error"
+        : undefined
+      : formik.touched.nik && formik.errors.nik
+      ? "error"
+      : undefined;
 
-  const helpValue = role === "operasional" ? (formik.touched.nik && formik.errors.nik ? formik.errors.nik : null) : (formik.touched.niknotvalidasi && formik.errors.niknotvalidasi ? formik.errors.niknotvalidasi : null)
+  const helpValue =
+    role === "operasional"
+      ? formik.touched.nik && formik.errors.nik
+        ? formik.errors.nik
+        : null
+      : formik.touched.niknotvalidasi && formik.errors.niknotvalidasi
+      ? formik.errors.niknotvalidasi
+      : null;
   const validasinik = formik.values.nik === "" ? "nik" : "nik";
   return (
     <div>
@@ -637,7 +674,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                 Master Driver
               </h5>
             </Col>
-            <Row gutter={[16,16]}>
+            <Row gutter={[16, 16]}>
               <Col sm={2}>
                 <Input
                   style={{
@@ -715,28 +752,29 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                   Tambah Driver
                 </Button>
               </Col>
-              {localStorage.getItem("jobdesk") === "purchasing" && ValidasiTombol === false && (
-                <Col sm={2}>
-                  <Button
-                    style={{
-                      backgroundColor: "red",
-                      color: "#FFFFFF",
-                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
-                      borderColor: "#1A5CBF",
-                    }}
-                    size="default"
-                    onClick={() => {
-                      // setModalOpen(true);
-                      formik.resetForm();
-                      // setGambarDriver(null);
-                      // setDetailId(null);
-                      setShowVehicleModal(true)
-                    }}
-                  >
-                    Halaman Tambah Vehicles
-                  </Button>
-                </Col>
-              )}
+              {localStorage.getItem("jobdesk") === "purchasing" &&
+                ValidasiTombol === false && (
+                  <Col sm={2}>
+                    <Button
+                      style={{
+                        backgroundColor: "red",
+                        color: "#FFFFFF",
+                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                        borderColor: "#1A5CBF",
+                      }}
+                      size="default"
+                      onClick={() => {
+                        // setModalOpen(true);
+                        formik.resetForm();
+                        // setGambarDriver(null);
+                        // setDetailId(null);
+                        setShowVehicleModal(true);
+                      }}
+                    >
+                      Halaman Tambah Vehicles
+                    </Button>
+                  </Col>
+                )}
 
               <Modal
                 title="Modal Driver"
@@ -745,7 +783,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                 visible={modalOpen}
                 onOk={formik.handleSubmit}
                 onCancel={() => setModalOpen(false)}
-              // confirmLoading={loading}
+                // confirmLoading={loading}
               >
                 <Form layout="vertical" onSubmitCapture={formik.handleSubmit}>
                   <Row>
@@ -753,7 +791,11 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                       <Card style={{ height: "280px" }}>
                         <div style={{ width: "100%", height: "100%" }}>
                           <img
-                            src={GambarDriver instanceof File ? URL.createObjectURL(GambarDriver) : GambarDriver}
+                            src={
+                              GambarDriver instanceof File
+                                ? URL.createObjectURL(GambarDriver)
+                                : GambarDriver
+                            }
                             alt="Gambar Driver"
                             style={{
                               objectFit: "contain",
@@ -761,7 +803,6 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                               height: "100%",
                             }}
                           />
-
                         </div>
                       </Card>
                       <Form.Item
@@ -783,7 +824,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                           name="cover"
                           accept=".png,.jpg,.jpeg"
                           beforeUpload={(file) => {
-                            setGambarDriver(file)
+                            setGambarDriver(file);
                             console.log(file);
                             formik.setFieldValue("cover", file);
                             return false; // Prevent upload immediately
@@ -825,12 +866,12 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                           format="DD-MM-YYYY"
                           name="tglmasuk"
                           onChange={(date, dateString) => {
-                            const apiFormatDate = date.format("YYYY-MM-DD")
-                            formik.setFieldValue("tglmasuk", apiFormatDate)
+                            const apiFormatDate = date.format("YYYY-MM-DD");
+                            formik.setFieldValue("tglmasuk", apiFormatDate);
                           }}
                           onBlur={formik.handleBlur}
                           value={
-                            (formik.values.tglmasuk)
+                            formik.values.tglmasuk
                               ? moment(formik.values.tglmasuk, "YYYY-MM-DD")
                               : null
                           }
@@ -862,7 +903,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                           id="tglsim"
                           onChange={(date, dateString) => {
                             const apiFormatDate = date.format("YYYY-MM-DD");
-                            formik.setFieldValue("tglsim", apiFormatDate)
+                            formik.setFieldValue("tglsim", apiFormatDate);
                           }}
                           onBlur={formik.handleBlur}
                           value={
@@ -909,7 +950,6 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                               ? moment(formik.values.tgllahir, "YYYY-MM-DD")
                               : null
                           }
-
                         />
                       </Form.Item>
                     </Col>
@@ -925,7 +965,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                         // }
                         validateStatus={validateStatusValue}
                       >
-                        {role === "operasional" ?
+                        {role === "operasional" ? (
                           <Input
                             style={{
                               border: "1px solid #1A5CBF",
@@ -935,7 +975,9 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                             name={validasinik} // Sekarang, ini akan menjadi "nik" atau "niknotvalidasi" berdasarkan kondisi
                             onChange={(e) => {
                               const val = e.target.value;
-                              const newVal = val ? val.charAt(0).toUpperCase() + val.slice(1) : "";
+                              const newVal = val
+                                ? val.charAt(0).toUpperCase() + val.slice(1)
+                                : "";
 
                               // Jika formik.values.nik kosong, gunakan "niknotvalidasi", sebaliknya gunakan "nik"
                               formik.setFieldValue(validasinik, newVal);
@@ -943,7 +985,8 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                             onBlur={formik.handleBlur}
                             value={formik.values[validasinik]} // Dinamis berdasarkan validasinik
                           />
-                          : <Input
+                        ) : (
+                          <Input
                             disabled
                             style={{
                               border: "1px solid #1A5CBF",
@@ -953,15 +996,17 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                             name={validasinik} // Sekarang, ini akan menjadi "nik" atau "niknotvalidasi" berdasarkan kondisi
                             onChange={(e) => {
                               const val = e.target.value;
-                              const newVal = val ? val.charAt(0).toUpperCase() + val.slice(1) : "";
+                              const newVal = val
+                                ? val.charAt(0).toUpperCase() + val.slice(1)
+                                : "";
 
                               // Jika formik.values.nik kosong, gunakan "niknotvalidasi", sebaliknya gunakan "nik"
                               formik.setFieldValue(validasinik, newVal);
                             }}
                             onBlur={formik.handleBlur}
                             value={formik.values[validasinik]} // Dinamis berdasarkan validasinik
-                          />}
-
+                          />
+                        )}
                       </Form.Item>
 
                       <Form.Item
@@ -1021,13 +1066,13 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                         label="Jenis Driver"
                         help={
                           formik.touched.jeniskepemilikan &&
-                            formik.errors.jeniskepemilikan
+                          formik.errors.jeniskepemilikan
                             ? formik.errors.jeniskepemilikan
                             : null
                         }
                         validateStatus={
                           formik.touched.jeniskepemilikan &&
-                            formik.errors.jeniskepemilikan
+                          formik.errors.jeniskepemilikan
                             ? "error"
                             : undefined
                         }
@@ -1037,11 +1082,16 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                             border: "1px solid #1A5CBF",
                             borderRadius: "5px",
                           }}
+                          placeholder="Pilih Kendaraan"
                           name="jeniskepemilikan"
                           id="jeniskepemilikan"
-                          // onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.jeniskepemilikan}
+                          value={
+                            formik.values.jeniskepemilikan ||
+                            (jenisKepemilikan.length > 2
+                              ? jenisKepemilikan[2].jenis
+                              : undefined)
+                          }
                           onChange={(value) =>
                             formik.setFieldValue("jeniskepemilikan", value)
                           }
@@ -1052,6 +1102,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                             </Select.Option>
                           ))}
                         </Select>
+
                         {/* <Input
                                             placeholder="input jenis kepemilikan"
                                             name="jeniskepemilikan"
@@ -1064,14 +1115,12 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                         style={{ fontWeight: "bold" }}
                         label="Perusahaan"
                         help={
-                          formik.touched.mitra &&
-                            formik.errors.mitra
+                          formik.touched.mitra && formik.errors.mitra
                             ? formik.errors.mitra
                             : null
                         }
                         validateStatus={
-                          formik.touched.mitra &&
-                            formik.errors.mitra
+                          formik.touched.mitra && formik.errors.mitra
                             ? "error"
                             : undefined
                         }
@@ -1085,12 +1134,22 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                           id="mitra"
                           showSearch
                           optionFilterProp="children"
-                          // onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.mitra}
+                          value={
+                            formik.values.mitra ||
+                            (NamaMitra.length > 0
+                              ? NamaMitra[0].NamaMitra
+                              : undefined)
+                          }
                           onChange={(value, key) => {
+                            const selectedItem = NamaMitra.find(
+                              (item) => item.NamaMitra === value
+                            );
                             formik.setFieldValue("mitra", value);
-                            formik.setFieldValue("mitraId", parseInt(key.key));
+                            formik.setFieldValue(
+                              "mitraId",
+                              selectedItem ? parseInt(selectedItem.mitraId) : 0
+                            );
                           }}
                         >
                           {NamaMitra &&
@@ -1099,10 +1158,11 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                                 key={item.mitraId}
                                 value={item.NamaMitra}
                               >
-                                {item.NamaMitra}
+                                {` (${item.type}) ${item.NamaMitra}`}
                               </Select.Option>
                             ))}
                         </Select>
+
                         {/* <Input
                                             placeholder="input jenis kepemilikan"
                                             name="jeniskepemilikan"
@@ -1200,7 +1260,10 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                           onBlur={formik.handleBlur}
                         >
                           {JenisSimOptions.map((option) => (
-                            <Select.Option key={option.label} value={option.jenis}>
+                            <Select.Option
+                              key={option.label}
+                              value={option.jenis}
+                            >
                               {option.jenis}
                             </Select.Option>
                           ))}
@@ -1269,7 +1332,8 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                         // }
                       >
                         <Input.Group>
-                          <Input addonBefore="+62"
+                          <Input
+                            addonBefore="+62"
                             style={{
                               border: "1px solid #1A5CBF",
                               borderRadius: "5px",
@@ -1297,7 +1361,8 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                             : undefined
                         }
                       >
-                        <Input addonBefore="+62"
+                        <Input
+                          addonBefore="+62"
                           style={{
                             border: "1px solid #1A5CBF",
                             borderRadius: "5px",
@@ -1345,21 +1410,25 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                         style={{ fontWeight: "bold" }}
                         label="Vehicle Type"
                         help={
-                          formik.touched.vehicletype && formik.errors.vehicletype
+                          formik.touched.vehicletype &&
+                          formik.errors.vehicletype
                             ? formik.errors.vehicletype
                             : null
                         }
                         validateStatus={
-                          formik.touched.vehicletype && formik.errors.vehicletype
+                          formik.touched.vehicletype &&
+                          formik.errors.vehicletype
                             ? "error"
                             : undefined
                         }
+
                       >
                         <Select
                           style={{
                             border: "1px solid #1A5CBF",
                             borderRadius: "5px",
                           }}
+                          placeholder="Pilih Kendaraan"
                           showSearch
                           name="vehicletype"
                           id="vehicletype"
@@ -1368,9 +1437,13 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                           onChange={(value) =>
                             formik.setFieldValue("vehicletype", value)
                           }
+                          
                         >
                           {DriverTypeOptions.map((option) => (
-                            <Select.Option key={option.label} value={option.jenis}>
+                            <Select.Option
+                              key={option.label}
+                              value={option.jenis}
+                            >
                               {option.label}
                             </Select.Option>
                           ))}
@@ -1430,12 +1503,14 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                         style={{ fontWeight: "bold" }}
                         label="Nama Bank"
                         help={
-                          formik.touched.rekeningbank && formik.errors.rekeningbank
+                          formik.touched.rekeningbank &&
+                          formik.errors.rekeningbank
                             ? formik.errors.rekeningbank
                             : null
                         }
                         validateStatus={
-                          formik.touched.rekeningbank && formik.errors.rekeningbank
+                          formik.touched.rekeningbank &&
+                          formik.errors.rekeningbank
                             ? "error"
                             : undefined
                         }
@@ -1460,12 +1535,19 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                           optionFilterProp="children"
                           placeholder="input rekening bank"
                           name="rekeningbank"
-                          onChange={(key) => { formik.setFieldValue(`rekeningbank`, key); console.log('ini log', key) }}
+                          onChange={(key) => {
+                            formik.setFieldValue(`rekeningbank`, key);
+                            console.log("ini log", key);
+                          }}
                           onBlur={formik.handleBlur}
-                          value={formik.values.rekeningbank}>
-                          {NamaBankOptionsZustand && NamaBankOptionsZustand.map((i) => (
-                            <option key={i.name} value={i.name}>{i.name}</option>
-                          ))}
+                          value={formik.values.rekeningbank}
+                        >
+                          {NamaBankOptionsZustand &&
+                            NamaBankOptionsZustand.map((i) => (
+                              <option key={i.name} value={i.name}>
+                                {i.name}
+                              </option>
+                            ))}
                         </Select>
                       </Form.Item>
                       <Form.Item
@@ -1533,9 +1615,9 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                 customStyles={{
                   headCells: {
                     style: {
-                      backgroundColor: '#1a5cbf',
-                      color: '#fff',
-                      width:"100%"
+                      backgroundColor: "#1a5cbf",
+                      color: "#fff",
+                      width: "100%",
                     },
                   },
                 }}
@@ -1557,15 +1639,19 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                   total={TotalPages}
                 />
               </div>
-
-
             </Row>
           </Card>
-        </>)}
+        </>
+      )}
       {ShowVehicleModal === true && (
         <>
-          <VehicleBaru ValidasiTombol={ValidasiTombol} ShowVehicleModal={ShowVehicleModal} setShowVehicleModal={setShowVehicleModal} />
-        </>)}
+          <VehicleBaru
+            ValidasiTombol={ValidasiTombol}
+            ShowVehicleModal={ShowVehicleModal}
+            setShowVehicleModal={setShowVehicleModal}
+          />
+        </>
+      )}
     </div>
   );
 }
