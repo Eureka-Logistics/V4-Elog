@@ -1,4 +1,4 @@
-import { Card, Button, Checkbox, Tag } from 'antd'
+import { Card, Button, Checkbox, Tag, Popconfirm, message } from 'antd'
 import React, { useEffect, useState } from 'react'
 import driver from "../../../../../assets/img/drivericon.png"
 import { Col, Row } from 'react-bootstrap'
@@ -7,8 +7,10 @@ import CardMappingStoreRace from '../../../../../zustand/Store/DriverMappingCard
 import { database } from "../../../../../firebase/firebase"
 import { getDatabase, ref, get, set, push, on, off } from "firebase/database";
 import moment from 'moment'
+import axios from 'axios'
+import { BaseUrlRace } from '../../../../../Api/BaseUrl'
 
-function MappingDriverCard({ OptionNamaNamaDriver }) {
+function MappingDriverCard({ OptionNamaNamaDriver ,PengadaanDetail,SelectDriver2}) {
     const [availableDrivers, setAvailableDrivers] = useState([]);
     const [cards, setCards] = useState([{ id: 1 }, { id: 2 }]); // asumsi mula-mula ada dua cards
     const [isHidden, setIsHidden] = useState(false); // state untuk menyembunyikan atau menampilkan cards
@@ -27,10 +29,65 @@ function MappingDriverCard({ OptionNamaNamaDriver }) {
     }
 
 
+    let totalKoli = 0;
+    let totalIkat = 0;
+    let totalQty = 0;
+    let totalBerat = 0;
+
+    // const itemList = OptionNamaNamaDriver && OptionNamaNamaDriver?.map((item, index) => {
+    //     item.dataSm?.map((i) => {
+    //         // Assuming 'Driver' is a numerical value you want to add to 'totalKoli'
+    //         totalKoli += i?.koli || 0;
+    //         totalIkat += i?.ikat || 0;
+    //         totalQty += i?.qty || 0;
+    //         totalBerat += i?.berat || 0;
+    //     });
+
+    //     // If you want to log totals for each item in OptionNamaNamaDriver
+    //     console.log(`Item ${index + 1} - Total Koli:`, totalKoli);
+    //     console.log(`Item ${index + 1} - Total Ikat:`, totalIkat);
+    //     console.log(`Item ${index + 1} - Total Qty:`, totalQty);
+    //     console.log(`Item ${index + 1} - Total Berat:`, totalBerat);
+    // });
+
+    // // If you want to log the overall totals
+    // console.log('Overall Total Koli:', totalKoli);
+    // console.log('Overall Total Ikat:', totalIkat);
+    // console.log('Overall Total Qty:', totalQty);
+    // console.log('Overall Total Berat:', totalBerat);
+
+    // console.log(`itemList`, OptionNamaNamaDriver)
 
 
+    // const [datadelete, setdatadelete] = useState({
+    //     id_msm: 0,
+    //     id_mpd: 0
 
+    // })
 
+    const confirmDelete = (id_mpd, id_msm) => {
+        DeleteSm(id_mpd, id_msm);
+    };
+    async function DeleteSm(id_mpd, id_msm) {
+        let isi = {
+            "id_msm": id_mpd,
+            "id_mpd": id_msm
+        }
+        try {
+            const data = await axios.post(`${BaseUrlRace}sp/delete-sm`, isi,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: localStorage.getItem("token"),
+                    },
+                }
+            )
+            SelectDriver2()
+            PengadaanDetail()
+        } catch (error) {
+
+        }
+    }
 
 
 
@@ -47,8 +104,15 @@ function MappingDriverCard({ OptionNamaNamaDriver }) {
                             <Col>
                                 <div style={{ fontWeight: "bold", fontSize: 15, color: "white", marginLeft: 20 }}>
                                     {data.Driver}
+
                                 </div>
                             </Col>
+                            {/* <Col>
+                                <div style={{ fontSize: 10 ,color: "white"}}>{totalKoli} Koli</div>
+                                <div style={{ fontSize: 10 ,color: "white"}}>{totalIkat} Ikat</div>
+                                <div style={{ fontSize: 10 ,color: "white"}}>{totalQty} Qty</div>
+                                <div style={{ fontSize: 10 ,color: "white"}}>{totalBerat} Berat</div>
+                            </Col> */}
                             <Col sm={3} className='mt-1'>
                                 <div style={{ color: "white", fontSize: 15, fontWeight: "bold", textAlign: 'center' }}>Jumlah SJ</div>
                                 <div style={{ color: "white", fontWeight: "bold", fontSize: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{data.dataSm?.length || 0}</div>
@@ -90,24 +154,52 @@ function MappingDriverCard({ OptionNamaNamaDriver }) {
                                                     >
                                                         <Row style={{ height: 30, backgroundColor: "", marginTop: -10 }}>
                                                             <Col md={2}>
-                                                                <Tag color='
-                                                                red' disabled type="primary">
-                                                                    {index + 1}
-                                                                </Tag>
+                                                                <Col>
+
+                                                                    <Tag color='blue' >
+                                                                        {index + 1}
+                                                                        {/* {item?.koli} */}
+                                                                    </Tag>
+                                                                    <Popconfirm
+                                                                        title="Yakin Hapus SJ??"
+                                                                        onConfirm={() =>  DeleteSm(item?.idMsm, item?.idMpd)}
+                                                                        onCancel={() => message.info('Delete Dibatalkan')}
+                                                                        okText="Ya"
+                                                                        cancelText="Tidak"
+                                                                    >
+                                                                       <Button size='small' type='danger'
+                                                                        // onClick={() =>
+                                                                        //     DeleteSm(item?.idMsm, item?.idMpd)}
+                                                                    >Hapus</Button>
+                                                                    </Popconfirm>
+                                                                    
+                                                                </Col>
+                                                                {/* <Col>
+                                                                    {item?.koli}
+                                                                </Col>
+                                                                <Col>
+                                                                    {item?.qty}
+                                                                </Col>
+                                                                <Col>
+                                                                    {item?.ikat}
+                                                                </Col>
+                                                                <Col>
+                                                                    {item?.berat}
+                                                                </Col> */}
                                                             </Col>
                                                             <Col >
                                                                 <Row>
                                                                     <div style={{ color: "#1F3D7D", fontWeight: "bold" }}> {item.sp}</div>
                                                                     <div style={{ color: "#1F3D7D", fontWeight: "bold" }}>{item.sm}</div>
-                                                                    
+
                                                                 </Row>
 
                                                             </Col>
-                                                            <Col  className='d-flex '>
-                                                            <div style={{ color: "#1F3D7D", fontWeight: "bold" }}> {item.jenisKendaraan} - {item.nopol}</div>
-                                                                <div style={{ fontSize: '10px', fontWeight: 'bold', backgroundColor: "#1F3D7D", display: "flex", alignItems: "center", borderRadius: 4, gap: 8, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
-                                                                    <div style={{ color: "white", fontWeight: "bold" }}>{item.status}</div>
-                                                                </div>
+                                                            <Col className='d-flex '>
+                                                                <div style={{ color: "#1F3D7D", fontWeight: "bold" }}> {item.jenisKendaraan} - {item.nopol}</div>
+                                                                {/* <div style={{ fontSize: '10px', fontWeight: 'bold', backgroundColor: "#1F3D7D", display: "flex", alignItems: "center", borderRadius: 4, gap: 8, paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
+                                                                <div style={{ color: "white", fontWeight: "bold" }}>{item.status}</div>
+                                                            </div> */}
                                                             </Col>
 
                                                         </Row>
@@ -142,9 +234,10 @@ function MappingDriverCard({ OptionNamaNamaDriver }) {
                         </div>
                     )}
                 </Card>
-            ))}
+            ))
+            }
 
-        </div>
+        </div >
     )
 }
 

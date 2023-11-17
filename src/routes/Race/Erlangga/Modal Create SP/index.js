@@ -11,6 +11,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh ,IDCabang}) {
         seleckan_noref: "",
         data_sekolah: "",
         seleckan_sekolah: "",
+        sales:""
     })
     useEffect(() => {
         if (modal1Open) {
@@ -18,7 +19,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh ,IDCabang}) {
         }
     }, [modal1Open])
     const [SelectSekolahforEach, setSelectSekolahforEach] = useState("")
-console.log(`IDCabang`,IDCabang);
+console.log(`Seleckan.sales`,Seleckan.sales);
     const SelectData = async () => {
         try {
             const data = await axios.get(`${BaseUrlRace}sp/get-select-sp?noref=${Seleckan.seleckan_noref}`,
@@ -30,10 +31,10 @@ console.log(`IDCabang`,IDCabang);
                     },
                 },
                 );
-                console.log(data);
+                console.log(data.data);
             setSeleckan(item => ({
                 ...item,
-                seleckan_sekolah: data?.data?.sekolah?.[0]
+                seleckan_sekolah: data?.data?.sekolah?.[0],
             }))
             // SelectDataForeach()
             let updatedSeleckanSekolah;
@@ -46,6 +47,7 @@ console.log(`IDCabang`,IDCabang);
             setSeleckan(item => ({
                 ...item,
                 data_noref: data?.data?.noref,
+                // sales:data?.data?.noref,
                 data_sekolah: updatedSeleckanSekolah || []
             }));
 
@@ -59,7 +61,8 @@ console.log(`IDCabang`,IDCabang);
         const body =
         {
             "memo": Seleckan.seleckan_noref,
-            "cabang" :IDCabang
+            "cabang" :IDCabang,
+            "sales" : Seleckan.sales
         }
         try {
             const data = await axios.post(`${BaseUrlRace}sp/create-sp`, body, {
@@ -81,6 +84,7 @@ console.log(`IDCabang`,IDCabang);
         {
             "memo": Seleckan.seleckan_noref,
             "sekolah": Seleckan.seleckan_sekolah.sekolah,
+            "sales" : Seleckan.sales
         }
         try {
             const data = await axios.post(`${BaseUrlRace}sp/create-sp-detail`, body, {
@@ -189,16 +193,18 @@ console.log(`IDCabang`,IDCabang);
                                     showSearch
                                     optionFilterProp='children'
                                     value={Seleckan?.seleckan_noref}
-                                    onChange={(e) => {
+                                    onChange={(e,children) => {
+                                        console.log(`ini dari select`,children);
                                         setSeleckan(item => ({
                                             ...item,
-                                            seleckan_noref: e
+                                            seleckan_noref: e,
+                                            sales:children?.sales
                                         }))
 
                                     }}
                                 >
                                     {Seleckan && Seleckan.data_noref.map((i, id) => (
-                                        <option key={id} value={i?.referensi}>{i?.referensi}</option>
+                                        <option key={id} children={i?.sales} sales={i?.sales} value={i?.referensi}>{i?.referensi}</option>
                                     ))}
                                 </Select>
                             </Form.Item>

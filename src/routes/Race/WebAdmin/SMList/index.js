@@ -14,7 +14,7 @@ import {
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import Baseurl from "../../../../Api/BaseUrl";
+import Baseurl, { BaseUrlRace } from "../../../../Api/BaseUrl";
 import MapContainer from "../../../MasterData/Monitoring/Test";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import icondriver from "../../../../assets/img/drivericon.png";
@@ -54,7 +54,8 @@ function SMList({ }) {
     setLoadingBang(true);
     try {
       const dataa = await axios.get(
-        `https://api.eurekalogistics.co.id/sm/get-sm?limit=${DataApi.limit}&page=${s}&keyword=${CariSJ}&kodeCabang=&mitra1=&mitra2=&mitra3=&id_bu=&id_bu_brench=`,
+        // `https://api.eurekalogistics.co.id/sm/get-sm?limit=${DataApi.limit}&page=${s}&keyword=${CariSJ}&kodeCabang=&mitra1=&mitra2=&mitra3=&id_bu=&id_bu_brench=`,
+        `${BaseUrlRace}sp/get-sm-all?limit=${DataApi.limit}&page=${s}&keyword=${CariSJ}&kodeCabang=&mitra1=&mitra2=&mitra3&id_bu_brench=`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -154,7 +155,7 @@ Salam hangat,
     };
     setIsDataFetched(false);
     fetchData();
-  }, [DetailDataPerClick ]);
+  }, [DetailDataPerClick]);
 
   // console.log(`AmbilCoordinates`, AmbilCoordinates);
   console.log(`DetailDataPerClick`, DetailDataPerClick);
@@ -238,6 +239,40 @@ Salam hangat,
       title: 'Informasi',
       dataIndex: 'value',
       key: 'value',
+    },
+  ];
+
+
+  const sm = [
+    {
+      title: 'no',
+      dataIndex: 'no',
+      key: 'no',
+    },
+    {
+      title: 'sp',
+      dataIndex: 'sp',
+      key: 'sp',
+    },
+    {
+      title: 'sm',
+      dataIndex: 'sm',
+      key: 'sm',
+    },
+    {
+      title: 'service',
+      dataIndex: 'service',
+      key: 'service',
+    },
+    {
+      title: 'destination',
+      dataIndex: 'destination',
+      key: 'destination',
+    },
+    {
+      title: 'tglPickup',
+      dataIndex: 'tglPickup',
+      key: 'tglPickup',
     },
   ];
 
@@ -370,6 +405,17 @@ Salam hangat,
         </Col>
       </Row>
       <Row>
+        <Table dataSource={DataApi.Data} columns={sm} pagination={false} className="mb-5"
+         onRow={(record, rowIndex) => {
+          return {
+            onClick: async() => {
+              setNamaSupir(record.driver1);
+              setDetailDataPerClick(record);
+              showDefaultDrawer(record);
+            } // click row
+            // you can also add other event handlers here if needed
+          };
+        }} />
         {!DataApi.Data && (
           <div
             className="d-flex justify-content-center align-items-center"
@@ -379,7 +425,7 @@ Salam hangat,
           </div>
         )}
 
-        {DataApi.Data &&
+        {/* {DataApi.Data &&
           DataApi.Data.map((i, currentIndex) => {
             const index =
               (DataApi.currentPage - 1) * DataApi.limit + currentIndex;
@@ -528,8 +574,8 @@ Salam hangat,
                 )}
               </>
             );
-          })}
-          
+          })} */}
+
       </Row>
     </div>
   );
