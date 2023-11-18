@@ -427,7 +427,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
         "uk_seragam",
         !formik.values.ukseragam ? 0 : formik.values.ukseragam
       );
-      formData.append("jenis_kepemilikan", formik.values.jeniskepemilikan);
+      formData.append("jenis_kepemilikan", !formik.values.jeniskepemilikan ? jenisKepemilikan[2].jenis : formik.values.jeniskepemilikan );
       formData.append("rekening_bank", formik.values.rekeningbank);
       formData.append("rekening_norek", formik.values.norekening);
       formData.append(
@@ -601,7 +601,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
       // tglmasuk: Yup.date().nullable().required('Tanggal Masuk harus diisi'),
       // tglsim: Yup.date().nullable().required('Tanggal SIM harus diisi'),
       vehicletype: Yup.string().required("Vehicle Type harus diisi"),
-      jeniskepemilikan: Yup.string().required("Jenis Kepemilikan harus diisi"),
+      // jeniskepemilikan: Yup.string().required("Jenis Kepemilikan harus diisi"),
       mitra: Yup.string().required("Perusahaan harus diisi"),
       // ukseragam: Yup.string().required('Ukuran Seragam harus diisi'),
       // rekeningbank: Yup.string().required('Rekening Bank harus diisi'),
@@ -1070,12 +1070,12 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                             ? formik.errors.jeniskepemilikan
                             : null
                         }
-                        validateStatus={
-                          formik.touched.jeniskepemilikan &&
-                          formik.errors.jeniskepemilikan
-                            ? "error"
-                            : undefined
-                        }
+                        // validateStatus={
+                        //   formik.touched.jeniskepemilikan &&
+                        //   formik.errors.jeniskepemilikan
+                        //     ? "error"
+                        //     : undefined
+                        // }
                       >
                         <Select
                           style={{
@@ -1087,10 +1087,8 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                           id="jeniskepemilikan"
                           onBlur={formik.handleBlur}
                           value={
-                            formik.values.jeniskepemilikan ||
-                            (jenisKepemilikan.length > 2
-                              ? jenisKepemilikan[2].jenis
-                              : undefined)
+                            !formik.values.jeniskepemilikan ? jenisKepemilikan[2].jenis : formik.values.jeniskepemilikan
+                           
                           }
                           onChange={(value) =>
                             formik.setFieldValue("jeniskepemilikan", value)
@@ -1119,11 +1117,11 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                             ? formik.errors.mitra
                             : null
                         }
-                        validateStatus={
-                          formik.touched.mitra && formik.errors.mitra
-                            ? "error"
-                            : undefined
-                        }
+                        // validateStatus={
+                        //   formik.touched.mitra && formik.errors.mitra
+                        //     ? "error"
+                        //     : undefined
+                        // }
                       >
                         <Select
                           style={{
@@ -1135,11 +1133,13 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                           showSearch
                           optionFilterProp="children"
                           onBlur={formik.handleBlur}
+                          placeholder={"Pilih Perusahaan"}
                           value={
-                            formik.values.mitra ||
-                            (NamaMitra.length > 0
-                              ? NamaMitra[0].NamaMitra
-                              : undefined)
+                            formik.values.mitra 
+                            // ||
+                            // (NamaMitra.length > 0
+                            //   ? NamaMitra[0].NamaMitra
+                            //   : undefined)
                           }
                           onChange={(value, key) => {
                             const selectedItem = NamaMitra.find(
