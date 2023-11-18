@@ -25,24 +25,32 @@ import { getCoordinates } from "../../../../Api/Geocode";
 import MapsGoogle from "../../../../components/MapsGoole";
 import useCoordinateRaceMap from "../../../../zustand/Store/coordinateMapRace/RaceMaps";
 import DetailSPListRace from "../splist/Detailsplist";
-import { getDatabase,ref, set } from "firebase/database";
+import { getDatabase, ref } from "firebase/database";
 import { onValue } from "firebase/database";
+import { database, firestore } from "../../../../firebase/firebase";
+import { doc, onSnapshot } from "firebase/firestore";
+// import { firestore } from "../../../../firebase/firebase";
 
 function SMList({ }) {
-  const db = getDatabase();
-  const starCountRef = ref(db, 'location/');
-  console.log(`starCountRef`,starCountRef);
-  // onValue(starCountRef, (snapshot) => {
-  //   const data = snapshot.val();
-  //   updateStarCount(postElement, data);
-  // }
-  // );
-  onValue(starCountRef, (snapshot) => {
-    const data = snapshot.val();
-    console.log(data);
-    // Update UI atau lakukan sesuatu dengan data
-  });
+  const firestoresss = firestore;
+  console.log(`dari firestoresss`, firestoresss);
+  const documentReference = doc(firestoresss, "location", "1CENXbxk46h7OAYhvoHo");
 
+  const unsub = onSnapshot(documentReference, 
+    (doc) => {
+      if (doc.exists()) {
+        console.log("Current data: ", doc.data());
+      } else {
+        console.log("No such document!");
+      }
+    },
+    (error) => {
+      console.error("Error fetching document: ", error);
+    }
+  );
+
+
+  console.log(`unsub`, unsub);
   const [Open, setOpen] = useState(false);
   const [CariSJ, SetCariSJ] = useState("");
   const [NamaSupir, setNamaSupir] = useState("");
@@ -423,16 +431,16 @@ Salam hangat,
       </Row>
       <Row>
         <Table dataSource={DataApi.Data} columns={sm} pagination={false} className="mb-5"
-         onRow={(record, rowIndex) => {
-          return {
-            onClick: async() => {
-              setNamaSupir(record.driver1);
-              setDetailDataPerClick(record);
-              showDefaultDrawer(record);
-            } // click row
-            // you can also add other event handlers here if needed
-          };
-        }} />
+          onRow={(record, rowIndex) => {
+            return {
+              onClick: async () => {
+                setNamaSupir(record.driver1);
+                setDetailDataPerClick(record);
+                showDefaultDrawer(record);
+              } // click row
+              // you can also add other event handlers here if needed
+            };
+          }} />
         {!DataApi.Data && (
           <div
             className="d-flex justify-content-center align-items-center"

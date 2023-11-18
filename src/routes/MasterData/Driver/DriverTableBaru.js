@@ -1087,7 +1087,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                           id="jeniskepemilikan"
                           onBlur={formik.handleBlur}
                           value={
-                            !formik.values.jeniskepemilikan ? jenisKepemilikan[2].jenis : formik.values.jeniskepemilikan
+                            !formik.values.jeniskepemilikan ? jenisKepemilikan[2]?.jenis : formik.values?.jeniskepemilikan
                            
                           }
                           onChange={(value) =>
