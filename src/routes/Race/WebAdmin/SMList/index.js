@@ -33,10 +33,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 
 function SMList({ }) {
   const firestoresss = firestore;
-  console.log(`dari firestoresss`, firestoresss);
-  const documentReference = doc(firestoresss, "location", "1CENXbxk46h7OAYhvoHo");
-
-  const unsub = onSnapshot(documentReference, 
+  const unsub = onSnapshot(doc(firestoresss,"location", "123"), 
     (doc) => {
       if (doc.exists()) {
         console.log("Current data: ", doc.data());
@@ -50,7 +47,6 @@ function SMList({ }) {
   );
 
 
-  console.log(`unsub`, unsub);
   const [Open, setOpen] = useState(false);
   const [CariSJ, SetCariSJ] = useState("");
   const [NamaSupir, setNamaSupir] = useState("");
