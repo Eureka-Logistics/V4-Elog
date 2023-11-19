@@ -9,16 +9,17 @@ import { getDatabase, ref, get, set, push, on, off } from "firebase/database";
 import moment from 'moment'
 import axios from 'axios'
 import { BaseUrlRace } from '../../../../../Api/BaseUrl'
+import DrawerMapping from '../../../../../components/DrawerContainer'
 
-function MappingDriverCard({ OptionNamaNamaDriver ,PengadaanDetail,SelectDriver2}) {
+function MappingDriverCard({ OptionNamaNamaDriver, PengadaanDetail, SelectDriver2 }) {
     const [availableDrivers, setAvailableDrivers] = useState([]);
     const [cards, setCards] = useState([{ id: 1 }, { id: 2 }]); // asumsi mula-mula ada dua cards
     const [isHidden, setIsHidden] = useState(false); // state untuk menyembunyikan atau menampilkan cards
     const data = false
     const datadummy = CardMappingStoreRace(state => state.drivers);
     const gabunganData = CardMappingStoreRace(state => state.gabunganData);
-    const [DataAkhirnya, setDataAkhirnya] = useState([])
-
+    const [DataPerClickDrawlMapping, setDataPerClickDrawlMapping] = useState("")
+    const [OpenDrawer, setOpenDrawer] = useState(false)
     const toggleHide = () => {
         setIsHidden(!isHidden);
     }
@@ -29,41 +30,7 @@ function MappingDriverCard({ OptionNamaNamaDriver ,PengadaanDetail,SelectDriver2
     }
 
 
-    let totalKoli = 0;
-    let totalIkat = 0;
-    let totalQty = 0;
-    let totalBerat = 0;
 
-    // const itemList = OptionNamaNamaDriver && OptionNamaNamaDriver?.map((item, index) => {
-    //     item.dataSm?.map((i) => {
-    //         // Assuming 'Driver' is a numerical value you want to add to 'totalKoli'
-    //         totalKoli += i?.koli || 0;
-    //         totalIkat += i?.ikat || 0;
-    //         totalQty += i?.qty || 0;
-    //         totalBerat += i?.berat || 0;
-    //     });
-
-    //     // If you want to log totals for each item in OptionNamaNamaDriver
-    //     console.log(`Item ${index + 1} - Total Koli:`, totalKoli);
-    //     console.log(`Item ${index + 1} - Total Ikat:`, totalIkat);
-    //     console.log(`Item ${index + 1} - Total Qty:`, totalQty);
-    //     console.log(`Item ${index + 1} - Total Berat:`, totalBerat);
-    // });
-
-    // // If you want to log the overall totals
-    // console.log('Overall Total Koli:', totalKoli);
-    // console.log('Overall Total Ikat:', totalIkat);
-    // console.log('Overall Total Qty:', totalQty);
-    // console.log('Overall Total Berat:', totalBerat);
-
-    // console.log(`itemList`, OptionNamaNamaDriver)
-
-
-    // const [datadelete, setdatadelete] = useState({
-    //     id_msm: 0,
-    //     id_mpd: 0
-
-    // })
 
     const confirmDelete = (id_mpd, id_msm) => {
         DeleteSm(id_mpd, id_msm);
@@ -89,14 +56,19 @@ function MappingDriverCard({ OptionNamaNamaDriver ,PengadaanDetail,SelectDriver2
         }
     }
 
-
+    // console.log(`OptionNamaNamaDriver`, OptionNamaNamaDriver);
 
 
     return (
         <div >
             {(Array.isArray(OptionNamaNamaDriver) ? OptionNamaNamaDriver : []).map((data, index) => (
                 <Card className='mt-3' style={{ borderRadius: 10, backgroundColor: "#ccd8f3", padding: "0px", margin: "0px", height: "auto" }}>
-                    <Card className='card-2' style={{ marginTop: "-15px", borderRadius: 10, marginRight: -20, marginLeft: -20, backgroundColor: "#1A3368", maxHeight: 90 }}>
+                    <Card
+                    onClick={(e) => {
+                        setOpenDrawer(true)
+                        setDataPerClickDrawlMapping(data)
+                        console.log(`diklik`, index, data)}} 
+                    className='card-2' style={{ marginTop: "-15px", borderRadius: 10, marginRight: -20, marginLeft: -20, backgroundColor: "#1A3368", maxHeight: 90 }}>
                         <Row >
                             <Col md={1} l style={{ backgroundColor: "" }}>
                                 <Button style={{ backgroundColor: "white", borderRadius: "8px", color: "blue" }}>{index + 1}</Button>
@@ -121,7 +93,6 @@ function MappingDriverCard({ OptionNamaNamaDriver ,PengadaanDetail,SelectDriver2
                         </Row>
 
                     </Card>
-
                     {!isHidden ? (
                         (data?.length || 0) > 0 ? (
                             <div className='d-flex justify-content-center' style={{ color: "#A2A2A2", fontSize: 20, marginTop: -20 }}>
@@ -162,17 +133,17 @@ function MappingDriverCard({ OptionNamaNamaDriver ,PengadaanDetail,SelectDriver2
                                                                     </Tag>
                                                                     <Popconfirm
                                                                         title="Yakin Hapus SJ??"
-                                                                        onConfirm={() =>  DeleteSm(item?.idMsm, item?.idMpd)}
+                                                                        onConfirm={() => DeleteSm(item?.idMsm, item?.idMpd)}
                                                                         onCancel={() => message.info('Delete Dibatalkan')}
                                                                         okText="Ya"
                                                                         cancelText="Tidak"
                                                                     >
-                                                                       <Button size='small' type='danger'
+                                                                        <Button size='small' type='danger'
                                                                         // onClick={() =>
                                                                         //     DeleteSm(item?.idMsm, item?.idMpd)}
-                                                                    >Batal</Button>
+                                                                        >Batal</Button>
                                                                     </Popconfirm>
-                                                                    
+
                                                                 </Col>
                                                                 {/* <Col>
                                                                     {item?.koli}
@@ -233,10 +204,12 @@ function MappingDriverCard({ OptionNamaNamaDriver ,PengadaanDetail,SelectDriver2
                             <Button onClick={toggleHide} style={{ backgroundColor: "#5297FF", color: "white", width: "100%", borderRadius: 10 }}>{!isHidden ? 'Hide' : 'Show'}</Button>
                         </div>
                     )}
+
                 </Card>
             ))
-            }
+        }
 
+<DrawerMapping DataPerClickDrawlMapping={DataPerClickDrawlMapping} OpenDrawer={OpenDrawer} setOpenDrawer={setOpenDrawer} />
         </div >
     )
 }
