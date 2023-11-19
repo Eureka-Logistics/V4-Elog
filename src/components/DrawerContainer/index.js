@@ -13,6 +13,11 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
     };
     const columns = [
         {
+            title: 'No',
+            dataIndex: 'number',
+            render: (text, record, index) => index + 1
+        },
+        {
             title: 'Muat',
             dataIndex: 'muat',
             key: 'muat',

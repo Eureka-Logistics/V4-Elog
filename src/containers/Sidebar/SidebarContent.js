@@ -2484,7 +2484,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                           className="mx-3"
                           style={{ fontWeight: "bold", color: "white" }}
                         >
-                          SP List
+                          SP List Race
                         </span>
                       </Link>
                     </Menu.Item>
