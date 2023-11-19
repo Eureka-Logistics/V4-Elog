@@ -2705,6 +2705,105 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
+                  <div className="mt-4">
+                    <Menu.Item
+                      className={
+                        activeMenu === "/race/cabang/dashboard"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="cabang"
+                    >
+                      <Link
+                        to="/race/cabang/dashboard"
+                        style={{ textDecoration: "none" }}
+                      >
+                        {/* <i className="icon icon-widgets" />
+                         */}
+
+                        <img
+                          src={logodashboard}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
+                          Dashboard
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="mt-4">
+                    <Menu.Item
+                      className={
+                        activeMenu === "/race/cabang/splistt"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="cabangSpListHanyaLihat"
+                    >
+                      <Link
+                        to="/race/cabang/splistt"
+                        style={{ textDecoration: "none" }}
+                      >
+                        {/* <i className="icon icon-widgets" />
+                         */}
+
+                        <img
+                          src={splistrace}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
+                          SP List Cabang
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="mt-4">
+                    <Menu.Item
+                      className={
+                        activeMenu === "/race/cabang/sjlistt"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="cabangSJListHanyaLihat"
+                    >
+                      <Link
+                        to="/race/cabang/sjlistt"
+                        style={{ textDecoration: "none" }}
+                      >
+                        {/* <i className="icon icon-widgets" />
+                         */}
+
+                        <img
+                         src={SjList}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
+                          SJ List Cabang
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
                 </>
               )}
 

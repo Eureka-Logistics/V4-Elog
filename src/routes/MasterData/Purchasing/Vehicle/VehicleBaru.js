@@ -1018,27 +1018,32 @@ function VehicleBaru({
                     }
                     style={{ marginBottom: 2 }}
                   >
-                   <Select
-  showSearch
-  optionFilterProp="children"
-  id="jenis_kendaraan"
-  name="jenis_kendaraan"
-  type="text"
-  onChange={(value, option) => {
-    formik.setFieldValue("jenis_kendaraan", value);
-    formik.setFieldValue("id_kendaraan_jenis", parseInt(option.key));
-    DriverName(value);
-  }}
-  value={formik.values.jenis_kendaraan || (DriverType.length > 0 ? DriverType[0]?.tipe : "")}
-  onBlur={formik.handleBlur}
->
-  {DriverType.map((item) => (
-    <Select.Option key={item.id} value={item.tipe}>
-      {item.tipe}
-    </Select.Option>
-  ))}
-</Select>
-
+                    <Select
+                      showSearch
+                      optionFilterProp="children"
+                      id="jenis_kendaraan"
+                      name="jenis_kendaraan"
+                      type="text"
+                      onChange={(value, option) => {
+                        formik.setFieldValue("jenis_kendaraan", value);
+                        formik.setFieldValue(
+                          "id_kendaraan_jenis",
+                          parseInt(option.key)
+                        );
+                        DriverName(value);
+                      }}
+                      value={
+                        formik.values.jenis_kendaraan ||
+                        (DriverType.length > 0 ? DriverType[0]?.tipe : "")
+                      }
+                      onBlur={formik.handleBlur}
+                    >
+                      {DriverType.map((item) => (
+                        <Select.Option key={item.id} value={item.tipe}>
+                          {item.tipe}
+                        </Select.Option>
+                      ))}
+                    </Select>
                   </AntForm.Item>
                   <AntForm.Item
                     label="Nama Driver"
