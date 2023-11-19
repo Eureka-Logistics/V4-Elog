@@ -427,7 +427,12 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
         "uk_seragam",
         !formik.values.ukseragam ? 0 : formik.values.ukseragam
       );
-      formData.append("jenis_kepemilikan", !formik.values.jeniskepemilikan ? jenisKepemilikan[2].jenis : formik.values.jeniskepemilikan );
+      formData.append(
+        "jenis_kepemilikan",
+        !formik.values.jeniskepemilikan
+          ? jenisKepemilikan[2].jenis
+          : formik.values.jeniskepemilikan
+      );
       formData.append("rekening_bank", formik.values.rekeningbank);
       formData.append("rekening_norek", formik.values.norekening);
       formData.append(
@@ -1087,8 +1092,9 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                           id="jeniskepemilikan"
                           onBlur={formik.handleBlur}
                           value={
-                            !formik.values.jeniskepemilikan ? jenisKepemilikan[2].jenis : formik.values.jeniskepemilikan
-                           
+                            !formik.values.jeniskepemilikan
+                              ? jenisKepemilikan[2].jenis
+                              : formik.values.jeniskepemilikan
                           }
                           onChange={(value) =>
                             formik.setFieldValue("jeniskepemilikan", value)
@@ -1135,7 +1141,7 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                           onBlur={formik.handleBlur}
                           placeholder={"Pilih Perusahaan"}
                           value={
-                            formik.values.mitra 
+                            formik.values.mitra
                             // ||
                             // (NamaMitra.length > 0
                             //   ? NamaMitra[0].NamaMitra
@@ -1421,7 +1427,6 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                             ? "error"
                             : undefined
                         }
-
                       >
                         <Select
                           style={{
@@ -1437,7 +1442,6 @@ function DriverTableBaru({ ValidasiTombol, setValidasiTombol }) {
                           onChange={(value) =>
                             formik.setFieldValue("vehicletype", value)
                           }
-                          
                         >
                           {DriverTypeOptions.map((option) => (
                             <Select.Option

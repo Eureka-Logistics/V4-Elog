@@ -851,6 +851,24 @@ const App = ({ match }) => {
             import("../routes/Race/WebAdmin/List Vehicle/index")
           )}
         />
+        <Route
+          path={`${match.url}race/cabang/dashboard`}
+          component={asyncComponent(() =>
+            import("./raceCabang/DashboardCabang")
+          )}
+        />
+        <Route
+          path={`${match.url}race/cabang/splistt`}
+          component={asyncComponent(() =>
+            import("./raceCabang/spListCabang")
+          )}
+        />
+        <Route
+          path={`${match.url}race/cabang/sjlistt`}
+          component={asyncComponent(() =>
+            import("./raceCabang/SjListCabang")
+          )}
+        />
         {/* <Route
           path={`${match.url}race/newsp`}
           component={asyncComponent(() =>
@@ -892,6 +910,7 @@ const App = ({ match }) => {
           path={`${match.url}admin/user/menu`}
           component={asyncComponent(() => import("./MasterData/SP List/Akunting/CreateUserBaru/TabComponent/index"))}
         />
+        
       </Switch>
     </div>
   );
