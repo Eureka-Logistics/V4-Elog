@@ -42,7 +42,7 @@ function MapPengiriman() {
             )
             setmapping(data?.data?.data)
             setLoadingGan(false)
-            console.log(`datri sales dan kceamatan `, data.data);
+            // console.log(`datri sales dan kceamatan `, data.data);
             setOptionSelect(item => ({
                 Kecamatan: data?.data?.kecamatan,
                 Sales: data?.data?.sales
@@ -56,7 +56,7 @@ function MapPengiriman() {
     }
 
 
-    console.log(`OptionSelect`, OptionSelect);
+    // console.log(`OptionSelect`, OptionSelect);
     // const SelectDriver = async () => {
     //     try {
     //         const data = await axios.get(`${BaseUrlRace}sp/get-driver-approve`,
@@ -173,8 +173,8 @@ function MapPengiriman() {
 
     }, [SelectKecamatan, SelectSales])
 
-    console.log(OptionNamaNamaDriver);
-    console.log(`selectreddata`, selectedData);
+    // console.log(OptionNamaNamaDriver);
+    // console.log(`selectreddata`, selectedData);
     return (
         <div>
             <Card>

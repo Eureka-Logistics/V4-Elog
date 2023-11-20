@@ -24,6 +24,7 @@ function MapsContainerMapping({ width, height, locations }) {
         googleMapsApiKey: ApiGoogleMap,
     });
 
+    
     useEffect(() => {
         if (isLoaded && locations[0]?.bongkar && locations.length > 0) {
             const directionsService = new window.google.maps.DirectionsService();
@@ -65,11 +66,11 @@ function MapsContainerMapping({ width, height, locations }) {
     }, [isLoaded, locations, JarakWaktu]);
 
     if (!isLoaded) {
-        return <div className='d-flex justify-content-center'>Data Map / SJ Belum ada</div>;
+        return <div className='d-flex justify-content-center'>Loading Data Map / SJ Belum ada</div>;
     } else if (!directions){
-        return <div className='d-flex justify-content-center'>Data Map / SJ Belum ada</div>;
+        return <div className='d-flex justify-content-center'>Loading Data Map / SJ Belum ada</div>;
     } else if (!distance){
-        return <div className='d-flex justify-content-center'>Data Map / SJ Belum ada</div>;
+        return <div className='d-flex justify-content-center'>Loading Data Map / SJ Belum ada</div>;
     }
     
     const datanya = [

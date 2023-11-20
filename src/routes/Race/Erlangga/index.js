@@ -6,9 +6,11 @@ import moment from 'moment';
 import { Col } from 'react-bootstrap';
 import "../Erlangga/style.css"
 import ModalCreateaSPRace from './Modal Create SP';
+import OptionsCabangState from '../../../zustand/Store/Race/optionsCabangRace';
 function Erlangga() {
     const { RangePicker } = DatePicker;
     const [modal1Open, setModal1Open] = useState(false);
+    const {setOptionsStateZustand} = OptionsCabangState(state => state.setOptionsStateZustand)
     const [Data, setData] = useState({
         Data: null,
         Data_Tanggal: null,
@@ -229,6 +231,7 @@ function Erlangga() {
                 })
             console.log(data.data.data);
             setoptincabang(data.data.data)
+            setOptionsStateZustand(data.data.data)
         } catch (error) {
 
         }

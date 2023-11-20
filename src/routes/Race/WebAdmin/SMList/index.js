@@ -33,7 +33,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 
 function SMList({ }) {
   const firestoresss = firestore;
-  const unsub = onSnapshot(doc(firestoresss,"location", "123"), 
+  const unsub = onSnapshot(doc(firestoresss, "location", "123"),
     (doc) => {
       if (doc.exists()) {
         console.log("Current data: ", doc.data());
@@ -114,11 +114,11 @@ function SMList({ }) {
       });
     } else {
       history.push(
-        `/race/detailsplistrace/${DetailDataPerClick?.other?.id_mpd}/${DetailDataPerClick?.other?.id_msm}`
+        `/race/detailsplistrace/${DetailDataPerClick?.sm}`
       );
     }
   };
-
+console.log(`DetailDataPerClick`,DetailDataPerClick);
   function sendMessage() {
     const phoneNumber = "6281221871961";
     const name = NamaSupir;
@@ -143,7 +143,7 @@ Salam hangat,
     DataApiSM(s);
     setDataApi((items) => ({
       ...items,
-      limit: u,
+      limit: u,       
     }));
   }
   const [isDataFetched, setIsDataFetched] = useState(false);
@@ -426,7 +426,12 @@ Salam hangat,
         </Col>
       </Row>
       <Row>
-        <Table dataSource={DataApi.Data} columns={sm} pagination={false} className="mb-5"
+        <Table dataSource={DataApi.Data} columns={sm} pagination={{
+          total: DataApi.totalData,
+          onChange: (page, pageSize) => {
+            console.log(`Current page: ${page}, Page size: ${pageSize}`);
+          }
+        }} className="mb-5"
           onRow={(record, rowIndex) => {
             return {
               onClick: async () => {

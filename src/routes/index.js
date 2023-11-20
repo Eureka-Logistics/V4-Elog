@@ -809,8 +809,14 @@ const App = ({ match }) => {
             import("../routes/Race/WebAdmin/splist/index")
           )}
         />
+          <Route
+          path={`${match.url}race/cabang/splistt`}
+          component={asyncComponent(() =>
+            import("./raceCabang/spListCabang")
+          )}
+        />
         <Route
-          path={`${match.url}race/detailsplistrace/:idmp/:id_msm`}
+          path={`${match.url}race/detailsplistrace/:sm`}
           component={asyncComponent(() =>
             import("../routes/Race/WebAdmin/splist/Detailsplist/index")
           )}
@@ -857,12 +863,7 @@ const App = ({ match }) => {
             import("./raceCabang/DashboardCabang")
           )}
         />
-        <Route
-          path={`${match.url}race/cabang/splistt`}
-          component={asyncComponent(() =>
-            import("./raceCabang/spListCabang")
-          )}
-        />
+      
         <Route
           path={`${match.url}race/cabang/sjlistt`}
           component={asyncComponent(() =>

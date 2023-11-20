@@ -1,7 +1,7 @@
 import { SearchOutlined } from '@ant-design/icons'
-import { Button, Card, Drawer, Input, Space, Timeline } from 'antd'
+import { Button, Card, Drawer, Input, Select, Space, Timeline } from 'antd'
 import { size } from 'lodash';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import "./style.css"
 import map from "../../../../assets/img/peta.png"
@@ -13,9 +13,14 @@ import vespa from "../../../../assets/img/vesva.png"
 import ListPengiriman from './ListPengirimanCardComponent';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import MapContainer from "../../../MasterData/Monitoring/Test"
+import { BaseUrlRace } from '../../../../Api/BaseUrl';
+import axios from 'axios';
 function SpListRace() {
     const history = useHistory()
     const [open, setOpen] = useState(false);
+    const [OptionsState, setOptionsState] = useState("")
+    const [Cabang, setCabang] = useState("JKT")
+
     const showDefaultDrawer = () => {
         setOpen(true);
     };
@@ -43,6 +48,27 @@ Salam hangat,
 
         window.open(whatsappURL, '_blank');
     }
+
+    const pilihcabangselect = async () => {
+        try {
+            const data = await axios.get(`${BaseUrlRace}sp/get-cabang`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        // Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
+                        Authorization: localStorage.getItem("token"),
+                    },
+                })
+            console.log(data.data.data);
+            setOptionsState(data.data.data);
+        } catch (error) {
+
+        }
+    }
+    useEffect(() => {
+        pilihcabangselect()
+    }, [Cabang])
+
 
     return (
         <div>
@@ -146,16 +172,27 @@ Salam hangat,
                 </Col>
             </Row>
             <Row>
-                <Col sm={9}>
+                <Col sm={6}>
                     <h5 style={{ fontSize: 30, }}>
                         List Pengiriman
                     </h5>
                 </Col>
                 <Col sm={3}>
+                    <Select 
+                    optionFilterProp='children'
+                    showSearch
+                    onChange={(e)=>setCabang(e)}
+                    placeholder="Select Cabang" style={{width:"100%"}}>
+                        {OptionsState && OptionsState.map((data, index) => (
+                            <Select.Option description={data?.description} key={data.whid} whid={data?.whid} value={data.cabangId}>{data?.description}</Select.Option>
+                        ))}
+                    </Select>
+                </Col>
+                <Col sm={3}>
                     <Input onChange={(e) => setCariDisini(e.target.value)} style={{ Width: "400px", height: "50px" }} addonBefore={<SearchOutlined />} placeholder='Cari Disini' />
                 </Col>
             </Row>
-            <ListPengiriman CariDisini={CariDisini} setOpen={setOpen} />
+            <ListPengiriman Cabang={Cabang} CariDisini={CariDisini} setOpen={setOpen} />
         </div>
     )
 }

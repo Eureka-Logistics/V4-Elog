@@ -27,18 +27,7 @@ function SPListCabang() {
     fetchData();
   }, []);
 
-  const dataSource = [
-    {
-      key: "1",
-      so: "11-SO-23-000076",
-      perusahaan: "PT. Erlangga Mahameru Pusat",
-      marketing: "Rifaldi",
-      vehicle: "Lainnya",
-      pickup: "2023-11-18",
-      destination: "Padang",
-      service: "retail",
-    },
-  ];
+  
 
   const columns = [
     {
@@ -156,7 +145,7 @@ function SPListCabang() {
           style={{ overflowX: "auto" }}
           dataSource={DataSP}
           columns={columns}
-          pagination={false} // Menyembunyikan pagination
+        pagination={{total:500}}
         />
       </Card>
     </div>

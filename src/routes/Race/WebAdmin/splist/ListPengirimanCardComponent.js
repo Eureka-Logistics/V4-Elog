@@ -9,10 +9,12 @@ import whatsappicon from "../../../../assets/img/whatsappicon.png"
 import truck from "../../../../assets/img/Truck Illu 1.png"
 import vespa from "../../../../assets/img/vesva.png"
 import axios from 'axios'
-import Baseurl from '../../../../Api/BaseUrl'
+import Baseurl, { BaseUrlRace } from '../../../../Api/BaseUrl'
 import "../../Erlangga/style.css"
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min'
-function ListPengiriman({ setOpen, CariDisini }) {
+import OptionsCabangState from '../../../../zustand/Store/Race/optionsCabangRace'
+function ListPengiriman({ setOpen, CariDisini ,Cabang}) {
+
     const showDefaultDrawer = () => {
         setOpen(true);
     };
@@ -26,7 +28,8 @@ function ListPengiriman({ setOpen, CariDisini }) {
     })
     const SpAll = async (page = 1) => {
         try {
-            const datsa = await axios.get(`https://api.eurekalogistics.co.id/sp/get-SP-all?limit=${Spdata?.size}&page=${page}&keyword=${CariDisini}&statusSP=&customerId=&codeBrench=JKT&sales=&buId=`,
+            // const datsa = await axios.get(`https://api.eurekalogistics.co.id/sp/get-SP-all?limit=${Spdata?.size}&page=${page}&keyword=${CariDisini}&statusSP=&customerId=&codeBrench=JKT&sales=&buId=`,
+            const datsa = await axios.get(`${BaseUrlRace}sp/get-sp?limit=${Spdata?.size}&page=${page}&cabang=${Cabang}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -46,7 +49,7 @@ function ListPengiriman({ setOpen, CariDisini }) {
     }
     useEffect(() => {
         SpAll()
-    }, [Spdata.size, CariDisini])
+    }, [Spdata.size, CariDisini,Cabang])
     const columns = [
         {
             title: 'No',
@@ -56,31 +59,19 @@ function ListPengiriman({ setOpen, CariDisini }) {
         },
         {
             title: "SO ID",
-            key: 'so_id',
-            render: (text, record) => {
-                let tagColor = record.service.toLowerCase() === "charter" ? "blue" : "gold";
-                return (
-                    <Tag color={tagColor}>
-                        {record.sp} <br />
-                        {record.service}
-                        {record?.is_issue === 1 && ["admin", "sales", "account receivable"].includes(localStorage.getItem("level")) && (
-                            <svg style={{ marginLeft: 2 }} xmlns="http://www.w3.org/2000/svg">
-                                {/* SVG paths */}
-                            </svg>
-                        )}
-                    </Tag>
-                );
-            }
+            key: 'so',
+            dataIndex: 'so',
+
         },
+        // {
+        //     title: "Perusahaan",
+        //     dataIndex: 'perusahaan',
+        //     key: 'perusahaan',
+        // },
         {
-            title: "Perusahaan",
-            dataIndex: 'perusahaan',
-            key: 'perusahaan',
-        },
-        {
-            title: "Marketing",
-            dataIndex: 'salesName',
-            key: 'salesName',
+            title: "Cabang",
+            dataIndex: 'cabang',
+            key: 'cabang',
             //   render: (text, record) => (
             //     <Tooltip title={
             //       <>
@@ -96,33 +87,20 @@ function ListPengiriman({ setOpen, CariDisini }) {
             //   ),
         },
         {
-            title: "Vehicle",
+            title: "Sales",
+            dataIndex: 'sales',
+            key: 'sales',
+        },
+        {
+            title: "Kendaraan",
             dataIndex: 'kendaraan',
             key: 'kendaraan',
         },
         {
-            title: "Pickup Date",
-            dataIndex: 'pickupDate',
-            key: 'pickupDate',
-            render: (text, record) => {
-                let date = new Date(text);
-                let year = date.getFullYear();
-                let month = (1 + date.getMonth()).toString().padStart(2, "0");
-                let day = date.getDate().toString().padStart(2, "0");
-                return (
-                    <Tag color="green">{`${year}-${month}-${day}`}</Tag>
-                );
-            },
-        },
-        {
-            title: "Destination",
-            dataIndex: 'destination',
-            key: 'destination',
-            render:(destination)=>{
-                return(
-                    <p>{destination === null ? "-" : destination}</p>
-                )
-            }
+            title: "Sekolah Tujuan",
+            dataIndex: 'sekolahtujuan',
+            key: 'sekolahtujuan',
+
         },
         // {
         //     title: "Sales",
@@ -257,11 +235,12 @@ function ListPengiriman({ setOpen, CariDisini }) {
         SpAll(page)
     }
     const router = useHistory();
-    function GetdataTable(e,a) {
-        console.log(e,a);
+    function GetdataTable(e, a) {
+        console.log(e, a);
         router.push(`/masterdata/edit-sp/${a.idmp}`)
 
     }
+   
     return (
         <div className='mt-2'>
             <Row >

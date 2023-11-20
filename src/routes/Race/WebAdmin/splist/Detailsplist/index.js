@@ -5,17 +5,17 @@ import { Card, Divider, Steps, Table, Tag } from 'antd'
 import drivericon from "../../../../../assets/img/drivericon.png"
 import './style.css'
 import axios from 'axios'
-import Baseurl from '../../../../../Api/BaseUrl'
+import Baseurl, { BaseUrlRace } from '../../../../../Api/BaseUrl'
 import { useParams } from 'react-router-dom'
 import moment from 'moment'
 import MapsGoogle from '../../../../../components/MapsGoole'
 function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
-    const { idmp, id_msm } = useParams();
+    const { sm } = useParams();
     const [DataApi, setDataApi] = useState([])
     const [DetailHistory, setDetailHistory] = useState()
     const getDetailApi = async () => {
         try {
-            const data = await axios.get(`${Baseurl}sm/get-sm-detail?id_mpd=${idmp}&id_msm=${id_msm}`,
+            const data = await axios.get(`${BaseUrlRace}sp/get-sm-detail?msm=${sm}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
 
     const HistoryKendaraan = async () => {
         try {
-            const datas = await axios.get(`${Baseurl}sm/get-history-kendaraan?id_msm=${id_msm}`,
+            const datas = await axios.get(`${Baseurl}sm/get-history-kendaraan?id_msm=${sm}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -99,34 +99,37 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
                     <Col style={{ backgroundColor: "" }}>
                         <h3>Detail SJ</h3>
                         <div>No. SJ</div>
-                        <div style={{ fontWeight: "bold" }}>{i?.sm}</div>
+                        <div style={{ fontWeight: "bold" }}>{i?.msm}</div>
                         <br />
                         <div>Np. SP</div>
                         <div style={{ fontWeight: "bold" }}>{i.sp}</div>
                         <br />
                         <div>Customer</div>
                         <div style={{ fontWeight: "bold" }}>{i?.customer}</div>
-                        <br />
-                        <div>Service</div>
-                        <div style={{ fontWeight: "bold" }}>{i?.service}</div>
-                        <br />
-                        <div>Pickup Date</div>
-                        <div style={{ fontWeight: "bold" }}>{i?.tglPickup}</div>
+                        
+                        {/* <div>Service</div>
+                        <div style={{ fontWeight: "bold" }}>{i?.service}</div> */}
+                        
+                        {/* <div>Pickup Date</div>
+                        <div style={{ fontWeight: "bold" }}>{i?.tglPickup}</div> */}
                         <br />
                         <div>Pickup Address</div>
-                        <div style={{ fontWeight: "bold" }}>{i?.pickupAddress}</div>
+                        <div style={{ fontWeight: "bold" }}>{i?.muat}</div>
                         <br />
                         <div>Destination Address</div>
-                        <div style={{ fontWeight: "bold" }}>{i?.destination}</div>
+                        <div style={{ fontWeight: "bold" }}>{i?.bongkar}</div>
                         <br />
-                        <div>Weight</div>
-                        <div style={{ fontWeight: "bold" }}>{i?.weight}</div>
+                        <div>Berat</div>
+                        <div style={{ fontWeight: "bold" }}>{i?.berat}</div>
                         <br />
                         <div>Koli</div>
                         <div style={{ fontWeight: "bold" }}>{i?.koli}</div>
                         <br />
-                        <div>Items</div>
-                        <div style={{ fontWeight: "bold" }}>{i?.items}</div>
+                        <div>Qty</div>
+                        <div style={{ fontWeight: "bold" }}>{i?.qty}</div>
+                        <br />
+                        <div>Ikat</div>
+                        <div style={{ fontWeight: "bold" }}>{i?.ikat}</div>
                     </Col>
                 ))}
                 <Col style={{

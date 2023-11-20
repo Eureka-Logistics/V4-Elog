@@ -4,12 +4,13 @@ import driver from "../../../../../assets/img/drivericon.png"
 import { Col, Row } from 'react-bootstrap'
 import CardMapping from '../CardComponent Mapping'
 import CardMappingStoreRace from '../../../../../zustand/Store/DriverMappingCardRace/MappingStore'
-import { database } from "../../../../../firebase/firebase"
+import { database, firestore } from "../../../../../firebase/firebase"
 import { getDatabase, ref, get, set, push, on, off } from "firebase/database";
 import moment from 'moment'
 import axios from 'axios'
 import { BaseUrlRace } from '../../../../../Api/BaseUrl'
 import DrawerMapping from '../../../../../components/DrawerContainer'
+import { doc, onSnapshot } from 'firebase/firestore'
 
 function MappingDriverCard({ OptionNamaNamaDriver, PengadaanDetail, SelectDriver2 }) {
     const [availableDrivers, setAvailableDrivers] = useState([]);
@@ -29,7 +30,19 @@ function MappingDriverCard({ OptionNamaNamaDriver, PengadaanDetail, SelectDriver
         removeData(id);
     }
 
-
+    const firestoresss = firestore;
+    const unsub = onSnapshot(doc(firestoresss, "location", "123"),
+      (doc) => {
+        if (doc.exists()) {
+          console.log("Current data: ", doc.data());
+        } else {
+          console.log("No such document!");
+        }
+      },
+      (error) => {
+        console.error("Error fetching document: ", error);
+      }
+    );
 
 
     const confirmDelete = (id_mpd, id_msm) => {

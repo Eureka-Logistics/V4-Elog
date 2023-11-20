@@ -2492,6 +2492,39 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <div className="mt-4">
                     <Menu.Item
                       className={
+                        activeMenu === "/race/cabang/splistt"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="cabangSpListHanyaLihat"
+                    >
+                      <Link
+                        to="/race/cabang/splistt"
+                        style={{ textDecoration: "none" }}
+                      >
+                        {/* <i className="icon icon-widgets" />
+                         */}
+
+                        <img
+                          src={splistrace}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
+                          SP List Cabang
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div className="mt-4">
+                    <Menu.Item
+                      className={
                         activeMenu === "/race/sjlist"
                           ? "menu-item-active menu-item-hover"
                           : "menu-item-hover"
@@ -2738,39 +2771,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
-                  <div className="mt-4">
-                    <Menu.Item
-                      className={
-                        activeMenu === "/race/cabang/splistt"
-                          ? "menu-item-active menu-item-hover"
-                          : "menu-item-hover"
-                      }
-                      key="cabangSpListHanyaLihat"
-                    >
-                      <Link
-                        to="/race/cabang/splistt"
-                        style={{ textDecoration: "none" }}
-                      >
-                        {/* <i className="icon icon-widgets" />
-                         */}
-
-                        <img
-                          src={splistrace}
-                          style={{
-                            fontSize: "30px",
-                            color: "white",
-                            marginTop: "7px",
-                          }}
-                        />
-                        <span
-                          className="mx-3"
-                          style={{ fontWeight: "bold", color: "white" }}
-                        >
-                          SP List Cabang
-                        </span>
-                      </Link>
-                    </Menu.Item>
-                  </div>
+                  
                   <div className="mt-4">
                     <Menu.Item
                       className={
