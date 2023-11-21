@@ -2803,6 +2803,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </div>
                 </>
               )}
+               {cabang  && jobdesk == "akunting"
+                && (
+                  <Menu.Item>
+                   <div>test</div>
+                  </Menu.Item>
+                )}
+              {/* <>===========</> */}
 
               {jobdesk == "webmaster" && (
                 <MenuItemGroup key="main">
@@ -3294,13 +3301,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 </>
               )}
               {/* ADMIN RACE CABANG */}
-              {cabang  && jobdesk == "akunting"
-                && (
-                  <Menu.Item>
-                   <div>test</div>
-                  </Menu.Item>
-                )}
-              {/* <>===========</> */}
+             
             </MenuItemGroup>
           </Menu>
         </CustomScrollbars>
