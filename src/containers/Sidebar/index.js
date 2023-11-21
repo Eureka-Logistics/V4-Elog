@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Drawer, Layout} from "antd";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Drawer, Layout } from "antd";
 
 import SidebarContent from "./SidebarContent";
-import {toggleCollapsedSideNav} from "../../appRedux/actions";
+import { toggleCollapsedSideNav } from "../../appRedux/actions";
 import {
   NAV_STYLE_DRAWER,
   NAV_STYLE_FIXED,
@@ -14,13 +14,13 @@ import {
   THEME_TYPE_LITE
 } from "../../constants/ThemeSetting";
 
-const {Sider} = Layout;
+const { Sider } = Layout;
 
 const Sidebar = () => {
-  let [ sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const {themeType, navStyle} = useSelector(({settings}) => settings);
-  const navCollapsed = useSelector(({common}) => common.navCollapsed);
-  const width = useSelector(({common}) => common.width);
+  let [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const { themeType, navStyle } = useSelector(({ settings }) => settings);
+  const navCollapsed = useSelector(({ common }) => common.navCollapsed);
+  const width = useSelector(({ common }) => common.width);
   const dispatch = useDispatch();
 
   const onToggleCollapsedNav = () => {
@@ -51,7 +51,7 @@ const Sidebar = () => {
   const jobdesk = localStorage.getItem("jobdesk");
   const cabang = localStorage.getItem("cabang");
 
-  const menuBackgroundColor = jobdesk === "rcadmin" || jobdesk === "akunting" && cabang? "#F05423" : "#BAD6FF";
+  const menuBackgroundColor = jobdesk === "rcadmin" || jobdesk === "akunting" && cabang ? "#F05423" : "#BAD6FF";
   return (
     <Sider
       // className={`gx-app-sidebar ${drawerStyle} ${themeType !== THEME_TYPE_LITE ? 'gx-layout-sider-dark' : null}`}
@@ -59,20 +59,20 @@ const Sidebar = () => {
       trigger={null}
       collapsed={(width < TAB_SIZE ? false : sidebarCollapsed || navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR)}
       // theme={themeType === THEME_TYPE_LITE ? "lite" : "dark"}
-      style={{backgroundColor: menuBackgroundColor }} 
+      style={{ backgroundColor: menuBackgroundColor }}
       collapsible>
       {
         navStyle === NAV_STYLE_DRAWER || width < TAB_SIZE ?
           <Drawer
             className={`gx-drawer-sidebar ${themeType !== THEME_TYPE_LITE ? '#BAD6FF' : null}`}
-            
+
             placement="left"
             closable={false}
             onClose={onToggleCollapsedNav}
             visible={navCollapsed}>
-            <SidebarContent sidebarCollapsed={sidebarCollapsed} setSidebarCollapsed={setSidebarCollapsed}/>
+            <SidebarContent sidebarCollapsed={sidebarCollapsed} setSidebarCollapsed={setSidebarCollapsed} />
           </Drawer> :
-          <SidebarContent sidebarCollapsed={sidebarCollapsed} setSidebarCollapsed={setSidebarCollapsed}/>
+          <SidebarContent sidebarCollapsed={sidebarCollapsed} setSidebarCollapsed={setSidebarCollapsed} />
       }
     </Sider>)
 };
