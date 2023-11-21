@@ -3294,7 +3294,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 </>
               )}
               {/* ADMIN RACE CABANG */}
-              {cabang == "JKT" && jobdesk == "akunting"
+              {cabang  && jobdesk == "akunting"
                 && (
                   <Menu.Item>
                    <div>test</div>
