@@ -1,7 +1,31 @@
 import { Card, Col, Form, Input, Pagination, Row, Select, Table, Tag } from "antd";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { BaseUrlRace } from "../../Api/BaseUrl";
 
 function SjListCabang() {
+  const [DataSJ, setDataSJ] = useState("");
+
+  const fetchData = async () => {
+    try {
+      const respons = await axios.get(
+        `${BaseUrlRace}sp/get-sm-all?limit=10&page=1&keyword=&kodeCabang=JKT&mitra1=&mitra2=&mitra3&id_bu_brench=`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log("responsssss aja ", respons.data);
+      setDataSJ(respons.data.data.order);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const dataSource = [
     {
       key: "1",
@@ -16,8 +40,8 @@ function SjListCabang() {
   const columns = [
     {
       title: "No.",
-      dataIndex: "key",
-      key: "key",
+      dataIndex: "no",
+      key: "no",
     },
     {
       title: "SP",
