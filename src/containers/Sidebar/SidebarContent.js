@@ -2486,39 +2486,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
-                  <div className="mt-4">
-                    <Menu.Item
-                      className={
-                        activeMenu === "/race/cabang/splistt"
-                          ? "menu-item-active menu-item-hover"
-                          : "menu-item-hover"
-                      }
-                      key="cabangSpListHanyaLihat"
-                    >
-                      <Link
-                        to="/race/cabang/splistt"
-                        style={{ textDecoration: "none" }}
-                      >
-                        {/* <i className="icon icon-widgets" />
-                         */}
-
-                        <img
-                          src={splistrace}
-                          style={{
-                            fontSize: "30px",
-                            color: "white",
-                            marginTop: "7px",
-                          }}
-                        />
-                        <span
-                          className="mx-3"
-                          style={{ fontWeight: "bold", color: "white" }}
-                        >
-                          SP List Cabang
-                        </span>
-                      </Link>
-                    </Menu.Item>
-                  </div>
+                
                   <div className="mt-4">
                     <Menu.Item
                       className={
@@ -2736,7 +2704,16 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Menu.Item>
                   </div>
                   <div className="mt-4">
-                    <Menu.Item
+                    
+                  </div>
+
+                 
+                </>
+              )}
+               {cabang  && jobdesk == "akunting"
+                && (
+                  <div className="mt-4">
+                  <Menu.Item
                       className={
                         activeMenu === "/race/cabang/dashboard"
                           ? "menu-item-active menu-item-hover"
@@ -2767,26 +2744,55 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         </span>
                       </Link>
                     </Menu.Item>
-                  </div>
+                   
+                   <Menu.Item
+                     className={
+                       activeMenu === "/race/cabang/sjlistt"
+                         ? "menu-item-active menu-item-hover"
+                         : "menu-item-hover"
+                     }
+                     key="cabangSJListHanyaLihat"
+                   >
+                     <Link
+                       to="/race/cabang/sjlistt"
+                       style={{ textDecoration: "none" }}
+                     >
+                       {/* <i className="icon icon-widgets" />
+                        */}
 
-                  <div className="mt-4">
-                    <Menu.Item
+                       <img
+                         src={SjList}
+                         style={{
+                           fontSize: "30px",
+                           color: "white",
+                           marginTop: "7px",
+                         }}
+                       />
+                       <span
+                         className="mx-3"
+                         style={{ fontWeight: "bold", color: "white" }}
+                       >
+                         SJ List Cabang
+                       </span>
+                     </Link>
+                   </Menu.Item>
+                   <Menu.Item
                       className={
-                        activeMenu === "/race/cabang/sjlistt"
+                        activeMenu === "/race/cabang/splistt"
                           ? "menu-item-active menu-item-hover"
                           : "menu-item-hover"
                       }
-                      key="cabangSJListHanyaLihat"
+                      key="cabangSpListHanyaLihat"
                     >
                       <Link
-                        to="/race/cabang/sjlistt"
+                        to="/race/cabang/splistt"
                         style={{ textDecoration: "none" }}
                       >
                         {/* <i className="icon icon-widgets" />
                          */}
 
                         <img
-                          src={SjList}
+                          src={splistrace}
                           style={{
                             fontSize: "30px",
                             color: "white",
@@ -2797,18 +2803,11 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                           className="mx-3"
                           style={{ fontWeight: "bold", color: "white" }}
                         >
-                          SJ List Cabang
+                          SP List Cabang
                         </span>
                       </Link>
                     </Menu.Item>
-                  </div>
-                </>
-              )}
-               {cabang  && jobdesk == "akunting"
-                && (
-                  <Menu.Item>
-                   <div>test</div>
-                  </Menu.Item>
+                 </div>
                 )}
               {/* <>===========</> */}
 
