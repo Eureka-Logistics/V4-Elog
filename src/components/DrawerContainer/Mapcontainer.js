@@ -3,28 +3,35 @@ import { GoogleMap, Marker, DirectionsRenderer, useJsApiLoader } from '@react-go
 import ApiGoogleMap from '../../Api/ApigoogleMap';
 import JarakWaktuStore from '../../zustand/Store/coordinateMapRace/StoreJarakWaktuGooglemap';
 import { Table } from 'antd';
-
+import MappingCoordinate from '../../zustand/Store/CoordinateFirebase/MappingCoordinate';
+import iconmobil from "../../assets/img/Truck (1).png"
 function MapsContainerMapping({ width, height, locations }) {
     const [directions, setDirections] = useState(null);
     const [distance, setDistance] = useState(null);
     const [duration, setDuration] = useState(null);
+    const { Coordinate } = MappingCoordinate()
     const { setJarakWaktu, JarakWaktu } = JarakWaktuStore()
     const containerStyle = {
         width: width,
         height: height,
     };
 
-    const center = {
-        lat: locations[0]?.bongkar?.lat || -3.745,
-        lng: locations[0]?.bongkar?.lng || -38.523,
-    };
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: ApiGoogleMap,
     });
 
-    
+    const [mapCenter, setMapCenter] = useState({
+        lat: locations[0]?.bongkar?.lat || -3.745, // Fallback jika Coordinate tidak tersedia
+        lng: locations[0]?.bongkar?.lng || -38.523,
+    });
+    const center = {
+        lat: Coordinate?.latitude,
+        lng: Coordinate?.longitude,
+        // lat: Coordinate?.latitude || locations[0]?.bongkar?.lat,
+        // lng: Coordinate?.longitude || locations[0]?.bongkar?.lng,
+    };
     useEffect(() => {
         if (isLoaded && locations[0]?.bongkar && locations.length > 0) {
             const directionsService = new window.google.maps.DirectionsService();
@@ -63,16 +70,16 @@ function MapsContainerMapping({ width, height, locations }) {
                 }
             });
         }
-    }, [isLoaded, locations, JarakWaktu]);
+    }, [isLoaded, locations, JarakWaktu, Coordinate]);
 
     if (!isLoaded) {
         return <div className='d-flex justify-content-center'>Loading Data Map / SJ Belum ada</div>;
-    } else if (!directions){
+    } else if (!directions) {
         return <div className='d-flex justify-content-center'>Loading Data Map / SJ Belum ada</div>;
-    } else if (!distance){
+    } else if (!distance) {
         return <div className='d-flex justify-content-center'>Loading Data Map / SJ Belum ada</div>;
     }
-    
+
     const datanya = [
         {
             key: '1',
@@ -102,7 +109,7 @@ function MapsContainerMapping({ width, height, locations }) {
             dataIndex: 'value',
             key: 'value',
         },
-        
+
     ];
 
     console.log(`JarakWaktu`, JarakWaktu);
@@ -110,7 +117,7 @@ function MapsContainerMapping({ width, height, locations }) {
         <>
             <GoogleMap
                 mapContainerStyle={containerStyle}
-                center={center}
+                center={mapCenter}
                 zoom={14}
             >
                 {/* Marker for the initial 'bongkar' location */}
@@ -135,6 +142,13 @@ function MapsContainerMapping({ width, height, locations }) {
                         }}
                     />
                 )}
+                <Marker icon={{
+                    url: iconmobil,
+                    scaledSize: new window.google.maps.Size(30, 30), // Adjust the size here
+                    origin: new window.google.maps.Point(0, 0),
+                    anchor: new window.google.maps.Point(25, 25)
+                }} key={Coordinate?.latitude} position={{ lat: Coordinate?.latitude, lng: Coordinate?.longitude }} />
+
             </GoogleMap>
             <div className='mt-3'>
                 <Table columns={columns} dataSource={datanya} pagination={false} />

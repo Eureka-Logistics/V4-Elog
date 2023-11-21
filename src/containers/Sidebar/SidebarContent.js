@@ -113,7 +113,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
       );
       setDataRequest(respons.data.data.totalData);
       console.log("ini data purch", respons.data.data.totalData);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -133,12 +133,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
           className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
         >
           <Row>
-            {jobdesk === "akunting" &&
-              localStorage.getItem("cabang") === "JKT" && (
-                <Menu.Item>
-                  <div>yaudah</div>
-                </Menu.Item>
-              )}
+
             {jobdesk != "rcadmin" ? (
               <Col span={24} className="d-flex justify-content-center">
                 <Avatar
@@ -202,7 +197,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 <></>
               )}
 
-              {jobdesk === "akunting" ? (
+              {jobdesk === "akunting" == !cabang ? (
                 <>
                   {/* <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
                     <Button
@@ -317,13 +312,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                    // style={{
-                    //   backgroundColor: "#0c2197",
-                    //   height: "20%",
-                    //   marginRight: "20px",
-                    //   marginLeft: "20px",
-                    //   borderRadius: "10px",
-                    // }}
+                  // style={{
+                  //   backgroundColor: "#0c2197",
+                  //   height: "20%",
+                  //   marginRight: "20px",
+                  //   marginLeft: "20px",
+                  //   borderRadius: "10px",
+                  // }}
                   >
                     <h6
                       style={{
@@ -404,13 +399,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                    // style={{
-                    //   backgroundColor: "#0c2197",
-                    //   height: "20%",
-                    //   marginRight: "20px",
-                    //   marginLeft: "20px",
-                    //   borderRadius: "10px",
-                    // }}
+                  // style={{
+                  //   backgroundColor: "#0c2197",
+                  //   height: "20%",
+                  //   marginRight: "20px",
+                  //   marginLeft: "20px",
+                  //   borderRadius: "10px",
+                  // }}
                   >
                     <h6
                       style={{
@@ -652,13 +647,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                   <div
                     className="d-flex justify-content-start"
-                    // style={{
-                    //   backgroundColor: "#0c2197",
-                    //   height: "20%",
-                    //   marginRight: "20px",
-                    //   marginLeft: "20px",
-                    //   borderRadius: "10px",
-                    // }}
+                  // style={{
+                  //   backgroundColor: "#0c2197",
+                  //   height: "20%",
+                  //   marginRight: "20px",
+                  //   marginLeft: "20px",
+                  //   borderRadius: "10px",
+                  // }}
                   >
                     <h6
                       style={{
@@ -1164,7 +1159,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   </Menu.Item>
                 </Menu.ItemGroup>
               )} */}
-              {jobdesk.toLowerCase() === "akunting" ? (
+
+              {jobdesk.toLowerCase() === "akunting" == !cabang ? (
                 <>
                   <Menu.ItemGroup key="akuntingg">
                     <Menu.Item
@@ -1450,7 +1446,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     key="Penerimaan INV"
                     className={
                       activeMenu ===
-                      "/akunting/ar/reportpartners/reportpenerimaaninvoice"
+                        "/akunting/ar/reportpartners/reportpenerimaaninvoice"
                         ? "menu-item-active menu-item-hover"
                         : "menu-item-hover"
                     }
@@ -2771,7 +2767,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
-                  
+
                   <div className="mt-4">
                     <Menu.Item
                       className={
@@ -2789,7 +2785,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                          */}
 
                         <img
-                         src={SjList}
+                          src={SjList}
                           style={{
                             fontSize: "30px",
                             color: "white",
@@ -3298,6 +3294,12 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 </>
               )}
               {/* ADMIN RACE CABANG */}
+              {cabang == "JKT" && jobdesk == "akunting"
+                && (
+                  <Menu.Item>
+                   <div>test</div>
+                  </Menu.Item>
+                )}
               {/* <>===========</> */}
             </MenuItemGroup>
           </Menu>

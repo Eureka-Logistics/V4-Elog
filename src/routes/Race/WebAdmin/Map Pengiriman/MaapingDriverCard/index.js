@@ -1,4 +1,4 @@
-import { Card, Button, Checkbox, Tag, Popconfirm, message } from 'antd'
+import { Card, Button, Checkbox, Tag, Popconfirm, message, notification } from 'antd'
 import React, { useEffect, useState } from 'react'
 import driver from "../../../../../assets/img/drivericon.png"
 import { Col, Row } from 'react-bootstrap'
@@ -11,12 +11,15 @@ import axios from 'axios'
 import { BaseUrlRace } from '../../../../../Api/BaseUrl'
 import DrawerMapping from '../../../../../components/DrawerContainer'
 import { doc, onSnapshot } from 'firebase/firestore'
+import MappingCoordinate from '../../../../../zustand/Store/CoordinateFirebase/MappingCoordinate'
 
 function MappingDriverCard({ OptionNamaNamaDriver, PengadaanDetail, SelectDriver2 }) {
     const [availableDrivers, setAvailableDrivers] = useState([]);
     const [cards, setCards] = useState([{ id: 1 }, { id: 2 }]); // asumsi mula-mula ada dua cards
     const [isHidden, setIsHidden] = useState(false); // state untuk menyembunyikan atau menampilkan cards
     const data = false
+    const { Coordinate } = MappingCoordinate()
+    const setCoordinate = MappingCoordinate(state => state.setCoordinate);
     const datadummy = CardMappingStoreRace(state => state.drivers);
     const gabunganData = CardMappingStoreRace(state => state.gabunganData);
     const [DataPerClickDrawlMapping, setDataPerClickDrawlMapping] = useState("")
@@ -31,19 +34,37 @@ function MappingDriverCard({ OptionNamaNamaDriver, PengadaanDetail, SelectDriver
     }
 
     const firestoresss = firestore;
-    const unsub = onSnapshot(doc(firestoresss, "location", "123"),
-      (doc) => {
-        if (doc.exists()) {
-          console.log("Current data: ", doc.data());
-        } else {
-          console.log("No such document!");
+    // console.log(`firestoresss`, firestoresss);
+    async function AmbilPosisiDriver(data) {
+        if (!data?.DriverId) {
+            console.log(`tidak ada datanya firebase iddriver`);
+            return;
         }
-      },
-      (error) => {
-        console.error("Error fetching document: ", error);
-      }
-    );
 
+        const unsub = onSnapshot(doc(firestoresss, "location", JSON.stringify(data.DriverId)),
+            (doc) => {
+                if (doc.exists()) {
+                    console.log("Datanya Driver Dari FireBase: ", doc.data());
+                    setCoordinate(doc.data());
+                } else {
+                    notification.error({
+                        message: "Driver Belum Jalan "
+                    })
+                    console.log("No such document!");
+                }
+            },
+            (error) => {
+                console.error("Error fetching document: ", error);
+            }
+        );
+        return unsub;
+    }
+
+    console.log(`Coordinate firebase`, Coordinate);
+
+    useEffect(() => {
+        AmbilPosisiDriver()
+    }, [DataPerClickDrawlMapping?.DriverId])
 
     const confirmDelete = (id_mpd, id_msm) => {
         DeleteSm(id_mpd, id_msm);
@@ -69,7 +90,6 @@ function MappingDriverCard({ OptionNamaNamaDriver, PengadaanDetail, SelectDriver
         }
     }
 
-    // console.log(`OptionNamaNamaDriver`, OptionNamaNamaDriver);
 
 
     return (
@@ -77,11 +97,13 @@ function MappingDriverCard({ OptionNamaNamaDriver, PengadaanDetail, SelectDriver
             {(Array.isArray(OptionNamaNamaDriver) ? OptionNamaNamaDriver : []).map((data, index) => (
                 <Card className='mt-3' style={{ borderRadius: 10, backgroundColor: "#ccd8f3", padding: "0px", margin: "0px", height: "auto" }}>
                     <Card
-                    onClick={(e) => {
-                        setOpenDrawer(true)
-                        setDataPerClickDrawlMapping(data)
-                        console.log(`diklik`, index, data)}} 
-                    className='card-2' style={{ marginTop: "-15px", borderRadius: 10, marginRight: -20, marginLeft: -20, backgroundColor: "#1A3368", maxHeight: 90 }}>
+                        onClick={(e) => {
+                            setOpenDrawer(true)
+                            setDataPerClickDrawlMapping(data)
+                            AmbilPosisiDriver(data);
+                            console.log(`diklik`, index, data)
+                        }}
+                        className='card-2' style={{ marginTop: "-15px", borderRadius: 10, marginRight: -20, marginLeft: -20, backgroundColor: "#1A3368", maxHeight: 90 }}>
                         <Row >
                             <Col md={1} l style={{ backgroundColor: "" }}>
                                 <Button style={{ backgroundColor: "white", borderRadius: "8px", color: "blue" }}>{index + 1}</Button>
@@ -92,12 +114,6 @@ function MappingDriverCard({ OptionNamaNamaDriver, PengadaanDetail, SelectDriver
 
                                 </div>
                             </Col>
-                            {/* <Col>
-                                <div style={{ fontSize: 10 ,color: "white"}}>{totalKoli} Koli</div>
-                                <div style={{ fontSize: 10 ,color: "white"}}>{totalIkat} Ikat</div>
-                                <div style={{ fontSize: 10 ,color: "white"}}>{totalQty} Qty</div>
-                                <div style={{ fontSize: 10 ,color: "white"}}>{totalBerat} Berat</div>
-                            </Col> */}
                             <Col sm={3} className='mt-1'>
                                 <div style={{ color: "white", fontSize: 15, fontWeight: "bold", textAlign: 'center' }}>Jumlah SJ</div>
                                 <div style={{ color: "white", fontWeight: "bold", fontSize: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{data.dataSm?.length || 0}</div>
@@ -220,9 +236,9 @@ function MappingDriverCard({ OptionNamaNamaDriver, PengadaanDetail, SelectDriver
 
                 </Card>
             ))
-        }
+            }
 
-<DrawerMapping DataPerClickDrawlMapping={DataPerClickDrawlMapping} OpenDrawer={OpenDrawer} setOpenDrawer={setOpenDrawer} />
+            <DrawerMapping DataPerClickDrawlMapping={DataPerClickDrawlMapping} OpenDrawer={OpenDrawer} setOpenDrawer={setOpenDrawer} />
         </div >
     )
 }
