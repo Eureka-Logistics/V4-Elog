@@ -42,10 +42,15 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
             dataIndex: 'koli',
             key: 'koli',
         },
+        {
+            title: 'Qty',
+            dataIndex: 'qty',
+            key: 'qty',
+        },
     ]
     const CustomDrawer = styled(Drawer)`
     .ant-drawer-content-wrapper {
-        width:778px !important;
+        width:auto !important;
         padding: 15px;
         background: #1a3368;
     },
@@ -69,13 +74,14 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
     // const ambilCoordinate = async () => {
     //     getCoordinates()
     // }
+    console.log(`DataPerClickDrawlMapping`,DataPerClickDrawlMapping);
     const [mapLocations, setMapLocations] = useState([]);
     useEffect(() => {
         if (DataPerClickDrawlMapping) {
-            console.log("mulai");
+            // console.log("mulai");
             const loop = DataPerClickDrawlMapping?.dataSm?.map((i) => ({
                 muat: i?.muat,
-                bongkar: i?.penerima
+                bongkar: i?.alamatPenerima
 
             }))
             console.log(`DataPerClickDrawlMapping?.dataSm`, loop);
@@ -85,7 +91,7 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
                     console.log("mulai");
                     const loop = DataPerClickDrawlMapping.dataSm.map(i => ({
                         muat: i.muat,
-                        bongkar: i.penerima
+                        bongkar: i.alamatPenerima
                     }));
 
                     try {
@@ -124,7 +130,7 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
                 <div style={{ height: 550, width: "auto", display: "flex", flexDirection:"column",justifyContent: "center" }}>
                     <MapsContainerMapping
                         locations={mapLocations}
-                        width={730}
+                        width={"auto"}
                         height={550}
                     />
                 </div>

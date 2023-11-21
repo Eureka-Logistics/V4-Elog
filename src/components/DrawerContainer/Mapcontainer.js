@@ -37,8 +37,8 @@ function MapsContainerMapping({ width, height, locations }) {
             const directionsService = new window.google.maps.DirectionsService();
 
             directionsService.route({
-                origin: new window.google.maps.LatLng(locations[0].bongkar.lat, locations[0].bongkar.lng),
-                destination: new window.google.maps.LatLng(locations[locations.length - 1].muat.lat, locations[locations.length - 1].muat.lng),
+                origin: new window.google.maps.LatLng(locations[0].bongkar?.lat, locations[0].bongkar?.lng),
+                destination: new window.google.maps.LatLng(locations[locations.length - 1].muat?.lat, locations[locations.length - 1].muat?.lng),
                 waypoints: locations.slice(0, -1).map(location => ({
                     location: new window.google.maps.LatLng(location?.muat?.lat, location?.muat?.lng),
                     stopover: true,
@@ -122,7 +122,7 @@ function MapsContainerMapping({ width, height, locations }) {
             >
                 {/* Marker for the initial 'bongkar' location */}
                 {locations[0]?.bongkar && (
-                    <Marker position={{ lat: locations[0].bongkar.lat, lng: locations[0].bongkar.lng }} />
+                    <Marker position={{ lat: locations[0].bongkar?.lat, lng: locations[0]?.bongkar?.lng }} />
                 )}
 
                 {/* Markers for each 'muat' location */}

@@ -350,7 +350,7 @@ Salam hangat,
                 Informasi Driver
               </p>
               <Row style={{ marginTop: "" }}>
-                <Table dataSource={tableData} columns={columns} pagination={false} />
+                <Table dataSource={tableData} columns={columns} load pagination={false} />
               </Row>
               <Row style={{}} className="align-items-center">
                 <Col style={{ backgroundColor: "" }} >
@@ -404,7 +404,7 @@ Salam hangat,
             />
           </Form.Item>
         </Col>
-        <Col className="ms-3" sm={4} md={2}>
+        {/* <Col className="ms-3" sm={4} md={2}>
           <Form.Item>
             <div style={{ fontWeight: "bold" }}>Cari Pic Alamat</div>
             <Select
@@ -413,7 +413,7 @@ Salam hangat,
               }}
             />
           </Form.Item>
-        </Col>
+        </Col> */}
         <Col>
           <div style={{ fontWeight: "bold", marginTop: 20 }}></div>
           <Pagination
@@ -426,7 +426,7 @@ Salam hangat,
         </Col>
       </Row>
       <Row>
-        <Table dataSource={DataApi.Data} columns={sm} pagination={{
+        <Table dataSource={DataApi.Data} loading={LoadingBang} columns={sm} pagination={{
           total: DataApi.totalData,
           onChange: (page, pageSize) => {
             console.log(`Current page: ${page}, Page size: ${pageSize}`);

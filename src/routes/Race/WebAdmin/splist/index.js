@@ -19,8 +19,8 @@ function SpListRace() {
     const history = useHistory()
     const [open, setOpen] = useState(false);
     const [OptionsState, setOptionsState] = useState("")
-    const [Cabang, setCabang] = useState("JKT")
-
+    const NamaCabang = localStorage.getItem("cabang")
+    const [Cabang, setCabang] = useState(NamaCabang)
     const showDefaultDrawer = () => {
         setOpen(true);
     };
@@ -178,11 +178,11 @@ Salam hangat,
                     </h5>
                 </Col>
                 <Col sm={3}>
-                    <Select 
-                    optionFilterProp='children'
-                    showSearch
-                    onChange={(e)=>setCabang(e)}
-                    placeholder="Select Cabang" style={{width:"100%"}}>
+                    <Select
+                        optionFilterProp='children'
+                        showSearch
+                        onChange={(e) => setCabang(e)}
+                        placeholder="Select Cabang" style={{ width: "100%" }}>
                         {OptionsState && OptionsState.map((data, index) => (
                             <Select.Option description={data?.description} key={data.whid} whid={data?.whid} value={data.cabangId}>{data?.description}</Select.Option>
                         ))}

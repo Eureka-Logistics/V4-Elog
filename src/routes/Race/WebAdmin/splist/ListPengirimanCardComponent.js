@@ -13,8 +13,10 @@ import Baseurl, { BaseUrlRace } from '../../../../Api/BaseUrl'
 import "../../Erlangga/style.css"
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import OptionsCabangState from '../../../../zustand/Store/Race/optionsCabangRace'
-function ListPengiriman({ setOpen, CariDisini ,Cabang}) {
-
+function ListPengiriman({ setOpen, CariDisini, Cabang }) {
+    const [Loading, setLoading] = useState(false)
+    const DariCabang = localStorage.getItem("cabang")
+    console.log(`DariCabang`,DariCabang);
     const showDefaultDrawer = () => {
         setOpen(true);
     };
@@ -27,9 +29,10 @@ function ListPengiriman({ setOpen, CariDisini ,Cabang}) {
         size: 10
     })
     const SpAll = async (page = 1) => {
+        setLoading(true)
         try {
             // const datsa = await axios.get(`https://api.eurekalogistics.co.id/sp/get-SP-all?limit=${Spdata?.size}&page=${page}&keyword=${CariDisini}&statusSP=&customerId=&codeBrench=JKT&sales=&buId=`,
-            const datsa = await axios.get(`${BaseUrlRace}sp/get-sp?limit=${Spdata?.size}&page=${page}&cabang=${Cabang}`,
+            const datsa = await axios.get(`${BaseUrlRace}sp/get-sp?limit=${Spdata?.size}&page=${page}&cabang=${Cabang}&keyword=${CariDisini}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -37,19 +40,19 @@ function ListPengiriman({ setOpen, CariDisini ,Cabang}) {
                     },
                 }
             );
-
             setSpdata(asw => ({
                 ...asw,
                 Isi: datsa?.data.data.order,
                 Paggination: datsa?.data.data
             }))
+            setLoading(false)
         } catch (error) {
 
         }
     }
     useEffect(() => {
         SpAll()
-    }, [Spdata.size, CariDisini,Cabang])
+    }, [Spdata.size, CariDisini, Cabang])
     const columns = [
         {
             title: 'No',
@@ -240,7 +243,7 @@ function ListPengiriman({ setOpen, CariDisini ,Cabang}) {
         router.push(`/masterdata/edit-sp/${a.idmp}`)
 
     }
-   
+
     return (
         <div className='mt-2'>
             <Row >
