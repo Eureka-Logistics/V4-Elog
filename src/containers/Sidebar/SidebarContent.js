@@ -96,8 +96,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
     history.push(`/akunting/usernew`);
   };
   const cabang = localStorage.getItem("cabang");
-
-  const menuBackgroundColor = (jobdesk === "rcadmin" || jobdesk == "akunting" && cabang )? "#F05423" : "#BAD6FF";
+ 
+  const menuBackgroundColor = jobdesk === "rcadmin" || jobdesk === "akunting" && cabang ? "#F05423" : "#BAD6FF";
   const location = useLocation();
   const [activeMenu, setActiveMenu] = useState(location.pathname);
   const [DataRequest, setDataRequest] = useState("");

@@ -10,6 +10,7 @@ import card4 from "../../../src/assets/img/dashboard race/card4.png";
 import graph1 from "../../../src/assets/img/graph1.png";
 import graph2 from "../../../src/assets/img/graph2.png";
 import graph3 from "../../../src/assets/img/graph3.png";
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function DashboardCabang() {
   const [DataDashboard, setDataDashboard] = useState("");
@@ -34,6 +35,14 @@ function DashboardCabang() {
     // localStorage.getItem("jobdesk");
     fetchData();
   }, []);
+
+  const pindah = useHistory()
+  const spklist = () => {
+      pindah.push(`/race/splist`)
+  }
+  const sjlist = () => {
+      pindah.push(`/race/sjlist`)
+  }
 
   return (
     <div>
@@ -76,7 +85,9 @@ function DashboardCabang() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    
                   }}
+                  onClick={spklist}
                 >
                   <span>
                     <h5 style={{ textAlign: "center" }} className="mt-2">
@@ -127,7 +138,9 @@ function DashboardCabang() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    
                   }}
+                  onClick={sjlist}
                 >
                   <span>
                     <h5 style={{ textAlign: "center" }} className="mt-2">
