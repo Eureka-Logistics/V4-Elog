@@ -197,7 +197,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 <></>
               )}
 
-              {jobdesk === "akunting" == !cabang ? (
+              {jobdesk === "akunting"  ? (
                 <>
                   {/* <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
                     <Button
@@ -1160,7 +1160,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 </Menu.ItemGroup>
               )} */}
 
-              {jobdesk.toLowerCase() === "akunting" == !cabang ? (
+              {jobdesk.toLowerCase() === "akunting" != localStorage.getItem("level") === "rajacepat" ? (
                 <>
                   <Menu.ItemGroup key="akuntingg">
                     <Menu.Item
@@ -2391,7 +2391,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 </Menu.Item>
               )}
               {/* ////Login Race///// */}
-              {jobdesk === "rcadmin" && (
+              {jobdesk === "rcadmin" && localStorage.getItem('level') == "rajacepat" && (
                 <>
                   <div className="mt-3">
                     <Menu.Item
