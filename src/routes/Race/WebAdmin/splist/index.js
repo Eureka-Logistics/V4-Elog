@@ -19,8 +19,9 @@ function SpListRace() {
     const history = useHistory()
     const [open, setOpen] = useState(false);
     const [OptionsState, setOptionsState] = useState("")
-    const NamaCabang = localStorage.getItem("cabang")
-    const [Cabang, setCabang] = useState(NamaCabang)
+    const NamaCabang = localStorage.getItem("cabang");
+   
+    const [Cabang, setCabang] = useState(NamaCabang === "RCCGK" ? "JKT" : NamaCabang)
     const showDefaultDrawer = () => {
         setOpen(true);
     };
