@@ -182,7 +182,7 @@ Salam hangat,
                         optionFilterProp='children'
                         showSearch
                         onChange={(e) => setCabang(e)}
-                        placeholder="Select Cabang" style={{ width: "100%" }}>
+                        placeholder={Cabang} style={{ width: "100%" }}>
                         {OptionsState && OptionsState.map((data, index) => (
                             <Select.Option description={data?.description} key={data.whid} whid={data?.whid} value={data.cabangId}>{data?.description}</Select.Option>
                         ))}
