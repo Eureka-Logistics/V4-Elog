@@ -49,7 +49,9 @@ const Sidebar = () => {
     drawerStyle = "gx-collapsed-sidebar"
   }
   const jobdesk = localStorage.getItem("jobdesk");
-  const menuBackgroundColor = jobdesk === "rcadmin" ? "#F05423" : "#BAD6FF";
+  const cabang = localStorage.getItem("cabang");
+
+  const menuBackgroundColor = jobdesk === "rcadmin" || jobdesk === "akunting" && cabang? "#F05423" : "#BAD6FF";
   return (
     <Sider
       // className={`gx-app-sidebar ${drawerStyle} ${themeType !== THEME_TYPE_LITE ? 'gx-layout-sider-dark' : null}`}
