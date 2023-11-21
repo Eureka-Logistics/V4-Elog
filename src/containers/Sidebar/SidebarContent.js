@@ -95,7 +95,9 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
   const createuserbaru = () => {
     history.push(`/akunting/usernew`);
   };
-  const menuBackgroundColor = jobdesk === "rcadmin" ? "#F05423" : "#BAD6FF";
+  const cabang = localStorage.getItem("cabang");
+
+  const menuBackgroundColor = (jobdesk === "rcadmin" || jobdesk == "akunting" && cabang )? "#F05423" : "#BAD6FF";
   const location = useLocation();
   const [activeMenu, setActiveMenu] = useState(location.pathname);
   const [DataRequest, setDataRequest] = useState("");
@@ -120,7 +122,6 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
     fetchData();
     setActiveMenu(location.pathname);
   }, [location]);
-  const cabang = localStorage.getItem("cabang");
   console.log(`cabang`, cabang);
   return (
     <>
