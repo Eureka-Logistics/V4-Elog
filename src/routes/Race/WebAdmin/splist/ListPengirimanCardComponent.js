@@ -66,6 +66,12 @@ function ListPengiriman({ setOpen, CariDisini, Cabang }) {
             dataIndex: 'so',
 
         },
+        {
+            title: "SJ Erlangga",
+            key: 'SjErlangga',
+            dataIndex: 'SjErlangga',
+
+        },
         // {
         //     title: "Perusahaan",
         //     dataIndex: 'perusahaan',

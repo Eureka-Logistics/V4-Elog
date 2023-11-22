@@ -251,7 +251,7 @@ Salam hangat,
     {
       key: 'muatAlamat',
       label: 'Alamat Muat',
-      value: DetailDataPerClick?.other?.m_pengadaan_detail?.muat?.alamat
+      value: DetailDataPerClick?.alamatMuat
     },
     {
       key: 'bongkarAlamat',
@@ -290,6 +290,16 @@ Salam hangat,
       title: 'sm',
       dataIndex: 'sm',
       key: 'sm',
+    },
+    {
+      title: 'Driver',
+      dataIndex: 'driver',
+      key: 'driver',
+    },
+    {
+      title: 'Kendaraan Pickup',
+      dataIndex: 'kendaraanPickup',
+      key: 'kendaraanPickup',
     },
     {
       title: 'service',
