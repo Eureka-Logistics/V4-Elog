@@ -254,14 +254,14 @@ function ListPengiriman({ setOpen, CariDisini, Cabang }) {
         <div className='mt-2'>
             <Row >
                 <Card style={{ overflowX: 'auto' }}> {/* <-- Add this style */}
-                    <style>
+                    {/* <style>
                         {`
                 .hover-row:hover {
                     // background-color: #F36C43 ; 
                     cursor: pointer;
                 }
                 `}
-                    </style>
+                    </style> */}
                     <Table dataSource={Spdata?.Isi} columns={columns}
                         loading={!Spdata.Isi}
                         pagination={{
@@ -274,7 +274,7 @@ function ListPengiriman({ setOpen, CariDisini, Cabang }) {
                         }}
                         onRow={(data, index) => ({
                             onClick: event => {
-                                GetdataTable(index, data)
+                                // GetdataTable(index, data)
                                 // setOpen(true);
                             },
                             className: 'hover-row'

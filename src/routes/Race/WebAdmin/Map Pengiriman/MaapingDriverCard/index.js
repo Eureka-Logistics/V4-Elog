@@ -63,7 +63,7 @@ function MappingDriverCard({ OptionNamaNamaDriver, PengadaanDetail, SelectDriver
     console.log(`Coordinate firebase`, Coordinate);
 
     useEffect(() => {
-        AmbilPosisiDriver()
+        AmbilPosisiDriver()       
     }, [DataPerClickDrawlMapping?.DriverId])
 
     const confirmDelete = (id_mpd, id_msm) => {

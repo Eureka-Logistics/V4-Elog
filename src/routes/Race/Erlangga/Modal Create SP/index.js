@@ -36,7 +36,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
                 ...item,
                 seleckan_sekolah: data?.data?.sekolah?.[0],
             }))
-            SelectDataForeach()
+            // SelectDataForeach()
             let updatedSeleckanSekolah;
             if (Array.isArray(data.data.sekolah)) {
                 updatedSeleckanSekolah = data.data.sekolah;
@@ -108,31 +108,31 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
     }, [Seleckan.seleckan_noref]);
 
 
-    const SelectDataForeach = async () => {
-        try {
-            Seleckan.data_noref.forEach(async (datafor) => {
-                const data = await axios.get(`${BaseUrlRace}sp/get-select-sp?noref=${datafor.referensi}`,
-                    {
-                        headers: {
-                            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
-                const datas = data.data.sekolah.map((item) => ({
-                    item: item.sekolah
-                }))
-                console.log(`ini datas`, data.data.sekolah)
-                setSelectSekolahforEach(data.data.sekolah)
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    // const SelectDataForeach = async () => {
+    //     try {
+    //         Seleckan.data_noref.forEach(async (datafor) => {
+    //             const data = await axios.get(`${BaseUrlRace}sp/get-select-sp?noref=${datafor.referensi}`,
+    //                 {
+    //                     headers: {
+    //                         Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
+    //                         "Content-Type": "application/json",
+    //                     },
+    //                 }
+    //             );
+    //             const datas = data.data.sekolah.map((item) => ({
+    //                 item: item.sekolah
+    //             }))
+    //             console.log(`ini datas`, data.data.sekolah)
+    //             setSelectSekolahforEach(data.data.sekolah)
+    //         });
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
-    useEffect(() => {
-        SelectDataForeach()
-    }, [])
+    // useEffect(() => {
+    //     SelectDataForeach()
+    // }, [])
 
     console.log(`SelectSekolahforEach`, SelectSekolahforEach);
 
@@ -250,7 +250,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
                         </Col>
 
                     </Row>
-                    <Row>
+                    {/* <Row>
                         <Col>
                             {Seleckan && Seleckan.data_noref.map((data, index) => (
                                 <p>{data?.referensi}</p>
@@ -261,7 +261,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
                                 <p>{i?.sekolah}</p>
                             ))}
                         </Col>
-                    </Row>
+                    </Row> */}
                     {/* <Table columns={columns} dataSource={Seleckan.data_noref} /> */}
                 </Form>
             </Modal>

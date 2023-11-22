@@ -224,7 +224,7 @@ Salam hangat,
       title: 'Pickup Date',
       dataIndex: 'tglPickup',
       key: 'tglPickup',
-      render : (tglPickup) =>{
+      render: (tglPickup) => {
         return moment(tglPickup).format("YYYY-MM-DD")
       }
     },
@@ -281,17 +281,17 @@ Salam hangat,
 
   const sm = [
     {
-      title: 'no',
+      title: 'No',
       dataIndex: 'no',
       key: 'no',
     },
     {
-      title: 'sp',
+      title: 'SP',
       dataIndex: 'sp',
       key: 'sp',
     },
     {
-      title: 'sm',
+      title: 'SM',
       dataIndex: 'sm',
       key: 'sm',
     },
@@ -305,18 +305,18 @@ Salam hangat,
       dataIndex: 'kendaraanPickup',
       key: 'kendaraanPickup',
     },
+    // {
+    //   title: 'service',
+    //   dataIndex: 'service',
+    //   key: 'service',
+    // },
     {
-      title: 'service',
-      dataIndex: 'service',
-      key: 'service',
-    },
-    {
-      title: 'destination',
+      title: 'Destination',
       dataIndex: 'destination',
       key: 'destination',
     },
     {
-      title: 'tglPickup',
+      title: 'Tgl Pickup',
       dataIndex: 'tglPickup',
       key: 'tglPickup',
       render: (tglPickup) => {
@@ -397,7 +397,7 @@ Salam hangat,
           title={
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: "space-between" }}>
               <span style={{ marginRight: 10 }}>Pengiriman</span>
-              <div style={{fontSize :25}}>{DetailDataPerClick?.sm}</div>
+              <div style={{ fontSize: 25 }}>{DetailDataPerClick?.sm}</div>
               <Button
                 onClick={pindahdetailsp}
                 className="mt-3"
@@ -475,70 +475,9 @@ Salam hangat,
         <>Loading</>
       )}
       <Row>
-        <Col className="ms-3" sm={4} md={2}>
-          <Form.Item>
-            <div style={{ fontWeight: "bold" }}>Cari SJ</div>
-            <Input
-              onChange={(e) => {
-                SetCariSJ(e.target.value);
-              }}
-            />
-          </Form.Item>
-        </Col>
-        {/* <Col className="ms-3" sm={4} md={2}>
-          <Form.Item>
-            <div style={{ fontWeight: "bold" }}>Cari Nama Customer</div>
-            <Input
-              onChange={(e) => {
-                SetCariSJ(e.target.value);
-              }}
-            />
-          </Form.Item>
-        </Col> */}
-        {/* <Col sm={3}>
-          <Select
-          className="mt-3"
-            optionFilterProp="children"
-            showSearch
-            onChange={(e) => setCabang(e)}
-            placeholder={Cabang}
-            style={{ width: "50%" }}
-          >
-            {OptionsState &&
-              OptionsState.map((data, index) => (
-                <Select.Option
-                  description={data?.description}
-                  key={data.whid}
-                  whid={data?.whid}
-                  value={data.cabangId}
-                >
-                  {data?.description}
-                </Select.Option>
-              ))}
-          </Select>
-        </Col> */}
-        {/* <Col className="ms-3" sm={4} md={2}>
-          <Form.Item>
-            <div style={{ fontWeight: "bold" }}>Cari Pic Alamat</div>
-            <Select
-              onChange={(e) => {
-                SetCariSJ(e.target.value);
-              }}
-            />
-          </Form.Item>
-        </Col> */}
-        <Col>
-          <div style={{ fontWeight: "bold", marginTop: 20 }}></div>
-          <Pagination
-            className="d-flex justify-content-end"
-            // current={1}
-            onChange={(page, size) => Paginations(page, size)}
-            total={DataApi.totalData}
-          // pageSize={10}
-          />
-        </Col>
+        
         <Col
-        style={{ fontWeight: "bold", marginTop: 20 }}
+          style={{ fontWeight: "bold", marginTop: 20 }}
           className="d-flex justify-content-end ">
           <Button
             style={{
@@ -551,6 +490,16 @@ Salam hangat,
           >
             {exporting ? "Exporting..." : "Export to Excel"}
           </Button>
+        </Col>
+        <Col className="ms-3 mx-3" sm={4} md={2}>
+          <Form.Item>
+            <div style={{ fontWeight: "bold" }}>Cari SJ</div>
+            <Input
+              onChange={(e) => {
+                SetCariSJ(e.target.value);
+              }}
+            />
+          </Form.Item>
         </Col>
       </Row>
 
@@ -572,6 +521,13 @@ Salam hangat,
               // you can also add other event handlers here if needed
             };
           }} />
+        <Pagination
+          className="d-flex justify-content-end"
+          // current={1}
+          onChange={(page, size) => Paginations(page, size)}
+          total={DataApi.totalData}
+        // pageSize={10}
+        />
         {!DataApi.Data && (
           <div
             className="d-flex justify-content-center align-items-center"
