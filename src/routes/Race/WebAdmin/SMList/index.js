@@ -196,18 +196,18 @@ Salam hangat,
   const columns = [
     {
       title: 'Driver',
-      dataIndex: 'driver1',
-      key: 'driver1',
+      dataIndex: 'driver',
+      key: 'driver',
     },
     {
-      title: 'Vehicle',
-      dataIndex: 'kendaraanMitra1',
-      key: 'kendaraanMitra1',
+      title: 'Kendaraan',
+      dataIndex: 'kendaraanPickup',
+      key: 'kendaraanPickup',
     },
     {
-      title: 'Unit',
-      dataIndex: 'unit1',
-      key: 'unit1',
+      title: 'Nopol',
+      dataIndex: 'nopol',
+      key: 'nopol',
     },
     {
       title: 'SP',
