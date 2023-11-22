@@ -323,6 +323,8 @@ Salam hangat,
 
       await new Promise((resolve) => setTimeout(resolve, 2000));
       setExporting(false);
+
+      
       const data = response.data.data.order; // Assuming this is the array you want to export
 
       // Convert data to Excel format
@@ -478,7 +480,7 @@ Salam hangat,
             />
           </Form.Item>
         </Col>
-        {/* <Col sm={3}>
+        <Col sm={3}>
           <Select
           className="mt-3"
             optionFilterProp="children"
@@ -499,7 +501,7 @@ Salam hangat,
                 </Select.Option>
               ))}
           </Select>
-        </Col> */}
+        </Col>
         {/* <Col className="ms-3" sm={4} md={2}>
           <Form.Item>
             <div style={{ fontWeight: "bold" }}>Cari Pic Alamat</div>
