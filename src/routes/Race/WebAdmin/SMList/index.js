@@ -129,7 +129,7 @@ function SMList({ }) {
       );
     }
   };
-console.log(`DetailDataPerClick`,DetailDataPerClick);
+  console.log(`DetailDataPerClick`, DetailDataPerClick);
   function sendMessage() {
     const phoneNumber = "6281221871961";
     const name = NamaSupir;
@@ -154,7 +154,7 @@ Salam hangat,
     DataApiSM(s);
     setDataApi((items) => ({
       ...items,
-      limit: u,       
+      limit: u,
     }));
   }
   const [isDataFetched, setIsDataFetched] = useState(false);
@@ -187,7 +187,7 @@ Salam hangat,
     };
     setIsDataFetched(false);
     fetchData();
-    
+
   }, [DetailDataPerClick]);
 
   // console.log(`AmbilCoordinates`, AmbilCoordinates);
@@ -316,7 +316,7 @@ Salam hangat,
       title: 'tglPickup',
       dataIndex: 'tglPickup',
       key: 'tglPickup',
-      render :(tglPickup) =>{
+      render: (tglPickup) => {
         return moment(tglPickup).format("YYYY-MM-DD")
       }
     },
@@ -382,7 +382,7 @@ Salam hangat,
       });
       console.log(data.data.data);
       setOptionsState(data.data.data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return (
@@ -534,10 +534,9 @@ Salam hangat,
           // pageSize={10}
           />
         </Col>
-      </Row>
-      <Row>
-        <Col sm={6}></Col>
-        <Col sm={6} className="d-flex justify-content-end">
+        <Col
+        style={{ fontWeight: "bold", marginTop: 20 }}
+          className="d-flex justify-content-end ">
           <Button
             style={{
               backgroundColor: "green",
@@ -551,14 +550,15 @@ Salam hangat,
           </Button>
         </Col>
       </Row>
+
       <Row>
-      {/* pagination={{
+        {/* pagination={{
           total: DataApi.totalData,
           onChange: (page, pageSize) => {
             console.log(`Current page: ${page}, Page size: ${pageSize}`);
           }
         }} */}
-        <Table dataSource={DataApi.Data} loading={LoadingBang} columns={sm}  className="mb-5" pagination={false}
+        <Table dataSource={DataApi.Data} loading={LoadingBang} columns={sm} className="mb-5" pagination={false}
           onRow={(record, rowIndex) => {
             return {
               onClick: async () => {
