@@ -18,9 +18,14 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
             render: (text, record, index) => index + 1
         },
         {
-            title: 'Muat',
-            dataIndex: 'muat',
-            key: 'muat',
+            title: 'SM',
+            dataIndex: 'sm',
+            key: 'sm',
+        },
+        {
+            title: 'Jenis Kendaraan',
+            dataIndex: 'jenisKendaraan',
+            key: 'jenisKendaraan',
         },
         {
             title: 'Penerima',
@@ -132,6 +137,7 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
                         locations={mapLocations}
                         width={"auto"}
                         height={550}
+                        DataPerClickDrawlMapping={DataPerClickDrawlMapping}
                     />
                 </div>
                 <div>

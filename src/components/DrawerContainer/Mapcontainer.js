@@ -5,7 +5,7 @@ import JarakWaktuStore from '../../zustand/Store/coordinateMapRace/StoreJarakWak
 import { Table } from 'antd';
 import MappingCoordinate from '../../zustand/Store/CoordinateFirebase/MappingCoordinate';
 import iconmobil from "../../assets/img/Truck (1).png"
-function MapsContainerMapping({ width, height, locations }) {
+function MapsContainerMapping({ width, height, locations,DataPerClickDrawlMapping }) {
     const [directions, setDirections] = useState(null);
     const [distance, setDistance] = useState(null);
     const [duration, setDuration] = useState(null);
@@ -81,6 +81,11 @@ function MapsContainerMapping({ width, height, locations }) {
     }
 
     const datanya = [
+        {
+            key: '0',
+            property: 'Driver',
+            value: `${DataPerClickDrawlMapping?.Driver}`, // Assuming distance is in kilometers
+        },
         {
             key: '1',
             property: 'Perkiraan Jarak',
