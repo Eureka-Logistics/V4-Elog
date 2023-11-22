@@ -11,7 +11,9 @@ import {
   Tag,
   notification,
 } from "antd";
+import * as XLSX from "xlsx";
 import axios from "axios";
+
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Baseurl, { BaseUrlRace } from "../../../../Api/BaseUrl";
@@ -52,6 +54,13 @@ function SMList({ }) {
   const [NamaSupir, setNamaSupir] = useState("");
   const [LoadingBang, setLoadingBang] = useState(false);
   const [DetailDataPerClick, setDetailDataPerClick] = useState([]);
+  const [exporting, setExporting] = useState(false);
+  const [OptionsState, setOptionsState] = useState("");
+  const NamaCabang = localStorage.getItem("cabang");
+
+  const [Cabang, setCabang] = useState(
+    NamaCabang === "RCCGK" ? "JKT" : NamaCabang
+  );
   const showDefaultDrawer = (e) => {
     setOpen(true);
   };
@@ -100,7 +109,8 @@ function SMList({ }) {
   };
   useEffect(() => {
     DataApiSM();
-  }, [CariSJ, DataApi.limit]);
+    pilihcabangselect();
+  }, [CariSJ, DataApi.limit, Cabang]);
 
   const history = useHistory();
   const pindahdetailsp = () => {
@@ -176,6 +186,7 @@ Salam hangat,
     };
     setIsDataFetched(false);
     fetchData();
+    
   }, [DetailDataPerClick]);
 
   // console.log(`AmbilCoordinates`, AmbilCoordinates);
@@ -297,6 +308,69 @@ Salam hangat,
     },
   ];
 
+  const exportToExcel = async (s = 1) => {
+    try {
+      setExporting(true);
+      const response = await axios.get(
+        `${BaseUrlRace}sp/get-sm-all?limit=${DataApi.limit}&page=${s}&keyword=${CariSJ}&kodeCabang=${Cabang}&mitra1=&mitra2=&mitra3&id_bu_brench=`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setExporting(false);
+      const data = response.data.data.order; // Assuming this is the array you want to export
+
+      // Convert data to Excel format
+      const ws = XLSX.utils.json_to_sheet(data);
+
+      const columnWidths = [
+        { wch: 5 }, // no
+        { wch: 12 }, // idmp
+        { wch: 20 }, // so
+        { wch: 10 }, // cabang
+        { wch: 35 }, // sales
+        { wch: 23 }, // sj erlangga
+        { wch: 18 }, // kendaraan
+        { wch: 35 }, // sekolah tujuan
+
+        // Add more objects for additional columns as needed
+      ];
+
+      // Apply width to specific columns
+      ws["!cols"] = columnWidths;
+
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+      // Save the Excel file
+      XLSX.writeFile(wb, "Export_Data_SJ.xlsx");
+    } catch (error) {
+      // Handle error
+      setExporting(false);
+      console.error("Error exporting data: ", error);
+    }
+  };
+
+
+  const pilihcabangselect = async () => {
+    try {
+      const data = await axios.get(`${BaseUrlRace}sp/get-cabang`, {
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      console.log(data.data.data);
+      setOptionsState(data.data.data);
+    } catch (error) {}
+  };
+
   return (
     <div>
       {/* <DetailSPListRace AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate} /> */}
@@ -404,6 +478,28 @@ Salam hangat,
             />
           </Form.Item>
         </Col>
+        {/* <Col sm={3}>
+          <Select
+          className="mt-3"
+            optionFilterProp="children"
+            showSearch
+            onChange={(e) => setCabang(e)}
+            placeholder={Cabang}
+            style={{ width: "50%" }}
+          >
+            {OptionsState &&
+              OptionsState.map((data, index) => (
+                <Select.Option
+                  description={data?.description}
+                  key={data.whid}
+                  whid={data?.whid}
+                  value={data.cabangId}
+                >
+                  {data?.description}
+                </Select.Option>
+              ))}
+          </Select>
+        </Col> */}
         {/* <Col className="ms-3" sm={4} md={2}>
           <Form.Item>
             <div style={{ fontWeight: "bold" }}>Cari Pic Alamat</div>
@@ -423,6 +519,22 @@ Salam hangat,
             total={DataApi.totalData}
           // pageSize={10}
           />
+        </Col>
+      </Row>
+      <Row>
+        <Col sm={6}></Col>
+        <Col sm={6} className="d-flex justify-content-end">
+          <Button
+            style={{
+              backgroundColor: "green",
+              color: "white",
+              fontFamily: "NoirPro",
+            }}
+            onClick={exportToExcel}
+            disabled={exporting} // Disable the button when exporting is in progress
+          >
+            {exporting ? "Exporting..." : "Export to Excel"}
+          </Button>
         </Col>
       </Row>
       <Row>
