@@ -9,6 +9,7 @@ const UserProfile = () => {
   const dispatch = useDispatch();
   const jobdesk = localStorage.getItem("jobdesk");
   const fullname = localStorage.getItem(`fullname`);
+  const cabang = localStorage.getItem('cabang')
   const userMenuOptions = (
     // <ul className="gx-user-popover">
     //   <li>My Account</li>
@@ -27,7 +28,7 @@ const UserProfile = () => {
         </Col>
         <Col span={24} className="d-flex justify-content-center mt-2">
           <b style={{ color: "#113D7F", fontWeight: "bold", fontSize: "20px" }}>
-            {fullname}
+          {fullname == "undefined" ? cabang : fullname}
           </b>
         </Col>
         <Col span={24} className="d-flex justify-content-center">

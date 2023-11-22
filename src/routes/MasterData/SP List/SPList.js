@@ -174,7 +174,7 @@ function SPList() {
 
   const RowClick = (row) => {
     console.log("RowClick", row);
-    history.push(`/masterdata/operasional/detailsp/${row.idmp}`);
+    window.open(`/masterdata/operasional/detailsp/${row.idmp}`, '_blank');
   };
 
   const buttonarahin = (page) => {

@@ -135,7 +135,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
         >
           <Row>
 
-            {jobdesk != "rcadmin" ?  (
+            {jobdesk != "rcadmin" ? (
               <Col span={24} className="d-flex justify-content-center">
                 <Avatar
                   src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
@@ -146,7 +146,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 <div>
                   <b style={{ color: "black" }}>{jobdesk}</b>
                   <p style={{ color: "black", fontWeight: "bold" }}>
-                    {fullname}
+                  {fullname == "undefined" ? cabang : fullname}
                   </p>
                 </div>
               </Col>

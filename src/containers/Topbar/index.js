@@ -32,6 +32,7 @@ const Topbar = () => {
   const [searchText, setSearchText] = useState("");
   const dispatch = useDispatch();
   const jobdeks = localStorage.getItem("jobdeks");
+  
   const languageMenu = () => (
     <CustomScrollbars className="gx-popover-lang-scroll">
       <ul className="gx-sub-popover">
@@ -79,7 +80,7 @@ const Topbar = () => {
           <Col >
             {" "}
             <h5 style={{ color: "blue" , marginLeft : "30px"}}>
-            👋 Halo, Selamat Datang! {fullname} 
+            👋 Halo, Selamat Datang! {fullname == "undefined" ? cabang : fullname}  
             </h5>
           </Col>
         </Row>
