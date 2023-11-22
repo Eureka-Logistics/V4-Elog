@@ -31,6 +31,7 @@ import { getDatabase, ref } from "firebase/database";
 import { onValue } from "firebase/database";
 import { database, firestore } from "../../../../firebase/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
+import moment from "moment";
 // import { firestore } from "../../../../firebase/firebase";
 
 function SMList({ }) {
@@ -128,7 +129,7 @@ function SMList({ }) {
       );
     }
   };
-console.log(`DetailDataPerClick`,DetailDataPerClick);
+  console.log(`DetailDataPerClick`, DetailDataPerClick);
   function sendMessage() {
     const phoneNumber = "6281221871961";
     const name = NamaSupir;
@@ -153,7 +154,7 @@ Salam hangat,
     DataApiSM(s);
     setDataApi((items) => ({
       ...items,
-      limit: u,       
+      limit: u,
     }));
   }
   const [isDataFetched, setIsDataFetched] = useState(false);
@@ -186,7 +187,7 @@ Salam hangat,
     };
     setIsDataFetched(false);
     fetchData();
-    
+
   }, [DetailDataPerClick]);
 
   // console.log(`AmbilCoordinates`, AmbilCoordinates);
@@ -196,33 +197,36 @@ Salam hangat,
   const columns = [
     {
       title: 'Driver',
-      dataIndex: 'driver1',
-      key: 'driver1',
+      dataIndex: 'driver',
+      key: 'driver',
     },
     {
-      title: 'Vehicle',
-      dataIndex: 'kendaraanMitra1',
-      key: 'kendaraanMitra1',
+      title: 'Kendaraan',
+      dataIndex: 'kendaraanPickup',
+      key: 'kendaraanPickup',
     },
     {
-      title: 'Unit',
-      dataIndex: 'unit1',
-      key: 'unit1',
+      title: 'Nopol',
+      dataIndex: 'nopol',
+      key: 'nopol',
     },
-    {
-      title: 'SP',
-      dataIndex: 'sp',
-      key: 'sp',
-    },
-    {
-      title: 'SM',
-      dataIndex: 'sm',
-      key: 'sm',
-    },
+    // {
+    //   title: 'SP',
+    //   dataIndex: 'sp',
+    //   key: 'sp',
+    // },
+    // {
+    //   title: 'SM',
+    //   dataIndex: 'sm',
+    //   key: 'sm',
+    // },
     {
       title: 'Pickup Date',
       dataIndex: 'tglPickup',
       key: 'tglPickup',
+      render : (tglPickup) =>{
+        return moment(tglPickup).format("YYYY-MM-DD")
+      }
     },
     // Add other columns as needed
   ];
@@ -251,7 +255,7 @@ Salam hangat,
     {
       key: 'muatAlamat',
       label: 'Alamat Muat',
-      value: DetailDataPerClick?.other?.m_pengadaan_detail?.muat?.alamat
+      value: DetailDataPerClick?.alamatMuat
     },
     {
       key: 'bongkarAlamat',
@@ -292,6 +296,16 @@ Salam hangat,
       key: 'sm',
     },
     {
+      title: 'Driver',
+      dataIndex: 'driver',
+      key: 'driver',
+    },
+    {
+      title: 'Kendaraan Pickup',
+      dataIndex: 'kendaraanPickup',
+      key: 'kendaraanPickup',
+    },
+    {
       title: 'service',
       dataIndex: 'service',
       key: 'service',
@@ -305,6 +319,9 @@ Salam hangat,
       title: 'tglPickup',
       dataIndex: 'tglPickup',
       key: 'tglPickup',
+      render: (tglPickup) => {
+        return moment(tglPickup).format("YYYY-MM-DD")
+      }
     },
   ];
 
@@ -370,7 +387,7 @@ Salam hangat,
       });
       console.log(data.data.data);
       setOptionsState(data.data.data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return (
@@ -382,7 +399,7 @@ Salam hangat,
           title={
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: "space-between" }}>
               <span style={{ marginRight: 10 }}>Pengiriman</span>
-              <div>{DetailDataPerClick?.sm}</div>
+              <div style={{fontSize :25}}>{DetailDataPerClick?.sm}</div>
               <Button
                 onClick={pindahdetailsp}
                 className="mt-3"
@@ -406,13 +423,13 @@ Salam hangat,
         >
           <Card
             bodyStyle={{ padding: 0 }}
-            style={{ height: 350, overflow: "hidden" }}
+            style={{ height: 250, overflow: "hidden" }}
           >
             {!isDataFetched ? (
               <MapsGoogle
                 AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate}
                 width={730}
-                height={350}
+                height={250}
               />
             ) : (
               <div>Loading...</div> // tampilkan pesan loading atau komponen lainnya saat data belum selesai di-fetch
@@ -470,7 +487,7 @@ Salam hangat,
             />
           </Form.Item>
         </Col>
-        <Col className="ms-3" sm={4} md={2}>
+        {/* <Col className="ms-3" sm={4} md={2}>
           <Form.Item>
             <div style={{ fontWeight: "bold" }}>Cari Nama Customer</div>
             <Input
@@ -479,7 +496,7 @@ Salam hangat,
               }}
             />
           </Form.Item>
-        </Col>
+        </Col> */}
         <Col sm={3}>
           <Select
           className="mt-3"
@@ -522,10 +539,9 @@ Salam hangat,
           // pageSize={10}
           />
         </Col>
-      </Row>
-      <Row>
-        <Col sm={6}></Col>
-        <Col sm={6} className="d-flex justify-content-end">
+        <Col
+        style={{ fontWeight: "bold", marginTop: 20 }}
+          className="d-flex justify-content-end ">
           <Button
             style={{
               backgroundColor: "green",
@@ -539,14 +555,15 @@ Salam hangat,
           </Button>
         </Col>
       </Row>
+
       <Row>
-      {/* pagination={{
+        {/* pagination={{
           total: DataApi.totalData,
           onChange: (page, pageSize) => {
             console.log(`Current page: ${page}, Page size: ${pageSize}`);
           }
         }} */}
-        <Table dataSource={DataApi.Data} loading={LoadingBang} columns={sm}  className="mb-5" pagination={false}
+        <Table dataSource={DataApi.Data} loading={LoadingBang} columns={sm} className="mb-5" pagination={false}
           onRow={(record, rowIndex) => {
             return {
               onClick: async () => {

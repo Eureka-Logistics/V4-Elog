@@ -10,6 +10,11 @@ import OptionsCabangState from '../../../zustand/Store/Race/optionsCabangRace';
 function Erlangga() {
     const { RangePicker } = DatePicker;
     const [modal1Open, setModal1Open] = useState(false);
+    const NamaCabang = localStorage.getItem("cabang")
+    let namaCabang = ""
+    if (NamaCabang == "RCCGK") {
+         namaCabang = "JKT"
+    }
     const {setOptionsStateZustand} = OptionsCabangState(state => state.setOptionsStateZustand)
     const [Data, setData] = useState({
         Data: null,
@@ -21,7 +26,7 @@ function Erlangga() {
 
     const barrer = localStorage.getItem("token")
     const [Keyword, setKeyword] = useState("")
-    const [IDCabang, setIDCabang] = useState("")
+    const [IDCabang, setIDCabang] = useState(namaCabang)
     const datenya = (date, datanggal) => {
         console.log(datanggal);
         const formattedStartDate = moment(datanggal[0]).format("YYYY-M-D");
@@ -243,7 +248,7 @@ function Erlangga() {
                 <Row >
                     <Col style={{ backgroundColor: "" }} >
                         <Select
-                            placeholder="Pilih Cabang"
+                            placeholder={IDCabang}
                             style={{ width: "100%", marginRight: 20 }}
                             onChange={(e, i) => { setIDCabang(i?.children?.[0]); setPilihCabang(e) ; console.log(e); }}
                         >

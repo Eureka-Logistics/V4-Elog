@@ -60,7 +60,7 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
         {
           key: 'driver1-' + index,
           label: 'Driver',
-          value: item.driver1,
+          value: item.driver,
         },
         {
           key: 'mitraPickup-' + index,
@@ -69,13 +69,13 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
         },
         {
           key: 'unit1-' + index,
-          label: 'Unit',
-          value: item.unit1,
+          label: 'Nopol',
+          value: item.nopol,
         },
         {
           key: 'kendaraanMitra1-' + index,
           label: 'Vehicle',
-          value: item.kendaraanMitra1,
+          value: item.jenisKendaraan,
         },
         // Add other rows as needed
       ]).flat();

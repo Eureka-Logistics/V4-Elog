@@ -22,7 +22,7 @@ function SpListRace() {
   const [exporting, setExporting] = useState(false);
   const [OptionsState, setOptionsState] = useState("");
   const NamaCabang = localStorage.getItem("cabang");
-
+  const LoginCabang = localStorage.getItem("loginBu")
   const [Cabang, setCabang] = useState(
     NamaCabang === "RCCGK" ? "JKT" : NamaCabang
   );
@@ -65,7 +65,7 @@ Salam hangat,
       });
       console.log(data.data.data);
       setOptionsState(data.data.data);
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     pilihcabangselect();
@@ -233,7 +233,7 @@ Salam hangat,
           </Container>
         </Card>
       </Drawer>
-      <Row>
+      {/* <Row>
         <Col sm={12}>
           <Card>
             <Row>
@@ -258,32 +258,35 @@ Salam hangat,
             </Row>
           </Card>
         </Col>
-      </Row>
+      </Row> */}
       <Row>
         <Col sm={6}>
           <h5 style={{ fontSize: 30 }}>List Pengiriman</h5>
         </Col>
-        <Col sm={3}>
-          <Select
-            optionFilterProp="children"
-            showSearch
-            onChange={(e) => setCabang(e)}
-            placeholder={Cabang}
-            style={{ width: "100%" }}
-          >
-            {OptionsState &&
-              OptionsState.map((data, index) => (
-                <Select.Option
-                  description={data?.description}
-                  key={data.whid}
-                  whid={data?.whid}
-                  value={data.cabangId}
-                >
-                  {data?.description}
-                </Select.Option>
-              ))}
-          </Select>
-        </Col>
+        {!LoginCabang && (
+          <Col sm={3}>
+            <Select
+              optionFilterProp="children"
+              showSearch
+              onChange={(e) => setCabang(e)}
+              placeholder={Cabang}
+              style={{ width: "100%" }}
+            >
+              {OptionsState &&
+                OptionsState.map((data, index) => (
+                  <Select.Option
+                    description={data?.description}
+                    key={data.whid}
+                    whid={data?.whid}
+                    value={data.cabangId}
+                  >
+                    {data?.description}
+                  </Select.Option>
+                ))}
+            </Select>
+          </Col>
+        )}
+
         <Col sm={3}>
           <Input
             onChange={(e) => setCariDisini(e.target.value)}
@@ -292,10 +295,7 @@ Salam hangat,
             placeholder="Cari Disini"
           />
         </Col>
-      </Row>
-      <Row>
-        <Col sm={6}></Col>
-        <Col sm={6} className="d-flex justify-content-end">
+        <Col className="d-flex justify-content-end">
           <Button
             style={{
               backgroundColor: "green",
@@ -308,6 +308,7 @@ Salam hangat,
             {exporting ? "Exporting..." : "Export to Excel"}
           </Button>
         </Col>
+       
       </Row>
       <ListPengiriman
         Cabang={Cabang}

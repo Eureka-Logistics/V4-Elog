@@ -56,25 +56,31 @@ function CardMapping({ onAdd, DataApi, LoadingGan }) {
                                 <Col style={{ fontWeight: "bold" }} sm={6}>
                                     <p>Tanggal Pick Up</p>
                                 </Col>
-                                <Col style={{ fontWeight: "bold" }} sm={2} className='d-flex justify-content-start'>
+                                <Col style={{ fontWeight: "bold" }} className='d-flex justify-content-start'>
                                     <p>ikat</p>
                                 </Col>
-                                <Col style={{ fontWeight: "bold" }} sm={2} className='d-flex justify-content-start'>
+                                <Col style={{ fontWeight: "bold" }} className='d-flex justify-content-start'>
                                     <p>koli</p>
                                 </Col>
-                                <Col style={{ fontWeight: "bold" }} sm={2} className='d-flex justify-content-start' >
+                                <Col style={{ fontWeight: "bold" }} className='d-flex justify-content-start'>
+                                    <p>berat</p>
+                                </Col>
+                                <Col style={{ fontWeight: "bold" }} className='d-flex justify-content-start' >
                                     <p>Qty</p>
                                 </Col>
                                 <Col sm={6} style={{ marginTop: -15 }}>
                                     <p style={{ fontSize: "12px", fontWeight: "bold" }}><Tag color='red'>{item.pickupDate}</Tag></p>
                                 </Col>
-                                <Col sm={2} className='d-flex justify-content-start' style={{ marginTop: -15 }}>
+                                <Col className='d-flex justify-content-start' style={{ marginTop: -15 }}>
                                     <p style={{ fontSize: "12px", fontWeight: "bold" }}><Tag color='teal'>{item.ikat}</Tag></p>
                                 </Col>
-                                <Col sm={2} className='d-flex justify-content-start' style={{ marginTop: -15 }}>
+                                <Col className='d-flex justify-content-start' style={{ marginTop: -15 }}>
                                     <p style={{ fontSize: "16px", fontWeight: "bold" }}><Tag color="teal">{item.koli}</Tag></p>
                                 </Col>
-                                <Col sm={2} className='d-flex justify-content-start' style={{ marginTop: -15 }}>
+                                <Col className='d-flex justify-content-start' style={{ marginTop: -15 }}>
+                                    <p style={{ fontSize: "16px", fontWeight: "bold" }}><Tag color="teal">{item.berat}</Tag></p>
+                                </Col>
+                                <Col className='d-flex justify-content-start' style={{ marginTop: -15 }}>
                                     <p style={{ fontSize: "16px", fontWeight: "bold" }}><Tag color="teal">{item.qty}</Tag></p>
                                 </Col>
 
@@ -84,7 +90,7 @@ function CardMapping({ onAdd, DataApi, LoadingGan }) {
                                     <p>Nama Sales</p>
                                 </Col>
                                 <Col md={12} className='d-flex justify-content-start' style={{}}>
-                                    <div  style={{ fontSize: "12px", fontWeight: "bold", overflow: "hidden",paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8, background: '#F8F8F8', borderRadius: 4, justifyContent: 'center', alignItems: 'center', gap: 8, display: 'inline-flex' }}>{item.salesName}</div>
+                                    <div  style={{ fontSize: "12px", fontWeight: "bold", overflow: "hidden",paddingLeft: 12, paddingRight: 12, paddingTop: 0, paddingBottom: 5, background: '#F8F8F8', borderRadius: 4, justifyContent: 'center', alignItems: 'center', gap: 8, display: 'inline-flex' }}>{item.salesName}</div>
                                 </Col>
                             </Row>
                         </Card>
