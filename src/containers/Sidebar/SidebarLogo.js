@@ -22,7 +22,7 @@ const SidebarLogo = ({ sidebarCollapsed, setSidebarCollapsed }) => {
   const jobdesk = localStorage.getItem("jobdesk");
   return (
     <>
-      {jobdesk != "rcadmin" ? (
+      {jobdesk != "rcadmin" && !localStorage.getItem("loginBu") ? (
         <>
           <div className="gx-layout-sider-header">
             {navStyle === NAV_STYLE_FIXED ||

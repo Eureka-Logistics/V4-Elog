@@ -96,8 +96,8 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
     history.push(`/akunting/usernew`);
   };
   const cabang = localStorage.getItem("cabang");
- 
-  const menuBackgroundColor = jobdesk === "rcadmin" || jobdesk === "akunting" && cabang ? "#F05423" : "#BAD6FF";
+const loginBu = localStorage.getItem('loginBu');
+  const menuBackgroundColor = jobdesk === "rcadmin" || loginBu && cabang ? "#F05423" : "#BAD6FF";
   const location = useLocation();
   const [activeMenu, setActiveMenu] = useState(location.pathname);
   const [DataRequest, setDataRequest] = useState("");
@@ -135,7 +135,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
         >
           <Row>
 
-            {jobdesk != "rcadmin" ? (
+            {jobdesk != "rcadmin" && loginBu != "RaceCabang"? (
               <Col span={24} className="d-flex justify-content-center">
                 <Avatar
                   src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
@@ -226,7 +226,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       ADD AP
                     </Button>
                   </div> */}
-                  <div className="d-flex justify-content-center gx-sidebar-content w-100 mt-5 text-center ">
+                  {/* <div className="d-flex justify-content-center gx-sidebar-content w-100 mt-5 text-center ">
                     <Button
                       size="lg"
                       style={{
@@ -241,7 +241,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     >
                       ADD USER BARU
                     </Button>
-                  </div>
+                  </div> */}
                 </>
               ) : (
                 <></>

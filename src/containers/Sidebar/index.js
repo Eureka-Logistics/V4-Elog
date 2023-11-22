@@ -50,8 +50,9 @@ const Sidebar = () => {
   }
   const jobdesk = localStorage.getItem("jobdesk");
   const cabang = localStorage.getItem("cabang");
+  const loginBu = localStorage.getItem("loginBu");
 
-  const menuBackgroundColor = jobdesk === "rcadmin" || jobdesk === "akunting" && cabang ? "#F05423" : "#BAD6FF";
+  const menuBackgroundColor = jobdesk === "rcadmin" || loginBu  && cabang ? "#F05423" : "#BAD6FF";
   return (
     <Sider
       // className={`gx-app-sidebar ${drawerStyle} ${themeType !== THEME_TYPE_LITE ? 'gx-layout-sider-dark' : null}`}

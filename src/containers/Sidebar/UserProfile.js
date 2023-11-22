@@ -9,7 +9,8 @@ const UserProfile = () => {
   const dispatch = useDispatch();
   const jobdesk = localStorage.getItem("jobdesk");
   const fullname = localStorage.getItem(`fullname`);
-  const cabang = localStorage.getItem('cabang')
+  const cabang = localStorage.getItem('cabang');
+  const loginBu = localStorage.getItem('loginBu');
   const userMenuOptions = (
     // <ul className="gx-user-popover">
     //   <li>My Account</li>

@@ -65,6 +65,7 @@ export const userSignIn = (user, selectLogin) => {
         localStorage.setItem('jobdesk', jobdesk);
         localStorage.setItem('cabang', cabang);
         localStorage.setItem('fullname', fullname);
+
         dispatch(userSignInSuccess({ token, jobdesk }));
 
         // set token to axios header
@@ -75,13 +76,14 @@ export const userSignIn = (user, selectLogin) => {
         const response = await axios.post(`${BaseUrlRace}auth/login-customer`, user);
 
         // asumsikan response.data.data berisi token dan jobdesk
-        const { token, divisi, cabang, fullname } = response.data.data;
+        const { token, divisi, cabang, fullname, loginBu } = response.data.data;
 
         // simpan token ke dalam local storage
         localStorage.setItem('token', token);
         localStorage.setItem('jobdesk', divisi);
         localStorage.setItem('cabang', cabang);
         localStorage.setItem('fullname', fullname);
+        localStorage.setItem('loginBu', loginBu);
         dispatch(userSignInSuccess({ token, divisi }));
 
         // set token to axios header
@@ -102,6 +104,7 @@ export const userSignIn = (user, selectLogin) => {
 
 export const userSignOut = () => {
   localStorage.removeItem('token');
+  localStorage.removeItem('loginBu');
 
   return {
     type: SIGNOUT_USER
