@@ -210,20 +210,23 @@ Salam hangat,
       dataIndex: 'nopol',
       key: 'nopol',
     },
-    {
-      title: 'SP',
-      dataIndex: 'sp',
-      key: 'sp',
-    },
-    {
-      title: 'SM',
-      dataIndex: 'sm',
-      key: 'sm',
-    },
+    // {
+    //   title: 'SP',
+    //   dataIndex: 'sp',
+    //   key: 'sp',
+    // },
+    // {
+    //   title: 'SM',
+    //   dataIndex: 'sm',
+    //   key: 'sm',
+    // },
     {
       title: 'Pickup Date',
       dataIndex: 'tglPickup',
       key: 'tglPickup',
+      render : (tglPickup) =>{
+        return moment(tglPickup).format("YYYY-MM-DD")
+      }
     },
     // Add other columns as needed
   ];
@@ -394,7 +397,7 @@ Salam hangat,
           title={
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: "space-between" }}>
               <span style={{ marginRight: 10 }}>Pengiriman</span>
-              <div>{DetailDataPerClick?.sm}</div>
+              <div style={{fontSize :25}}>{DetailDataPerClick?.sm}</div>
               <Button
                 onClick={pindahdetailsp}
                 className="mt-3"
@@ -418,13 +421,13 @@ Salam hangat,
         >
           <Card
             bodyStyle={{ padding: 0 }}
-            style={{ height: 350, overflow: "hidden" }}
+            style={{ height: 250, overflow: "hidden" }}
           >
             {!isDataFetched ? (
               <MapsGoogle
                 AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate}
                 width={730}
-                height={350}
+                height={250}
               />
             ) : (
               <div>Loading...</div> // tampilkan pesan loading atau komponen lainnya saat data belum selesai di-fetch
