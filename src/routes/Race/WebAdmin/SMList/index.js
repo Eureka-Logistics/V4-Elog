@@ -31,6 +31,7 @@ import { getDatabase, ref } from "firebase/database";
 import { onValue } from "firebase/database";
 import { database, firestore } from "../../../../firebase/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
+import moment from "moment";
 // import { firestore } from "../../../../firebase/firebase";
 
 function SMList({ }) {
@@ -315,6 +316,9 @@ Salam hangat,
       title: 'tglPickup',
       dataIndex: 'tglPickup',
       key: 'tglPickup',
+      render :(tglPickup) =>{
+        return moment(tglPickup).format("YYYY-MM-DD")
+      }
     },
   ];
 
@@ -478,7 +482,7 @@ Salam hangat,
             />
           </Form.Item>
         </Col>
-        <Col className="ms-3" sm={4} md={2}>
+        {/* <Col className="ms-3" sm={4} md={2}>
           <Form.Item>
             <div style={{ fontWeight: "bold" }}>Cari Nama Customer</div>
             <Input
@@ -487,7 +491,7 @@ Salam hangat,
               }}
             />
           </Form.Item>
-        </Col>
+        </Col> */}
         {/* <Col sm={3}>
           <Select
           className="mt-3"
