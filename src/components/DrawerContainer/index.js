@@ -11,6 +11,20 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
     const onClose = () => {
         setOpenDrawer(false);
     };
+    const [totals, setTotals] = useState({ berat: 0, ikat: 0, koli: 0, qty: 0 });
+
+    useEffect(() => {
+        let totalBerat = 0, totalIkat = 0, totalKoli = 0, totalQty = 0;
+
+        DataPerClickDrawlMapping?.dataSm?.forEach(item => {
+            totalBerat += item?.berat;
+            totalIkat += item?.ikat;
+            totalKoli += item?.koli;
+            totalQty += item?.qty;
+        });
+
+        setTotals({ berat: totalBerat, ikat: totalIkat, koli: totalKoli, qty: totalQty });
+    }, [DataPerClickDrawlMapping]);
     const columns = [
         {
             title: 'No',
@@ -52,7 +66,9 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
             dataIndex: 'qty',
             key: 'qty',
         },
+
     ]
+
     const CustomDrawer = styled(Drawer)`
     .ant-drawer-content-wrapper {
         width:auto !important;
@@ -79,7 +95,7 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
     // const ambilCoordinate = async () => {
     //     getCoordinates()
     // }
-    console.log(`DataPerClickDrawlMapping`,DataPerClickDrawlMapping);
+    console.log(`DataPerClickDrawlMapping`, DataPerClickDrawlMapping);
     const [mapLocations, setMapLocations] = useState([]);
     useEffect(() => {
         if (DataPerClickDrawlMapping) {
@@ -127,12 +143,21 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
     }, [DataPerClickDrawlMapping])
 
 
-
+    const renderFooter = () => {
+        return (
+            <div className="totals">
+                <p className='d-flex justify-content-end'>Total Berat: {totals.berat}</p>
+                <p className='d-flex justify-content-end'>Total Ikat: {totals.ikat}</p>
+                <p className='d-flex justify-content-end'>Total Koli: {totals.koli}</p>
+                <p className='d-flex justify-content-end'>Total Qty: {totals.qty}</p>
+            </div>
+        );
+    };
     return (
         <>
 
             <CustomDrawer title="Traking Harian" placement="right" onClose={onClose} open={OpenDrawer}>
-                <div style={{ height: 550, width: "auto", display: "flex", flexDirection:"column",justifyContent: "center" }}>
+                <div style={{ height: 550, width: "auto", display: "flex", flexDirection: "column", justifyContent: "center" }}>
                     <MapsContainerMapping
                         locations={mapLocations}
                         width={"auto"}
@@ -146,7 +171,8 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
                 {JarakWaktu?.duration && <p>Total Duration: {Math.floor(JarakWaktu.duration / 60)} hours {Math.floor(JarakWaktu.duration % 60)} minutes</p>} */}
                     </div>
                 </div>
-                <Table className='mt-3' columns={columns} dataSource={DataPerClickDrawlMapping?.dataSm} pagination={false} />
+                <Table className='mt-3' columns={columns} dataSource={DataPerClickDrawlMapping?.dataSm} pagination={false}
+                    footer={renderFooter} />
             </CustomDrawer>
         </>
     )

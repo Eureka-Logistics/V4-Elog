@@ -11,9 +11,11 @@ import moment from 'moment'
 import MapsGoogle from '../../../../../components/MapsGoole'
 function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
     const { sm } = useParams();
+    const [Loading, setLoading] = useState(false)
     const [DataApi, setDataApi] = useState([])
     const [DetailHistory, setDetailHistory] = useState()
     const getDetailApi = async () => {
+        setLoading(true)
         try {
             const data = await axios.get(`${BaseUrlRace}sp/get-sm-detail?msm=${sm}`,
                 {
@@ -24,8 +26,10 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
                 })
             if (Array.isArray(data)) {
                 setDataApi(data.data.data[0]);
+                setLoading(false)
             } else {
                 setDataApi([data.data.data[0]]);
+                setLoading(false)
             }
 
         } catch (error) {
@@ -58,40 +62,41 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
 
     const tableData = DataApi.map((item, index) => [
         {
-          key: 'driver1-' + index,
-          label: 'Driver',
-          value: item.driver,
+            key: 'driver1-' + index,
+            label: 'Driver',
+            value: item.driver,
         },
         {
-          key: 'mitraPickup-' + index,
-          label: 'Mitra Pickup',
-          value: item.mitraPickup,
+            key: 'mitraPickup-' + index,
+            label: 'Mitra Pickup',
+            value: item.mitraPickup,
         },
         {
-          key: 'unit1-' + index,
-          label: 'Nopol',
-          value: item.nopol,
+            key: 'unit1-' + index,
+            label: 'Nopol',
+            value: item.nopol,
         },
         {
-          key: 'kendaraanMitra1-' + index,
-          label: 'Vehicle',
-          value: item.jenisKendaraan,
+            key: 'kendaraanMitra1-' + index,
+            label: 'Vehicle',
+            value: item.jenisKendaraan,
         },
         // Add other rows as needed
-      ]).flat();
+    ]).flat();
 
-      const columns = [
+    const columns = [
         {
-          title: 'Informasi',
-          dataIndex: 'label',
-          key: 'label',
+            title: 'Informasi',
+            dataIndex: 'label',
+            key: 'label',
         },
         {
-          title: 'Data',
-          dataIndex: 'value',
-          key: 'value',
+            title: 'Data',
+            dataIndex: 'value',
+            key: 'value',
         },
-      ];
+    ];
+    console.log(Loading);
     return (
         <div>
             <Row>
@@ -106,10 +111,10 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
                         <br />
                         <div>Customer</div>
                         <div style={{ fontWeight: "bold" }}>{i?.customer}</div>
-                        
+
                         {/* <div>Service</div>
                         <div style={{ fontWeight: "bold" }}>{i?.service}</div> */}
-                        
+
                         {/* <div>Pickup Date</div>
                         <div style={{ fontWeight: "bold" }}>{i?.tglPickup}</div> */}
                         <br />
@@ -132,62 +137,63 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
                         <div style={{ fontWeight: "bold" }}>{i?.ikat}</div>
                     </Col>
                 ))}
-                <Col style={{
-                    backgroundColor: "#1A3368",
-                    backgroundImage: `url(${bk})`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'right center',
-                    backgroundSize: 'auto'
-                }}>
-                    <h3 className='mt-3' style={{ color: "white" }}>Tracking Pengiriman</h3>
-                    <Container>
-                        <MapsGoogle
-                            // AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate}
-                            width={"auto"}
-                            height={300}
-                        />
-                        <Row style={{ height: "432px" }}>
-                            <Col style={{ backgroundColor: "", marginTop: 50 }}>
-                                <Steps
-                                    className="my-custom-steps"
-                                    direction="vertical"
-                                    size="small"
-                                    current={5}
-                                    style={{ padding: '20px', width: 400, height: 500, color: "white" }}
-                                    items={[
-                                        {
-                                            title: <span style={{ color: 'white' }}>{DetailHistory?.[0]?.keterangan}</span>,
-                                            description: <span style={{ color: 'white' }}>
-                                                {DetailHistory?.[0]?.status === undefined ? "Belum ada Data" : DetailHistory?.[0]?.status + " " + moment(DetailHistory?.[0]?.pickupDate).format("DD-MM-YYYY")}
-                                            </span>,
-                                        },
-                                        {
-                                            title: <span style={{ color: 'white' }}>{DetailHistory?.[1]?.keterangan}</span>,
-                                            description: <span style={{ color: 'white' }}>
-                                                {DetailHistory?.[1]?.status === undefined ? "Belum ada Data" : DetailHistory?.[1]?.status + " " + moment(DetailHistory?.[1]?.pickupDate).format("DD-MM-YYYY")}
-                                            </span>,
-                                        },
-                                        {
-                                            title: <span style={{ color: 'white' }}>{DetailHistory?.[2]?.keterangan}</span>,
-                                            description: <span style={{ color: 'white' }}>
-                                                {DetailHistory?.[2]?.status === undefined ? "Belum ada Data" : DetailHistory?.[2]?.status + " " + moment(DetailHistory?.[2]?.pickupDate).format("DD-MM-YYYY")}
-                                            </span>,
-                                        },
+                {Loading === true ? <div>Loading</div> :
+                    <Col md={6} style={{
+                        backgroundColor: "#1A3368",
+                        backgroundImage: `url(${bk})`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'right center',
+                        backgroundSize: 'auto'
+                    }}>
+                        <h3 className='mt-3' style={{ color: "white" }}>Tracking Pengiriman</h3>
+                        <Container>
+                            <MapsGoogle
+                                // AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate}
+                                width={"auto"}
+                                height={300}
+                            />
+                            <Row style={{ height: "432px" }}>
+                                <Col style={{ backgroundColor: "", marginTop: 50 }}>
+                                    <Steps
+                                        className="my-custom-steps"
+                                        direction="vertical"
+                                        size="small"
+                                        current={5}
+                                        style={{ padding: '20px', width: 400, height: 500, color: "white" }}
+                                        items={[
+                                            {
+                                                title: <span style={{ color: 'white' }}>{DetailHistory?.[0]?.keterangan}</span>,
+                                                description: <span style={{ color: 'white' }}>
+                                                    {DetailHistory?.[0]?.status === undefined ? "Belum ada Data" : DetailHistory?.[0]?.status + " " + moment(DetailHistory?.[0]?.pickupDate).format("DD-MM-YYYY")}
+                                                </span>,
+                                            },
+                                            {
+                                                title: <span style={{ color: 'white' }}>{DetailHistory?.[1]?.keterangan}</span>,
+                                                description: <span style={{ color: 'white' }}>
+                                                    {DetailHistory?.[1]?.status === undefined ? "Belum ada Data" : DetailHistory?.[1]?.status + " " + moment(DetailHistory?.[1]?.pickupDate).format("DD-MM-YYYY")}
+                                                </span>,
+                                            },
+                                            {
+                                                title: <span style={{ color: 'white' }}>{DetailHistory?.[2]?.keterangan}</span>,
+                                                description: <span style={{ color: 'white' }}>
+                                                    {DetailHistory?.[2]?.status === undefined ? "Belum ada Data" : DetailHistory?.[2]?.status + " " + moment(DetailHistory?.[2]?.pickupDate).format("DD-MM-YYYY")}
+                                                </span>,
+                                            },
 
-                                    ]}
-                                />
-                            </Col>
-                        </Row>
-                    </Container>
-                    <Row style={{ marginTop: 80 }}>
-                        <Container style={{ display: "flex", justifyContent: "center" }}>
-                            <Card style={{ borderRadius: 15, width: 700 }} >
-                                <Row>
-                                    <Col md={12}>
-                                        <h5>Informasi Driver</h5>
-                                        <Table dataSource={tableData} columns={columns} pagination={false} />
-                                    </Col>
-                                    {/* <Col sm={4}>
+                                        ]}
+                                    />
+                                </Col>
+                            </Row>
+                        </Container>
+                        <Row style={{ marginTop: 80 }}>
+                            <Container style={{ display: "flex", justifyContent: "center" }}>
+                                <Card style={{ borderRadius: 15, width: 700 }} >
+                                    <Row>
+                                        <Col md={12}>
+                                            <h5>Informasi Driver</h5>
+                                            <Table dataSource={tableData} columns={columns} pagination={false} />
+                                        </Col>
+                                        {/* <Col sm={4}>
                                         <div style={{ backgroundColor: "#1f3d7d", padding: 10, borderRadius: 15 }}>
                                             <div style={{ color: "white", fontWeight: "bold" }}>
                                                 <p>{DataApi[0]?.sp}</p>
@@ -196,13 +202,14 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
                                             </div>
                                         </div>
                                     </Col> */}
-                                </Row>
-                            </Card>
-                        </Container>
-                        {/* <p className='d-flex justify-content-center' style={{ color: "white" }}>Butuh Bantuan? <span><a className='ms-2' style={{ color: "#5297FF", textDecoration: "none" }}>Klik Disini</a></span></p> */}
+                                    </Row>
+                                </Card>
+                            </Container>
+                            {/* <p className='d-flex justify-content-center' style={{ color: "white" }}>Butuh Bantuan? <span><a className='ms-2' style={{ color: "#5297FF", textDecoration: "none" }}>Klik Disini</a></span></p> */}
 
-                    </Row>
-                </Col>
+                        </Row>
+                    </Col>
+                }
 
 
             </Row>
