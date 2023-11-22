@@ -538,12 +538,13 @@ Salam hangat,
         </Col>
       </Row>
       <Row>
-        <Table dataSource={DataApi.Data} loading={LoadingBang} columns={sm} pagination={{
+      {/* pagination={{
           total: DataApi.totalData,
           onChange: (page, pageSize) => {
             console.log(`Current page: ${page}, Page size: ${pageSize}`);
           }
-        }} className="mb-5"
+        }} */}
+        <Table dataSource={DataApi.Data} loading={LoadingBang} columns={sm}  className="mb-5" pagination={false}
           onRow={(record, rowIndex) => {
             return {
               onClick: async () => {
