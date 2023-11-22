@@ -198,7 +198,7 @@ const loginBu = localStorage.getItem('loginBu');
                 <></>
               )}
 
-              {jobdesk === "akunting"  ? (
+              {jobdesk === "akunting" && loginBu  != "RaceCabang"?  (
                 <>
                   {/* <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
                     <Button
@@ -226,7 +226,7 @@ const loginBu = localStorage.getItem('loginBu');
                       ADD AP
                     </Button>
                   </div> */}
-                  {/* <div className="d-flex justify-content-center gx-sidebar-content w-100 mt-5 text-center ">
+                  <div className="d-flex justify-content-center gx-sidebar-content w-100 mt-5 text-center ">
                     <Button
                       size="lg"
                       style={{
@@ -241,7 +241,7 @@ const loginBu = localStorage.getItem('loginBu');
                     >
                       ADD USER BARU
                     </Button>
-                  </div> */}
+                  </div>
                 </>
               ) : (
                 <></>
@@ -1161,7 +1161,7 @@ const loginBu = localStorage.getItem('loginBu');
                 </Menu.ItemGroup>
               )} */}
 
-              {jobdesk.toLowerCase() === "akunting" != localStorage.getItem("level") === "rajacepat" ? (
+              {jobdesk == "akunting" && loginBu  != "RaceCabang"? (
                 <>
                   <Menu.ItemGroup key="akuntingg">
                     <Menu.Item
@@ -2710,7 +2710,7 @@ const loginBu = localStorage.getItem('loginBu');
                  
                 </>
               )}
-               {cabang  && jobdesk == "akunting"
+               {cabang  && jobdesk == "akunting" 
                 && (
                   <div className="mt-4">
                   <Menu.Item
