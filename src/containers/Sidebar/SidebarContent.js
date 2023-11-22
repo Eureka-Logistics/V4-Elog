@@ -2710,7 +2710,7 @@ const loginBu = localStorage.getItem('loginBu');
                  
                 </>
               )}
-               {cabang  && jobdesk == "akunting" 
+               {loginBu  && jobdesk == "akunting" 
                 && (
                   <div className="mt-4">
                   <Menu.Item
