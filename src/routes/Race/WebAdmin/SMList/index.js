@@ -478,7 +478,7 @@ Salam hangat,
         <>Loading</>
       )}
       <Row>
-      <Col className="ms-3 mx-3" sm={4} md={2} >
+      <Col className="ms-3 mx-3" sm={4} md={4} >
           <h4 className="mt-3" style={{fontFamily: 'NoirPro'}}>
             Daftar Surat Jalan
           </h4>
