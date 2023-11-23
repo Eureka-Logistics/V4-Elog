@@ -11,6 +11,7 @@ function Erlangga() {
     const { RangePicker } = DatePicker;
     const [modal1Open, setModal1Open] = useState(false);
     const NamaCabang = localStorage.getItem("cabang")
+    const [Loading , setLoading] = useState(false)
     let namaCabang = ""
     if (NamaCabang == "RCCGK") {
          namaCabang = "JKT"
@@ -42,27 +43,27 @@ function Erlangga() {
     }
     const [PilihCabang, setPilihCabang] = useState("")
     const GetDataTanggal = async (e) => {
+        setLoading(true)
         let datas = "ada"
         const formattedStartDate = moment(Data.Data_Tanggal[0]).format("YYYY-M-D");
         const formattedEndDate = moment(Data.Data_Tanggal[1]).format("YYYY-M-D");
         try {
             const data = await axios.post(`${BaseUrlRace}sp/get-data-erl?whid=${PilihCabang}&from=${formattedStartDate}&to=${formattedEndDate}`, {
-
-
                 headers: {
                     "Content-Type": "application/json",
                     // Authorization: ,
                     Authorization: localStorage.getItem("token"),
                 },
             })
+            setLoading(false)
             Refresh()
             notification.success({
                 message: data.data.status.message,
             })
             console.log(data.response);
 
-
         } catch (error) {
+            setLoading(false)
             console.log();
             if (error.response) {
                 notification.error({
@@ -241,7 +242,7 @@ function Erlangga() {
 
         }
     }
-
+console.log(`Loading`,Loading);
     return (
         <div>
             <Card>
@@ -265,7 +266,9 @@ function Erlangga() {
 
                     </Col>
                     <Col style={{ marginLeft: 10 }} >
-                        <Button type='primary' disabled={!IDCabang} onClick={GetDataTanggal}>Sync Data</Button>
+                        <Button type='primary'  onClick={GetDataTanggal}>
+                            {Loading === true ? <>Loading</> : <> Sync Data</>}
+                           </Button>
 
                     </Col>
                     <Col style={{ backgroundColor: "" }}>
