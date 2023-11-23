@@ -18,7 +18,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
             SelectData()
         }
     }, [modal1Open])
-    console.log(`IDCabang`,IDCabang);
+    console.log(`IDCabang`, IDCabang);
     const [SelectSekolahforEach, setSelectSekolahforEach] = useState("")
     console.log(`Seleckan.sales`, Seleckan.sales);
     const SelectData = async () => {

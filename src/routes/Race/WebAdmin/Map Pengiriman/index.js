@@ -102,36 +102,42 @@ function MapPengiriman() {
             });
         });
 
+        const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
         try {
-            const responses = await Promise.all(body.map(async (item) => {
+            const responses = [];
+
+            for (const item of body) {
                 const response = await axios.post(`${BaseUrlRace}sp/approve-sp`, item, {
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: localStorage.getItem('token'),
                     },
                 });
-                return response.data;
-            }));
+                responses.push(response.data);
 
-            // Ambil data dari setiap response dan lakukan operasi yang diperlukan
+                // Wait for 0.5 seconds before the next iteration
+                await delay(1000);
+            }
+
+            // Process responses here
             responses.forEach((data) => {
-                // Periksa apakah data yang diterima valid
                 if (data && data.data) {
-                    // Lakukan operasi dengan data
+                    // Operations with data
                 }
             });
 
-            // Setelah semua API call berhasil, lakukan operasi yang diperlukan
+            // Other operations after all API calls
             setDataSelectDriver("")
             setOptionNamaNamaDriver(responses);
             PengadaanDetail();
             SelectDriver2("")
             addData("")
             CardMappingStoreRace.setState({ selectedData: "" })
-            // selectedData("")
             notification.success({
                 message: "Sukses",
             });
+
         } catch (error) {
             if (error?.response?.data && error?.response?.data?.status && error?.response?.data?.status?.message) {
                 const messages = error.response.data.status.message.split(',');
@@ -144,6 +150,7 @@ function MapPengiriman() {
             }
         }
     };
+
 
 
     const SelectDriverdanKendaraan = async () => {
@@ -229,8 +236,9 @@ function MapPengiriman() {
                     </Col>
                     <Col>
                         <div className='mt-3'></div>
-                        <Button loading={LoadingGan === true} disabled={!selectIdDriverDanVehicle.idKendaraan || !selectedData} className='ms-2' onClick={() => {Approvesp()
-                        setLoadingGan(true)
+                        <Button loading={LoadingGan === true} disabled={!selectIdDriverDanVehicle.idKendaraan || !selectedData} className='ms-2' onClick={() => {
+                            Approvesp()
+                            setLoadingGan(true)
                         }} type='primary' size='sm'>Mapping</Button>
                     </Col>
                     <Col className="" >
@@ -298,7 +306,7 @@ function MapPengiriman() {
                         <Card className="div-no-scrollbar" style={{ padding: "0px", height: "800px", backgroundColor: "", overflow: "auto" }} >
                             <Row>
                                 <h5>Driver Tersedia</h5>
-                                <MappingDriverCard SelectDriver2={SelectDriver2}PengadaanDetail={PengadaanDetail}OptionNamaNamaDriver={OptionNamaNamaDriver} />
+                                <MappingDriverCard SelectDriver2={SelectDriver2} PengadaanDetail={PengadaanDetail} OptionNamaNamaDriver={OptionNamaNamaDriver} />
                             </Row>
                         </Card>
                     </Col>
