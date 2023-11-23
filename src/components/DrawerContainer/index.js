@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Drawer, Table } from 'antd';
+import { Button, Drawer, Row, Table } from 'antd';
 import styled from 'styled-components';
 import MapsGoogle from '../MapsGoole';
 import MapsContainerMapping from './Mapcontainer';
 import { getCoordinates } from '../../Api/Geocode';
 import JarakWaktuStore from '../../zustand/Store/coordinateMapRace/StoreJarakWaktuGooglemap';
+import { Col } from 'react-bootstrap';
 function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) {
     const { JarakWaktu } = JarakWaktuStore(state => ({ JarakWaktu: state.JarakWaktu }));
 
@@ -145,12 +146,22 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
 
     const renderFooter = () => {
         return (
-            <div className="totals" style={{ display: 'flex', justifyContent: 'flex-start' }}>
-            <p style={{ margin: '0 10px' }}>Total Berat: {totals.berat}</p>
-            <p style={{ margin: '0 10px' }}>Total Ikat: {totals.ikat}</p>
-            <p style={{ margin: '0 10px' }}>Total Koli: {totals.koli}</p>
-            <p style={{ margin: '0 10px' }}>Total Qty: {totals.qty}</p>
-          </div>
+            <Row style={{ backgroundColor: "" }}>
+                <div className="totals" style={{ display: 'flex', justifyContent: 'flex-start' ,width :"100%"}}>
+                    <Col>
+                        <p style={{ margin: '0 10px' }}>Total Berat: {totals.berat}</p>
+                    </Col>
+                    <Col>
+                        <p style={{ margin: '0 10px' }}>Total Ikat: {totals.ikat}</p>
+                    </Col>
+                    <Col>
+                        <p style={{ margin: '0 10px' }}>Total Koli: {totals.koli}</p>
+                    </Col>
+                    <Col>
+                        <p style={{ margin: '0 10px' }}>Total Qty: {totals.qty}</p>
+                    </Col>
+                </div>
+            </Row>
         );
     };
     return (
@@ -171,8 +182,8 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
                 {JarakWaktu?.duration && <p>Total Duration: {Math.floor(JarakWaktu.duration / 60)} hours {Math.floor(JarakWaktu.duration % 60)} minutes</p>} */}
                     </div>
                 </div>
-                    <Table className='mt-3' columns={columns} dataSource={DataPerClickDrawlMapping?.dataSm} pagination={false}
-                        footer={renderFooter} />
+                <Table className='mt-3' columns={columns} dataSource={DataPerClickDrawlMapping?.dataSm} pagination={false}
+                    footer={renderFooter} />
             </CustomDrawer>
         </>
     )
