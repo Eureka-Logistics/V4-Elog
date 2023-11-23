@@ -66,11 +66,11 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
             label: 'Driver',
             value: item.driver,
         },
-        {
-            key: 'mitraPickup-' + index,
-            label: 'Mitra Pickup',
-            value: item.mitraPickup,
-        },
+        // {
+        //     key: 'mitraPickup-' + index,
+        //     label: 'Mitra Pickup',
+        //     value: item.mitraPickup,
+        // },
         {
             key: 'unit1-' + index,
             label: 'Nopol',
@@ -96,7 +96,7 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
             key: 'value',
         },
     ];
-    console.log(Loading);
+    console.log(`DataApi`,DataApi);
     return (
         <div>
             <Row>
@@ -111,18 +111,24 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
                         <br />
                         <div>Customer</div>
                         <div style={{ fontWeight: "bold" }}>{i?.customer}</div>
-
-                        {/* <div>Service</div>
-                        <div style={{ fontWeight: "bold" }}>{i?.service}</div> */}
-
-                        {/* <div>Pickup Date</div>
-                        <div style={{ fontWeight: "bold" }}>{i?.tglPickup}</div> */}
+                        <br />
+                        <div>Jenis Barang</div>
+                        <div style={{ fontWeight: "bold" }}>{i?.jenisBarang}</div>
+                        <br />
+                        <div>SJ  Erl</div>
+                        <div style={{ fontWeight: "bold" }}>{i?.sjErl}</div>
+                        <br />
+                        <div>Sales Erl</div>
+                        <div style={{ fontWeight: "bold" }}>{i?.salesErl}</div>
                         <br />
                         <div>Pickup Address</div>
                         <div style={{ fontWeight: "bold" }}>{i?.muat}</div>
                         <br />
                         <div>Destination Address</div>
                         <div style={{ fontWeight: "bold" }}>{i?.bongkar}</div>
+                        <br />
+                        <div>Sekolah Tujuan</div>
+                        <div style={{ fontWeight: "bold" }}>{i?.sekolahTujuan}</div>
                         <br />
                         <div>Berat</div>
                         <div style={{ fontWeight: "bold" }}>{i?.berat}</div>
@@ -162,9 +168,9 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
                                         style={{ padding: '20px', width: 400, height: 500, color: "white" }}
                                         items={[
                                             {
-                                                title: <span style={{ color: 'white' }}>{DetailHistory?.[0]?.keterangan}</span>,
+                                                title: <span style={{ color: 'white' }}>{DataApi?.[0]?.statusKendaraan?.[0]?.status}</span>,
                                                 description: <span style={{ color: 'white' }}>
-                                                    {DetailHistory?.[0]?.status === undefined ? "Belum ada Data" : DetailHistory?.[0]?.status + " " + moment(DetailHistory?.[0]?.pickupDate).format("DD-MM-YYYY")}
+                                                    {DataApi?.[0]?.statusKendaraan?.[0]?.keterangan === undefined ? "Belum ada Data" : DataApi?.[0]?.statusKendaraan?.[0]?.keterangan + " " + moment(DataApi?.[0]?.statusKendaraan?.[0]?.date).format("DD-MM-YYYY")}
                                                 </span>,
                                             },
                                             {
