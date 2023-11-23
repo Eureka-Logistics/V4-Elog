@@ -24,7 +24,8 @@ function Erlangga() {
         paggination: 1,
         size: 10
     })
-
+    const defaultStartDate = moment().subtract(3, 'days');
+    const defaultEndDate = moment().add(3, 'days');
     const barrer = localStorage.getItem("token")
     const [Keyword, setKeyword] = useState("")
     const [IDCabang, setIDCabang] = useState(namaCabang)
@@ -261,8 +262,11 @@ function Erlangga() {
 
                     </Col>
                     <Col style={{ backgroundColor: "", marginLeft: 10 }}>
-                        <RangePicker disabled={!IDCabang}
-                            onChange={datenya} />
+                        <RangePicker
+                            defaultValue={[defaultStartDate, defaultEndDate]}
+                            disabled={!IDCabang}
+                            onChange={datenya}
+                        />
 
                     </Col>
                     <Col style={{ marginLeft: 10 }} >
