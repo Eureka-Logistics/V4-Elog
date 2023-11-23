@@ -433,7 +433,7 @@ Salam hangat,
                 height={250}
               />
             ) : (
-              <div>Loading...</div> // tampilkan pesan loading atau komponen lainnya saat data belum selesai di-fetch
+              <div></div> // tampilkan pesan loading atau komponen lainnya saat data belum selesai di-fetch
             )}
 
             {/* <MapContainer AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate} /> */}
@@ -540,7 +540,7 @@ Salam hangat,
             className="d-flex justify-content-center align-items-center"
             style={{ height: "100vh" }}
           >
-            Loading...
+         
           </div>
         )}
 
