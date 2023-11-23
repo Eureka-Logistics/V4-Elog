@@ -287,14 +287,14 @@ Salam hangat,
       key: 'no',
     },
     {
-      title: 'SP',
-      dataIndex: 'sp',
-      key: 'sp',
-    },
-    {
       title: 'SM',
       dataIndex: 'sm',
       key: 'sm',
+    },
+    {
+      title: 'SP',
+      dataIndex: 'sp',
+      key: 'sp',
     },
     {
       title: 'Driver',

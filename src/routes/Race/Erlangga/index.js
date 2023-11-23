@@ -11,12 +11,12 @@ function Erlangga() {
     const { RangePicker } = DatePicker;
     const [modal1Open, setModal1Open] = useState(false);
     const NamaCabang = localStorage.getItem("cabang")
-    const [Loading , setLoading] = useState(false)
+    const [Loading, setLoading] = useState(false)
     let namaCabang = ""
     if (NamaCabang == "RCCGK") {
-         namaCabang = "JKT"
+        namaCabang = "JKT"
     }
-    const {setOptionsStateZustand} = OptionsCabangState(state => state.setOptionsStateZustand)
+    const { setOptionsStateZustand } = OptionsCabangState(state => state.setOptionsStateZustand)
     const [Data, setData] = useState({
         Data: null,
         Data_Tanggal: null,
@@ -151,13 +151,13 @@ function Erlangga() {
             dataIndex: 'cabangid',
             key: 'cabangid',
         },
-      
+
         {
             title: 'Kode Penerima',
             dataIndex: 'kode_penerima',
             key: 'kode_penerima',
         },
-       
+
         {
             title: 'Kota',
             dataIndex: 'kota',
@@ -193,7 +193,7 @@ function Erlangga() {
         //     dataIndex: 'jam_pickup',
         //     key: 'jam_pickup',
         // },
-       
+
         {
             title: 'Ikat',
             dataIndex: 'ikat',
@@ -242,7 +242,7 @@ function Erlangga() {
 
         }
     }
-console.log(`Loading`,Loading);
+    console.log(`Loading`, Loading);
     return (
         <div>
             <Card>
@@ -251,7 +251,7 @@ console.log(`Loading`,Loading);
                         <Select
                             placeholder={IDCabang}
                             style={{ width: "100%", marginRight: 20 }}
-                            onChange={(e, i) => { setIDCabang(i?.children?.[0]); setPilihCabang(e) ; console.log(e); }}
+                            onChange={(e, i) => { setIDCabang(i?.children?.[0]); setPilihCabang(e); console.log(e); }}
                         >
                             {optincabang && optincabang.map((i, index) => (
                                 <Select.Option children={i} value={i?.whid}>{i?.cabangId} - {i?.description}</Select.Option>
@@ -266,9 +266,9 @@ console.log(`Loading`,Loading);
 
                     </Col>
                     <Col style={{ marginLeft: 10 }} >
-                        <Button type='primary'  onClick={GetDataTanggal}>
+                        <Button type='primary' onClick={GetDataTanggal}>
                             {Loading === true ? <>Loading</> : <> Sync Data</>}
-                           </Button>
+                        </Button>
 
                     </Col>
                     <Col style={{ backgroundColor: "" }}>

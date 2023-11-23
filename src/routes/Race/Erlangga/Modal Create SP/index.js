@@ -19,6 +19,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
         }
     }, [modal1Open])
     console.log(`IDCabang`, IDCabang);
+    const [Loading, setLoading] = useState(false)
     const [SelectSekolahforEach, setSelectSekolahforEach] = useState("")
     console.log(`Seleckan.sales`, Seleckan.sales);
     const SelectData = async () => {
@@ -68,11 +69,11 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
         try {
             const data = await axios.post(`${BaseUrlRace}sp/create-sp`, body, {
                 headers: {
+                    // Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
                     "Content-Type": "application/json",
-                    // Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4ODMxNjI1LCJleHAiOjE2OTg5MTgwMjV9.RIV1GBzazVw4NK-mi648hOxO7139bTKGKtP6jYVLGnc',
                     Authorization: localStorage.getItem("token"),
                 },
-            })
+            },)
             CreateSPDetail(null)
             setModal1Open(false)
         } catch (error) {
@@ -91,7 +92,6 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
             const data = await axios.post(`${BaseUrlRace}sp/create-sp-detail`, body, {
                 headers: {
                     "Content-Type": "application/json",
-                    // Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4ODMxNjI1LCJleHAiOjE2OTg5MTgwMjV9.RIV1GBzazVw4NK-mi648hOxO7139bTKGKtP6jYVLGnc',
                     Authorization: localStorage.getItem("token"),
                 },
             })
@@ -136,46 +136,87 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
     // }, [])
 
     console.log(`SelectSekolahforEach`, SelectSekolahforEach);
+    const [NamaSekolah, setNamaSekolah] = useState("")
+    const [loadingStatus, setLoadingStatus] = useState({});
+    const handleCreateSP = async (noref, sales, index) => {
+        setLoading(true)
+        setLoadingStatus(prevStatus => ({ ...prevStatus, [index]: true }));
+        try {
+            // Langkah 1: Mendapatkan data sekolah
+            const responseSekolah = await axios.get(`${BaseUrlRace}sp/get-select-sp?noref=${noref}&cabang=${IDCabang}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.getItem("token"),
+                },
+            });
 
-    // const columns = [
-    //     {
-    //         title: 'referensi',
-    //         dataIndex: 'referensi',
-    //         key: 'referensi',
-    //     },
-    //     {
-    //         title: 'Button',
-    //         key: 'button',
-    //         render: () => {
-    //             return <Button>{}</Button>;
-    //         },
-    //     },
-    // ];
+            setNamaSekolah(responseSekolah.data.sekolah);
+            console.log(`Seleckan.sales`, Seleckan.sales);
+            // Langkah 2: Membuat SP
+            const bodySP = {
+                "memo": noref,
+                "cabang": IDCabang,
+                "sales": sales
+            };
+            await axios.post(`${BaseUrlRace}sp/create-sp`, bodySP, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.getItem("token"),
+                },
+            });
 
+            // Langkah 3: Membuat SP Detail
+            await Promise.all(responseSekolah.data.sekolah.map(async (sekolah) => {
+                const bodySPDetail = {
+                    "memo": noref,
+                    "sekolah": sekolah.sekolah, // Asumsi struktur data seperti ini
+                    "sales": sales
+                };
+                const responseSPDetail = await axios.post(`${BaseUrlRace}sp/create-sp-detail`, bodySPDetail, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: localStorage.getItem("token"),
+                    },
+                });
+        
+                notification.success({
+                    message: `SP Detail created for school: ${sekolah.sekolah}`
+                });
+            }));
+            SelectData()
+        } catch (error) {
+            console.error("Error during the Create SP process:", error);
+            // Tambahkan penanganan error yang sesuai di sini
+        }
+        setLoading(false)
+        setLoadingStatus(prevStatus => ({ ...prevStatus, [index]: false }));
+    };
 
-
+    console.log(`NamaSekolah`, NamaSekolah);
 
 
     return (
         <div>
             <Modal
-                title="Create SP"
+                title={`Create SP Cabang ${IDCabang}`}
                 width={800}
                 style={{
                     top: 20,
                 }}
+                footer={null}
                 open={modal1Open}
-                okText={!Seleckan.seleckan_sekolah ? "Pilih Sekolah Dahulu" : "Create SP"}
-                confirmLoading={!Seleckan.seleckan_sekolah}
-                onOk={() => {
-                    CreateSP()
-                    setSeleckan(item => ({
-                        ...item,
-                        seleckan_sekolah: "",
-                        seleckan_noref: "",
+                // okText={!Seleckan.seleckan_sekolah ? "Pilih Sekolah Dahulu" : "Create SP"}
+                // confirmLoading={!Seleckan.seleckan_sekolah}
+                onOk={false}
+                // onOk={() => {
+                //     CreateSP()
+                //     setSeleckan(item => ({
+                //         ...item,
+                //         seleckan_sekolah: "",
+                //         seleckan_noref: "",
 
-                    }))
-                }}
+                //     }))
+                // }}
                 onCancel={() => {
                     setModal1Open(false)
                     // setSeleckan(item=>({
@@ -187,10 +228,10 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
                 }}
             >
                 <Form>
-                    <Row>
+                    {/* <Row>
                         <Col style={{ backgroundColor: "" }} >
                             <Form.Item
-                                label="Select SJ"
+                                label="Select NoRef"
                                 labelCol={{ span: 24 }}
                                 wrapperCol={{ span: 24 }}
                             >
@@ -250,20 +291,24 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
                             </Form.Item>
                         </Col>
 
-                    </Row>
-                    {/* <Row>
-                        <Col>
-                            {Seleckan && Seleckan.data_noref.map((data, index) => (
-                                <p>{data?.referensi}</p>
-                            ))}
-                        </Col>
-                        <Col>
-                            {SelectSekolahforEach && SelectSekolahforEach.map((i) => (
-                                <p>{i?.sekolah}</p>
-                            ))}
-                        </Col>
                     </Row> */}
-                    {/* <Table columns={columns} dataSource={Seleckan.data_noref} /> */}
+                    {Seleckan && Seleckan.data_noref.map((data, index) => (
+                        <Row key={index} gutter={[16, 16]} align="middle">
+                            <Col >
+                                <p>{index + 1}</p></Col>
+                            <Col flex="auto">
+                                <p >{data?.referensi}</p>
+                            </Col>
+                            <Col>
+                                <Button onClick={() => handleCreateSP(data?.referensi, data?.sales, index)} type={loadingStatus[index] ? "dashed" : "primary"}>
+                                    {loadingStatus[index] ? "Loading..." : "Create SP"}
+                                </Button>
+                            </Col>
+                            <Col>
+                            </Col>
+                        </Row>
+                    ))}
+                    {/* {/* <Table columns={columns} dataSource={Seleckan.data_noref} /> */}
                 </Form>
             </Modal>
         </div >
