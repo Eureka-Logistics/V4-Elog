@@ -96,7 +96,7 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
             key: 'value',
         },
     ];
-    console.log(`DataApi`,DataApi);
+    console.log(`DataApi`, DataApi);
     return (
         <div>
             <Row>
@@ -174,15 +174,21 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
                                                 </span>,
                                             },
                                             {
-                                                title: <span style={{ color: 'white' }}>{DetailHistory?.[1]?.keterangan}</span>,
+                                                title: <span style={{ color: 'white' }}>{DataApi?.[1]?.statusKendaraan?.[1]?.status}</span>,
                                                 description: <span style={{ color: 'white' }}>
-                                                    {DetailHistory?.[1]?.status === undefined ? "Belum ada Data" : DetailHistory?.[1]?.status + " " + moment(DetailHistory?.[1]?.pickupDate).format("DD-MM-YYYY")}
+                                                    {DataApi?.[1]?.statusKendaraan?.[1]?.keterangan === undefined ? "Belum ada Data" : DataApi?.[1]?.statusKendaraan?.[1]?.keterangan + " " + moment(DataApi?.[1]?.statusKendaraan?.[1]?.date).format("DD-MM-YYYY")}
                                                 </span>,
                                             },
                                             {
-                                                title: <span style={{ color: 'white' }}>{DetailHistory?.[2]?.keterangan}</span>,
+                                                title: <span style={{ color: 'white' }}>{DataApi?.[2]?.statusKendaraan?.[2]?.status}</span>,
                                                 description: <span style={{ color: 'white' }}>
-                                                    {DetailHistory?.[2]?.status === undefined ? "Belum ada Data" : DetailHistory?.[2]?.status + " " + moment(DetailHistory?.[2]?.pickupDate).format("DD-MM-YYYY")}
+                                                    {DataApi?.[2]?.statusKendaraan?.[2]?.keterangan === undefined ? "Belum ada Data" : DataApi?.[2]?.statusKendaraan?.[2]?.keterangan + " " + moment(DataApi?.[2]?.statusKendaraan?.[2]?.date).format("DD-MM-YYYY")}
+                                                </span>,
+                                            },
+                                            {
+                                                title: <span style={{ color: 'white' }}>{DataApi?.[3]?.statusKendaraan?.[3]?.status}</span>,
+                                                description: <span style={{ color: 'white' }}>
+                                                    {DataApi?.[3]?.statusKendaraan?.[3]?.keterangan === undefined ? "Belum ada Data" : DataApi?.[3]?.statusKendaraan?.[3]?.keterangan + " " + moment(DataApi?.[3]?.statusKendaraan?.[3]?.date).format("DD-MM-YYYY")}
                                                 </span>,
                                             },
 
