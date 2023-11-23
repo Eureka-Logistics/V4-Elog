@@ -216,11 +216,11 @@ Salam hangat,
     //   dataIndex: 'sp',
     //   key: 'sp',
     // },
-    // {
-    //   title: 'SM',
-    //   dataIndex: 'sm',
-    //   key: 'sm',
-    // },
+    {
+      title: 'Sekolah Tujuan',
+      dataIndex: 'sekolahTujuan',
+      key: 'sekolahTujuan',
+    },
     {
       title: 'Pickup Date',
       dataIndex: 'tglPickup',
