@@ -145,12 +145,12 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
 
     const renderFooter = () => {
         return (
-            <div className="totals">
-                <p className='d-flex justify-content-end'>Total Berat: {totals.berat}</p>
-                <p className='d-flex justify-content-end'>Total Ikat: {totals.ikat}</p>
-                <p className='d-flex justify-content-end'>Total Koli: {totals.koli}</p>
-                <p className='d-flex justify-content-end'>Total Qty: {totals.qty}</p>
-            </div>
+            <div className="totals" style={{ display: 'flex', justifyContent: 'flex-start' }}>
+            <p style={{ margin: '0 10px' }}>Total Berat: {totals.berat}</p>
+            <p style={{ margin: '0 10px' }}>Total Ikat: {totals.ikat}</p>
+            <p style={{ margin: '0 10px' }}>Total Koli: {totals.koli}</p>
+            <p style={{ margin: '0 10px' }}>Total Qty: {totals.qty}</p>
+          </div>
         );
     };
     return (
@@ -171,8 +171,8 @@ function DrawerMapping({ setOpenDrawer, OpenDrawer, DataPerClickDrawlMapping }) 
                 {JarakWaktu?.duration && <p>Total Duration: {Math.floor(JarakWaktu.duration / 60)} hours {Math.floor(JarakWaktu.duration % 60)} minutes</p>} */}
                     </div>
                 </div>
-                <Table className='mt-3' columns={columns} dataSource={DataPerClickDrawlMapping?.dataSm} pagination={false}
-                    footer={renderFooter} />
+                    <Table className='mt-3' columns={columns} dataSource={DataPerClickDrawlMapping?.dataSm} pagination={false}
+                        footer={renderFooter} />
             </CustomDrawer>
         </>
     )
