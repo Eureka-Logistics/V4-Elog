@@ -263,8 +263,30 @@ Salam hangat,
         <Col sm={6}>
           <h5 style={{ fontSize: 30 }}>List Pengiriman</h5>
         </Col>
+        <Col sm={2} className="d-flex justify-content-end">
+          <Button
+            style={{
+              backgroundColor: "green",
+              color: "white",
+              fontFamily: "NoirPro",
+            }}
+            onClick={exportToExcel}
+            disabled={exporting} // Disable the button when exporting is in progress
+          >
+            {exporting ? "Exporting..." : "Export to Excel"}
+          </Button>
+        </Col>
+        <Col sm={2}>
+          <Input
+            onChange={(e) => setCariDisini(e.target.value)}
+            style={{  height: "50px", width: '100%'}}
+            addonBefore={<SearchOutlined />}
+            placeholder="Cari Disini"
+          />
+        </Col>
+      
         {!LoginCabang && (
-          <Col sm={3}>
+          <Col sm={2}>
             <Select
               optionFilterProp="children"
               showSearch
@@ -287,27 +309,6 @@ Salam hangat,
           </Col>
         )}
 
-        <Col sm={3}>
-          <Input
-            onChange={(e) => setCariDisini(e.target.value)}
-            style={{ Width: "400px", height: "50px" }}
-            addonBefore={<SearchOutlined />}
-            placeholder="Cari Disini"
-          />
-        </Col>
-        <Col className="d-flex justify-content-end">
-          <Button
-            style={{
-              backgroundColor: "green",
-              color: "white",
-              fontFamily: "NoirPro",
-            }}
-            onClick={exportToExcel}
-            disabled={exporting} // Disable the button when exporting is in progress
-          >
-            {exporting ? "Exporting..." : "Export to Excel"}
-          </Button>
-        </Col>
        
       </Row>
       <ListPengiriman
