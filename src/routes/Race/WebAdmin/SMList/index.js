@@ -36,7 +36,18 @@ import moment from "moment";
 
 function SMList({ }) {
   const firestoresss = firestore;
-  
+  const unsub = onSnapshot(doc(firestoresss, "location", "123"),
+    (doc) => {
+      if (doc.exists()) {
+        console.log("Current data: ", doc.data());
+      } else {
+        console.log("No such document!");
+      }
+    },
+    (error) => {
+      console.error("Error fetching document: ", error);
+    }
+  );
 
 
   const [Open, setOpen] = useState(false);
@@ -183,18 +194,7 @@ Salam hangat,
   // console.log(`AmbilCoordinates`, AmbilCoordinates);
   // console.log(`DetailDataPerClick`, DetailDataPerClick);
   const tableData = [DetailDataPerClick];
-  const unsub = onSnapshot(doc(firestoresss, "location", JSON.stringify(DetailDataPerClick?.driverId)),
-  (doc) => {
-    if (doc.exists()) {
-      console.log("Current data: ", doc.data());
-    } else {
-      console.log("No such document!");
-    }
-  },
-  (error) => {
-    console.error("Error fetching document: ", error);
-  }
-);
+
   const columns = [
     {
       title: 'Driver',

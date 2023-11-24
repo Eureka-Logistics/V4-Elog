@@ -2493,7 +2493,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                           ? "menu-item-active menu-item-hover"
                           : "menu-item-hover"
                       }
-                      key="sjlist"
+                      key="sjlista"
                     >
                       <Link
                         to="/race/sjlist"
