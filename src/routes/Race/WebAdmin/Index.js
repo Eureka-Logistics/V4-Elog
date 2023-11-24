@@ -14,8 +14,19 @@ import graph3 from "../../../assets/img/graph3.png"
 
 function Index() {
     const pindah = useHistory()
-    const spklist = () => {
-        pindah.push(`race/splist`)
+    const spklist = (e) => {
+        console.log(e);
+        const id = e.target
+        if (id.name === "erl" || id.id === "erl") {
+            pindah.push(`erlangga`)
+        } else if (id.name === "sm" || id.id === "sm") {
+            pindah.push(`race/sjlist`)
+        } else if (id.name === "spkstat" || id.id === "spkstat") {
+            pindah.push(`race/splist`)
+        } else if (id.name === "splist" || id.id === "splist") {
+            pindah.push(`race/splist`)
+        }
+
     }
     return (
         <>
@@ -26,10 +37,11 @@ function Index() {
                     <Col sm={3}>
                         <Card style={{ backgroundColor: "", height: 160, width: 263, padding: 0, backgroundImage: `url(${card1})` }}>
                             <div style={{ color: "white", marginTop: "-15px", marginLeft: "-10px", fontSize: 15, alignItems: "flex-start", justifyContent: "flex-start", display: "flex", height: "120%" }}>
-                                Surat Perjalanan Kantor
+                                SP Erlangga
                             </div>
-                            <div style={{ color: "white", fontWeight: 500, fontSize: 30, marginLeft: "-10px", marginTop: 15 }}>SPK List</div>
-                            <Button onClick={spklist} style={{ width: "100%", marginTop: 25 }}><img src={btnLihat}></img> </Button>
+                            <div style={{ color: "white", fontWeight: 500, fontSize: 30, marginLeft: "-10px", marginTop: 15 }}> SP Erlangga</div>
+                            <Button id='erl' name="erl" onClick={(e) => spklist(e)} style={{ width: "100%", marginTop: 25 }}>
+                             Lihat </Button>
                         </Card>
                     </Col>
                     <Col sm={3}>
@@ -38,7 +50,8 @@ function Index() {
                                 SM
                             </div>
                             <div style={{ color: "white", fontWeight: 500, fontSize: 30, marginLeft: "-10px", marginTop: 15 }}>SM List</div>
-                            <Button style={{ width: "100%", marginTop: 25 }}><img src={btnLihat}></img> </Button>
+                            <Button id='sm' name="sm" onClick={(e) => spklist(e)} style={{ width: "100%", marginTop: 25 }}>
+                            Lihat </Button>
                         </Card>
                     </Col>
                     <Col sm={3}>
@@ -47,7 +60,8 @@ function Index() {
                                 SPK
                             </div>
                             <div style={{ color: "white", fontWeight: 500, fontSize: 30, marginLeft: "-10px", marginTop: 15 }}>SPK Status</div>
-                            <Button style={{ width: "100%", marginTop: 25 }}><img src={btnLihat}></img> </Button>
+                            <Button name='spkstat' id='spkstat' onClick={(e) => spklist(e)} style={{ width: "100%", marginTop: 25 }}>
+                                Lihat </Button>
                         </Card>
                     </Col>
                     <Col sm={3}>
@@ -56,19 +70,20 @@ function Index() {
                                 SO
                             </div>
                             <div style={{ color: "white", fontWeight: 500, fontSize: 30, marginLeft: "-10px", marginTop: 15 }}>SP List</div>
-                            <Button style={{ width: "100%", marginTop: 25 }}><img src={btnLihat}></img> </Button>
+                            <Button id='splist' name='splist' onClick={(e) => spklist(e)} style={{ width: "100%", marginTop: 25 }}>
+                                Lihat </Button>
                         </Card>
                     </Col>
 
                 </Row>
 
-                
+
             </Container>
 
 
 
 
-            <div className='scorebulanan dta-driver'>
+            {/* <div className='scorebulanan dta-driver'>
                 <Row>
                     <Col md={8}>
                         <Col style={{ width: "auto", minHeight: "328px", backgroundImage: `url(${graph1})` , backgroundRepeat: 'no-repeat' }}>
@@ -166,7 +181,7 @@ function Index() {
 
                 </Row>
 
-            </div>
+            </div> */}
         </>
     )
 }
