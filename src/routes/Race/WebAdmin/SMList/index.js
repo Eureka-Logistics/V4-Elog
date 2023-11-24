@@ -216,11 +216,11 @@ Salam hangat,
     //   dataIndex: 'sp',
     //   key: 'sp',
     // },
-    // {
-    //   title: 'SM',
-    //   dataIndex: 'sm',
-    //   key: 'sm',
-    // },
+    {
+      title: 'Sekolah Tujuan',
+      dataIndex: 'sekolahTujuan',
+      key: 'sekolahTujuan',
+    },
     {
       title: 'Pickup Date',
       dataIndex: 'tglPickup',
@@ -287,14 +287,14 @@ Salam hangat,
       key: 'no',
     },
     {
-      title: 'SP',
-      dataIndex: 'sp',
-      key: 'sp',
-    },
-    {
       title: 'SM',
       dataIndex: 'sm',
       key: 'sm',
+    },
+    {
+      title: 'SP',
+      dataIndex: 'sp',
+      key: 'sp',
     },
     {
       title: 'Driver',
@@ -306,15 +306,20 @@ Salam hangat,
       dataIndex: 'kendaraanPickup',
       key: 'kendaraanPickup',
     },
-    // {
-    //   title: 'service',
-    //   dataIndex: 'service',
-    //   key: 'service',
-    // },
+    {
+      title: 'Sales Erl',
+      dataIndex: 'salesErl',
+      key: 'salesErl',
+    },
     {
       title: 'Destination',
       dataIndex: 'destination',
       key: 'destination',
+    },
+    {
+      title: 'Sekolah Tujuan',
+      dataIndex: 'sekolahTujuan',
+      key: 'sekolahTujuan',
     },
     {
       title: 'Tgl Pickup',

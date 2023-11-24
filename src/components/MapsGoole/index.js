@@ -3,10 +3,11 @@ import { GoogleMap, Marker, useJsApiLoader, DirectionsRenderer } from '@react-go
 import ApiGoogleMap from '../../Api/ApigoogleMap';
 import useCoordinateRaceMap from '../../zustand/Store/coordinateMapRace/RaceMaps';
 import { getDatabase } from 'firebase/database';
-function MapsGoogle({ width, height, AlamatMuatBongkarCoordinate }) {
+import icontruck from "../../assets/img/Truck (1).png"
+function MapsGoogle({ width, height, posisiDriver }) {
     const [map, setMap] = React.useState(null);
     const database = getDatabase();
-    console.log(`database`,database);
+    console.log(`database`, database);
     const { Coordinate, setJarakDanWaktu, JarakDanWaktu } = useCoordinateRaceMap();
     const [DirectionJalanan, setDirectionJalanan] = useState(null);
     const containerStyle = {
@@ -70,7 +71,7 @@ function MapsGoogle({ width, height, AlamatMuatBongkarCoordinate }) {
     useEffect(() => {
         CalculateRoute();
     }, [Coordinate]);
-
+    console.log(`posisiDriver`, posisiDriver);
     // console.log(`DirectionJalanan`, DirectionJalanan);
     // console.log(`JarakDanWaktu`, JarakDanWaktu);
 
@@ -88,6 +89,12 @@ function MapsGoogle({ width, height, AlamatMuatBongkarCoordinate }) {
                     }}
                 />
             )}
+            <Marker icon={{
+                url: icontruck,
+                scaledSize: new window.google.maps.Size(30, 30), // Adjust the size here
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(25, 25)
+            }}  position={{ lat: posisiDriver?.latitude, lng: posisiDriver?.longitude }} />
         </GoogleMap>
     ) : (
         <></>

@@ -11,11 +11,12 @@ function Erlangga() {
     const { RangePicker } = DatePicker;
     const [modal1Open, setModal1Open] = useState(false);
     const NamaCabang = localStorage.getItem("cabang")
+    const [Loading, setLoading] = useState(false)
     let namaCabang = ""
     if (NamaCabang == "RCCGK") {
-         namaCabang = "JKT"
+        namaCabang = "JKT"
     }
-    const {setOptionsStateZustand} = OptionsCabangState(state => state.setOptionsStateZustand)
+    const { setOptionsStateZustand } = OptionsCabangState(state => state.setOptionsStateZustand)
     const [Data, setData] = useState({
         Data: null,
         Data_Tanggal: null,
@@ -23,14 +24,17 @@ function Erlangga() {
         paggination: 1,
         size: 10
     })
-
+    const defaultStartDate = moment().subtract(3, 'days');
+    const defaultEndDate = moment().add(3, 'days');
     const barrer = localStorage.getItem("token")
     const [Keyword, setKeyword] = useState("")
     const [IDCabang, setIDCabang] = useState(namaCabang)
     const datenya = (date, datanggal) => {
-        console.log(datanggal);
-        const formattedStartDate = moment(datanggal[0]).format("YYYY-M-D");
-        const formattedEndDate = moment(datanggal[1]).format("YYYY-M-D");
+        if (!datanggal || datanggal.length !== 2) {
+            return; // Handle the error or invalid state
+        }
+        const formattedStartDate = moment(datanggal?.[0]).format("YYYY-M-D");
+        const formattedEndDates = moment(datanggal?.[1]).format("YYYY-M-D");
         if (datanggal[0] === "") {
             return null
         } else {
@@ -42,39 +46,45 @@ function Erlangga() {
     }
     const [PilihCabang, setPilihCabang] = useState("")
     const GetDataTanggal = async (e) => {
-        let datas = "ada"
-        const formattedStartDate = moment(Data.Data_Tanggal[0]).format("YYYY-M-D");
-        const formattedEndDate = moment(Data.Data_Tanggal[1]).format("YYYY-M-D");
+        setLoading(true);
+    
+        let formattedStartDate, formattedEndDate;
+        
+        if (!Data.Data_Tanggal || Data.Data_Tanggal.length < 2) {
+            // If Data.Data_Tanggal is not set, use the default start and end dates
+            formattedStartDate = defaultStartDate.format("YYYY-M-D");
+            formattedEndDate = defaultEndDate.format("YYYY-M-D");
+        } else {
+            // If Data.Data_Tanggal is set, use those dates
+            formattedStartDate = moment(Data.Data_Tanggal[0]).format("YYYY-M-D");
+            formattedEndDate = moment(Data.Data_Tanggal[1]).format("YYYY-M-D");
+        }
+    
         try {
             const data = await axios.post(`${BaseUrlRace}sp/get-data-erl?whid=${PilihCabang}&from=${formattedStartDate}&to=${formattedEndDate}`, {
-
-
                 headers: {
                     "Content-Type": "application/json",
-                    // Authorization: ,
                     Authorization: localStorage.getItem("token"),
                 },
-            })
-            Refresh()
+            });
+            setLoading(false);
+            Refresh();
             notification.success({
                 message: data.data.status.message,
-            })
+            });
             console.log(data.response);
-
-
         } catch (error) {
-            console.log();
+            setLoading(false);
             if (error.response) {
                 notification.error({
                     message: error?.response?.data?.status?.message,
-                })
+                });
             } else {
                 console.log("error");
             }
-
         }
-
-    }
+    };
+    
 
     const Refresh = async () => {
         const datanya = await axios.get(`${BaseUrlRace}sp/get-data-pesanan?page=${Data?.paggination}&limit=${Data?.size}&keyword=${Keyword}&cabang=${IDCabang}`,
@@ -150,13 +160,13 @@ function Erlangga() {
             dataIndex: 'cabangid',
             key: 'cabangid',
         },
-      
+
         {
             title: 'Kode Penerima',
             dataIndex: 'kode_penerima',
             key: 'kode_penerima',
         },
-       
+
         {
             title: 'Kota',
             dataIndex: 'kota',
@@ -192,7 +202,7 @@ function Erlangga() {
         //     dataIndex: 'jam_pickup',
         //     key: 'jam_pickup',
         // },
-       
+
         {
             title: 'Ikat',
             dataIndex: 'ikat',
@@ -241,7 +251,7 @@ function Erlangga() {
 
         }
     }
-
+    console.log(`Loading`, Loading);
     return (
         <div>
             <Card>
@@ -250,7 +260,7 @@ function Erlangga() {
                         <Select
                             placeholder={IDCabang}
                             style={{ width: "100%", marginRight: 20 }}
-                            onChange={(e, i) => { setIDCabang(i?.children?.[0]); setPilihCabang(e) ; console.log(e); }}
+                            onChange={(e, i) => { setIDCabang(i?.children?.[0]); setPilihCabang(e); console.log(e); }}
                         >
                             {optincabang && optincabang.map((i, index) => (
                                 <Select.Option children={i} value={i?.whid}>{i?.cabangId} - {i?.description}</Select.Option>
@@ -260,12 +270,17 @@ function Erlangga() {
 
                     </Col>
                     <Col style={{ backgroundColor: "", marginLeft: 10 }}>
-                        <RangePicker disabled={!IDCabang}
-                            onChange={datenya} />
+                        <RangePicker
+                            defaultValue={[defaultStartDate, defaultEndDate]}
+                            disabled={!IDCabang}
+                            onChange={datenya}
+                        />
 
                     </Col>
                     <Col style={{ marginLeft: 10 }} >
-                        <Button type='primary' disabled={!IDCabang} onClick={GetDataTanggal}>Sync Data</Button>
+                        <Button type='primary' onClick={GetDataTanggal}>
+                            {Loading === true ? <>Loading</> : <> Sync Data</>}
+                        </Button>
 
                     </Col>
                     <Col style={{ backgroundColor: "" }}>

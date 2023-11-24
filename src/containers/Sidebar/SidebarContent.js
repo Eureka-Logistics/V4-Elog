@@ -81,8 +81,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
 
   const jobdesk = localStorage.getItem("jobdesk");
   const fullname = localStorage.getItem(`fullname`);
-  console.log(`jobdeks`, jobdesk);
-
+  const level = localStorage.getItem('level')
   const createsp = () => {
     history.push(`/masterdata/marketing/createsp`);
   };
@@ -96,7 +95,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
     history.push(`/akunting/usernew`);
   };
   const cabang = localStorage.getItem("cabang");
-const loginBu = localStorage.getItem('loginBu');
+  const loginBu = localStorage.getItem('loginBu');
   const menuBackgroundColor = jobdesk === "rcadmin" || loginBu && cabang ? "#F05423" : "#BAD6FF";
   const location = useLocation();
   const [activeMenu, setActiveMenu] = useState(location.pathname);
@@ -135,7 +134,7 @@ const loginBu = localStorage.getItem('loginBu');
         >
           <Row>
 
-            {jobdesk != "rcadmin" && loginBu != "RaceCabang"? (
+            {jobdesk != "rcadmin" && loginBu != "RaceCabang" ? (
               <Col span={24} className="d-flex justify-content-center">
                 <Avatar
                   src={`https://avatars.githubusercontent.com/u/130539563?s=200&v=4`}
@@ -146,7 +145,7 @@ const loginBu = localStorage.getItem('loginBu');
                 <div>
                   <b style={{ color: "black" }}>{jobdesk}</b>
                   <p style={{ color: "black", fontWeight: "bold" }}>
-                  {fullname == "undefined" ? cabang : fullname}
+                    {fullname == "undefined" ? cabang : fullname}
                   </p>
                 </div>
               </Col>
@@ -198,7 +197,7 @@ const loginBu = localStorage.getItem('loginBu');
                 <></>
               )}
 
-              {jobdesk === "akunting" && loginBu  != "RaceCabang"?  (
+              {jobdesk === "akunting" && loginBu != "RaceCabang" ? (
                 <>
                   {/* <div className="d-flex justify-content-center gx-sidebar-content w-100  text-center ">
                     <Button
@@ -1161,7 +1160,7 @@ const loginBu = localStorage.getItem('loginBu');
                 </Menu.ItemGroup>
               )} */}
 
-              {jobdesk == "akunting" && loginBu  != "RaceCabang"? (
+              {jobdesk == "akunting" && loginBu != "RaceCabang" ? (
                 <>
                   <Menu.ItemGroup key="akuntingg">
                     <Menu.Item
@@ -2392,7 +2391,7 @@ const loginBu = localStorage.getItem('loginBu');
                 </Menu.Item>
               )}
               {/* ////Login Race///// */}
-              {jobdesk === "rcadmin" && localStorage.getItem('level') == "rajacepat" && (
+              {jobdesk === "rcadmin" && cabang === "RCCGK" && (
                 <>
                   <div className="mt-3">
                     <Menu.Item
@@ -2486,7 +2485,7 @@ const loginBu = localStorage.getItem('loginBu');
                       </Link>
                     </Menu.Item>
                   </div>
-                
+
                   <div className="mt-4">
                     <Menu.Item
                       className={
@@ -2704,16 +2703,16 @@ const loginBu = localStorage.getItem('loginBu');
                     </Menu.Item>
                   </div>
                   <div className="mt-4">
-                    
+
                   </div>
 
-                 
+
                 </>
               )}
-               {loginBu  && jobdesk == "akunting" 
+              {loginBu && jobdesk == "akunting"
                 && (
                   <div className="mt-4">
-                  <Menu.Item
+                    <Menu.Item
                       className={
                         activeMenu === "/race/cabang/dashboard"
                           ? "menu-item-active menu-item-hover"
@@ -2775,7 +2774,7 @@ const loginBu = localStorage.getItem('loginBu');
                         </span>
                       </Link>
                     </Menu.Item>
-                   {/* <Menu.Item
+                    {/* <Menu.Item
                      className={
                        activeMenu === "/race/cabang/sjlistt"
                          ? "menu-item-active menu-item-hover"
@@ -2836,7 +2835,7 @@ const loginBu = localStorage.getItem('loginBu');
                         </span>
                       </Link>
                     </Menu.Item>
-                   {/* <Menu.Item
+                    {/* <Menu.Item
                       className={
                         activeMenu === "/race/cabang/splistt"
                           ? "menu-item-active menu-item-hover"
@@ -2865,12 +2864,12 @@ const loginBu = localStorage.getItem('loginBu');
                         </span>
                       </Link>
                     </Menu.Item> */}
-                 </div>
+                  </div>
                 )}
-               {cabang  && jobdesk == "keuangan"
+              {cabang && jobdesk == "keuangan"
                 && (
                   <div className="mt-4">
-                  <Menu.Item
+                    <Menu.Item
                       className={
                         activeMenu === "/race/cabang/dashboard"
                           ? "menu-item-active menu-item-hover"
@@ -2932,7 +2931,7 @@ const loginBu = localStorage.getItem('loginBu');
                         </span>
                       </Link>
                     </Menu.Item>
-                   {/* <Menu.Item
+                    {/* <Menu.Item
                      className={
                        activeMenu === "/race/cabang/sjlistt"
                          ? "menu-item-active menu-item-hover"
@@ -2993,7 +2992,7 @@ const loginBu = localStorage.getItem('loginBu');
                         </span>
                       </Link>
                     </Menu.Item>
-                   {/* <Menu.Item
+                    {/* <Menu.Item
                       className={
                         activeMenu === "/race/cabang/splistt"
                           ? "menu-item-active menu-item-hover"
@@ -3022,12 +3021,12 @@ const loginBu = localStorage.getItem('loginBu');
                         </span>
                       </Link>
                     </Menu.Item> */}
-                 </div>
+                  </div>
                 )}
-               {cabang  && jobdesk == "logistik"
+              {cabang && jobdesk == "logistik"
                 && (
                   <div className="mt-4">
-                  <Menu.Item
+                    <Menu.Item
                       className={
                         activeMenu === "/race/cabang/dashboard"
                           ? "menu-item-active menu-item-hover"
@@ -3089,7 +3088,7 @@ const loginBu = localStorage.getItem('loginBu');
                         </span>
                       </Link>
                     </Menu.Item>
-                   {/* <Menu.Item
+                    {/* <Menu.Item
                      className={
                        activeMenu === "/race/cabang/sjlistt"
                          ? "menu-item-active menu-item-hover"
@@ -3150,7 +3149,7 @@ const loginBu = localStorage.getItem('loginBu');
                         </span>
                       </Link>
                     </Menu.Item>
-                   {/* <Menu.Item
+                    {/* <Menu.Item
                       className={
                         activeMenu === "/race/cabang/splistt"
                           ? "menu-item-active menu-item-hover"
@@ -3179,7 +3178,7 @@ const loginBu = localStorage.getItem('loginBu');
                         </span>
                       </Link>
                     </Menu.Item> */}
-                 </div>
+                  </div>
                 )}
               {/* <>===========</> */}
 
@@ -3673,7 +3672,7 @@ const loginBu = localStorage.getItem('loginBu');
                 </>
               )}
               {/* ADMIN RACE CABANG */}
-             
+
             </MenuItemGroup>
           </Menu>
         </CustomScrollbars>
