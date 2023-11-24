@@ -306,15 +306,20 @@ Salam hangat,
       dataIndex: 'kendaraanPickup',
       key: 'kendaraanPickup',
     },
-    // {
-    //   title: 'service',
-    //   dataIndex: 'service',
-    //   key: 'service',
-    // },
+    {
+      title: 'Sales Erl',
+      dataIndex: 'salesErl',
+      key: 'salesErl',
+    },
     {
       title: 'Destination',
       dataIndex: 'destination',
       key: 'destination',
+    },
+    {
+      title: 'Sekolah Tujuan',
+      dataIndex: 'sekolahTujuan',
+      key: 'sekolahTujuan',
     },
     {
       title: 'Tgl Pickup',
