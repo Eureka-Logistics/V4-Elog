@@ -105,6 +105,18 @@ export const userSignIn = (user, selectLogin) => {
 export const userSignOut = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('loginBu');
+  localStorage.removeItem('jobdesk');
+  localStorage.removeItem('cabang');
+  localStorage.removeItem('level');
+  localStorage.removeItem('mitra1');
+  localStorage.removeItem('IdDriver');
+  localStorage.removeItem('mitra2');
+  localStorage.removeItem('fullname');
+  localStorage.removeItem('idkodekendaraan1');
+  localStorage.removeItem('idkodekendaraan2');
+  localStorage.removeItem('idcustomer');
+  localStorage.removeItem('kendaraan');
+  localStorage.removeItem('IdDriver2');
 
   return {
     type: SIGNOUT_USER
