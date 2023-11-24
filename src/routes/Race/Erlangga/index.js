@@ -30,9 +30,11 @@ function Erlangga() {
     const [Keyword, setKeyword] = useState("")
     const [IDCabang, setIDCabang] = useState(namaCabang)
     const datenya = (date, datanggal) => {
-        console.log(datanggal);
-        const formattedStartDate = moment(datanggal[0]).format("YYYY-M-D");
-        const formattedEndDate = moment(datanggal[1]).format("YYYY-M-D");
+        if (!datanggal || datanggal.length !== 2) {
+            return; // Handle the error or invalid state
+        }
+        const formattedStartDate = moment(datanggal?.[0]).format("YYYY-M-D");
+        const formattedEndDates = moment(datanggal?.[1]).format("YYYY-M-D");
         if (datanggal[0] === "") {
             return null
         } else {
@@ -44,39 +46,45 @@ function Erlangga() {
     }
     const [PilihCabang, setPilihCabang] = useState("")
     const GetDataTanggal = async (e) => {
-        setLoading(true)
-        let datas = "ada"
-        const formattedStartDate = moment(Data.Data_Tanggal[0]).format("YYYY-M-D");
-        const formattedEndDate = moment(Data.Data_Tanggal[1]).format("YYYY-M-D");
+        setLoading(true);
+    
+        let formattedStartDate, formattedEndDate;
+        
+        if (!Data.Data_Tanggal || Data.Data_Tanggal.length < 2) {
+            // If Data.Data_Tanggal is not set, use the default start and end dates
+            formattedStartDate = defaultStartDate.format("YYYY-M-D");
+            formattedEndDate = defaultEndDate.format("YYYY-M-D");
+        } else {
+            // If Data.Data_Tanggal is set, use those dates
+            formattedStartDate = moment(Data.Data_Tanggal[0]).format("YYYY-M-D");
+            formattedEndDate = moment(Data.Data_Tanggal[1]).format("YYYY-M-D");
+        }
+    
         try {
             const data = await axios.post(`${BaseUrlRace}sp/get-data-erl?whid=${PilihCabang}&from=${formattedStartDate}&to=${formattedEndDate}`, {
                 headers: {
                     "Content-Type": "application/json",
-                    // Authorization: ,
                     Authorization: localStorage.getItem("token"),
                 },
-            })
-            setLoading(false)
-            Refresh()
+            });
+            setLoading(false);
+            Refresh();
             notification.success({
                 message: data.data.status.message,
-            })
+            });
             console.log(data.response);
-
         } catch (error) {
-            setLoading(false)
-            console.log();
+            setLoading(false);
             if (error.response) {
                 notification.error({
                     message: error?.response?.data?.status?.message,
-                })
+                });
             } else {
                 console.log("error");
             }
-
         }
-
-    }
+    };
+    
 
     const Refresh = async () => {
         const datanya = await axios.get(`${BaseUrlRace}sp/get-data-pesanan?page=${Data?.paggination}&limit=${Data?.size}&keyword=${Keyword}&cabang=${IDCabang}`,
