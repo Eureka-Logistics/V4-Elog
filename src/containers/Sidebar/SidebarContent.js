@@ -2675,13 +2675,13 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
-                  <div >
+                  {/* <div >
                     <Menu.Item key="Emergency">
-                      <Link to="/Dashboard" style={{ textDecoration: "none" }}>
+                      <Link to="/Dashboard" style={{ textDecoration: "none" }}> */}
                         {/* <i className="icon icon-widgets" />
                          */}
 
-                        <img
+                        {/* <img
                           src={emergencyrace}
                           style={{
                             fontSize: "30px",
@@ -2701,7 +2701,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                         </span>
                       </Link>
                     </Menu.Item>
-                  </div>
+                  </div> */}
                   <div >
 
                   </div>

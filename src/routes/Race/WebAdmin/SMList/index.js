@@ -36,18 +36,7 @@ import moment from "moment";
 
 function SMList({ }) {
   const firestoresss = firestore;
-  const unsub = onSnapshot(doc(firestoresss, "location", "123"),
-    (doc) => {
-      if (doc.exists()) {
-        console.log("Current data: ", doc.data());
-      } else {
-        console.log("No such document!");
-      }
-    },
-    (error) => {
-      console.error("Error fetching document: ", error);
-    }
-  );
+  
 
 
   const [Open, setOpen] = useState(false);
@@ -94,7 +83,7 @@ function SMList({ }) {
           },
         }
       );
-      console.log("data pagination", dataa);
+      // console.log("data pagination", dataa);
       setDataApi((data) => ({
         ...data,
         Data: dataa?.data?.data?.order,
@@ -194,7 +183,18 @@ Salam hangat,
   // console.log(`AmbilCoordinates`, AmbilCoordinates);
   // console.log(`DetailDataPerClick`, DetailDataPerClick);
   const tableData = [DetailDataPerClick];
-
+  const unsub = onSnapshot(doc(firestoresss, "location", JSON.stringify(DetailDataPerClick?.driverId)),
+  (doc) => {
+    if (doc.exists()) {
+      console.log("Current data: ", doc.data());
+    } else {
+      console.log("No such document!");
+    }
+  },
+  (error) => {
+    console.error("Error fetching document: ", error);
+  }
+);
   const columns = [
     {
       title: 'Driver',
@@ -347,7 +347,7 @@ Salam hangat,
       await new Promise((resolve) => setTimeout(resolve, 2000));
       setExporting(false);
 
-      
+
       const data = response.data.data.order; // Assuming this is the array you want to export
 
       // Convert data to Excel format
@@ -483,8 +483,8 @@ Salam hangat,
         <>Loading</>
       )}
       <Row>
-      <Col className="ms-3 mx-3" sm={4} md={4} >
-          <h4 className="mt-3" style={{fontFamily: 'NoirPro'}}>
+        <Col className="ms-3 mx-3" sm={4} md={4} >
+          <h4 className="mt-3" style={{ fontFamily: 'NoirPro' }}>
             Daftar Surat Jalan
           </h4>
         </Col>
@@ -545,7 +545,7 @@ Salam hangat,
             className="d-flex justify-content-center align-items-center"
             style={{ height: "100vh" }}
           >
-         
+
           </div>
         )}
 
