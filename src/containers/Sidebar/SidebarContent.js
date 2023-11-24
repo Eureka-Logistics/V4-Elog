@@ -2452,7 +2452,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div> */}
-                  <div className="mt-4">
+                  <div >
                     <Menu.Item
                       className={
                         activeMenu === "/race/splist"
@@ -2486,7 +2486,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                     </Menu.Item>
                   </div>
 
-                  <div className="mt-4">
+                  <div >
                     <Menu.Item
                       className={
                         activeMenu === "/race/sjlist"
@@ -2519,7 +2519,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
-                  <div className="mt-4">
+                  <div >
                     <Menu.Item
                       className={
                         activeMenu === "/erlangga"
@@ -2549,7 +2549,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
-                  <div className="mt-4">
+                  <div >
                     <Menu.Item
                       className={
                         activeMenu === "/mapping"
@@ -2579,7 +2579,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
-                  <div className="mt-4">
+                  <div >
                     <Menu.Item
                       className={
                         activeMenu === "/race/cod"
@@ -2609,7 +2609,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
-                  <div className="mt-4">
+                  <div >
                     <Menu.Item
                       className={
                         activeMenu === "/masterdata/purchasing/vehicle"
@@ -2642,7 +2642,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
-                  <div className="mt-4">
+                  <div >
                     <Menu.Item
                       className={
                         activeMenu === "/masterdata/purchasing/driver"
@@ -2675,7 +2675,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
-                  <div className="mt-4">
+                  <div >
                     <Menu.Item key="Emergency">
                       <Link to="/Dashboard" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
@@ -2702,7 +2702,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
-                  <div className="mt-4">
+                  <div >
 
                   </div>
 
