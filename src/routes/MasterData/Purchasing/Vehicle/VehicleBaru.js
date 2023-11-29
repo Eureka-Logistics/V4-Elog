@@ -65,6 +65,7 @@ function VehicleBaru({
   const NamaMitraOptions = NamaMitra.map((item) => ({
     label: item.NamaMitra,
     value: item.mitraId,
+    type: item.type
   }));
   const JenisSimOptions = JenisSim.map((item) => ({
     label: item.Jenis,
@@ -978,7 +979,7 @@ function VehicleBaru({
                       showSearch
                       optionFilterProp="children"
                       id="vendor"
-                      name="vendor"
+                       name="vendor"
                       onChange={(value, option) => {
                         formik.setFieldValue("vendor", option.children); // mengambil label (children dari option)
                         formik.setFieldValue("id_vendor", value); // mengambil value dari option yang dipilih
@@ -993,7 +994,7 @@ function VehicleBaru({
                     >
                       {NamaMitraOptions.map((option) => (
                         <Select.Option key={option.value} value={option.value}>
-                          {option.label}
+                          {` (${option.type})  ${option.label}`}
 
                           {/* + " " + "(" + option.type + ")" */}
                         </Select.Option>
