@@ -129,11 +129,11 @@ function VehicleBaru({
       vendor: "",
       nama_driver: "",
       jenis_SIM: "",
-      warna_plat: "",
+      warna_plat: "Hitam",
       merk_mobil: "",
       tahun_mobil: "",
       kendaraan: "",
-      warna_plat: "",
+      warna_plat: "Hitam",
       panjang: "1",
       lebar: "1",
       tinggi: "1",
@@ -141,8 +141,8 @@ function VehicleBaru({
       stnk: "",
       tgl_kir: 0,
       tgl_beli: 0,
-      kapasitas: "",
-      kapasitas_maks: "",
+      kapasitas: "0",
+      kapasitas_maks: "0",
       // kubikasi: "",
       location: "",
       id_driver: "",
@@ -1034,7 +1034,7 @@ function VehicleBaru({
                       }}
                       value={
                         formik.values.jenis_kendaraan ||
-                        (DriverType.length > 0 ? DriverType[0]?.tipe : "")
+                        (DriverType.length > 0 ? DriverType[1]?.tipe : "")
                       }
                       onBlur={formik.handleBlur}
                     >

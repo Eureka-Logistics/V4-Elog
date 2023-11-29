@@ -1703,7 +1703,7 @@ function FormTable({
                       </Row>
                       <Row>
                         <Col sm={12}>
-                          <Form.Label>Kode Kendaraan</Form.Label>
+                          <Form.Label>Nomor Polisi</Form.Label>
                           {/* <Select
                           // options={options}
                           onChange={handleSelectChange}
