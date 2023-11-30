@@ -83,6 +83,7 @@ function ModalCreateAlamatSekolah({ setmodal1Open, modal1Open, ListSekolah }) {
     useEffect(() => {
         KecamatandanProvinsi()
     }, [IsiInputan.id_provinsi, IsiInputan?.id_kota])
+    console.log(`lattitudemap`,);
     return (
         <div>
             <Modal

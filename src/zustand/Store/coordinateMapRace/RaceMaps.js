@@ -10,5 +10,6 @@ const useCoordinateRaceMap = create(set => ({
     longtitudemap: "",
     setCoordinate: (data) => set(state => ({ Coordinate: data })),
     setJarakDanWaktu: (data) => set(state => ({ JarakDanWaktu: data })),
+    setLatLong: (lat, lng) => set({ lattitudemap: lat, longtitudemap: lng }),
 }));
 export default useCoordinateRaceMap;

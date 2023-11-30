@@ -6,6 +6,7 @@ import { BaseUrlRace } from '../../../../../Api/BaseUrl';
 import axios from 'axios';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import useCoordinateRaceMap from '../../../../../zustand/Store/coordinateMapRace/RaceMaps';
+import { getCoordinates } from '../../../../../Api/Geocode';
 
 function HalamanDetailAlamatCustomer() {
     const id = useParams()
@@ -48,9 +49,18 @@ function HalamanDetailAlamatCustomer() {
             setSelectProvinsiKecamatan(data.data)
         } catch (error) { }
     };
+
+    // Function obah alamat 
+    const UbahCoordinate = async () => {
+        const ubah =await  getCoordinates(IsiInputan?.alamat)
+    }
+
     useEffect(() => {
+        UbahCoordinate()
         KecamatandanProvinsi()
     }, [IsiInputan.id_provinsi, IsiInputan?.id_kota])
+
+    
     function Inputan(e) {
         const { id, value } = e.target;
         console.log(id, value);
@@ -231,13 +241,13 @@ function HalamanDetailAlamatCustomer() {
                                     <Col md={4} style={{ backgroundColor: "" }} className=''>
                                         <Form.Item>
                                             Latitude
-                                            <Input id='lat' disabled value={IsiInputan?.lat} />
+                                            <Input id='lat' disabled value={lattitudemap} />
                                         </Form.Item>
                                     </Col>
                                     <Col md={4} style={{ backgroundColor: "", marginLeft: 20 }} className='mr-3'>
                                         <Form.Item>
                                             Longitude
-                                            <Input id='lon' disabled value={IsiInputan?.lon} />
+                                            <Input id='lon' disabled value={longtitudemap} />
                                         </Form.Item>
                                     </Col>
                                 </Row>

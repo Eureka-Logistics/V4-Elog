@@ -95,12 +95,15 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
                     Authorization: localStorage.getItem("token"),
                 },
             })
+            console.log(`daatatta`,data);
             notification.success({
                 message: data.data.status.message
             });
-
         } catch (error) {
-
+            console.log(`error`, error);
+            notification.error({
+                message: error.response.status.message
+            });
         }
     }
 
@@ -178,7 +181,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
                         Authorization: localStorage.getItem("token"),
                     },
                 });
-        
+
                 notification.success({
                     message: `SP Detail created for school: ${sekolah.sekolah}`
                 });
