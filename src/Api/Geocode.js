@@ -1,5 +1,6 @@
 import axios from 'axios';
 import ApiGoogleMap from './ApigoogleMap';
+import useCoordinateRaceMap from '../zustand/Store/coordinateMapRace/RaceMaps';
 
 export const getCoordinates = async (address) => {
   try {
@@ -16,3 +17,15 @@ export const getCoordinates = async (address) => {
     return null;
   }
 };
+
+export async function JadikanNamaJalan(latitude, longitude) {
+  const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${ApiGoogleMap}`);
+  const data = await response.json();
+  console.log(`data alamat`, data);
+  if (data.status === "OK") {
+    useCoordinateRaceMap.setState({ AlamatDetailCustomer: data.results[0].formatted_address })
+    return data.results[0].formatted_address;
+  } else {
+    throw new Error("Failed to retrieve address");
+  }
+}

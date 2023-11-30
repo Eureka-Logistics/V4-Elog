@@ -23,7 +23,7 @@ import icondriver from "../../../../assets/img/drivericon.png";
 import telponicon from "../../../../assets/img/telponicon.png";
 import whatsappicon from "../../../../assets/img/whatsappicon.png";
 import "./style.css";
-import { getCoordinates } from "../../../../Api/Geocode";
+import { JadikanNamaJalan, getCoordinates } from "../../../../Api/Geocode";
 import MapsGoogle from "../../../../components/MapsGoole";
 import useCoordinateRaceMap from "../../../../zustand/Store/coordinateMapRace/RaceMaps";
 import DetailSPListRace from "../splist/Detailsplist";
@@ -36,19 +36,30 @@ import moment from "moment";
 
 function SMList({ }) {
   const firestoresss = firestore;
-  const unsub = onSnapshot(doc(firestoresss, "location", "123"),
-    (doc) => {
-      if (doc.exists()) {
-        console.log("Current data: ", doc.data());
-      } else {
-        console.log("No such document!");
-      }
-    },
-    (error) => {
-      console.error("Error fetching document: ", error);
-    }
-  );
+  const [LokasiDriverlanglot, setLokasiDriverlanglot] = useState(0)
+  async function LokasiDriver(id) {
+    // Use id directly if it's already a string or number
+    const stringId = String(id);
+    console.log(`id`, id, `type of id:`, stringId);
 
+    const unsub = onSnapshot(doc(firestoresss, "location", stringId),
+      (doc) => {
+        if (doc.exists()) {
+          console.log("Lokasi Driver: ", doc.data());
+          setLokasiDriverlanglot(doc.data())
+          // JadikanNamaJalan(doc.data()?.latitude, doc.data()?.longitude)
+
+        } else {
+          console.log("No such document!");
+        }
+      },
+      (error) => {
+        console.error("Error fetching document: ", error);
+      }
+    );
+  }
+
+  // console.log(`LokasiDriver`, LokasiDriverlanglot);
 
   const [Open, setOpen] = useState(false);
   const [CariSJ, SetCariSJ] = useState("");
@@ -436,6 +447,7 @@ Salam hangat,
                 AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate}
                 width={730}
                 height={250}
+                posisiDriver={LokasiDriverlanglot}
               />
             ) : (
               <div></div> // tampilkan pesan loading atau komponen lainnya saat data belum selesai di-fetch
@@ -526,6 +538,7 @@ Salam hangat,
           onRow={(record, rowIndex) => {
             return {
               onClick: async () => {
+                LokasiDriver(record?.driverId);
                 setNamaSupir(record.driver1);
                 setDetailDataPerClick(record);
                 showDefaultDrawer(record);

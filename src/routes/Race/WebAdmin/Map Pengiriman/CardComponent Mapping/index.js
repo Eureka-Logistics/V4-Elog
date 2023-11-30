@@ -86,11 +86,9 @@ function CardMapping({ onAdd, DataApi, LoadingGan }) {
 
                             </Row>
                             <Row>
-                                <Col style={{ fontWeight: "bold" }} md={12} className='d-flex justify-content-start'>
+                                <Col style={{ fontWeight: "bold",justifyContent:"space-between" }} md={12} className='d-flex '>
                                     <p>Nama Sales</p>
-                                </Col>
-                                <Col md={12} className='d-flex justify-content-start' style={{}}>
-                                    <div  style={{ fontSize: "12px", fontWeight: "bold", overflow: "hidden",paddingLeft: 12, paddingRight: 12, paddingTop: 0, paddingBottom: 5, background: '#F8F8F8', borderRadius: 4, justifyContent: 'center', alignItems: 'center', gap: 8, display: 'inline-flex' }}>{item.salesName}</div>
+                                    {item.salesName}
                                 </Col>
                             </Row>
                         </Card>
