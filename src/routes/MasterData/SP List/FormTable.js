@@ -2230,7 +2230,7 @@ function FormTable({
                         </Form.Select>
                       </Col>
                       <Col sm={3}>
-                        <Form.Label>Kode Kendaraans</Form.Label>
+                        <Form.Label>Nomor Polisi</Form.Label>
                         <Select placeholder={Mitra1Multi?.unit}
                           options={KodeKendaraanPurc1ss}
                           onChange={(e, key, option) => {
@@ -2296,7 +2296,7 @@ function FormTable({
                         </Form.Select>
                       </Col>
                       <Col sm={3}>
-                        <Form.Label>Kode Kendaraan</Form.Label>
+                        <Form.Label>Nomor Polisi</Form.Label>
                         <Select
                           options={kodeKendaraanOptions}
                           onChange={(selectedOption) => {
@@ -2369,7 +2369,7 @@ function FormTable({
                         </Form.Select>
                       </Col>
                       <Col sm={3}>
-                        <Form.Label>Kode Kendaraan</Form.Label>
+                        <Form.Label>Nomor Polisi</Form.Label>
                         <Select
                           options={kodeKendaraanOptions2}
                           onChange={(selectedOption) => {
