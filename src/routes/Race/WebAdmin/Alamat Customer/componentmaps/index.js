@@ -12,11 +12,11 @@ const defaultCenter = {
 };
 
 function ComponentGerakinPosisiMaps({ width, height }) {
-    const { AlamatDetailCustomer } = useCoordinateRaceMap();
+    const { setState } = useCoordinateRaceMap();
     const [position, setPosition] = useState(defaultCenter);
+    const [scriptLoaded, setScriptLoaded] = useState(false);
     const mapContainerStyle = { height, width };
     const autocompleteInput = useRef(null);
-    const [autocomplete, setAutocomplete] = useState(null);
 
     const onMarkerDragEnd = (event) => {
         const newPos = {
@@ -24,44 +24,48 @@ function ComponentGerakinPosisiMaps({ width, height }) {
             lng: event.latLng.lng()
         };
         setPosition(newPos);
-        useCoordinateRaceMap.setState({
-            lattitudemap: newPos?.lat,
-            longtitudemap: newPos?.lng
-        })
+        setState({
+            lattitudemap: newPos.lat,
+            longtitudemap: newPos.lng
+        });
     };
-
+  
+    useEffect(() => {
+        JadikanNamaJalan(position.lat, position.lng); 
+    }, [position]);
+    
     const handlePlaceSelect = () => {
-        const place = autocomplete.getPlace();
-        if (place.geometry) {
+        const place = autocompleteInput.current.getPlace();
+        if (place && place.geometry) {
             const newPos = {
                 lat: place.geometry.location.lat(),
                 lng: place.geometry.location.lng()
             };
             setPosition(newPos);
-            useCoordinateRaceMap.setState({
+            setState({
                 lattitudemap: newPos.lat,
                 longtitudemap: newPos.lng
             });
         }
     };
-
-  
     useEffect(() => {
-        JadikanNamaJalan(position?.lat, position?.lng)
-        if (window.google) {
+        if (scriptLoaded) {
             const autocompleteInstance = new window.google.maps.places.Autocomplete(
                 autocompleteInput.current,
                 { types: ['geocode'] }
             );
             autocompleteInstance.addListener('place_changed', handlePlaceSelect);
-            setAutocomplete(autocompleteInstance);
         }
-    }, [position]);
+    }, [scriptLoaded]);
     return (
         <div>
             <Row>
                 <Form.Control ref={autocompleteInput} type="text" placeholder="Cari Alamat" className='mb-3' />
-                <LoadScript googleMapsApiKey={ApiGoogleMap} libraries={['places']}>
+                <LoadScript 
+                    googleMapsApiKey={ApiGoogleMap} 
+                    libraries={['places']}
+                    onLoad={() => setScriptLoaded(true)}
+                >
                     <GoogleMap
                         mapContainerStyle={mapContainerStyle}
                         zoom={12}
