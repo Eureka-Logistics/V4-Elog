@@ -6,13 +6,15 @@ import { JadikanNamaJalan } from '../../../../../Api/Geocode';
 import useCoordinateRaceMap from '../../../../../zustand/Store/coordinateMapRace/RaceMaps';
 
 
-const defaultCenter = {
-    lat: -6.2088,
-    lng: 106.8456
-};
+
 
 function ComponentGerakinPosisiMaps({ width, height }) {
     const { setState, lattitudemap, longtitudemap } = useCoordinateRaceMap();
+    const defaultCenter = {
+        lat: lattitudemap || -6.2139383,
+        lng: longtitudemap || 106.6910322
+    };
+    console.log(`lattitudemap`,lattitudemap);
     const [position, setPosition] = useState(defaultCenter);
     const [mapKey, setMapKey] = useState(Date.now());
     const [scriptLoaded, setScriptLoaded] = useState(false);
@@ -20,7 +22,7 @@ function ComponentGerakinPosisiMaps({ width, height }) {
     const autocompleteInput = useRef(null);
     let autocomplete; // Declare outside useEffect
 
-
+  
     const onMarkerDragEnd = (event) => {
         const newPos = {
             lat: event.latLng.lat(),
@@ -29,7 +31,7 @@ function ComponentGerakinPosisiMaps({ width, height }) {
         setPosition(newPos);
         useCoordinateRaceMap.setState({ lattitudemap: newPos.lat, longtitudemap: newPos.lng })
         console.log(`newPos`, newPos);
-       
+
     };
 
     useEffect(() => {
@@ -46,7 +48,7 @@ function ComponentGerakinPosisiMaps({ width, height }) {
             console.log(`ini dari pindah`, newPos);
             setPosition(newPos);
             useCoordinateRaceMap.setState({ lattitudemap: newPos.lat, longtitudemap: newPos.lng })
-           
+
             setMapKey(Date.now());
         }
     };

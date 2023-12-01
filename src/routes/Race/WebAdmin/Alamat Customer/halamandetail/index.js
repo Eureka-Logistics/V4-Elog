@@ -83,8 +83,8 @@ function HalamanDetailAlamatCustomer() {
                 "kecamatan": IsiInputan?.NamaKecamatan,
                 "kota": IsiInputan?.NamaKota,
                 "kode_wilayah": IsiInputan?.kode_wilayah,
-                "lat": 0,
-                "lon": 0
+                "lat": lattitudemap,
+                "lon": longtitudemap
             }
             const data = await axios.post(`${BaseUrlRace}sp/update-Sekolah`, bodynya, {
                 headers: {
