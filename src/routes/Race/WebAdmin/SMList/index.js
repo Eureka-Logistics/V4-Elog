@@ -124,16 +124,15 @@ function SMList({ }) {
     DataApiSM();
     pilihcabangselect();
   }, [CariSJ, DataApi.limit, Cabang]);
-
   const history = useHistory();
   const pindahdetailsp = () => {
     if (
-      !DetailDataPerClick?.other?.id_mpd ||
-      !DetailDataPerClick?.other?.id_msm
+      !DetailDataPerClick?.idMsm ||
+      !DetailDataPerClick?.idMsm
     ) {
       notification.error({
         message: "Error",
-        description: "Tidak ada id_mpd || id_msm",
+        description: "Tidak ada id_mpd || idMsm",
       });
     } else {
       history.push(
@@ -174,11 +173,11 @@ Salam hangat,
     setIsDataFetched(true);
     const fetchData = async () => {
       const AlamatMuat = await getCoordinates(
-        DetailDataPerClick?.other?.m_pengadaan_detail?.muat?.alamat ||
+        DetailDataPerClick?.alamatMuat ||
         DetailDataPerClick?.other?.m_pengadaan_detail?.muat?.alamat_detail
       );
       const Bongkar = await getCoordinates(
-        DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat ||
+        DetailDataPerClick?.alamatBongkar ||
         DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat_detail
       );
       // useCoordinateRaceMap.setState({ AmbilCoordinates: [...AlamatMuat, ...Bongkar] })
@@ -214,8 +213,8 @@ Salam hangat,
     },
     {
       title: 'Kendaraan',
-      dataIndex: 'kendaraanPickup',
-      key: 'kendaraanPickup',
+      dataIndex: 'jenis_kendaraan',
+      key: 'jenis_kendaraan',
     },
     {
       title: 'Nopol',
@@ -272,7 +271,7 @@ Salam hangat,
     {
       key: 'bongkarAlamat',
       label: 'Alamat Bongkar',
-      value: DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat
+      value: DetailDataPerClick?.alamatBongkar
     },
     // Add other rows as needed
   ];
@@ -313,9 +312,14 @@ Salam hangat,
       key: 'driver',
     },
     {
-      title: 'Kendaraan Pickup',
-      dataIndex: 'kendaraanPickup',
-      key: 'kendaraanPickup',
+      title: 'Jenis Kendaraan',
+      dataIndex: 'jenis_kendaraan',
+      key: 'jenis_kendaraan',
+    },
+    {
+      title: 'NoPol',
+      dataIndex: 'nopol',
+      key: 'nopol',
     },
     {
       title: 'Sales Erl',

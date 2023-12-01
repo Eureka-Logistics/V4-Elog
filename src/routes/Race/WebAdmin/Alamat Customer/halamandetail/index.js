@@ -83,8 +83,8 @@ function HalamanDetailAlamatCustomer() {
                 "kecamatan": IsiInputan?.NamaKecamatan,
                 "kota": IsiInputan?.NamaKota,
                 "kode_wilayah": IsiInputan?.kode_wilayah,
-                "lat": lattitudemap,
-                "lon": longtitudemap
+                "lat": -6.8764815,
+                "lon": 106.8889055
             }
             const data = await axios.post(`${BaseUrlRace}sp/update-Sekolah`, bodynya, {
                 headers: {
@@ -160,7 +160,7 @@ function HalamanDetailAlamatCustomer() {
 
                                                     }));
                                                 }}
-                                                value={IsiInputan?.id_provinsi}
+                                                value={IsiInputan?.provinsi}
                                             >
                                                 {SelectProvinsiKecamatan && SelectProvinsiKecamatan?.provinsi?.map((item) => (
                                                     <Select.Option value={item?.id_provinsi}>{item?.provinsi}</Select.Option>
