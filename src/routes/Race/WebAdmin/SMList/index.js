@@ -302,6 +302,18 @@ Salam hangat,
       key: 'sm',
     },
     {
+      title: 'Status SM',
+      dataIndex: 'statusKiriman',
+      key: 'statusKiriman',
+      render: (statusKiriman) => {
+       if (statusKiriman === "Doc Complete") {
+        return  <Tag color="green">Doc Complete</Tag>
+       } else {
+        return  statusKiriman
+       }
+      }
+    },
+    {
       title: 'SP',
       dataIndex: 'sp',
       key: 'sp',

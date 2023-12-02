@@ -11,7 +11,8 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
         seleckan_noref: "",
         data_sekolah: "",
         seleckan_sekolah: "",
-        sales: ""
+        sales: "",
+        nosemua: ""
     })
     useEffect(() => {
         if (modal1Open) {
@@ -27,16 +28,16 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
             const data = await axios.get(`${BaseUrlRace}sp/get-select-sp?noref=${Seleckan.seleckan_noref}&cabang=${IDCabang}`,
                 {
                     headers: {
-                        // Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjksInVzZXJuYW1lIjoicmFjZWFkbWluIiwiZnVsbG5hbWUiOiJJbmRhaCBNdXJ0aW5pbmdzaWgiLCJqb2JkZXNrIjoicmFqYWNlcGF0IiwiaWF0IjoxNjk4MzM3Mzg2LCJleHAiOjE2OTg0MjM3ODZ9.G3wsj2FXma8aAISzJbzhqmnrWs6DSOYDgHrF7RMsQS0',
                         "Content-Type": "application/json",
                         Authorization: localStorage.getItem("token"),
                     },
                 },
             );
-            console.log(data.data);
+            console.log(data.data.noref.length);
             setSeleckan(item => ({
                 ...item,
                 seleckan_sekolah: data?.data?.sekolah?.[0],
+                nosemua: data.data.noref.length
             }))
             // SelectDataForeach()
             let updatedSeleckanSekolah;
@@ -95,7 +96,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
                     Authorization: localStorage.getItem("token"),
                 },
             })
-            console.log(`daatatta`,data);
+            console.log(`daatatta`, data);
             notification.success({
                 message: data.data.status.message
             });
@@ -201,7 +202,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
     return (
         <div>
             <Modal
-                title={`Create SP Cabang ${IDCabang}`}
+                title={`Create SP ${IDCabang} - Total ${Seleckan.nosemua} NoRef`}
                 width={800}
                 style={{
                     top: 20,
@@ -231,70 +232,6 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
                 }}
             >
                 <Form>
-                    {/* <Row>
-                        <Col style={{ backgroundColor: "" }} >
-                            <Form.Item
-                                label="Select NoRef"
-                                labelCol={{ span: 24 }}
-                                wrapperCol={{ span: 24 }}
-                            >
-                                <Select
-                                    style={{ width: "100%" }}
-                                    showSearch
-                                    optionFilterProp='children'
-                                    value={Seleckan?.seleckan_noref}
-                                    onChange={(e, children) => {
-                                        console.log(`ini dari select`, children);
-                                        setSeleckan(item => ({
-                                            ...item,
-                                            seleckan_noref: e,
-                                            sales: children?.sales
-                                        }))
-
-                                    }}
-                                >
-                                    {Seleckan && Seleckan.data_noref.map((i, id) => (
-                                        <option key={id} children={i?.sales} sales={i?.sales} value={i?.referensi}>{i?.referensi}</option>
-                                    ))}
-                                </Select>
-                            </Form.Item>
-                        </Col>
-                        <Col style={{ backgroundColor: "" }} >
-                            <Form.Item
-                                label="Pilih Sekolah"
-                                labelCol={{ span: 24 }}
-                                wrapperCol={{ span: 24 }}
-                            >
-                                <Select
-                                    style={{ width: "100%" }}
-                                    disabled={!Seleckan.seleckan_noref}
-                                    showSearch
-                                    optionFilterProp='children'
-                                    value={Seleckan?.seleckan_sekolah?.sekolah}
-                                    onChange={(e, key) => {
-                                        setSeleckan(item => ({
-                                            ...item,
-                                            seleckan_sekolah: e
-                                        }))
-                                        // setSeleckan()
-                                        // console.log(key,e)
-                                    }}
-                                // value={Seleckan?.seleckan_sekolah[0]?.sekolah}
-                                >
-                                    {Seleckan && Seleckan?.data_sekolah.length > 0 ? (
-                                        Seleckan?.data_sekolah.map((i, id) => (
-                                            <option key={id} value={i?.sekolah}>{i?.sekolah}</option>
-                                        ))
-                                    ) : (
-                                        <option>Loading...</option>
-                                    )}
-
-
-                                </Select>
-                            </Form.Item>
-                        </Col>
-
-                    </Row> */}
                     {Seleckan && Seleckan.data_noref.map((data, index) => (
                         <Row key={index} gutter={[16, 16]} align="middle">
                             <Col >
@@ -311,7 +248,6 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
                             </Col>
                         </Row>
                     ))}
-                    {/* {/* <Table columns={columns} dataSource={Seleckan.data_noref} /> */}
                 </Form>
             </Modal>
         </div >
