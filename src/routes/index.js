@@ -810,6 +810,18 @@ const App = ({ match }) => {
           )}
         />
         <Route
+          path={`${match.url}race/driver`}
+          component={asyncComponent(() =>
+            import("../routes/Race/WebAdmin/Driver List/index")
+          )}
+        />
+        <Route
+          path={`${match.url}race/kendaraan`}
+          component={asyncComponent(() =>
+            import("../routes/Race/WebAdmin/Kendaraan List/index")
+          )}
+        />
+        <Route
           path={`${match.url}race/detailsp/:idMp`}
           component={asyncComponent(() =>
             import("../routes/Race/WebAdmin/splist/Detailsplist/DetailSpRace")
