@@ -2642,14 +2642,14 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <div >
                     <Menu.Item
                       className={
-                        activeMenu === "/masterdata/purchasing/vehicle"
+                        activeMenu === "/race/kendaraan"
                           ? "menu-item-active menu-item-hover"
                           : "menu-item-hover"
                       }
                       key="vehicle"
                     >
                       <Link
-                        to="/masterdata/purchasing/vehicle"
+                        to="/race/kendaraan"
                         style={{ textDecoration: "none" }}
                       >
                         {/* <i className="icon icon-widgets" />
@@ -2675,14 +2675,14 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <div >
                     <Menu.Item
                       className={
-                        activeMenu === "/masterdata/purchasing/driver"
+                        activeMenu === "/race/driver"
                           ? "menu-item-active menu-item-hover"
                           : "menu-item-hover"
                       }
                       key="driver"
                     >
                       <Link
-                        to="/masterdata/purchasing/driver"
+                        to="/race/driver"
                         style={{ textDecoration: "none" }}
                       >
                         {/* <i className="icon icon-widgets" />
