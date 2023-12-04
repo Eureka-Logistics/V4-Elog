@@ -5,6 +5,7 @@ import {
   Col,
   DatePicker,
   Input,
+  Popconfirm,
   Row,
   Select,
   Table,
@@ -58,62 +59,38 @@ function ReportKiriman() {
       key: "no",
     },
     {
-      title: "SM",
+      title: "SM/SP",
       dataIndex: "sm",
       key: "sm",
-      render: (text, record) => <Tag color="blue">{record.sm}</Tag>,
-    },
-    {
-      title: "SP",
-      dataIndex: "sp",
-      key: "sp",
-      render: (text, record) => <Tag color="green">{record.sp}</Tag>,
-    },
-    {
-      title: "Cust",
-      dataIndex: "customer",
-      key: "customer",
+      render: (text, record) =>
+        <>
+          <Tag color="blue">{record.sm}</Tag>
+          <Tag color="green">{record.sp}</Tag>
+        </>
     },
     {
       title: "Rute",
       dataIndex: "destination",
       key: "destination",
+      render: (text, record) =>
+        <>
+          <Tag color="red">{record.destination}</Tag>
+          <Tag color="orange">{record.sekolahTujuan}</Tag>
+        </>
     },
+
     {
-      title: "Service",
-      dataIndex: "service",
-      key: "service",
-    },
-    // {
-    //   title: "Alamat Muat",
-    //   dataIndex: "alamatMuat",
-    //   key: "alamatMuat",
-    // },
-    // {
-    //   title: "Alamat Muat",
-    //   dataIndex: "alamatMuat",
-    //   key: "alamatMuat",
-    // },
-    // {
-    //   title: "Alamat Bongkar",
-    //   dataIndex: "alamatBongkar",
-    //   key: "alamatBongkar",
-    // },
-    {
-      title: "Sekolah Tujuan",
-      dataIndex: "sekolahTujuan",
-      key: "sekolahTujuan",
-    },
-    {
-      title: "No Plat",
+      title: "Driver",
       dataIndex: "nopol",
       key: "nopol",
-      render: (text, record) => <Tag color="magenta">{record.nopol}</Tag>,
-    },
-    {
-      title: "Pengemudi",
-      dataIndex: "driver",
-      key: "driver",
+      render: (text, record) =>
+        <>
+          <Tag color="purple">{record.driver}</Tag>
+          <br/>
+          <Tag color="red">{record.jenis_kendaraan}</Tag>
+          <br/>
+          <Tag color="yellow">{record.nopol}</Tag>
+        </>
     },
     {
       title: "Tgl Muat",
@@ -125,27 +102,35 @@ function ReportKiriman() {
       title: "onProcess",
       dataIndex: "onProcess",
       render: (text, record) => {
-        // Check if record.onPickup has a truthy value
-        if (record?.onProcess != "-") {
-          return <>{record.onProcess}</>; // Render the onPickup value
+        const datanya = {
+          "keterangan": "Menerima pesanan",
+          "status": "on Procees",
+          "statusId": 1
+        }
+        if (record?.onProcess !== "-") {
+          return <>{record.onProcess}</>; // Render the onProcess value
         } else {
-          // Render the Button when record.onPickup is falsy
+          // Render Popconfirm with Button when record.onProcess is falsy
           return (
-            <Button
-              onClick={() => {
-                StatusDriver(record);
+            <Popconfirm
+              title="Yakin untuk confirm?"
+              onConfirm={() => {
+                StatusDriver(record, datanya);
                 // setModal1Open(true);
                 // setCurrentTitle("onProcess");
               }}
-              size="small"
-              type="primary"
+              okText="Yes"
+              cancelText="No"
             >
-              OK
-            </Button>
+              <Button size="small" type="primary">
+                OK
+              </Button>
+            </Popconfirm>
           );
         }
       },
     },
+    
     {
       title: "OnPickup",
       dataIndex: "onPickup",
@@ -161,17 +146,20 @@ function ReportKiriman() {
           return <>{onPickup}</>; // Render the onPickup value
         } else {
           return (
-            <Button
-              onClick={() => {
-                StatusDriver(record, datanya);
-                // setModal1Open(true);
-                // setCurrentTitle("OnPickup");
-              }}
-              size="small"
-              type="primary"
-            >
+            <Popconfirm
+            title="Yakin untuk confirm?"
+            onConfirm={() => {
+              StatusDriver(record, datanya);
+              // setModal1Open(true);
+              // setCurrentTitle("onProcess");
+            }}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button size="small" type="primary">
               OK
             </Button>
+          </Popconfirm>
           );
         }
       },
@@ -191,15 +179,20 @@ function ReportKiriman() {
         } else {
           // Render the Button when record.onPickup is falsy
           return (
-            <Button
-              onClick={() => {
+            <Popconfirm
+              title="Yakin untuk confirm?"
+              onConfirm={() => {
                 StatusDriver(record, datanya);
+                // setModal1Open(true);
+                // setCurrentTitle("onProcess");
               }}
-              size="small"
-              type="primary"
+              okText="Yes"
+              cancelText="No"
             >
-              OK
-            </Button>
+              <Button size="small" type="primary">
+                OK
+              </Button>
+            </Popconfirm>
           );
         }
       },
@@ -220,15 +213,20 @@ function ReportKiriman() {
         } else {
           // Render the Button when record.onPickup is falsy
           return (
-            <Button
-              onClick={() => {
+            <Popconfirm
+              title="Yakin untuk confirm?"
+              onConfirm={() => {
                 StatusDriver(record, datanya);
+                // setModal1Open(true);
+                // setCurrentTitle("onProcess");
               }}
-              size="small"
-              type="primary"
+              okText="Yes"
+              cancelText="No"
             >
-              OK
-            </Button>
+              <Button size="small" type="primary">
+                OK
+              </Button>
+            </Popconfirm>
           );
         }
       },
@@ -249,15 +247,20 @@ function ReportKiriman() {
         } else {
           // Render the Button when record.onPickup is falsy
           return (
-            <Button
-              onClick={() => {
-                StatusDriver(record, datanya);
-              }}
-              size="small"
-              type="primary"
-            >
+            <Popconfirm
+            title="Yakin untuk confirm?"
+            onConfirm={() => {
+              StatusDriver(record, datanya);
+              // setModal1Open(true);
+              // setCurrentTitle("onProcess");
+            }}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button size="small" type="primary">
               OK
             </Button>
+          </Popconfirm>
           );
         }
       },
@@ -278,15 +281,20 @@ function ReportKiriman() {
         } else {
           // Render the Button when record.onPickup is falsy
           return (
-            <Button
-              onClick={() => {
-                StatusDriver(record, datanya);
-              }}
-              size="small"
-              type="primary"
-            >
+            <Popconfirm
+            title="Yakin untuk confirm?"
+            onConfirm={() => {
+              StatusDriver(record, datanya);
+              // setModal1Open(true);
+              // setCurrentTitle("onProcess");
+            }}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button size="small" type="primary">
               OK
             </Button>
+          </Popconfirm>
           );
         }
       },
@@ -306,7 +314,7 @@ function ReportKiriman() {
   const StatusDriver = async (a, b) => {
     console.log(`log dari klik untuk post`, a);
     console.log(`log dari klik untuk post b `, b);
-    // OptionStatus()
+    OptionStatus()
     const body = {
       "id_kendaraan": a.idkendaraan,
       "no_polisi": a.nopol,
