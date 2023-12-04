@@ -2582,18 +2582,18 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <div >
                     <Menu.Item
                       className={
-                        activeMenu === "/race/alamatcustomer"
+                        activeMenu === "/ReportKirimanRace"
                           ? "menu-item-active menu-item-hover"
                           : "menu-item-hover"
                       }
-                      key="alamatcustomer"
+                      key="ReportKirimanRace"
                     >
-                      <Link to="/race/alamatcustomer" style={{ textDecoration: "none" }}>
+                      <Link to="/ReportKirimanRace" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
                          */}
 
                         <img
-                          src={CodLogo}
+                          src={historyrace}
                           style={{
                             fontSize: "30px",
                             color: "white",
@@ -2604,7 +2604,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                           className="mx-3"
                           style={{ fontWeight: "bold", color: "white" }}
                         >
-                          Alamat Customer
+                          Report Kiriman
                         </span>
                       </Link>
                     </Menu.Item>

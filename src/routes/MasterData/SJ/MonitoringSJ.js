@@ -312,8 +312,11 @@ function MonitoringSJ() {
           MonitoringSJ (<i>operasional</i>)
         </h5>
         <hr />
-        <Row>
-          <Col span={4}>
+        <Row gutter={[16,16]}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <label style={{ fontWeight: "bold" }}>BU :</label>
             <Select
               className="mt-2"
@@ -336,7 +339,10 @@ function MonitoringSJ() {
                 ))}
             </Select>
           </Col>
-          <Col span={4}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <label style={{ fontWeight: "bold" }}>Cabang :</label>
             <Select
               className="mt-2"
@@ -359,7 +365,10 @@ function MonitoringSJ() {
                 ))}
             </Select>
           </Col>
-          <Col span={4}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <label style={{ fontWeight: "bold" }}>Mitra :</label>
             <Select
               className="mt-2"
@@ -385,13 +394,19 @@ function MonitoringSJ() {
               </Select.Option>
             </Select>
           </Col>
-          <Col span={4}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <label className="mb-2" style={{ fontWeight: "bold" }}>
               Mulai :
             </label>
             <DatePicker style={{ width: "100%" }} format="DD-MM-YYYY" />
           </Col>
-          <Col span={4}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <label className="mb-2" style={{ fontWeight: "bold" }}>
               Selesai :
             </label>
@@ -401,7 +416,10 @@ function MonitoringSJ() {
               // defaultValue={moment()}
             />
           </Col>
-          <Col span={4}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <label style={{ fontWeight: "bold" }}>AR :</label>
             <Select
               className="mt-2"
@@ -428,8 +446,11 @@ function MonitoringSJ() {
             </Select>
           </Col>
         </Row>
-        <Row>
-          <Col span={4}>
+        <Row gutter={[16,16]}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <label className="mt-2" style={{ fontWeight: "bold" }}>
               AP :
             </label>
@@ -457,7 +478,10 @@ function MonitoringSJ() {
               </Select.Option>
             </Select>
           </Col>
-          <Col span={4}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <label className="mt-2" style={{ fontWeight: "bold" }}>
               Diserahkan OPS :
             </label>
@@ -485,7 +509,10 @@ function MonitoringSJ() {
               </Select.Option>
             </Select>
           </Col>
-          <Col span={4}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <label className="mt-2" style={{ fontWeight: "bold" }}>
               Sukses Pengiriman :
             </label>
@@ -516,7 +543,10 @@ function MonitoringSJ() {
               </Select.Option>
             </Select>
           </Col>
-          <Col span={4}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <label className="mt-2" style={{ fontWeight: "bold" }}>
               Customer :
             </label>
@@ -565,7 +595,7 @@ function MonitoringSJ() {
           onCancel={handleCancel}
         >
           {/* Render the details of the selected record inside the modal */}
-          <Row>
+          <Row gutter={[16,16]}>
             <Col span={12}>
               <label className="mt-2" style={{ fontWeight: "bold" }}>
                 No Invoice
@@ -640,7 +670,7 @@ function MonitoringSJ() {
           onCancel={handleCancel1}
         >
           {/* Render the details of the selected record inside the modal */}
-          <Row>
+          <Row gutter={[16,16]}>
             <Col span={12}>
               <label className="mt-2" style={{ fontWeight: "bold" }}>
                 No Invoice
@@ -716,7 +746,7 @@ function MonitoringSJ() {
           onCancel={handleCancel2}
         >
           {/* Render the details of the selected record inside the modal */}
-          <Row>
+          <Row gutter={[16,16]}>
             <Col span={12}>
               <label className="mt-2" style={{ fontWeight: "bold" }}>
                 No Invoice

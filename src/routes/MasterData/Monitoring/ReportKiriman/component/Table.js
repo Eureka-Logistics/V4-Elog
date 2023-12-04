@@ -202,8 +202,11 @@ function TableComponenetReportKiriman() {
           Monitoring Kiriman <i>operasional</i> 
         </h4>
         <hr/>
-        <Row>
-          <Col span={4}>
+        <Row gutter={[16,16]}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <div>
               <label style={{ fontWeight: "bold" }}>BU</label>
               <Select
@@ -212,7 +215,10 @@ function TableComponenetReportKiriman() {
               ></Select>
             </div>
           </Col>
-          <Col span={4}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <div>
               <label style={{ fontWeight: "bold" }}>Cabang</label>
               <Select
@@ -221,7 +227,10 @@ function TableComponenetReportKiriman() {
               ></Select>
             </div>
           </Col>
-          <Col span={4}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <div>
               <label style={{ fontWeight: "bold" }}>Mitra</label>
               <Select
@@ -230,7 +239,10 @@ function TableComponenetReportKiriman() {
               ></Select>
             </div>
           </Col>
-          <Col span={4}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <div>
               <label style={{ fontWeight: "bold" }}>Customer</label>
               <Select
@@ -239,21 +251,30 @@ function TableComponenetReportKiriman() {
               ></Select>
             </div>
           </Col>
-          <Col span={4}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <div>
               <label style={{ fontWeight: "bold" }}>Mulai</label>
               <DatePicker style={{ width: "100%" }}></DatePicker>
             </div>
           </Col>
-          <Col span={4}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4}>
             <div>
               <label style={{ fontWeight: "bold" }}>Selesai</label>
               <DatePicker style={{ width: "100%" }}></DatePicker>
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col span={4} className="mt-2">
+        <Row gutter={[16,16]}>
+          <Col sm={12}
+                  md={4}
+                  xs={24}
+                  lg={4} className="mt-2">
             <div>
               <label style={{ fontWeight: "bold" }}>Sukses Pengiriman</label>
               <Select
@@ -263,9 +284,12 @@ function TableComponenetReportKiriman() {
             </div>
           </Col>
         </Row>
-        <Row>
+        <Row gutter={[16,16]}>
           <Col span={12} className="d-flex justify-content-end"></Col>
-          <Col span={12} className="d-flex justify-content-end">
+          <Col sm={12}
+                  md={12}
+                  xs={24}
+                  lg={12} className="d-flex justify-content-end">
             <Button
               style={{
                 backgroundColor: "#00a65a",
