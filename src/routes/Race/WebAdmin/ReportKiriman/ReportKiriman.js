@@ -18,8 +18,10 @@ import ModalMemo from "./ModalMemo";
 import { BaseUrlRace } from "../../../../Api/BaseUrl";
 import axios from "axios";
 import * as XLSX from "xlsx";
+import ListReportKirimanZustand from "../../../../zustand/Store/Race/fetch/Report Kiriman";
 
 function ReportKiriman() {
+  const { fetchData, StatusDriverAcc, data, updatePagination } = ListReportKirimanZustand()
   const [modal1Open, setModal1Open] = useState(false);
   const [ModalMemoOpen, setModalMemoOpen] = useState(false);
   const [judulModal, setCurrentTitle] = useState("");
@@ -28,28 +30,11 @@ function ReportKiriman() {
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [exporting, setExporting] = useState(false);
-
-  const fetchData = async () => {
-    try {
-      const respons = await axios.get(
-        `${BaseUrlRace}sp/get-monitoring?page=${currentPage}&limit=${limit}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      );
-      console.log("resposndata", respons.data.data.totalData);
-      setGetData(respons.data.data.order);
-      setTotal(respons.data.data.totalData);
-    } catch (error) { }
-  };
+  
 
   useEffect(() => {
     fetchData();
-  }, [limit, currentPage]);
-
+  }, [data.currentPage, data.limit]);
 
 
   const columns = [
@@ -84,7 +69,7 @@ function ReportKiriman() {
       dataIndex: "nopol",
       key: "nopol",
       render: (text, record) =>
-        <div style={{  }}>
+        <div style={{}}>
           <Tag color="purple">{record.driver}</Tag>
           <Tag color="red">{record.jenis_kendaraan}</Tag>
           <Tag color="yellow">{record.nopol}</Tag>
@@ -94,10 +79,10 @@ function ReportKiriman() {
       title: "Tgl Muat",
       dataIndex: "pickupDate",
       key: "pickupDate",
-      render: (text, record) => 
-      <div style={{ whiteSpace: "nowrap" }}>
-      <Tag color="yellow">{record.pickupDate}</Tag>
-      </div>
+      render: (text, record) =>
+        <div style={{ whiteSpace: "nowrap" }}>
+          <Tag color="yellow">{record.pickupDate}</Tag>
+        </div>
     },
     {
       title: "onProcess",
@@ -109,15 +94,15 @@ function ReportKiriman() {
           "statusId": 1
         }
         if (record?.onProcess !== "-") {
-          return  <div style={{ whiteSpace: "nowrap" }}>
-         <Tag color="green">{record.onProcess}</Tag> </div>; // Render the onProcess value
+          return <div style={{ whiteSpace: "nowrap" }}>
+            <Tag color="green">{record.onProcess}</Tag> </div>; // Render the onProcess value
         } else {
           // Render Popconfirm with Button when record.onProcess is falsy
           return (
             <Popconfirm
               title="Yakin untuk confirm?"
               onConfirm={() => {
-                StatusDriver(record, datanya);
+                StatusDriverAcc(record, datanya);
                 // setModal1Open(true);
                 // setCurrentTitle("onProcess");
               }}
@@ -146,13 +131,13 @@ function ReportKiriman() {
         }
         if (onPickup != "-") {
           return <div style={{ whiteSpace: "nowrap" }}> <Tag color="green">{onPickup}</Tag></div>;
-         
+
         } else {
           return (
             <Popconfirm
               title="Yakin untuk confirm?"
               onConfirm={() => {
-                StatusDriver(record, datanya);
+                StatusDriverAcc(record, datanya);
                 // setModal1Open(true);
                 // setCurrentTitle("onProcess");
               }}
@@ -185,7 +170,7 @@ function ReportKiriman() {
             <Popconfirm
               title="Yakin untuk confirm?"
               onConfirm={() => {
-                StatusDriver(record, datanya);
+                StatusDriverAcc(record, datanya);
                 // setModal1Open(true);
                 // setCurrentTitle("onProcess");
               }}
@@ -219,7 +204,7 @@ function ReportKiriman() {
             <Popconfirm
               title="Yakin untuk confirm?"
               onConfirm={() => {
-                StatusDriver(record, datanya);
+                StatusDriverAcc(record, datanya);
                 // setModal1Open(true);
                 // setCurrentTitle("onProcess");
               }}
@@ -253,7 +238,7 @@ function ReportKiriman() {
             <Popconfirm
               title="Yakin untuk confirm?"
               onConfirm={() => {
-                StatusDriver(record, datanya);
+                StatusDriverAcc(record, datanya);
                 // setModal1Open(true);
                 // setCurrentTitle("onProcess");
               }}
@@ -287,7 +272,7 @@ function ReportKiriman() {
             <Popconfirm
               title="Yakin untuk confirm?"
               onConfirm={() => {
-                StatusDriver(record, datanya);
+                StatusDriverAcc(record, datanya);
                 // setModal1Open(true);
                 // setCurrentTitle("onProcess");
               }}
@@ -313,39 +298,6 @@ function ReportKiriman() {
         },
       })
     console.log(data.data.data);
-  }
-  const StatusDriver = async (a, b) => {
-    console.log(`log dari klik untuk post`, a);
-    console.log(`log dari klik untuk post b `, b);
-    OptionStatus()
-    const body = {
-      "id_kendaraan": a.idkendaraan,
-      "no_polisi": a.nopol,
-      "id_pengemudi": a.driverId,
-      "nama_driver": a.driver,
-      "id_msm": a.idMsm,
-      "action": b.statusId, //id status
-      "empty_load": b.status,// status nya apa
-      "keterangan": b.keterangan,// keterangan status
-      "customer": a.customer,
-      "posisi": "",// sring kosong
-      "longitude": "106.821810",
-      "latitude": "-6.193125",
-      "tujuan": a.destination
-    }
-    const data = await axios.post(`${BaseUrlRace}sp/add-status-driver`, body,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      })
-    notification.success({
-      message: "Sukses",
-      description: data.data.status.message,
-    })
-    console.log(data.data.status.message);
-    fetchData()
   }
 
   const exportToExcel = async (page = 1) => {
@@ -517,29 +469,24 @@ function ReportKiriman() {
         </Row>
         <Table className="d-flex"
           style={{ overflowX: "auto" }}
-          dataSource={GetData}
-          columns={columns}
+          dataSource={data?.GetData}
+          columns={columns
+          }
           pagination={{
-            current: currentPage,
-            pageSize: limit,
-            total,
-            onChange: (page) => setCurrentPage(page),
+            current: data.currentPage,
+            pageSize: data.limit,
+            total: data.total,
+            onChange: (page, pageSize) => {
+              updatePagination(page, pageSize);
+            }
           }}
-          onChange={(pagination) => {
-            setCurrentPage(pagination.current);
-            setLimit(pagination.pageSize);
-          }}
+        onChange={(pagination) => {
+          console.log(pagination);
+          ListReportKirimanZustand.setState({ currentPage: pagination.current });
+          setLimit(pagination.pageSize);
+        }}
         />
-        <ModalOKE
-          judulModal={judulModal}
-          setModal1Open={setModal1Open}
-          modal1Open={modal1Open}
-        />
-        <ModalMemo
-          ModalMemo={ModalMemoOpen}
-          setModalMemoOpen={setModalMemoOpen}
-          judulModal={judulModal}
-        />
+
       </Card>
 
     </div>
