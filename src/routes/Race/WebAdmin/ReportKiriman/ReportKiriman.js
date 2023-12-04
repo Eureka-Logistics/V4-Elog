@@ -110,7 +110,7 @@ function ReportKiriman() {
         }
         if (record?.onProcess !== "-") {
           return  <div style={{ whiteSpace: "nowrap" }}>
-          {record.onProcess}</div>; // Render the onProcess value
+         <Tag color="green">{record.onProcess}</Tag> </div>; // Render the onProcess value
         } else {
           // Render Popconfirm with Button when record.onProcess is falsy
           return (
@@ -145,7 +145,8 @@ function ReportKiriman() {
           "statusId": 2
         }
         if (onPickup != "-") {
-          return <div style={{ whiteSpace: "nowrap" }}>{onPickup}</div>; // Render the onPickup value
+          return <div style={{ whiteSpace: "nowrap" }}> <Tag color="green">{onPickup}</Tag></div>;
+         
         } else {
           return (
             <Popconfirm
@@ -177,7 +178,7 @@ function ReportKiriman() {
           "statusId": 5
         }
         if (record?.unloading != "-") {
-          return <div style={{ whiteSpace: "nowrap" }}>{record.unloading}</div>; // Render the onPickup value
+          return <div style={{ whiteSpace: "nowrap" }}><Tag color="green">{record.unloading}</Tag></div>; // Render the onPickup value
         } else {
           // Render the Button when record.onPickup is falsy
           return (
@@ -211,7 +212,7 @@ function ReportKiriman() {
         };
 
         if (record?.onDelivery != "-") {
-          return <div style={{ whiteSpace: "nowrap" }}>{record.onDelivery}</div>; // Render the onPickup value
+          return <div style={{ whiteSpace: "nowrap" }}><Tag color="green">{record.onDelivery}</Tag></div>; // Render the onPickup value
         } else {
           // Render the Button when record.onPickup is falsy
           return (
@@ -245,7 +246,7 @@ function ReportKiriman() {
           statusId: 9
         };
         if (record?.SuccesBongkar != "-") {
-          return <div style={{ whiteSpace: "nowrap" }}>{record.SuccesBongkar}</div>; // Render the onPickup value
+          return <div style={{ whiteSpace: "nowrap" }}><Tag color="green">{record.SuccesBongkar}</Tag></div>; // Render the onPickup value
         } else {
           // Render the Button when record.onPickup is falsy
           return (
@@ -279,7 +280,7 @@ function ReportKiriman() {
         };
 
         if (record?.DocumentComplete != "-") {
-          return <div style={{ whiteSpace: "nowrap" }}>{record.DocumentComplete}</div>; // Render the onPickup value
+          return <div style={{ whiteSpace: "nowrap" }}><Tag color="green">{record.DocumentComplete}</Tag></div>; // Render the onPickup value
         } else {
           // Render the Button when record.onPickup is falsy
           return (
