@@ -9,6 +9,7 @@ import {
   Select,
   Table,
   Tag,
+  notification,
 } from "antd";
 import React, { useEffect, useState } from "react";
 import ModalOKE from "./ModalOke";
@@ -41,13 +42,14 @@ function ReportKiriman() {
       console.log("resposndata", respons.data.data.totalData);
       setGetData(respons.data.data.order);
       setTotal(respons.data.data.totalData);
-      // setCurrentPage(respons.data.data.setCurrentPage)
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
     fetchData();
   }, [limit, currentPage]);
+
+
 
   const columns = [
     {
@@ -120,135 +122,220 @@ function ReportKiriman() {
       render: (text, record) => <Tag color="yellow">{record.pickupDate}</Tag>,
     },
     {
+      title: "onProcess",
+      dataIndex: "onProcess",
+      render: (text, record) => {
+        // Check if record.onPickup has a truthy value
+        if (record?.onProcess != "-") {
+          return <>{record.onProcess}</>; // Render the onPickup value
+        } else {
+          // Render the Button when record.onPickup is falsy
+          return (
+            <Button
+              onClick={() => {
+                StatusDriver(record);
+                // setModal1Open(true);
+                // setCurrentTitle("onProcess");
+              }}
+              size="small"
+              type="primary"
+            >
+              OK
+            </Button>
+          );
+        }
+      },
+    },
+    {
       title: "OnPickup",
       dataIndex: "onPickup",
       key: "onPickup",
-      render: (text, record) => (
-        <Button
-          onClick={() => {
-            setModal1Open(true);
-            setCurrentTitle("OnPickup");
-          }}
-          size="small"
-          type="primary"
-        >
-          OK
-        </Button>
-      ),
+      render: (text, record) => {
+        const onPickup = record?.onPickup
+        const datanya = {
+          "keterangan": "Tiba di lokasi muat",
+          "status": "on Pickup",
+          "statusId": 2
+        }
+        if (onPickup != "-") {
+          return <>{onPickup}</>; // Render the onPickup value
+        } else {
+          return (
+            <Button
+              onClick={() => {
+                StatusDriver(record, datanya);
+                // setModal1Open(true);
+                // setCurrentTitle("OnPickup");
+              }}
+              size="small"
+              type="primary"
+            >
+              OK
+            </Button>
+          );
+        }
+      },
     },
+
     {
       title: "Unloading",
-      dataIndex: "address",
-      render: (text, record) => (
-        <Button
-          onClick={() => {
-            setModal1Open(true);
-            setCurrentTitle("Unloading");
-          }}
-          size="small"
-          type="primary"
-        >
-          OK
-        </Button>
-      ),
+      dataIndex: "unloading",
+      render: (text, record) => {
+        const datanya = {
+          "keterangan": "Barang sudah sampai tempat tujuan/bongkar.",
+          "status": "unloading",
+          "statusId": 5
+        }
+        if (record?.unloading != "-") {
+          return <>{record.unloading}</>; // Render the onPickup value
+        } else {
+          // Render the Button when record.onPickup is falsy
+          return (
+            <Button
+              onClick={() => {
+                StatusDriver(record, datanya);
+              }}
+              size="small"
+              type="primary"
+            >
+              OK
+            </Button>
+          );
+        }
+      },
+    },
+
+    {
+      title: "onDelivery",
+      dataIndex: "onDelivery",
+      render: (text, record) => {
+        const datanya = {
+          keterangan: "Dalam Perjalanan Menuju Bongkar",
+          status: "on Delivery",
+          statusId: 3
+        };
+
+        if (record?.onDelivery != "-") {
+          return <>{record.onDelivery}</>; // Render the onPickup value
+        } else {
+          // Render the Button when record.onPickup is falsy
+          return (
+            <Button
+              onClick={() => {
+                StatusDriver(record, datanya);
+              }}
+              size="small"
+              type="primary"
+            >
+              OK
+            </Button>
+          );
+        }
+      },
+    },
+
+    {
+      title: "Succes Bongkar",
+      dataIndex: "SuccesBongkar",
+      key: "SuccesBongkar",
+      render: (text, record) => {
+        const datanya = {
+          keterangan: "Barang sudah diterima dengan Jumlah Lengkap",
+          status: "Success",
+          statusId: 9
+        };
+        if (record?.SuccesBongkar != "-") {
+          return <>{record.SuccesBongkar}</>; // Render the onPickup value
+        } else {
+          // Render the Button when record.onPickup is falsy
+          return (
+            <Button
+              onClick={() => {
+                StatusDriver(record, datanya);
+              }}
+              size="small"
+              type="primary"
+            >
+              OK
+            </Button>
+          );
+        }
+      },
     },
     {
-      title: "Success",
-      dataIndex: "address",
-      render: (text, record) => (
-        <Button
-          onClick={() => {
-            setModal1Open(true);
-            setCurrentTitle("Success");
-          }}
-          size="small"
-          type="primary"
-        >
-          OK
-        </Button>
-      ),
-    },
-    {
-      title: "Memo",
-      dataIndex: "address",
-      key: "address",
-      render: (text, record) => (
-        <Button
-          onClick={() => {
-            setModalMemoOpen(true);
-            setCurrentTitle(text);
-            console.log(text);
-          }}
-          size="small"
-          type="primary"
-        >
-          Memo SJ
-        </Button>
-      ),
+      title: "Document Complete",
+      dataIndex: "DocumentComplete",
+      key: "DocumentComplete",
+      render: (text, record) => {
+        const datanya = {
+          keterangan: "Dokumen diserahkan telah diterima customer",
+          status: "Doc Complete",
+          statusId: 19
+        };
+
+        if (record?.DocumentComplete != "-") {
+          return <>{record.DocumentComplete}</>; // Render the onPickup value
+        } else {
+          // Render the Button when record.onPickup is falsy
+          return (
+            <Button
+              onClick={() => {
+                StatusDriver(record, datanya);
+              }}
+              size="small"
+              type="primary"
+            >
+              OK
+            </Button>
+          );
+        }
+      },
     },
   ];
-  const dataSource = [
-    {
-      key: "1",
-      sm: "JKT23-010445",
-      cust: "PT. Arindo Pacific Chemicals",
-      rute: "BOGOR-Tangerang",
-      brg: "LEM",
-      berat: "10000",
-      mitra: "PT. EUREKA LOGISTICS (EL)",
-      noPlat: "B 9848 U",
-      pengemudi: "Radius Aprianto",
-      tglMuat: "06 Oct 2023",
-    },
-    {
-      key: "2",
-      sm: "JKT23-010445",
-      cust: "PT. Arindo Pacific Chemicals",
-      rute: "BOGOR-Tangerang",
-      brg: "LEM",
-      berat: "10000",
-      mitra: "PT. EUREKA LOGISTICS (EL)",
-      noPlat: "B 9848 U",
-      pengemudi: "Radius Aprianto",
-      tglMuat: "06 Oct 2023",
-    },
-    {
-      key: "3",
-      sm: "JKT23-010445",
-      cust: "PT. Arindo Pacific Chemicals",
-      rute: "BOGOR-Tangerang",
-      brg: "LEM",
-      berat: "10000",
-      mitra: "PT. EUREKA LOGISTICS (EL)",
-      noPlat: "B 9848 U",
-      pengemudi: "Radius Aprianto",
-      tglMuat: "06 Oct 2023",
-    },
-    {
-      key: "4",
-      sm: "JKT23-010445",
-      cust: "PT. Arindo Pacific Chemicals",
-      rute: "BOGOR-Tangerang",
-      brg: "LEM",
-      berat: "10000",
-      mitra: "PT. EUREKA LOGISTICS (EL)",
-      noPlat: "B 9848 U",
-      pengemudi: "Radius Aprianto",
-      tglMuat: "06 Oct 2023",
-    },
-    {
-      key: "5",
-      sm: "JKT23-010445",
-      cust: "PT. Arindo Pacific Chemicals",
-      rute: "BOGOR-Tangerang",
-      brg: "LEM",
-      berat: "10000",
-      mitra: "PT. EUREKA LOGISTICS (EL)",
-      noPlat: "B 9848 U",
-      pengemudi: "Radius Aprianto",
-      tglMuat: "06 Oct 2023",
-    },
-  ];
+
+  const OptionStatus = async () => {
+    const data = await axios.get(`${BaseUrlRace}sp/get-option-status`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+    console.log(data.data.data);
+  }
+  const StatusDriver = async (a, b) => {
+    console.log(`log dari klik untuk post`, a);
+    console.log(`log dari klik untuk post b `, b);
+    // OptionStatus()
+    const body = {
+      "id_kendaraan": a.idkendaraan,
+      "no_polisi": a.nopol,
+      "id_pengemudi": a.driverId,
+      "nama_driver": a.driver,
+      "id_msm": a.idMsm,
+      "action": b.statusId, //id status
+      "empty_load": b.status,// status nya apa
+      "keterangan": b.keterangan,// keterangan status
+      "customer": a.customer,
+      "posisi": "",// sring kosong
+      "longitude": "106.821810",
+      "latitude": "-6.193125",
+      "tujuan": a.destination
+    }
+    const data = await axios.post(`${BaseUrlRace}sp/add-status-driver`, body,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+    notification.success({
+      message: "Sukses",
+      description: data.data.status.message,
+    })
+    console.log(data.data.status.message);
+    fetchData()
+  }
 
   const exportToExcel = async (page = 1) => {
     try {
@@ -270,7 +357,7 @@ function ReportKiriman() {
       // Convert data to Excel format
       const ws = XLSX.utils.json_to_sheet(data);
 
-       const columnWidths = [
+      const columnWidths = [
         { wch: 5 }, // no
         { wch: 10 }, // idmp
         { wch: 20 }, // sm
@@ -284,14 +371,14 @@ function ReportKiriman() {
         { wch: 26 }, // Destination
         { wch: 21 }, // Driver
         { wch: 21 }, // Driver
-        { wch: 12}, // IDKendaraan
-        { wch: 13}, // NoPol
-        { wch: 18}, // jenis Kendaraan
-        { wch: 34}, // Customer
-        { wch: 20}, // OnProsess
-        { wch: 20}, // OnPickUp 
-        { wch: 20}, // OnDeliv
-        { wch: 20}, // OnLoad
+        { wch: 12 }, // IDKendaraan
+        { wch: 13 }, // NoPol
+        { wch: 18 }, // jenis Kendaraan
+        { wch: 34 }, // Customer
+        { wch: 20 }, // OnProsess
+        { wch: 20 }, // OnPickUp 
+        { wch: 20 }, // OnDeliv
+        { wch: 20 }, // OnLoad
         // Add more objects for additional columns as needed
       ];
 
@@ -389,16 +476,16 @@ function ReportKiriman() {
             className="d-flex justify-content-end"
           >
             <Button
-            style={{
-              backgroundColor: "green",
-              color: "white",
-              fontFamily: "NoirPro",
-            }}
-            onClick={exportToExcel}
-            disabled={exporting} // Disable the button when exporting is in progress
-          >
-            {exporting ? "Exporting..." : "Export to Excel"}
-          </Button>
+              style={{
+                backgroundColor: "green",
+                color: "white",
+                fontFamily: "NoirPro",
+              }}
+              onClick={exportToExcel}
+              disabled={exporting} // Disable the button when exporting is in progress
+            >
+              {exporting ? "Exporting..." : "Export to Excel"}
+            </Button>
             {/* <Button
               style={{
                 backgroundColor: "#00a65a",
