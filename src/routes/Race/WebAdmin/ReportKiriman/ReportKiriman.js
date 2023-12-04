@@ -84,19 +84,20 @@ function ReportKiriman() {
       dataIndex: "nopol",
       key: "nopol",
       render: (text, record) =>
-        <>
+        <div style={{  }}>
           <Tag color="purple">{record.driver}</Tag>
-          <br/>
           <Tag color="red">{record.jenis_kendaraan}</Tag>
-          <br/>
           <Tag color="yellow">{record.nopol}</Tag>
-        </>
+        </div>
     },
     {
       title: "Tgl Muat",
       dataIndex: "pickupDate",
       key: "pickupDate",
-      render: (text, record) => <Tag color="yellow">{record.pickupDate}</Tag>,
+      render: (text, record) => 
+      <div style={{ whiteSpace: "nowrap" }}>
+      <Tag color="yellow">{record.pickupDate}</Tag>
+      </div>
     },
     {
       title: "onProcess",
@@ -108,7 +109,8 @@ function ReportKiriman() {
           "statusId": 1
         }
         if (record?.onProcess !== "-") {
-          return <>{record.onProcess}</>; // Render the onProcess value
+          return  <div style={{ whiteSpace: "nowrap" }}>
+          {record.onProcess}</div>; // Render the onProcess value
         } else {
           // Render Popconfirm with Button when record.onProcess is falsy
           return (
@@ -130,7 +132,7 @@ function ReportKiriman() {
         }
       },
     },
-    
+
     {
       title: "OnPickup",
       dataIndex: "onPickup",
@@ -143,23 +145,23 @@ function ReportKiriman() {
           "statusId": 2
         }
         if (onPickup != "-") {
-          return <>{onPickup}</>; // Render the onPickup value
+          return <div style={{ whiteSpace: "nowrap" }}>{onPickup}</div>; // Render the onPickup value
         } else {
           return (
             <Popconfirm
-            title="Yakin untuk confirm?"
-            onConfirm={() => {
-              StatusDriver(record, datanya);
-              // setModal1Open(true);
-              // setCurrentTitle("onProcess");
-            }}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button size="small" type="primary">
-              OK
-            </Button>
-          </Popconfirm>
+              title="Yakin untuk confirm?"
+              onConfirm={() => {
+                StatusDriver(record, datanya);
+                // setModal1Open(true);
+                // setCurrentTitle("onProcess");
+              }}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button size="small" type="primary">
+                OK
+              </Button>
+            </Popconfirm>
           );
         }
       },
@@ -175,7 +177,7 @@ function ReportKiriman() {
           "statusId": 5
         }
         if (record?.unloading != "-") {
-          return <>{record.unloading}</>; // Render the onPickup value
+          return <div style={{ whiteSpace: "nowrap" }}>{record.unloading}</div>; // Render the onPickup value
         } else {
           // Render the Button when record.onPickup is falsy
           return (
@@ -209,7 +211,7 @@ function ReportKiriman() {
         };
 
         if (record?.onDelivery != "-") {
-          return <>{record.onDelivery}</>; // Render the onPickup value
+          return <div style={{ whiteSpace: "nowrap" }}>{record.onDelivery}</div>; // Render the onPickup value
         } else {
           // Render the Button when record.onPickup is falsy
           return (
@@ -243,24 +245,24 @@ function ReportKiriman() {
           statusId: 9
         };
         if (record?.SuccesBongkar != "-") {
-          return <>{record.SuccesBongkar}</>; // Render the onPickup value
+          return <div style={{ whiteSpace: "nowrap" }}>{record.SuccesBongkar}</div>; // Render the onPickup value
         } else {
           // Render the Button when record.onPickup is falsy
           return (
             <Popconfirm
-            title="Yakin untuk confirm?"
-            onConfirm={() => {
-              StatusDriver(record, datanya);
-              // setModal1Open(true);
-              // setCurrentTitle("onProcess");
-            }}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button size="small" type="primary">
-              OK
-            </Button>
-          </Popconfirm>
+              title="Yakin untuk confirm?"
+              onConfirm={() => {
+                StatusDriver(record, datanya);
+                // setModal1Open(true);
+                // setCurrentTitle("onProcess");
+              }}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button size="small" type="primary">
+                OK
+              </Button>
+            </Popconfirm>
           );
         }
       },
@@ -277,24 +279,24 @@ function ReportKiriman() {
         };
 
         if (record?.DocumentComplete != "-") {
-          return <>{record.DocumentComplete}</>; // Render the onPickup value
+          return <div style={{ whiteSpace: "nowrap" }}>{record.DocumentComplete}</div>; // Render the onPickup value
         } else {
           // Render the Button when record.onPickup is falsy
           return (
             <Popconfirm
-            title="Yakin untuk confirm?"
-            onConfirm={() => {
-              StatusDriver(record, datanya);
-              // setModal1Open(true);
-              // setCurrentTitle("onProcess");
-            }}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button size="small" type="primary">
-              OK
-            </Button>
-          </Popconfirm>
+              title="Yakin untuk confirm?"
+              onConfirm={() => {
+                StatusDriver(record, datanya);
+                // setModal1Open(true);
+                // setCurrentTitle("onProcess");
+              }}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button size="small" type="primary">
+                OK
+              </Button>
+            </Popconfirm>
           );
         }
       },
