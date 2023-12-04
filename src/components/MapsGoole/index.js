@@ -7,7 +7,7 @@ import icontruck from "../../assets/img/Truck (1).png"
 function MapsGoogle({ width, height, posisiDriver }) {
     const [map, setMap] = React.useState(null);
     const database = getDatabase();
-    console.log(`database`, database);
+    // console.log(`database`, database);
     const { Coordinate, setJarakDanWaktu, JarakDanWaktu } = useCoordinateRaceMap();
     const [DirectionJalanan, setDirectionJalanan] = useState(null);
     const containerStyle = {

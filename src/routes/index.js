@@ -809,10 +809,28 @@ const App = ({ match }) => {
             import("../routes/Race/WebAdmin/splist/index")
           )}
         />
-          <Route
+        <Route
+          path={`${match.url}race/detailsp/:idMp`}
+          component={asyncComponent(() =>
+            import("../routes/Race/WebAdmin/splist/Detailsplist/DetailSpRace")
+          )}
+        />
+        <Route
           path={`${match.url}race/cabang/splistt`}
           component={asyncComponent(() =>
             import("./raceCabang/spListCabang")
+          )}
+        />
+        <Route
+          path={`${match.url}race/alamatcustomer`}
+          component={asyncComponent(() =>
+            import("./Race/WebAdmin/Alamat Customer/index")
+          )}
+        />
+        <Route
+          path={`${match.url}race/alamatcustomerdetail/:id`}
+          component={asyncComponent(() =>
+            import("./Race/WebAdmin/Alamat Customer/halamandetail/index")
           )}
         />
         <Route
@@ -863,7 +881,7 @@ const App = ({ match }) => {
             import("./raceCabang/DashboardCabang")
           )}
         />
-      
+
         <Route
           path={`${match.url}race/cabang/sjlistt`}
           component={asyncComponent(() =>
@@ -888,13 +906,13 @@ const App = ({ match }) => {
             import("../routes/Race/WebAdmin/Map Pengiriman/TestDND")
           )}
         />
-         <Route
+        <Route
           path={`${match.url}monitoringSJ`}
           component={asyncComponent(() =>
             import("./MasterData/SJ/MonitoringSJ")
           )}
         />
-         <Route
+        <Route
           path={`${match.url}monitoringReportKiriman`}
           component={asyncComponent(() =>
             import("./MasterData/Monitoring/ReportKiriman/index")
@@ -907,11 +925,11 @@ const App = ({ match }) => {
             import("../routes/MasterData/Monitoring/ReportKiriman/index")
           )}
         />
-          <Route
+        <Route
           path={`${match.url}admin/user/menu`}
           component={asyncComponent(() => import("./MasterData/SP List/Akunting/CreateUserBaru/TabComponent/index"))}
         />
-        
+
       </Switch>
     </div>
   );

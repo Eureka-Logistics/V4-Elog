@@ -23,7 +23,7 @@ import icondriver from "../../../../assets/img/drivericon.png";
 import telponicon from "../../../../assets/img/telponicon.png";
 import whatsappicon from "../../../../assets/img/whatsappicon.png";
 import "./style.css";
-import { getCoordinates } from "../../../../Api/Geocode";
+import { JadikanNamaJalan, getCoordinates } from "../../../../Api/Geocode";
 import MapsGoogle from "../../../../components/MapsGoole";
 import useCoordinateRaceMap from "../../../../zustand/Store/coordinateMapRace/RaceMaps";
 import DetailSPListRace from "../splist/Detailsplist";
@@ -36,19 +36,30 @@ import moment from "moment";
 
 function SMList({ }) {
   const firestoresss = firestore;
-  const unsub = onSnapshot(doc(firestoresss, "location", "123"),
-    (doc) => {
-      if (doc.exists()) {
-        console.log("Current data: ", doc.data());
-      } else {
-        console.log("No such document!");
-      }
-    },
-    (error) => {
-      console.error("Error fetching document: ", error);
-    }
-  );
+  const [LokasiDriverlanglot, setLokasiDriverlanglot] = useState(0)
+  async function LokasiDriver(id) {
+    // Use id directly if it's already a string or number
+    const stringId = String(id);
+    console.log(`id`, id, `type of id:`, stringId);
 
+    const unsub = onSnapshot(doc(firestoresss, "location", stringId),
+      (doc) => {
+        if (doc.exists()) {
+          console.log("Lokasi Driver: ", doc.data());
+          setLokasiDriverlanglot(doc.data())
+          // JadikanNamaJalan(doc.data()?.latitude, doc.data()?.longitude)
+
+        } else {
+          console.log("No such document!");
+        }
+      },
+      (error) => {
+        console.error("Error fetching document: ", error);
+      }
+    );
+  }
+
+  // console.log(`LokasiDriver`, LokasiDriverlanglot);
 
   const [Open, setOpen] = useState(false);
   const [CariSJ, SetCariSJ] = useState("");
@@ -113,16 +124,15 @@ function SMList({ }) {
     DataApiSM();
     pilihcabangselect();
   }, [CariSJ, DataApi.limit, Cabang]);
-
   const history = useHistory();
   const pindahdetailsp = () => {
     if (
-      !DetailDataPerClick?.other?.id_mpd ||
-      !DetailDataPerClick?.other?.id_msm
+      !DetailDataPerClick?.idMsm ||
+      !DetailDataPerClick?.idMsm
     ) {
       notification.error({
         message: "Error",
-        description: "Tidak ada id_mpd || id_msm",
+        description: "Tidak ada id_mpd || idMsm",
       });
     } else {
       history.push(
@@ -163,11 +173,11 @@ Salam hangat,
     setIsDataFetched(true);
     const fetchData = async () => {
       const AlamatMuat = await getCoordinates(
-        DetailDataPerClick?.other?.m_pengadaan_detail?.muat?.alamat ||
+        DetailDataPerClick?.alamatMuat ||
         DetailDataPerClick?.other?.m_pengadaan_detail?.muat?.alamat_detail
       );
       const Bongkar = await getCoordinates(
-        DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat ||
+        DetailDataPerClick?.alamatBongkar ||
         DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat_detail
       );
       // useCoordinateRaceMap.setState({ AmbilCoordinates: [...AlamatMuat, ...Bongkar] })
@@ -203,8 +213,8 @@ Salam hangat,
     },
     {
       title: 'Kendaraan',
-      dataIndex: 'kendaraanPickup',
-      key: 'kendaraanPickup',
+      dataIndex: 'jenis_kendaraan',
+      key: 'jenis_kendaraan',
     },
     {
       title: 'Nopol',
@@ -261,7 +271,7 @@ Salam hangat,
     {
       key: 'bongkarAlamat',
       label: 'Alamat Bongkar',
-      value: DetailDataPerClick?.other?.m_pengadaan_detail?.bongkar?.alamat
+      value: DetailDataPerClick?.alamatBongkar
     },
     // Add other rows as needed
   ];
@@ -292,6 +302,18 @@ Salam hangat,
       key: 'sm',
     },
     {
+      title: 'Status SM',
+      dataIndex: 'statusKiriman',
+      key: 'statusKiriman',
+      render: (statusKiriman) => {
+       if (statusKiriman === "Doc Complete") {
+        return  <Tag color="green">Doc Complete</Tag>
+       } else {
+        return  statusKiriman
+       }
+      }
+    },
+    {
       title: 'SP',
       dataIndex: 'sp',
       key: 'sp',
@@ -302,9 +324,14 @@ Salam hangat,
       key: 'driver',
     },
     {
-      title: 'Kendaraan Pickup',
-      dataIndex: 'kendaraanPickup',
-      key: 'kendaraanPickup',
+      title: 'Jenis Kendaraan',
+      dataIndex: 'jenis_kendaraan',
+      key: 'jenis_kendaraan',
+    },
+    {
+      title: 'NoPol',
+      dataIndex: 'nopol',
+      key: 'nopol',
     },
     {
       title: 'Sales Erl',
@@ -436,6 +463,7 @@ Salam hangat,
                 AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate}
                 width={730}
                 height={250}
+                posisiDriver={LokasiDriverlanglot}
               />
             ) : (
               <div></div> // tampilkan pesan loading atau komponen lainnya saat data belum selesai di-fetch
@@ -526,6 +554,7 @@ Salam hangat,
           onRow={(record, rowIndex) => {
             return {
               onClick: async () => {
+                LokasiDriver(record?.driverId);
                 setNamaSupir(record.driver1);
                 setDetailDataPerClick(record);
                 showDefaultDrawer(record);

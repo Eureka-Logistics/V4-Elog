@@ -30,7 +30,7 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
         setDataApi([data.data.data[0]]);
         setLoading(false);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const HistoryKendaraan = async () => {
@@ -45,7 +45,7 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
         }
       );
       setDetailHistory(datas.data.data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   console.log(`test`, DetailHistory);
@@ -118,10 +118,10 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
               <div style={{ fontWeight: "bold" }}>{i?.salesErl}</div>
               <br />
               <div>Pickup Address</div>
-              <div style={{ fontWeight: "bold" }}>{i?.muat}</div>
+              <div style={{ fontWeight: "bold" }}>{i?.alamatMuat?.alamat}</div>
               <br />
               <div>Destination Address</div>
-              <div style={{ fontWeight: "bold" }}>{i?.bongkar}</div>
+              <div style={{ fontWeight: "bold" }}>{i?.alamatBongkar?.alamat}</div>
               <br />
               <div>Sekolah Tujuan</div>
               <div style={{ fontWeight: "bold" }}>{i?.sekolahTujuan}</div>
@@ -157,7 +157,7 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
             </h3>
             <Container>
               <MapsGoogle
-                posisiDriver={DataApi?.[0]?.positionDriverNow}
+                posisiDriver={DataApi?.positionDriverNow}
                 // AlamatMuatBongkarCoordinate={AlamatMuatBongkarCoordinate}
                 width={"auto"}
                 height={300}
@@ -175,92 +175,16 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
                       height: 500,
                       color: "white",
                     }}
-                    items={[
-                      {
-                        title: (
-                          <span style={{ color: "white" }}>
-                            {DataApi?.[0]?.statusKendaraan?.[3]?.status}
-                          </span>
-                        ),
-                        description: (
-                          <span style={{ color: "white" }}>
-                            {DataApi?.[0]?.statusKendaraan?.[3]?.keterangan ===
-                            undefined
-                              ? "Belum ada Data"
-                              : DataApi?.[0]?.statusKendaraan?.[3]?.keterangan +
-                                " " +
-                                "(" +
-                                DataApi?.[0]?.statusKendaraan?.[3]?.date +
-                                ")"}
-                          </span>
-                        ),
-                      },
-                      {
-                        title: (
-                          <span style={{ color: "white" }}>
-                            {DataApi?.[0]?.statusKendaraan?.[2]?.status}
-                          </span>
-                        ),
-                        description: (
-                          <span style={{ color: "white" }}>
-                            {DataApi?.[0]?.statusKendaraan?.[2]?.keterangan ===
-                            undefined
-                              ? "Belum ada Data"
-                              : DataApi?.[0]?.statusKendaraan?.[2]?.keterangan +
-                                " " +
-                                "(" +
-                                DataApi?.[0]?.statusKendaraan?.[2]?.date +
-                                ")"}
-                          </span>
-                        ),
-                      },
-                      {
-                        title: (
-                          <span style={{ color: "white" }}>
-                            {DataApi?.[0]?.statusKendaraan?.[1]?.status}
-                          </span>
-                        ),
-                        description: (
-                          <span style={{ color: "white" }}>
-                            {DataApi?.[0]?.statusKendaraan?.[1]?.keterangan ===
-                            undefined
-                              ? "Belum ada Data"
-                              : DataApi?.[0]?.statusKendaraan?.[1]?.keterangan +
-                                " " +
-                                "(" +
-                                DataApi?.[0]?.statusKendaraan?.[1]?.date +
-                                ")"}
-                          </span>
-                        ),
-                      },
-
-                      {
-                        title: (
-                          <span style={{ color: "white" }}>
-                            {DataApi?.[0]?.statusKendaraan?.[0]?.status}
-                          </span>
-                        ),
-                        description: (
-                          <span style={{ color: "white" }}>
-                            {DataApi?.[0]?.statusKendaraan?.[0]?.keterangan ===
-                            undefined
-                              ? "Belum ada Data"
-                              : DataApi?.[0]?.statusKendaraan?.[0]?.keterangan +
-                                " " +
-                                "(" +
-                                DataApi?.[0]?.statusKendaraan?.[0]?.date +
-                                ")"}
-                          </span>
-                        ),
-                      },
-
-                      // {
-                      //     title: <span style={{ color: 'white' }}>{DataApi?.[0]?.statusKendaraan?.[5]?.status}</span>,
-                      //     description: <span style={{ color: 'white' }}>
-                      //         {DataApi?.[0]?.statusKendaraan?.[5]?.keterangan === undefined ? "Belum ada Data" : DataApi?.[0]?.statusKendaraan?.[5]?.keterangan + " " + "(" + DataApi?.[0]?.statusKendaraan?.[5]?.date + ")"}
-                      //     </span>,
-                      // },
-                    ]}
+                    items={DataApi?.[0]?.statusKendaraan.map((item, index) => ({
+                      title: <span style={{ color: "white" }}>{item.status}</span>,
+                      description: (
+                        <span style={{ color: "white" }}>
+                          {item.keterangan === undefined
+                            ? "Belum ada Data"
+                            : `${item.keterangan} (${item.date})`}
+                        </span>
+                      ),
+                    }))}
                   />
                 </Col>
               </Row>

@@ -1,4 +1,4 @@
-import { Button, Card, DatePicker, Input, Row, Select, Table, notification } from 'antd'
+import { Button, Card, DatePicker, Input, Row, Select, Table, Tag, notification } from 'antd'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { BaseUrlRace } from '../../../Api/BaseUrl';
@@ -47,9 +47,9 @@ function Erlangga() {
     const [PilihCabang, setPilihCabang] = useState("")
     const GetDataTanggal = async (e) => {
         setLoading(true);
-    
+
         let formattedStartDate, formattedEndDate;
-        
+
         if (!Data.Data_Tanggal || Data.Data_Tanggal.length < 2) {
             // If Data.Data_Tanggal is not set, use the default start and end dates
             formattedStartDate = defaultStartDate.format("YYYY-M-D");
@@ -59,7 +59,7 @@ function Erlangga() {
             formattedStartDate = moment(Data.Data_Tanggal[0]).format("YYYY-M-D");
             formattedEndDate = moment(Data.Data_Tanggal[1]).format("YYYY-M-D");
         }
-    
+
         try {
             const data = await axios.post(`${BaseUrlRace}sp/get-data-erl?whid=${PilihCabang}&from=${formattedStartDate}&to=${formattedEndDate}`, {
                 headers: {
@@ -84,7 +84,7 @@ function Erlangga() {
             }
         }
     };
-    
+
 
     const Refresh = async () => {
         const datanya = await axios.get(`${BaseUrlRace}sp/get-data-pesanan?page=${Data?.paggination}&limit=${Data?.size}&keyword=${Keyword}&cabang=${IDCabang}`,
@@ -136,6 +136,18 @@ function Erlangga() {
             render: (text) => <a>{text}</a>,
         },
         {
+            title: 'SP',
+            dataIndex: 'SP',
+            key: 'SP',
+            render: (SP) => {
+                if (SP) {
+                    return <Tag color='green'>{SP}</Tag>
+                } else{
+                    return "-"
+                }
+            }
+        },
+        {
             title: 'Pic Nik',
             dataIndex: 'pic_nik',
             key: 'pic_nik',
@@ -182,31 +194,11 @@ function Erlangga() {
             dataIndex: 'penerima',
             key: 'penerima',
         },
-        // {
-        //     title: 'Item',
-        //     dataIndex: 'item',
-        //     key: 'item',
-        // },
-        // {
-        //     title: 'Tanggal SJ',
-        //     dataIndex: 'tgl_sj',
-        //     key: 'tgl_sj',
-        // },
-        // {
-        //     title: 'Item',
-        //     dataIndex: 'item',
-        //     key: 'item',
-        // },
-        // {
-        //     title: 'Jam Pickup',
-        //     dataIndex: 'jam_pickup',
-        //     key: 'jam_pickup',
-        // },
-
         {
             title: 'Ikat',
             dataIndex: 'ikat',
             key: 'ikat',
+            render: ikat => Number(ikat).toFixed(0) == NaN ? ikat.toString().split('.')[0] : Number(ikat).toFixed(0)
         },
         {
             title: 'Koli',
@@ -223,15 +215,6 @@ function Erlangga() {
             dataIndex: 'berat',
             key: 'berat',
         },
-        // {
-        //     title: 'Tgl Sinkron',
-        //     dataIndex: 'tgl_sinkron',
-        //     key: 'tgl_sinkron',
-        //     render: (text, record) => {
-        //         const date = moment(record.tgl_sinkron).format('DD-MM-YYYY')
-        //         return date;
-        //     }
-        // },
     ]
     const [optincabang, setoptincabang] = useState("")
     const pilihcabangselect = async () => {
