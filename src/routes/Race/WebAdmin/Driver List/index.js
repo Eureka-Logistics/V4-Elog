@@ -5,11 +5,12 @@ import ListDriverZustand from '../../../../zustand/Store/Race/fetch/List Driver/
 import ModalKendaraan from './components/ModalKendaraan'
 
 function KendaraanList() {
-    const { FetchDriver, ListDriver, FetchDetailDriver, DriverID } = ListDriverZustand()
+    const { FetchDriver, ListDriver, FetchDetailDriver, keyword, getFilterOptions, filteroptionsjenisKepemilikanDanStatus } = ListDriverZustand()
     const [OpenModal, setOpenModal] = useState(false)
     useEffect(() => {
         FetchDriver()
-    }, [])
+        getFilterOptions()
+    }, [keyword])
     const column = [
         {
             title: 'No',
@@ -50,19 +51,73 @@ function KendaraanList() {
             }
         },
     ]
-
+    console.log(`filteroptionsjenisKepemilikanDanStatus`, filteroptionsjenisKepemilikanDanStatus);
     return (
         <div>
-            <h4>List Kendaraan</h4>
+            <h4>List Driver</h4>
             <Row>
                 <Col>
-                    <Input placeholder='Cari Driver' style={{ width: "100%" }} />
+                    <Input
+                        onChange={(e) => {
+                            ListDriverZustand.setState(prevState => ({
+                                ...prevState,
+                                keyword: {
+                                    ...prevState.keyword,
+                                    pencarian: e.target.value
+                                }
+                            }));
+                        }}
+                        placeholder='Cari Driver'
+                        style={{ width: "100%" }}
+                    />
+
                 </Col>
                 <Col>
-                    <Select placeholder='Cari Jenis Kepemilikan' style={{ width: "100%" }}></Select>
+                    <Select placeholder='Cari Jenis Kepemilikan' style={{ width: "100%" }}
+                        onChange={(e) => {
+                            console.log(e);
+                            ListDriverZustand.setState(prevState => ({
+                                ...prevState,
+                                keyword: {
+                                    ...prevState.keyword,
+                                    jenis: e
+                                }
+                            }));
+                        }}
+                    >
+                        <Select.Option value={""}>
+                            -
+                        </Select.Option>
+                        {filteroptionsjenisKepemilikanDanStatus && filteroptionsjenisKepemilikanDanStatus?.filterKepemilikan.map((item, index) => (
+                            <Select.Option value={item?.jenis}>
+                                {item?.jenis}
+                            </Select.Option>
+                        ))}
+                    </Select>
                 </Col>
                 <Col>
-                    <Select placeholder='Status' style={{ width: "100%" }}></Select>
+                    <Select placeholder='Status' style={{ width: "100%" }}
+                        onChange={(e) => {
+                            console.log(e);
+                            ListDriverZustand.setState(prevState => ({
+                                ...prevState,
+                                keyword: {
+                                    ...prevState.keyword,
+                                    status: e
+                                }
+                            }));
+                        }}
+                    >
+                        <Select.Option value={""}>
+                            -
+                        </Select.Option>
+                        {filteroptionsjenisKepemilikanDanStatus && filteroptionsjenisKepemilikanDanStatus?.filterStatus.map((item, index) => (
+                            <Select.Option value={item?.value}>
+                                {item?.status}
+                            </Select.Option>
+                        ))}
+
+                    </Select>
                 </Col>
                 <Col className='d-flex justify-content-end'>
                     <Button onClick={() => setOpenModal(true)} type='primary'>Tambah Driver</Button>

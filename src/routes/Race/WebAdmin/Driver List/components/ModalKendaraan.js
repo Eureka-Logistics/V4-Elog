@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import ListDriverZustand from '../../../../../zustand/Store/Race/fetch/List Driver/ListDriver';
 import { UploadOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
 function ModalKendaraan({ OpenModal, setOpenModal }) {
     console.log(`openmodal`, OpenModal);
@@ -10,10 +11,20 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
     console.log(`DetailDriver`, DetailDriver);
     function NamaModal() {
         if (DriverID != null) {
-            return "Edit Detail Driver"
+            return "Edit Detail Driver";
         } else {
-            return "Buat Driver"
+            return "Buat Driver";
         }
+    }
+    function gantivalue(e) {
+        const { id, value } = e.target;
+        ListDriverZustand.setState(prevState => ({
+            ...prevState,
+            DetailDriver: {
+                ...prevState.DetailDriver,
+                [id]: value
+            }
+        }));
     }
     return (
         <div>
@@ -21,7 +32,7 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                 title={NamaModal()}
                 open={OpenModal}
                 onCancel={() => {
-                    ListDriverZustand.setState({ DriverID: null })
+                    ListDriverZustand.setState({ DriverID: null, DetailDriver: null })
                     setOpenModal(false)
                 }}
                 width={1200}
@@ -31,57 +42,69 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
             >
                 <Row style={{ backgroundColor: "" }}>
                     <Col >
-                        <div style={{ backgroundColor: "", maxHeight: "200px", minHeight: "200px", border: "1px solid black" }}>
-                            <div className='d-flex justify-content-center'>Ini Gambar</div>
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: "",
+                            height: "250px",
+                            maxHeight: "250px",
+                            overflow: "hidden",
+                            border: "1px solid black"
+                        }}>
+                            <img src={DetailDriver?.driverImage} style={{ maxWidth: '80%', height: 'auto', objectFit: 'cover' }} />
                         </div>
+
                         <div className='mt-5'>Upload Gambar</div>
                         <Upload>
                             <Button icon={<UploadOutlined />}>Upload</Button>
                         </Upload>
                         <div className='mt-3'>Tanggal Masuk</div>
-                        <DatePicker />
+                        <DatePicker format={"YYYY-MM-DD"} value={DetailDriver?.dateIn ? moment(DetailDriver?.dateIn, "YYYY-MM-DD") : null} />
                         <div className='mt-3'>Tanggal SIM</div>
-                        <DatePicker />
+                        <DatePicker format={"YYYY-MM-DD"} value={DetailDriver?.simDate ? moment(DetailDriver?.simDate, "YYYY-MM-DD") : null} />
                         <div className='mt-3'>Tanggal Lahir</div>
-                        <DatePicker />
+                        <DatePicker format={"YYYY-MM-DD"} value={DetailDriver?.dateBirth ? moment(DetailDriver?.dateBirth, "YYYY-MM-DD") : null} />
                     </Col>
-                    <Col >
+                    <Col>
                         <div>Nik</div>
-                        <Input value={DetailDriver?.nik} placeholder='Masukkan NIK' />
+                        <Input id="nik" value={DetailDriver?.nik} onChange={gantivalue} placeholder='Masukkan NIK' />
                         <div className='mt-2'>Nama Driver</div>
-                        <Input value={DetailDriver?.driverName} placeholder='Masukkan Nama Driver' />
+                        <Input id="driverName" value={DetailDriver?.driverName} onChange={gantivalue} placeholder='Masukkan Nama Driver' />
                         <div className='mt-2'>Jenis Driver</div>
-                        <Select value={DetailDriver?.nik} style={{ width: "100%" }} placeholder='Masukkan NIK' />
+                        <Select id="jenisKepemilikan" value={DetailDriver?.jenisKepemilikan} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Jenis Driver' />
                         <div className='mt-2'>Perusahaan</div>
-                        <Select value={DetailDriver?.driverName} style={{ width: "100%" }} placeholder='Masukkan NIK' />
+                        <Select id="perusahaan" value={DetailDriver?.driverName} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Perusahaan' />
                         <div className='mt-2'>No KTP</div>
-                        <Input value={DetailDriver?.driverName} placeholder='Masukkan NIK' />
+                        <Input id="driverKtp" value={DetailDriver?.driverKtp} onChange={gantivalue} placeholder='Masukkan No KTP' />
                         <div className='mt-2'>No SIM</div>
-                        <Input value={DetailDriver?.driverName} placeholder='Masukkan NIK' />
+                        <Input id="numberSim" value={DetailDriver?.numberSim} onChange={gantivalue} placeholder='Masukkan No SIM' />
                         <div className='mt-2'>Jenis SIM</div>
-                        <Select value={DetailDriver?.driverName} style={{ width: "100%" }} placeholder='Masukkan NIK' />
+                        <Select id="simType" value={DetailDriver?.simType} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Jenis SIM' />
                         <div className='mt-2'>Agama</div>
-                        <Input value={DetailDriver?.driverName} placeholder='Masukkan NIK' />
-
+                        <Input id="driverReligion" value={DetailDriver?.driverReligion} onChange={gantivalue} placeholder='Masukkan Agama' />
+                        <div className='mt-2'>Alamat Driver</div>
+                        <Input id="driverAddress" value={DetailDriver?.driverAddress} onChange={gantivalue} placeholder='Masukkan Alamat Driver' />
                     </Col>
-                    <Col >
-                        <div className=''>No Telp</div>
-                        <Input value={DetailDriver?.driverName} placeholder='Masukkan NIK' />
-                        <div className='mt-2'>Agama</div>
-                        <Select value={DetailDriver?.driverName} style={{ width: "100%" }} placeholder='Masukkan NIK' />
+                    <Col>
+                        <div>No Telp 1 </div>
+                        <Input id="noTelp1" value={DetailDriver?.noTelp1} onChange={gantivalue} placeholder='Masukkan No Telp 1' />
+                        <div className='mt-2'>No Telp 2</div>
+                        <Input id="noTelp2" value={DetailDriver?.noTelp2} onChange={gantivalue} placeholder='Masukkan No Telp 2' />
                         <div className='mt-2'>Email</div>
-                        <Input value={DetailDriver?.driverName} placeholder='Masukkan NIK' />
-                        <div className='mt-2'>Vehicle Type</div>
-                        <Select value={DetailDriver?.driverName} style={{ width: "100%" }} placeholder='Masukkan NIK' />
+                        <Input id="driverEmail" value={DetailDriver?.driverEmail} onChange={gantivalue} placeholder='Masukkan Email' />
+                        <div className='mt-2'>Tipe Kendaraan</div>
+                        <Select id="vehicle" value={DetailDriver?.vehicle} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Tipe Kendaraan' />
                         <div className='mt-2'>Ukuran Seragam</div>
-                        <Select style={{ width: "100%" }} placeholder='Masukkan NIK' />
+                        <Select id="ukuranSeragam" value={DetailDriver?.ukuranSeragam} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Ukuran Seragam' />
                         <div className='mt-2'>Nama Bank</div>
-                        <Input placeholder='Masukkan NIK' />
+                        <Input id="BankRekening" value={DetailDriver?.BankRekening} onChange={gantivalue} placeholder='Masukkan Nama Bank' />
                         <div className='mt-2'>Nomor Rekening</div>
-                        <Input placeholder='Masukkan NIK' />
-                        <div className='mt-2'>Alamat :</div>
-                        <Input placeholder='Masukkan NIK' />
+                        <Input id="Norek" value={DetailDriver?.Norek} onChange={gantivalue} placeholder='Masukkan Nomor Rekening' />
+                        <div className='mt-2'>Total Penjualan</div>
+                        <Input id="totalPenjualan" value={DetailDriver?.totalPenjualan} onChange={gantivalue} placeholder='Masukkan Total Penjualan' />
                     </Col>
+
                 </Row>
             </Modal>
         </div>

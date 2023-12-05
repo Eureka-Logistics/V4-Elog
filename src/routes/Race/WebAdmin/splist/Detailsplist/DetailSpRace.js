@@ -4,78 +4,51 @@ import { useParams, useLocation } from 'react-router-dom/cjs/react-router-dom.mi
 import { BaseUrlRace } from '../../../../../Api/BaseUrl'
 import { Card, Input } from 'antd'
 import { Col, Row } from 'react-bootstrap'
+import { SpDetailRaceZustand } from '../../../../../zustand/Store/Race/fetch/spDetail/SpdEtail'
 
 function DetailSpRace() {
     const { idMp } = useParams()
-
-    const GetDetail = () => {
-        try {
-            const data = axios.get(`${BaseUrlRace}sp/get-sp-detail?id_mp=${idMp}`)
-            console.log(data.data);
-        } catch (error) {
-
-        }
-    }
+    const { FetcSPDetail, DataSemuaDarizustand } = SpDetailRaceZustand()
     useEffect(() => {
-        GetDetail()
+        FetcSPDetail(idMp)
     }, [])
+    console.log(`dari zustand`,DataSemuaDarizustand);
+
+    if (!DataSemuaDarizustand) {
+        return <>loading</>
+    }
     return (
         <div>
             <Card>
                 <Row>
                     <Col>
                         <div className='mt-2'>No SP</div>
-                        <Input></Input>
+                        <Input value={DataSemuaDarizustand?.sp}/>
                     </Col>
                     <Col>
-                        <div className='mt-2'>No SP</div>
-                        <Input></Input>
+                        <div className='mt-2'>SJ Erl</div>
+                        <Input value={DataSemuaDarizustand?.sjErl}/>
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
-                        <div className='mt-2'>No SP</div>
-                        <Input></Input>
-                    </Col>
-                    <Col>
-                        <div className='mt-2'>No SP</div>
-                        <Input></Input>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={6}>
-                        <div className='mt-2'>No SP</div>
-                        <Input></Input>
-                    </Col>
-                    <Col>
-                        <div className='mt-2'>No SP</div>
-                        <Input></Input>
-                    </Col>
-                    <Col>
-                        <div className='mt-2'>No SP</div>
-                        <Input></Input>
-                    </Col>
-                </Row>
-                <Row>
+                <Row className='mt-3'>
                     <Col >
-                        <div className='mt-2'>No SP</div>
-                        <Input></Input>
+                        <div className='mt-2'>Cabang</div>
+                        <Input value={DataSemuaDarizustand?.cabang}></Input>
+                    </Col>
+                    <Col >
+                        <div className='mt-2'>Tanggal Pickup</div>
+                        <Input value={DataSemuaDarizustand?.tgl_pickup}></Input>
                     </Col>
                     <Col>
-                        <div className='mt-2'>No SP</div>
-                        <Input></Input>
+                        <div className='mt-2'>Jenis Barang</div>
+                        <Input value={DataSemuaDarizustand?.jenisBarang}></Input>
                     </Col>
-                    <Col md={6}>
-                        <div className='mt-2'>No SP</div>
-                        <Input></Input>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <div className='mt-2'>Alamat Invoice</div>
-                        <Input></Input>
+                    <Col >
+                        <div className='mt-2'>Sales Erl</div>
+                        <Input value={DataSemuaDarizustand?.salesErl}></Input>
                     </Col>
                 </Row>
+               
             </Card>
         </div>
     )
