@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ListVehicleZustand } from '../../../../zustand/Store/Race/fetch/List Vehicle/ListVehicle'
-import { Table } from 'antd'
+import { Button, Card, Col, Input, Row, Select, Table } from 'antd'
+import ModalTambahvehicle from './ModalTambahvehicle'
 
 function ListDriver() {
-  const { FetchDriver, ListVehicle } = ListVehicleZustand()
+  const { FetchDriver, ListVehicle } = ListVehicleZustand();
+  const [OpenModal, setOpenModal] = useState(false);
+
   useEffect(() => {
     FetchDriver()
   }, [])
@@ -51,8 +54,22 @@ function ListDriver() {
   return (
     <div>
 
-
-      <Table className='tableini' columns={column} dataSource={ListVehicle?.order}
+<Row gutter={[16,16]}>
+                <Col xs={24} sm={12} md={4} lg={4}>
+                    <Input placeholder='Cari Driver' style={{ width: "100%" }} />
+                </Col>
+                <Col xs={24} sm={12} md={4} lg={4}>
+                    <Select placeholder='Cari Jenis Kepemilikan' style={{ width: "100%" }}></Select>
+                </Col>
+                <Col xs={24} sm={12} md={4} lg={4}>
+                    <Select placeholder='Status' style={{ width: "100%" }}></Select>
+                </Col>
+                <Col xs={24} sm={12} md={12} lg={12} className='d-flex justify-content-end'>
+                    <Button onClick={() => setOpenModal(true)} type='primary'>Tambah Vehicle</Button>
+                </Col>
+            </Row>
+    <Card>
+    <Table className='tableini' columns={column} dataSource={ListVehicle?.order}
         pagination={{
           total: ListVehicle?.totalData,
 
@@ -63,11 +80,13 @@ function ListDriver() {
               console.log(row);
               // FetchDetailDriver(row?.driverId)
               // ListDriverZustand.setState({ DriverID: row?.driverId })
-              // setOpenModal(true, row)
+              setOpenModal(true, row)
             }
           }
         }}
       />
+    </Card>
+       <ModalTambahvehicle setOpenModal={setOpenModal} OpenModal={OpenModal} />
     </div>
   )
 }
