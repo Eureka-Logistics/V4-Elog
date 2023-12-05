@@ -18,14 +18,14 @@ function ListDriver() {
       key: 'no',
     },
     {
-      title: 'Driver Code',
-      dataIndex: 'driverCode',
-      key: 'driverCode',
+      title: 'Vehicle Code',
+      dataIndex: 'vehicleCode',
+      key: 'vehicleCode',
     },
     {
-      title: 'Nik',
-      dataIndex: 'nik',
-      key: 'nik',
+      title: 'Police Number',
+      dataIndex: 'policeNumber',
+      key: 'policeNumber',
     },
     {
       title: 'Nama Driver',
@@ -39,15 +39,15 @@ function ListDriver() {
     },
     {
       title: 'Kendaraan',
-      dataIndex: 'vehicle',
-      key: 'vehicle',
+      dataIndex: 'vehicleType',
+      key: 'vehicleType',
     },
     {
       title: 'Gambar Kendaraan',
-      dataIndex: 'driverImage',
-      key: 'driverImage',
-      render: (driverImage) => {
-        return <img src={driverImage} width={50} />
+      dataIndex: 'vehicleImage',
+      key: 'vehicleImage',
+      render: (vehicleImage) => {
+        return <img src={vehicleImage} width={50} />
       }
     },
   ]
@@ -69,7 +69,7 @@ function ListDriver() {
                 </Col>
             </Row>
     <Card>
-    <Table className='tableini' columns={column} dataSource={ListVehicle?.order}
+    <Table style={{overflowX: 'auto'}} className='tableini' columns={column} dataSource={ListVehicle?.order}
         pagination={{
           total: ListVehicle?.totalData,
 
