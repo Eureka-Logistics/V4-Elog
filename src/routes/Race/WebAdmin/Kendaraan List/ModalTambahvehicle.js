@@ -54,7 +54,7 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
             <DatePicker />
           </Col>
           <Col xs={24} sm={12} md={8} lg={8}>
-            <div className="mb-2">Vehicle Code</div>
+            <div className="  mb-2">Vehicle Code</div>
             <Input placeholder="automatic" />
             <div className="mb-2 mt-2">Jenis Kepemilikan</div>
             <Select
@@ -83,7 +83,7 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
           <Col xs={24} sm={12} md={8} lg={8}>
             <div className="mb-2">Tahun Mobil</div>
             <Input placeholder="Masukkan Tahun mobil" />
-            <Row gutter={[16, 16]} className="mt-2">
+            <Row gutter={[16, 16]} >
               <Col xs={24} sm={12} md={8} lg={8}>
                 <div className="mt-2 mb-2">Panjang (m)</div>
                 <Input placeholder="Masukkan panjang" />
