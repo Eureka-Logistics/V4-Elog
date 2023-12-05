@@ -818,7 +818,13 @@ const App = ({ match }) => {
         <Route
           path={`${match.url}race/kendaraan`}
           component={asyncComponent(() =>
-            import("../routes/Race/WebAdmin/Kendaraan List/index")
+            import("./Race/WebAdmin/Kendaraan List/index")
+          )}
+        />
+        <Route
+          path={`${match.url}race/driver`}
+          component={asyncComponent(() =>
+            import("./Race/WebAdmin/Driver List/index")
           )}
         />
         <Route
@@ -881,7 +887,7 @@ const App = ({ match }) => {
             import("./raceCabang/DashboardCabang")
           )}
         />
-      
+
         <Route
           path={`${match.url}race/cabang/sjlistt`}
           component={asyncComponent(() =>
@@ -894,25 +900,20 @@ const App = ({ match }) => {
             import("../routes/Race/WebAdmin/splist/CreateNewSPpRace")
           )}
         /> */}
-        <Route
-          path={`${match.url}race/driver`}
-          component={asyncComponent(() =>
-            import("../routes/Race/WebAdmin/List Driver/index")
-          )}
-        />
+
         <Route
           path={`${match.url}testdnd`}
           component={asyncComponent(() =>
             import("../routes/Race/WebAdmin/Map Pengiriman/TestDND")
           )}
         />
-         <Route
+        <Route
           path={`${match.url}monitoringSJ`}
           component={asyncComponent(() =>
             import("./MasterData/SJ/MonitoringSJ")
           )}
         />
-         <Route
+        <Route
           path={`${match.url}monitoringReportKiriman`}
           component={asyncComponent(() =>
             import("./MasterData/Monitoring/ReportKiriman/index")
@@ -925,11 +926,11 @@ const App = ({ match }) => {
             import("../routes/MasterData/Monitoring/ReportKiriman/index")
           )}
         />
-          <Route
+        <Route
           path={`${match.url}admin/user/menu`}
           component={asyncComponent(() => import("./MasterData/SP List/Akunting/CreateUserBaru/TabComponent/index"))}
         />
-        
+
       </Switch>
     </div>
   );
