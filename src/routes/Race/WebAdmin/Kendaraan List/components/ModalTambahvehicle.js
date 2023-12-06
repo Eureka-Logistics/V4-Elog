@@ -68,7 +68,14 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
           top: 20,
         }}
       >
+<<<<<<< HEAD
         <hr />
+=======
+        {/* <h4>
+          Create Vehicle
+        </h4>
+        <hr /> */}
+>>>>>>> 2f2dbfc7af7ffc8644b1bf70fed6507c2991c9b7
         <Row gutter={[16, 16]} style={{ backgroundColor: "" }}>
           <Col xs={24} sm={12} md={8} lg={8}>
             <div
