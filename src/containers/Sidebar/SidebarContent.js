@@ -2552,6 +2552,36 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <div >
                     <Menu.Item
                       className={
+                        activeMenu === "/race/alamatcustomer"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="mapping"
+                    >
+                      <Link to="/race/alamatcustomer" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" />
+                         */}
+
+                        <img
+                          src={historyrace}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
+                          Alamat Customer
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div >
+                    <Menu.Item
+                      className={
                         activeMenu === "/mapping"
                           ? "menu-item-active menu-item-hover"
                           : "menu-item-hover"
@@ -2705,7 +2735,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
-                  
+
                   <div >
 
                   </div>
