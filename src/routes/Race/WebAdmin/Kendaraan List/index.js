@@ -5,7 +5,7 @@ import ModalTambahvehicle from './components/ModalTambahvehicle'
 import ListDriverZustand from '../../../../zustand/Store/Race/fetch/List Driver/ListDriver';
 
 function ListDriver() {
-  const { FetchDriver, ListVehicle, keyword } = ListVehicleZustand();
+  const { FetchDriver, ListVehicle, keyword ,VehicleDetail,vehicleId} = ListVehicleZustand();
   const { getFilterOptions, filteroptionsjenisKepemilikanDanStatus } = ListDriverZustand()
   const [OpenModal, setOpenModal] = useState(false);
 
@@ -131,8 +131,8 @@ function ListDriver() {
             return {
               onClick: event => {
                 console.log(row);
-                // FetchDetailDriver(row?.driverId)
-                // ListDriverZustand.setState({ DriverID: row?.driverId })
+                VehicleDetail(row?.vehicleId)
+                ListVehicleZustand.setState({ vehicleId: row?.vehicleId })
                 setOpenModal(true, row)
               }
             }
