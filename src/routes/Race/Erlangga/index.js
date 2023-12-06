@@ -10,7 +10,7 @@ import OptionsCabangState from '../../../zustand/Store/Race/optionsCabangRace';
 function Erlangga() {
     const { RangePicker } = DatePicker;
     const [modal1Open, setModal1Open] = useState(false);
-    const NamaCabang = localStorage.getItem("cabang")
+    const NamaCabang = localStorage.getItem("")
     const [Loading, setLoading] = useState(false)
     let namaCabang = ""
     if (NamaCabang == "RCCGK") {
@@ -28,7 +28,7 @@ function Erlangga() {
     const defaultEndDate = moment().add(3, 'days');
     const barrer = localStorage.getItem("token")
     const [Keyword, setKeyword] = useState("")
-    const [IDCabang, setIDCabang] = useState(namaCabang)
+    const [IDCabang, setIDCabang] = useState("")
     const datenya = (date, datanggal) => {
         if (!datanggal || datanggal.length !== 2) {
             return; // Handle the error or invalid state
@@ -142,7 +142,7 @@ function Erlangga() {
             render: (SP) => {
                 if (SP) {
                     return <Tag color='green'>{SP}</Tag>
-                } else{
+                } else {
                     return "-"
                 }
             }
@@ -241,10 +241,11 @@ function Erlangga() {
                 <Row >
                     <Col style={{ backgroundColor: "" }} >
                         <Select
-                            placeholder={IDCabang}
+                            placeholder={"-"}
                             style={{ width: "100%", marginRight: 20 }}
                             onChange={(e, i) => { setIDCabang(i?.children?.[0]); setPilihCabang(e); console.log(e); }}
                         >
+                            <Select.Option value={""}> - </Select.Option>
                             {optincabang && optincabang.map((i, index) => (
                                 <Select.Option children={i} value={i?.whid}>{i?.cabangId} - {i?.description}</Select.Option>
                             ))}

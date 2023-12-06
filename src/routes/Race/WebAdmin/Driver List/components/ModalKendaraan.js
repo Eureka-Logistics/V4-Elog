@@ -7,7 +7,7 @@ import moment from 'moment';
 
 function ModalKendaraan({ OpenModal, setOpenModal }) {
     console.log(`openmodal`, OpenModal);
-    const { FetchDriver, DetailDriver, DriverID } = ListDriverZustand()
+    const { FetchDriver, DetailDriver, DriverID, BuatVehicle, EditVehicle } = ListDriverZustand()
     console.log(`DetailDriver`, DetailDriver);
     function NamaModal() {
         if (DriverID != null) {
@@ -26,6 +26,14 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
             }
         }));
     }
+    function memilihCreteAtauEdit() {
+        if (DriverID != null) {
+            EditVehicle(DriverID, DetailDriver)
+
+        } else {
+            BuatVehicle(DetailDriver)
+        }
+    }
     return (
         <div>
             <Modal
@@ -35,6 +43,7 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                     ListDriverZustand.setState({ DriverID: null, DetailDriver: null })
                     setOpenModal(false)
                 }}
+                onOk={() => memilihCreteAtauEdit()}
                 width={1200}
                 style={{
                     top: 20,
@@ -62,9 +71,9 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                         <div className='mt-3'>Tanggal Masuk</div>
                         <DatePicker format={"YYYY-MM-DD"} value={DetailDriver?.dateIn ? moment(DetailDriver?.dateIn, "YYYY-MM-DD") : null} />
                         <div className='mt-3'>Tanggal SIM</div>
-                        <DatePicker format={"YYYY-MM-DD"} value={DetailDriver?.simDate ? moment(DetailDriver?.simDate, "YYYY-MM-DD") : null} />
+                        <DatePicker id='simDate' format={"YYYY-MM-DD"} value={DetailDriver?.simDate ? moment(DetailDriver?.simDate, "YYYY-MM-DD") : null} />
                         <div className='mt-3'>Tanggal Lahir</div>
-                        <DatePicker format={"YYYY-MM-DD"} value={DetailDriver?.dateBirth ? moment(DetailDriver?.dateBirth, "YYYY-MM-DD") : null} />
+                        <DatePicker id="dateBirth" format={"YYYY-MM-DD"} value={DetailDriver?.dateBirth ? moment(DetailDriver?.dateBirth, "YYYY-MM-DD") : null} />
                     </Col>
                     <Col>
                         <div>Nik</div>

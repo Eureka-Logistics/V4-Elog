@@ -24,8 +24,11 @@ function SpListRace() {
   const NamaCabang = localStorage.getItem("cabang");
   const LoginCabang = localStorage.getItem("loginBu")
   const [Cabang, setCabang] = useState(
-    NamaCabang === "RCCGK" ? "JKT" : NamaCabang
+    ""
   );
+  // const [Cabang, setCabang] = useState(
+  //   NamaCabang === "RCCGK" ? "JKT" : NamaCabang
+  // );
   const showDefaultDrawer = () => {
     setOpen(true);
   };
@@ -279,12 +282,12 @@ Salam hangat,
         <Col sm={2}>
           <Input
             onChange={(e) => setCariDisini(e.target.value)}
-            style={{  height: "50px", width: '100%'}}
+            style={{ height: "50px", width: '100%' }}
             addonBefore={<SearchOutlined />}
             placeholder="Cari Disini"
           />
         </Col>
-      
+
         {!LoginCabang && (
           <Col sm={2}>
             <Select
@@ -293,7 +296,13 @@ Salam hangat,
               onChange={(e) => setCabang(e)}
               placeholder={Cabang}
               style={{ width: "100%" }}
+              value={Cabang}
             >
+              <Select.Option
+                value={""}
+              >
+                -
+              </Select.Option>
               {OptionsState &&
                 OptionsState.map((data, index) => (
                   <Select.Option
@@ -309,7 +318,7 @@ Salam hangat,
           </Col>
         )}
 
-       
+
       </Row>
       <ListPengiriman
         Cabang={Cabang}
