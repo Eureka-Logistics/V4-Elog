@@ -104,7 +104,7 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                         <div className='mt-2'>Nama Driver</div>
                         <Input id="driverName" value={DetailDriver?.driverName} onChange={gantivalue} placeholder='Masukkan Nama Driver' />
                         <div className='mt-2'>Jenis Driver</div>
-                        <Select id="jenisKepemilikan" value={DetailDriver?.jenisKepemilikan} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Jenis Driver' >
+                        <Select id="jenisKepemilikan" value={DetailDriver?.jenisKepemilikan} onChange={(e) => gantivalue({ target: { id: 'jenisKepemilikan', value: e } })} style={{ width: "100%" }} placeholder='Pilih Jenis Driver' >
 
                             <Select.Option value={""}>
                                 -
@@ -116,10 +116,23 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                             ))}
                         </Select>
                         <div className='mt-2'>Perusahaan</div>
-                        <Select id="perusahaan" showSearch optionFilterProp='children' value={DetailDriver?.driverName} onChange={(e) => gantivalue({ target: { id: 'perusahaan', value: e } })} style={{ width: "100%" }} placeholder='Pilih Perusahaan'
+                        <Select id="mitra" showSearch optionFilterProp='children' value={DetailDriver?.mitra} onChange={(e, option) => {
+                            // Update 'mitra'
+                            gantivalue({ target: { id: 'mitra', value: e } });
+
+                            // Update 'id_mitra' in Zustand store
+                            ListDriverZustand.setState(prevState => ({
+                                ...prevState,
+                                DetailDriver: {
+                                    ...prevState.DetailDriver,
+                                    id_mitra: option.Option.id
+                                }
+                            }));
+                        }}
+                            style={{ width: "100%" }} placeholder='Pilih Perusahaan'
                         >
-                            {selectGetSelect && selectGetSelect.mitra.map((item, index) => (
-                                <Select.Option value={item.mitra}>
+                            {selectGetSelect && selectGetSelect.mitra.map((item, option, index) => (
+                                <Select.Option value={item.mitra} Option={item}>
                                     {item.mitra}
                                 </Select.Option>
                             ))}
@@ -175,7 +188,7 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
 
                 </Row>
             </Modal>
-        </div>
+        </div >
     )
 }
 

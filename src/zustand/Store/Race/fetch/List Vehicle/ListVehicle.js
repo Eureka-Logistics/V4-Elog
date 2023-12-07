@@ -79,7 +79,7 @@ export const ListVehicleZustand = create((set, get) => ({
         }
     },
     EditDriver: async (id, DetailVehicle) => {
-        set({loading : true})
+        set({ loading: true })
         const update = get().FetchDriver
         const uploadgambar = get().UploadFoto
         const body = {
@@ -104,6 +104,7 @@ export const ListVehicleZustand = create((set, get) => ({
             "kapasitas": DetailVehicle?.capacity,
             "kapasitas_maks": DetailVehicle?.maxCapacity,
             "kubikasi": DetailVehicle?.vehicleCubication,
+    
 
 
         }
@@ -115,7 +116,7 @@ export const ListVehicleZustand = create((set, get) => ({
                     Authorization: localStorage.getItem("token"),
                 },
             });
-           
+
             notification.success({
                 message: "Sukses",
                 description: response?.data.status.message
@@ -128,7 +129,7 @@ export const ListVehicleZustand = create((set, get) => ({
             })
         }
         update()
-        set({loading : false})
+        set({ loading: false })
     },
     UploadFoto: async (id, DetailVehicle) => {
         let formData = new FormData();
@@ -156,7 +157,7 @@ export const ListVehicleZustand = create((set, get) => ({
 
     },
     BuatDriver: async (DetailVehicle) => {
-        set({loading : true})
+        set({ loading: true })
         const update = get().FetchDriver
         let formData = new FormData();
         formData.append("cover", DetailVehicle?.naruhgambar);
@@ -181,8 +182,9 @@ export const ListVehicleZustand = create((set, get) => ({
         formData.append("jenis_kepemilikan", DetailVehicle?.jenisKepemilikan);
         formData.append("kapasitas", DetailVehicle?.capacity);
         formData.append("kapasitas_maks", DetailVehicle?.maxCapacity);
-        formData.append("kubikasi", DetailVehicle?.vehicleLength * DetailVehicle?.vehicleWidth * DetailVehicle?.vehicleHeight);
+        formData.append("kubikasi", DetailVehicle?.vehicleLength || 1 * DetailVehicle?.vehicleWidth || 1 * DetailVehicle?.vehicleHeight || 1);
         formData.append("location", DetailVehicle?.location);
+        formData.append("id_mitra", DetailVehicle?.id_mitra);
         try {
             const response = await axios.post(`${BaseUrlRace}kendaraan/create-vehicle`, formData, {
                 headers: {
@@ -201,7 +203,7 @@ export const ListVehicleZustand = create((set, get) => ({
                 description: error.response.data.status.message
             })
         }
-        set({loading : false})
+        set({ loading: false })
         update()
     }
 }));

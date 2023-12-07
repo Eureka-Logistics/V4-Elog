@@ -15,7 +15,7 @@ import moment from "moment";
 import ListDriverZustand from "../../../../../zustand/Store/Race/fetch/List Driver/ListDriver";
 
 function ModalTambahvehicle({ OpenModal, setOpenModal }) {
-  const { vehicleId, DetailVehicle, EditDriver, VehicleType, OptionsSelectType, BuatDriver, GetSelect, codeVehicle, selectGetSelect ,loading} = ListVehicleZustand();
+  const { vehicleId, DetailVehicle, EditDriver, VehicleType, OptionsSelectType, BuatDriver, GetSelect, codeVehicle, selectGetSelect, loading } = ListVehicleZustand();
   const { getFilterOptions, filteroptionsjenisKepemilikanDanStatus } = ListDriverZustand()
 
   function NamaModal() {
@@ -39,7 +39,7 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
   useEffect(() => {
     VehicleType()
     GetSelect()
-  }, [])
+  }, [DetailVehicle?.vehicleLength , DetailVehicle?.vehicleWidth ,DetailVehicle?.vehicleHeight])
   function memilihCreteAtauEdit() {
     if (vehicleId != null) {
       EditDriver(vehicleId, DetailVehicle)
@@ -63,6 +63,8 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
       // Clear the selection
     }
   };
+
+
 
   return (
     <div>
@@ -247,7 +249,7 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
                 <Input
                   id="vehicleLength"
                   onChange={gantivalue}
-                  value={DetailVehicle?.vehicleLength}
+                  value={DetailVehicle?.vehicleLength }
                   placeholder="Masukkan panjang"
                 />
               </Col>
@@ -256,7 +258,7 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
                 <Input
                   id="vehicleWidth"
                   onChange={gantivalue}
-                  value={DetailVehicle?.vehicleWidth}
+                  value={DetailVehicle?.vehicleWidth }
                   placeholder="Masukkan lebar"
                 />
               </Col>
@@ -265,7 +267,7 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
                 <Input
                   id="vehicleHeight"
                   onChange={gantivalue}
-                  value={DetailVehicle?.vehicleHeight}
+                  value={DetailVehicle?.vehicleHeight }
                   placeholder="Masukkan tinggi"
                 />
               </Col>

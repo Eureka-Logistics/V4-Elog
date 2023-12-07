@@ -162,7 +162,8 @@ const ListDriverZustand = create((set, get) => ({
             nik: DetailDriver?.nik,
             email: DetailDriver?.driverEmail,
             jenis_kepemilikan: DetailDriver?.jenisKepemilikan,
-            id: DriverID
+            id: DriverID,
+            id_mitra: DetailDriver?.id_mitra
         };
         try {
             UploadFoto(DriverID, DetailDriver)
