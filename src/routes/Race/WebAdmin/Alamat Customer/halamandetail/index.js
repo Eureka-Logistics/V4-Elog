@@ -178,6 +178,8 @@ function HalamanDetailAlamatCustomer() {
                                             {/* <Input onChange={(e) => Inputan(e)} id='Kota' value={IsiInputan.Kota} /> */}
                                             <Select
                                                 id='kota'
+                                                showSearch
+                                                optionFilterProp='children'
                                                 onChange={(e, o) => {
                                                     console.log(e, o);
                                                     setIsiInputan(prevState => ({
@@ -202,6 +204,8 @@ function HalamanDetailAlamatCustomer() {
                                             Kecamatan
                                             {/* <Input onChange={(e) => Inputan(e)} id='KodeWilayah' value={IsiInputan.KodeWilayah} /> */}
                                             <Select
+                                            showSearch
+                                            optionFilterProp='children'
                                                 id='kecamatan'
                                                 onChange={(e, o) => {
                                                     console.log(e, o);
