@@ -5,6 +5,7 @@ import { notification } from "antd";
 
 export const ListVehicleZustand = create((set, get) => ({
     keyword: "",
+    loading: false,
     ListVehicle: "",
     DetailVehicle: "",
     OptionsSelectType: "",
@@ -78,7 +79,8 @@ export const ListVehicleZustand = create((set, get) => ({
         }
     },
     EditDriver: async (id, DetailVehicle) => {
-
+        set({loading : true})
+        const update = get().FetchDriver
         const uploadgambar = get().UploadFoto
         const body = {
             "id": id,
@@ -106,13 +108,14 @@ export const ListVehicleZustand = create((set, get) => ({
 
         }
         try {
-            uploadgambar(id,DetailVehicle)
+            uploadgambar(id, DetailVehicle)
             const response = await axios.post(`${BaseUrlRace}kendaraan/edit-vehicle`, body, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: localStorage.getItem("token"),
                 },
             });
+           
             notification.success({
                 message: "Sukses",
                 description: response?.data.status.message
@@ -124,6 +127,8 @@ export const ListVehicleZustand = create((set, get) => ({
                 description: error.response.data.status.message
             })
         }
+        update()
+        set({loading : false})
     },
     UploadFoto: async (id, DetailVehicle) => {
         let formData = new FormData();
@@ -137,7 +142,7 @@ export const ListVehicleZustand = create((set, get) => ({
                     Authorization: localStorage.getItem("token"),
                 },
             });
-            
+
             console.log(response);
             // notification.success({
             //     message: "Sukses",
@@ -148,13 +153,15 @@ export const ListVehicleZustand = create((set, get) => ({
             console.error("Upload error:", error.response?.data || error);
             // Add more error handling as needed
         }
-        
+
     },
     BuatDriver: async (DetailVehicle) => {
+        set({loading : true})
+        const update = get().FetchDriver
         let formData = new FormData();
         formData.append("cover", DetailVehicle?.naruhgambar);
         formData.append("id_driver", DetailVehicle?.driverIDName);
-        formData.append("id_bu_brench", DetailVehicle?.branch);
+        formData.append("id_bu_brench", DetailVehicle?.cabang);
         formData.append("kode_kendaraan", DetailVehicle?.kode_kendaraan);
         formData.append("no_polisi", DetailVehicle?.policeNumber);
         formData.append("vendor", DetailVehicle?.vendor);
@@ -194,5 +201,7 @@ export const ListVehicleZustand = create((set, get) => ({
                 description: error.response.data.status.message
             })
         }
+        set({loading : false})
+        update()
     }
 }));

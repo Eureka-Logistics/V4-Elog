@@ -15,7 +15,7 @@ import moment from "moment";
 import ListDriverZustand from "../../../../../zustand/Store/Race/fetch/List Driver/ListDriver";
 
 function ModalTambahvehicle({ OpenModal, setOpenModal }) {
-  const { vehicleId, DetailVehicle, EditDriver, VehicleType, OptionsSelectType, BuatDriver, GetSelect, codeVehicle, selectGetSelect } = ListVehicleZustand();
+  const { vehicleId, DetailVehicle, EditDriver, VehicleType, OptionsSelectType, BuatDriver, GetSelect, codeVehicle, selectGetSelect ,loading} = ListVehicleZustand();
   const { getFilterOptions, filteroptionsjenisKepemilikanDanStatus } = ListDriverZustand()
 
   function NamaModal() {
@@ -74,6 +74,7 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
           memilihCreteAtauEdit()
           setOpenModal(false)
         }}
+        confirmLoading={loading == true}
         onCancel={() => {
           ListVehicleZustand.setState({ vehicleId: null, DetailVehicle: null })
           setOpenModal(false)
@@ -302,9 +303,9 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
             />
             <div className="mt-2 mb-2">Cabang</div>
             <Select
-              id="branch"
-              onChange={(e) => gantivalue({ target: { id: 'branch', value: e } })}
-              value={DetailVehicle?.branch}
+              id="cabang"
+              onChange={(e) => gantivalue({ target: { id: 'cabang', value: e } })}
+              value={DetailVehicle?.cabang}
               placeholder="Masukkan Cabang"
               style={{ width: "100%" }}
             >

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import bk from "../../../../../assets/img/Group 18.png";
 import { Card, Divider, Steps, Table, Tag } from "antd";
 import drivericon from "../../../../../assets/img/drivericon.png";
@@ -9,10 +9,12 @@ import Baseurl, { BaseUrlRace } from "../../../../../Api/BaseUrl";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import MapsGoogle from "../../../../../components/MapsGoole";
+import ListModalFaktur from "./ListModalFaktur";
 function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
   const { sm } = useParams();
   const [Loading, setLoading] = useState(false);
   const [DataApi, setDataApi] = useState([]);
+  const [ModalBukaTutup, setModalBukaTutup] = useState(false)
   const [DetailHistory, setDetailHistory] = useState();
   const getDetailApi = async () => {
     setLoading(true);
@@ -91,14 +93,20 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
       key: "value",
     },
   ];
-  console.log(`DataApi`, DataApi);
   return (
     <div>
       <Row>
         {DataApi &&
           DataApi.map((i) => (
             <Col style={{ backgroundColor: "" }}>
-              <h3>Detail SJ</h3>
+              <Row>
+                <Col>
+                <h3>Detail SJ</h3>
+                </Col>
+                <Col>
+                <Button onClick={()=>setModalBukaTutup(true)} >List Faktur</Button>
+                </Col>
+              </Row>
               <div>No. SJ</div>
               <div style={{ fontWeight: "bold" }}>{i?.msm}</div>
               <br />
@@ -218,6 +226,7 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
           </Col>
         )}
       </Row>
+      <ListModalFaktur DataApi={DataApi}ModalBukaTutup={ModalBukaTutup} setModalBukaTutup={setModalBukaTutup} />
     </div>
   );
 }

@@ -5,7 +5,7 @@ import ModalTambahvehicle from './components/ModalTambahvehicle'
 import ListDriverZustand from '../../../../zustand/Store/Race/fetch/List Driver/ListDriver';
 
 function ListDriver() {
-  const { FetchDriver, ListVehicle, keyword ,VehicleDetail,vehicleId} = ListVehicleZustand();
+  const { FetchDriver, ListVehicle, keyword, VehicleDetail, vehicleId } = ListVehicleZustand();
   const { getFilterOptions, filteroptionsjenisKepemilikanDanStatus } = ListDriverZustand()
   const [OpenModal, setOpenModal] = useState(false);
 
@@ -122,7 +122,7 @@ function ListDriver() {
         </Col>
       </Row>
       <Card>
-        <Table style={{ overflowX: 'auto' }} className='tableini' columns={column} dataSource={ListVehicle?.order}
+        <Table style={{ overflowX: 'auto' }} className='tableini' columns={column} loading={!ListVehicle?.order} dataSource={ListVehicle?.order}
           pagination={{
             total: ListVehicle?.totalData,
 

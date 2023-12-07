@@ -8,9 +8,9 @@ import { ListVehicleZustand } from '../../../../../zustand/Store/Race/fetch/List
 
 function ModalKendaraan({ OpenModal, setOpenModal }) {
     console.log(`openmodal`, OpenModal);
-    const { FetchDriver, DetailDriver, DriverID, BuatVehicle, EditVehicle } = ListDriverZustand()
-    const { filteroptionsjenisKepemilikanDanStatus } = ListVehicleZustand()
-    console.log(`DetailDriver`, DetailDriver);
+    const { FetchDriver, DetailDriver, DriverID, BuatVehicle, filteroptionsjenisKepemilikanDanStatus, EditVehicle, OptionsGetSelect, loading } = ListDriverZustand()
+    const { selectGetSelect } = ListVehicleZustand();
+    console.log(`DetailDriver`, OptionsGetSelect);
     function NamaModal() {
         if (DriverID != null) {
             return "Edit Detail Driver";
@@ -62,6 +62,7 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                     setOpenModal(false)
                 }}
                 onOk={() => memilihCreteAtauEdit()}
+                confirmLoading={loading == true}
                 width={1200}
                 style={{
                     top: 20,
@@ -115,13 +116,24 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                             ))}
                         </Select>
                         <div className='mt-2'>Perusahaan</div>
-                        <Select id="perusahaan" value={DetailDriver?.driverName} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Perusahaan' />
+                        <Select id="perusahaan" showSearch optionFilterProp='children' value={DetailDriver?.driverName} onChange={(e) => gantivalue({ target: { id: 'perusahaan', value: e } })} style={{ width: "100%" }} placeholder='Pilih Perusahaan'
+                        >
+                            {selectGetSelect && selectGetSelect.mitra.map((item, index) => (
+                                <Select.Option value={item.mitra}>
+                                    {item.mitra}
+                                </Select.Option>
+                            ))}
+                        </Select>
                         <div className='mt-2'>No KTP</div>
                         <Input id="driverKtp" value={DetailDriver?.driverKtp} onChange={gantivalue} placeholder='Masukkan No KTP' />
                         <div className='mt-2'>No SIM</div>
                         <Input id="numberSim" value={DetailDriver?.numberSim} onChange={gantivalue} placeholder='Masukkan No SIM' />
                         <div className='mt-2'>Jenis SIM</div>
-                        <Select id="simType" value={DetailDriver?.simType} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Jenis SIM' />
+                        <Select id="simType" value={DetailDriver?.simType} onChange={(e) => gantivalue({ target: { id: 'simType', value: e } })} style={{ width: "100%" }} placeholder='Pilih Jenis SIM' >
+                            {selectGetSelect && selectGetSelect.jenisSim.map((item) => (
+                                <Select.Option value={item?.Jenis}>{item?.Jenis}</Select.Option>
+                            ))}
+                        </Select>
                         <div className='mt-2'>Agama</div>
                         <Input id="driverReligion" value={DetailDriver?.driverReligion} onChange={gantivalue} placeholder='Masukkan Agama' />
                         <div className='mt-2'>Alamat Driver</div>
@@ -135,9 +147,24 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                         <div className='mt-2'>Email</div>
                         <Input id="driverEmail" value={DetailDriver?.driverEmail} onChange={gantivalue} placeholder='Masukkan Email' />
                         <div className='mt-2'>Tipe Kendaraan</div>
-                        <Select id="vehicle" value={DetailDriver?.vehicle} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Tipe Kendaraan' />
+                        <Select id="vehicle" value={DetailDriver?.vehicle} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Tipe Kendaraan'
+                            showSearch
+                            optionFilterProp='children'
+                        >
+                            {selectGetSelect && selectGetSelect.driverType.map((item, index) => (
+                                <Select.Option value={item.tipe}>
+                                    {item.tipe}
+                                </Select.Option>
+                            ))}
+                        </Select>
                         <div className='mt-2'>Ukuran Seragam</div>
-                        <Select id="ukuranSeragam" value={DetailDriver?.ukuranSeragam} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Ukuran Seragam' />
+                        <Select id="ukuranSeragam" value={DetailDriver?.ukuranSeragam} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Ukuran Seragam' >
+                            {OptionsGetSelect && OptionsGetSelect?.ukuranSeragam.map((item, index) => (
+                                <Select.Option>
+                                    {item?.ukuran}
+                                </Select.Option>
+                            ))}
+                        </Select>
                         <div className='mt-2'>Nama Bank</div>
                         <Input id="BankRekening" value={DetailDriver?.BankRekening} onChange={gantivalue} placeholder='Masukkan Nama Bank' />
                         <div className='mt-2'>Nomor Rekening</div>

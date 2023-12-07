@@ -4,12 +4,14 @@ import { BaseUrlRace } from '../../../../../Api/BaseUrl';
 import { notification } from 'antd';
 
 const ListDriverZustand = create((set, get) => ({
+    loading: false,
     keyword: "",
     Driver: "",
     ListDriver: "",
     DetailDriver: "",
     filteroptionsjenisKepemilikanDanStatus: "",
     DriverID: null,
+    OptionsGetSelect: "",
     FetchDriver: async () => {
         const keyword = get().keyword;
         try {
@@ -37,6 +39,23 @@ const ListDriverZustand = create((set, get) => ({
                     },
                 }
             ); set({ DetailDriver: data?.data?.data?.[0] })
+        } catch (error) {
+            console.error(error);
+        }
+    },
+    FetchGetSelect: async (id) => {
+        try {
+            const data = await axios.get(`${BaseUrlRace}driver/get-select`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: localStorage.getItem("token"),
+                    },
+                }
+            );
+            set({ OptionsGetSelect: data.data })
+            console.log(`data select`, data.data);
+            // set({ DetailDriver: data?.data?.data?.[0] })
         } catch (error) {
             console.error(error);
         }
@@ -74,6 +93,7 @@ const ListDriverZustand = create((set, get) => ({
         formData.append("no_telp2", DetailDriver?.noTelp2);
         formData.append("tgl_masuk", DetailDriver?.bpkbNumber);
         formData.append("nik", DetailDriver?.nik);
+        formData.append("id_mitra", DetailDriver?.perusahaan);
         formData.append("email", DetailDriver?.driverEmail);
         formData.append("jenis_kepemilikan", DetailDriver?.jenisKepemilikan);
         try {
@@ -107,7 +127,7 @@ const ListDriverZustand = create((set, get) => ({
                     Authorization: localStorage.getItem("token"),
                 },
             });
-            
+
             console.log(response);
             // notification.success({
             //     message: "Sukses",
@@ -118,9 +138,10 @@ const ListDriverZustand = create((set, get) => ({
             console.error("Upload error:", error.response?.data || error);
             // Add more error handling as needed
         }
-        
+
     },
     EditVehicle: async (DriverID, DetailDriver) => {
+        set({ loading: true })
         const getList = get().FetchDriver
         const UploadFoto = get().UploadFoto
         const body = {
@@ -144,7 +165,7 @@ const ListDriverZustand = create((set, get) => ({
             id: DriverID
         };
         try {
-            UploadFoto(DriverID,DetailDriver)
+            UploadFoto(DriverID, DetailDriver)
             const response = await axios.post(`${BaseUrlRace}driver/update-driver`, body, {
                 headers: {
                     "Content-Type": "application/json",
@@ -162,6 +183,7 @@ const ListDriverZustand = create((set, get) => ({
                 description: error.response.data.status.message
             })
         }
+        set({ loading: false })
         getList()
     }
 }));
