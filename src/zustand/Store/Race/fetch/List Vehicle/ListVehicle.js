@@ -78,6 +78,8 @@ export const ListVehicleZustand = create((set, get) => ({
         }
     },
     EditDriver: async (id, DetailVehicle) => {
+
+        const uploadgambar = get().UploadFoto
         const body = {
             "id": id,
             "kode_kendaraan": DetailVehicle?.kode_kendaraan,
@@ -104,6 +106,7 @@ export const ListVehicleZustand = create((set, get) => ({
 
         }
         try {
+            uploadgambar(id,DetailVehicle)
             const response = await axios.post(`${BaseUrlRace}kendaraan/edit-vehicle`, body, {
                 headers: {
                     "Content-Type": "application/json",
@@ -122,8 +125,34 @@ export const ListVehicleZustand = create((set, get) => ({
             })
         }
     },
+    UploadFoto: async (id, DetailVehicle) => {
+        let formData = new FormData();
+        formData.append("id", id);
+        formData.append("cover", DetailVehicle?.naruhgambar);
+
+
+        try {
+            const response = await axios.post(`${BaseUrlRace}kendaraan/upload-vehicle-photo`, formData, {
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                },
+            });
+            
+            console.log(response);
+            // notification.success({
+            //     message: "Sukses",
+            //     description: response?.data.status.message
+            // })
+            // console.log(`Data diterima dari API:`, response?.data.status.message);
+        } catch (error) {
+            console.error("Upload error:", error.response?.data || error);
+            // Add more error handling as needed
+        }
+        
+    },
     BuatDriver: async (DetailVehicle) => {
         let formData = new FormData();
+        formData.append("cover", DetailVehicle?.naruhgambar);
         formData.append("id_driver", DetailVehicle?.driverIDName);
         formData.append("id_bu_brench", DetailVehicle?.branch);
         formData.append("kode_kendaraan", DetailVehicle?.kode_kendaraan);

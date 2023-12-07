@@ -57,25 +57,25 @@ const ListDriverZustand = create((set, get) => ({
             console.error(error);
         }
     },
-    BuatVehicle: async (DetailVehicle) => {
+    BuatVehicle: async (DetailDriver) => {
         let formData = new FormData();
-        formData.append("cover", DetailVehicle?.driverIDName);
-        formData.append("nama", DetailVehicle?.driverName);
-        formData.append("divisi", DetailVehicle?.kode_kendaraan);
-        formData.append("no_ktp", DetailVehicle?.driverKtp);
-        formData.append("no_sim", DetailVehicle?.numberSim);
-        formData.append("vehicle_type", DetailVehicle?.vehicleType);
-        formData.append("jenis_sim", DetailVehicle?.simType);
-        formData.append("alamat", DetailVehicle?.driverAddress);
-        formData.append("tgl_lahir", DetailVehicle?.dateBirth);
-        formData.append("tgl_sim", DetailVehicle?.simDate);
-        formData.append("agama", DetailVehicle?.driverReligion);
-        formData.append("notelp", DetailVehicle?.noTelp1);
-        formData.append("no_telp2", DetailVehicle?.noTelp2);
-        formData.append("tgl_masuk", DetailVehicle?.bpkbNumber);
-        formData.append("nik", DetailVehicle?.nik);
-        formData.append("email", DetailVehicle?.driverEmail);
-        formData.append("jenis_kepemilikan", DetailVehicle?.jenisKepemilikan);
+        formData.append("cover", DetailDriver?.naruhgambar);
+        formData.append("nama", DetailDriver?.driverName);
+        formData.append("divisi", DetailDriver?.kode_kendaraan);
+        formData.append("no_ktp", DetailDriver?.driverKtp);
+        formData.append("no_sim", DetailDriver?.numberSim);
+        formData.append("vehicle_type", DetailDriver?.vehicleType);
+        formData.append("jenis_sim", DetailDriver?.simType);
+        formData.append("alamat", DetailDriver?.driverAddress);
+        formData.append("tgl_lahir", DetailDriver?.dateBirth);
+        formData.append("tgl_sim", DetailDriver?.simDate);
+        formData.append("agama", DetailDriver?.driverReligion);
+        formData.append("notelp", DetailDriver?.noTelp1);
+        formData.append("no_telp2", DetailDriver?.noTelp2);
+        formData.append("tgl_masuk", DetailDriver?.bpkbNumber);
+        formData.append("nik", DetailDriver?.nik);
+        formData.append("email", DetailDriver?.driverEmail);
+        formData.append("jenis_kepemilikan", DetailDriver?.jenisKepemilikan);
         try {
             const response = await axios.post(`${BaseUrlRace}driver/create-driver`, formData, {
                 headers: {
@@ -95,8 +95,34 @@ const ListDriverZustand = create((set, get) => ({
             })
         }
     },
+    UploadFoto: async (id, DetailDriver) => {
+        let formData = new FormData();
+        formData.append("id", id);
+        formData.append("cover", DetailDriver?.naruhgambar);
+
+
+        try {
+            const response = await axios.post(`${BaseUrlRace}driver/upload-driver-photo`, formData, {
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                },
+            });
+            
+            console.log(response);
+            // notification.success({
+            //     message: "Sukses",
+            //     description: response?.data.status.message
+            // })
+            // console.log(`Data diterima dari API:`, response?.data.status.message);
+        } catch (error) {
+            console.error("Upload error:", error.response?.data || error);
+            // Add more error handling as needed
+        }
+        
+    },
     EditVehicle: async (DriverID, DetailDriver) => {
         const getList = get().FetchDriver
+        const UploadFoto = get().UploadFoto
         const body = {
             cover: DetailDriver?.driverIDName,
             nama: DetailDriver?.driverName,
@@ -118,6 +144,7 @@ const ListDriverZustand = create((set, get) => ({
             id: DriverID
         };
         try {
+            UploadFoto(DriverID,DetailDriver)
             const response = await axios.post(`${BaseUrlRace}driver/update-driver`, body, {
                 headers: {
                     "Content-Type": "application/json",

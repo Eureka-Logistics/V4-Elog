@@ -4,10 +4,12 @@ import { Col, Row } from 'react-bootstrap'
 import ListDriverZustand from '../../../../../zustand/Store/Race/fetch/List Driver/ListDriver';
 import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
+import { ListVehicleZustand } from '../../../../../zustand/Store/Race/fetch/List Vehicle/ListVehicle';
 
 function ModalKendaraan({ OpenModal, setOpenModal }) {
     console.log(`openmodal`, OpenModal);
     const { FetchDriver, DetailDriver, DriverID, BuatVehicle, EditVehicle } = ListDriverZustand()
+    const { filteroptionsjenisKepemilikanDanStatus } = ListVehicleZustand()
     console.log(`DetailDriver`, DetailDriver);
     function NamaModal() {
         if (DriverID != null) {
@@ -34,6 +36,22 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
             BuatVehicle(DetailDriver)
         }
     }
+
+    const handleFileChange = (info) => {
+        if (info.fileList.length > 0) {
+            const lastFile = info.fileList[info.fileList.length - 1].originFileObj;
+            ListDriverZustand.setState(prevState => ({
+                ...prevState,
+                DetailDriver: {
+                    ...prevState.DetailDriver,
+                    naruhgambar: lastFile
+                }
+            }));
+        } else {
+            // Clear the selection
+        }
+    };
+
     return (
         <div>
             <Modal
@@ -65,7 +83,11 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                         </div>
 
                         <div className='mt-5'>Upload Gambar</div>
-                        <Upload>
+                        <Upload
+                            onChange={handleFileChange}
+
+                            beforeUpload={() => false}
+                        >
                             <Button icon={<UploadOutlined />}>Upload</Button>
                         </Upload>
                         <div className='mt-3'>Tanggal Masuk</div>
@@ -81,7 +103,17 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                         <div className='mt-2'>Nama Driver</div>
                         <Input id="driverName" value={DetailDriver?.driverName} onChange={gantivalue} placeholder='Masukkan Nama Driver' />
                         <div className='mt-2'>Jenis Driver</div>
-                        <Select id="jenisKepemilikan" value={DetailDriver?.jenisKepemilikan} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Jenis Driver' />
+                        <Select id="jenisKepemilikan" value={DetailDriver?.jenisKepemilikan} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Jenis Driver' >
+
+                            <Select.Option value={""}>
+                                -
+                            </Select.Option>
+                            {filteroptionsjenisKepemilikanDanStatus && filteroptionsjenisKepemilikanDanStatus?.filterKepemilikan.map((item, index) => (
+                                <Select.Option value={item?.jenis}>
+                                    {item?.jenis}
+                                </Select.Option>
+                            ))}
+                        </Select>
                         <div className='mt-2'>Perusahaan</div>
                         <Select id="perusahaan" value={DetailDriver?.driverName} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Perusahaan' />
                         <div className='mt-2'>No KTP</div>
