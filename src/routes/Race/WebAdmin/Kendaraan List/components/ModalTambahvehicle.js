@@ -84,7 +84,6 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
           top: 20,
         }}
       >
-        <hr />
         <Row gutter={[16, 16]} style={{ backgroundColor: "" }}>
           <Col xs={24} sm={12} md={8} lg={8}>
             <div style={{
@@ -197,6 +196,8 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
               id="driverName"
               value={DetailVehicle?.driverName}
               placeholder="Masukkan Nama Driver"
+              showSearch
+              optionFilterProp="children"
               onChange={(e) => {
                 gantivalue({ target: { id: 'driverIDName', value: e } })
               }}

@@ -52,7 +52,7 @@ function HalamanDetailAlamatCustomer() {
 
     // Function obah alamat 
     const UbahCoordinate = async () => {
-        const ubah =await  getCoordinates(IsiInputan?.alamat)
+        const ubah = await getCoordinates(IsiInputan?.alamat)
     }
 
     useEffect(() => {
@@ -60,7 +60,7 @@ function HalamanDetailAlamatCustomer() {
         KecamatandanProvinsi()
     }, [IsiInputan.id_provinsi, IsiInputan?.id_kota])
 
-    
+
     function Inputan(e) {
         const { id, value } = e.target;
         console.log(id, value);
@@ -83,8 +83,8 @@ function HalamanDetailAlamatCustomer() {
                 "kecamatan": IsiInputan?.NamaKecamatan,
                 "kota": IsiInputan?.NamaKota,
                 "kode_wilayah": IsiInputan?.kode_wilayah,
-                "lat": -6.8764815,
-                "lon": 106.8889055
+                "lat": lattitudemap || IsiInputan?.lat,
+                "lon": longtitudemap || IsiInputan?.lon
             }
             const data = await axios.post(`${BaseUrlRace}sp/update-Sekolah`, bodynya, {
                 headers: {
@@ -100,7 +100,7 @@ function HalamanDetailAlamatCustomer() {
         } catch (error) {
             notification.error({
                 message: "Error",
-                description: error?.status?.message
+                description: error?.response?.data.status.message
             })
         }
         setLoadingEdit(false)
@@ -150,11 +150,14 @@ function HalamanDetailAlamatCustomer() {
                                             Provinsi
                                             <Select
                                                 id='id_provinsi'
+                                                showSearch
+                                                optionFilterProp='children'
                                                 onChange={(e, o) => {
                                                     console.log(e);
                                                     setIsiInputan(prevState => ({
                                                         ...prevState,
                                                         id_provinsi: e,
+                                                        provinsi:e,
                                                         id_kota: "",
                                                         id_kecamatan: "",
 
@@ -180,6 +183,7 @@ function HalamanDetailAlamatCustomer() {
                                                     setIsiInputan(prevState => ({
                                                         ...prevState,
                                                         id_kota: e,
+                                                        kota: e,
                                                         id_kecamatan: "",
                                                         NamaKota: o?.children
                                                     }));
@@ -204,6 +208,7 @@ function HalamanDetailAlamatCustomer() {
                                                     setIsiInputan(prevState => ({
                                                         ...prevState,
                                                         id_kecamatan: e,
+                                                        kecamatan:e,
                                                         NamaKecamatan: o?.children,
                                                     }));
                                                 }}
@@ -226,6 +231,7 @@ function HalamanDetailAlamatCustomer() {
                                                     console.log(e.target.value);
                                                     setIsiInputan(prevState => ({
                                                         ...prevState,
+                                                        kodeWilayah:e.target.value,
                                                         kode_wilayah: e.target.value,
                                                     }));
                                                 }}
@@ -241,13 +247,13 @@ function HalamanDetailAlamatCustomer() {
                                     <Col md={4} style={{ backgroundColor: "" }} className=''>
                                         <Form.Item>
                                             Latitude
-                                            <Input id='lat' disabled value={lattitudemap} />
+                                            <Input id='lat' disabled value={lattitudemap || IsiInputan?.lat} />
                                         </Form.Item>
                                     </Col>
                                     <Col md={4} style={{ backgroundColor: "", marginLeft: 20 }} className='mr-3'>
                                         <Form.Item>
                                             Longitude
-                                            <Input id='lon' disabled value={longtitudemap} />
+                                            <Input id='lon' disabled value={longtitudemap || IsiInputan?.lon} />
                                         </Form.Item>
                                     </Col>
                                 </Row>
@@ -255,7 +261,7 @@ function HalamanDetailAlamatCustomer() {
                             </Form>
                         </div>
                         <div className='d-flex justify-content-end' style={{}}>
-                            <Button disabled={LoadingEdit} onClick={EditSekolah} type='danger'>{LoadingEdit ? <>Loading</> : <>Edit</>}</Button>
+                            <Button size='large' disabled={LoadingEdit} onClick={EditSekolah} type='danger'>{LoadingEdit ? <>Loading</> : <>Edit</>}</Button>
                         </div>
                     </Card>
                 </div>
