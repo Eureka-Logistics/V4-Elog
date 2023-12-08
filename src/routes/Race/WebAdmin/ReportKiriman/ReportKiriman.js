@@ -21,7 +21,7 @@ import * as XLSX from "xlsx";
 import ListReportKirimanZustand from "../../../../zustand/Store/Race/fetch/Report Kiriman";
 
 function ReportKiriman() {
-  const { fetchData, StatusDriverAcc, data, updatePagination } = ListReportKirimanZustand()
+  const { fetchData, StatusDriverAcc, data, updatePagination, KeyPencarianApi } = ListReportKirimanZustand()
   const [modal1Open, setModal1Open] = useState(false);
   const [ModalMemoOpen, setModalMemoOpen] = useState(false);
   const [judulModal, setCurrentTitle] = useState("");
@@ -30,11 +30,11 @@ function ReportKiriman() {
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [exporting, setExporting] = useState(false);
-  
+
 
   useEffect(() => {
     fetchData();
-  }, [data.currentPage, data.limit]);
+  }, [data.currentPage, data.limit, KeyPencarianApi]);
 
 
   const columns = [
@@ -59,8 +59,8 @@ function ReportKiriman() {
       key: "destination",
       render: (text, record) =>
         <>
-          <Tag color="red">{record.destination}</Tag>
-          <Tag color="orange">{record.sekolahTujuan}</Tag>
+          <Tag color="">{record.destination}</Tag>
+          <Tag color="">{record.sekolahTujuan}</Tag>
         </>
     },
 
@@ -300,11 +300,12 @@ function ReportKiriman() {
     console.log(data.data.data);
   }
 
+  console.log(`KeyPencarianApi`, KeyPencarianApi);
   const exportToExcel = async (page = 1) => {
     try {
       setExporting(true);
       const response = await axios.get(
-        `${BaseUrlRace}sp/get-monitoring?page=${currentPage}&limit=${limit}`,
+        `${BaseUrlRace}sp/get-monitoring?page=${currentPage}&limit=${limit}&sekolahTujuan=${KeyPencarianApi}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -368,17 +369,18 @@ function ReportKiriman() {
           Monitoring Kiriman <i>Race</i>
         </h4>
         <hr />
-        <Row gutter={[16, 16]}>
+        <Row gutter={[16, 16]} style={{ display: "flex", justifyContent: "space-between" }}>
           <Col sm={12} md={4} xs={24} lg={4}>
             <div>
-              <label style={{ fontWeight: "bold" }}>BU</label>
-              <Select
-                placeholder="Pt Eureka Logistics (LOG)"
+              <label style={{ fontWeight: "bold" }}>Sekolah Tujuan</label>
+              <Input
+                placeholder="Cari Sekolah Tujuan"
                 style={{ width: "100%" }}
-              ></Select>
+                onChange={(e) => { ListReportKirimanZustand.setState({ KeyPencarianApi: e.target.value }) }}
+              ></Input>
             </div>
           </Col>
-          <Col sm={12} md={4} xs={24} lg={4}>
+          {/* <Col sm={12} md={4} xs={24} lg={4}>
             <div>
               <label style={{ fontWeight: "bold" }}>Cabang</label>
               <Select
@@ -417,20 +419,7 @@ function ReportKiriman() {
               <DatePicker style={{ width: "100%" }}></DatePicker>
             </div>
           </Col>
-        </Row>
-        <Row gutter={[16, 16]}>
-          <Col sm={12} md={4} xs={24} lg={4} className="mt-2">
-            <div>
-              <label style={{ fontWeight: "bold" }}>Sukses Pengiriman</label>
-              <Select
-                placeholder="Semua Sukses"
-                style={{ width: "100%" }}
-              ></Select>
-            </div>
-          </Col>
-        </Row>
-        <Row gutter={[16, 16]} className="mt-2">
-          <Col span={12} className="d-flex justify-content-end"></Col>
+          */}
           <Col
             sm={12}
             md={12}
@@ -439,6 +428,7 @@ function ReportKiriman() {
             className="d-flex justify-content-end"
           >
             <Button
+              className="mt-3 "
               style={{
                 backgroundColor: "green",
                 color: "white",
@@ -460,13 +450,21 @@ function ReportKiriman() {
             >
               <FileExcelOutlined />
             </Button> */}
-            <Input
-              placeholder="Cari Report"
-              className="mb-3"
-              style={{ width: "50%" }}
-            />
+
           </Col>
         </Row>
+        {/* <Row gutter={[16, 16]}>
+          <Col sm={12} md={4} xs={24} lg={4} className="mt-2">
+            <div>
+              <label style={{ fontWeight: "bold" }}>Sukses Pengiriman</label>
+              <Select
+                placeholder="Semua Sukses"
+                style={{ width: "100%" }}
+              ></Select>
+            </div>
+          </Col>
+        </Row>  */}
+
         <Table className="d-flex"
           style={{ overflowX: "auto" }}
           dataSource={data?.GetData}
@@ -480,11 +478,11 @@ function ReportKiriman() {
               updatePagination(page, pageSize);
             }
           }}
-        onChange={(pagination) => {
-          console.log(pagination);
-          ListReportKirimanZustand.setState({ currentPage: pagination.current });
-          setLimit(pagination.pageSize);
-        }}
+          onChange={(pagination) => {
+            console.log(pagination);
+            ListReportKirimanZustand.setState({ currentPage: pagination.current });
+            setLimit(pagination.pageSize);
+          }}
         />
 
       </Card>
