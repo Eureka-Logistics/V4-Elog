@@ -22,6 +22,7 @@ const ListReportKirimanZustand = create((set, get) => ({
         limit: 10,
     },
     KeyPencarianApi: "",
+    tanggal:"",
     updatePagination: (newPage, newLimit) => {
         set(state => ({
             data: {
@@ -35,9 +36,10 @@ const ListReportKirimanZustand = create((set, get) => ({
     fetchData: async () => {
         const { currentPage, limit } = get().data;
         const KeyPencarianApi = get().KeyPencarianApi
+        const tanggal = get().tanggal
         try {
             const respons = await axios.get(
-                `${BaseUrlRace}sp/get-monitoring?page=${currentPage}&limit=${limit}&sekolahTujuan=${KeyPencarianApi}`,
+                `${BaseUrlRace}sp/get-monitoring?page=${currentPage}&limit=${limit}&sekolahTujuan=${KeyPencarianApi}&tgl=${tanggal}`,
                 {
                     headers: {
                         "Content-Type": "application/json",

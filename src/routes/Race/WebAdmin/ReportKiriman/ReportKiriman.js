@@ -21,7 +21,7 @@ import * as XLSX from "xlsx";
 import ListReportKirimanZustand from "../../../../zustand/Store/Race/fetch/Report Kiriman";
 
 function ReportKiriman() {
-  const { fetchData, StatusDriverAcc, data, updatePagination, KeyPencarianApi } = ListReportKirimanZustand()
+  const { fetchData, StatusDriverAcc, data, updatePagination, KeyPencarianApi ,tanggal} = ListReportKirimanZustand()
   const [modal1Open, setModal1Open] = useState(false);
   const [ModalMemoOpen, setModalMemoOpen] = useState(false);
   const [judulModal, setCurrentTitle] = useState("");
@@ -34,7 +34,7 @@ function ReportKiriman() {
 
   useEffect(() => {
     fetchData();
-  }, [data.currentPage, data.limit, KeyPencarianApi]);
+  }, [data.currentPage, data.limit, KeyPencarianApi,tanggal]);
 
 
   const columns = [
@@ -370,15 +370,21 @@ function ReportKiriman() {
         </h4>
         <hr />
         <Row gutter={[16, 16]} style={{ display: "flex", justifyContent: "space-between" }}>
-          <Col sm={12} md={4} xs={24} lg={4}>
-            <div>
-              <label style={{ fontWeight: "bold" }}>Sekolah Tujuan</label>
-              <Input
-                placeholder="Cari Sekolah Tujuan"
-                style={{ width: "100%" }}
-                onChange={(e) => { ListReportKirimanZustand.setState({ KeyPencarianApi: e.target.value }) }}
-              ></Input>
-            </div>
+          <Col >
+            <label style={{ fontWeight: "bold" }}>Sekolah Tujuan</label>
+            <Input
+              placeholder="Cari Sekolah Tujuan"
+              style={{ width: "100%" }}
+              onChange={(e) => { ListReportKirimanZustand.setState({ KeyPencarianApi: e.target.value }) }}
+            ></Input>
+          </Col>
+          <Col>
+            <label style={{ fontWeight: "bold" }}>Filter Tanggal</label>
+            <DatePicker
+              placeholder="Cari Tanggal"
+              style={{ width: "100%" }}
+              onChange={(e, dateString) => { console.log(e, dateString); ListReportKirimanZustand.setState({ tanggal: dateString }) }}
+            ></DatePicker>
           </Col>
           {/* <Col sm={12} md={4} xs={24} lg={4}>
             <div>
@@ -487,7 +493,7 @@ function ReportKiriman() {
 
       </Card>
 
-    </div>
+    </div >
   );
 }
 

@@ -1124,7 +1124,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                             marginLeft: "8px",
                           }}
                         >
-                          <IntlMessages id="Report Kiriman" />
+                          <IntlMessages id="Monitoring Kiriman" />
                         </span>
                       </div>
                     </Link>
