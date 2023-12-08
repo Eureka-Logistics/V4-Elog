@@ -77,13 +77,15 @@ const ListDriverZustand = create((set, get) => ({
         }
     },
     BuatVehicle: async (DetailDriver) => {
+        const getList = get().FetchDriver
+        const DetailDriverKosongin = get().DetailDriver /// buat hapus function
         let formData = new FormData();
         formData.append("cover", DetailDriver?.naruhgambar);
         formData.append("nama", DetailDriver?.driverName);
         formData.append("divisi", DetailDriver?.kode_kendaraan);
         formData.append("no_ktp", DetailDriver?.driverKtp);
         formData.append("no_sim", DetailDriver?.numberSim);
-        formData.append("vehicle_type", DetailDriver?.vehicleType);
+        formData.append("vehicle_type", DetailDriver?.vehicle);
         formData.append("jenis_sim", DetailDriver?.simType);
         formData.append("alamat", DetailDriver?.driverAddress);
         formData.append("tgl_lahir", DetailDriver?.dateBirth);
@@ -91,9 +93,9 @@ const ListDriverZustand = create((set, get) => ({
         formData.append("agama", DetailDriver?.driverReligion);
         formData.append("notelp", DetailDriver?.noTelp1);
         formData.append("no_telp2", DetailDriver?.noTelp2);
-        formData.append("tgl_masuk", DetailDriver?.bpkbNumber);
+        formData.append("tgl_masuk", DetailDriver?.dateIn);
         formData.append("nik", DetailDriver?.nik);
-        formData.append("id_mitra", DetailDriver?.perusahaan);
+        formData.append("id_mitra", DetailDriver?.id_mitra);
         formData.append("email", DetailDriver?.driverEmail);
         formData.append("jenis_kepemilikan", DetailDriver?.jenisKepemilikan);
         try {
@@ -107,6 +109,7 @@ const ListDriverZustand = create((set, get) => ({
                 message: "Sukses",
                 description: response?.data.status.message
             })
+            DetailDriverKosongin(null)
             console.log(`Data diterima dari API:`, response?.data.status.message);
         } catch (error) {
             notification.error({
@@ -114,6 +117,7 @@ const ListDriverZustand = create((set, get) => ({
                 description: error.response.data.status.message
             })
         }
+        getList()
     },
     UploadFoto: async (id, DetailDriver) => {
         let formData = new FormData();

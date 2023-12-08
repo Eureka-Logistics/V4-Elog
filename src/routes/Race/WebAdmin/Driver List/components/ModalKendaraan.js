@@ -92,11 +92,17 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                             <Button icon={<UploadOutlined />}>Upload</Button>
                         </Upload>
                         <div className='mt-3'>Tanggal Masuk</div>
-                        <DatePicker format={"YYYY-MM-DD"} value={DetailDriver?.dateIn ? moment(DetailDriver?.dateIn, "YYYY-MM-DD") : null} />
+                        <DatePicker id='dateIn' format={"YYYY-MM-DD"} value={DetailDriver?.dateIn ? moment(DetailDriver?.dateIn, "YYYY-MM-DD") : null}
+                            onChange={(date, dateString) => { console.log(dateString); gantivalue({ target: { id: 'dateIn', value: dateString } }) }}
+                        />
                         <div className='mt-3'>Tanggal SIM</div>
-                        <DatePicker id='simDate' format={"YYYY-MM-DD"} value={DetailDriver?.simDate ? moment(DetailDriver?.simDate, "YYYY-MM-DD") : null} />
+                        <DatePicker id='simDate' format={"YYYY-MM-DD"} value={DetailDriver?.simDate ? moment(DetailDriver?.simDate, "YYYY-MM-DD") : null}
+                            onChange={(date, dateString) => { console.log(dateString); gantivalue({ target: { id: 'simDate', value: dateString } }) }}
+                        />
                         <div className='mt-3'>Tanggal Lahir</div>
-                        <DatePicker id="dateBirth" format={"YYYY-MM-DD"} value={DetailDriver?.dateBirth ? moment(DetailDriver?.dateBirth, "YYYY-MM-DD") : null} />
+                        <DatePicker id="dateBirth" format={"YYYY-MM-DD"} value={DetailDriver?.dateBirth ? moment(DetailDriver?.dateBirth, "YYYY-MM-DD") : null}
+                            onChange={(date, dateString) => { console.log(dateString); gantivalue({ target: { id: 'dateBirth', value: dateString } }) }}
+                        />
                     </Col>
                     <Col>
                         <div>Nik</div>
@@ -118,6 +124,8 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                         <div className='mt-2'>Perusahaan</div>
                         <Select id="mitra" showSearch optionFilterProp='children' value={DetailDriver?.mitra} onChange={(e, option) => {
                             // Update 'mitra'
+                            console.log(option);
+                            gantivalue({ target: { id: 'id_mitra', value: option.Option.id } });
                             gantivalue({ target: { id: 'mitra', value: e } });
 
                             // Update 'id_mitra' in Zustand store
@@ -132,7 +140,7 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                             style={{ width: "100%" }} placeholder='Pilih Perusahaan'
                         >
                             {selectGetSelect && selectGetSelect.mitra.map((item, option, index) => (
-                                <Select.Option value={item.mitra} Option={item}>
+                                <Select.Option value={item.mitra} key={item.mitra} Option={item}>
                                     {item.mitra}
                                 </Select.Option>
                             ))}
@@ -149,10 +157,11 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                         </Select>
                         <div className='mt-2'>Agama</div>
                         <Input id="driverReligion" value={DetailDriver?.driverReligion} onChange={gantivalue} placeholder='Masukkan Agama' />
-                        <div className='mt-2'>Alamat Driver</div>
-                        <Input id="driverAddress" value={DetailDriver?.driverAddress} onChange={gantivalue} placeholder='Masukkan Alamat Driver' />
+                        
                     </Col>
                     <Col>
+                    <div className='mt-2'>Alamat Driver</div>
+                        <Input id="driverAddress" value={DetailDriver?.driverAddress} onChange={gantivalue} placeholder='Masukkan Alamat Driver' />
                         <div>No Telp 1 </div>
                         <Input id="noTelp1" value={DetailDriver?.noTelp1} onChange={gantivalue} placeholder='Masukkan No Telp 1' />
                         <div className='mt-2'>No Telp 2</div>
@@ -160,7 +169,7 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                         <div className='mt-2'>Email</div>
                         <Input id="driverEmail" value={DetailDriver?.driverEmail} onChange={gantivalue} placeholder='Masukkan Email' />
                         <div className='mt-2'>Tipe Kendaraan</div>
-                        <Select id="vehicle" value={DetailDriver?.vehicle} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Tipe Kendaraan'
+                        <Select id="vehicle" value={DetailDriver?.vehicle} onChange={(e) => gantivalue({ target: { id: 'vehicle', value: e } })} style={{ width: "100%" }} placeholder='Pilih Tipe Kendaraan'
                             showSearch
                             optionFilterProp='children'
                         >
@@ -171,9 +180,9 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                             ))}
                         </Select>
                         <div className='mt-2'>Ukuran Seragam</div>
-                        <Select id="ukuranSeragam" value={DetailDriver?.ukuranSeragam} onChange={gantivalue} style={{ width: "100%" }} placeholder='Pilih Ukuran Seragam' >
+                        <Select id="ukuranSeragam" value={DetailDriver?.ukuranSeragam} onChange={(e) => gantivalue({ target: { id: 'ukuranSeragam', value: e } })} style={{ width: "100%" }} placeholder='Pilih Ukuran Seragam' >
                             {OptionsGetSelect && OptionsGetSelect?.ukuranSeragam.map((item, index) => (
-                                <Select.Option>
+                                <Select.Option value={item?.ukuran}>
                                     {item?.ukuran}
                                 </Select.Option>
                             ))}
@@ -182,8 +191,8 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                         <Input id="BankRekening" value={DetailDriver?.BankRekening} onChange={gantivalue} placeholder='Masukkan Nama Bank' />
                         <div className='mt-2'>Nomor Rekening</div>
                         <Input id="Norek" value={DetailDriver?.Norek} onChange={gantivalue} placeholder='Masukkan Nomor Rekening' />
-                        <div className='mt-2'>Total Penjualan</div>
-                        <Input id="totalPenjualan" value={DetailDriver?.totalPenjualan} onChange={gantivalue} placeholder='Masukkan Total Penjualan' />
+                        {/* <div className='mt-2'>Total Penjualan</div>
+                        <Input id="totalPenjualan" value={DetailDriver?.totalPenjualan} onChange={gantivalue} placeholder='Masukkan Total Penjualan' /> */}
                     </Col>
 
                 </Row>
