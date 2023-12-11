@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker, TrafficLayer } from '@react-google-maps/api';
 import { Form, Row } from 'react-bootstrap';
 import ApiGoogleMap from '../../../../../Api/ApigoogleMap';
 import { JadikanNamaJalan } from '../../../../../Api/Geocode';
@@ -10,6 +10,7 @@ import useCoordinateRaceMap from '../../../../../zustand/Store/coordinateMapRace
 
 function ComponentGerakinPosisiMaps({ width, height }) {
     const { setState, lattitudemap, longtitudemap } = useCoordinateRaceMap();
+    const [showTraffic, setShowTraffic] = useState(true); 
     const defaultCenter = {
         lat: lattitudemap || -6.2139383,
         lng: longtitudemap || 106.6910322
@@ -62,26 +63,68 @@ function ComponentGerakinPosisiMaps({ width, height }) {
             autocomplete.addListener('place_changed', handlePlaceSelect);
         }
     }, [scriptLoaded, autocompleteInput]);
+    const [ctrlPressed, setCtrlPressed] = useState(false);
+    const mapRef = useRef(null);
+
+    const enableMapInteraction = () => {
+        if (mapRef.current) {
+            mapRef.current.setOptions({ gestureHandling: 'auto' });
+        }
+    };
+
+    const disableMapInteraction = () => {
+        if (mapRef.current) {
+            mapRef.current.setOptions({ gestureHandling: 'none' });
+        }
+    };
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Control' && !ctrlPressed) {
+                setCtrlPressed(true);
+                enableMapInteraction();
+            }
+        };
+
+        const handleKeyUp = (e) => {
+            if (e.key === 'Control') {
+                setCtrlPressed(false);
+                disableMapInteraction();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keyup', handleKeyUp);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('keyup', handleKeyUp);
+        };
+    }, [ctrlPressed]);
+
     return (
         <div>
             <Row>
-                <Form.Control ref={autocompleteInput} type="text" placeholder="Cari Alamat" style={{width : mapContainerStyle.width}} className='mb-3' />
+                <Form.Control ref={autocompleteInput} type="text" placeholder="Cari Alamat" style={{ width: mapContainerStyle.width }} className='mb-3' />
                 <LoadScript
                     googleMapsApiKey={ApiGoogleMap}
                     libraries={['places']}
                     onLoad={() => setScriptLoaded(true)}
                 >
                     <GoogleMap
+                        ref={mapRef}
                         key={mapKey}
                         mapContainerStyle={mapContainerStyle}
                         zoom={12}
                         center={position}
+                        options={{ gestureHandling: 'none' }}
                     >
                         <Marker
                             position={position}
                             draggable={true}
                             onDragEnd={onMarkerDragEnd}
                         />
+                        {showTraffic && <TrafficLayer autoUpdate />}
                     </GoogleMap>
                 </LoadScript>
             </Row>

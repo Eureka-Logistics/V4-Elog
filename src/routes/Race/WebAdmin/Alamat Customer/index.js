@@ -6,10 +6,12 @@ import axios from 'axios';
 import { Col } from 'react-bootstrap';
 import ModalCreateAlamatSekolah from './CreateAlamatSekolah';
 import useCoordinateRaceMap from '../../../../zustand/Store/coordinateMapRace/RaceMaps';
+import HistoryAlamatCustomer from './History Alamat Customer';
 
 function AlamatCustomer() {
     const { setState, lattitudemap, longtitudemap } = useCoordinateRaceMap();
     const navigasi = useHistory()
+    const [bukamodal, setbukamodal] = useState(false)
     const [dataApi, setdataApi] = useState("")
     const column = [
         {
@@ -48,7 +50,7 @@ function AlamatCustomer() {
                     Authorization: localStorage.getItem("token"),
                 },
             });
-            console.log(`dataa`,data.data.data);
+            console.log(`dataa`, data.data.data);
             setdataApi(data?.data?.data);
         } catch (error) { }
     };
@@ -66,15 +68,20 @@ function AlamatCustomer() {
                 `}
             </style>
             <div style={{ fontSize: 20, fontWeight: "bold" }} className='mb-1'>Detail Alamat Customer</div>
-            <div className='d-flex mb-2 mt-2 ' style={{ justifyContent: "space-between" }}>
-                <Col md={2}>
-                    <Input
-                        onChange={(e) => ListSekolah(e.target.value)}
-                        placeholder='Cari Sekolah' />
-                </Col>
-                <Col md={2}>
-                    <Button onClick={(e) => setmodal1Open(true)} type='primary'>Alamat Sekolah Baru</Button>
-                </Col>
+            <div>
+                <Row className=' mb-2 mt-2 d-flex' style={{ justifyContent: "space-between" }} >
+                    <Col md={4}>
+                        <Input
+                            onChange={(e) => ListSekolah(e.target.value)}
+                            placeholder='Cari Sekolah' />
+                    </Col>
+                    <Col md={2}>
+                        <Button onClick={(e) => setbukamodal(true)} type='danger'>History Edit Alamat Sekolah</Button>
+                    </Col>
+                    <Col md={2}>
+                        <Button onClick={(e) => setmodal1Open(true)} type='primary'>Alamat Sekolah Baru</Button>
+                    </Col>
+                </Row>
             </div>
             <Table
                 // pagination={{ total: 200 }}
@@ -89,13 +96,14 @@ function AlamatCustomer() {
                     return {
                         onClick: event => {
                             console.log(row);
-                            useCoordinateRaceMap.setState({lattitudemap : row?.lat , longtitudemap: row?.long})
+                            useCoordinateRaceMap.setState({ lattitudemap: row?.lat, longtitudemap: row?.long })
                             navigasi.push(`/race/alamatcustomerdetail/${row.id}`)
                         }
                     }
                 }}
             />
             <ModalCreateAlamatSekolah ListSekolah={ListSekolah} setmodal1Open={setmodal1Open} modal1Open={modal1Open} />
+            <HistoryAlamatCustomer bukamodal={bukamodal} setbukamodal={setbukamodal} />
         </div>
     );
 

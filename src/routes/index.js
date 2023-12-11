@@ -823,6 +823,13 @@ const App = ({ match }) => {
           )}
         />
         <Route
+          path={`${match.url}race/historyalamatcustomer`}
+          component={asyncComponent(() =>
+            import("./Race/WebAdmin/Alamat Customer/History Alamat Customer/")
+            
+          )}
+        />
+        <Route
           path={`${match.url}race/alamatcustomerdetail/:id`}
           component={asyncComponent(() =>
             import("./Race/WebAdmin/Alamat Customer/halamandetail/index")

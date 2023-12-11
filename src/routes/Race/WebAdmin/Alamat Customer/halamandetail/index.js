@@ -7,9 +7,13 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import useCoordinateRaceMap from '../../../../../zustand/Store/coordinateMapRace/RaceMaps';
 import { getCoordinates } from '../../../../../Api/Geocode';
+import ModalState from '../../../../../zustand/Store/Race/StateModal/Modal';
+import ModalEditAlamat from './components/ModalEditAlamat';
+import TableHistory from './components/TableHistory';
 
 function HalamanDetailAlamatCustomer() {
     const id = useParams()
+    const [EditAlamat, setEditAlamat] = useState(false)
     const [IsiInputan, setIsiInputan] = useState({
         NamaSekolah: "",
         AlamatManual: "",
@@ -20,6 +24,7 @@ function HalamanDetailAlamatCustomer() {
         kode_wilayah: ""
     })
 
+    console.log(`EditAlamat`, EditAlamat);
     const DetailListSekolah = async () => {
         try {
             const data = await axios.get(`${BaseUrlRace}sp/get-Sekolah-detail?id=${id.id}`, {
@@ -70,7 +75,7 @@ function HalamanDetailAlamatCustomer() {
         }));
     }
     const [LoadingEdit, setLoadingEdit] = useState(false)
-    const EditSekolah = async () => {
+    const EditSekolah = async (isiPesan) => {
         setLoadingEdit(true)
         try {
             const bodynya = {
@@ -84,6 +89,7 @@ function HalamanDetailAlamatCustomer() {
                 "kota": IsiInputan?.NamaKota,
                 "kode_wilayah": IsiInputan?.kode_wilayah,
                 "lat": lattitudemap || IsiInputan?.lat,
+                "history_pengiriman": isiPesan,
                 "lon": longtitudemap || IsiInputan?.lon
             }
             const data = await axios.post(`${BaseUrlRace}sp/update-Sekolah`, bodynya, {
@@ -109,11 +115,9 @@ function HalamanDetailAlamatCustomer() {
     return (
         <div>
             <Row>
-                <div className='d-flex justify-content-center mb-1' style={{ fontSize: 18, fontWeight: "bold" }}>
-                    Geser Titik Untuk Merubah Alamat Mapsnya
-                </div>
+
                 <div className='d-flex justify-content-center' style={{ width: '100%', backgroundColor: "" }}>
-                    <Card style={{ width: '100%' }} title={"Detail Alamat"}>
+                    <Card style={{ width: '100%' }} title={"Detail Alamat ||   Geser Titik Untuk Merubah Alamat Mapsnya"}>
                         <Row>
                             <Col>
                                 <ComponentGerakinPosisiMaps
@@ -253,13 +257,13 @@ function HalamanDetailAlamatCustomer() {
                                             </Col>
                                         </Row>
                                         <Row style={{ backgroundColor: "", width: "100%" }}>
-                                            <Col  style={{ backgroundColor: "" }} className=''>
+                                            <Col style={{ backgroundColor: "" }} className=''>
                                                 <Form.Item>
                                                     Latitude
                                                     <Input id='lat' disabled value={lattitudemap || IsiInputan?.lat} />
                                                 </Form.Item>
                                             </Col>
-                                            <Col  style={{ backgroundColor: "", marginLeft: 20 }} className='mr-3'>
+                                            <Col style={{ backgroundColor: "", marginLeft: 20 }} className='mr-3'>
                                                 <Form.Item>
                                                     Longitude
                                                     <Input id='lon' disabled value={longtitudemap || IsiInputan?.lon} />
@@ -269,16 +273,21 @@ function HalamanDetailAlamatCustomer() {
 
                                     </Form>
                                 </div>
+                                <div className='d-flex justify-content-end mt-5 ' style={{}}>
+                                    <Button size='large' disabled={LoadingEdit} onClick={() => setEditAlamat(true)
+                                    } type='danger'>{LoadingEdit ? <>Loading</> : <>Save Edit</>}</Button>
+                                </div>
                             </Col>
                         </Row>
 
 
-                        <div className='d-flex justify-content-end' style={{}}>
-                            <Button size='large' disabled={LoadingEdit} onClick={EditSekolah} type='danger'>{LoadingEdit ? <>Loading</> : <>Save Edit</>}</Button>
-                        </div>
+                        {IsiInputan?.history?.length > 0 && (
+                            <TableHistory IsiInputan={IsiInputan} />
+                        )}
                     </Card>
                 </div>
             </Row>
+            <ModalEditAlamat EditSekolah={EditSekolah} EditAlamat={EditAlamat} setEditAlamat={setEditAlamat} />
         </div>
     );
 }

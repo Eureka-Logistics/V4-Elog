@@ -42,12 +42,12 @@ function KendaraanList() {
             key: 'jenisKepemilikan',
         },
         {
-            title: 'Kendaraan',
+            title: 'Driver',
             dataIndex: 'vehicle',
             key: 'vehicle',
         },
         {
-            title: 'Gambar Kendaraan',
+            title: 'Gambar Driver',
             dataIndex: 'driverImage',
             key: 'driverImage',
             render: (driverImage) => {

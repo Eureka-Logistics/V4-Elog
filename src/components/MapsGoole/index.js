@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleMap, Marker, useJsApiLoader, DirectionsRenderer } from '@react-google-maps/api';
+import { GoogleMap, Marker, useJsApiLoader, DirectionsRenderer, TrafficLayer } from '@react-google-maps/api';
 import ApiGoogleMap from '../../Api/ApigoogleMap';
 import useCoordinateRaceMap from '../../zustand/Store/coordinateMapRace/RaceMaps';
 import { getDatabase } from 'firebase/database';
@@ -14,7 +14,7 @@ function MapsGoogle({ width, height, posisiDriver }) {
         width: width,
         height: height,
     };
-
+    const [showTraffic, setShowTraffic] = useState(true);
     const center = {
         lat: Coordinate?.AlamatMuat?.lat || -3.745,
         lng: Coordinate?.AlamatMuat?.lng || -38.523,
@@ -44,7 +44,7 @@ function MapsGoogle({ width, height, posisiDriver }) {
 
         const google = window.google;
         const directionService = new google.maps.DirectionsService();
-        // console.log(`ini ada`);
+    
         try {
             const hasil = await directionService.route({
                 origin: {
@@ -56,6 +56,10 @@ function MapsGoogle({ width, height, posisiDriver }) {
                     lng: Coordinate?.Bongkar?.lng || 106.8049824,
                 },
                 travelMode: google.maps.TravelMode.DRIVING,
+                drivingOptions: {
+                    departureTime: new Date(), // Mengatur waktu keberangkatan saat ini
+                    trafficModel: 'bestguess' // Memperkirakan kondisi lalu lintas
+                }
             });
             setDirectionJalanan(hasil);
             const jarakDanWaktu = {
@@ -95,7 +99,9 @@ function MapsGoogle({ width, height, posisiDriver }) {
                 origin: new window.google.maps.Point(0, 0),
                 anchor: new window.google.maps.Point(25, 25)
             }}  position={{ lat: posisiDriver?.latitude, lng: posisiDriver?.longitude }} />
+             {showTraffic && <TrafficLayer autoUpdate />}
         </GoogleMap>
+
     ) : (
         <></>
     );

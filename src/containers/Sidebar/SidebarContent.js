@@ -2561,8 +2561,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       <Link to="/race/alamatcustomer" style={{ textDecoration: "none" }}>
                         {/* <i className="icon icon-widgets" />
                          */}
-
-                        <img
+                         <img
                           src={historyrace}
                           style={{
                             fontSize: "30px",
@@ -2579,6 +2578,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </Link>
                     </Menu.Item>
                   </div>
+                
                   <div >
                     <Menu.Item
                       className={
