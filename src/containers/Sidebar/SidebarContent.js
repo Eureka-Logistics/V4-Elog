@@ -960,6 +960,57 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       style={{ color: "#0c2197", textDecoration: "underline" }}
                       className="mt-3 mb-3 mx-4"
                     >
+                      Menu SJ
+                    </h6>
+                  </div>
+                  <Menu.Item
+                    key="SJ List"
+                    className={
+                      activeMenu === "/masterdata/sjlist"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
+                    <Link
+                      to="/masterdata/sjlist"
+                      style={{ textDecoration: "none" }}
+                    >
+                      {/* <i className="icon icon-widgets" />
+                       */}
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <FolderOpenOutlined
+                          style={{
+                            fontSize: "30px",
+                            color: "black",
+                            marginBottom: "8px",
+                            marginTop: "10px",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            marginLeft: "8px",
+                          }}
+                        >
+                          <IntlMessages id="SJ List" />
+                        </span>
+                      </div>
+                    </Link>
+                  </Menu.Item>
+                  <div
+                    className="d-flex justify-content-start"
+                    style={{
+                      height: "20%",
+                      marginRight: "20px",
+                      marginLeft: "20px",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <h6
+                      style={{ color: "#0c2197", textDecoration: "underline" }}
+                      className="mt-3 mb-3 mx-4"
+                    >
                       Vehicle
                     </h6>
                   </div>
