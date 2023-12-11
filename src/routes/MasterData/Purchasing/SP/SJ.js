@@ -343,6 +343,7 @@ function SJ() {
         {/* <h3>SJ List</h3> */}
         <Row>
           <h5>SJ List</h5>
+          <hr/>
           <Col sm={2}>
             <Form.Group>
               <Form.Label><strong>BU</strong></Form.Label>
