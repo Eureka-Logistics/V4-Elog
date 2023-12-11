@@ -10,7 +10,7 @@ import OptionsCabangState from '../../../zustand/Store/Race/optionsCabangRace';
 function Erlangga() {
     const { RangePicker } = DatePicker;
     const [modal1Open, setModal1Open] = useState(false);
-    const NamaCabang = localStorage.getItem("")
+    const NamaCabang = localStorage.getItem("cabang")
     const [Loading, setLoading] = useState(false)
     let namaCabang = ""
     if (NamaCabang == "RCCGK") {
@@ -28,7 +28,7 @@ function Erlangga() {
     const defaultEndDate = moment().add(3, 'days');
     const barrer = localStorage.getItem("token")
     const [Keyword, setKeyword] = useState("")
-    const [IDCabang, setIDCabang] = useState("")
+    const [IDCabang, setIDCabang] = useState(namaCabang)
     const datenya = (date, datanggal) => {
         if (!datanggal || datanggal.length !== 2) {
             return; // Handle the error or invalid state
@@ -44,7 +44,7 @@ function Erlangga() {
             }))
         }
     }
-    const [PilihCabang, setPilihCabang] = useState("")
+    const [PilihCabang, setPilihCabang] = useState(NamaCabang)
     const GetDataTanggal = async (e) => {
         setLoading(true);
 
@@ -148,14 +148,12 @@ function Erlangga() {
             }
         },
         {
-            title: 'Pic Nik',
-            dataIndex: 'pic_nik',
-            key: 'pic_nik',
-        },
-        {
             title: 'Pic Divisi',
             dataIndex: 'pic_divisi',
             key: 'pic_divisi',
+            render : (text,record)=>{
+                return <div>{record.pic_nik} - {record.pic_divisi}</div>
+            }
         },
         {
             title: 'Referensi',
@@ -167,17 +165,17 @@ function Erlangga() {
             dataIndex: 'referensi_1',
             key: 'referensi_1',
         },
-        {
-            title: 'cabangid',
-            dataIndex: 'cabangid',
-            key: 'cabangid',
-        },
+        // {
+        //     title: 'cabangid',
+        //     dataIndex: 'cabangid',
+        //     key: 'cabangid',
+        // },
 
-        {
-            title: 'Kode Penerima',
-            dataIndex: 'kode_penerima',
-            key: 'kode_penerima',
-        },
+        // {
+        //     title: 'Kode Penerima',
+        //     dataIndex: 'kode_penerima',
+        //     key: 'kode_penerima',
+        // },
 
         {
             title: 'Kota',
@@ -194,26 +192,35 @@ function Erlangga() {
             dataIndex: 'penerima',
             key: 'penerima',
         },
+        // {
+        //     title: 'Ikat',
+        //     dataIndex: 'ikat',
+        //     key: 'ikat',
+        //     render: ikat => Number(ikat).toFixed(0) == NaN ? ikat.toString().split('.')[0] : Number(ikat).toFixed(0)
+        // },
+        // {
+        //     title: 'Koli',
+        //     dataIndex: 'koli',
+        //     key: 'koli',
+        // },
+        // {
+        //     title: 'Qty',
+        //     dataIndex: 'qty',
+        //     key: 'qty',
+        // },
+        // {
+        //     title: 'Berat',
+        //     dataIndex: 'berat',
+        //     key: 'berat',
+        // },
         {
-            title: 'Ikat',
-            dataIndex: 'ikat',
-            key: 'ikat',
-            render: ikat => Number(ikat).toFixed(0) == NaN ? ikat.toString().split('.')[0] : Number(ikat).toFixed(0)
-        },
-        {
-            title: 'Koli',
-            dataIndex: 'koli',
-            key: 'koli',
-        },
-        {
-            title: 'Qty',
-            dataIndex: 'qty',
-            key: 'qty',
-        },
-        {
-            title: 'Berat',
-            dataIndex: 'berat',
-            key: 'berat',
+            title: 'I/K/Q/B',
+            dataIndex: 'berat', // Ensure this should be 'berat', it might be a different field
+            key: 'ikqb',
+            render: (text, record) => {
+                const ikatFormatted = !isNaN(record.ikat) ? Number(record.ikat).toFixed(0) : record.ikat.toString().split('.')[0];
+                return <div>{ikatFormatted}/{record.koli}/{record.qty}/{record.berat}</div>;
+            }
         },
     ]
     const [optincabang, setoptincabang] = useState("")
@@ -241,11 +248,11 @@ function Erlangga() {
                 <Row >
                     <Col style={{ backgroundColor: "" }} >
                         <Select
-                            placeholder={"-"}
+                            placeholder={namaCabang}
                             style={{ width: "100%", marginRight: 20 }}
                             onChange={(e, i) => { setIDCabang(i?.children?.[0]); setPilihCabang(e); console.log(e); }}
                         >
-                            <Select.Option value={""}> - </Select.Option>
+                            {/* <Select.Option value={""}> - </Select.Option> */}
                             {optincabang && optincabang.map((i, index) => (
                                 <Select.Option children={i} value={i?.whid}>{i?.cabangId} - {i?.description}</Select.Option>
                             ))}

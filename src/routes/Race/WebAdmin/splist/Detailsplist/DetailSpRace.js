@@ -3,55 +3,60 @@ import React, { useEffect } from "react";
 import {
   useParams,
   useLocation,
+  useHistory,
 } from "react-router-dom/cjs/react-router-dom.min";
 import { BaseUrlRace } from "../../../../../Api/BaseUrl";
-import { Card, Input, Tag,  Col, Row } from "antd";
+import { Card, Input, Tag, Col, Row } from "antd";
 import { Table } from "react-bootstrap";
 import { SpDetailRaceZustand } from "../../../../../zustand/Store/Race/fetch/spDetail/SpdEtail";
 
 function DetailSpRace() {
+  const pindah = useHistory()
   const { idMp } = useParams();
-  const { FetcSPDetail, DataSemuaDarizustand } = SpDetailRaceZustand();
+  const { FetcSPDetail, DataSemuaDarizustand, error } = SpDetailRaceZustand();
   useEffect(() => {
     FetcSPDetail(idMp);
   }, []);
-  console.log(`dari zustand`, DataSemuaDarizustand);
-
+  console.log(`dari error`, error);
+  if (error == true) {
+    pindah.push('/race/splist')
+  }
   if (!DataSemuaDarizustand) {
     return <>loading</>;
   }
+  
   return (
-    <div style={{fontFamily: 'NoirPro'}}>
+    <div style={{ fontFamily: 'NoirPro' }}>
       <Card>
         <h4>
-            Detail SP 
+          Detail SP
         </h4>
-        <hr/>
-        <Row gutter={[16,16]}> 
+        <hr />
+        <Row gutter={[16, 16]}>
           <Col xs={24} sm={12} md={12}>
-            <div className="mt-2 mb-2" style={{fontWeight: 'bold'}}>No SP</div>
+            <div className="mt-2 mb-2" style={{ fontWeight: 'bold' }}>No SP</div>
             <Input value={DataSemuaDarizustand?.sp} />
           </Col>
           <Col xs={24} sm={12} md={12}>
-            <div className="mt-2 mb-2" style={{fontWeight: 'bold'}}>SJ Erl</div>
+            <div className="mt-2 mb-2" style={{ fontWeight: 'bold' }}>SJ Erl</div>
             <Input value={DataSemuaDarizustand?.sjErl} />
           </Col>
         </Row>
-        <Row gutter={[16,16]} className="mt-3">
+        <Row gutter={[16, 16]} className="mt-3">
           <Col xs={24} sm={12} md={6}>
-            <div className="mt-2 mb-2" style={{fontWeight: 'bold'}}>Cabang</div>
+            <div className="mt-2 mb-2" style={{ fontWeight: 'bold' }}>Cabang</div>
             <Input value={DataSemuaDarizustand?.cabang}></Input>
           </Col>
           <Col xs={24} sm={12} md={6}>
-            <div className="mt-2 mb-2" style={{fontWeight: 'bold'}}>Tanggal Pickup</div>
+            <div className="mt-2 mb-2" style={{ fontWeight: 'bold' }}>Tanggal Pickup</div>
             <Input value={DataSemuaDarizustand?.tgl_pickup}></Input>
           </Col>
           <Col xs={24} sm={12} md={6}>
-            <div className="mt-2 mb-2" style={{fontWeight: 'bold'}}>Jenis Barang</div>
+            <div className="mt-2 mb-2" style={{ fontWeight: 'bold' }}>Jenis Barang</div>
             <Input value={DataSemuaDarizustand?.jenisBarang}></Input>
           </Col>
           <Col xs={24} sm={12} md={6}>
-            <div className="mt-2 mb-2" style={{fontWeight: 'bold'}}>Sales Erl</div>
+            <div className="mt-2 mb-2" style={{ fontWeight: 'bold' }}>Sales Erl</div>
             <Input value={DataSemuaDarizustand?.salesErl}></Input>
           </Col>
         </Row>
@@ -76,7 +81,7 @@ function DetailSpRace() {
                     fontWeight: 'bold',
                   }}
                 >
-                  <td style={{ backgroundColor: "transparent" , height: '50px', width: '10%', justifyContent: 'center', alignContent: 'center'}}>No.</td>
+                  <td style={{ backgroundColor: "transparent", height: '50px', width: '10%', justifyContent: 'center', alignContent: 'center' }}>No.</td>
                   <td style={{ backgroundColor: "transparent" }}>
                     Alamat Sekolah
                   </td>
@@ -93,7 +98,7 @@ function DetailSpRace() {
                 </tr>
 
                 <tr key={index}>
-                  <td style={{fontWeight: 'bold'}}>{index + 1}.</td>
+                  <td style={{ fontWeight: 'bold' }}>{index + 1}.</td>
                   <td>{data.alamatSekolah}</td>
                   <td>{data.picTelp}</td>
                   <td>

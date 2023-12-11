@@ -9,13 +9,13 @@ import {
   Select,
   Upload,
 } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ListVehicleZustand } from "../../../../../zustand/Store/Race/fetch/List Vehicle/ListVehicle";
 import moment from "moment";
 import ListDriverZustand from "../../../../../zustand/Store/Race/fetch/List Driver/ListDriver";
 
 function ModalTambahvehicle({ OpenModal, setOpenModal }) {
-  const { vehicleId, DetailVehicle, EditDriver, VehicleType, OptionsSelectType, BuatDriver, GetSelect, codeVehicle, selectGetSelect } = ListVehicleZustand();
+  const { vehicleId, DetailVehicle, EditDriver, VehicleType, OptionsSelectType, BuatDriver, GetSelect, codeVehicle, selectGetSelect, loading } = ListVehicleZustand();
   const { getFilterOptions, filteroptionsjenisKepemilikanDanStatus } = ListDriverZustand()
 
   function NamaModal() {
@@ -39,15 +39,32 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
   useEffect(() => {
     VehicleType()
     GetSelect()
-  }, [])
+  }, [DetailVehicle?.vehicleLength , DetailVehicle?.vehicleWidth ,DetailVehicle?.vehicleHeight])
   function memilihCreteAtauEdit() {
     if (vehicleId != null) {
       EditDriver(vehicleId, DetailVehicle)
-
     } else {
       BuatDriver(DetailVehicle)
     }
   }
+
+
+  const handleFileChange = (info) => {
+    if (info.fileList.length > 0) {
+      const lastFile = info.fileList[info.fileList.length - 1].originFileObj;
+      ListVehicleZustand.setState(prevState => ({
+        ...prevState,
+        DetailVehicle: {
+          ...prevState.DetailVehicle,
+          naruhgambar: lastFile
+        }
+      }));
+    } else {
+      // Clear the selection
+    }
+  };
+
+
 
   return (
     <div>
@@ -59,6 +76,7 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
           memilihCreteAtauEdit()
           setOpenModal(false)
         }}
+        confirmLoading={loading == true}
         onCancel={() => {
           ListVehicleZustand.setState({ vehicleId: null, DetailVehicle: null })
           setOpenModal(false)
@@ -68,39 +86,44 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
           top: 20,
         }}
       >
-        <hr />
         <Row gutter={[16, 16]} style={{ backgroundColor: "" }}>
           <Col xs={24} sm={12} md={8} lg={8}>
-            <div
-              style={{
-                backgroundColor: "",
-                maxHeight: "200px",
-                minHeight: "200px",
-                border: "1px solid black",
-              }}
-            >
-              <div className="d-flex justify-content-center">Ini Gambar</div>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: "",
+              height: "250px",
+              maxHeight: "250px",
+              overflow: "hidden",
+              border: "1px solid black"
+            }}>
+              <img src={DetailVehicle?.vehicleImage} style={{ maxWidth: '80%', height: 'auto', objectFit: 'cover' }} />
             </div>
             <div className="mt-4 mb-2">Upload Gambar Kendaraan</div>
-            <Upload>
-              <Button icon={<UploadOutlined />}>Upload</Button>
+            <Upload
+              onChange={handleFileChange}
+
+              beforeUpload={() => false} // Prevent automatic upload
+            >
+              <Button icon={<UploadOutlined />}>Select File</Button>
             </Upload>
             <div className="mt-3 mb-2">STNK Date</div>
             <DatePicker
               id="stnkDate"
-              onChange={(date, dateString) => gantivalue(date, dateString, 'stnkDate')}
+              onChange={(date, dateString) => { console.log(dateString); gantivalue({ target: { id: 'stnkDate', value: dateString } }) }}
               value={DetailVehicle?.stnkDate ? moment(DetailVehicle?.stnkDate, "YYYY-MM-DD") : null}
             />
             <div className="mt-3 mb-2">Tanggal Beli</div>
             <DatePicker
               id="buyDate"
-              onChange={(date, dateString) => gantivalue(date, dateString, 'buyDate')}
+              onChange={(date, dateString) => gantivalue({ target: { id: 'buyDate', value: dateString } })}
               value={DetailVehicle?.buyDate ? moment(DetailVehicle?.buyDate, "YYYY-MM-DD") : null}
             />
             <div className="mt-3 mb-2">Tanggal Expired</div>
             <DatePicker
               id="expiredPlat"
-              onChange={(date, dateString) => gantivalue(date, dateString, 'expiredPlat')}
+              onChange={(date, dateString) => gantivalue({ target: { id: 'expiredPlat', value: dateString } })}
               value={DetailVehicle?.expiredPlat ? moment(DetailVehicle?.expiredPlat, "YYYY-MM-DD") : null}
             />
           </Col>
@@ -126,12 +149,22 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
 
             </Select>
             <div className="mb-2 mt-2">Vendor</div>
-            <Input
+            <Select
+              showSearch
+              optionFilterProp="children"
               id="vendor"
-              onChange={gantivalue}
+              style={{ width: "100%" }}
+              onChange={(e) => { gantivalue({ target: { id: 'vendor', value: e } }) }}
               value={DetailVehicle?.vendor}
               placeholder="Masukkan Kode Kendaraan"
-            />
+            >
+              {selectGetSelect && selectGetSelect.mitra.map((item, index) => (
+                <Select.Option value={item.mitra}>
+                  {item.mitra}
+                </Select.Option>
+              ))}
+
+            </Select>
             <div className="mb-2 mt-2">No Polisi</div>
             <Input
               id="policeNumber"
@@ -165,6 +198,8 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
               id="driverName"
               value={DetailVehicle?.driverName}
               placeholder="Masukkan Nama Driver"
+              showSearch
+              optionFilterProp="children"
               onChange={(e) => {
                 gantivalue({ target: { id: 'driverIDName', value: e } })
               }}
@@ -214,7 +249,7 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
                 <Input
                   id="vehicleLength"
                   onChange={gantivalue}
-                  value={DetailVehicle?.vehicleLength}
+                  value={DetailVehicle?.vehicleLength }
                   placeholder="Masukkan panjang"
                 />
               </Col>
@@ -223,7 +258,7 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
                 <Input
                   id="vehicleWidth"
                   onChange={gantivalue}
-                  value={DetailVehicle?.vehicleWidth}
+                  value={DetailVehicle?.vehicleWidth }
                   placeholder="Masukkan lebar"
                 />
               </Col>
@@ -232,7 +267,7 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
                 <Input
                   id="vehicleHeight"
                   onChange={gantivalue}
-                  value={DetailVehicle?.vehicleHeight}
+                  value={DetailVehicle?.vehicleHeight }
                   placeholder="Masukkan tinggi"
                 />
               </Col>
@@ -271,9 +306,9 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
             />
             <div className="mt-2 mb-2">Cabang</div>
             <Select
-              id="branch"
-              onChange={(e) => gantivalue({ target: { id: 'branch', value: e } })}
-              value={DetailVehicle?.branch}
+              id="cabang"
+              onChange={(e) => gantivalue({ target: { id: 'cabang', value: e } })}
+              value={DetailVehicle?.cabang}
               placeholder="Masukkan Cabang"
               style={{ width: "100%" }}
             >

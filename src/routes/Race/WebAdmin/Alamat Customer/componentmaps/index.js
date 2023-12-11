@@ -14,7 +14,7 @@ function ComponentGerakinPosisiMaps({ width, height }) {
         lat: lattitudemap || -6.2139383,
         lng: longtitudemap || 106.6910322
     };
-    console.log(`lattitudemap`,lattitudemap);
+    console.log(`lattitudemap`, lattitudemap);
     const [position, setPosition] = useState(defaultCenter);
     const [mapKey, setMapKey] = useState(Date.now());
     const [scriptLoaded, setScriptLoaded] = useState(false);
@@ -22,7 +22,7 @@ function ComponentGerakinPosisiMaps({ width, height }) {
     const autocompleteInput = useRef(null);
     let autocomplete; // Declare outside useEffect
 
-  
+
     const onMarkerDragEnd = (event) => {
         const newPos = {
             lat: event.latLng.lat(),
@@ -65,7 +65,7 @@ function ComponentGerakinPosisiMaps({ width, height }) {
     return (
         <div>
             <Row>
-                <Form.Control ref={autocompleteInput} type="text" placeholder="Cari Alamat" className='mb-3' />
+                <Form.Control ref={autocompleteInput} type="text" placeholder="Cari Alamat" style={{width : mapContainerStyle.width}} className='mb-3' />
                 <LoadScript
                     googleMapsApiKey={ApiGoogleMap}
                     libraries={['places']}

@@ -3,13 +3,17 @@ import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import ListDriverZustand from '../../../../zustand/Store/Race/fetch/List Driver/ListDriver'
 import ModalKendaraan from './components/ModalKendaraan'
+import { ListVehicleZustand } from '../../../../zustand/Store/Race/fetch/List Vehicle/ListVehicle'
 
 function KendaraanList() {
-    const { FetchDriver, ListDriver, FetchDetailDriver, keyword, getFilterOptions, filteroptionsjenisKepemilikanDanStatus } = ListDriverZustand()
+    const { FetchDriver, ListDriver, FetchDetailDriver, keyword,FetchGetSelect, getFilterOptions, filteroptionsjenisKepemilikanDanStatus } = ListDriverZustand()
+    const { GetSelect} = ListVehicleZustand()
     const [OpenModal, setOpenModal] = useState(false)
     useEffect(() => {
         FetchDriver()
         getFilterOptions()
+        GetSelect()
+        FetchGetSelect()
     }, [keyword])
     const column = [
         {
@@ -130,7 +134,7 @@ function KendaraanList() {
                     }
                 `}
             </style>
-                <Table className='tableini' columns={column} dataSource={ListDriver?.order}
+                <Table className='tableini' columns={column} loading={!ListDriver?.order} dataSource={ListDriver?.order}
                     pagination={{
                         total: ListDriver?.totalData,
 

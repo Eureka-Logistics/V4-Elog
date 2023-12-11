@@ -3,9 +3,10 @@ import { ListVehicleZustand } from '../../../../zustand/Store/Race/fetch/List Ve
 import { Button, Card, Col, Input, Row, Select, Table } from 'antd'
 import ModalTambahvehicle from './components/ModalTambahvehicle'
 import ListDriverZustand from '../../../../zustand/Store/Race/fetch/List Driver/ListDriver';
+import axios from 'axios';
 
 function ListDriver() {
-  const { FetchDriver, ListVehicle, keyword ,VehicleDetail,vehicleId} = ListVehicleZustand();
+  const { FetchDriver, ListVehicle, keyword, VehicleDetail, vehicleId } = ListVehicleZustand();
   const { getFilterOptions, filteroptionsjenisKepemilikanDanStatus } = ListDriverZustand()
   const [OpenModal, setOpenModal] = useState(false);
 
@@ -13,6 +14,7 @@ function ListDriver() {
     FetchDriver()
     getFilterOptions()
   }, [keyword])
+
 
   const column = [
     {
@@ -122,7 +124,7 @@ function ListDriver() {
         </Col>
       </Row>
       <Card>
-        <Table style={{ overflowX: 'auto' }} className='tableini' columns={column} dataSource={ListVehicle?.order}
+        <Table style={{ overflowX: 'auto' }} className='tableini' columns={column} loading={!ListVehicle?.order} dataSource={ListVehicle?.order}
           pagination={{
             total: ListVehicle?.totalData,
 

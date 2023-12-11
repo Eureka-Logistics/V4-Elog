@@ -5,8 +5,10 @@ import { BaseUrlRace } from '../../../../Api/BaseUrl';
 import axios from 'axios';
 import { Col } from 'react-bootstrap';
 import ModalCreateAlamatSekolah from './CreateAlamatSekolah';
+import useCoordinateRaceMap from '../../../../zustand/Store/coordinateMapRace/RaceMaps';
 
 function AlamatCustomer() {
+    const { setState, lattitudemap, longtitudemap } = useCoordinateRaceMap();
     const navigasi = useHistory()
     const [dataApi, setdataApi] = useState("")
     const column = [
@@ -46,7 +48,7 @@ function AlamatCustomer() {
                     Authorization: localStorage.getItem("token"),
                 },
             });
-            console.log(data.data.data);
+            console.log(`dataa`,data.data.data);
             setdataApi(data?.data?.data);
         } catch (error) { }
     };
@@ -87,6 +89,7 @@ function AlamatCustomer() {
                     return {
                         onClick: event => {
                             console.log(row);
+                            useCoordinateRaceMap.setState({lattitudemap : row?.lat , longtitudemap: row?.long})
                             navigasi.push(`/race/alamatcustomerdetail/${row.id}`)
                         }
                     }

@@ -402,8 +402,11 @@ Salam hangat,
       // Save the Excel file
       XLSX.writeFile(wb, "Export_Data_SJ.xlsx");
     } catch (error) {
+      notification.error({
+        message : error.response.data.status.message
+      })
       // Handle error
-      setExporting(false);
+      setExporting(false);    
       console.error("Error exporting data: ", error);
     }
   };
