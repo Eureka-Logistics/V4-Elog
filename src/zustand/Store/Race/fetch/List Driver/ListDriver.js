@@ -94,6 +94,7 @@ const ListDriverZustand = create((set, get) => ({
         formData.append("notelp", DetailDriver?.noTelp1);
         formData.append("no_telp2", DetailDriver?.noTelp2);
         formData.append("tgl_masuk", DetailDriver?.dateIn);
+        formData.append("id_bu_brench", DetailDriver?.cabang);
         formData.append("nik", DetailDriver?.nik);
         formData.append("id_mitra", DetailDriver?.id_mitra);
         formData.append("email", DetailDriver?.driverEmail);
@@ -159,6 +160,7 @@ const ListDriverZustand = create((set, get) => ({
             alamat: DetailDriver?.driverAddress,
             tgl_lahir: DetailDriver?.dateBirth,
             tgl_sim: DetailDriver?.simDate,
+            id_bu_brench: DetailDriver?.cabang,
             agama: DetailDriver?.driverReligion,
             notelp: DetailDriver?.noTelp1,
             no_telp2: DetailDriver?.noTelp2,

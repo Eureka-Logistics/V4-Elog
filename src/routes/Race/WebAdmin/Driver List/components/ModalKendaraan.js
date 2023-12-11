@@ -36,7 +36,7 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
             BuatVehicle(DetailDriver)
         }
     }
-
+console.log(`DetailDriver`,DetailDriver);
     const handleFileChange = (info) => {
         if (info.fileList.length > 0) {
             const lastFile = info.fileList[info.fileList.length - 1].originFileObj;
@@ -121,6 +121,21 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                                 </Select.Option>
                             ))}
                         </Select>
+                        <div className="mt-2 mb-2">Cabang</div>
+                        <Select
+                            id="cabang"
+                            onChange={(e) => gantivalue({ target: { id: 'cabang', value: e } })}
+                            value={DetailDriver?.cabang}
+                            placeholder="Masukkan Cabang"
+                            style={{ width: "100%" }}
+                        >
+                            {selectGetSelect && selectGetSelect?.cabang.map((item, index) => (
+                                <Select.Option value={item.idbuBrench}>
+                                    {item.cabang}
+                                </Select.Option>
+                            ))}
+
+                        </Select>
                         <div className='mt-2'>Perusahaan</div>
                         <Select id="mitra" showSearch optionFilterProp='children' value={DetailDriver?.mitra} onChange={(e, option) => {
                             // Update 'mitra'
@@ -157,10 +172,10 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
                         </Select>
                         <div className='mt-2'>Agama</div>
                         <Input id="driverReligion" value={DetailDriver?.driverReligion} onChange={gantivalue} placeholder='Masukkan Agama' />
-                        
+
                     </Col>
                     <Col>
-                    <div className='mt-2'>Alamat Driver</div>
+                        <div className='mt-2'>Alamat Driver</div>
                         <Input id="driverAddress" value={DetailDriver?.driverAddress} onChange={gantivalue} placeholder='Masukkan Alamat Driver' />
                         <div>No Telp 1 </div>
                         <Input id="noTelp1" value={DetailDriver?.noTelp1} onChange={gantivalue} placeholder='Masukkan No Telp 1' />
