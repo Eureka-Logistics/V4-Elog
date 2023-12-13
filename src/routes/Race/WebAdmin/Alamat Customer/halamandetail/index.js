@@ -14,6 +14,10 @@ import TableHistory from './components/TableHistory';
 function HalamanDetailAlamatCustomer() {
     const id = useParams()
     const [EditAlamat, setEditAlamat] = useState(false)
+    const [latlonglama, setlatlonglama] = useState({
+        lat: null,
+        lon: null
+    })
     const [IsiInputan, setIsiInputan] = useState({
         NamaSekolah: "",
         AlamatManual: "",
@@ -35,6 +39,10 @@ function HalamanDetailAlamatCustomer() {
             });
             console.log(`detail sekolah`, data.data);
             setIsiInputan(data.data);
+            setlatlonglama({
+                lat: data?.data?.lat,
+                lon: data?.data?.lon
+            })
         } catch (error) { }
     };
     useEffect(() => {
@@ -88,9 +96,11 @@ function HalamanDetailAlamatCustomer() {
                 "kecamatan": IsiInputan?.NamaKecamatan,
                 "kota": IsiInputan?.NamaKota,
                 "kode_wilayah": IsiInputan?.kode_wilayah,
-                "lat": lattitudemap || IsiInputan?.lat,
+                "lat_new": lattitudemap || IsiInputan?.lat,
                 "history_pengiriman": isiPesan,
-                "lon": longtitudemap || IsiInputan?.lon
+                "lon_new": longtitudemap || IsiInputan?.lon,
+                "lat_old": latlonglama.lat ,
+                "lon_old": latlonglama.lon ,
             }
             const data = await axios.post(`${BaseUrlRace}sp/update-Sekolah`, bodynya, {
                 headers: {

@@ -21,7 +21,7 @@ import * as XLSX from "xlsx";
 import ListReportKirimanZustand from "../../../../zustand/Store/Race/fetch/Report Kiriman";
 
 function ReportKiriman() {
-  const { fetchData, StatusDriverAcc, data, updatePagination, KeyPencarianApi ,tanggal} = ListReportKirimanZustand()
+  const { fetchData, StatusDriverAcc, data, updatePagination, KeyPencarianApi, tanggal } = ListReportKirimanZustand()
   const [modal1Open, setModal1Open] = useState(false);
   const [ModalMemoOpen, setModalMemoOpen] = useState(false);
   const [judulModal, setCurrentTitle] = useState("");
@@ -34,7 +34,7 @@ function ReportKiriman() {
 
   useEffect(() => {
     fetchData();
-  }, [data.currentPage, data.limit, KeyPencarianApi,tanggal]);
+  }, [data.currentPage, data.limit, KeyPencarianApi, tanggal]);
 
 
   const columns = [
@@ -153,38 +153,7 @@ function ReportKiriman() {
       },
     },
 
-    {
-      title: "Unloading",
-      dataIndex: "unloading",
-      render: (text, record) => {
-        const datanya = {
-          "keterangan": "Barang sudah sampai tempat tujuan/bongkar.",
-          "status": "unloading",
-          "statusId": 5
-        }
-        if (record?.unloading != "-") {
-          return <div style={{ whiteSpace: "nowrap" }}><Tag color="green">{record.unloading}</Tag></div>; // Render the onPickup value
-        } else {
-          // Render the Button when record.onPickup is falsy
-          return (
-            <Popconfirm
-              title="Yakin untuk confirm?"
-              onConfirm={() => {
-                StatusDriverAcc(record, datanya);
-                // setModal1Open(true);
-                // setCurrentTitle("onProcess");
-              }}
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button size="small" type="primary">
-                OK
-              </Button>
-            </Popconfirm>
-          );
-        }
-      },
-    },
+
 
     {
       title: "onDelivery",
@@ -197,7 +166,49 @@ function ReportKiriman() {
         };
 
         if (record?.onDelivery != "-") {
-          return <div style={{ whiteSpace: "nowrap" }}><Tag color="green">{record.onDelivery}</Tag></div>; // Render the onPickup value
+          return <div style={{ whiteSpace: "nowrap" }}>
+            <Button size="small" color="warning" type="">Upload Gambar </Button><br />
+            <Tag color="green">
+              {record.onDelivery}</Tag></div>; // Render the onPickup value
+        } else if (record?.onDelivery != "-" && record?.unloading != "-") {
+          return <div style={{ whiteSpace: "nowrap" }}>
+            <Button size="small" color="primary" type="">Lihat Gambar </Button><br />
+            <Tag color="green">
+              {record.onDelivery}</Tag></div>;
+        }
+
+        else {
+          // Render the Button when record.onPickup is falsy
+          return (
+            <Popconfirm
+              title="Yakin untuk confirm?"
+              onConfirm={() => {
+                StatusDriverAcc(record, datanya);
+                // setModal1Open(true);
+                // setCurrentTitle("onProcess");
+              }}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button size="small" type="primary">
+                OK
+              </Button>
+            </Popconfirm>
+          );
+        }
+      },
+    },
+    {
+      title: "Unloading",
+      dataIndex: "unloading",
+      render: (text, record) => {
+        const datanya = {
+          "keterangan": "Barang sudah sampai tempat tujuan/bongkar.",
+          "status": "unloading",
+          "statusId": 5
+        }
+        if (record?.unloading != "-") {
+          return <div style={{ whiteSpace: "nowrap" }}>  <Button size="small" color="warning" type="">Upload Gambar</Button><br /><Tag color="green">{record.unloading}</Tag></div>; // Render the onPickup value
         } else {
           // Render the Button when record.onPickup is falsy
           return (
@@ -219,7 +230,6 @@ function ReportKiriman() {
         }
       },
     },
-
     {
       title: "Succes Bongkar",
       dataIndex: "SuccesBongkar",

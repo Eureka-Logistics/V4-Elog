@@ -8,9 +8,8 @@ function ModalEditAlamat({ EditAlamat, setEditAlamat, EditSekolah }) {
     const isidilarang = ["", "test", "test2", "test3"]
 
     const EditSkolah = () => {
-        const containsForbiddenString = isidilarang.some(forbidden => isiPesan.includes(forbidden));
-    
-        if (containsForbiddenString) {
+
+        if (isidilarang === "") {
             notification.error({
                 message: "Pesan Tidak Boleh Kosong / test",
             });
@@ -20,7 +19,7 @@ function ModalEditAlamat({ EditAlamat, setEditAlamat, EditSekolah }) {
             setisiPesan("");
         }
     };
-    
+
     return (
         <div>
             <Modal

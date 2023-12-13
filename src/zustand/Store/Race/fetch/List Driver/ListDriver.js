@@ -77,6 +77,11 @@ const ListDriverZustand = create((set, get) => ({
         }
     },
     BuatVehicle: async (DetailDriver) => {
+        if (!DetailDriver.cabang) {
+            notification.error({
+                message: "Cabang Harus Diisi"
+            })
+        }
         const getList = get().FetchDriver
         const DetailDriverKosongin = get().DetailDriver /// buat hapus function
         let formData = new FormData();
@@ -95,7 +100,7 @@ const ListDriverZustand = create((set, get) => ({
         formData.append("no_telp2", DetailDriver?.noTelp2);
         formData.append("tgl_masuk", DetailDriver?.dateIn);
         formData.append("id_bu_brench", DetailDriver?.cabang);
-        formData.append("nik", DetailDriver?.nik);
+        formData.append("nik", DetailDriver?.nik == null ? 0 :DetailDriver?.nik );
         formData.append("id_mitra", DetailDriver?.id_mitra);
         formData.append("email", DetailDriver?.driverEmail);
         formData.append("jenis_kepemilikan", DetailDriver?.jenisKepemilikan);

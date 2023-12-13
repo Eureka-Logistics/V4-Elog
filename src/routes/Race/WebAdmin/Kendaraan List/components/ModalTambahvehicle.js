@@ -60,7 +60,6 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
         }
       }));
     } else {
-      // Clear the selection
     }
   };
 
@@ -68,7 +67,6 @@ function ModalTambahvehicle({ OpenModal, setOpenModal }) {
 
   return (
     <div>
-
       <Modal
         title={NamaModal()}
         open={OpenModal}

@@ -157,6 +157,11 @@ export const ListVehicleZustand = create((set, get) => ({
 
     },
     BuatDriver: async (DetailVehicle) => {
+        if (!DetailVehicle.cabang) {
+            notification.error({
+                message: "Cabang Harus Diisi"
+            })
+        }
         set({ loading: true })
         const update = get().FetchDriver
         let formData = new FormData();

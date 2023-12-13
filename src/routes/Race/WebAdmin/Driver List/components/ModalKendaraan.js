@@ -1,4 +1,4 @@
-import { Button, DatePicker, Input, Modal, Select, Upload } from 'antd'
+import { Button, DatePicker, Input, Modal, Select, Upload, notification } from 'antd'
 import React, { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import ListDriverZustand from '../../../../../zustand/Store/Race/fetch/List Driver/ListDriver';
@@ -13,7 +13,9 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
     console.log(`DetailDriver`, OptionsGetSelect);
     function NamaModal() {
         if (DriverID != null) {
+           
             return "Edit Detail Driver";
+           
         } else {
             return "Buat Driver";
         }
@@ -36,7 +38,11 @@ function ModalKendaraan({ OpenModal, setOpenModal }) {
             BuatVehicle(DetailDriver)
         }
     }
-console.log(`DetailDriver`,DetailDriver);
+
+    // Validasi Untuk create
+   
+
+    console.log(`DetailDriver`, DetailDriver);
     const handleFileChange = (info) => {
         if (info.fileList.length > 0) {
             const lastFile = info.fileList[info.fileList.length - 1].originFileObj;
