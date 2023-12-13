@@ -24,6 +24,36 @@ function TableHistory({ IsiInputan }) {
             dataIndex: 'massage',
             key: 'SP',
         },
+        {
+            title: 'lat lama',
+            dataIndex: 'lat_old',
+            key: 'SP',
+            render: (lat_old) => {
+                return <Tag color='red'>{lat_old}</Tag>
+            }
+        },
+        {
+            title: 'lon lama',
+            dataIndex: 'lon_old',
+            render: (lon_old) => {
+                return <Tag color='red'>{lon_old}</Tag>
+            }
+        },
+        {
+            title: 'lat baru',
+            dataIndex: 'lat_new',
+            render: (lat_new) => {
+                return <Tag color='green'>{lat_new}</Tag>
+            }
+        },
+
+        {
+            title: 'lon baru',
+            dataIndex: 'lon_new',
+            render: (lon_new) => {
+                return <Tag color='green'>{lon_new}</Tag>
+            }
+        },
 
     ]
     return (
