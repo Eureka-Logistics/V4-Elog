@@ -22,7 +22,7 @@ const ListReportKirimanZustand = create((set, get) => ({
         limit: 10,
     },
     KeyPencarianApi: "",
-    tanggal:"",
+    tanggal: "",
     updatePagination: (newPage, newLimit) => {
         set(state => ({
             data: {
@@ -58,6 +58,27 @@ const ListReportKirimanZustand = create((set, get) => ({
         } catch (error) {
             // Handle error
         }
+    },
+    functionUploadFoto: async (record, gambar) => {
+        const fetchData = get().fetchData
+        const DataForm = new FormData()
+        DataForm.append('cover', gambar)
+        DataForm.append('id', record?.idKendaraanStatus)
+        try {
+            const data = await axios.post(`${BaseUrlRace}sp/Approved-photo`, DataForm, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: localStorage.getItem("token"),
+                },
+            })
+            notification.success({
+                message: data.data.status.message
+            })
+            console.log(`data uploadfoto race`, data);
+        } catch (error) {
+
+        }
+        await fetchData()
     },
     OptionStatus: async () => {
         const data = await axios.get(`${BaseUrlRace}sp/get-option-status`,

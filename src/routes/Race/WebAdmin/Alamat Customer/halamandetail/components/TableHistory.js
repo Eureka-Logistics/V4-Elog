@@ -46,7 +46,6 @@ function TableHistory({ IsiInputan }) {
                 return <Tag color='green'>{lat_new}</Tag>
             }
         },
-
         {
             title: 'lon baru',
             dataIndex: 'lon_new',

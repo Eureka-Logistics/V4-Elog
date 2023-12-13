@@ -948,6 +948,12 @@ const App = ({ match }) => {
           )}
         />
         <Route
+          path={`${match.url}monitoring/monitoring-unit`}
+          component={asyncComponent(() =>
+            import("../routes/MasterData/Monitoring/Monitoring Unit/index")
+          )}
+        />
+        <Route
           path={`${match.url}admin/user/menu`}
           component={asyncComponent(() => import("./MasterData/SP List/Akunting/CreateUserBaru/TabComponent/index"))}
         />

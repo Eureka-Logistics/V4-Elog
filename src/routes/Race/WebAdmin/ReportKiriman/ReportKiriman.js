@@ -4,12 +4,15 @@ import {
   Card,
   Col,
   DatePicker,
+  Image,
   Input,
+  Modal,
   Popconfirm,
   Row,
   Select,
   Table,
   Tag,
+  Upload,
   notification,
 } from "antd";
 import React, { useEffect, useState } from "react";
@@ -21,7 +24,7 @@ import * as XLSX from "xlsx";
 import ListReportKirimanZustand from "../../../../zustand/Store/Race/fetch/Report Kiriman";
 
 function ReportKiriman() {
-  const { fetchData, StatusDriverAcc, data, updatePagination, KeyPencarianApi, tanggal } = ListReportKirimanZustand()
+  const { fetchData, StatusDriverAcc, data, updatePagination, KeyPencarianApi, tanggal, functionUploadFoto } = ListReportKirimanZustand()
   const [modal1Open, setModal1Open] = useState(false);
   const [ModalMemoOpen, setModalMemoOpen] = useState(false);
   const [judulModal, setCurrentTitle] = useState("");
@@ -30,12 +33,13 @@ function ReportKiriman() {
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [exporting, setExporting] = useState(false);
+  const [isConfirmed, setIsConfirmed] = useState(false);
 
 
   useEffect(() => {
     fetchData();
   }, [data.currentPage, data.limit, KeyPencarianApi, tanggal]);
-
+  const [showImage, setShowImage] = useState({});
 
   const columns = [
     {
@@ -167,14 +171,8 @@ function ReportKiriman() {
 
         if (record?.onDelivery != "-") {
           return <div style={{ whiteSpace: "nowrap" }}>
-            <Button size="small" color="warning" type="">Upload Gambar </Button><br />
             <Tag color="green">
               {record.onDelivery}</Tag></div>; // Render the onPickup value
-        } else if (record?.onDelivery != "-" && record?.unloading != "-") {
-          return <div style={{ whiteSpace: "nowrap" }}>
-            <Button size="small" color="primary" type="">Lihat Gambar </Button><br />
-            <Tag color="green">
-              {record.onDelivery}</Tag></div>;
         }
 
         else {
@@ -206,18 +204,45 @@ function ReportKiriman() {
           "keterangan": "Barang sudah sampai tempat tujuan/bongkar.",
           "status": "unloading",
           "statusId": 5
+        };
+
+
+        const handleFileChange = (e) => {
+          const file = e.file?.originFileObj;
+          // setImageFile(file);
+          console.log("File selected:", file);
+          functionUploadFoto(record, file);
+        };
+
+        if (record?.unloading != "-" && record?.imageunloading === "-") {
+          return (
+            <div style={{ whiteSpace: "nowrap" }}>
+              <Upload onChange={(e) => handleFileChange(e)}>
+                <Button size="small" color="warning" type="danger">
+                  Upload Gambar
+                </Button>
+              </Upload>
+              <br />
+              <Tag color="green">{record?.unloading}</Tag>
+            </div>
+          );
+        } else if (record?.imageunloading != "-" && record?.unloading != "-") {
+          return (
+            <>
+              <Button size="small" color="warning" type="primary">
+                Lihat Gambar
+              </Button>
+              <Tag color="green">{record?.unloading}</Tag>
+            </>
+          )
         }
-        if (record?.unloading != "-") {
-          return <div style={{ whiteSpace: "nowrap" }}>  <Button size="small" color="warning" type="">Upload Gambar</Button><br /><Tag color="green">{record.unloading}</Tag></div>; // Render the onPickup value
-        } else {
-          // Render the Button when record.onPickup is falsy
+        else {
           return (
             <Popconfirm
               title="Yakin untuk confirm?"
               onConfirm={() => {
                 StatusDriverAcc(record, datanya);
-                // setModal1Open(true);
-                // setCurrentTitle("onProcess");
+                setIsConfirmed(true); // Set confirmation state to true
               }}
               okText="Yes"
               cancelText="No"
@@ -230,19 +255,70 @@ function ReportKiriman() {
         }
       },
     },
+
     {
       title: "Succes Bongkar",
       dataIndex: "SuccesBongkar",
       key: "SuccesBongkar",
-      render: (text, record) => {
+      render: (text, record, index) => {
         const datanya = {
           keterangan: "Barang sudah diterima dengan Jumlah Lengkap",
           status: "Success",
           statusId: 9
         };
-        if (record?.SuccesBongkar != "-") {
-          return <div style={{ whiteSpace: "nowrap" }}><Tag color="green">{record.SuccesBongkar}</Tag></div>; // Render the onPickup value
-        } else {
+        const handleFileChange = (e) => {
+          const file = e.file?.originFileObj;
+          // setImageFile(file);
+          console.log("File selected:", file);
+          functionUploadFoto(record, file);
+        };
+        const toggleImage = (idx) => {
+          setShowImage(prevState => ({
+            ...prevState,
+            [idx]: !prevState[idx],
+          }));
+        };
+
+        const imagebuka = () => {
+          return (
+            <Image
+              width={200}
+              src={record?.imageSuccesBongkar}
+            />
+          )
+        }
+        if (record?.SuccesBongkar != "-" && record?.imageSuccesBongkar === "-") {
+          return <div style={{ whiteSpace: "nowrap" }}>
+            <Upload onChange={(e) => handleFileChange(e)}>
+              <Button size="small" color="warning" type="danger">Upload Gambar </Button><br />
+            </Upload>
+            <Tag color="green">{record.SuccesBongkar}</Tag></div>; // Render the onPickup value
+        } else if (record?.imageSuccesBongkar != "-" && record?.SuccesBongkar != "-") {
+          return (
+            <>
+              <Button onClick={() => {
+                console.log(index);
+                toggleImage(index)}} size="small" color="warning" type="primary">
+                Lihat Gambar
+              </Button>
+              {showImage[index] && (
+                <Modal
+                  open={showImage}
+                  onCancel={() => setShowImage(false)}
+                >
+                  <Image
+                    width={200}
+                    src={record?.imageSuccesBongkar}
+                  />
+                </Modal>
+
+              )}
+              <Tag color="green">{record?.SuccesBongkar}</Tag>
+            </>
+          )
+        }
+
+        else {
           // Render the Button when record.onPickup is falsy
           return (
             <Popconfirm

@@ -3360,6 +3360,26 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                       </span>
                     </Link>
                   </Menu.Item>
+                  <Menu.Item
+                    key="List User"
+                    className={
+                      activeMenu === "/monitoring/monitoring-unit"
+                        ? "menu-item-active menu-item-hover"
+                        : "menu-item-hover"
+                    }
+                  >
+                    <Link
+                      to="/monitoring/monitoring-unit"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <span
+                        className="mx-3"
+                        style={{ fontWeight: "bold", color: "white" }}
+                      >
+                       Monitoring Unit
+                      </span>
+                    </Link>
+                  </Menu.Item>
                 </>
               )}
 
