@@ -13,6 +13,8 @@ function MapPengiriman() {
     const [OptionNamaNamaDriver, setOptionNamaNamaDriver] = useState("")
     const [LoadingGan, setLoadingGan] = useState(false)
     const [DataSelectDriver, setDataSelectDriver] = useState([])
+    const [NamaDriver, setNamaDriver] = useState("")
+    const [NomorTelpon, setNomorTelpon] = useState("")
     const [selectIdDriverDanVehicle, setSelectIdDriverDanVehicle] = useState({
         idDriver: "",
         idKendaraan: "",
@@ -88,6 +90,8 @@ function MapPengiriman() {
         }
     }
     const Approvesp = async () => {
+
+
         const body = [];
         selectedData.forEach((item) => {
             body.push({
@@ -96,17 +100,26 @@ function MapPengiriman() {
                 "id_supir": selectIdDriverDanVehicle?.idDriver,
                 "kendaraan": selectIdDriverDanVehicle?.kendaraan,
                 "berat": item.berat,
+                "nama_driver": NamaDriver,
                 "qty": item.qty,
+                "NomorTelpon": NomorTelpon.startsWith('0') ? '62' + NomorTelpon.substring(1) : NomorTelpon,
                 "koli": item.koli,
                 "ikat": item.ikat,
+                "alamat_invoice": item.alamat_invoice,
+                "tujuan": item.tujuan,
+                "sp": item.sp
             });
+
+
         });
 
         const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
         try {
-            const responses = [];
 
+            const responsekiriman = await axios.post(`http://34.30.16.30:3001/send-ke-driver`, body)
+            console.log('responsekiriman' + responsekiriman);
+            const responses = [];
             for (const item of body) {
                 const response = await axios.post(`${BaseUrlRace}sp/approve-sp`, item, {
                     headers: {
@@ -181,7 +194,7 @@ function MapPengiriman() {
     }, [SelectKecamatan, SelectSales])
 
     // console.log(OptionNamaNamaDriver);
-    // console.log(`selectreddata`, selectedData);
+    console.log(`selectreddata`, selectedData);
     return (
         <div>
             <Card>
@@ -193,15 +206,20 @@ function MapPengiriman() {
                             optionFilterProp='children'
                             showSearch
                             disabled={selectedData.length === 0}
-                            onChange={(e) => setSelectIdDriverDanVehicle(item => ({
-                                ...item,
-                                idDriver: e
-                            }))}
+                            onChange={(e, option) => {
+                                console.log(option);
+                                setNamaDriver(option.children);
+                                setNomorTelpon(option?.option?.noTelp)
+                                setSelectIdDriverDanVehicle(item => ({
+                                    ...item,
+                                    idDriver: e
+                                }))
+                            }}
                         >
                             {
                                 selectIdDriverDanVehicle.selectDriver && selectIdDriverDanVehicle.selectDriver.length > 0
                                     ? selectIdDriverDanVehicle.selectDriver.map((item) => (
-                                        <Select.Option key={item.idDriver} value={item.idDriver}>{item.driverName}</Select.Option>
+                                        <Select.Option option={item} key={item.idDriver} value={item.idDriver}>{item.driverName}</Select.Option>
                                     ))
                                     : <option>Loading data...</option>
                             }
