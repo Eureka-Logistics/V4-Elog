@@ -117,8 +117,8 @@ function MapPengiriman() {
 
         try {
 
-            const responsekiriman = await axios.post(`http://34.30.16.30:3001/send-ke-driver`, body)
-            console.log('responsekiriman' + responsekiriman);
+            // const responsekiriman = await axios.post(`http://34.30.16.30:3001/send-ke-driver`, body)
+            // console.log('responsekiriman' + responsekiriman);
             const responses = [];
             for (const item of body) {
                 const response = await axios.post(`${BaseUrlRace}sp/approve-sp`, item, {
