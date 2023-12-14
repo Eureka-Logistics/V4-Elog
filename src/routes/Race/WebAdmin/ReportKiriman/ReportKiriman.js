@@ -40,6 +40,7 @@ function ReportKiriman() {
     fetchData();
   }, [data.currentPage, data.limit, KeyPencarianApi, tanggal]);
   const [showImage, setShowImage] = useState({});
+  const [showImage2, setShowImage2] = useState({});
 
   const columns = [
     {
@@ -199,7 +200,7 @@ function ReportKiriman() {
     {
       title: "Unloading",
       dataIndex: "unloading",
-      render: (text, record) => {
+      render: (text, record, index) => {
         const datanya = {
           "keterangan": "Barang sudah sampai tempat tujuan/bongkar.",
           "status": "unloading",
@@ -213,13 +214,19 @@ function ReportKiriman() {
           console.log("File selected:", file);
           functionUploadFoto(record, file);
         };
+        const toggleImage = (idx) => {
+          setShowImage2(prevState => ({
+            ...prevState,
+            [idx]: !prevState[idx],
+          }));
+        };
 
         if (record?.unloading != "-" && record?.imageunloading === "-") {
           return (
             <div style={{ whiteSpace: "nowrap" }}>
               <Upload onChange={(e) => handleFileChange(e)}>
                 <Button size="small" color="warning" type="danger">
-                  Upload Gambar
+                  Pilih Gambar dan Upload Gambar
                 </Button>
               </Upload>
               <br />
@@ -229,13 +236,31 @@ function ReportKiriman() {
         } else if (record?.imageunloading != "-" && record?.unloading != "-") {
           return (
             <>
-              <Button size="small" color="warning" type="primary">
+              <Button onClick={() => {
+                console.log(index);
+                toggleImage(index)
+              }} size="small" color="warning" type="primary">
                 Lihat Gambar
               </Button>
+              {showImage2[index] && (
+                <Modal
+                  open={showImage2}
+                  onCancel={() => setShowImage2(false)}
+                >
+                  <div className="d-flex justify-content-center">
+                    <Image
+                      width={200}
+                      src={record?.imageunloading}
+                    />
+                  </div>
+                </Modal>
+
+              )}
               <Tag color="green">{record?.unloading}</Tag>
             </>
           )
         }
+
         else {
           return (
             <Popconfirm
@@ -290,7 +315,7 @@ function ReportKiriman() {
         if (record?.SuccesBongkar != "-" && record?.imageSuccesBongkar === "-") {
           return <div style={{ whiteSpace: "nowrap" }}>
             <Upload onChange={(e) => handleFileChange(e)}>
-              <Button size="small" color="warning" type="danger">Upload Gambar </Button><br />
+              <Button size="small" color="warning" type="danger"> Pilih Gambar dan Upload Gambar </Button><br />
             </Upload>
             <Tag color="green">{record.SuccesBongkar}</Tag></div>; // Render the onPickup value
         } else if (record?.imageSuccesBongkar != "-" && record?.SuccesBongkar != "-") {
@@ -298,7 +323,8 @@ function ReportKiriman() {
             <>
               <Button onClick={() => {
                 console.log(index);
-                toggleImage(index)}} size="small" color="warning" type="primary">
+                toggleImage(index)
+              }} size="small" color="warning" type="primary">
                 Lihat Gambar
               </Button>
               {showImage[index] && (
@@ -306,10 +332,12 @@ function ReportKiriman() {
                   open={showImage}
                   onCancel={() => setShowImage(false)}
                 >
-                  <Image
-                    width={200}
-                    src={record?.imageSuccesBongkar}
-                  />
+                  <div className="d-flex justify-content-center">
+                    <Image
+                      width={200}
+                      src={record?.imageSuccesBongkar}
+                    />
+                  </div>
                 </Modal>
 
               )}

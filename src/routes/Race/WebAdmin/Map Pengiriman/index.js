@@ -90,8 +90,6 @@ function MapPengiriman() {
         }
     }
     const Approvesp = async () => {
-
-
         const body = [];
         selectedData.forEach((item) => {
             body.push({
@@ -115,10 +113,29 @@ function MapPengiriman() {
 
         const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+        const kirimPesanWhatsApp = async (item) => {
+            try {
+                const response = await axios.post(`http://34.30.16.30:3001/send-ke-driver`, [item]);
+                console.log(response);
+                {
+                    response && response?.data?.forEach((item) => (
+
+                        notification.success({
+                            message: item.status + " ke " + item.nama_driver
+                        })
+                    ))
+                }
+            } catch (error) {
+                console.log(error.response);
+                notification.error({
+                    message: error.response.data.message
+                })
+                console.error("Error saat mengirim pesan WhatsApp:", error);
+            }
+        };
         try {
 
-            // const responsekiriman = await axios.post(`http://34.30.16.30:3001/send-ke-driver`, body)
-            // console.log('responsekiriman' + responsekiriman);
+
             const responses = [];
             for (const item of body) {
                 const response = await axios.post(`${BaseUrlRace}sp/approve-sp`, item, {
@@ -127,8 +144,12 @@ function MapPengiriman() {
                         Authorization: localStorage.getItem('token'),
                     },
                 });
+                console.log(response);
+                notification.success({
+                    message: response.data.status.message
+                })
                 responses.push(response.data);
-
+                await kirimPesanWhatsApp(item);
                 // Wait for 0.5 seconds before the next iteration
                 await delay(1000);
             }
@@ -147,9 +168,7 @@ function MapPengiriman() {
             SelectDriver2("")
             addData("")
             CardMappingStoreRace.setState({ selectedData: "" })
-            notification.success({
-                message: "Sukses",
-            });
+           
 
         } catch (error) {
             if (error?.response?.data && error?.response?.data?.status && error?.response?.data?.status?.message) {
@@ -162,6 +181,7 @@ function MapPengiriman() {
                 });
             }
         }
+
     };
 
 
