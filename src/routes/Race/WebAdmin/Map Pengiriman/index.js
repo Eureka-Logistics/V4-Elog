@@ -93,7 +93,7 @@ function MapPengiriman() {
 
     const kirimPesanWhatsApp = async (item) => {
         try {
-            const response = await axios.post(`http://34.30.16.30:3001/send-ke-driver`, [item]);
+            const response = await axios.post(`https://34.30.16.30:3001/send-ke-driver`, [item]);
             console.log(response);
             {
                 response && response?.data?.forEach((item) => (
@@ -148,7 +148,7 @@ function MapPengiriman() {
                     message: response.data.status.message
                 })
                 responses.push(response.data);
-                await kirimPesanWhatsApp(item);
+                // await kirimPesanWhatsApp(item);
                 // Wait for 0.5 seconds before the next iteration
                 await delay(1000);
             }
@@ -162,8 +162,8 @@ function MapPengiriman() {
 
             // Other operations after all API calls
             setDataSelectDriver("")
-            setOptionNamaNamaDriver(responses);
             PengadaanDetail();
+            setOptionNamaNamaDriver(responses);
             SelectDriver2("")
             addData("")
             CardMappingStoreRace.setState({ selectedData: "" })
