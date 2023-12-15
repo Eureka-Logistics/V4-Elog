@@ -89,6 +89,28 @@ function MapPengiriman() {
 
         }
     }
+
+
+    const kirimPesanWhatsApp = async (item) => {
+        try {
+            const response = await axios.post(`https://botwa.mhridwan.com/send-ke-driver`, [item]);
+            console.log(response);
+            {
+                response && response?.data?.forEach((item) => (
+
+                    notification.success({
+                        message: item.status + " ke " + item.nama_driver
+                    })
+                ))
+            }
+        } catch (error) {
+            console.log(error.response);
+            notification.error({
+                message: error.response.data.message
+            })
+            console.error("Error saat mengirim pesan WhatsApp:", error);
+        }
+    };
     const Approvesp = async () => {
         const body = [];
         selectedData.forEach((item) => {
@@ -107,34 +129,12 @@ function MapPengiriman() {
                 "tujuan": item.tujuan,
                 "sp": item.sp
             });
-
-
         });
 
         const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-        const kirimPesanWhatsApp = async (item) => {
-            try {
-                const response = await axios.post(`http://34.30.16.30:3001/send-ke-driver`, [item]);
-                console.log(response);
-                {
-                    response && response?.data?.forEach((item) => (
 
-                        notification.success({
-                            message: item.status + " ke " + item.nama_driver
-                        })
-                    ))
-                }
-            } catch (error) {
-                console.log(error.response);
-                notification.error({
-                    message: error.response.data.message
-                })
-                console.error("Error saat mengirim pesan WhatsApp:", error);
-            }
-        };
         try {
-
 
             const responses = [];
             for (const item of body) {
