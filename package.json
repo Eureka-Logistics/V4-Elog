@@ -1,5 +1,6 @@
 {
   "name": "wieldy-hook",
+  "proxy": "http://34.30.16.30:3000",
   "version": "2.5.0",
   "private": true,
   "dependencies": {
