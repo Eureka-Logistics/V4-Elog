@@ -93,7 +93,7 @@ function MapPengiriman() {
 
     const kirimPesanWhatsApp = async (item) => {
         try {
-            const response = await axios.post(`https://34.30.16.30:3000/send-ke-driver`, [item], {
+            const response = await axios.post(`http://34.30.16.30:3000/send-ke-driver`, [item], {
                 headers: {
                     'Content-Type': 'application/json'
                 },
