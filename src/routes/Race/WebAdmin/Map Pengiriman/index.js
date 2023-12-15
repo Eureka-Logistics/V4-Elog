@@ -93,7 +93,7 @@ function MapPengiriman() {
 
     const kirimPesanWhatsApp = async (item) => {
         try {
-            const response = await axios.post(`https://botwa.mhridwan.com/send-ke-driver`, [item]);
+            const response = await axios.post(`https://34.30.16.30:3001/send-ke-driver`, [item]);
             console.log(response);
             {
                 response && response?.data?.forEach((item) => (
