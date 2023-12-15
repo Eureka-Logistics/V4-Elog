@@ -115,7 +115,7 @@ function MapPengiriman() {
 
         const kirimPesanWhatsApp = async (item) => {
             try {
-                const response = await axios.post(`http://34.30.16.30:3001/send-ke-driver`, [item]);
+                const response = await axios.get(`https://botwa.mhridwan.com/`, [item]);
                 console.log(response);
                 {
                     response && response?.data?.forEach((item) => (
@@ -167,7 +167,7 @@ function MapPengiriman() {
             SelectDriver2("")
             addData("")
             CardMappingStoreRace.setState({ selectedData: "" })
-           
+
 
         } catch (error) {
             if (error?.response?.data && error?.response?.data?.status && error?.response?.data?.status?.message) {
