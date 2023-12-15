@@ -95,7 +95,8 @@ function MapPengiriman() {
         try {
             const response = await axios.post(`http://34.30.16.30:3000/send-ke-driver`, [item], {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
                 },
             });
             console.log(response);
