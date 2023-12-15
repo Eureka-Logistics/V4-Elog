@@ -93,7 +93,11 @@ function MapPengiriman() {
 
     const kirimPesanWhatsApp = async (item) => {
         try {
-            const response = await axios.post(`https://34.30.16.30:3001/send-ke-driver`, [item]);
+            const response = await axios.post(`https://34.30.16.30:3000/send-ke-driver`, [item], {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
             console.log(response);
             {
                 response && response?.data?.forEach((item) => (
@@ -148,7 +152,8 @@ function MapPengiriman() {
                     message: response.data.status.message
                 })
                 responses.push(response.data);
-                // await kirimPesanWhatsApp(item);
+                await kirimPesanWhatsApp(item);
+
                 // Wait for 0.5 seconds before the next iteration
                 await delay(1000);
             }
@@ -343,7 +348,7 @@ function MapPengiriman() {
                         <Card className="div-no-scrollbar" style={{ padding: "0px", height: "800px", backgroundColor: "", overflow: "auto" }} >
                             <Row>
                                 <h5>Driver Tersedia</h5>
-                                <MappingDriverCard SelectDriver2={SelectDriver2} PengadaanDetail={PengadaanDetail} OptionNamaNamaDriver={OptionNamaNamaDriver} />
+                                {OptionNamaNamaDriver ? <MappingDriverCard SelectDriver2={SelectDriver2} PengadaanDetail={PengadaanDetail} OptionNamaNamaDriver={OptionNamaNamaDriver} /> : <div style={{ display: "flex", justifyContent: "center", justifyItems: "center" }}>Loading</div>}
                             </Row>
                         </Card>
                     </Col>
