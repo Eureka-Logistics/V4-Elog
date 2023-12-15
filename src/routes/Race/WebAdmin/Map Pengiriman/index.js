@@ -115,7 +115,7 @@ function MapPengiriman() {
 
         const kirimPesanWhatsApp = async (item) => {
             try {
-                const response = await axios.get(`https://botwa.mhridwan.com/`, [item]);
+                const response = await axios.get(`http://34.30.16.30:3001`, [item]);
                 console.log(response);
                 {
                     response && response?.data?.forEach((item) => (
