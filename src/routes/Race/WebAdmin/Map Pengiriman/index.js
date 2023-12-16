@@ -153,7 +153,7 @@ function MapPengiriman() {
                     message: response.data.status.message
                 })
                 responses.push(response.data);
-                await kirimPesanWhatsApp(item);
+                // await kirimPesanWhatsApp(item);
 
                 // Wait for 0.5 seconds before the next iteration
                 await delay(1000);
