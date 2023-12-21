@@ -2663,6 +2663,36 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                   <div >
                     <Menu.Item
                       className={
+                        activeMenu === "/race/uangjalan"
+                          ? "menu-item-active menu-item-hover"
+                          : "menu-item-hover"
+                      }
+                      key="race/uangjalan"
+                    >
+                      <Link to="/race/uangjalan" style={{ textDecoration: "none" }}>
+                        {/* <i className="icon icon-widgets" />
+                         */}
+
+                        <img
+                          src={vehiclerace}
+                          style={{
+                            fontSize: "30px",
+                            color: "white",
+                            marginTop: "7px",
+                          }}
+                        />
+                        <span
+                          className="mx-3"
+                          style={{ fontWeight: "bold", color: "white" }}
+                        >
+                          Uang Jalan
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                  </div>
+                  <div >
+                    <Menu.Item
+                      className={
                         activeMenu === "/ReportKirimanRace"
                           ? "menu-item-active menu-item-hover"
                           : "menu-item-hover"

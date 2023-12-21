@@ -879,6 +879,12 @@ const App = ({ match }) => {
           )}
         />
         <Route
+          path={`${match.url}race/uangjalan`}
+          component={asyncComponent(() =>
+            import("./Race/WebAdmin/Uang Jalan/index")
+          )}
+        />
+        <Route
           path={`${match.url}ReportKirimanRace`}
           component={asyncComponent(() =>
             import("../routes/Race/WebAdmin/ReportKiriman/ReportKiriman")

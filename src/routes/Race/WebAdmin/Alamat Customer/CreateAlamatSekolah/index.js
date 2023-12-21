@@ -18,7 +18,9 @@ function ModalCreateAlamatSekolah({ setmodal1Open, modal1Open, ListSekolah }) {
         KodeWilayah: "",
         kode_wilayah: ""
     })
+
     const [SelectProvinsiKecamatan, setSelectProvinsiKecamatan] = useState("")
+
     function Inputan(e) {
         const { id, value } = e.target;
         console.log(id, value);
@@ -27,10 +29,9 @@ function ModalCreateAlamatSekolah({ setmodal1Open, modal1Open, ListSekolah }) {
             [id]: value,
         }));
     }
+    
     const BuatSekolah = async () => {
         try {
-
-
             const body = {
                 "sekolah": IsiInputan?.NamaSekolah,
                 "alamat": IsiInputan?.AlamatManual,
