@@ -246,7 +246,7 @@ function UangJalan() {
     }
 
     function PerhitunganBBM() {
-        const penjumlahanjarak = HargaSelect * LiterPerKM * Jarak
+        const penjumlahanjarak = (Jarak / LiterPerKM) * HargaSelect
         return penjumlahanjarak
     }
     function PerhitunganParkir() {
