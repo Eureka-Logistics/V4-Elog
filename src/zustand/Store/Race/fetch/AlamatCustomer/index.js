@@ -4,6 +4,7 @@ import { create } from "zustand"
 
 const AlamatCustomerZustand = create((set) => ({
     DetailAlamatHistory: null,
+    passwordvalidasi:null,
     fetchHistoryAlamat: async () => {
         const getApi = await axios.get(`${BaseUrlRace}sp/history_update_alamat?page=1&limit=10`,
             {

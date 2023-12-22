@@ -4,15 +4,23 @@ import { Button, Card, Form, Input, Select, notification } from 'antd';
 import ComponentGerakinPosisiMaps from '../componentmaps';
 import { BaseUrlRace } from '../../../../../Api/BaseUrl';
 import axios from 'axios';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import useCoordinateRaceMap from '../../../../../zustand/Store/coordinateMapRace/RaceMaps';
 import { getCoordinates } from '../../../../../Api/Geocode';
 import ModalState from '../../../../../zustand/Store/Race/StateModal/Modal';
 import ModalEditAlamat from './components/ModalEditAlamat';
 import TableHistory from './components/TableHistory';
+import AlamatCustomerZustand from '../../../../../zustand/Store/Race/fetch/AlamatCustomer';
 
 function HalamanDetailAlamatCustomer() {
     const id = useParams()
+    const navigasi = useHistory()
+    const { passwordvalidasi } = AlamatCustomerZustand()
+    useEffect(() => {
+        if (passwordvalidasi == null) {
+            navigasi.push('/race/alamatcustomer')
+        }
+    }, [])
     const [EditAlamat, setEditAlamat] = useState(false)
     const [latlonglama, setlatlonglama] = useState({
         lat: null,
@@ -99,8 +107,8 @@ function HalamanDetailAlamatCustomer() {
                 "lat_new": lattitudemap || IsiInputan?.lat,
                 "history_pengiriman": isiPesan,
                 "lon_new": longtitudemap || IsiInputan?.lon,
-                "lat_old": latlonglama.lat ,
-                "lon_old": latlonglama.lon ,
+                "lat_old": latlonglama.lat,
+                "lon_old": latlonglama.lon,
             }
             const data = await axios.post(`${BaseUrlRace}sp/update-Sekolah`, bodynya, {
                 headers: {

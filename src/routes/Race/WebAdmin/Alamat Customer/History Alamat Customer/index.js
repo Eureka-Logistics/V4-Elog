@@ -2,11 +2,13 @@ import { Modal, Table } from 'antd'
 import React, { useEffect } from 'react'
 import AlamatCustomerZustand from '../../../../../zustand/Store/Race/fetch/AlamatCustomer'
 
-function HistoryAlamatCustomer({ bukamodal, setbukamodal }) {
+function HistoryAlamatCustomer({ bukamodal, setbukamodal, password }) {
     const { fetchHistoryAlamat, DetailAlamatHistory } = AlamatCustomerZustand()
     useEffect(() => {
         fetchHistoryAlamat()
+      
     }, [])
+    console.log(`password`, password);
     const columns = [
         {
             title: 'No',
@@ -44,7 +46,7 @@ function HistoryAlamatCustomer({ bukamodal, setbukamodal }) {
                 onCancel={() => setbukamodal(false)}
                 onOk={() => setbukamodal(false)}
                 width={1600}
-                style={{top :10}}
+                style={{ top: 10 }}
             >
                 <Table loading={!DetailAlamatHistory} className='mt-3' columns={columns} dataSource={DetailAlamatHistory} />
             </Modal>

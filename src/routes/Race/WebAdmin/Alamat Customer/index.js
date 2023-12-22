@@ -7,10 +7,13 @@ import { Col } from 'react-bootstrap';
 import ModalCreateAlamatSekolah from './CreateAlamatSekolah';
 import useCoordinateRaceMap from '../../../../zustand/Store/coordinateMapRace/RaceMaps';
 import HistoryAlamatCustomer from './History Alamat Customer';
+import AlamatCustomerZustand from '../../../../zustand/Store/Race/fetch/AlamatCustomer';
 
 function AlamatCustomer() {
     const { setState, lattitudemap, longtitudemap } = useCoordinateRaceMap();
     const navigasi = useHistory()
+    const { passwordvalidasi } = AlamatCustomerZustand()
+    const [password, setpassword] = useState(null)
     const [bukamodal, setbukamodal] = useState(false)
     const [dataApi, setdataApi] = useState("")
     const column = [
@@ -58,6 +61,21 @@ function AlamatCustomer() {
     useEffect(() => {
         ListSekolah()
     }, [currentPage])
+
+    const validasiPassword = async (row) => {
+        let validasi = null
+        const passwordBenar = 'admin';
+        const passwordoi = prompt('Masukkan Password Dahulu:');
+        validasi = passwordoi
+        if (passwordBenar == passwordoi) {
+            AlamatCustomerZustand.setState({ passwordvalidasi: passwordoi });
+            navigasi.push(`/race/alamatcustomerdetail/${row.id}`);
+        } else {
+            alert('Password salah!');
+        }
+
+    };
+
     return (
         <div>
             <style>
@@ -97,7 +115,7 @@ function AlamatCustomer() {
                         onClick: event => {
                             console.log(row);
                             useCoordinateRaceMap.setState({ lattitudemap: row?.lat, longtitudemap: row?.long })
-                            navigasi.push(`/race/alamatcustomerdetail/${row.id}`)
+                            validasiPassword(row)
                         }
                     }
                 }}
