@@ -3,12 +3,12 @@ import React, { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import ListDriverZustand from '../../../../../zustand/Store/Race/fetch/List Driver/ListDriver'
 
-function ModalUangJalan({ ModalOpen, setModalOpen, jenismobil, UangJalan, setTol, PerhitunganParkir, setJarak, setLiterPerKM, DataApi, PerhitunganBBM, formatIDR, HargaSelect, setHargaSelect, setDataSelectdanHitungan, DataSelectdanHitungan }) {
+function ModalUangJalan({ isidaridrivermapping, ModalOpen, setModalOpen, jenismobil, UangJalan, setTol, PerhitunganParkir, setJarak, setLiterPerKM, DataApi, PerhitunganBBM, formatIDR, HargaSelect, setHargaSelect, setDataSelectdanHitungan, DataSelectdanHitungan }) {
     const { FetchDriver, ListDriver } = ListDriverZustand()
     useEffect(() => {
         FetchDriver()
     }, [])
-    console.log(`ListDriver`, ListDriver);
+    console.log(`ListDriver`, isidaridrivermapping);
     return (
         <div>
             <Modal open={ModalOpen}
@@ -27,9 +27,9 @@ function ModalUangJalan({ ModalOpen, setModalOpen, jenismobil, UangJalan, setTol
                     <Col>
                         <div className='d-flex flex-column'>
                             <div className='mb-1'>pilih driver yang akan mengirim</div>
-                            <Select>
-                                {ListDriver && ListDriver?.order?.map((item) => (
-                                    <Select.Option key={item?.driverId} value={item?.driverId}>
+                            <Select showSearch optionFilterProp='children'>
+                                {isidaridrivermapping.data && isidaridrivermapping?.data?.Driver && isidaridrivermapping?.data?.Driver?.map((item) => (
+                                    <Select.Option key={item?.idDriver} value={item?.idDriver}>
                                         {item?.driverName}
                                     </Select.Option>
 

@@ -1,9 +1,10 @@
-import { Button, Card, Input, Select, Table } from 'antd'
+import { Button, Card, Input, Select, Table, notification } from 'antd'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import ModalUangJalan from './modaluangjalan'
 import { BaseUrlRace } from '../../../../Api/BaseUrl'
+import CardMappingStoreRace from '../../../../zustand/Store/DriverMappingCardRace/MappingStore'
 
 function UangJalan() {
     const [DataApi, setDataApi] = useState("")
@@ -13,6 +14,7 @@ function UangJalan() {
     const [LiterPerKM, setLiterPerKM] = useState("")
     const [Tol, setTol] = useState("")
     const [Jarak, setJarak] = useState("")
+    const { FetchDriverMapping, isidaridrivermapping } = CardMappingStoreRace()
     const jenismobil = [
         {
             "id_kendaraan_jenis": 1,
@@ -229,9 +231,10 @@ function UangJalan() {
 
         }
     }
+    console.log(`isidaridrivermapping`, isidaridrivermapping);
     useEffect(() => {
         databensin()
-
+        FetchDriverMapping()
     }, [])
 
     useEffect(() => {
@@ -262,7 +265,7 @@ function UangJalan() {
         const uangjalan = totalBBM + totalParkir + totalTol;
         return formatIDR(uangjalan);
     }
-
+    
 
     return (
         <>
@@ -343,7 +346,7 @@ function UangJalan() {
                 </table>
 
                 {/* <Table columns={datatable} dataSource={DataApi} /> */}
-                <ModalUangJalan setJarak={setJarak} setTol={setTol} setLiterPerKM={setLiterPerKM} UangJalan={UangJalan} PerhitunganParkir={PerhitunganParkir} PerhitunganBBM={PerhitunganBBM} jenismobil={jenismobil} HargaSelect={HargaSelect} formatIDR={formatIDR} setHargaSelect={setHargaSelect} DataSelectdanHitungan={DataSelectdanHitungan} setModalOpen={setModalOpen} ModalOpen={ModalOpen} setDataSelectdanHitungan={setDataSelectdanHitungan} DataApi={DataApi} />
+                <ModalUangJalan isidaridrivermapping={isidaridrivermapping} setJarak={setJarak} setTol={setTol} setLiterPerKM={setLiterPerKM} UangJalan={UangJalan} PerhitunganParkir={PerhitunganParkir} PerhitunganBBM={PerhitunganBBM} jenismobil={jenismobil} HargaSelect={HargaSelect} formatIDR={formatIDR} setHargaSelect={setHargaSelect} DataSelectdanHitungan={DataSelectdanHitungan} setModalOpen={setModalOpen} ModalOpen={ModalOpen} setDataSelectdanHitungan={setDataSelectdanHitungan} DataApi={DataApi} />
             </div >
             {/* } */}
         </>
