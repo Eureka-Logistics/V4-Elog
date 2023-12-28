@@ -5,6 +5,7 @@ import { Col, Row } from 'react-bootstrap'
 import ModalUangJalan from './modaluangjalan'
 import { BaseUrlRace } from '../../../../Api/BaseUrl'
 import CardMappingStoreRace from '../../../../zustand/Store/DriverMappingCardRace/MappingStore'
+import { UangJalanZustand } from '../../../../zustand/Store/Race/fetch/uangjalan'
 
 function UangJalan() {
     const [DataApi, setDataApi] = useState("")
@@ -15,6 +16,57 @@ function UangJalan() {
     const [Tol, setTol] = useState("")
     const [Jarak, setJarak] = useState("")
     const { FetchDriverMapping, isidaridrivermapping } = CardMappingStoreRace()
+    const [pterhitunganbbm, setpterhitunganbbm] = useState()
+    const [perhitunganParkir, setperhitunganParkir] = useState()
+    const [uangjalanstate, setuangjalanstate] = useState()
+    const { FetchUangJalan, isibbm, isifetchuangjalan, isiinputanuangjalan, addisiinputanuangjalan } = UangJalanZustand()
+    const columns = [
+        {
+            title: 'No',
+            dataIndex: 'no',
+            key: 'name',
+        },
+        {
+            title: 'Driver',
+            dataIndex: 'driver',
+            key: 'driver',
+        },
+        {
+            title: 'Kendaraan ',
+            dataIndex: 'kendaraan',
+            key: 'kendaraan',
+        },
+        {
+            title: 'Bbm',
+            dataIndex: 'bbm',
+            key: 'bbm',
+        },
+        {
+            title: 'makan',
+            dataIndex: 'makan',
+            key: 'makan',
+        },
+        {
+            title: 'parkir',
+            dataIndex: 'parkir',
+            key: 'parkir',
+        },
+        {
+            title: 'tol',
+            dataIndex: 'tol',
+            key: 'tol',
+        },
+        {
+            title: 'admin',
+            dataIndex: 'admin',
+            key: 'admin',
+        },
+        {
+            title: 'tanggal',
+            dataIndex: 'tanggal',
+            key: 'tanggal',
+        },
+    ]
     const jenismobil = [
         {
             "id_kendaraan_jenis": 1,
@@ -231,15 +283,16 @@ function UangJalan() {
 
         }
     }
-    console.log(`isidaridrivermapping`, isidaridrivermapping);
     useEffect(() => {
         databensin()
+        FetchUangJalan()
         FetchDriverMapping()
     }, [])
 
     useEffect(() => {
-
+        PerhitunganBBM()
     }, [Jarak, HargaSelect, Tol, LiterPerKM])
+
     function formatIDR(value) {
         return new Intl.NumberFormat('id-ID', {
             style: 'currency',
@@ -247,13 +300,15 @@ function UangJalan() {
             minimumFractionDigits: 0,
         }).format(value);
     }
-
     function PerhitunganBBM() {
         const penjumlahanjarak = (Jarak / LiterPerKM) * HargaSelect
+        console.log(`penjumlahanjarak`, penjumlahanjarak);
+        setpterhitunganbbm(penjumlahanjarak)
         return penjumlahanjarak
     }
     function PerhitunganParkir() {
         const perhitungan = 0.15 * PerhitunganBBM();
+        setperhitunganParkir(perhitungan)
         return perhitungan
     }
 
@@ -263,9 +318,10 @@ function UangJalan() {
         const totalTol = Number(Tol);
 
         const uangjalan = totalBBM + totalParkir + totalTol;
+        setuangjalanstate(uangjalan)
         return formatIDR(uangjalan);
     }
-    
+
 
     return (
         <>
@@ -286,67 +342,10 @@ function UangJalan() {
                         <Button type='primary' onClick={() => setModalOpen(true)}>Tambah Transfer UJ</Button>
                     </Col>
                 </Row>
-                <table responsive style={{ borderCollapse: 'collapse', width: '100%' }}>
-                    <tr>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>Jenis BBM</th>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>Provinsi</th>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>Harga Sekarang</th>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>Jenis Kendaraan</th>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>Jarak / km</th>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>Perhitungan BBM</th>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>Perhitungan Parkir</th>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>Tol</th>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>Uang Jalan</th>
-                    </tr>
-                    <tr>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>
-                            <Select showSearch optionFilterProp='children' defaultValue="Pilih Jenis BBM" onChange={(e, w) => { setDataSelectdanHitungan(w) }} style={{ width: "100%" }}>
-                                {
-                                    DataApi && DataApi?.map((item) => (
-                                        <Select.Option Option={item} key={item.nama_bbm} value={item.nama_bbm}>
-                                            {item.nama_bbm}
-                                        </Select.Option>
-                                    ))
-                                }
-                            </Select>
-                        </th>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>
-                            <Select defaultValue="Pilih Provinsi" onChange={(e, w) => { setHargaSelect(w.Option.harga) }} style={{ width: "100%" }}>
-                                {
-                                    DataSelectdanHitungan?.Option && DataSelectdanHitungan?.Option?.data?.map((item) => (
-                                        <Select.Option key={item.id} Option={item} value={item.provinsi}>
-                                            {item.provinsi}
-                                        </Select.Option>
-                                    ))
-                                }
-                            </Select>
-                        </th>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}><div>{formatIDR(HargaSelect)}</div></th>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>
-                            <Select style={{ width: "100%" }} onChange={(e, w) => { setLiterPerKM(w.Option?.jarak_liter) }} defaultValue="Pilih Jenis Kendaraan">
-                                {jenismobil.map((item) => (
-                                    <Select.Option key={item.id} Option={item} value={item.nama_kendaraan_jenis}>
-                                        {item.nama_kendaraan_jenis + " " + item?.jarak_liter + "L/km" + " " + "(" + item?.bbm + ")"}
-                                    </Select.Option>
-                                ))}
-                            </Select>
-                        </th>
 
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>
-                            <Input onChange={(e) => setJarak(e.target.value)} type='number'></Input>
-                        </th>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}> {PerhitunganBBM()}</th>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}> {PerhitunganParkir()}</th>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}>
-                            <Input onChange={(e) => setTol(e.target.value)} type='number'></Input>
-                        </th>
-                        <th style={{ border: '1px solid black', padding: '8px', textAlign: 'left', backgroundColor: '#f2f2f2' }}> {UangJalan()}</th>
-
-                    </tr>
-                </table>
-
+                <Table dataSource={isifetchuangjalan?.order} loading={!isifetchuangjalan} columns={columns} />
                 {/* <Table columns={datatable} dataSource={DataApi} /> */}
-                <ModalUangJalan isidaridrivermapping={isidaridrivermapping} setJarak={setJarak} setTol={setTol} setLiterPerKM={setLiterPerKM} UangJalan={UangJalan} PerhitunganParkir={PerhitunganParkir} PerhitunganBBM={PerhitunganBBM} jenismobil={jenismobil} HargaSelect={HargaSelect} formatIDR={formatIDR} setHargaSelect={setHargaSelect} DataSelectdanHitungan={DataSelectdanHitungan} setModalOpen={setModalOpen} ModalOpen={ModalOpen} setDataSelectdanHitungan={setDataSelectdanHitungan} DataApi={DataApi} />
+                <ModalUangJalan uangjalanstate={uangjalanstate} perhitunganParkir={perhitunganParkir} pterhitunganbbm={pterhitunganbbm} jenismobil={jenismobil} isidaridrivermapping={isidaridrivermapping} setJarak={setJarak} setTol={setTol} setLiterPerKM={setLiterPerKM} UangJalan={UangJalan} PerhitunganParkir={PerhitunganParkir} PerhitunganBBM={PerhitunganBBM} HargaSelect={HargaSelect} formatIDR={formatIDR} setHargaSelect={setHargaSelect} DataSelectdanHitungan={DataSelectdanHitungan} setModalOpen={setModalOpen} ModalOpen={ModalOpen} setDataSelectdanHitungan={setDataSelectdanHitungan} DataApi={DataApi} />
             </div >
             {/* } */}
         </>

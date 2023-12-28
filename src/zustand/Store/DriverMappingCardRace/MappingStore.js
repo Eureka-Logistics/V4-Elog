@@ -27,6 +27,8 @@ const CardMappingStoreRace = create(set => ({
 
     addData: (data) => set(state => ({ selectedData: [...state.selectedData, data] })),
     removeData: (sp) => set(state => ({ selectedData: state.selectedData.filter(data => data.sp !== sp) })),
+    
 }));
+
 
 export default CardMappingStoreRace;

@@ -1,14 +1,22 @@
-import { DatePicker, Input, Modal, Select } from 'antd'
+import { DatePicker, Input, Modal, Select, notification } from 'antd'
 import React, { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import ListDriverZustand from '../../../../../zustand/Store/Race/fetch/List Driver/ListDriver'
+import { UangJalanZustand } from '../../../../../zustand/Store/Race/fetch/uangjalan'
 
-function ModalUangJalan({ isidaridrivermapping, ModalOpen, setModalOpen, jenismobil, UangJalan, setTol, PerhitunganParkir, setJarak, setLiterPerKM, DataApi, PerhitunganBBM, formatIDR, HargaSelect, setHargaSelect, setDataSelectdanHitungan, DataSelectdanHitungan }) {
+function ModalUangJalan({ perhitunganParkir, uangjalanstate, isidaridrivermapping, pterhitunganbbm, ModalOpen, setModalOpen, jenismobil, UangJalan, setTol, PerhitunganParkir, setJarak, setLiterPerKM, DataApi, PerhitunganBBM, formatIDR, HargaSelect, setHargaSelect, setDataSelectdanHitungan, DataSelectdanHitungan }) {
     const { FetchDriver, ListDriver } = ListDriverZustand()
+    const { isiinputanuangjalan, postuangjalan, addisiinputanuangjalan, isibbm, perhitunganParkirstate, close, uangjalanstatezustand } = UangJalanZustand()
     useEffect(() => {
         FetchDriver()
-    }, [])
-    console.log(`ListDriver`, isidaridrivermapping);
+        addisiinputanuangjalan(pterhitunganbbm)
+        UangJalanZustand.setState({ perhitunganParkirstate: perhitunganParkir })
+        UangJalanZustand.setState({ uangjalanstatezustand: uangjalanstate })
+    }, [pterhitunganbbm])
+
+    console.log(`isibbm`, isibbm);
+    console.log(`perhitunganParkirstate`, perhitunganParkirstate);
+
     return (
         <div>
             <Modal open={ModalOpen}
@@ -16,18 +24,48 @@ function ModalUangJalan({ isidaridrivermapping, ModalOpen, setModalOpen, jenismo
                 title="Buat Uang Jalan"
                 width={1000}
 
+                onOk={() => {
+                    if (isiinputanuangjalan) {
+                        postuangjalan(isiinputanuangjalan, setModalOpen(false))
+
+                    } else {
+                        notification.error({
+                            message: "Data harus diisi!"
+                        })
+                    }
+                }}
+
             >
                 <Row>
-                    <Col>
+                    {/* <Col>
                         <div className='d-flex flex-column'>
                             <div className='mb-1'>Pilih Tanggal Kiriman</div>
-                            <DatePicker />
+                            <DatePicker onChange={(e, w) => {
+                                UangJalanZustand.setState(state => ({
+                                    ...state,
+                                    isiinputanuangjalan: {
+                                        ...state.isiinputanuangjalan,
+                                        tgl_kirim: w
+                                    }
+                                }));
+
+                                console.log(w)
+                            }} />
                         </div>
-                    </Col>
+                    </Col> */}
                     <Col>
                         <div className='d-flex flex-column'>
                             <div className='mb-1'>pilih driver yang akan mengirim</div>
-                            <Select showSearch optionFilterProp='children'>
+                            <Select showSearch optionFilterProp='children' onChange={(e, w) => {
+                                UangJalanZustand.setState(state => ({
+                                    ...state,
+                                    isiinputanuangjalan: {
+                                        ...state.isiinputanuangjalan,
+                                        idDriver: e
+                                    }
+                                }));
+                                console.log(e, w)
+                            }} >
                                 {isidaridrivermapping.data && isidaridrivermapping?.data?.Driver && isidaridrivermapping?.data?.Driver?.map((item) => (
                                     <Select.Option key={item?.idDriver} value={item?.idDriver}>
                                         {item?.driverName}
@@ -40,7 +78,16 @@ function ModalUangJalan({ isidaridrivermapping, ModalOpen, setModalOpen, jenismo
                     <Col>
                         <div className='d-flex flex-column'>
                             <div className='mb-1'>Jenis BBM</div>
-                            <Select showSearch optionFilterProp='children' defaultValue="Pilih Jenis BBM" onChange={(e, w) => { setDataSelectdanHitungan(w) }} style={{ width: "100%" }}>
+                            <Select showSearch optionFilterProp='children' defaultValue="Pilih Jenis BBM" onChange={(e, w) => {
+                                UangJalanZustand.setState(state => ({
+                                    ...state,
+                                    isiinputanuangjalan: {
+                                        ...state.isiinputanuangjalan,
+                                        nama_bbm: e
+                                    }
+                                }));
+                                setDataSelectdanHitungan(w)
+                            }} style={{ width: "100%" }}>
                                 {
                                     DataApi && DataApi?.map((item) => (
                                         <Select.Option Option={item} key={item.nama_bbm} value={item.nama_bbm}>
@@ -54,7 +101,16 @@ function ModalUangJalan({ isidaridrivermapping, ModalOpen, setModalOpen, jenismo
                     <Col>
                         <div className='d-flex flex-column'>
                             <div className='mb-1'>Provinsi</div>
-                            <Select defaultValue="Pilih Provinsi" showSearch optionFilterProp='children' onChange={(e, w) => { setHargaSelect(w.Option.harga) }} style={{ width: "100%" }}>
+                            <Select defaultValue="Pilih Provinsi" showSearch optionFilterProp='children' onChange={(e, w) => {
+                                UangJalanZustand.setState(state => ({
+                                    ...state,
+                                    isiinputanuangjalan: {
+                                        ...state.isiinputanuangjalan,
+                                        provinsi: e
+                                    }
+                                }));
+                                setHargaSelect(w.Option.harga)
+                            }} style={{ width: "100%" }}>
                                 {
                                     DataSelectdanHitungan?.Option && DataSelectdanHitungan?.Option?.data?.map((item) => (
                                         <Select.Option key={item.id} Option={item} value={item.provinsi}>
@@ -70,7 +126,19 @@ function ModalUangJalan({ isidaridrivermapping, ModalOpen, setModalOpen, jenismo
                     <Col>
                         <div className='d-flex flex-column mt-3'>
                             <div className='mb-1'>Harga Sekarang</div>
-                            <Input value={formatIDR(HargaSelect)} />
+                            <Input value={isiinputanuangjalan.hargaselect}
+                                onChange={(e, w) => {
+                                    UangJalanZustand.setState(state => ({
+                                        ...state,
+                                        isiinputanuangjalan: {
+                                            ...state.isiinputanuangjalan,
+                                            hargaselect: e.target.value
+                                        }
+                                    }));
+                                    setHargaSelect(e.target.value)
+                                    console.log(e.target.value);
+                                }}
+                            />
                         </div>
                     </Col>
                     <Col>
@@ -88,13 +156,31 @@ function ModalUangJalan({ isidaridrivermapping, ModalOpen, setModalOpen, jenismo
                     <Col>
                         <div className='d-flex flex-column mt-3'>
                             <div className='mb-1'>Jarak / km</div>
-                            <Input onChange={(e) => setJarak(e.target.value)} type='number'></Input>
+                            <Input onChange={(e) => {
+                                setJarak(e.target.value)
+                                UangJalanZustand.setState(state => ({
+                                    ...state,
+                                    isiinputanuangjalan: {
+                                        ...state.isiinputanuangjalan,
+                                        jarak: e.target.value
+                                    }
+                                }));
+                            }} type='number'></Input>
                         </div>
                     </Col>
                     <Col>
                         <div className='d-flex flex-column mt-3'>
                             <div className='mb-1'>Input Uang Tol</div>
-                            <Input onChange={(e) => setTol(e.target.value)} type='number'></Input>
+                            <Input onChange={(e) => {
+                                UangJalanZustand.setState(state => ({
+                                    ...state,
+                                    isiinputanuangjalan: {
+                                        ...state.isiinputanuangjalan,
+                                        tol: e.target.value
+                                    }
+                                }));
+                                setTol(e.target.value)
+                            }} type='number'></Input>
                         </div>
                     </Col>
 
