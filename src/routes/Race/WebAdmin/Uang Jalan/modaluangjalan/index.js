@@ -90,9 +90,9 @@ function ModalUangJalan({ perhitunganParkir, uangjalanstate, isidaridrivermappin
                                 setDataSelectdanHitungan(w)
                             }} style={{ width: "100%" }}>
                                 {
-                                    optionprovinsi && optionprovinsi?.map((item) => (
-                                        <Select.Option Option={item} key={item.idprovinsi} value={item.nama_bbm}>
-                                            {item.provinsi}
+                                    optionprovinsi && optionprovinsi?.jenisBBM?.map((item) => (
+                                        <Select.Option Option={item} key={item.idprovinsi} value={item.bbm}>
+                                            {item.bbm}
                                         </Select.Option>
                                     ))
                                 }
@@ -113,7 +113,7 @@ function ModalUangJalan({ perhitunganParkir, uangjalanstate, isidaridrivermappin
                                 setHargaSelect(w.Option.harga)
                             }} style={{ width: "100%" }}>
                                 {
-                                    optionprovinsi && optionprovinsi?.map((item) => (
+                                    optionprovinsi && optionprovinsi?.provisi?.map((item) => (
                                         <Select.Option Option={item} key={item.idprovinsi} value={item.nama_bbm}>
                                             {item.provinsi}
                                         </Select.Option>

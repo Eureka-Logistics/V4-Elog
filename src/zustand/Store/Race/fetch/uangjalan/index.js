@@ -38,7 +38,7 @@ export const UangJalanZustand = create((set, get) => ({
             // "tgl_kirim": isiinputanuangjalan.tgl_kirim,
             "id_unit": 1,
             "no_rek_driver": isiinputanuangjalan.no_rek_driver,
-            "nama_bbm": "",
+            "nama_bbm": isiinputanuangjalan?.nama_bbm,
             "provinsi": isiinputanuangjalan.provinsi,
             "jarak": isiinputanuangjalan.jarak,
             "bbm": isibbm,
@@ -81,7 +81,7 @@ export const UangJalanZustand = create((set, get) => ({
                 }
             )
             console.log(`uangjalan`, data.data);
-            set({ optionprovinsi: data.data?.jenisBBM })
+            set({ optionprovinsi: data.data })
         } catch (error) {
 
         }
