@@ -6,9 +6,10 @@ import { UangJalanZustand } from '../../../../../zustand/Store/Race/fetch/uangja
 
 function ModalUangJalan({ perhitunganParkir, uangjalanstate, isidaridrivermapping, pterhitunganbbm, ModalOpen, setModalOpen, jenismobil, UangJalan, setTol, PerhitunganParkir, setJarak, setLiterPerKM, DataApi, PerhitunganBBM, formatIDR, HargaSelect, setHargaSelect, setDataSelectdanHitungan, DataSelectdanHitungan }) {
     const { FetchDriver, ListDriver } = ListDriverZustand()
-    const { isiinputanuangjalan, postuangjalan, addisiinputanuangjalan, isibbm, perhitunganParkirstate, close, uangjalanstatezustand } = UangJalanZustand()
+    const { isiinputanuangjalan, postuangjalan, addisiinputanuangjalan, isibbm, perhitunganParkirstate, close, uangjalanstatezustand, fetchoptionuangjalan, optionprovinsi } = UangJalanZustand()
     useEffect(() => {
         FetchDriver()
+        fetchoptionuangjalan()
         addisiinputanuangjalan(pterhitunganbbm)
         UangJalanZustand.setState({ perhitunganParkirstate: perhitunganParkir })
         UangJalanZustand.setState({ uangjalanstatezustand: uangjalanstate })
@@ -89,9 +90,9 @@ function ModalUangJalan({ perhitunganParkir, uangjalanstate, isidaridrivermappin
                                 setDataSelectdanHitungan(w)
                             }} style={{ width: "100%" }}>
                                 {
-                                    DataApi && DataApi?.map((item) => (
-                                        <Select.Option Option={item} key={item.nama_bbm} value={item.nama_bbm}>
-                                            {item.nama_bbm}
+                                    optionprovinsi && optionprovinsi?.map((item) => (
+                                        <Select.Option Option={item} key={item.idprovinsi} value={item.nama_bbm}>
+                                            {item.provinsi}
                                         </Select.Option>
                                     ))
                                 }
@@ -112,13 +113,28 @@ function ModalUangJalan({ perhitunganParkir, uangjalanstate, isidaridrivermappin
                                 setHargaSelect(w.Option.harga)
                             }} style={{ width: "100%" }}>
                                 {
-                                    DataSelectdanHitungan?.Option && DataSelectdanHitungan?.Option?.data?.map((item) => (
-                                        <Select.Option key={item.id} Option={item} value={item.provinsi}>
+                                    optionprovinsi && optionprovinsi?.map((item) => (
+                                        <Select.Option Option={item} key={item.idprovinsi} value={item.nama_bbm}>
                                             {item.provinsi}
                                         </Select.Option>
                                     ))
                                 }
                             </Select>
+                        </div>
+                    </Col>
+                    <Col>
+                        <div className='d-flex flex-column'>
+                            <div className='mb-1'>Uang Makan Driver</div>
+                            <Input placeholder='Uang Makan Driver' onChange={(e) => {
+                                UangJalanZustand.setState(state => ({
+                                    ...state,
+                                    isiinputanuangjalan: {
+                                        ...state.isiinputanuangjalan,
+                                        makan: e.target.value
+                                    }
+                                }));
+
+                            }}></Input>
                         </div>
                     </Col>
                 </Row>
@@ -186,6 +202,20 @@ function ModalUangJalan({ perhitunganParkir, uangjalanstate, isidaridrivermappin
 
                 </Row>
                 <Row>
+                    <Col>
+                        <div className='d-flex flex-column mt-3'>
+                            <div className='mb-1'>No Rek Driver</div>
+                            <Input placeholder='No Rek Driver' onChange={(e) => {
+                                UangJalanZustand.setState(state => ({
+                                    ...state,
+                                    isiinputanuangjalan: {
+                                        ...state.isiinputanuangjalan,
+                                        no_rek_driver: e.target.value
+                                    }
+                                }));
+                            }}></Input>
+                        </div>
+                    </Col>
                     <Col>
                         <div className='d-flex flex-column mt-3'>
                             <div className='mb-1'>Perhitungan BBM</div>

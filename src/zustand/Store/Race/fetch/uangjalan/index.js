@@ -10,6 +10,7 @@ export const UangJalanZustand = create((set, get) => ({
     perhitunganParkirstate: null,
     uangjalanstatezustand: null,
     close: false,
+    optionprovinsi: "",
     FetchUangJalan: async () => {
         try {
             const data = await axios(`${BaseUrlRace}sp/get-uang-jalan?page=1&limit=10&Driver=&tgl=`,
@@ -36,12 +37,12 @@ export const UangJalanZustand = create((set, get) => ({
             "id_driver": isiinputanuangjalan.idDriver,
             // "tgl_kirim": isiinputanuangjalan.tgl_kirim,
             "id_unit": 1,
-            "no_rek_driver": "12312412412",
+            "no_rek_driver": isiinputanuangjalan.no_rek_driver,
             "nama_bbm": "",
-            "provinsi": "",
+            "provinsi": isiinputanuangjalan.provinsi,
             "jarak": isiinputanuangjalan.jarak,
             "bbm": isibbm,
-            "makan": 50000,
+            "makan": isiinputanuangjalan.makan,
             "parkir": perhitunganParkirstate,
             "tol": isiinputanuangjalan?.tol,
             "amount": uangjalanstatezustand
@@ -68,6 +69,22 @@ export const UangJalanZustand = create((set, get) => ({
         }
         FetchUangJalan()
     },
-    addisiinputanuangjalan: (data) => set(state => ({ isibbm: data }))
+    addisiinputanuangjalan: (data) => set(state => ({ isibbm: data })),
+    fetchoptionuangjalan: async () => {
+        try {
+            const data = await axios(`${BaseUrlRace}sp/get-option-uangjalan`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.getItem('token'),
+                    },
+                }
+            )
+            console.log(`uangjalan`, data.data);
+            set({ optionprovinsi: data.data?.jenisBBM })
+        } catch (error) {
+
+        }
+    },
 
 }))

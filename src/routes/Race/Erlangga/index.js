@@ -12,6 +12,7 @@ function Erlangga() {
     const [modal1Open, setModal1Open] = useState(false);
     const NamaCabang = localStorage.getItem("cabang")
     const [Loading, setLoading] = useState(false)
+    const [filtertanggal, setfiltertanggal] = useState("")
     let namaCabang = ""
     if (NamaCabang == "RCCGK") {
         namaCabang = "JKT"
@@ -87,7 +88,7 @@ function Erlangga() {
 
 
     const Refresh = async () => {
-        const datanya = await axios.get(`${BaseUrlRace}sp/get-data-pesanan?page=${Data?.paggination}&limit=${Data?.size}&keyword=${Keyword}&cabang=${IDCabang}`,
+        const datanya = await axios.get(`${BaseUrlRace}sp/get-data-pesanan?page=${Data?.paggination}&limit=${Data?.size}&keyword=${Keyword}&cabang=${IDCabang}&tglSj=${filtertanggal}`,
             {
                 headers: {
                     "Content-Type": "application/json",
@@ -102,7 +103,7 @@ function Erlangga() {
         }));
     }
     useEffect(async () => {
-        const datanya = await axios.get(`${BaseUrlRace}sp/get-data-pesanan?page=${Data?.paggination}&limit=${Data?.size}&keyword=${Keyword}&cabang=${IDCabang}`,
+        const datanya = await axios.get(`${BaseUrlRace}sp/get-data-pesanan?page=${Data?.paggination}&limit=${Data?.size}&keyword=${Keyword}&cabang=${IDCabang}&tglSj=${filtertanggal}`,
             {
                 headers: {
                     "Content-Type": "application/json",
@@ -116,7 +117,7 @@ function Erlangga() {
             SizePge: datanya.data?.data.totalData
         }));
         pilihcabangselect()
-    }, [Data?.paggination, Data?.size, Keyword, PilihCabang])
+    }, [Data?.paggination, Data?.size, Keyword, PilihCabang, filtertanggal])
 
     function Pageination(page, size) {
         setData(data => ({
@@ -148,10 +149,16 @@ function Erlangga() {
             }
         },
         {
+            title: 'Tanggal SJ',
+            dataIndex: 'tgl_sj',
+            key: 'tgl_sj',
+
+        },
+        {
             title: 'Pic Divisi',
             dataIndex: 'pic_divisi',
             key: 'pic_divisi',
-            render : (text,record)=>{
+            render: (text, record) => {
                 return <div>{record.pic_nik} - {record.pic_divisi}</div>
             }
         },
@@ -277,6 +284,9 @@ function Erlangga() {
                     <Col style={{ backgroundColor: "" }}>
                         <Button style={{ backgroundColor: "" }} disabled={!IDCabang} onClick={() => setModal1Open(true)} type='danger'>Create SP</Button>
 
+                    </Col>
+                    <Col   >
+                        <DatePicker style={{ width: "90%" }} placeholder='Filter Tanggal' onChange={(e, w) => { setfiltertanggal(w); }} />
                     </Col>
                     <Col  >
                         <Input
