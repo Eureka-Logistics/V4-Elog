@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Input, Select, Tag, Tooltip, notification, Button } from "antd";
+import { Card, Input, Select, Tag, Tooltip, notification, Button, DatePicker } from "antd";
 import { Col, Row, Form } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import axios from "axios";
@@ -19,6 +19,7 @@ function SPListlama() {
     (i) => i?.DetailUserLoginZustandState
   );
   const NamaCabang = NamaCabangStore((state) => state.NamaCabang);
+  const [pilihtanggal, setpilihtanggal] = useState("")
 
   const [isiData, setIsiData] = useState([]);
   const [Loading, setLoading] = useState(false);
@@ -82,7 +83,6 @@ function SPListlama() {
   if (!userProfileZustand.id) {
     console.log(`kosong bolo`);
   }
-
   const detail = async () => {
     try {
       const data = await axios.get(`${Baseurl}auth/get-profile`, {
@@ -112,7 +112,7 @@ function SPListlama() {
     try {
       setLoading(true);
       const data = await axios.get(
-        `${Baseurl}sp/get-SP-all?limit=${pageSize}&page=${page}&keyword=${search}&statusSP=&customerId=${CustumerValue}&codeBrench=${ganticabang()}&sales=${CariSalesValue}&buId=${CariBu}`,
+        `${Baseurl}sp/get-SP-all?limit=${pageSize}&page=${page}&keyword=${search}&statusSP=&customerId=${CustumerValue}&codeBrench=${ganticabang()}&sales=${CariSalesValue}&buId=${CariBu}&tglSp=${pilihtanggal}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -157,7 +157,7 @@ function SPListlama() {
     await detail();
     await setSPFilter();
     await ApiDataAwal();
-  }, [search, CustumerValue, CariCabangValue, CariSalesValue, CariBu]);
+  }, [search, CustumerValue, CariCabangValue, CariSalesValue, CariBu,pilihtanggal]);
   // console.log(`DetailUserLoginZustandState`, DetailUserLoginZustandState.id);
   // useEffect(() => {
   //   // Set nilai awal dari CariSalesValue
@@ -526,7 +526,6 @@ function SPListlama() {
     }
   };
 
-  
 
   const [exporting, setExporting] = useState(false);
 
@@ -539,7 +538,7 @@ function SPListlama() {
           <Col>
             {/* <h1>SP List</h1> */}
             <Row>
-              <Col sm={2}>
+              <Col >
                 <Form.Group controlId="bu">
                   <Select
                     options={CariBUOptions}
@@ -556,7 +555,22 @@ function SPListlama() {
                   />
                 </Form.Group>
               </Col>
-              <Col sm={2}>
+              <Col >
+                <Form.Group controlId="bu">
+                  <DatePicker
+                    onChange={(e, w) => setpilihtanggal(w)}
+                    placeholder="Filter Tahun"
+                    style={{
+                      width: "100%",
+                      border: "1px solid #1A5CBF",
+                      borderRadius: "5px",
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
+                    }} />
+
+
+                </Form.Group>
+              </Col>
+              <Col >
                 <Form.Group controlId="cabang">
                   <Select
                     optionFilterProp="label"
@@ -574,7 +588,7 @@ function SPListlama() {
                   />
                 </Form.Group>
               </Col>
-              <Col sm={2}>
+              <Col >
                 <Form.Group controlId="sales">
                   <Select
                     optionFilterProp="label"
@@ -592,7 +606,7 @@ function SPListlama() {
                   />
                 </Form.Group>
               </Col>
-              <Col sm={2}>
+              <Col >
                 <Form.Group controlId="search">
                   <Select
                     options={CariCustomerOptions}
@@ -612,7 +626,7 @@ function SPListlama() {
 
               <Col
                 style={{ display: "flex", justifyContent: "flex-end" }}
-                sm={2}
+
               >
                 <Form.Group controlId="search">
                   <Input
@@ -653,13 +667,13 @@ function SPListlama() {
 
             <Row>
               <Col sm={12} className="justify-content-end d-flex">
-              <Button
-              style={{ backgroundColor: "green", color: "white" }}
-              onClick={exportToExcel}
-              disabled={exporting}
-            >
-              {exporting ? "Exporting..." : "Export Excel (XLSX)"} 
-            </Button>
+                <Button
+                  style={{ backgroundColor: "green", color: "white" }}
+                  onClick={exportToExcel}
+                  disabled={exporting}
+                >
+                  {exporting ? "Exporting..." : "Export Excel (XLSX)"}
+                </Button>
                 <Button
                   style={{ backgroundColor: "#1A5CBF", color: "white" }}
                   onClick={handleView}
