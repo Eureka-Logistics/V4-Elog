@@ -560,6 +560,7 @@ function SPListlama() {
                   <DatePicker
                     onChange={(e, w) => setpilihtanggal(w)}
                     placeholder="Filter Tahun"
+                    picker="year"
                     style={{
                       width: "100%",
                       border: "1px solid #1A5CBF",
