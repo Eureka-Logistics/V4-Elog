@@ -1,6 +1,7 @@
 import {
   Button,
   Card,
+  DatePicker,
   Drawer,
   Form,
   Input,
@@ -91,13 +92,15 @@ function SMList({ }) {
     currentPage: 1,
     limit: 10,
   });
-
+  const [tanggalfilter, settanggalfilter] = useState("")
+  const [SekolahTujuan, setSekolahTujuan] = useState("")
+  const [FilterSales, setFilterSales] = useState("")
   const DataApiSM = async (s = 1) => {
     setLoadingBang(true);
     try {
       const dataa = await axios.get(
         // `https://api.eurekalogistics.co.id/sm/get-sm?limit=${DataApi.limit}&page=${s}&keyword=${CariSJ}&kodeCabang=&mitra1=&mitra2=&mitra3=&id_bu=&id_bu_brench=`,
-        `${BaseUrlRace}sp/get-sm-all?limit=${DataApi.limit}&page=${s}&keyword=${CariSJ}&kodeCabang=&mitra1=&mitra2=&mitra3&id_bu_brench=`,
+        `${BaseUrlRace}sp/get-sm-all?limit=${DataApi.limit}&page=${s}&keyword=${CariSJ}&kodeCabang=&mitra1=&mitra2=&mitra3&tglSm=${tanggalfilter}&sekolahTujuan=${SekolahTujuan}&sales=${FilterSales}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -123,7 +126,7 @@ function SMList({ }) {
   useEffect(() => {
     DataApiSM();
     pilihcabangselect();
-  }, [CariSJ, DataApi.limit, Cabang]);
+  }, [CariSJ, DataApi.limit, Cabang, tanggalfilter, SekolahTujuan, FilterSales]);
   const history = useHistory();
   const pindahdetailsp = () => {
     if (
@@ -306,11 +309,11 @@ Salam hangat,
       dataIndex: 'statusKiriman',
       key: 'statusKiriman',
       render: (statusKiriman) => {
-       if (statusKiriman === "Doc Complete") {
-        return  <Tag color="green">Doc Complete</Tag>
-       } else {
-        return  statusKiriman
-       }
+        if (statusKiriman === "Doc Complete") {
+          return <Tag color="green">Doc Complete</Tag>
+        } else {
+          return statusKiriman
+        }
       }
     },
     {
@@ -362,7 +365,7 @@ Salam hangat,
     try {
       setExporting(true);
       const response = await axios.get(
-        `${BaseUrlRace}sp/get-sm-all?limit=${DataApi.limit}&page=${s}&keyword=${CariSJ}&kodeCabang=${Cabang}&mitra1=&mitra2=&mitra3&id_bu_brench=`,
+        `${BaseUrlRace}sp/get-sm-all?limit=${DataApi.limit}&page=${s}&keyword=${CariSJ}&kodeCabang=${Cabang}&mitra1=&mitra2=&mitra3`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -403,10 +406,10 @@ Salam hangat,
       XLSX.writeFile(wb, "Export_Data_SJ.xlsx");
     } catch (error) {
       notification.error({
-        message : error.response.data.status.message
+        message: error.response.data.status.message
       })
       // Handle error
-      setExporting(false);    
+      setExporting(false);
       console.error("Error exporting data: ", error);
     }
   };
@@ -514,14 +517,40 @@ Salam hangat,
         <>Loading</>
       )}
       <Row>
-        <Col className="ms-3 mx-3" sm={4} md={4} >
+        <Col >
           <h4 className="mt-3" style={{ fontFamily: 'NoirPro' }}>
             Daftar Surat Jalan
           </h4>
         </Col>
+      </Row>
+      <Row>
+        <Col >
+          <DatePicker style={{ width: "100%" }} placeholder="filter tanggal" onChange={(e, w) => settanggalfilter(w)} />
+        </Col>
+        <Col md={2}>
+          <Input placeholder="filter Sekolah Tujuan"
+            onChange={(e, w) => setSekolahTujuan(e.target.value)} />
+        </Col>
+        <Col  md={2} className="mx-4">
+          <Form.Item>
+            <Input placeholder="filter pencarian sj"
+              onChange={(e) => {
+                SetCariSJ(e.target.value);
+              }}
+            />
+          </Form.Item>
+        </Col>
+        <Col  md={2}>
+          <Form.Item>
+            <Input placeholder="filter Sales"
+              onChange={(e) => {
+                setFilterSales(e.target.value);
+              }}
+            />
+          </Form.Item>
+        </Col>
         <Col
-          style={{ fontWeight: "bold", marginTop: 20 }}
-          className="d-flex justify-content-end ">
+        >
           <Button
             style={{
               backgroundColor: "green",
@@ -534,16 +563,7 @@ Salam hangat,
             {exporting ? "Exporting..." : "Export to Excel"}
           </Button>
         </Col>
-        <Col className="ms-3 mx-3" sm={4} md={2} >
-          <Form.Item>
-            <div style={{ fontWeight: "bold" }}>Cari SJ</div>
-            <Input
-              onChange={(e) => {
-                SetCariSJ(e.target.value);
-              }}
-            />
-          </Form.Item>
-        </Col>
+
       </Row>
 
       <Row>

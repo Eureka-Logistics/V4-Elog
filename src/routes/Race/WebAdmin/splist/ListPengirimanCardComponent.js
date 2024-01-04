@@ -7,10 +7,10 @@ import { BaseUrlRace } from '../../../../Api/BaseUrl'
 import "../../Erlangga/style.css"
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import OptionsCabangState from '../../../../zustand/Store/Race/optionsCabangRace'
-function ListPengiriman({ setOpen, CariDisini, Cabang }) {
+function ListPengiriman({ setOpen, CariDisini, Cabang, filtertanggal }) {
     const [Loading, setLoading] = useState(false)
     const DariCabang = localStorage.getItem("cabang")
-    console.log(`DariCabang`,DariCabang);
+    console.log(`DariCabang`, DariCabang);
     const showDefaultDrawer = () => {
         setOpen(true);
     };
@@ -26,7 +26,7 @@ function ListPengiriman({ setOpen, CariDisini, Cabang }) {
         setLoading(true)
         try {
             // const datsa = await axios.get(`https://api.eurekalogistics.co.id/sp/get-SP-all?limit=${Spdata?.size}&page=${page}&keyword=${CariDisini}&statusSP=&customerId=&codeBrench=JKT&sales=&buId=`,
-            const datsa = await axios.get(`${BaseUrlRace}sp/get-sp?limit=${Spdata?.size}&page=${page}&cabang=${Cabang}&keyword=${CariDisini}`,
+            const datsa = await axios.get(`${BaseUrlRace}sp/get-sp?limit=${Spdata?.size}&page=${page}&cabang=${Cabang}&keyword=${CariDisini}&tglSp=${filtertanggal}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ function ListPengiriman({ setOpen, CariDisini, Cabang }) {
     }
     useEffect(() => {
         SpAll()
-    }, [Spdata.size, CariDisini, Cabang])
+    }, [Spdata.size, CariDisini, Cabang,filtertanggal])
     const columns = [
         {
             title: 'No',
@@ -70,7 +70,7 @@ function ListPengiriman({ setOpen, CariDisini, Cabang }) {
             title: "Cabang",
             dataIndex: 'cabang',
             key: 'cabang',
-        
+
         },
         {
             title: "Sales",
@@ -88,9 +88,9 @@ function ListPengiriman({ setOpen, CariDisini, Cabang }) {
             key: 'sekolahtujuan',
 
         },
-      
+
     ];
-    
+
     function Pageination(page, size) {
         console.log(page, size);
         setSpdata(item => ({
@@ -109,7 +109,7 @@ function ListPengiriman({ setOpen, CariDisini, Cabang }) {
     return (
         <div className='mt-2'>
             <Row >
-                <Card style={{ overflowX: 'auto' }}> 
+                <Card style={{ overflowX: 'auto' }}>
                     <style>
                         {`
                 .hover-row:hover {
@@ -117,7 +117,7 @@ function ListPengiriman({ setOpen, CariDisini, Cabang }) {
                     cursor: pointer;
                 }
                 `}
-                    </style> 
+                    </style>
                     <Table dataSource={Spdata?.Isi} columns={columns}
                         loading={!Spdata.Isi}
                         pagination={{

@@ -5,7 +5,7 @@ import { BaseUrlRace } from '../../../../Api/BaseUrl';
 import axios from 'axios';
 import { array } from 'prop-types';
 
-function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
+function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang ,filtertanggal}) {
     const [Seleckan, setSeleckan] = useState({
         data_noref: [],
         seleckan_noref: "",
@@ -25,7 +25,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
     console.log(`Seleckan.sales`, Seleckan.sales);
     const SelectData = async () => {
         try {
-            const data = await axios.get(`${BaseUrlRace}sp/get-select-sp?noref=${Seleckan.seleckan_noref}&cabang=${IDCabang}`,
+            const data = await axios.get(`${BaseUrlRace}sp/get-select-sp?noref=${Seleckan.seleckan_noref}&cabang=${IDCabang}&tglSj=${filtertanggal}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -110,7 +110,7 @@ function ModalCreateaSPRace({ modal1Open, setModal1Open, Refresh, IDCabang }) {
 
     useEffect(() => {
         SelectData();
-    }, [Seleckan.seleckan_noref]);
+    }, [Seleckan.seleckan_noref,filtertanggal]);
 
 
     // const SelectDataForeach = async () => {

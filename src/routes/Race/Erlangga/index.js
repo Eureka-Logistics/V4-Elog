@@ -324,7 +324,7 @@ function Erlangga() {
                         })}
                     />
                 </div>
-                <ModalCreateaSPRace IDCabang={IDCabang} Refresh={Refresh} modal1Open={modal1Open} setModal1Open={setModal1Open} />
+                <ModalCreateaSPRace IDCabang={IDCabang} Refresh={Refresh} modal1Open={modal1Open} setModal1Open={setModal1Open} filtertanggal={filtertanggal} />
             </Card>
         </div>
     )

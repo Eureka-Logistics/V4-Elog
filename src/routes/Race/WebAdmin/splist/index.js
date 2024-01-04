@@ -1,5 +1,5 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Card, Drawer, Input, Select, Space, Timeline } from "antd";
+import { Button, Card, DatePicker, Drawer, Input, Select, Space, Timeline } from "antd";
 import { size } from "lodash";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
@@ -70,21 +70,19 @@ Salam hangat,
       setOptionsState(data.data.data);
     } catch (error) { }
   };
-  useEffect(() => {
-    pilihcabangselect();
-  }, [Cabang]);
+
 
   const [Spdata, setSpdata] = useState({
     Isi: null,
     Paggination: null,
     size: 10,
   });
-
+  const [filtertanggal, setfiltertanggal] = useState("")
   const exportToExcel = async (page = 1) => {
     try {
       setExporting(true);
       const response = await axios.get(
-        `${BaseUrlRace}sp/get-sp?limit=${Spdata?.size}&page=${page}&cabang=${Cabang}&keyword=${CariDisini}`,
+        `${BaseUrlRace}sp/get-sp?limit=${Spdata?.size}&page=${page}&cabang=${Cabang}&keyword=${CariDisini}&tglSp=${filtertanggal}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -127,6 +125,10 @@ Salam hangat,
       console.error("Error exporting data: ", error);
     }
   };
+
+  useEffect(() => {
+    pilihcabangselect();
+  }, [Cabang, filtertanggal]);
 
   return (
     <div>
@@ -263,7 +265,7 @@ Salam hangat,
         </Col>
       </Row> */}
       <Row>
-        <Col sm={6}>
+        <Col sm={4}>
           <h5 style={{ fontSize: 30 }}>List Pengiriman</h5>
         </Col>
         <Col sm={2} className="d-flex justify-content-end">
@@ -278,6 +280,14 @@ Salam hangat,
           >
             {exporting ? "Exporting..." : "Export to Excel"}
           </Button>
+        </Col>
+        <Col sm={2}>
+          <DatePicker
+            onChange={(e, w) => setfiltertanggal(w)}
+            style={{ width: '100%' }}
+
+            placeholder="Filter Tanggal"
+          />
         </Col>
         <Col sm={2}>
           <Input
@@ -324,6 +334,7 @@ Salam hangat,
         Cabang={Cabang}
         CariDisini={CariDisini}
         setOpen={setOpen}
+        filtertanggal={filtertanggal}
       />
     </div>
   );
