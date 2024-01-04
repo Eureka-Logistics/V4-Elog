@@ -2442,7 +2442,7 @@ const SidebarContent = ({ sidebarCollapsed, setSidebarCollapsed }) => {
                 </Menu.Item>
               )}
               {/* ////Login Race///// */}
-              {jobdesk === "rcadmin" && cabang === "RCCGK" && (
+              {jobdesk === "rcadmin" && cabang && (
                 <>
                   <div className="mt-3">
                     <Menu.Item
