@@ -590,6 +590,7 @@ function ReportKiriman() {
           dataSource={data?.GetData}
           columns={columns
           }
+          loading={!data?.GetData}
           pagination={{
             current: data.currentPage,
             pageSize: data.limit,

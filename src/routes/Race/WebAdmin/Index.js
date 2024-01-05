@@ -1,5 +1,5 @@
 import { Button, Card, Tag } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
 import './style.css';
 import btnLihat from "../../../assets/img/buttonLihat.png"
 import card1 from "../../../assets/img/dashboard race/card1.png"
@@ -11,8 +11,11 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import graph1 from "../../../assets/img/graph1.png"
 import graph2 from "../../../assets/img/graph2.png"
 import graph3 from "../../../assets/img/graph3.png"
+import { GetCuacaBMKG } from '../../../zustand/Store/Race/fetch/CuacaBMKG';
+import moment from 'moment';
 
 function Index() {
+    const { FetchApiBMKG, setdata } = GetCuacaBMKG()
     const pindah = useHistory()
     const spklist = (e) => {
         console.log(e);
@@ -28,6 +31,13 @@ function Index() {
         }
 
     }
+
+
+    useEffect(() => {
+        FetchApiBMKG()
+    }, [])
+    console.log(`setdata`, setdata);
+
     return (
         <>
             <Container>
@@ -41,7 +51,7 @@ function Index() {
                             </div>
                             <div style={{ color: "white", fontWeight: 500, fontSize: 30, marginLeft: "-10px", marginTop: 15 }}> SP Erlangga</div>
                             <Button id='erl' name="erl" onClick={(e) => spklist(e)} style={{ width: "100%", marginTop: 25 }}>
-                             Lihat </Button>
+                                Lihat </Button>
                         </Card>
                     </Col>
                     <Col sm={3}>
@@ -51,7 +61,7 @@ function Index() {
                             </div>
                             <div style={{ color: "white", fontWeight: 500, fontSize: 30, marginLeft: "-10px", marginTop: 15 }}>SM List</div>
                             <Button id='sm' name="sm" onClick={(e) => spklist(e)} style={{ width: "100%", marginTop: 25 }}>
-                            Lihat </Button>
+                                Lihat </Button>
                         </Card>
                     </Col>
                     <Col sm={3}>
@@ -79,6 +89,39 @@ function Index() {
 
 
             </Container>
+
+
+            <div className='data-cuaca'>
+                {setdata?.issue?.[0]?.day[0]} -  {setdata?.issue?.[0]?.month[0]} - {setdata?.issue?.[0]?.year[0]}
+            </div>
+            <div className='area'>
+                {setdata && setdata?.area.map((item, index) => (
+                    <div key={index} style={{ display: 'flex', marginBottom: '20px' }}>
+                        <div style={{ flex: 1, paddingRight: '10px' }}>
+                            <div>Name: {item?.name?.[0]?._}</div>
+                        </div>
+                        <div style={{ flex: 2 }}>
+                            {item?.parameter?.map((param, paramIndex) => {
+                                if (param?.$?.id === 'tmax') {
+                                    return (
+                                        <>
+                                            <div key={paramIndex}>
+                                                <div> {param?.$?.description}</div>
+                                            </div>
+                                            {param.timerange.map((time, index) => (
+                                                <>
+                                                    <div>{moment(time?.$?.day, "YYYYMMDD").format('DD-MM-YYYY')}</div>
+                                                    <div>{time?.value?.[0]?._}{time?.value?.[0]?.$?.unit}</div>
+                                                </>
+                                            ))}
+                                        </>
+                                    );
+                                }
+                            })}
+                        </div>
+                    </div>
+                ))}
+            </div>
 
 
 
