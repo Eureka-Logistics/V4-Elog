@@ -14,9 +14,10 @@ jobs:
     - name: SSH and Deploy
       uses: appleboy/ssh-action@master
       with:
-        host: 62.171.177.93
-        username: root
-        password: ridwan174
+        host: 103.236.151.120
+        username: eureka
+        port : 2017
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd /root/V4-Elog/
           git stash
