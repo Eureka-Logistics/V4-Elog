@@ -11,14 +11,14 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
     - name : ini privkey
-      run: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: ${{ secrets.PRIVKEY_SSH }}
     - name: SSH and Deploy
       uses: appleboy/ssh-action@master
       with:
         host: 103.236.151.120
         username: eureka
         port : 2017
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        key: ${{ secrets.PRIVKEY_SSH }}
         script: |
           cd /home/eureka/sites/elogsv4.eurekalogistics.co.id/
           git stash
