@@ -21,5 +21,5 @@ jobs:
           cd /root/V4-Elog/
           git checkout maya_fix
           git pull origin maya_fix
-          npm install
+          npm install --legacy-peer-deps
           npm run build
