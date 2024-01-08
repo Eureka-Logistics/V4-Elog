@@ -89,17 +89,10 @@ function ListModalFaktur({ DataApi, ModalBukaTutup, setModalBukaTutup }) {
     ]
     return (
         <div>
-            <Modal
-                title={"List Faktur"}
-                open={ModalBukaTutup}
-                onCancel={() => setModalBukaTutup(false)}   
-                onOk={() => setModalBukaTutup(false)}
-                width={"auto"}
-            >
+         
                 <Table style={{ overflow: "auto" }} columns={column} dataSource={DataApi?.[0]?.detailFaktur}
                     pagination={false}
                 />
-            </Modal>
         </div>
     )
 }

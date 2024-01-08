@@ -100,14 +100,14 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
       <Row>
         {DataApi &&
           DataApi.map((i) => (
-            <Col style={{ backgroundColor: "" }}>
+            <Col md={6} style={{ backgroundColor: "" }}>
               <Row>
                 <Col>
                   <h3>Detail SJ</h3>
                 </Col>
               </Row>
-              <div>List Faktur</div>
-              <Button onClick={() => setModalBukaTutup(true)} >Lihat List Faktur</Button>
+              {/* <div>List Faktur</div>
+              <Button onClick={() => setModalBukaTutup(true)} >Lihat List Faktur</Button> */}
               <div>No. SJ</div>
               <div style={{ fontWeight: "bold" }}>{i?.msm}</div>
               <br />
@@ -146,6 +146,10 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
               <br />
               <div>Ikat</div>
               <div style={{ fontWeight: "bold" }}>{i?.ikat}</div>
+              <div style={{marginTop: 250}}>
+                <h4>List Faktur</h4>
+              <ListModalFaktur DataApi={DataApi} ModalBukaTutup={ModalBukaTutup} setModalBukaTutup={setModalBukaTutup} />
+              </div>
             </Col>
           ))}
         {Loading === true ? (
@@ -250,7 +254,6 @@ function DetailSPListRace({ AlamatMuatBongkarCoordinate }) {
           },
         }}
       />
-      <ListModalFaktur DataApi={DataApi} ModalBukaTutup={ModalBukaTutup} setModalBukaTutup={setModalBukaTutup} />
     </div>
 
   );
