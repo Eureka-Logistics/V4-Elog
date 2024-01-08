@@ -94,9 +94,9 @@ const SamplePage = () => {
       dataIndex: "service_type",
       key: "service_type",
       render: (text, row) => {
-        return row?.service_type === 'Retail' ? (
+        return row?.service_type === 'Retail' || row?.service_type === 'retailer' ? (
           <Tag color="green">Retail</Tag>
-        ) : row?.service_type === 'Charter' ? (
+        ) : row?.service_type === 'Charter' || row?.service_type.toLowerCase() === 'charter' ? (
           <Tag color="magenta">Charter</Tag>
         ) : (
           ''
