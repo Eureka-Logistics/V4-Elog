@@ -129,6 +129,7 @@ function SPListlama() {
       setIsiData(isidata);
       setLoading(false);
     } catch (error) {
+      console.log(`error`,error);
       if (Array.isArray(error?.response?.data?.status)) {
         error.response.data.status.forEach((element) => {
           notification.error({

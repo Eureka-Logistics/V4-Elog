@@ -10,6 +10,8 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
+    # - name: Set Node.js Path
+    #   run: echo "PATH=$PATH:/path/to/your/npm" >> $GITHUB_ENV
     - name: SSH and Deploy
       uses: appleboy/ssh-action@master
       with:
@@ -23,4 +25,4 @@ jobs:
           git stash
           git checkout maya_fix
           git pull origin maya_fix
-          npm run build
+          # npm run build
