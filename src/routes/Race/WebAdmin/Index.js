@@ -96,6 +96,7 @@ function Index() {
                         <div>
                             <img src='	https://cdn-icons-png.flaticon.com/512/869/869869.png' width={30} />
                             <p> Prediksi Cuaca</p>
+
                         </div>
                     </div>
                 </Col>
