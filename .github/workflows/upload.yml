@@ -19,6 +19,7 @@ jobs:
         password: ridwan174
         script: |
           cd /root/V4-Elog/
-          git pull origin main
+          git checkout maya_fix
+          git pull origin maya_fix
           npm install
           npm run build
