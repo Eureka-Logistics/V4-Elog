@@ -23,4 +23,3 @@ jobs:
           git stash
           git checkout maya_fix
           git pull origin maya_fix
-      - name: Check Sukses
