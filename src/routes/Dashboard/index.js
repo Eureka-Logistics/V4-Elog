@@ -79,7 +79,6 @@ const SamplePage = () => {
           setTimeout(() => {
             window.location.reload()
           }, 2000);
-          // history.push('/signin');
         }
       } else {
         console.error(error);
