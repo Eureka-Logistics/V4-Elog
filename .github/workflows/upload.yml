@@ -10,8 +10,6 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
-    - name : ini privkey
-      run: ${{ secrets.PRIVKEY_SSH }}
     - name: SSH and Deploy
       uses: appleboy/ssh-action@master
       with:
