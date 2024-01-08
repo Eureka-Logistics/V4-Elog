@@ -17,9 +17,9 @@ jobs:
         host: 103.236.151.120
         username: eureka
         port : 2017
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        key: ${{secrets.SSH_PRIVATE_KEY}}
         script: |
-          cd /root/V4-Elog/
+          cd /home/eureka/sites/elogsv4.eurekalogistics.co.id/
           git stash
           git checkout maya_fix
           git pull origin maya_fix
