@@ -17,6 +17,7 @@ jobs:
         username: eureka
         port : 2017
         key: ${{ secrets.PRIVKEY_SSH }}
+        passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
         script: |
           cd /home/eureka/sites/elogsv4.eurekalogistics.co.id/
           git stash
