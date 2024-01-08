@@ -95,33 +95,31 @@ function Index() {
                 {setdata?.issue?.[0]?.day[0]} -  {setdata?.issue?.[0]?.month[0]} - {setdata?.issue?.[0]?.year[0]}
             </div>
             <div className='area'>
-                {setdata && setdata?.area.map((item, index) => (
-                    <div key={index} style={{ display: 'flex', marginBottom: '20px' }}>
-                        <div style={{ flex: 1, paddingRight: '10px' }}>
-                            <div>Name: {item?.name?.[0]?._}</div>
-                        </div>
-                        <div style={{ flex: 2 }}>
-                            {item?.parameter?.map((param, paramIndex) => {
-                                if (param?.$?.id === 'tmax') {
-                                    return (
-                                        <>
-                                            <div key={paramIndex}>
-                                                <div> {param?.$?.description}</div>
-                                            </div>
-                                            {param.timerange.map((time, index) => (
-                                                <>
-                                                    <div>{moment(time?.$?.day, "YYYYMMDD").format('DD-MM-YYYY')}</div>
-                                                    <div>{time?.value?.[0]?._}{time?.value?.[0]?.$?.unit}</div>
-                                                </>
-                                            ))}
-                                        </>
-                                    );
-                                }
-                            })}
-                        </div>
+            {setdata && setdata?.area.map((item, index) => (
+                <div key={index} style={{ display: 'flex', marginBottom: '20px', alignItems: 'flex-start' }}>
+                    <div style={{ flex: 1, paddingRight: '10px' }}>
+                        <div>Name: {item?.name?.[0]?._}</div>
                     </div>
-                ))}
-            </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', flex: 2 }}>
+                        {item?.parameter?.map((param, paramIndex) => {
+                            if (param?.$?.id === 'tmax') {
+                                return (
+                                    <div key={paramIndex} style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+                                        {param.timerange.map((time, timeIndex) => (
+                                            <div key={timeIndex} style={{ marginRight: '50px' }}>
+                                                <div>{moment(time?.$?.day, "YYYYMMDD").format('DD-MM-YYYY')}</div>
+                                                <div>{time?.value?.[0]?._}{time?.value?.[0]?.$?.unit}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                );
+                            }
+                            return null;
+                        })}
+                    </div>
+                </div>
+            ))}
+        </div>
 
 
 
