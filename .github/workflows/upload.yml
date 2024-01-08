@@ -23,6 +23,5 @@ jobs:
           git stash
           git checkout maya_fix
           git pull origin maya_fix
-          export NODE_OPTIONS=--openssl-legacy-provider
           npm install --legacy-peer-deps
           npm run build
